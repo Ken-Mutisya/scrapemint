@@ -1,0 +1,73 @@
+{
+  "title": "Brand Reputation Tracker Input",
+  "type": "object",
+  "schemaVersion": 1,
+  "properties": {
+    "businessUrls": {
+      "title": "Trustpilot business review URLs",
+      "type": "array",
+      "description": "One or more Trustpilot business review URLs. Example: https://www.trustpilot.com/review/booking.com",
+      "editor": "requestListSources",
+      "prefill": [
+        {
+          "url": "https://www.trustpilot.com/review/booking.com"
+        }
+      ]
+    },
+    "businessUrl": {
+      "title": "Single business URL (alternative)",
+      "type": "string",
+      "description": "Single Trustpilot business URL. Used only if businessUrls is empty.",
+      "editor": "textfield"
+    },
+    "maxReviews": {
+      "title": "Maximum reviews per business",
+      "type": "integer",
+      "description": "Hard cap per business. Prevents runaway charges on businesses with tens of thousands of reviews.",
+      "default": 500,
+      "minimum": 1,
+      "maximum": 50000
+    },
+    "sortBy": {
+      "title": "Sort reviews by",
+      "type": "string",
+      "description": "Review sort order.",
+      "default": "NEWEST_FIRST",
+      "enum": [
+        "NEWEST_FIRST",
+        "MOST_RELEVANT"
+      ],
+      "enumTitles": [
+        "Newest first",
+        "Most relevant"
+      ]
+    },
+    "filterByStars": {
+      "title": "Filter by star rating",
+      "type": "array",
+      "description": "Only return reviews with these star ratings. Valid values: 1, 2, 3, 4, 5. Leave empty for all ratings.",
+      "editor": "stringList",
+      "default": []
+    },
+    "language": {
+      "title": "Language filter",
+      "type": "string",
+      "description": "Only return reviews in this language. Leave empty for all languages. Example: en, fr, de, es",
+      "editor": "textfield",
+      "default": ""
+    },
+    "proxyConfiguration": {
+      "title": "Proxy configuration",
+      "type": "object",
+      "description": "Apify proxy settings.",
+      "editor": "proxy",
+      "prefill": {
+        "useApifyProxy": true,
+        "apifyProxyGroups": [
+          "BUYPROXIES94952"
+        ]
+      }
+    }
+  },
+  "required": []
+}

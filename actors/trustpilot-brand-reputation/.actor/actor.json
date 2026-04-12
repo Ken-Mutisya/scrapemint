@@ -1,0 +1,19 @@
+{
+  "actorSpecification": 1,
+  "name": "trustpilot-brand-reputation",
+  "title": "Trustpilot Brand Reputation and Sentiment Monitor",
+  "description": "For e-commerce brand managers and marketing teams. Pulls every Trustpilot review for any business with rating, text, consumer country, verified status, and company replies. Track your brand sentiment and benchmark against competitors without paying for a monitoring subscription.",
+  "version": "0.1",
+  "buildTag": "latest",
+  "meta": {
+    "templateId": "js-crawlee-playwright"
+  },
+  "input": "./input_schema.json",
+  "dockerfile": "./Dockerfile",
+  "readme": "../README.md",
+  "icon": "./icon.svg",
+  "categories": [
+    "ECOMMERCE",
+    "LEAD_GENERATION"
+  ]
+}

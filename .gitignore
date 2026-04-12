@@ -10,3 +10,7 @@ crawlee_storage/
 dist/
 build/
 coverage/
+
+# Research page dumps (large, reproducible via inspect-*.mjs)
+research/*-sample.html
+research/trustpilot-sample.json
