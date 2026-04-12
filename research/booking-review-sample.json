@@ -1,0 +1,1177 @@
+{
+  "extensions": {
+    "latency_insights": {
+      "ReviewList": {
+        "duration_ms": 77,
+        "end_time": 1775997048133,
+        "start_time": 1775997048056
+      }
+    }
+  },
+  "data": {
+    "reviewListFrontend": {
+      "sorters": [
+        {
+          "__typename": "ReviewSorter",
+          "value": "MOST_RELEVANT",
+          "name": "Most relevant"
+        },
+        {
+          "name": "Newest first",
+          "__typename": "ReviewSorter",
+          "value": "NEWEST_FIRST"
+        },
+        {
+          "name": "Oldest first",
+          "__typename": "ReviewSorter",
+          "value": "OLDEST_FIRST"
+        },
+        {
+          "__typename": "ReviewSorter",
+          "value": "SCORE_DESC",
+          "name": "Highest scores"
+        },
+        {
+          "__typename": "ReviewSorter",
+          "value": "SCORE_ASC",
+          "name": "Lowest scores"
+        }
+      ],
+      "reviewsCount": 1850,
+      "topicFilters": [
+        {
+          "translation": {
+            "name": "Location",
+            "id": "topic_location",
+            "__typename": "ReviewTopicTranslation"
+          },
+          "id": 249,
+          "isSelected": false,
+          "name": "Location",
+          "__typename": "TopicFilter"
+        },
+        {
+          "name": "Room",
+          "translation": {
+            "__typename": "ReviewTopicTranslation",
+            "name": "Room",
+            "id": "topic_room"
+          },
+          "id": 270,
+          "isSelected": false,
+          "__typename": "TopicFilter"
+        },
+        {
+          "__typename": "TopicFilter",
+          "id": 254,
+          "translation": {
+            "__typename": "ReviewTopicTranslation",
+            "id": "topic_bed",
+            "name": "Bed"
+          },
+          "isSelected": false,
+          "name": "Bed"
+        },
+        {
+          "name": "Bathroom",
+          "translation": {
+            "__typename": "ReviewTopicTranslation",
+            "name": "Bathroom",
+            "id": "topic_bathroom"
+          },
+          "id": 255,
+          "isSelected": false,
+          "__typename": "TopicFilter"
+        },
+        {
+          "__typename": "TopicFilter",
+          "name": "Shower",
+          "translation": {
+            "name": "Shower",
+            "id": "topic_shower",
+            "__typename": "ReviewTopicTranslation"
+          },
+          "id": 263,
+          "isSelected": false
+        },
+        {
+          "__typename": "TopicFilter",
+          "id": 271,
+          "translation": {
+            "id": "topic_bar",
+            "name": "Bar",
+            "__typename": "ReviewTopicTranslation"
+          },
+          "isSelected": false,
+          "name": "Bar"
+        },
+        {
+          "name": "Clean",
+          "id": 276,
+          "translation": {
+            "id": "topic_clean",
+            "name": "Clean",
+            "__typename": "ReviewTopicTranslation"
+          },
+          "isSelected": false,
+          "__typename": "TopicFilter"
+        },
+        {
+          "__typename": "TopicFilter",
+          "id": 252,
+          "translation": {
+            "id": "topic_noise",
+            "name": "Noise",
+            "__typename": "ReviewTopicTranslation"
+          },
+          "isSelected": false,
+          "name": "Noise"
+        },
+        {
+          "translation": {
+            "__typename": "ReviewTopicTranslation",
+            "name": "Loud",
+            "id": "topic_loud"
+          },
+          "id": 275,
+          "isSelected": false,
+          "name": "Loud",
+          "__typename": "TopicFilter"
+        },
+        {
+          "__typename": "TopicFilter",
+          "translation": {
+            "name": "Coffee",
+            "id": "topic_coffee",
+            "__typename": "ReviewTopicTranslation"
+          },
+          "id": 296,
+          "isSelected": false,
+          "name": "Coffee"
+        },
+        {
+          "__typename": "TopicFilter",
+          "isSelected": false,
+          "id": 257,
+          "translation": {
+            "__typename": "ReviewTopicTranslation",
+            "id": "topic_view",
+            "name": "View"
+          },
+          "name": "View"
+        },
+        {
+          "__typename": "TopicFilter",
+          "id": 289,
+          "translation": {
+            "id": "topic_window",
+            "name": "Window",
+            "__typename": "ReviewTopicTranslation"
+          },
+          "isSelected": false,
+          "name": "Window"
+        },
+        {
+          "isSelected": false,
+          "translation": {
+            "name": "Suite",
+            "id": "topic_suite",
+            "__typename": "ReviewTopicTranslation"
+          },
+          "id": 278,
+          "name": "Suite",
+          "__typename": "TopicFilter"
+        },
+        {
+          "__typename": "TopicFilter",
+          "isSelected": false,
+          "translation": {
+            "__typename": "ReviewTopicTranslation",
+            "name": "Hot",
+            "id": "topic_hot"
+          },
+          "id": 290,
+          "name": "Hot"
+        },
+        {
+          "__typename": "TopicFilter",
+          "name": "Breakfast",
+          "id": 245,
+          "translation": {
+            "name": "Breakfast",
+            "id": "topic_breakfast",
+            "__typename": "ReviewTopicTranslation"
+          },
+          "isSelected": false
+        },
+        {
+          "id": 273,
+          "translation": {
+            "name": "Restaurant",
+            "id": "topic_restaurant",
+            "__typename": "ReviewTopicTranslation"
+          },
+          "isSelected": false,
+          "name": "Restaurant",
+          "__typename": "TopicFilter"
+        },
+        {
+          "isSelected": false,
+          "translation": {
+            "__typename": "ReviewTopicTranslation",
+            "name": "Cold",
+            "id": "topic_cold"
+          },
+          "id": 285,
+          "name": "Cold",
+          "__typename": "TopicFilter"
+        },
+        {
+          "__typename": "TopicFilter",
+          "translation": {
+            "__typename": "ReviewTopicTranslation",
+            "id": "topic_toilet",
+            "name": "Toilet"
+          },
+          "id": 280,
+          "isSelected": false,
+          "name": "Toilet"
+        },
+        {
+          "name": "Luggage",
+          "id": 259,
+          "translation": {
+            "name": "Luggage",
+            "id": "topic_luggage",
+            "__typename": "ReviewTopicTranslation"
+          },
+          "isSelected": false,
+          "__typename": "TopicFilter"
+        },
+        {
+          "__typename": "TopicFilter",
+          "isSelected": false,
+          "id": 291,
+          "translation": {
+            "__typename": "ReviewTopicTranslation",
+            "id": "topic_heat",
+            "name": "Heat"
+          },
+          "name": "Heat"
+        },
+        {
+          "name": "Dinner",
+          "id": 262,
+          "translation": {
+            "__typename": "ReviewTopicTranslation",
+            "name": "Dinner",
+            "id": "topic_dinner"
+          },
+          "isSelected": false,
+          "__typename": "TopicFilter"
+        },
+        {
+          "isSelected": false,
+          "translation": {
+            "__typename": "ReviewTopicTranslation",
+            "id": "topic_checkin",
+            "name": "Check-in"
+          },
+          "id": 298,
+          "name": "Checkin",
+          "__typename": "TopicFilter"
+        },
+        {
+          "__typename": "TopicFilter",
+          "name": "Quiet",
+          "translation": {
+            "__typename": "ReviewTopicTranslation",
+            "name": "Quiet",
+            "id": "topic_quiet"
+          },
+          "id": 258,
+          "isSelected": false
+        }
+      ],
+      "customerTypeFilter": [
+        {
+          "name": "All (1850)",
+          "count": 1850,
+          "value": "ALL",
+          "__typename": "CustomerTypeFilter"
+        },
+        {
+          "__typename": "CustomerTypeFilter",
+          "value": "FAMILIES",
+          "name": "Families (564)",
+          "count": 564
+        },
+        {
+          "value": "COUPLES",
+          "__typename": "CustomerTypeFilter",
+          "count": 538,
+          "name": "Couples (538)"
+        },
+        {
+          "__typename": "CustomerTypeFilter",
+          "value": "GROUP_OF_FRIENDS",
+          "count": 256,
+          "name": "Groups of friends (256)"
+        },
+        {
+          "count": 492,
+          "name": "Solo travelers (492)",
+          "__typename": "CustomerTypeFilter",
+          "value": "SOLO_TRAVELLERS"
+        },
+        {
+          "__typename": "CustomerTypeFilter",
+          "value": "BUSINESS_TRAVELLERS",
+          "count": 279,
+          "name": "Business travelers (279)"
+        }
+      ],
+      "reviewCard": [
+        {
+          "isTranslatable": false,
+          "helpfulVotesCount": 0,
+          "isApproved": true,
+          "reviewUrl": "16e4536188ec26b9",
+          "textDetails": {
+            "lang": "en",
+            "textTrivialFlag": 0,
+            "title": "Excellent location, comfortable room and cozy atmosphere.",
+            "__typename": "TextDetails",
+            "negativeText": "Room had strange smell at time, probably due to being stuffy. Window cannot be opened too wide to let fresh air in.",
+            "positiveText": "Ace hotel is located in a really good location, walking distance to multiple subway stops and Penn station, along with Times Square. There are many business attached that make late night entertainment very easy. Friendly staff and very responsive. Room was clean and as expected"
+          },
+          "reviewedDate": 1775972700,
+          "guestDetails": {
+            "countryName": "Vietnam",
+            "username": "Tran",
+            "avatarUrl": "https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg?sz=50",
+            "showCountryFlag": true,
+            "__typename": "GuestDetails",
+            "guestTypeTranslation": "Group",
+            "anonymous": false,
+            "countryCode": "vn",
+            "avatarColor": null
+          },
+          "photos": null,
+          "partnerReply": null,
+          "positiveHighlights": null,
+          "editUrl": null,
+          "reviewScore": 7,
+          "negativeHighlights": null,
+          "bookingDetails": {
+            "numNights": 3,
+            "roomType": {
+              "name": "Single",
+              "id": "7951518",
+              "__typename": "RoomTranslation"
+            },
+            "checkoutDate": "2026-04-06",
+            "stayStatus": "stayed",
+            "roomId": 7951518,
+            "customerType": "GROUP_OF_FRIENDS",
+            "checkinDate": "2026-04-03",
+            "__typename": "BookingDetails"
+          },
+          "__typename": "ReviewCard"
+        },
+        {
+          "photos": null,
+          "partnerReply": {
+            "__typename": "PropertyReplyData",
+            "reply": "Hello Reinhard,\n\nThank you for your kind words and for taking the time to share your experience with us.\n\nWe are delighted to hear that you found our team polite and enjoyed the style of our interiors. Creating a welcoming atmosphere paired with a distinct design is something we take great pride in, and it is wonderful to know it resonated with you.\n\nWe truly appreciate your recommendation and hope to welcome you back again soon.\n\nWarm Regards,\n\nDAVID SPILLANE\nDIRECTOR OF ROOMS & SAFETY\nACE HOTEL NEW YORK"
+          },
+          "positiveHighlights": null,
+          "negativeHighlights": null,
+          "bookingDetails": {
+            "roomId": 7951516,
+            "customerType": "COUPLES",
+            "checkinDate": "2026-04-01",
+            "__typename": "BookingDetails",
+            "numNights": 7,
+            "roomType": {
+              "id": "7951516",
+              "name": "Medium Queen",
+              "__typename": "RoomTranslation"
+            },
+            "checkoutDate": "2026-04-08",
+            "stayStatus": "stayed"
+          },
+          "__typename": "ReviewCard",
+          "editUrl": null,
+          "reviewScore": 9,
+          "isApproved": true,
+          "helpfulVotesCount": 0,
+          "isTranslatable": false,
+          "reviewUrl": "cacb4af04022300b",
+          "reviewedDate": 1775812671,
+          "textDetails": {
+            "title": "Highly recommendable.",
+            "textTrivialFlag": 0,
+            "lang": "en",
+            "positiveText": "Polite employees. Very Nice Style of the interior.",
+            "negativeText": null,
+            "__typename": "TextDetails"
+          },
+          "guestDetails": {
+            "countryName": "Austria",
+            "username": "Reinhard",
+            "avatarUrl": "https://xx.bstatic.com/static/img/review/avatars/ava-r.png",
+            "avatarColor": null,
+            "showCountryFlag": true,
+            "__typename": "GuestDetails",
+            "guestTypeTranslation": "Couple",
+            "anonymous": false,
+            "countryCode": "at"
+          }
+        },
+        {
+          "positiveHighlights": null,
+          "__typename": "ReviewCard",
+          "bookingDetails": {
+            "stayStatus": "stayed",
+            "checkoutDate": "2026-04-03",
+            "roomType": {
+              "name": "Medium Queen",
+              "id": "7951516",
+              "__typename": "RoomTranslation"
+            },
+            "numNights": 5,
+            "__typename": "BookingDetails",
+            "customerType": "FAMILIES",
+            "checkinDate": "2026-03-29",
+            "roomId": 7951516
+          },
+          "negativeHighlights": null,
+          "reviewScore": 8,
+          "editUrl": null,
+          "partnerReply": {
+            "reply": "Hello Barry,\n\nI’m so glad you enjoyed the location, the vibe, and all the nearby spots, especially the juice bar, Black Seed Bagels, and the convenience of the 28th Street station right on the block. It really does make getting around the city quick and easy.\n\nI appreciate your note on the bunk room as well. They can feel a bit snug for two, and next time we’d be happy to help guide you toward a room with a bit more space.\n\nThanks again for the great feedback, and we hope to have you back with us soon.\n\nWarm Regards,\n\nDAVID SPILLANE\nDIRECTOR OF ROOMS & SAFETY\nACE HOTEL NEW YORK",
+            "__typename": "PropertyReplyData"
+          },
+          "photos": null,
+          "reviewedDate": 1775571401,
+          "textDetails": {
+            "textTrivialFlag": 0,
+            "title": "Super Duper loved it",
+            "lang": "en",
+            "positiveText": "Really good location. Lovely vibe. Great facilities accessible from hotel including juice bar and black seed bagles. 28th street station on the same block for ease of up/down town travel at speed.",
+            "__typename": "TextDetails",
+            "negativeText": "The bunk room was a little tight for two."
+          },
+          "guestDetails": {
+            "username": "Barry",
+            "avatarUrl": "https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg?sz=50",
+            "countryName": "Ireland",
+            "avatarColor": null,
+            "countryCode": "ie",
+            "showCountryFlag": true,
+            "__typename": "GuestDetails",
+            "guestTypeTranslation": "Family",
+            "anonymous": false
+          },
+          "helpfulVotesCount": 0,
+          "isApproved": true,
+          "isTranslatable": false,
+          "reviewUrl": "5419f1f623afc3dd"
+        },
+        {
+          "guestDetails": {
+            "countryName": "United States",
+            "avatarUrl": "https://xx.bstatic.com/static/img/review/avatars/ava-k.png",
+            "username": "Katherine",
+            "avatarColor": null,
+            "__typename": "GuestDetails",
+            "anonymous": false,
+            "guestTypeTranslation": "Couple",
+            "showCountryFlag": true,
+            "countryCode": "us"
+          },
+          "textDetails": {
+            "positiveText": "The Lobby is a gt place to meet with ppl, and coffee shop and bar are gt!",
+            "__typename": "TextDetails",
+            "negativeText": null,
+            "textTrivialFlag": 0,
+            "title": "Love the location, staff and crunchy rooms… gt vive",
+            "lang": "xu"
+          },
+          "reviewedDate": 1775399563,
+          "reviewUrl": "6d1bb460e5c70df7",
+          "isTranslatable": false,
+          "helpfulVotesCount": 0,
+          "isApproved": true,
+          "reviewScore": 9,
+          "editUrl": null,
+          "__typename": "ReviewCard",
+          "bookingDetails": {
+            "stayStatus": "stayed",
+            "checkoutDate": "2026-03-09",
+            "roomType": {
+              "id": "7951518",
+              "name": "Single",
+              "__typename": "RoomTranslation"
+            },
+            "numNights": 1,
+            "__typename": "BookingDetails",
+            "customerType": "COUPLES",
+            "checkinDate": "2026-03-08",
+            "roomId": 7951518
+          },
+          "negativeHighlights": null,
+          "positiveHighlights": null,
+          "partnerReply": {
+            "reply": "Hello Katherine,\n\nThank you so much for the great review. I’m thrilled to hear you loved the location, our team, and the unique vibe of the rooms.\n\nIt’s also great to know you enjoyed the lobby as a place to connect, along with the coffee shop and bar, those spaces are such a big part of the Ace experience.\n\nWe truly appreciate you staying with us and hope to welcome you back again soon.\n\nWarm Regards,\n\nDAVID SPILLANE\nDIRECTOR OF ROOMS & SAFETY\nACE HOTEL NEW YORK",
+            "__typename": "PropertyReplyData"
+          },
+          "photos": null
+        },
+        {
+          "reviewedDate": 1775136433,
+          "textDetails": {
+            "__typename": "TextDetails",
+            "negativeText": "Super hot at night for whatever reason",
+            "positiveText": "Location",
+            "lang": "xu",
+            "textTrivialFlag": 0,
+            "title": "As expected , small , clean and cosy. You get what you pay"
+          },
+          "guestDetails": {
+            "avatarColor": null,
+            "showCountryFlag": true,
+            "guestTypeTranslation": "Couple",
+            "__typename": "GuestDetails",
+            "anonymous": false,
+            "countryCode": "de",
+            "countryName": "Germany",
+            "username": "Alfredo",
+            "avatarUrl": "https://lh3.googleusercontent.com/-O994JTR6QMQ/AAAAAAAAAAI/AAAAAAAAAvc/wyu1OaIMOjo/photo.jpg"
+          },
+          "helpfulVotesCount": 0,
+          "isApproved": true,
+          "isTranslatable": false,
+          "reviewUrl": "86e9fe37e7f4f5f3",
+          "positiveHighlights": null,
+          "__typename": "ReviewCard",
+          "negativeHighlights": null,
+          "bookingDetails": {
+            "__typename": "BookingDetails",
+            "roomId": 7951520,
+            "customerType": "COUPLES",
+            "checkinDate": "2026-03-23",
+            "checkoutDate": "2026-03-29",
+            "stayStatus": "stayed",
+            "numNights": 6,
+            "roomType": {
+              "id": "7951520",
+              "name": "Bunk Bed ",
+              "__typename": "RoomTranslation"
+            }
+          },
+          "reviewScore": 7,
+          "editUrl": null,
+          "partnerReply": {
+            "__typename": "PropertyReplyData",
+            "reply": "Hello Alfredo,\n\nThank you for your feedback. I’m glad you enjoyed the location and found the room clean and comfortable.\n\nI’m sorry to hear that the room felt too warm at night. Our building operates on a seasonal system, and during this time of year we are required to keep the heat on based on NYC regulations tied to overnight temperatures. We understand this can feel uncomfortable, especially during seasonal transitions.\n\nWe appreciate you taking the time to share your experience and hope to welcome you back again.\n\nWarm Regards,\n\nDAVID SPILLANE\nDIRECTOR OF ROOMS & SAFETY\nACE HOTEL NEW YORK"
+          },
+          "photos": null
+        },
+        {
+          "guestDetails": {
+            "avatarColor": null,
+            "countryCode": "us",
+            "__typename": "GuestDetails",
+            "anonymous": false,
+            "guestTypeTranslation": "Couple",
+            "showCountryFlag": true,
+            "avatarUrl": null,
+            "username": "Anna",
+            "countryName": "United States"
+          },
+          "reviewedDate": 1774315162,
+          "textDetails": {
+            "positiveText": "Great location. We had a room with two double beds and it was very spacious. Nice shower and fridge… Stumptown coffee downstairs was a gift, great coffee compared to the rest of New York. Easy to get around. Very quick to address any problems. Lovely housekeeping and laundry.",
+            "negativeText": "I need a microwave. I don’t need a guitar in my room. I would like at least a small table and chairs to eat breakfast at. Heating in the room was difficult to manage. It was either cold, hot, or stuffy.",
+            "__typename": "TextDetails",
+            "title": "A spacious classy hotel in a great location downtown.",
+            "textTrivialFlag": 0,
+            "lang": "xu"
+          },
+          "reviewUrl": "226d920b3530fd6d",
+          "helpfulVotesCount": 0,
+          "isApproved": true,
+          "isTranslatable": false,
+          "negativeHighlights": null,
+          "bookingDetails": {
+            "__typename": "BookingDetails",
+            "checkinDate": "2026-03-18",
+            "customerType": "COUPLES",
+            "roomId": 7951503,
+            "stayStatus": "stayed",
+            "checkoutDate": "2026-03-23",
+            "roomType": {
+              "__typename": "RoomTranslation",
+              "id": "7951503",
+              "name": "Double Room with Two Double Beds"
+            },
+            "numNights": 5
+          },
+          "__typename": "ReviewCard",
+          "editUrl": null,
+          "reviewScore": 8,
+          "positiveHighlights": null,
+          "photos": null,
+          "partnerReply": {
+            "reply": "Hello Anna,\n\nThank you for your thoughtful feedback. I’m so glad you enjoyed the location, the spaciousness of your room, and amenities like the shower, fridge, and Stumptown downstairs. It’s also great to hear the team, including housekeeping and laundry, made a positive impression and that any concerns were addressed quickly.\n\nI appreciate your candid notes on what could be improved. While we understand the convenience a microwave can offer, it’s not something we plan to introduce in our rooms. That said, your feedback regarding having a more functional setup for in-room dining, such as a table and chairs, is very helpful as we continue to evaluate the guest experience.\n\nI also sincerely apologize for the challenges you experienced with the heating. We are currently operating in a seasonal mode, which can make temperature control less flexible, but I completely understand how frustrating that can be when trying to get comfortable.\n\nThank you again for sharing your experience. It’s truly appreciated.\n\nWarm Regards,\n\nDAVID SPILLANE\nDIRECTOR OF ROOMS & SAFETY",
+            "__typename": "PropertyReplyData"
+          }
+        },
+        {
+          "positiveHighlights": null,
+          "bookingDetails": {
+            "numNights": 4,
+            "roomType": {
+              "id": "7951516",
+              "name": "Medium Queen",
+              "__typename": "RoomTranslation"
+            },
+            "checkoutDate": "2026-03-17",
+            "stayStatus": "stayed",
+            "roomId": 7951516,
+            "customerType": "SOLO_TRAVELLERS",
+            "checkinDate": "2026-03-13",
+            "__typename": "BookingDetails"
+          },
+          "negativeHighlights": null,
+          "__typename": "ReviewCard",
+          "editUrl": null,
+          "reviewScore": 7,
+          "photos": null,
+          "partnerReply": {
+            "__typename": "PropertyReplyData",
+            "reply": "Hello John,\n\nThank you for sharing your feedback, and I’m glad you enjoyed the location, the team, and the atmosphere in the lobby.\n\nI’m sorry for the confusion around the breakfast. The included breakfast is a set offering, and certain items like specialty coffees or additional sides are not part of that package, which can result in an added charge. That said, it should feel clear and straightforward, and I understand how that could be frustrating.\n\nI also appreciate you calling out the shower controls and overall room setup. That’s helpful feedback for us as we continue to improve the experience.\n\nThanks again for taking the time to share this.\n\nWarm Regards,\n\nDAVID SPILLANE\nDIRECTOR OF ROOMS & SAFETY"
+          },
+          "reviewedDate": 1773850909,
+          "textDetails": {
+            "negativeText": "Room was basic, shower knob wasn’t straightforward to use, I booked breakfast included which still resulted in me paying ~$40 a day (for 2) because coffee and other sides weren’t included.",
+            "__typename": "TextDetails",
+            "positiveText": "Great location, friendly staff, great atmosphere in the lobby, gym wasn’t too bad.",
+            "lang": "en",
+            "title": null,
+            "textTrivialFlag": 0
+          },
+          "guestDetails": {
+            "countryCode": "ie",
+            "showCountryFlag": true,
+            "guestTypeTranslation": "Solo traveler",
+            "__typename": "GuestDetails",
+            "anonymous": false,
+            "avatarColor": null,
+            "username": "John",
+            "avatarUrl": "https://lh3.googleusercontent.com/a/ALm5wu1wLpwzKG6aWsH1Yu0FYK-wlWzBLUkqDmOI1wNt=s96-c",
+            "countryName": "Ireland"
+          },
+          "helpfulVotesCount": 0,
+          "isApproved": true,
+          "isTranslatable": false,
+          "reviewUrl": "b2d6c688a5757476"
+        },
+        {
+          "__typename": "ReviewCard",
+          "negativeHighlights": null,
+          "bookingDetails": {
+            "__typename": "BookingDetails",
+            "roomId": 7951518,
+            "checkinDate": "2026-02-26",
+            "customerType": "SOLO_TRAVELLERS",
+            "checkoutDate": "2026-03-02",
+            "stayStatus": "stayed",
+            "numNights": 4,
+            "roomType": {
+              "__typename": "RoomTranslation",
+              "id": "7951518",
+              "name": "Single"
+            }
+          },
+          "reviewScore": 7,
+          "editUrl": null,
+          "positiveHighlights": null,
+          "partnerReply": {
+            "__typename": "PropertyReplyData",
+            "reply": "Hello Roy,\n\nThank you for taking the time to share your feedback. I am glad to hear that you enjoyed our location and found our staff to be welcoming during your stay.\n\nI am sorry to hear that other aspects of your experience did not meet expectations. Your comments regarding room acoustics, the condition of the elevators, and the shower experience are appreciated and will be shared with our teams for review. Feedback like this helps us identify areas where we can continue to improve.\n\nThank you again for staying with us and for sharing your thoughts.\n\nWarm Regards,\n\nDAVID SPILLANE\nDIRECTOR OF ROOMS & SAFETY\nACE HOTEL NEW YORK"
+          },
+          "photos": null,
+          "guestDetails": {
+            "countryName": "Israel",
+            "avatarUrl": "https://lh3.googleusercontent.com/a/ACg8ocJShUs0Yec2BZo1MGXn-Pp-WSNrW9x7V86YSGepOR9MvcRQwA=s96-c",
+            "username": "Roy",
+            "avatarColor": null,
+            "anonymous": false,
+            "__typename": "GuestDetails",
+            "guestTypeTranslation": "Solo traveler",
+            "showCountryFlag": true,
+            "countryCode": "il"
+          },
+          "reviewedDate": 1773423523,
+          "textDetails": {
+            "positiveText": "Staff was very nice, location was great",
+            "__typename": "TextDetails",
+            "negativeText": "Terrible acoustics in rooms, smell isn’t always that great in the elevator, showers aren’t great",
+            "textTrivialFlag": 0,
+            "title": null,
+            "lang": "xu"
+          },
+          "reviewUrl": "3f3c1fbe773a191e",
+          "isApproved": true,
+          "helpfulVotesCount": 0,
+          "isTranslatable": false
+        },
+        {
+          "guestDetails": {
+            "avatarColor": null,
+            "__typename": "GuestDetails",
+            "guestTypeTranslation": "Couple",
+            "anonymous": false,
+            "showCountryFlag": true,
+            "countryCode": "au",
+            "countryName": "Australia",
+            "avatarUrl": "https://graph.facebook.com/v2.9/515813975454536/picture?type=square&height=64&width=64",
+            "username": "Kim"
+          },
+          "reviewedDate": 1773370638,
+          "textDetails": {
+            "lang": "en",
+            "title": "We loved our location and the coffee shop at the front served very good coffee as well as happy hour",
+            "textTrivialFlag": 0,
+            "negativeText": "At the time of our stay the lifts were not working very well but we managed",
+            "__typename": "TextDetails",
+            "positiveText": "Great location we walked a lot and it was easy to get to the subway and other locations for sight seeing"
+          },
+          "reviewUrl": "10b23ca97d914f91",
+          "isApproved": true,
+          "helpfulVotesCount": 0,
+          "isTranslatable": false,
+          "__typename": "ReviewCard",
+          "negativeHighlights": null,
+          "bookingDetails": {
+            "customerType": "COUPLES",
+            "checkinDate": "2026-02-08",
+            "roomId": 7951516,
+            "__typename": "BookingDetails",
+            "roomType": {
+              "__typename": "RoomTranslation",
+              "name": "Medium Queen",
+              "id": "7951516"
+            },
+            "numNights": 5,
+            "stayStatus": "stayed",
+            "checkoutDate": "2026-02-13"
+          },
+          "reviewScore": 8,
+          "editUrl": null,
+          "positiveHighlights": null,
+          "partnerReply": {
+            "reply": "Hello Kim,\n\nThank you for taking the time to share your feedback. I am glad to hear you enjoyed the location and that it made exploring the city and accessing the subway easy during your stay. It is also great to hear you enjoyed the coffee shop and happy hour. It is a favorite for many of our guests and locals alike.\n\nI do apologize for the inconvenience you experienced with the elevators during your visit. We appreciate your patience while we worked through those issues.\n\nThank you again for staying with us and for sharing your experience. We hope to welcome you back to Ace Hotel New York on a future trip.\n\nWarm Regards,\n\nDAVID SPILLANE\nDIRECTOR OF ROOMS & SAFETY\nACE HOTEL NEW YORK",
+            "__typename": "PropertyReplyData"
+          },
+          "photos": null
+        },
+        {
+          "reviewedDate": 1773123613,
+          "textDetails": {
+            "textTrivialFlag": 0,
+            "title": "Loved it, would stay again",
+            "lang": "en",
+            "positiveText": "Loved the room, spacious and quiet",
+            "__typename": "TextDetails",
+            "negativeText": "Lift broken so long waits, public bathrooms at ground level dirty"
+          },
+          "guestDetails": {
+            "avatarColor": null,
+            "guestTypeTranslation": "Solo traveler",
+            "__typename": "GuestDetails",
+            "anonymous": false,
+            "showCountryFlag": true,
+            "countryCode": "nl",
+            "countryName": "Netherlands",
+            "avatarUrl": "https://lh6.googleusercontent.com/-O_l57KWAaho/AAAAAAAAAAI/AAAAAAAAAAA/ACHi3reRLNXa_9DPmXu0o8dNgvbV4203Tg/photo.jpg",
+            "username": "Pieter"
+          },
+          "isApproved": true,
+          "helpfulVotesCount": 0,
+          "isTranslatable": false,
+          "reviewUrl": "7533d6b110f61490",
+          "positiveHighlights": null,
+          "__typename": "ReviewCard",
+          "negativeHighlights": null,
+          "bookingDetails": {
+            "roomId": 7951516,
+            "customerType": "SOLO_TRAVELLERS",
+            "checkinDate": "2026-03-03",
+            "__typename": "BookingDetails",
+            "numNights": 6,
+            "roomType": {
+              "__typename": "RoomTranslation",
+              "id": "7951516",
+              "name": "Medium Queen"
+            },
+            "checkoutDate": "2026-03-09",
+            "stayStatus": "stayed"
+          },
+          "reviewScore": 8,
+          "editUrl": null,
+          "partnerReply": {
+            "reply": "Hello Pieter,\n\nThank you for taking the time to share your feedback. I am very glad to hear that you loved the room and found it spacious and quiet, and that overall you had a stay that would bring you back to us again.\n\nI do apologize for the inconvenience caused by the lift being out of service and the longer wait times that resulted. I am also sorry to hear that the public restrooms on the ground level were not in the condition they should have been. Cleanliness in all guest-facing spaces is very important to us, and I appreciate you bringing this to our attention so we can reinforce these standards with our team.\n\nThank you again for staying with us, and we hope to welcome you back on your next visit to New York.\n\nWarm Regards,\n\nDAVID SPILLANE\nDIRECTOR OF ROOMS & SAFETY\nACE HOTEL NEW YORK",
+            "__typename": "PropertyReplyData"
+          },
+          "photos": null
+        }
+      ],
+      "languageFilter": [
+        {
+          "name": "All (1850)",
+          "count": 1850,
+          "value": "",
+          "countryFlag": null,
+          "__typename": "LanguageFilter"
+        },
+        {
+          "count": 1197,
+          "name": "English (1197)",
+          "countryFlag": "gb",
+          "__typename": "LanguageFilter",
+          "value": "en"
+        },
+        {
+          "countryFlag": "de",
+          "__typename": "LanguageFilter",
+          "value": "de",
+          "count": 91,
+          "name": "German (91)"
+        },
+        {
+          "__typename": "LanguageFilter",
+          "countryFlag": "fr",
+          "value": "fr",
+          "count": 153,
+          "name": "French (153)"
+        },
+        {
+          "count": 12,
+          "name": "Chinese (12)",
+          "countryFlag": "cn",
+          "__typename": "LanguageFilter",
+          "value": "zh"
+        },
+        {
+          "name": "Dutch (51)",
+          "count": 51,
+          "__typename": "LanguageFilter",
+          "countryFlag": "nl",
+          "value": "nl"
+        },
+        {
+          "__typename": "LanguageFilter",
+          "countryFlag": "sa",
+          "value": "ar",
+          "count": 1,
+          "name": "Arabic (1)"
+        },
+        {
+          "name": "Spanish (90)",
+          "count": 90,
+          "countryFlag": "es",
+          "__typename": "LanguageFilter",
+          "value": "es"
+        },
+        {
+          "value": "sv",
+          "countryFlag": "se",
+          "__typename": "LanguageFilter",
+          "count": 19,
+          "name": "Swedish (19)"
+        },
+        {
+          "count": 5,
+          "name": "Polish (5)",
+          "countryFlag": "pl",
+          "__typename": "LanguageFilter",
+          "value": "pl"
+        },
+        {
+          "value": "it",
+          "countryFlag": "it",
+          "__typename": "LanguageFilter",
+          "count": 66,
+          "name": "Italian (66)"
+        },
+        {
+          "value": "pt",
+          "countryFlag": "pt",
+          "__typename": "LanguageFilter",
+          "count": 31,
+          "name": "Portuguese (31)"
+        },
+        {
+          "count": 3,
+          "name": "Russian (3)",
+          "__typename": "LanguageFilter",
+          "countryFlag": "ru",
+          "value": "ru"
+        },
+        {
+          "countryFlag": "tr",
+          "__typename": "LanguageFilter",
+          "value": "tr",
+          "count": 2,
+          "name": "Turkish (2)"
+        },
+        {
+          "name": "Catalan (2)",
+          "count": 2,
+          "value": "ca",
+          "countryFlag": "catalonia",
+          "__typename": "LanguageFilter"
+        },
+        {
+          "value": "ja",
+          "__typename": "LanguageFilter",
+          "countryFlag": "jp",
+          "count": 52,
+          "name": "Japanese (52)"
+        },
+        {
+          "name": "Norwegian (4)",
+          "count": 4,
+          "value": "no",
+          "countryFlag": "no",
+          "__typename": "LanguageFilter"
+        },
+        {
+          "__typename": "LanguageFilter",
+          "countryFlag": "fi",
+          "value": "fi",
+          "name": "Finnish (4)",
+          "count": 4
+        },
+        {
+          "value": "hr",
+          "__typename": "LanguageFilter",
+          "countryFlag": "hr",
+          "name": "Croatian (1)",
+          "count": 1
+        },
+        {
+          "countryFlag": "hu",
+          "__typename": "LanguageFilter",
+          "value": "hu",
+          "count": 1,
+          "name": "Hungarian (1)"
+        },
+        {
+          "countryFlag": "sk",
+          "__typename": "LanguageFilter",
+          "value": "sk",
+          "name": "Slovak (1)",
+          "count": 1
+        },
+        {
+          "value": "ko",
+          "countryFlag": "kr",
+          "__typename": "LanguageFilter",
+          "count": 11,
+          "name": "Korean (11)"
+        },
+        {
+          "count": 1,
+          "name": "Greek (1)",
+          "value": "el",
+          "__typename": "LanguageFilter",
+          "countryFlag": "gr"
+        },
+        {
+          "count": 1,
+          "name": "Icelandic (1)",
+          "value": "is",
+          "__typename": "LanguageFilter",
+          "countryFlag": "is"
+        },
+        {
+          "name": "Czech (5)",
+          "count": 5,
+          "__typename": "LanguageFilter",
+          "countryFlag": "cz",
+          "value": "cs"
+        },
+        {
+          "value": "da",
+          "countryFlag": "dk",
+          "__typename": "LanguageFilter",
+          "count": 11,
+          "name": "Danish (11)"
+        },
+        {
+          "name": "Hebrew (14)",
+          "count": 14,
+          "__typename": "LanguageFilter",
+          "countryFlag": "il",
+          "value": "he"
+        }
+      ],
+      "__typename": "ReviewListFrontendResult",
+      "timeOfYearFilter": [
+        {
+          "count": 1850,
+          "name": "All (1850)",
+          "value": "ALL",
+          "__typename": "TimeOfYearFilter"
+        },
+        {
+          "value": "_03_05",
+          "__typename": "TimeOfYearFilter",
+          "count": 0,
+          "name": "Mar–May"
+        },
+        {
+          "value": "_06_08",
+          "__typename": "TimeOfYearFilter",
+          "name": "Jun–Aug",
+          "count": 0
+        },
+        {
+          "name": "Sep–Nov",
+          "count": 0,
+          "value": "_09_11",
+          "__typename": "TimeOfYearFilter"
+        },
+        {
+          "count": 0,
+          "name": "Dec–Feb",
+          "value": "_12_02",
+          "__typename": "TimeOfYearFilter"
+        }
+      ],
+      "ratingScores": [
+        {
+          "value": 8.55876350402832,
+          "__typename": "RatingScore",
+          "name": "hotel_staff",
+          "translation": "Staff",
+          "ufiScoresAverage": {
+            "ufiScoreLowerBound": 7.96015024185181,
+            "__typename": "UfiScoreAverage",
+            "ufiScoreHigherBound": 9.4445743560791
+          }
+        },
+        {
+          "name": "hotel_services",
+          "translation": "Facilities",
+          "ufiScoresAverage": {
+            "ufiScoreHigherBound": 8.98382472991943,
+            "__typename": "UfiScoreAverage",
+            "ufiScoreLowerBound": 7.26529979705811
+          },
+          "value": 7.58225917816162,
+          "__typename": "RatingScore"
+        },
+        {
+          "value": 7.92787313461304,
+          "__typename": "RatingScore",
+          "name": "hotel_clean",
+          "translation": "Cleanliness",
+          "ufiScoresAverage": {
+            "ufiScoreHigherBound": 9.26572513580322,
+            "ufiScoreLowerBound": 7.65269994735718,
+            "__typename": "UfiScoreAverage"
+          }
+        },
+        {
+          "value": 7.98743772506714,
+          "__typename": "RatingScore",
+          "name": "hotel_comfort",
+          "translation": "Comfort",
+          "ufiScoresAverage": {
+            "ufiScoreHigherBound": 9.32044982910156,
+            "ufiScoreLowerBound": 7.67337512969971,
+            "__typename": "UfiScoreAverage"
+          }
+        },
+        {
+          "__typename": "RatingScore",
+          "value": 7.26906776428223,
+          "translation": "Value for money",
+          "ufiScoresAverage": {
+            "ufiScoreHigherBound": 8.69645023345947,
+            "__typename": "UfiScoreAverage",
+            "ufiScoreLowerBound": 7.13625049591064
+          },
+          "name": "hotel_value"
+        },
+        {
+          "value": 9.18796443939209,
+          "__typename": "RatingScore",
+          "name": "hotel_location",
+          "ufiScoresAverage": {
+            "ufiScoreHigherBound": 9.7835750579834,
+            "ufiScoreLowerBound": 8.46759986877441,
+            "__typename": "UfiScoreAverage"
+          },
+          "translation": "Location"
+        },
+        {
+          "__typename": "RatingScore",
+          "value": 8.30537891387939,
+          "ufiScoresAverage": {
+            "ufiScoreHigherBound": 9.10852527618408,
+            "ufiScoreLowerBound": 7.8682746887207,
+            "__typename": "UfiScoreAverage"
+          },
+          "translation": "Free Wifi",
+          "name": "hotel_free_wifi"
+        }
+      ],
+      "roomTypeFilter": null,
+      "reviewScoreFilter": [
+        {
+          "__typename": "ReviewScoreFilter",
+          "value": "ALL",
+          "name": "All (1850)",
+          "count": 1850
+        },
+        {
+          "__typename": "ReviewScoreFilter",
+          "value": "REVIEW_ADJ_SUPERB",
+          "name": "Wonderful: 9+ (711)",
+          "count": 711
+        },
+        {
+          "count": 744,
+          "name": "Good: 7-9 (744)",
+          "value": "REVIEW_ADJ_GOOD",
+          "__typename": "ReviewScoreFilter"
+        },
+        {
+          "count": 221,
+          "name": "Fair: 5-7 (221)",
+          "value": "REVIEW_ADJ_AVERAGE_PASSABLE",
+          "__typename": "ReviewScoreFilter"
+        },
+        {
+          "name": "Poor: 3-5 (101)",
+          "count": 101,
+          "value": "REVIEW_ADJ_POOR",
+          "__typename": "ReviewScoreFilter"
+        },
+        {
+          "value": "REVIEW_ADJ_VERY_POOR",
+          "__typename": "ReviewScoreFilter",
+          "count": 73,
+          "name": "Very Poor: 1-3 (73)"
+        }
+      ]
+    }
+  }
+}
