@@ -1,0 +1,12 @@
+node_modules/
+.env
+_tmp/
+storage/
+apify_storage/
+crawlee_storage/
+.apify/
+*.log
+.DS_Store
+dist/
+build/
+coverage/

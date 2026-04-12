@@ -1,0 +1,19 @@
+{
+  "actorSpecification": 1,
+  "name": "airbnb-market-intelligence",
+  "title": "Vacation Rental Revenue Estimator & Competitor Intelligence",
+  "description": "For short term rental investors and property managers. Scans Airbnb markets, benchmarks comparable properties, and returns pricing, ratings, and occupancy signals. Stop guessing and start pricing like a data driven operator.",
+  "version": "0.3",
+  "buildTag": "latest",
+  "meta": {
+    "templateId": "js-crawlee-playwright"
+  },
+  "input": "./input_schema.json",
+  "dockerfile": "./Dockerfile",
+  "readme": "../README.md",
+  "icon": "./icon.svg",
+  "categories": [
+    "TRAVEL",
+    "REAL_ESTATE"
+  ]
+}

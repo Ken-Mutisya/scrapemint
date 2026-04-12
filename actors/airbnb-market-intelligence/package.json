@@ -1,0 +1,22 @@
+{
+  "name": "airbnb-market-intelligence",
+  "version": "0.3.0",
+  "private": true,
+  "type": "module",
+  "description": "Vacation Rental Revenue Estimator & Competitor Intelligence (Apify actor)",
+  "main": "src/main.js",
+  "scripts": {
+    "start": "node src/main.js",
+    "check": "node --check src/main.js",
+    "test": "node --test tests/*.js",
+    "inspect:deferred": "node scripts/inspect-deferred-state.mjs"
+  },
+  "dependencies": {
+    "apify": "^3.2.6",
+    "crawlee": "^3.11.5",
+    "playwright": "*"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

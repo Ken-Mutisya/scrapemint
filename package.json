@@ -1,0 +1,16 @@
+{
+  "name": "scrapemint",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "actors/*"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "check": "node --check automation/*.mjs 2>&1 || true",
+    "test": "echo \"no tests yet\" && exit 0"
+  }
+}

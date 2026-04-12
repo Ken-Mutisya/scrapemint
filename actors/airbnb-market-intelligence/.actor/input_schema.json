@@ -1,0 +1,65 @@
+{
+  "title": "Vacation Rental Revenue Estimator Input",
+  "type": "object",
+  "schemaVersion": 1,
+  "properties": {
+    "startUrls": {
+      "title": "Airbnb search URLs",
+      "type": "array",
+      "description": "Paste one or more Airbnb search result URLs. Example: https://www.airbnb.com/s/Austin--TX/homes",
+      "editor": "requestListSources",
+      "prefill": [
+        {
+          "url": "https://www.airbnb.com/s/Austin--TX/homes"
+        }
+      ]
+    },
+    "location": {
+      "title": "Location (alternative to URLs)",
+      "type": "string",
+      "description": "City, neighborhood, or region. Used only if startUrls is empty. Example: Austin, TX",
+      "editor": "textfield"
+    },
+    "checkIn": {
+      "title": "Check in date",
+      "type": "string",
+      "description": "YYYY-MM-DD. Optional.",
+      "editor": "textfield"
+    },
+    "checkOut": {
+      "title": "Check out date",
+      "type": "string",
+      "description": "YYYY-MM-DD. Optional.",
+      "editor": "textfield"
+    },
+    "adults": {
+      "title": "Number of guests",
+      "type": "integer",
+      "description": "Used for nightly price estimation.",
+      "default": 2,
+      "minimum": 1,
+      "maximum": 16
+    },
+    "maxProperties": {
+      "title": "Maximum properties to extract",
+      "type": "integer",
+      "description": "Hard cap on billable properties. Prevents runaway charges on large markets.",
+      "default": 50,
+      "minimum": 1,
+      "maximum": 2000
+    },
+    "proxyConfiguration": {
+      "title": "Proxy configuration",
+      "type": "object",
+      "description": "Apify proxy settings. Defaults to BUYPROXIES94952 US datacenter.",
+      "editor": "proxy",
+      "prefill": {
+        "useApifyProxy": true,
+        "apifyProxyGroups": [
+          "BUYPROXIES94952"
+        ]
+      }
+    }
+  },
+  "required": []
+}
