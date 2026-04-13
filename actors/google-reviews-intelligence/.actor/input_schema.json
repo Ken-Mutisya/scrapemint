@@ -1,0 +1,85 @@
+{
+  "title": "Google Reviews Intelligence Input",
+  "type": "object",
+  "schemaVersion": 1,
+  "properties": {
+    "placeUrls": {
+      "title": "Google Maps place URLs",
+      "type": "array",
+      "description": "One or more Google Maps URLs for businesses you want reviews for. Example: https://www.google.com/maps/place/Central+Park/@40.7812,-73.9665,15z",
+      "editor": "requestListSources",
+      "prefill": [
+        {
+          "url": "https://www.google.com/maps/place/Eleven+Madison+Park/@40.7416,-73.9874,17z"
+        }
+      ]
+    },
+    "placeUrl": {
+      "title": "Single place URL (alternative)",
+      "type": "string",
+      "description": "Single Google Maps URL. Used only if placeUrls is empty.",
+      "editor": "textfield"
+    },
+    "searchQueries": {
+      "title": "Search queries (alternative to URLs)",
+      "type": "array",
+      "description": "Business name plus city. Each query resolves to the first Google Maps match. Example: 'Eleven Madison Park New York'",
+      "editor": "stringList",
+      "default": []
+    },
+    "maxReviews": {
+      "title": "Maximum reviews per business",
+      "type": "integer",
+      "description": "Hard cap per business. Prevents runaway charges on places with thousands of reviews.",
+      "default": 500,
+      "minimum": 1,
+      "maximum": 10000
+    },
+    "sortBy": {
+      "title": "Sort reviews by",
+      "type": "string",
+      "description": "Review sort order.",
+      "default": "NEWEST",
+      "enum": [
+        "NEWEST",
+        "MOST_RELEVANT",
+        "HIGHEST_RATING",
+        "LOWEST_RATING"
+      ],
+      "enumTitles": [
+        "Newest",
+        "Most relevant",
+        "Highest rating",
+        "Lowest rating"
+      ]
+    },
+    "filterByRating": {
+      "title": "Filter by rating",
+      "type": "array",
+      "description": "Only return reviews with these star ratings. Valid values: 1, 2, 3, 4, 5. Leave empty for all ratings.",
+      "editor": "stringList",
+      "default": []
+    },
+    "language": {
+      "title": "Language filter",
+      "type": "string",
+      "description": "Only return reviews in this language. Leave empty for all languages. Example: en, es, fr, de, it",
+      "editor": "textfield",
+      "default": ""
+    },
+    "proxyConfiguration": {
+      "title": "Proxy configuration",
+      "type": "object",
+      "description": "Apify proxy settings. Residential proxies recommended for Google Maps.",
+      "editor": "proxy",
+      "prefill": {
+        "useApifyProxy": true,
+        "apifyProxyGroups": [
+          "RESIDENTIAL"
+        ],
+        "apifyProxyCountry": "US"
+      }
+    }
+  },
+  "required": []
+}
