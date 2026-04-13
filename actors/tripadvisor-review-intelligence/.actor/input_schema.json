@@ -65,7 +65,8 @@
         "useApifyProxy": true,
         "apifyProxyGroups": [
           "RESIDENTIAL"
-        ]
+        ],
+        "apifyProxyCountry": "US"
       }
     }
   },
