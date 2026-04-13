@@ -2,7 +2,7 @@
   "actorSpecification": 1,
   "name": "tripadvisor-review-intelligence",
   "title": "TripAdvisor Review Intelligence and Hotel Reputation Monitor",
-  "description": "For hotel operators, travel agencies, and STR managers. Pulls every TripAdvisor review for any hotel, attraction, or restaurant with ratings, full review text, trip type, traveler origin, stay date, and owner responses. Track your property sentiment and compare against competing destinations without reading thousands of reviews manually.",
+  "description": "For hotel operators, restaurant owners, and travel agencies. Pulls every TripAdvisor review for any hotel, attraction, or restaurant with rating, text, trip type, traveler origin, stay date, and owner responses. Track property sentiment and benchmark competitors without a reputation subscription.",
   "version": "0.1",
   "buildTag": "latest",
   "meta": {
