@@ -1,8 +1,8 @@
-# TripAdvisor Review Data and Hotel Reputation Monitoring Tool
+# TripAdvisor Review Export and Hotel Reputation Monitor
 
-Export every TripAdvisor review for any hotel, restaurant, or attraction into a clean spreadsheet or JSON file. Get star ratings, full review text, trip type, traveler origin, stay dates, owner responses, and aggregate property ratings for your property and every competing destination.
+Export every TripAdvisor review for any hotel, restaurant, or attraction into a clean JSON or CSV file. Get star ratings, review text, reviewer names, stay dates, trip type, owner responses, and aggregate property ratings for your property and every competitor.
 
-Built for hotel operators, restaurant owners, travel agencies, and STR managers who need TripAdvisor review data without paying for a hospitality reputation subscription.
+Built for hotel operators, restaurant owners, travel agencies, and short term rental managers who need TripAdvisor review data without paying for a hospitality reputation SaaS.
 
 ---
 
@@ -10,13 +10,13 @@ Built for hotel operators, restaurant owners, travel agencies, and STR managers 
 
 ```mermaid
 flowchart TD
-    A[Hotel Operators] -->|Catch sentiment dips<br/>before revenue drops| D[TripAdvisor<br/>Review Data]
-    B[Restaurant Owners] -->|See what rivals are<br/>praised and hated for| D
-    C[Travel Agencies] -->|Pre vet properties<br/>before packaging trips| D
-    R[STR Managers] -->|Benchmark listings<br/>across every city| D
+    A[Hotel operators] -->|Catch sentiment dips<br/>before revenue drops| D[TripAdvisor<br/>Review Data]
+    B[Restaurant owners] -->|See what rivals are<br/>praised and hated for| D
+    C[Travel agencies] -->|Pre vet properties<br/>before packaging trips| D
+    R[STR managers] -->|Benchmark listings<br/>city by city| D
     D --> E[Weekly sentiment report]
     D --> F[Competitor gap analysis]
-    D --> G[Guest complaint triage]
+    D --> G[Complaint triage queue]
 ```
 
 | Role | What this gives you |
@@ -35,44 +35,12 @@ flowchart TD
 flowchart LR
     A[TripAdvisor<br/>location URL] --> B[Load review pages]
     B --> C[Parse schema.org<br/>metadata]
-    C --> D[Expand truncated<br/>review bodies]
-    D --> E[Walk review cards<br/>across pagination]
-    E --> F[Normalize fields]
-    F --> G[(JSON, CSV, or Excel)]
+    C --> D[Extract review cards]
+    D --> E[Paginate 10 at a time]
+    E --> F[(JSON, CSV, Excel)]
 ```
 
-The actor visits each TripAdvisor location page, reads the schema.org metadata TripAdvisor ships for aggregate ratings, expands every truncated review body, and walks through all reviews 10 at a time. Residential proxies keep you past the Cloudflare gate. Same data TripAdvisor shows in its own UI, delivered as a clean dataset.
-
----
-
-## What one review record looks like
-
-```json
-{
-  "reviewId": "987654321",
-  "locationName": "The Pierre, A Taj Hotel, New York",
-  "locationType": "LodgingBusiness",
-  "locationAggregateRating": 4.5,
-  "locationReviewCount": 2168,
-  "locationCity": "New York City",
-  "locationCountry": "US",
-  "rating": 5,
-  "title": "Flawless anniversary stay",
-  "text": "Stayed in a corner suite overlooking Central Park for our 10 year anniversary. Doorman remembered my name by the second day. Bar downstairs is worth the price of the room alone...",
-  "reviewerName": "MarissaK",
-  "reviewerLocation": "Chicago, Illinois",
-  "writtenDate": "Written April 8, 2026",
-  "stayDate": "Date of stay: March 2026",
-  "tripType": "Traveled as a couple",
-  "language": "en",
-  "helpfulVotes": 4,
-  "hasOwnerResponse": true,
-  "ownerResponseText": "Dear Marissa, thank you for choosing The Pierre for such a special occasion...",
-  "ownerResponseDate": "Responded April 10, 2026"
-}
-```
-
-Every review comes back with: star rating (1 to 5), title, full text, reviewer name and home location, written date, stay date, trip type (family, couple, business, solo, friends), helpful vote count, and the full owner response with its own timestamp. Plus the property name, type (hotel, restaurant, attraction), aggregate rating, city, and country on every record so you can group in any spreadsheet.
+The actor opens each TripAdvisor location page in a real browser, reads the schema.org JSON that TripAdvisor ships for aggregate ratings, walks the rendered review cards, and paginates until `maxReviews` is hit. Residential proxies keep you past Cloudflare.
 
 ---
 
@@ -90,7 +58,7 @@ curl -X POST "https://api.apify.com/v2/acts/scrapemint~tripadvisor-review-intell
   }'
 ```
 
-Compare your hotel against 2 competitors in one run, filtering for complaints only:
+Compare your hotel against 2 competitors in one run, pulling complaints only:
 
 ```json
 {
@@ -106,50 +74,59 @@ Compare your hotel against 2 competitors in one run, filtering for complaints on
 
 ---
 
+## What one review record looks like
+
+```json
+{
+  "rating": 5,
+  "title": "Flawless anniversary stay",
+  "text": "Stayed in a corner suite overlooking Central Park. Doorman remembered my name by the second day.",
+  "reviewerName": "MarissaK",
+  "reviewerLocation": "Chicago, Illinois",
+  "writtenDate": "April 8, 2026",
+  "stayDate": "March 2026",
+  "tripType": "Couple",
+  "hasOwnerResponse": true,
+  "ownerResponseText": "Dear Marissa, thank you for choosing The Pierre...",
+  "locationName": "The Pierre, A Taj Hotel",
+  "locationAggregateRating": 4.5,
+  "locationReviewCount": 2168,
+  "locationCity": "New York City",
+  "locationCountry": "US"
+}
+```
+
+Every record carries both the review fields and the property rollup, so a dataset of 3 hotels + 500 reviews each groups cleanly in any spreadsheet.
+
+---
+
 ## Inputs
 
 | Field | Type | Default | What it does |
 |---|---|---|---|
-| `locationUrls` | array | `[]` | TripAdvisor review URLs. Hotels, attractions, or restaurants. Add several to compare in one run. |
+| `locationUrls` | array | `[]` | TripAdvisor review URLs. Hotels, attractions, or restaurants. |
 | `locationUrl` | string | `null` | Single URL shortcut. Used when `locationUrls` is empty. |
 | `maxReviews` | integer | `500` | Hard cap per location. Controls cost. |
 | `sortBy` | string | `NEWEST_FIRST` | `NEWEST_FIRST` or `MOST_HELPFUL` |
-| `filterByRating` | array | `[]` | Ratings to keep (e.g. `["1","2"]` for complaint analysis). Empty = all. |
-| `language` | string | `""` | Filter by language code (`en`, `es`, `fr`, `de`, `it`). Empty = all. |
+| `filterByRating` | array | `[]` | Ratings to keep (e.g. `["1","2"]` for complaint analysis). |
+| `language` | string | `""` | Filter by language code (`en`, `es`, `fr`, `de`, `it`). |
 
 ---
 
 ## Pricing
 
-Pay per review. Free tier lets you check the data before spending anything.
+Pay per review. Free tier lets you verify the output before spending anything.
 
 | Tier | Price | Best for |
 |---|---|---|
 | Free | First 100 reviews per run | Verifying the output format |
-| Standard | $0.006 per review | Ongoing monitoring and competitor benchmarking |
+| Standard | $0.006 per review | Ongoing monitoring and benchmarking |
 
-```mermaid
-flowchart LR
-    A[Run the actor] --> B{First 100<br/>reviews}
-    B -->|Free| C[Verify output]
-    C --> D{Need more?}
-    D -->|Yes| E[$0.006 per review<br/>after the first 100]
-    D -->|No| F[Done, $0 spent]
-```
+5,000 reviews across 5 properties: **$29.40 once**. Hospitality reputation SaaS: $400 to $1,200 per month per property.
 
 ---
 
-## How this beats the alternatives
-
-| Method | Cost for 5,000 reviews across 5 hotels | Data depth | Time |
-|---|---|---|---|
-| Read TripAdvisor manually | 20 to 30 analyst hours | Spreadsheet notes | Days |
-| Hospitality reputation SaaS | $400 to $1,200 per month per property | Aggregated dashboards | Subscription locked |
-| **This actor** | **$29.40 once** | Full reviews, traveler data, responses, timestamps | Minutes |
-
----
-
-## Compare destinations in one run
+## Compare properties in one run
 
 ```mermaid
 flowchart LR
@@ -157,94 +134,53 @@ flowchart LR
     B[Competitor 1 URL] --> X
     C[Competitor 2 URL] --> X
     X --> D[(Unified review<br/>dataset)]
-    D --> E[Sort by locationName<br/>in spreadsheet]
+    D --> E[Group by locationName]
     E --> F[Head to head<br/>sentiment report]
 ```
 
-Every record carries the `locationName`, `locationCity`, and `locationAggregateRating` fields, so you can group results in any spreadsheet or BI tool in seconds.
+Every record includes `locationName`, `locationCity`, and `locationAggregateRating`, so grouping in Excel, Sheets, or a BI tool takes seconds.
 
 ---
 
-## Use case flows
+## Common workflows
 
-```mermaid
-flowchart TD
-    subgraph Inputs
-        A[Location URLs]
-    end
-    subgraph Actor
-        B[Pull reviews]
-    end
-    subgraph Outputs
-        C[JSON / CSV / Excel]
-    end
-    subgraph Workflows
-        D[Weekly GM report]
-        E[Competitor gap analysis]
-        F[Front desk complaint triage]
-        G[Marketing copy mining]
-    end
-    A --> B --> C
-    C --> D
-    C --> E
-    C --> F
-    C --> G
-```
-
-- **Weekly GM report:** cron this actor, diff the latest run, email the GM when 1 or 2 star volume spikes
-- **Competitor gap analysis:** pull your property plus 3 rivals, sort by stars, show ownership what guests praise next door
-- **Front desk complaint triage:** feed 1 and 2 star reviews into your PMS so CS sees complaints before they escalate
-- **Marketing copy mining:** grep 5 star reviews for the exact phrases guests use, reuse them in booking page copy
+- **Weekly GM report.** Cron this actor. Diff the latest run, email the GM when 1 or 2 star volume spikes.
+- **Competitor gap analysis.** Pull your property plus 3 rivals. Sort by stars. Show ownership what guests praise next door.
+- **Complaint triage.** Push 1 and 2 star reviews into your PMS so front desk sees complaints before they escalate.
+- **Marketing copy mining.** Search 5 star reviews for the exact phrases guests use. Reuse them in booking page copy.
 
 ---
 
 ## Related tools in the review intelligence suite
 
-```mermaid
-flowchart LR
-    A[Booking Review<br/>Intelligence] --> C[(Unified review<br/>dataset)]
-    B[Trustpilot Brand<br/>Reputation] --> C
-    T[TripAdvisor Review<br/>Intelligence] --> C
-    C --> D[Cross platform<br/>reputation report]
-```
-
-* [**Booking Review Intelligence**](https://apify.com/scrapemint/booking-review-intelligence): hotel and STR reviews with sentiment, category scores, traveler type, and management replies
-* [**Trustpilot Brand Reputation**](https://apify.com/scrapemint/trustpilot-brand-reputation): e-commerce and service business reviews with trust scores, consumer country, and verification status
-* **More review sources on the roadmap:** Google Reviews, Yelp, OpenTable
+* [**Booking Review Intelligence**](https://apify.com/scrapemint/booking-review-intelligence): hotel and STR reviews with sentiment, category scores, and management replies
+* [**Trustpilot Brand Reputation**](https://apify.com/scrapemint/trustpilot-brand-reputation): e-commerce review data with trust scores, country, and verification status
+* **Roadmap:** Google Reviews, Yelp, OpenTable
 
 ---
 
 ## Frequently asked questions
 
 **How do I download TripAdvisor reviews to a CSV file?**
-Run this actor with a TripAdvisor location URL and your chosen cap. Export the dataset as CSV from the Apify console or pull it via the API. Works for any hotel, restaurant, or attraction with a public TripAdvisor page.
+Run this actor with a TripAdvisor location URL and a review cap. Export the dataset as CSV from the Apify console or pull it via the API. Works for any hotel, restaurant, or attraction.
 
-**How do I monitor my property reputation on TripAdvisor without paying for a SaaS subscription?**
-Schedule this actor weekly against your TripAdvisor URL. Export the latest reviews and compare against last week in your own spreadsheet. A few dollars per run replaces a $400+ monthly hospitality reputation subscription.
+**How do I monitor my TripAdvisor reputation without paying for a SaaS subscription?**
+Schedule this actor weekly. Export the latest reviews and diff against last week in your own spreadsheet. Replaces a $400+ monthly reputation subscription.
 
-**Can I compare multiple hotels on TripAdvisor in one run?**
-Yes. Pass every URL in the `locationUrls` array. Every review record includes `locationName`, `locationCity`, and `locationAggregateRating`, so you can group and compare in any tool.
+**Can I compare multiple TripAdvisor properties in one run?**
+Yes. Pass every URL in `locationUrls`. Every record includes `locationName`, `locationCity`, and `locationAggregateRating` for easy grouping.
 
 **How do I analyze only negative TripAdvisor reviews?**
-Set `filterByRating` to `["1", "2"]` to pull just 1 and 2 star reviews. Most complaint analysis workflows use this filter.
-
-**What data does this return for each TripAdvisor review?**
-Rating (1 to 5), title, full review text, reviewer name, reviewer home location, written date, stay date, trip type, helpful votes, language, and the full owner response with its timestamp. Plus property name, type, aggregate rating, city, and country on every record.
+Set `filterByRating` to `["1", "2"]` to pull just 1 and 2 star reviews.
 
 **Does this work for restaurants and attractions too?**
-Yes. Any TripAdvisor URL with `Hotel_Review`, `Restaurant_Review`, or `Attraction_Review` in the path works.
+Yes. Any URL with `Hotel_Review`, `Restaurant_Review`, or `Attraction_Review` works.
 
 **Does this work across international TripAdvisor domains?**
-Yes. Works for tripadvisor.com, tripadvisor.co.uk, tripadvisor.de, tripadvisor.fr, and other locales. Just paste the location URL.
-
-**How many reviews can I pull from one location?**
-Up to the full review history. Use `maxReviews` to set a cap. Properties with thousands of reviews take several minutes to finish.
+Yes. tripadvisor.com, tripadvisor.co.uk, tripadvisor.de, tripadvisor.fr, and other locales all work. Paste the location URL.
 
 **How fresh is the data?**
-Live at query time. Every run pulls straight from TripAdvisor. No cached snapshots.
+Live at query time. Every run pulls straight from TripAdvisor.
 
-**What format is the output?**
-JSON, CSV, or Excel. Download from the Apify dataset or pull via API.
-
-**Why does this need residential proxies?**
-TripAdvisor fronts every page with Cloudflare. Datacenter proxies get blocked within a few requests. Residential proxies keep runs clean. The actor ships with residential proxy defaults.
+**Why residential proxies?**
+TripAdvisor fronts every page with Cloudflare. Datacenter proxies get blocked within a few requests. Residential proxies keep runs clean, and the actor ships with residential defaults.
