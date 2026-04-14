@@ -108,31 +108,64 @@ const crawler = new PlaywrightCrawler({
     preNavigationHooks: [
         async ({ page }, gotoOptions) => {
             gotoOptions.waitUntil = 'domcontentloaded';
-            // Accept consent cookie if the EU consent wall appears.
-            await page.addInitScript(() => {
-                document.cookie = 'CONSENT=YES+; domain=.google.com; path=/';
-            });
+            // Pre-accept Google's EU consent wall by planting SOCS and CONSENT
+            // cookies before the first Maps request. Without this Google
+            // redirects to consent.google.com and no map ever renders.
+            await page.context().addCookies([
+                {
+                    name: 'SOCS',
+                    value: 'CAISHAgBEhJnd3NfMjAyMzAzMjEtMF9SQzIaAmVuIAEaBgiA_LyaBg',
+                    domain: '.google.com',
+                    path: '/',
+                },
+                {
+                    name: 'CONSENT',
+                    value: 'YES+cb.20210328-17-p0.en+FX+000',
+                    domain: '.google.com',
+                    path: '/',
+                },
+                {
+                    name: 'NID',
+                    value: '511=Kz7Z_placeholder',
+                    domain: '.google.com',
+                    path: '/',
+                },
+            ]).catch(() => {});
         },
     ],
     async requestHandler({ request, page }) {
         const { placeKey, searchTerm } = request.userData;
 
+        // Force English and US locale so the consent wall and review
+        // selectors stay in the DOM shape the extractor expects.
+        const forceLocale = (url) => {
+            try {
+                const u = new URL(url);
+                u.searchParams.set('hl', 'en');
+                u.searchParams.set('gl', 'us');
+                return u.toString();
+            } catch { return url; }
+        };
+
         // Handle search query requests by resolving to a maps URL first.
         if (searchTerm) {
-            const searchUrl = `https://www.google.com/maps/search/${encodeURIComponent(searchTerm)}`;
+            const searchUrl = forceLocale(`https://www.google.com/maps/search/${encodeURIComponent(searchTerm)}`);
             await page.goto(searchUrl, { waitUntil: 'domcontentloaded', timeout: 60000 });
-            await page.waitForTimeout(3500);
+            await acceptConsent(page);
             // If the search resolves to a single place, Maps auto navigates.
             // Otherwise we pick the first result card.
-            const firstResult = await page.$('a[href*="/maps/place/"]').catch(() => null);
-            if (firstResult) {
+            const firstResult = await page.waitForSelector('a[href*="/maps/place/"], h1.DUwDvf', { timeout: 20000 }).catch(() => null);
+            if (firstResult && (await firstResult.evaluate((el) => el.tagName)) === 'A') {
                 await firstResult.click().catch(() => {});
-                await page.waitForTimeout(3000);
             }
         } else {
-            await page.goto(request.url, { waitUntil: 'domcontentloaded', timeout: 60000 });
-            await page.waitForTimeout(3500);
+            await page.goto(forceLocale(request.url), { waitUntil: 'domcontentloaded', timeout: 60000 });
+            await acceptConsent(page);
         }
+
+        // Wait for the place-page side panel to hydrate. Maps renders a
+        // shell at domcontentloaded and paints h1.DUwDvf a few seconds later.
+        await page.waitForSelector('h1.DUwDvf', { timeout: 25000 }).catch(() => {});
 
         log.info(`Fetching ${page.url()}`);
         const pushedForPlace = pushedPerPlace.get(placeKey) ?? 0;
@@ -159,6 +192,15 @@ const crawler = new PlaywrightCrawler({
         const reviews = await scrollAndCollectReviews(page, maxReviews);
         log.info(`Collected ${reviews.length} reviews for ${placeKey}.`);
 
+        if (process.env.GRI_DEBUG_CARD) {
+            const cardHtml = await page.$eval('div[data-review-id]', (c) => c.outerHTML).catch(() => null);
+            if (cardHtml) {
+                const store = await Actor.openKeyValueStore();
+                await store.setValue(`debug_card_${placeKey.replace(/[^a-zA-Z0-9_-]/g, '_').slice(0, 60)}`, cardHtml, { contentType: 'text/html' });
+                log.info('Saved first-card HTML (GRI_DEBUG_CARD).');
+            }
+        }
+
         // Save debug HTML if nothing came back on first page.
         if (reviews.length === 0) {
             try {
@@ -172,9 +214,12 @@ const crawler = new PlaywrightCrawler({
             }
         }
 
+        const seenReviewIds = new Set();
         for (const review of reviews) {
             const currentCount = pushedPerPlace.get(placeKey) ?? 0;
             if (currentCount >= maxReviews) break;
+            if (review.reviewId && seenReviewIds.has(review.reviewId)) continue;
+            if (review.reviewId) seenReviewIds.add(review.reviewId);
             if (validRatings.size > 0 && !validRatings.has(String(review.rating))) continue;
             if (language && review.language && review.language !== language) continue;
 
@@ -270,14 +315,46 @@ async function extractPlaceMeta(page) {
     }).catch(() => null);
 }
 
-async function clickReviewsTab(page) {
-    const tab = await page.$('button[aria-label*="Reviews" i][role="tab"]')
-        || await page.$('button[jsaction*="pane.rating.moreReviews"]')
-        || await page.$('button:has-text("Reviews")');
-    if (tab) {
-        await tab.click().catch(() => {});
-        await page.waitForTimeout(2500);
+async function acceptConsent(page) {
+    // Google shows the consent wall on consent.google.com or as an
+    // interstitial dialog. Click the "Accept all" button if present.
+    const url = page.url();
+    if (!/consent/.test(url) && !(await page.$('form[action*="consent"]').catch(() => null))) {
+        return;
     }
+    const candidates = [
+        'button[aria-label*="Accept all" i]',
+        'button:has-text("Accept all")',
+        'button:has-text("I agree")',
+        'button:has-text("Alle akzeptieren")',
+        'form[action*="consent"] button[type="submit"]',
+    ];
+    for (const sel of candidates) {
+        const btn = await page.$(sel).catch(() => null);
+        if (btn) {
+            await btn.click().catch(() => {});
+            await page.waitForTimeout(3000);
+            return;
+        }
+    }
+}
+
+async function clickReviewsTab(page) {
+    // Already on the reviews feed? Nothing to do.
+    if (await page.$('div[role="feed"]').catch(() => null)) return;
+
+    // The reviews tab is a [role="tab"] button. Its aria-label in English is
+    // "Reviews for <name>" on place pages. Wait up to 10s for it to render.
+    const tab = await page.waitForSelector(
+        'button[role="tab"][aria-label*="Reviews" i], button[jsaction*="pane.rating.moreReviews"], button[jsaction*="reviewChart.moreReviews"]',
+        { timeout: 10000 },
+    ).catch(() => null);
+
+    if (!tab) return;
+    await tab.click().catch(() => {});
+    // Wait for the reviews feed panel to populate.
+    await page.waitForSelector('div[role="feed"]', { timeout: 15000 }).catch(() => {});
+    await page.waitForTimeout(1500);
 }
 
 async function setSortOrder(page, sortBy) {
@@ -367,8 +444,12 @@ async function scrollAndCollectReviews(page, maxReviews) {
             const nameEl = card.querySelector('div.d4r55, div[class*="d4r55"]');
             const profileEl = card.querySelector('button[data-review-id] img, a[class*="WNxzHc"] img');
             const reviewerReviewCountEl = card.querySelector('div.RfnDt, div[class*="RfnDt"]');
-            const photos = Array.from(card.querySelectorAll('button[aria-label*="Photo" i] img'))
-                .map((img) => img.getAttribute('src'))
+            // Photo buttons have aria-label like "Photo 1" or "Review photo".
+            // Exclude the reviewer-profile-link button whose aria-label is
+            // "Photo of <name>" — that wraps the profile avatar, not a review photo.
+            const photos = Array.from(card.querySelectorAll('button[aria-label*="Photo" i]'))
+                .filter((btn) => !/^Photo of /i.test(btn.getAttribute('aria-label') || ''))
+                .map((btn) => btn.querySelector('img')?.getAttribute('src'))
                 .filter(Boolean)
                 .slice(0, 20);
             const ownerResponse = parseOwnerResponse(card);
