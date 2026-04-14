@@ -1,34 +1,34 @@
-# Google Reviews Export and Local Business Reputation Monitor
+# Google Reviews Scraper and Export Tool for Google Maps
 
-Download every Google review for any business into a clean JSON or CSV file. Star ratings, full review text, reviewer names, review dates, photos, owner responses, and aggregate ratings for your business and your competitors.
+Export every Google review for any business into a clean JSON, CSV, or Excel file. Pull star ratings, full review text, reviewer names, dates, photos, owner responses, and aggregate ratings for your business and every competitor. Works past the 5 review cap of the official Google Places API.
 
-Built for local business owners, multi location brands, agencies, and BI teams who need Google review data without paying for a reputation SaaS or hitting the Places API 5 review cap.
+Built for local business owners, multi location chains, marketing agencies, and BI teams who need Google Maps review data without a $400 per month reputation SaaS.
 
 ---
 
-## Who uses this and why
+## Who uses this Google reviews scraper
 
 ```mermaid
 flowchart TD
-    A[Local business owners] -->|Catch bad reviews<br/>before they snowball| D[Google Review<br/>Data]
-    B[Multi location chains] -->|Compare stores<br/>across cities| D
-    C[Agencies] -->|Client ready reports<br/>without Yext or Podium| D
-    R[BI teams] -->|Feed sentiment models<br/>real review text| D
+    A[Local business owner] -->|Catch bad reviews<br/>before they snowball| D[Google Maps<br/>Review Data]
+    B[Multi location chain] -->|Rank every store<br/>against its city| D
+    C[Marketing agency] -->|Client reputation<br/>reports in minutes| D
+    R[BI analyst] -->|Feed sentiment models<br/>real review text| D
     D --> E[Weekly reputation report]
-    D --> F[Location vs location ranking]
+    D --> F[Store vs store ranking]
     D --> G[Complaint triage queue]
 ```
 
-| Role | What this gives you |
+| Role | What the export unlocks |
 |---|---|
-| **Local business owner** | Weekly review volume, star trends, owner reply coverage |
-| **Multi location brand** | Every store's reviews in one dataset, grouped by city |
-| **Agency** | Client reputation reports pulled in minutes, not days |
+| **Local business owner** | Weekly star trend, 1 star spike alerts, owner reply coverage |
+| **Multi location chain** | Every store's reviews in one dataset, grouped by city |
+| **Marketing agency** | Client reputation reports pulled in minutes, not days |
 | **BI analyst** | Clean JSON or CSV feed for sentiment models and dashboards |
 
 ---
 
-## How it works
+## How the Google reviews export works
 
 ```mermaid
 flowchart LR
@@ -36,16 +36,46 @@ flowchart LR
     B --> C[Click Reviews tab]
     C --> D[Scroll reviews panel]
     D --> E[Expand See more]
-    E --> F[(JSON, CSV, Excel)]
+    E --> F[(JSON / CSV / Excel)]
 ```
 
-Opens each Google Maps listing in a real browser, clicks the Reviews tab, applies your sort order, and scrolls the reviews panel until your cap is reached. Residential proxies keep you past Google's anti bot defenses.
+The actor opens each Google Maps listing in a real browser, clicks the Reviews tab, applies your sort order, and scrolls the panel until your review cap is reached. Residential proxies keep every run past Google's anti bot defenses.
+
+---
+
+## Google Places API vs this scraper
+
+```mermaid
+flowchart LR
+    subgraph Official[Google Places API]
+        A1[Max 5 reviews<br/>per business]
+        A2[No sort control]
+        A3[Costs per request]
+    end
+    subgraph Actor[This actor]
+        B1[Every review<br/>on the Maps page]
+        B2[Sort by newest,<br/>lowest, highest]
+        B3[$0.006 per review]
+    end
+    Official -.-> X[Choose based on<br/>review volume]
+    Actor --> X
+```
+
+| Feature | Places API | This actor |
+|---|---|---|
+| Reviews per business | 5 | Full history |
+| Sort order | Fixed | Newest, most relevant, highest, lowest |
+| Filter by star rating | No | Yes |
+| Filter by language | No | Yes |
+| Photo URLs | Limited | Yes |
+| Owner responses | No | Yes |
+| Price | Per request | $0.006 per review, first 100 free |
 
 ---
 
 ## Quick start
 
-Export 200 recent reviews for one restaurant:
+Export 200 recent Google reviews for one restaurant:
 
 ```bash
 curl -X POST "https://api.apify.com/v2/acts/scrapemint~google-reviews-intelligence/run-sync-get-dataset-items?token=YOUR_TOKEN" \
@@ -57,7 +87,7 @@ curl -X POST "https://api.apify.com/v2/acts/scrapemint~google-reviews-intelligen
   }'
 ```
 
-Compare 3 chain locations, pulling only complaints:
+Pull complaints only across 3 chain locations:
 
 ```json
 {
@@ -71,7 +101,7 @@ Compare 3 chain locations, pulling only complaints:
 }
 ```
 
-Or search by business name instead of pasting URLs:
+Search by business name and city instead of pasting URLs:
 
 ```json
 {
@@ -107,7 +137,7 @@ Or search by business name instead of pasting URLs:
 }
 ```
 
-Every record carries both the review fields and the business rollup, so multi location pulls group cleanly in any spreadsheet.
+Every record carries both the review fields and the business rollup, so multi location exports group cleanly by `businessName` in any spreadsheet.
 
 ---
 
@@ -115,19 +145,19 @@ Every record carries both the review fields and the business rollup, so multi lo
 
 | Field | Type | Default | What it does |
 |---|---|---|---|
-| `placeUrls` | array | `[]` | Google Maps place URLs. |
-| `placeUrl` | string | `null` | Single URL shortcut. |
-| `searchQueries` | array | `[]` | Business name plus city. Resolves to the first Maps match. |
-| `maxReviews` | integer | `500` | Hard cap per business. Controls cost. |
+| `placeUrls` | array | `[]` | Google Maps place URLs |
+| `placeUrl` | string | `null` | Single URL shortcut |
+| `searchQueries` | array | `[]` | Business name plus city, resolves to the first Maps match |
+| `maxReviews` | integer | `500` | Hard cap per business, controls cost |
 | `sortBy` | string | `NEWEST` | `NEWEST`, `MOST_RELEVANT`, `HIGHEST_RATING`, `LOWEST_RATING` |
-| `filterByRating` | array | `[]` | Ratings to keep (e.g. `["1","2"]`). |
-| `language` | string | `""` | Filter by language code (`en`, `es`, `fr`, `de`). |
+| `filterByRating` | array | `[]` | Ratings to keep, e.g. `["1","2"]` |
+| `language` | string | `""` | Filter by language code (`en`, `es`, `fr`, `de`) |
 
 ---
 
 ## Pricing
 
-Pay per review. Free tier lets you verify the output before spending anything.
+Pay per review. First 100 reviews every run are free so you can verify the output before spending.
 
 | Tier | Price | Best for |
 |---|---|---|
@@ -138,7 +168,7 @@ Pay per review. Free tier lets you verify the output before spending anything.
 
 ---
 
-## Compare locations in one run
+## Benchmark every location in one run
 
 ```mermaid
 flowchart LR
@@ -150,16 +180,7 @@ flowchart LR
     E --> F[Store vs store<br/>ranking report]
 ```
 
-Every record includes `businessName`, `businessAddress`, and `businessAggregateRating`, so grouping by location takes one pivot table.
-
----
-
-## Common workflows
-
-- **Weekly reputation report.** Cron this actor. Diff the latest run. Email the owner when 1 or 2 star volume spikes.
-- **Multi location benchmarking.** Pull all your stores plus 3 competitors. Sort by stars. Show ops which locations are slipping.
-- **Complaint triage.** Push 1 and 2 star reviews into your helpdesk so CS sees issues before they spread.
-- **Marketing copy mining.** Search 5 star reviews for the exact phrases customers use. Reuse them in ads and landing pages.
+Every record carries `businessName`, `businessAddress`, and `businessAggregateRating`, so a pivot table turns multi location exports into a city by city ranking in seconds.
 
 ---
 
@@ -174,32 +195,32 @@ Every record includes `businessName`, `businessAddress`, and `businessAggregateR
 
 ## Frequently asked questions
 
-**How do I download Google reviews to a CSV file?**
+**How do I scrape Google reviews into a CSV file?**
 Run this actor with a Google Maps place URL and a review cap. Export the dataset as CSV from the Apify console or pull it via the API.
 
-**Is there a Google Reviews API alternative that returns more than 5 reviews?**
-Yes. The official Places API caps results at 5 reviews per business and charges per request. This actor pulls the full review history from the public Maps UI for cents per run.
+**Is there a Google Reviews API alternative with more than 5 reviews?**
+Yes. The official Google Places API caps results at 5 reviews per business. This actor pulls the full review history from the public Maps UI for pennies per run.
 
 **How do I export my Google My Business reviews?**
-Paste your business's Google Maps URL into `placeUrl` or `placeUrls`. The actor pulls every review the public page shows, in the sort order you pick.
+Paste your business's Google Maps URL into `placeUrl` or `placeUrls`. The actor pulls every review the public page shows in your chosen sort order.
 
-**How do I monitor Google reviews without paying for Yext or Podium?**
-Schedule this actor weekly against your Maps URL. Diff the output against last week in a spreadsheet. Replaces a $300+ monthly subscription.
+**How do I monitor Google reviews without Yext or Podium?**
+Schedule this actor weekly. Diff the latest export against last week in a spreadsheet. Replaces a $300+ monthly subscription.
 
 **Can I compare multiple business locations in one run?**
 Yes. Pass every URL in `placeUrls`. Every record includes `businessName` and `businessAddress` for grouping.
 
 **How do I analyze only negative Google reviews?**
-Set `filterByRating` to `["1", "2"]` to pull just 1 and 2 star reviews.
+Set `filterByRating` to `["1","2"]` to pull only 1 and 2 star reviews.
 
-**Does this work for any kind of business?**
-Yes. Restaurants, hotels, retail, services, healthcare, any business with a Google Maps listing.
+**Does this scraper work for any kind of business?**
+Yes. Restaurants, hotels, retail, services, healthcare, any listing that appears on Google Maps.
 
 **Can I search by business name instead of pasting a URL?**
-Yes. Use `searchQueries` with "Business Name City". Each query resolves to the first Maps match.
+Yes. Use `searchQueries` with `Business Name City`. Each query resolves to the first Maps match.
 
 **How fresh is the data?**
 Live at query time. Every run pulls straight from Google Maps.
 
 **Why residential proxies?**
-Google Maps blocks datacenter IPs within a few requests. Residential proxies keep runs clean. The actor ships with residential defaults.
+Google Maps blocks datacenter IPs within a few requests. Residential proxies keep runs clean, and the actor ships with residential defaults.
