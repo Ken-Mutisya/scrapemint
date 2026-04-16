@@ -1,0 +1,19 @@
+{
+  "actorSpecification": 1,
+  "name": "yelp-review-intelligence",
+  "title": "Yelp Review Export and Local Business Reputation Monitor",
+  "description": "For restaurant groups, franchise operators, agencies, and local SEO consultants. Pulls every Yelp review for any business with rating, full text, reviewer profile, photos, vote counts, and owner responses. Monitor reputation and benchmark competitors without Podium or Yext.",
+  "version": "0.1",
+  "buildTag": "latest",
+  "meta": {
+    "templateId": "js-crawlee-playwright"
+  },
+  "input": "./input_schema.json",
+  "dockerfile": "./Dockerfile",
+  "readme": "../README.md",
+  "icon": "./icon.svg",
+  "categories": [
+    "ECOMMERCE",
+    "MARKETING"
+  ]
+}
