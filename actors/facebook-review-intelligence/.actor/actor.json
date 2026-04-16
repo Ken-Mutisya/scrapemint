@@ -1,0 +1,19 @@
+{
+  "actorSpecification": 1,
+  "name": "facebook-review-intelligence",
+  "title": "Facebook Review Export and Business Reputation Monitor",
+  "description": "For local businesses, agencies, and franchise operators. Pulls every Facebook recommendation for any business page with reviewer name, text, date, likes, and comment count. Monitor reputation and benchmark competitors without a SaaS subscription.",
+  "version": "0.1",
+  "buildTag": "latest",
+  "meta": {
+    "templateId": "js-crawlee-playwright"
+  },
+  "input": "./input_schema.json",
+  "dockerfile": "./Dockerfile",
+  "readme": "../README.md",
+  "icon": "./icon.svg",
+  "categories": [
+    "BUSINESS",
+    "MARKETING"
+  ]
+}
