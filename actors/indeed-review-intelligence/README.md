@@ -214,6 +214,45 @@ flowchart LR
 
 ---
 
+## Cross platform review pipeline
+
+```mermaid
+flowchart LR
+    subgraph Employer[Employer Reviews]
+        A1[Indeed]
+    end
+    subgraph Product[Product Reviews]
+        B1[Amazon]
+    end
+    subgraph Local[Local Business]
+        C1[Google Maps]
+        C2[Facebook]
+        C3[Yelp]
+    end
+    subgraph Travel[Hospitality]
+        D1[TripAdvisor]
+        D2[Booking.com]
+        D3[Airbnb]
+    end
+    subgraph Trust[Brand Trust]
+        E1[Trustpilot]
+    end
+    A1 --> F[(Unified review<br/>database)]
+    B1 --> F
+    C1 --> F
+    C2 --> F
+    C3 --> F
+    D1 --> F
+    D2 --> F
+    D3 --> F
+    E1 --> F
+    F --> G[Cross platform<br/>reputation dashboard]
+```
+
+Feed Indeed employer reviews into the same pipeline as Google, Amazon, Yelp, and six other platforms. One export format across all nine actors, so your BI tool or spreadsheet can rank reputation across every review source.
+
+---
+
 ## Related tools in the review intelligence suite
 
 * [**Google Reviews Intelligence**](https://apify.com/scrapemint/google-reviews-intelligence): Google Maps reviews with full history export
@@ -266,3 +305,12 @@ Indeed uses Cloudflare protection. Datacenter proxies get challenged within a fe
 
 **What does "Attention Required" or "Just a moment" mean in the logs?**
 Cloudflare detected the request as suspicious and served a challenge page. Switch to residential proxies in the input. The actor logs a warning and skips the blocked page.
+
+**How do I download Indeed reviews to Excel?**
+Run the actor, then open your dataset in the Apify console. Click "Export" and choose Excel. You get one row per review with all fields: rating, pros, cons, job title, employment status, location, date, and helpful votes.
+
+**Can I track Indeed review sentiment over time?**
+Schedule the actor to run weekly or monthly. Each run captures a `scrapedAt` timestamp. Append each export to your master file and chart average ratings, pros keywords, or cons keywords over time to spot trends.
+
+**How are Indeed reviews different from Glassdoor reviews?**
+Indeed reviews split feedback into separate "Pros" and "Cons" fields, include helpful vote counts, and show employer responses. This actor exports all of those as structured data. Glassdoor reviews are on a different platform and require a separate tool.
