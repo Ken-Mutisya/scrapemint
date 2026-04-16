@@ -1,0 +1,19 @@
+{
+  "actorSpecification": 1,
+  "name": "amazon-review-intelligence",
+  "title": "Amazon Product Review Export and Sentiment Monitor",
+  "description": "For ecommerce sellers, Amazon FBA operators, DTC brands, and product researchers. Pulls every Amazon review for any product with star rating, title, full text, verified purchase flag, helpful votes, reviewer name, images, and date. Works across 10 Amazon domains.",
+  "version": "0.1",
+  "buildTag": "latest",
+  "meta": {
+    "templateId": "js-crawlee-playwright"
+  },
+  "input": "./input_schema.json",
+  "dockerfile": "./Dockerfile",
+  "readme": "../README.md",
+  "icon": "./icon.svg",
+  "categories": [
+    "ECOMMERCE",
+    "MARKETING"
+  ]
+}

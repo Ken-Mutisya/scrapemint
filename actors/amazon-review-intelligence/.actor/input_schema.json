@@ -1,0 +1,93 @@
+{
+  "title": "Amazon Review Intelligence Input",
+  "type": "object",
+  "schemaVersion": 1,
+  "properties": {
+    "productUrls": {
+      "title": "Amazon product or review URLs",
+      "type": "array",
+      "description": "Product page URLs or review page URLs. The actor extracts the ASIN automatically. Example: https://www.amazon.com/dp/B0D1XD1ZV3",
+      "editor": "requestListSources",
+      "prefill": [
+        {
+          "url": "https://www.amazon.com/dp/B0D1XD1ZV3"
+        }
+      ]
+    },
+    "asins": {
+      "title": "ASINs (alternative to URLs)",
+      "type": "string",
+      "description": "Comma separated ASINs. Used only if productUrls is empty. Example: B0D1XD1ZV3,B09V3KXJPB",
+      "editor": "textfield"
+    },
+    "maxReviews": {
+      "title": "Maximum reviews per product",
+      "type": "integer",
+      "description": "Hard cap per ASIN. Amazon shows up to ~100 reviews per sort order. Set higher to combine multiple sort passes.",
+      "default": 100,
+      "minimum": 1,
+      "maximum": 1000
+    },
+    "sortBy": {
+      "title": "Sort reviews by",
+      "type": "string",
+      "description": "Review sort order.",
+      "default": "RECENT",
+      "enum": [
+        "RECENT",
+        "HELPFUL"
+      ]
+    },
+    "filterByRating": {
+      "title": "Filter by star rating",
+      "type": "string",
+      "description": "Only return reviews with this star rating. Leave empty for all ratings.",
+      "default": "",
+      "enum": [
+        "",
+        "1",
+        "2",
+        "3",
+        "4",
+        "5"
+      ]
+    },
+    "verifiedOnly": {
+      "title": "Verified purchases only",
+      "type": "boolean",
+      "description": "Only return reviews marked as verified purchases.",
+      "default": false
+    },
+    "amazonDomain": {
+      "title": "Amazon domain",
+      "type": "string",
+      "description": "Which Amazon marketplace to scrape.",
+      "default": "amazon.com",
+      "enum": [
+        "amazon.com",
+        "amazon.co.uk",
+        "amazon.de",
+        "amazon.fr",
+        "amazon.it",
+        "amazon.es",
+        "amazon.ca",
+        "amazon.co.jp",
+        "amazon.in",
+        "amazon.com.au"
+      ]
+    },
+    "proxyConfiguration": {
+      "title": "Proxy configuration",
+      "type": "object",
+      "description": "Apify proxy settings. Amazon blocks datacenter IPs. Use residential proxies if you see CAPTCHAs.",
+      "editor": "proxy",
+      "prefill": {
+        "useApifyProxy": true,
+        "apifyProxyGroups": [
+          "BUYPROXIES94952"
+        ]
+      }
+    }
+  },
+  "required": []
+}
