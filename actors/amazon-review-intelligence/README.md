@@ -236,6 +236,17 @@ Every record includes `asin`, `productTitle`, and `averageRating`, so grouping i
 
 ---
 
+## From reviews to product decisions in 3 steps
+
+```mermaid
+flowchart LR
+    A[Scrape reviews<br/>for your ASIN +<br/>3 competitors] --> B[Filter by 1 and 2<br/>star ratings]
+    B --> C[Read the top<br/>complaints]
+    C --> D1[Fix your product<br/>before returns spike]
+    C --> D2[Steal competitor<br/>praise for your listing]
+    C --> D3[Feed PPC headlines<br/>with real customer words]
+```
+
 ## Common workflows
 
 - **Weekly complaint triage.** Schedule this actor on your own ASIN every Monday. Pull only 1 star reviews. Fix the top complaint before it snowballs into a listing demotion.
@@ -257,6 +268,27 @@ Every record includes `asin`, `productTitle`, and `averageRating`, so grouping i
 * [**Airbnb Market Intelligence**](https://apify.com/scrapemint/airbnb-market-intelligence): rental pricing and guest review data
 
 Eight actors covering Amazon, Google, Facebook, Yelp, TripAdvisor, Booking, Trustpilot, and Airbnb.
+
+---
+
+## Monitor reviews across 8 platforms in one pipeline
+
+```mermaid
+flowchart TD
+    AM[Amazon Reviews] --> R[Unified<br/>Review Dataset]
+    G[Google Reviews] --> R
+    F[Facebook Reviews] --> R
+    Y[Yelp Reviews] --> R
+    T[TripAdvisor Reviews] --> R
+    B[Booking Reviews] --> R
+    TP[Trustpilot Reviews] --> R
+    A[Airbnb Data] --> R
+    R --> D1[Cross platform<br/>sentiment report]
+    R --> D2[Platform by platform<br/>comparison]
+    R --> D3[Single source of truth<br/>for every review]
+```
+
+Run all eight actors on the same brand or product category. Merge the datasets. One spreadsheet with every review from every platform. No SaaS subscription needed.
 
 ---
 
@@ -288,6 +320,12 @@ Yes. Paste comma separated ASINs into the `asins` field. The actor builds the co
 
 **How do I find competitor product language for my listing?**
 Pull 5 star reviews for the top 3 competitors in your category. Search the text for recurring praise phrases. Use those exact words in your bullet points and A+ content.
+
+**How do I download Amazon reviews for my product?**
+Paste your product URL into `productUrls` or type the ASIN into the `asins` field. Press Run. When the actor finishes, click Export in the Apify console and choose CSV, Excel, or JSON.
+
+**How do I monitor Amazon reviews for my FBA product automatically?**
+Schedule this actor on the Apify platform to run weekly or daily. Each run exports the latest reviews. Diff against the previous export to catch new complaints before they affect your listing rank.
 
 **How fresh is the data?**
 Live at query time. Every run pulls straight from Amazon.
