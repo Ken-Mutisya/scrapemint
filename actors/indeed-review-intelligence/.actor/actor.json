@@ -1,0 +1,19 @@
+{
+  "actorSpecification": 1,
+  "name": "indeed-review-intelligence",
+  "title": "Indeed Company Review Export and Employer Reputation Monitor",
+  "description": "For HR teams, recruiters, employer branding agencies, and job seekers. Pulls every Indeed company review with star rating, pros, cons, job title, employment status, location, date, and helpful votes. Monitor employer reputation and benchmark competitors.",
+  "version": "0.1",
+  "buildTag": "latest",
+  "meta": {
+    "templateId": "js-crawlee-playwright"
+  },
+  "input": "./input_schema.json",
+  "dockerfile": "./Dockerfile",
+  "readme": "../README.md",
+  "icon": "./icon.svg",
+  "categories": [
+    "BUSINESS",
+    "MARKETING"
+  ]
+}
