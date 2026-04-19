@@ -1,0 +1,71 @@
+{
+  "title": "App Review Intelligence Input",
+  "type": "object",
+  "schemaVersion": 1,
+  "properties": {
+    "appUrls": {
+      "title": "App Store or Google Play URLs",
+      "type": "array",
+      "description": "Paste iOS App Store or Google Play Store URLs. The actor auto-detects the platform. Example: https://apps.apple.com/us/app/instagram/id389801252  or  https://play.google.com/store/apps/details?id=com.instagram.android",
+      "editor": "requestListSources",
+      "prefill": [
+        { "url": "https://apps.apple.com/us/app/instagram/id389801252" },
+        { "url": "https://play.google.com/store/apps/details?id=com.instagram.android" }
+      ]
+    },
+    "maxReviewsPerApp": {
+      "title": "Maximum reviews per app",
+      "type": "integer",
+      "description": "Hard cap per app. iOS RSS feed returns at most 500 per country. Android via scraper returns up to a few thousand.",
+      "default": 500,
+      "minimum": 1,
+      "maximum": 10000
+    },
+    "iosCountries": {
+      "title": "iOS country storefronts",
+      "type": "array",
+      "description": "iOS reviews differ per country storefront. Leave empty to use 'us'. Example: us, gb, de, fr, jp.",
+      "editor": "stringList",
+      "default": ["us"]
+    },
+    "androidCountry": {
+      "title": "Android country",
+      "type": "string",
+      "description": "Two-letter country code for Google Play reviews.",
+      "default": "us",
+      "editor": "textfield"
+    },
+    "androidLanguage": {
+      "title": "Android language",
+      "type": "string",
+      "description": "Language code for Google Play reviews.",
+      "default": "en",
+      "editor": "textfield"
+    },
+    "sortBy": {
+      "title": "Sort reviews by",
+      "type": "string",
+      "description": "Sort order for Google Play reviews. iOS RSS is always most recent.",
+      "default": "NEWEST",
+      "enum": ["NEWEST", "MOST_RELEVANT", "RATING"],
+      "enumTitles": ["Newest first", "Most relevant", "By rating"]
+    },
+    "filterByRating": {
+      "title": "Filter by rating",
+      "type": "array",
+      "description": "Only return reviews with these star ratings. Valid values: 1, 2, 3, 4, 5. Leave empty for all.",
+      "editor": "stringList",
+      "default": []
+    },
+    "proxyConfiguration": {
+      "title": "Proxy configuration",
+      "type": "object",
+      "description": "Apify proxy settings. Datacenter proxies are enough for both iOS RSS and Play Store.",
+      "editor": "proxy",
+      "prefill": {
+        "useApifyProxy": true
+      }
+    }
+  },
+  "required": []
+}

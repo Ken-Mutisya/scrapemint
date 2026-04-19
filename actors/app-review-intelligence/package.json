@@ -1,0 +1,14 @@
+{
+  "name": "app-review-intelligence",
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Mobile App Review Intelligence: iOS App Store and Google Play Store review scraper.",
+  "main": "src/main.js",
+  "scripts": {
+    "start": "node src/main.js"
+  },
+  "dependencies": {
+    "apify": "^3.7.0",
+    "google-play-scraper": "^10.0.0"
+  }
+}
