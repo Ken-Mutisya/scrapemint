@@ -39,6 +39,7 @@ const {
     filterByRating = [],
     language = '',
     proxyConfiguration: proxyInput,
+    debugDump = false,
 } = input;
 
 const starts = [];
@@ -167,6 +168,52 @@ const crawler = new PlaywrightCrawler({
             };
         }).catch(() => ({}));
         log.info(`DOM diag: ${JSON.stringify(diag)}`);
+
+        if (debugDump && pageNum === 1) {
+            try {
+                const store = await Actor.openKeyValueStore();
+                const safeKey = `debug_${locationKey.replace(/[^a-zA-Z0-9_-]/g, '_')}`;
+                const html = await page.content();
+                await store.setValue(`${safeKey}_html`, html, { contentType: 'text/html' });
+
+                const scriptDump = await page.evaluate(() => {
+                    const result = {};
+                    const nextEl = document.querySelector('#__NEXT_DATA__');
+                    if (nextEl) result.__NEXT_DATA__ = nextEl.textContent;
+
+                    for (const s of document.querySelectorAll('script[type="application/json"]')) {
+                        const id = s.id || `script_${Object.keys(result).length}`;
+                        result[`json_${id}`] = (s.textContent ?? '').slice(0, 2000000);
+                    }
+
+                    const inlineHits = [];
+                    for (const s of document.querySelectorAll('script:not([src]):not([type])')) {
+                        const t = s.textContent ?? '';
+                        if (/window\.__(APOLLO_STATE|INITIAL_STATE|PRELOADED_STATE|REDUX_STATE)__/.test(t)
+                            || /__REDUX_STATE__\s*=/.test(t)
+                            || /"reviews"\s*:\s*\[/.test(t)) {
+                            inlineHits.push(t.slice(0, 500000));
+                        }
+                    }
+                    if (inlineHits.length) result.inline_state = inlineHits.join('\n\n---SCRIPT-BREAK---\n\n');
+
+                    const globals = {};
+                    for (const name of ['__APOLLO_STATE__', '__INITIAL_STATE__', '__PRELOADED_STATE__', '__REDUX_STATE__']) {
+                        try {
+                            if (window[name]) globals[name] = JSON.stringify(window[name]).slice(0, 1000000);
+                        } catch {}
+                    }
+                    if (Object.keys(globals).length) result.window_globals = globals;
+
+                    return result;
+                }).catch((err) => ({ _err: err?.message ?? 'eval failed' }));
+
+                await store.setValue(`${safeKey}_state`, scriptDump);
+                log.info(`Debug dump saved: ${safeKey}_html + ${safeKey}_state (${Object.keys(scriptDump).length} keys)`);
+            } catch (err) {
+                log.warning(`Debug dump failed: ${err?.message}`);
+            }
+        }
 
         const reviews = await extractReviewCards(page);
         log.info(`Page ${pageNum} returned ${reviews.length} review cards.`);
@@ -364,144 +411,187 @@ async function expandReadMore(page) {
 }
 
 async function extractReviewCards(page) {
-    // TripAdvisor's DOM changes often and differs across A/B buckets. Try a
-    // list of known selectors, then fall back to a structural heuristic:
-    // find every bubble rating on the page, walk up to its owning card, and
-    // extract fields from there.
-    const cardSelectors = [
-        '[data-automation="reviewCard"]',
-        '[data-automation="WebPresentation_SingleFlexCardReviewItem"]',
-        '[data-automation*="ReviewItem"]',
-        '[data-test-target="HR_CC_CARD"]',
-        '[data-test-target*="review-card"]',
-        '.review-container',
-        'div[data-reviewid]',
-    ];
+    // Primary path: TripAdvisor 2026 DOM. Reviews render as
+    // <div data-test-target="HR_CC_CARD"> on hotel/attraction/restaurant pages.
+    // Each card contains:
+    //   - title+link at div[data-test-target="review-title"] a
+    //     (href holds /ShowUserReviews-g{G}-d{D}-r{REVIEW_ID}-...)
+    //   - rating at svg[data-automation="bubbleRatingImage"] with inner
+    //     <title>N of 5 bubbles</title>
+    //   - body text inside a .fIrGe container (with webkit-line-clamp)
+    //   - reviewer at a[href^="/Profile/"] plus nearby "wrote a review <date>"
+    //   - "Date of stay:" and "Trip type:" labelled pairs
+    const primary = await page.$$eval('[data-test-target="HR_CC_CARD"]', (allCards) => {
+        // HR_CC_CARD is reused across the page (filter chips, ratings widgets,
+        // review cards). A genuine review card always contains a
+        // /ShowUserReviews link inside data-test-target="review-title".
+        const cards = allCards.filter((c) =>
+            c.querySelector('[data-test-target="review-title"] a[href*="/ShowUserReviews-"]'),
+        );
+        const textOf = (el) => el?.textContent?.trim() || null;
+        const pickText = (root, sels) => {
+            for (const s of sels) {
+                const el = root?.querySelector?.(s);
+                const t = el?.textContent?.trim();
+                if (t) return t;
+            }
+            return null;
+        };
 
-    for (const sel of cardSelectors) {
-        const cards = await page.$$eval(sel, (nodes) => {
-            const parseRating = (root) => {
-                // Rating sits on an element whose class or aria-label encodes the bubbles.
-                const labelEl = root.querySelector(
-                    '[class*="ui_bubble_rating"], svg[aria-label*="bubbles"], [aria-label*="of 5"]',
-                );
-                const aria = labelEl?.getAttribute?.('aria-label') ?? '';
-                const title = labelEl?.getAttribute?.('title') ?? '';
-                const cls = labelEl?.className ?? '';
-                // Classes look like "ui_bubble_rating bubble_50" meaning 5.0 stars.
-                let m = String(cls).match(/bubble_(\d+)/);
-                if (m) return Math.round(Number(m[1]) / 10);
-                m = (aria + ' ' + title).match(/([1-5])(?:\.0)?\s*(?:of|out of)\s*5/i);
-                if (m) return Number(m[1]);
-                return null;
-            };
+        const parseRating = (root) => {
+            const svg = root.querySelector('svg[data-automation="bubbleRatingImage"]');
+            const title = svg?.querySelector('title')?.textContent ?? '';
+            const m = title.match(/(\d+(?:\.\d+)?)\s*of\s*5/i);
+            if (m) return Math.round(Number(m[1]));
+            const aria = svg?.getAttribute('aria-label') ?? '';
+            const m2 = aria.match(/(\d+(?:\.\d+)?)\s*of\s*5/i);
+            if (m2) return Math.round(Number(m2[1]));
+            return null;
+        };
 
-            const pickText = (root, sels) => {
-                for (const s of sels) {
-                    const el = root.querySelector(s);
-                    const t = el?.textContent?.trim();
-                    if (t) return t;
+        const parseLabelValue = (root, label) => {
+            const labelEls = root.querySelectorAll('.F_ span, .F_');
+            for (const el of labelEls) {
+                const t = el.textContent?.trim() || '';
+                if (t.toLowerCase().startsWith(label.toLowerCase())) {
+                    const parent = el.closest('.f') || el.parentElement?.parentElement;
+                    if (!parent) continue;
+                    const spans = parent.querySelectorAll('span');
+                    for (const s of spans) {
+                        const st = s.textContent?.trim() || '';
+                        if (st && !st.toLowerCase().startsWith(label.toLowerCase())
+                            && !st.endsWith(':')) return st;
+                    }
                 }
-                return null;
-            };
+            }
+            return null;
+        };
 
-            return nodes.map((card) => {
-                const reviewId = card.getAttribute('data-reviewid')
-                    || card.querySelector('[data-reviewid]')?.getAttribute('data-reviewid')
-                    || null;
+        return cards.map((card) => {
+            const titleAnchor = card.querySelector('[data-test-target="review-title"] a');
+            const title = titleAnchor?.textContent?.trim() || null;
+            const href = titleAnchor?.getAttribute('href') || '';
+            const idMatch = href.match(/-r(\d+)-/);
+            const reviewId = idMatch ? idMatch[1] : null;
+            const reviewUrl = href
+                ? (href.startsWith('http') ? href : `https://www.tripadvisor.com${href}`)
+                : null;
 
-                const title = pickText(card, [
-                    '[data-test-target="review-title"] a',
-                    '[data-test-target="review-title"]',
-                    '[data-automation="reviewTitle"]',
-                    'a[href*="/ShowUserReviews"]',
-                    'div[class*="title"] a',
-                ]);
+            const rating = parseRating(card);
 
-                const text = pickText(card, [
+            // Body text: inner-most span under .fIrGe (the clamped container).
+            // Fall back to the container text itself.
+            let text = null;
+            const body = card.querySelector('.fIrGe');
+            if (body) {
+                const innerSpans = Array.from(body.querySelectorAll('span'))
+                    .map((s) => s.textContent?.trim() || '')
+                    .filter((t) => t.length > 30);
+                innerSpans.sort((a, b) => b.length - a.length);
+                text = innerSpans[0] || body.textContent?.trim() || null;
+            }
+            if (!text) {
+                text = pickText(card, [
                     '[data-test-target="review-text"]',
-                    '[data-automation="reviewText"]',
                     'q span',
                     'q',
-                    'div[class*="reviewText"] span',
-                    'div[class*="partial_entry"]',
                 ]);
+            }
 
-                const reviewerName = pickText(card, [
-                    '[data-test-target="member-info"] a',
-                    '[data-automation="reviewerName"]',
-                    'a[href*="/Profile/"]',
-                    'div[class*="info_text"] div',
-                ]);
+            // Reviewer: TA renders two /Profile/ anchors — the first wraps
+            // the avatar image (no text), the second wraps the displayed name.
+            // Prefer the anchor that actually has text content.
+            const profileAnchors = Array.from(card.querySelectorAll('a[href^="/Profile/"]'));
+            const namedAnchor = profileAnchors.find((a) => (a.textContent?.trim() || '').length > 0);
+            const profileAnchor = namedAnchor || profileAnchors[0] || null;
+            const reviewerName = namedAnchor?.textContent?.trim() || null;
+            const profileSlug = profileAnchor?.getAttribute('href')?.split('/Profile/')[1] || null;
+            const reviewerProfileUrl = profileAnchor
+                ? `https://www.tripadvisor.com${profileAnchor.getAttribute('href')}`
+                : null;
 
-                const reviewerLocation = pickText(card, [
-                    '[data-test-target="member-location"]',
-                    'div[class*="userLoc"]',
-                    'span[class*="default"][class*="small"]',
-                ]);
+            // "wrote a review Nov 2025" -> extract "Nov 2025"
+            let writtenDate = null;
+            const metaBlocks = card.querySelectorAll('.ZRBpD .biGQs, .ZRBpD > div');
+            for (const b of metaBlocks) {
+                const t = b.textContent?.trim() || '';
+                const m = t.match(/wrote a review\s+(.+)$/i);
+                if (m) { writtenDate = m[1].trim(); break; }
+            }
 
-                const writtenDate = pickText(card, [
-                    '[data-test-target="review-date"]',
-                    'span[class*="ratingDate"]',
-                    'span[class*="DateLabel"]',
-                    'div[class*="reviewDate"]',
-                ]);
+            // Contributions count ("3 contributions")
+            let contributions = null;
+            const contribEl = card.querySelector('.Mi');
+            if (contribEl) {
+                const m = contribEl.textContent?.trim().match(/(\d[\d,]*)/);
+                if (m) contributions = Number(m[1].replace(/,/g, ''));
+            }
 
-                const stayDate = pickText(card, [
-                    '[data-test-target="trip-date"]',
-                    'span[class*="stayDate"]',
-                    'div[class*="prw_reviews_stay_date"]',
-                ]);
+            const stayDate = parseLabelValue(card, 'Date of stay');
+            const tripType = parseLabelValue(card, 'Trip type');
 
-                const tripType = pickText(card, [
-                    '[data-test-target="trip-type"]',
-                    'span[class*="tripType"]',
-                    'div[data-prwidget-name="reviews_trip_type_labels"]',
-                ]);
+            // Owner response: TA renders it as a nested block with a heading
+            // like "Response from ... Manager" inside the same card.
+            let ownerResponseText = null;
+            let ownerResponseDate = null;
+            const cardText = card.textContent || '';
+            if (/Response from/i.test(cardText)) {
+                // Find the block containing "Response from" and take the
+                // next sibling text block as the response body.
+                const walker = document.createTreeWalker(card, NodeFilter.SHOW_ELEMENT);
+                let node = walker.currentNode;
+                while ((node = walker.nextNode())) {
+                    const t = node.textContent?.trim() || '';
+                    if (/^Response from/i.test(t) && t.length < 200) {
+                        // Look at following siblings of the parent.
+                        let sib = node.parentElement?.nextElementSibling;
+                        for (let i = 0; i < 3 && sib; i++) {
+                            const st = sib.textContent?.trim() || '';
+                            if (st.length > 40 && !/^Response from/i.test(st)) {
+                                ownerResponseText = st;
+                                break;
+                            }
+                            sib = sib.nextElementSibling;
+                        }
+                        const dateMatch = t.match(/Responded\s+(.+?)(?:$|\.)/i);
+                        if (dateMatch) ownerResponseDate = dateMatch[1].trim();
+                        break;
+                    }
+                }
+            }
 
-                const ownerResponseText = pickText(card, [
-                    '[data-test-target="owner-response"]',
-                    'div[class*="mgrRspnInline"]',
-                    'div[class*="ownerResponse"]',
-                ]);
+            // Helpful votes: the button labelled "Click to add helpful vote"
+            // has a numeric span as its only integer content.
+            let helpfulVotes = 0;
+            const helpfulBtn = card.querySelector('button[aria-label*="helpful vote" i]');
+            if (helpfulBtn) {
+                const m = helpfulBtn.textContent?.trim().match(/(\d+)/);
+                if (m) helpfulVotes = Number(m[1]);
+            }
 
-                const ownerResponseDate = pickText(card, [
-                    '[data-test-target="owner-response-date"]',
-                    'div[class*="mgrRspnInline"] span[class*="date"]',
-                ]);
+            return {
+                reviewId,
+                reviewUrl,
+                rating,
+                title,
+                text,
+                reviewerName,
+                reviewerProfileUrl,
+                reviewerSlug: profileSlug,
+                reviewerContributions: contributions,
+                writtenDate,
+                stayDate,
+                tripType,
+                language: null,
+                helpfulVotes,
+                hasOwnerResponse: !!ownerResponseText,
+                ownerResponseText,
+                ownerResponseDate,
+            };
+        }).filter((r) => r.reviewId || r.text || r.title);
+    }).catch(() => []);
 
-                const helpfulVotesText = pickText(card, [
-                    '[data-test-target="helpful-votes"]',
-                    'span[class*="helpfulValue"]',
-                    'span[class*="numHelp"]',
-                ]);
-                const helpfulVotes = Number(String(helpfulVotesText || '').replace(/[^0-9]/g, '')) || 0;
-
-                const langAttr = card.querySelector('[lang]')?.getAttribute('lang')
-                    || card.closest('[lang]')?.getAttribute('lang')
-                    || null;
-
-                return {
-                    reviewId,
-                    rating: parseRating(card),
-                    title,
-                    text,
-                    reviewerName,
-                    reviewerLocation,
-                    writtenDate,
-                    stayDate,
-                    tripType,
-                    language: langAttr,
-                    helpfulVotes,
-                    hasOwnerResponse: !!ownerResponseText,
-                    ownerResponseText,
-                    ownerResponseDate,
-                };
-            }).filter((r) => r.rating !== null || r.text);
-        }, sel).catch(() => []);
-
-        if (cards.length > 0) return cards;
-    }
+    if (primary.length > 0) return primary;
 
     // Structural fallback: locate every bubble rating on the page, walk up
     // to the nearest <li> or card container, then extract fields.

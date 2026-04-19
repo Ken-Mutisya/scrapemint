@@ -68,6 +68,12 @@
         ],
         "apifyProxyCountry": "US"
       }
+    },
+    "debugDump": {
+      "title": "Debug: dump rendered HTML and embedded JSON",
+      "type": "boolean",
+      "description": "Internal diagnostic flag. When true, saves the first page's rendered HTML and any embedded JSON state blocks to the key value store. Leave off for normal runs.",
+      "default": false
     }
   },
   "required": []
