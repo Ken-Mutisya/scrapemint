@@ -1,0 +1,20 @@
+{
+  "name": "upwork-opportunity-alert",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Freelance Lead Radar: Upwork opportunity filtering and client enrichment (Apify actor)",
+  "main": "src/main.js",
+  "scripts": {
+    "start": "node src/main.js",
+    "check": "node --check src/main.js",
+    "test": "node --test tests/*.js"
+  },
+  "dependencies": {
+    "apify": "^3.2.6",
+    "got-scraping": "^4.0.0"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

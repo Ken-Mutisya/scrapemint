@@ -1,0 +1,107 @@
+{
+  "title": "Freelance Lead Radar Input",
+  "type": "object",
+  "schemaVersion": 1,
+  "properties": {
+    "sessionCookies": {
+      "title": "Upwork session cookies (required)",
+      "type": "string",
+      "description": "Paste your Upwork cookies as a JSON array. Log into upwork.com in Chrome, install the Cookie Editor extension, and on the Upwork tab click Export, then JSON. Paste the full output here. Cookies last about 30 days before another export is needed.",
+      "editor": "textarea",
+      "isSecret": true
+    },
+    "feed": {
+      "title": "Feed source",
+      "type": "string",
+      "description": "Which Upwork feed to pull. BEST_MATCHES returns up to 30 personalized jobs. MOST_RECENT returns the 10 latest posts across Upwork. BOTH fetches both and dedupes by job id.",
+      "default": "BOTH",
+      "enum": ["BEST_MATCHES", "MOST_RECENT", "BOTH"],
+      "enumTitles": ["Best matches (personalized)", "Most recent (global)", "Both feeds"]
+    },
+    "keywords": {
+      "title": "Keywords (client side filter)",
+      "type": "string",
+      "description": "Space or comma separated keywords. A job matches if any keyword appears in its title, description, or skills. Leave blank to keep all jobs. Note: Upwork ignores keyword params on feed routes, so filtering runs locally after fetch.",
+      "editor": "textfield",
+      "prefill": "web scraping"
+    },
+    "jobType": {
+      "title": "Job type",
+      "type": "string",
+      "description": "Hourly, fixed price, or all.",
+      "default": "ALL",
+      "enum": ["ALL", "HOURLY", "FIXED"]
+    },
+    "experienceLevel": {
+      "title": "Experience level",
+      "type": "string",
+      "description": "Client's required experience level.",
+      "default": "ALL",
+      "enum": ["ALL", "ENTRY", "INTERMEDIATE", "EXPERT"]
+    },
+    "hourlyRateMin": {
+      "title": "Minimum hourly rate (USD)",
+      "type": "integer",
+      "description": "Filter out hourly jobs whose max budget is below this rate. 0 disables the filter.",
+      "default": 0,
+      "minimum": 0,
+      "maximum": 500
+    },
+    "fixedBudgetMin": {
+      "title": "Minimum fixed budget (USD)",
+      "type": "integer",
+      "description": "Filter out fixed jobs below this budget. 0 disables the filter.",
+      "default": 0,
+      "minimum": 0,
+      "maximum": 100000
+    },
+    "postedWithin": {
+      "title": "Posted within",
+      "type": "string",
+      "description": "Only return jobs posted within this window.",
+      "default": "DAY_7",
+      "enum": ["HOUR_24", "DAY_7", "DAY_30", "ANY"]
+    },
+    "paymentVerifiedOnly": {
+      "title": "Payment verified clients only",
+      "type": "boolean",
+      "description": "Skip jobs from clients without verified payment.",
+      "default": false
+    },
+    "minClientSpent": {
+      "title": "Minimum client lifetime spend (USD)",
+      "type": "integer",
+      "description": "Skip clients who have spent less than this on Upwork. 0 keeps all clients, including new ones.",
+      "default": 0,
+      "minimum": 0,
+      "maximum": 1000000
+    },
+    "clientCountries": {
+      "title": "Allowed client countries",
+      "type": "string",
+      "description": "Comma separated country names as shown on Upwork (for example: USA, Canada, United Kingdom, Australia). Leave blank to keep all.",
+      "editor": "textfield"
+    },
+    "maxJobs": {
+      "title": "Maximum jobs per run",
+      "type": "integer",
+      "description": "Hard cap on jobs pushed to the dataset per run. Controls cost.",
+      "default": 100,
+      "minimum": 1,
+      "maximum": 1000
+    },
+    "dedupe": {
+      "title": "Deduplicate across runs",
+      "type": "boolean",
+      "description": "Skip job ids already pushed on previous runs of this actor. Stores ids in the key value store under SEEN_UIDS. Turn off to return every job on every run.",
+      "default": true
+    },
+    "proxyConfiguration": {
+      "title": "Proxy configuration",
+      "type": "object",
+      "description": "Apify proxy settings. Leave blank by default. Residential proxies are only needed if requests start returning 403 from Upwork.",
+      "editor": "proxy"
+    }
+  },
+  "required": ["sessionCookies"]
+}

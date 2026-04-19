@@ -1,0 +1,9 @@
+node_modules/
+storage/
+recon/captured.jsonl
+recon/*.html
+recon/*.json
+.apify/
+*.log
+.env
+.env.*
