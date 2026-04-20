@@ -1,337 +1,208 @@
-# Amazon Review Scraper and Export Tool for Amazon Products
+# Amazon Review Scraper: Export Product Reviews to CSV, Excel, JSON
 
-Export every Amazon product review into a clean JSON, CSV, or Excel file. Pull star ratings, review titles, full text, verified purchase flags, helpful vote counts, reviewer names, dates, locations, and attached images for any product on 10 Amazon marketplaces.
+Scrape every Amazon product review into a clean CSV, Excel, or JSON file. Pull star ratings, full review text, titles, verified purchase flags, helpful votes, reviewer names, dates, locations, and images across 10 Amazon marketplaces. Pay per review. No subscription.
 
-Built for Amazon FBA sellers, ecommerce brands, product researchers, DTC companies, and marketing agencies who need Amazon review data without building a scraper from scratch or paying for a $35 per month subscription tool.
+**Keywords this actor is built for:** Amazon review scraper, scrape Amazon reviews, Amazon review API, Amazon review export, Amazon FBA review monitor, Amazon product reviews CSV, Amazon review tool.
 
 ---
 
-## Who uses this Amazon review scraper
+## What you get in 30 seconds
+
+```mermaid
+flowchart LR
+    A[Product URL<br/>or ASIN] --> B[Actor pulls<br/>review pages]
+    B --> C[Parse ratings, text,<br/>images, verified flag]
+    C --> D[JSON / CSV / Excel<br/>export]
+```
+
+Paste an ASIN. Set a review cap. Get every review field Amazon shows, in any format, across any Amazon domain.
+
+---
+
+## Who this Amazon review scraper is for
+
+| You are a... | You use this to... |
+|---|---|
+| **Amazon FBA seller** | Catch 1 and 2 star complaints before they tank your listing |
+| **Ecommerce brand** | Benchmark your product against 5 competitors in one dataset |
+| **DTC company** | Mine real customer language for ads, bullet points, A+ content |
+| **Marketing agency** | Pull review data for 20 client products in one session |
+| **Product researcher** | Read 1 star reviews for the top 3 products in a category, find the roadmap |
+
+---
+
+## How it works
 
 ```mermaid
 flowchart TD
-    A[Amazon FBA sellers] -->|Track complaints before<br/>they tank your listing| D[Amazon Review<br/>Data Export]
-    B[Ecommerce brands] -->|Benchmark your product<br/>against 5 competitors| D
-    C[Product researchers] -->|Mine real customer<br/>language for copy| D
-    R[Marketing agencies] -->|Client product reports<br/>in minutes| D
-    D --> E[Weekly complaint triage]
-    D --> F[Product vs product comparison]
-    D --> G[Review language mining]
+    A[Input: product URLs or ASINs] --> B[Build review page URL]
+    B --> C[Load server rendered HTML]
+    C --> D[Parse review cards from DOM]
+    D --> E[Paginate via pageNumber]
+    E --> F{Filters}
+    F --> G[Star rating]
+    F --> H[Verified only]
+    F --> I[Sort: Recent or Helpful]
+    G & H & I --> J[Apify dataset]
 ```
 
-| Role | What the export unlocks |
-|---|---|
-| **Amazon FBA seller** | Every 1 and 2 star review text so you can fix product issues before they snowball |
-| **Ecommerce brand** | Side by side review comparison against your top 5 competitors |
-| **Product researcher** | Real customer language for ad copy, listing optimization, and product development |
-| **DTC company** | Amazon reviews for your product plus private label competitors in one dataset |
-| **Marketing agency** | Pull review data for 20 client products in one session, generate reports from the same file |
-
----
-
-## How the Amazon review export works
-
-```mermaid
-flowchart LR
-    A[Amazon product URL<br/>or ASIN] --> B[Build review page URL]
-    B --> C[Load server rendered<br/>review HTML]
-    C --> D[Parse review cards<br/>from the DOM]
-    D --> E[Paginate via<br/>pageNumber param]
-    E --> F[(JSON / CSV / Excel)]
-```
-
-The actor takes your product URL or raw ASIN, builds the review listing page, and parses the server rendered HTML directly. Amazon renders reviews as static HTML, so extraction is fast and reliable. It paginates through `?pageNumber=N` until your review cap is reached or the reviews run out.
-
----
-
-## Amazon Product Advertising API vs this scraper
-
-```mermaid
-flowchart LR
-    subgraph Official[Amazon PA API]
-        A1[Zero reviews returned]
-        A2[Product data only]
-        A3[Requires affiliate<br/>account approval]
-    end
-    subgraph Actor[This actor]
-        B1[Every review on<br/>the product page]
-        B2[Full text, stars,<br/>images, votes]
-        B3[$0.006 per review]
-    end
-    Official -.-> X[Choose based on<br/>what you need]
-    Actor --> X
-```
-
-| Feature | Amazon PA API | This actor |
-|---|---|---|
-| Review data | None (not available) | Full review history |
-| Review text | Not returned | Complete text |
-| Star ratings | Not returned | 1 to 5 per review |
-| Helpful votes | Not returned | Yes |
-| Verified purchase flag | Not returned | Yes |
-| Reviewer images | Not returned | Yes |
-| Marketplaces | Limited | 10 Amazon domains |
-| Price | Affiliate approval required | $0.006 per review, first 50 free |
+1. Paste product URLs or ASINs. The actor extracts the ASIN automatically.
+2. Server rendered HTML is parsed directly, no headless browser needed, so it runs fast and cheap.
+3. Pagination walks `?pageNumber=N` until your cap or Amazon's ceiling.
+4. Results land in the dataset as JSON, exportable to CSV or Excel with one click.
 
 ---
 
 ## Quick start
 
-Export recent reviews for one Amazon product:
-
-```bash
-curl -X POST "https://api.apify.com/v2/acts/scrapemint~amazon-review-intelligence/run-sync-get-dataset-items?token=YOUR_TOKEN" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "productUrls": [
-      { "url": "https://www.amazon.com/dp/B0D1XD1ZV3" }
-    ],
-    "maxReviews": 100,
-    "sortBy": "RECENT"
-  }'
-```
-
-Compare your product against 3 competitors, pulling only 1 and 2 star reviews:
+**Export 100 recent reviews for one product:**
 
 ```json
 {
-  "productUrls": [
-    { "url": "https://www.amazon.com/dp/B0D1XD1ZV3" },
-    { "url": "https://www.amazon.com/dp/B09V3KXJPB" },
-    { "url": "https://www.amazon.com/dp/B0BSHF7WHW" },
-    { "url": "https://www.amazon.com/dp/B07FZ8S74R" }
-  ],
+  "productUrls": [{ "url": "https://www.amazon.com/dp/B0D1XD1ZV3" }],
+  "maxReviews": 100,
+  "sortBy": "RECENT"
+}
+```
+
+**Compare your product against 3 competitors, 1 star reviews only:**
+
+```json
+{
+  "asins": "B0D1XD1ZV3, B09V3KXJPB, B0BSHF7WHW, B07FZ8S74R",
   "maxReviews": 100,
   "filterByRating": "1"
 }
 ```
 
-Use ASINs directly instead of full URLs:
+**Scrape Amazon UK instead of US:**
 
 ```json
 {
-  "asins": "B0D1XD1ZV3, B09V3KXJPB, B0BSHF7WHW",
-  "maxReviews": 100,
-  "sortBy": "HELPFUL",
-  "verifiedOnly": true
-}
-```
-
-Scrape reviews from Amazon UK instead of the US store:
-
-```json
-{
-  "productUrls": [
-    { "url": "https://www.amazon.co.uk/dp/B0D1XD1ZV3" }
-  ],
+  "productUrls": [{ "url": "https://www.amazon.co.uk/dp/B0D1XD1ZV3" }],
   "maxReviews": 100,
   "amazonDomain": "amazon.co.uk"
 }
 ```
 
----
+Or call it from the command line:
 
-## What one review record looks like
-
-```json
-{
-  "rating": 5,
-  "reviewTitle": "Best purchase this year",
-  "reviewText": "Battery lasts 2 full days with heavy use. Screen is bright enough for outdoor reading. Camera is solid for the price point.",
-  "reviewerName": "Tech Enthusiast",
-  "reviewerUrl": "https://www.amazon.com/gp/profile/amzn1.account.ABC123",
-  "reviewDate": "March 15, 2026",
-  "reviewLocation": "United States",
-  "isVerifiedPurchase": true,
-  "helpfulVotes": 42,
-  "imageCount": 3,
-  "images": [
-    "https://images-na.ssl-images-amazon.com/images/I/71abc123.jpg"
-  ],
-  "asin": "B0D1XD1ZV3",
-  "productTitle": "Samsung Galaxy S26 Ultra 256GB",
-  "productPrice": "$1,199.99",
-  "averageRating": 4.4,
-  "totalReviewCount": 8472,
-  "amazonDomain": "amazon.com",
-  "productUrl": "https://www.amazon.com/dp/B0D1XD1ZV3",
-  "scrapedAt": "2026-04-16T18:30:01.112Z"
-}
+```bash
+curl -X POST "https://api.apify.com/v2/acts/scrapemint~amazon-review-intelligence/run-sync-get-dataset-items?token=YOUR_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{"asins":"B0D1XD1ZV3","maxReviews":50}'
 ```
 
-Every record carries both the review fields and the product rollup, so multi product exports group cleanly by `productTitle` or `asin` in any spreadsheet.
-
 ---
 
-## Inputs
+## This scraper vs Amazon PA API vs SaaS tools
 
-| Field | Type | Default | What it does |
+```mermaid
+flowchart LR
+    P[Amazon PA API] --> X[Zero review data,<br/>affiliate approval]
+    S[Review SaaS tools] --> Y[$35 to $200 per month]
+    A[This Apify actor] --> Z[$0.006 per review,<br/>raw export]
+```
+
+| Feature | Amazon PA API | Review SaaS | This actor |
 |---|---|---|---|
-| `productUrls` | array | `[]` | Amazon product or review page URLs. The actor extracts the ASIN automatically. |
-| `asins` | string | `""` | Comma separated ASINs (alternative to URLs) |
-| `maxReviews` | integer | `100` | Hard cap per product. Controls cost. |
-| `sortBy` | string | `RECENT` | `RECENT` or `HELPFUL` |
-| `filterByRating` | string | `""` | Only return reviews with this star rating (`1`, `2`, `3`, `4`, or `5`) |
-| `verifiedOnly` | boolean | `false` | Only return verified purchase reviews |
-| `amazonDomain` | string | `amazon.com` | Which Amazon marketplace to scrape (10 domains supported) |
-| `proxyConfiguration` | object | Residential | Apify proxy settings |
+| Review text | Not returned | Yes, dashboard | Yes, raw export |
+| Star ratings | Not returned | Yes | Yes |
+| Helpful votes | Not returned | Sometimes | Yes |
+| Verified purchase flag | Not returned | Sometimes | Yes |
+| Reviewer images | Not returned | Rarely | Yes |
+| Marketplaces | Limited | US only usually | 10 Amazon domains |
+| Price | Affiliate approval required | $35 to $200 per month | $0.006 per review, first 50 free |
 
 ---
 
 ## Supported Amazon marketplaces
 
-```mermaid
-flowchart LR
-    subgraph Americas
-        A1[amazon.com]
-        A2[amazon.ca]
-    end
-    subgraph Europe
-        B1[amazon.co.uk]
-        B2[amazon.de]
-        B3[amazon.fr]
-        B4[amazon.it]
-        B5[amazon.es]
-    end
-    subgraph AsiaPacific[Asia Pacific]
-        C1[amazon.co.jp]
-        C2[amazon.in]
-        C3[amazon.com.au]
-    end
-    Americas --> D[Same actor<br/>same output]
-    Europe --> D
-    AsiaPacific --> D
+amazon.com, amazon.ca, amazon.co.uk, amazon.de, amazon.fr, amazon.it, amazon.es, amazon.co.jp, amazon.in, amazon.com.au. Set `amazonDomain` to any of these. Output format is identical across all 10.
+
+---
+
+## Sample output
+
+One review record:
+
+```json
+{
+  "rating": 5,
+  "reviewTitle": "Best purchase this year",
+  "reviewText": "Battery lasts 2 full days with heavy use...",
+  "reviewerName": "Tech Enthusiast",
+  "reviewDate": "March 15, 2026",
+  "reviewLocation": "United States",
+  "isVerifiedPurchase": true,
+  "helpfulVotes": 42,
+  "imageCount": 3,
+  "images": ["https://images-na.ssl-images-amazon.com/images/I/71abc.jpg"],
+  "asin": "B0D1XD1ZV3",
+  "productTitle": "Samsung Galaxy S26 Ultra 256GB",
+  "productPrice": "$1,199.99",
+  "averageRating": 4.4,
+  "totalReviewCount": 8472,
+  "amazonDomain": "amazon.com"
+}
 ```
 
-Set `amazonDomain` to any of these 10 marketplaces. The output format is identical across all domains.
+Every record carries product rollup fields (`asin`, `productTitle`, `averageRating`) so multi product exports group cleanly in Excel or Sheets.
 
 ---
 
 ## Pricing
 
-Pay per review. Free tier lets you verify the output before spending anything.
-
-| Tier | Price | Best for |
-|---|---|---|
-| Free | First 50 reviews per run | Verifying the output format |
-| Standard | $0.006 per review | Ongoing monitoring and competitor research |
-
-1,000 reviews across 10 products: **$5.70 once**. Review monitoring SaaS tools: $35 to $200 per month.
+First 50 reviews per run are free. After that: **$0.006 per review**. A 1,000 review run across 10 products costs $5.70 once. Review SaaS tools cost $35 to $200 per month.
 
 ---
 
-## Compare products in one run
-
-```mermaid
-flowchart LR
-    A[Your product ASIN] --> X[Actor]
-    B[Competitor 1 ASIN] --> X
-    C[Competitor 2 ASIN] --> X
-    X --> D[(Unified review<br/>dataset)]
-    D --> E[Group by productTitle]
-    E --> F[Head to head<br/>review comparison]
-```
-
-Every record includes `asin`, `productTitle`, and `averageRating`, so grouping in Excel, Sheets, or a BI tool takes seconds. Filter by `filterByRating` to compare only negative reviews across products.
-
----
-
-## From reviews to product decisions in 3 steps
-
-```mermaid
-flowchart LR
-    A[Scrape reviews<br/>for your ASIN +<br/>3 competitors] --> B[Filter by 1 and 2<br/>star ratings]
-    B --> C[Read the top<br/>complaints]
-    C --> D1[Fix your product<br/>before returns spike]
-    C --> D2[Steal competitor<br/>praise for your listing]
-    C --> D3[Feed PPC headlines<br/>with real customer words]
-```
-
-## Common workflows
-
-- **Weekly complaint triage.** Schedule this actor on your own ASIN every Monday. Pull only 1 star reviews. Fix the top complaint before it snowballs into a listing demotion.
-- **Competitor review mining.** Pull your product plus 5 competitors. Read what customers praise about the rival product. Use that language in your own listing.
-- **Ad copy research.** Pull 5 star verified reviews. Extract the exact phrases customers use to describe why they love the product. Drop those into your PPC headlines.
-- **Product development.** Pull 1 and 2 star reviews for the top 3 products in your category. The recurring complaints are your product roadmap.
-- **Listing optimization.** Pull helpful reviews sorted by votes. The most upvoted reviews tell you what features buyers care about most.
-
----
-
-## Related tools in the review intelligence suite
-
-* [**Google Reviews Intelligence**](https://apify.com/scrapemint/google-reviews-intelligence): Google Maps reviews with full history export
-* [**Facebook Review Intelligence**](https://apify.com/scrapemint/facebook-review-intelligence): Facebook business page recommendations with reaction counts
-* [**Yelp Review Intelligence**](https://apify.com/scrapemint/yelp-review-intelligence): Yelp reviews with elite reviewer tracking and vote counts
-* [**TripAdvisor Review Intelligence**](https://apify.com/scrapemint/tripadvisor-review-intelligence): hotel, restaurant, and attraction reviews with trip type
-* [**Booking Review Intelligence**](https://apify.com/scrapemint/booking-review-intelligence): hotel guest reviews with sentiment and category scores
-* [**Trustpilot Brand Reputation**](https://apify.com/scrapemint/trustpilot-brand-reputation): brand trust scores and verification status
-* [**Airbnb Market Intelligence**](https://apify.com/scrapemint/airbnb-market-intelligence): rental pricing and guest review data
-
-Eight actors covering Amazon, Google, Facebook, Yelp, TripAdvisor, Booking, Trustpilot, and Airbnb.
-
----
-
-## Monitor reviews across 8 platforms in one pipeline
-
-```mermaid
-flowchart TD
-    AM[Amazon Reviews] --> R[Unified<br/>Review Dataset]
-    G[Google Reviews] --> R
-    F[Facebook Reviews] --> R
-    Y[Yelp Reviews] --> R
-    T[TripAdvisor Reviews] --> R
-    B[Booking Reviews] --> R
-    TP[Trustpilot Reviews] --> R
-    A[Airbnb Data] --> R
-    R --> D1[Cross platform<br/>sentiment report]
-    R --> D2[Platform by platform<br/>comparison]
-    R --> D3[Single source of truth<br/>for every review]
-```
-
-Run all eight actors on the same brand or product category. Merge the datasets. One spreadsheet with every review from every platform. No SaaS subscription needed.
-
----
-
-## Frequently asked questions
+## FAQ
 
 **How do I scrape Amazon reviews into a CSV or Excel file?**
-Run this actor with a product URL or ASIN and a review cap. Export the dataset as CSV or Excel from the Apify console or pull it via the API.
+Run this actor with a product URL or ASIN and a review cap. Export the dataset as CSV or Excel from the Apify console or via the API.
 
-**Is there an Amazon API that returns product reviews?**
-No. The official Amazon Product Advertising API does not return review data at all. This actor scrapes the public review pages directly.
+**Is there an Amazon API for product reviews?**
+No. The official Amazon Product Advertising API does not return review data. This actor reads the public review pages directly.
 
-**Can I scrape reviews from Amazon UK, Germany, or Japan?**
-Yes. Set `amazonDomain` to `amazon.co.uk`, `amazon.de`, `amazon.co.jp`, or any of the 10 supported marketplaces. The output format is the same across all domains.
+**Can I scrape Amazon UK, Germany, or Japan?**
+Yes. Set `amazonDomain` to `amazon.co.uk`, `amazon.de`, `amazon.co.jp`, or any of the 10 supported marketplaces.
 
-**How do I export only negative Amazon reviews?**
-Set `filterByRating` to `1` or `2` to pull only reviews with that star rating.
+**How do I export only negative reviews?**
+Set `filterByRating` to `1` or `2`.
 
 **How do I get only verified purchase reviews?**
-Set `verifiedOnly` to `true`. The actor adds the `reviewerType=avp_only_reviews` parameter to the Amazon review page.
+Set `verifiedOnly: true`.
 
 **Can I compare multiple Amazon products in one run?**
-Yes. Pass multiple URLs in `productUrls` or multiple ASINs in the `asins` field. Every record includes `asin` and `productTitle` for easy grouping.
+Yes. Pass multiple URLs or a comma separated list of ASINs. Every record includes `asin` and `productTitle` for grouping.
 
-**How many reviews can I get per product?**
-Amazon shows approximately 100 reviews per sort order through their public review pages. Set `maxReviews` to control the cap.
+**How many reviews per product can I pull?**
+Amazon shows roughly 100 reviews per sort order through the public review pages. Set `maxReviews` to control the cap.
 
-**Can I use ASINs instead of full URLs?**
-Yes. Paste comma separated ASINs into the `asins` field. The actor builds the correct review URL for each one.
+**Can I use ASINs instead of URLs?**
+Yes. Paste them into the `asins` field.
 
-**How do I find competitor product language for my listing?**
-Pull 5 star reviews for the top 3 competitors in your category. Search the text for recurring praise phrases. Use those exact words in your bullet points and A+ content.
+**How do I monitor my FBA reviews automatically?**
+Schedule this actor to run daily or weekly on Apify. Diff against the previous run to catch new complaints.
 
-**How do I download Amazon reviews for my product?**
-Paste your product URL into `productUrls` or type the ASIN into the `asins` field. Press Run. When the actor finishes, click Export in the Apify console and choose CSV, Excel, or JSON.
-
-**How do I monitor Amazon reviews for my FBA product automatically?**
-Schedule this actor on the Apify platform to run weekly or daily. Each run exports the latest reviews. Diff against the previous export to catch new complaints before they affect your listing rank.
+**Why residential proxies?**
+Amazon blocks datacenter IPs within a few requests. The actor defaults to residential. If you see "Robot Check" in the logs, leave the default proxy on.
 
 **How fresh is the data?**
 Live at query time. Every run pulls straight from Amazon.
 
-**Why residential proxies?**
-Amazon blocks datacenter IPs within a few requests. Residential proxies keep runs clean, and the actor ships with residential defaults.
+---
 
-**What does "Robot Check" mean in the logs?**
-Amazon detected the request as automated and served a CAPTCHA page. Switch `proxyConfiguration.apifyProxyGroups` to `["RESIDENTIAL"]` in the input. The actor logs a warning and skips the blocked page.
+## Related Scrapemint actors
+
+- **Google Reviews Intelligence** for Google Maps business reviews
+- **Facebook Review Intelligence** for page recommendations and reactions
+- **Yelp Review Intelligence** for Yelp reviews with elite reviewer tracking
+- **TripAdvisor Review Intelligence** for hotel, restaurant, attraction reviews
+- **Booking Review Intelligence** for hotel guest reviews with category scores
+- **Trustpilot Brand Reputation** for brand trust scores and verification
+- **Airbnb Market Intelligence** for rental pricing and guest reviews
+- **Indeed Company Review Intelligence** for employer branding signals
+
+Run several to watch every review surface that mentions your brand in one pipeline.
