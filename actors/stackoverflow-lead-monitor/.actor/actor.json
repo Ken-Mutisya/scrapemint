@@ -1,0 +1,15 @@
+{
+  "actorSpecification": 1,
+  "name": "stackoverflow-lead-monitor",
+  "title": "Stack Overflow Question Monitor and Tag Alert Feed",
+  "description": "Watches Stack Overflow for questions matching your tags, keywords, score floor, and age window. Dedupes across runs. Output JSON, CSV, or Excel. For devtool founders, DevRel teams, and technical marketers turning Stack Overflow intent into pipeline.",
+  "version": "0.1",
+  "buildTag": "latest",
+  "input": "./input_schema.json",
+  "dockerfile": "./Dockerfile",
+  "readme": "../README.md",
+  "categories": [
+    "BUSINESS",
+    "LEAD_GENERATION"
+  ]
+}

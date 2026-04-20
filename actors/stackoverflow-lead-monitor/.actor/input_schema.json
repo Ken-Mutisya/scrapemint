@@ -1,0 +1,110 @@
+{
+  "title": "Stack Overflow Lead Monitor Input",
+  "type": "object",
+  "schemaVersion": 1,
+  "properties": {
+    "tags": {
+      "title": "Tags to watch",
+      "type": "array",
+      "description": "Stack Overflow tag slugs. Example: python, react, postgresql, vector-database, langchain. Find any tag slug in the URL of its tag page. Leave empty if using searchQueries instead.",
+      "editor": "stringList",
+      "prefill": ["python", "langchain"]
+    },
+    "searchQueries": {
+      "title": "Search queries",
+      "type": "array",
+      "description": "Full text queries against Stack Overflow titles and bodies. Example: vector database alternative, langchain memory leak. Leave empty if only using tags.",
+      "editor": "stringList"
+    },
+    "keywords": {
+      "title": "Keywords (client side filter)",
+      "type": "array",
+      "description": "Only questions whose title or body contains any of these keywords are kept. Case insensitive. Leave empty to keep everything the tag or query returned.",
+      "editor": "stringList"
+    },
+    "site": {
+      "title": "Stack Exchange site",
+      "type": "string",
+      "description": "The Stack Exchange site to query. stackoverflow covers programming. Other popular sites: serverfault, superuser, dba, askubuntu, datascience, ai.stackexchange, devops.stackexchange.",
+      "default": "stackoverflow",
+      "editor": "textfield"
+    },
+    "sortBy": {
+      "title": "Sort",
+      "type": "string",
+      "description": "creation orders by newest first. activity orders by last activity (new answers, edits). votes orders by score. relevance is for search queries.",
+      "default": "creation",
+      "enum": ["creation", "activity", "votes", "relevance"],
+      "enumTitles": ["Newest (creation)", "Last activity", "Votes", "Relevance (for search)"]
+    },
+    "maxAgeHours": {
+      "title": "Max age in hours",
+      "type": "integer",
+      "description": "Skip questions older than this many hours. Applied locally after API returns results. 0 keeps everything.",
+      "default": 168,
+      "minimum": 0,
+      "maximum": 8760
+    },
+    "minScore": {
+      "title": "Minimum score",
+      "type": "integer",
+      "description": "Skip questions with a score below this. Zero score is the default state for brand new questions. Negative is for downvoted ones.",
+      "default": 0,
+      "minimum": -100,
+      "maximum": 10000
+    },
+    "onlyUnanswered": {
+      "title": "Unanswered questions only",
+      "type": "boolean",
+      "description": "Keep only questions with zero answers. Strong lead gen signal for devtool founders since these are open intent.",
+      "default": false
+    },
+    "onlyNoAcceptedAnswer": {
+      "title": "No accepted answer only",
+      "type": "boolean",
+      "description": "Keep only questions that have not yet accepted an answer. Includes questions with answers that did not resolve the asker's issue.",
+      "default": false
+    },
+    "includeBody": {
+      "title": "Include question body",
+      "type": "boolean",
+      "description": "Pull the full question body with formatting stripped. Turn off to save dataset space if you only need titles and tags.",
+      "default": true
+    },
+    "maxQuestionsPerSource": {
+      "title": "Max questions per tag or query",
+      "type": "integer",
+      "description": "Per source cap. Stack Exchange API returns up to 100 per page, the actor paginates until this cap or the end of results.",
+      "default": 100,
+      "minimum": 1,
+      "maximum": 1000
+    },
+    "maxQuestionsTotal": {
+      "title": "Maximum questions per run",
+      "type": "integer",
+      "description": "Hard cap on questions pushed to the dataset per run. Controls cost.",
+      "default": 200,
+      "minimum": 1,
+      "maximum": 5000
+    },
+    "dedupe": {
+      "title": "Deduplicate across runs",
+      "type": "boolean",
+      "description": "Skip question IDs already pushed on previous runs. IDs are stored in the key value store under SEEN_IDS. Turn off to return every match on every run.",
+      "default": true
+    },
+    "apiKey": {
+      "title": "Stack Exchange API key (optional)",
+      "type": "string",
+      "description": "Without a key you get 300 API calls per day. With a free key from stackapps.com/apps/oauth/register you get 10,000 per day. Leave blank if your schedule fits under 300 calls.",
+      "editor": "textfield",
+      "isSecret": true
+    },
+    "proxyConfiguration": {
+      "title": "Proxy configuration",
+      "type": "object",
+      "description": "Apify proxy settings. The Stack Exchange API is public and rate friendly, a proxy is only needed if you are running many actors from one IP.",
+      "editor": "proxy"
+    }
+  }
+}
