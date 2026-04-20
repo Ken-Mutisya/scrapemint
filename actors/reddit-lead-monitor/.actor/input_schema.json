@@ -1,0 +1,99 @@
+{
+  "title": "Reddit Lead Monitor Input",
+  "type": "object",
+  "schemaVersion": 1,
+  "properties": {
+    "subreddits": {
+      "title": "Subreddits to watch",
+      "type": "array",
+      "description": "List of subreddit names (without r/). Example: SaaS, startups, smallbusiness. Leave empty if using searchQueries instead.",
+      "editor": "stringList",
+      "prefill": ["SaaS", "startups"]
+    },
+    "searchQueries": {
+      "title": "Search queries (optional)",
+      "type": "array",
+      "description": "Reddit search queries across all of Reddit. Use instead of or alongside subreddits. Example: best scraping tool, alternative to AppFollow.",
+      "editor": "stringList"
+    },
+    "keywords": {
+      "title": "Keywords (client side filter)",
+      "type": "array",
+      "description": "Only posts whose title or body contains any of these keywords are kept. Case insensitive. Leave empty to keep all posts from the listed subreddits.",
+      "editor": "stringList"
+    },
+    "sortBy": {
+      "title": "Sort",
+      "type": "string",
+      "description": "New returns the latest posts in the subreddit. Hot returns currently trending posts. Top returns the highest scoring posts in the timeWindow.",
+      "default": "new",
+      "enum": ["new", "hot", "top", "rising"],
+      "enumTitles": ["New (latest)", "Hot (trending)", "Top (highest score)", "Rising"]
+    },
+    "timeWindow": {
+      "title": "Time window (for top sort)",
+      "type": "string",
+      "description": "Only applies when sortBy is 'top'. Window for Reddit's top ranking.",
+      "default": "day",
+      "enum": ["hour", "day", "week", "month", "year", "all"]
+    },
+    "maxPostsPerSource": {
+      "title": "Max posts per subreddit or query",
+      "type": "integer",
+      "description": "Reddit returns up to 100 posts per listing page. Pagination pulls more. This is the per source cap.",
+      "default": 100,
+      "minimum": 1,
+      "maximum": 1000
+    },
+    "maxAgeHours": {
+      "title": "Max age in hours",
+      "type": "integer",
+      "description": "Skip posts older than this many hours. 0 keeps all posts regardless of age.",
+      "default": 24,
+      "minimum": 0,
+      "maximum": 8760
+    },
+    "minUpvotes": {
+      "title": "Minimum upvotes",
+      "type": "integer",
+      "description": "Skip posts with fewer than this many upvotes. 0 keeps everything.",
+      "default": 0,
+      "minimum": 0,
+      "maximum": 1000000
+    },
+    "minComments": {
+      "title": "Minimum comments",
+      "type": "integer",
+      "description": "Skip posts with fewer than this many comments. 0 keeps everything.",
+      "default": 0,
+      "minimum": 0,
+      "maximum": 100000
+    },
+    "includeNSFW": {
+      "title": "Include NSFW posts",
+      "type": "boolean",
+      "description": "Keep NSFW (over 18) posts. Off by default for business use.",
+      "default": false
+    },
+    "dedupe": {
+      "title": "Deduplicate across runs",
+      "type": "boolean",
+      "description": "Skip post IDs pushed on previous runs. Stores IDs in the key value store under SEEN_IDS. Turn off to return every matching post on every run.",
+      "default": true
+    },
+    "maxPostsTotal": {
+      "title": "Maximum posts per run",
+      "type": "integer",
+      "description": "Hard cap on posts pushed to the dataset per run. Controls cost.",
+      "default": 200,
+      "minimum": 1,
+      "maximum": 5000
+    },
+    "proxyConfiguration": {
+      "title": "Proxy configuration",
+      "type": "object",
+      "description": "Apify proxy settings. Reddit's public JSON API is usually accessible without a proxy, but residential proxies help if rate limited.",
+      "editor": "proxy"
+    }
+  }
+}

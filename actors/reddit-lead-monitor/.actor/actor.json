@@ -1,0 +1,15 @@
+{
+  "actorSpecification": 1,
+  "name": "reddit-lead-monitor",
+  "title": "Reddit Lead Monitor: Subreddit and Keyword Alert Feed",
+  "description": "Watches subreddits for posts that match your keywords, upvote floor, and age window. Dedupes across runs so you only get new matches. Output JSON, CSV, or Excel. For SaaS founders, marketers, and support teams hunting leads and brand mentions on Reddit.",
+  "version": "0.1",
+  "buildTag": "latest",
+  "input": "./input_schema.json",
+  "dockerfile": "./Dockerfile",
+  "readme": "../README.md",
+  "categories": [
+    "BUSINESS",
+    "LEAD_GENERATION"
+  ]
+}
