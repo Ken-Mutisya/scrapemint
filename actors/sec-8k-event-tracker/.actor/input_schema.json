@@ -1,0 +1,85 @@
+{
+  "title": "SEC 8-K Event Tracker Input",
+  "type": "object",
+  "schemaVersion": 1,
+  "properties": {
+    "tickers": {
+      "title": "Tickers to watch",
+      "type": "array",
+      "description": "Stock tickers whose 8-K filings you want to pull. Example: AAPL, NVDA, TSLA. The actor resolves each ticker to a CIK using EDGAR's public ticker map. Leave empty if you are using CIKs below.",
+      "editor": "stringList",
+      "prefill": ["AAPL", "NVDA"]
+    },
+    "ciks": {
+      "title": "CIKs to watch",
+      "type": "array",
+      "description": "SEC Central Index Keys. Use these for companies without a public ticker. Leading zeros are optional. Example: 320193 for Apple.",
+      "editor": "stringList",
+      "default": []
+    },
+    "items": {
+      "title": "8-K item codes filter",
+      "type": "array",
+      "description": "Only keep filings that report any of these 8-K item codes. Format like 2.02 (earnings), 5.02 (exec changes), 1.01 (material agreement), 1.05 (cyber incident), 1.03 (bankruptcy). Leave empty to keep every 8-K.",
+      "editor": "stringList",
+      "default": []
+    },
+    "categories": {
+      "title": "Event categories (shortcut)",
+      "type": "array",
+      "description": "Shortcut for common 8-K item groups. Options: earnings, exec_changes, ma, material_agreements, cyber, bankruptcy, delisting, impairments, accountant, control, regulation_fd, other. These expand to their underlying item codes and combine with the items filter above.",
+      "editor": "stringList",
+      "default": []
+    },
+    "includeAmendments": {
+      "title": "Include 8-K/A amendments",
+      "type": "boolean",
+      "description": "Include 8-K/A filings (amendments to previously filed 8-Ks). Turn off to only see original 8-K filings.",
+      "default": true
+    },
+    "maxAgeHours": {
+      "title": "Max age in hours",
+      "type": "integer",
+      "description": "Skip filings submitted more than this many hours ago. Default is 168 hours (one week). Set to 0 to keep every filing in EDGAR's recent window (last ~1000 filings per company).",
+      "default": 168,
+      "minimum": 0,
+      "maximum": 17520
+    },
+    "maxItemsPerSource": {
+      "title": "Max filings per company",
+      "type": "integer",
+      "description": "Per ticker cap on 8-K filings processed. Controls how deep the actor looks back for a single company.",
+      "default": 50,
+      "minimum": 1,
+      "maximum": 500
+    },
+    "maxItemsTotal": {
+      "title": "Maximum filings per run",
+      "type": "integer",
+      "description": "Hard cap on filings pushed to the dataset per run. Controls total cost.",
+      "default": 200,
+      "minimum": 1,
+      "maximum": 5000
+    },
+    "dedupe": {
+      "title": "Deduplicate across runs",
+      "type": "boolean",
+      "description": "Skip accession numbers pushed on previous runs. Stored in the key value store under SEEN_IDS. Turn off to return every matching filing every run.",
+      "default": true
+    },
+    "userAgent": {
+      "title": "User-Agent (required by SEC)",
+      "type": "string",
+      "description": "SEC requires a descriptive User-Agent with a contact email. Example: MyCompany Research research@mycompany.com. Without a valid email the EDGAR endpoints return 403.",
+      "editor": "textfield",
+      "default": "Scrapemint 8-K Tracker research@scrapemint.com"
+    },
+    "proxyConfiguration": {
+      "title": "Proxy configuration",
+      "type": "object",
+      "description": "Apify proxy settings. EDGAR is public and rate limited per User-Agent, not per IP, so a proxy is rarely needed.",
+      "editor": "proxy"
+    }
+  },
+  "required": []
+}

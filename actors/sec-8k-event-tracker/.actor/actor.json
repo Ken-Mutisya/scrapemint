@@ -1,0 +1,15 @@
+{
+  "actorSpecification": 1,
+  "name": "sec-8k-event-tracker",
+  "title": "SEC 8-K Tracker: Earnings, Exec Changes, M&A, Cyber Events",
+  "description": "Track SEC 8-K filings from EDGAR by ticker, CIK, or 8-K item code. Category shortcuts for earnings, exec changes, M&A, cyber incidents, bankruptcy. Returns deduped JSON with filing URL, item codes, and issuer metadata. Official EDGAR API, no HTML scraping.",
+  "version": "0.1",
+  "buildTag": "latest",
+  "input": "./input_schema.json",
+  "dockerfile": "./Dockerfile",
+  "readme": "../README.md",
+  "categories": [
+    "BUSINESS",
+    "LEAD_GENERATION"
+  ]
+}

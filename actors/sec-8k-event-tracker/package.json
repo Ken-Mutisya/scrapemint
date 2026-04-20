@@ -1,0 +1,13 @@
+{
+  "name": "sec-8k-event-tracker",
+  "version": "0.1.0",
+  "type": "module",
+  "description": "SEC 8-K material event tracker: pull every 8-K filing from EDGAR by ticker, CIK, item code, or event category (earnings, exec changes, M&A, cyber, bankruptcy). Deduped across runs.",
+  "main": "src/main.js",
+  "scripts": {
+    "start": "node src/main.js"
+  },
+  "dependencies": {
+    "apify": "^3.7.0"
+  }
+}
