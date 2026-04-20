@@ -1,0 +1,13 @@
+{
+  "name": "sec-form4-insider-tracker",
+  "version": "0.1.0",
+  "type": "module",
+  "description": "SEC Form 4 insider trading tracker: pull every corporate insider buy and sell transaction from EDGAR by ticker, role, transaction code, and minimum value. Deduped across runs.",
+  "main": "src/main.js",
+  "scripts": {
+    "start": "node src/main.js"
+  },
+  "dependencies": {
+    "apify": "^3.7.0"
+  }
+}

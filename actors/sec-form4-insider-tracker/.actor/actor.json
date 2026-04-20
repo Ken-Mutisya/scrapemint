@@ -1,0 +1,15 @@
+{
+  "actorSpecification": 1,
+  "name": "sec-form4-insider-tracker",
+  "title": "SEC Form 4 Insider Trading Tracker: Every Insider Buy and Sell",
+  "description": "Track SEC Form 4 insider trading filings from EDGAR. Filter by ticker, CIK, transaction code, insider role, min value, and age. Returns deduped JSON of every insider buy, sell, grant, and option exercise. Official EDGAR APIs, no HTML scraping.",
+  "version": "0.1",
+  "buildTag": "latest",
+  "input": "./input_schema.json",
+  "dockerfile": "./Dockerfile",
+  "readme": "../README.md",
+  "categories": [
+    "BUSINESS",
+    "LEAD_GENERATION"
+  ]
+}

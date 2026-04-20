@@ -1,0 +1,107 @@
+{
+  "title": "SEC Form 4 Insider Trading Tracker Input",
+  "type": "object",
+  "schemaVersion": 1,
+  "properties": {
+    "tickers": {
+      "title": "Tickers to watch",
+      "type": "array",
+      "description": "Stock tickers whose insider filings you want to pull. Example: AAPL, TSLA, NVDA. The actor resolves each ticker to a CIK using EDGAR's public ticker map. Leave empty if you are using CIKs below.",
+      "editor": "stringList",
+      "prefill": ["AAPL", "NVDA"]
+    },
+    "ciks": {
+      "title": "CIKs to watch",
+      "type": "array",
+      "description": "SEC Central Index Keys. Use these if you want companies that do not have a single public ticker. Leading zeros are optional. Example: 320193 for Apple.",
+      "editor": "stringList",
+      "default": []
+    },
+    "transactionCodes": {
+      "title": "Transaction codes filter",
+      "type": "array",
+      "description": "Only keep transactions with these Form 4 codes. P = open market purchase, S = open market sale, A = grant or award, F = tax withholding, M = option exercise, D = disposition, G = gift. Leave empty to keep every code.",
+      "editor": "stringList",
+      "default": []
+    },
+    "reporterRoles": {
+      "title": "Insider role filter",
+      "type": "array",
+      "description": "Only keep filings where the insider matches any of these roles. Options: director, officer, ten_percent_owner, other. Leave empty to keep every role.",
+      "editor": "stringList",
+      "default": []
+    },
+    "minTransactionValue": {
+      "title": "Minimum transaction value (USD)",
+      "type": "integer",
+      "description": "Drop transactions where shares times price per share is below this floor. Set to 0 to keep every transaction. Useful when you only care about large insider buys.",
+      "default": 0,
+      "minimum": 0,
+      "maximum": 1000000000
+    },
+    "minShares": {
+      "title": "Minimum shares",
+      "type": "integer",
+      "description": "Drop transactions with fewer than this many shares. Set to 0 to keep everything.",
+      "default": 0,
+      "minimum": 0,
+      "maximum": 1000000000
+    },
+    "includeDerivative": {
+      "title": "Include derivative transactions",
+      "type": "boolean",
+      "description": "Keep derivative security rows: options grants, RSU vesting, warrants, convertibles. Turn off if you only want direct stock transactions.",
+      "default": true
+    },
+    "includeNonDerivative": {
+      "title": "Include non derivative transactions",
+      "type": "boolean",
+      "description": "Keep direct stock transactions. Almost always yes. Turn off only if you want to isolate derivative activity.",
+      "default": true
+    },
+    "maxAgeHours": {
+      "title": "Max age in hours",
+      "type": "integer",
+      "description": "Skip filings submitted more than this many hours ago. Default is 168 hours (one week). Set to 0 to keep every filing in EDGAR's recent window (last ~1000 filings per company).",
+      "default": 168,
+      "minimum": 0,
+      "maximum": 17520
+    },
+    "maxItemsPerSource": {
+      "title": "Max items per company",
+      "type": "integer",
+      "description": "Per ticker cap on Form 4 filings processed. Each filing can expand to multiple transaction rows. Controls how deep the actor looks back for a single company.",
+      "default": 50,
+      "minimum": 1,
+      "maximum": 500
+    },
+    "maxItemsTotal": {
+      "title": "Maximum items per run",
+      "type": "integer",
+      "description": "Hard cap on transactions pushed to the dataset per run. Controls total cost.",
+      "default": 200,
+      "minimum": 1,
+      "maximum": 5000
+    },
+    "dedupe": {
+      "title": "Deduplicate across runs",
+      "type": "boolean",
+      "description": "Skip Form 4 accession numbers pushed on previous runs. Stored in the key value store under SEEN_IDS. Turn off to return every matching transaction every run.",
+      "default": true
+    },
+    "userAgent": {
+      "title": "User-Agent (required by SEC)",
+      "type": "string",
+      "description": "SEC requires a descriptive User-Agent with a contact email. Example: MyCompany Research research@mycompany.com. Without a valid email the EDGAR endpoints return 403.",
+      "editor": "textfield",
+      "default": "Scrapemint Form4 Tracker research@scrapemint.com"
+    },
+    "proxyConfiguration": {
+      "title": "Proxy configuration",
+      "type": "object",
+      "description": "Apify proxy settings. EDGAR is public and rate limited at 10 req/sec per User-Agent, not per IP, so a proxy is rarely needed. Add one if you trigger secondary limits.",
+      "editor": "proxy"
+    }
+  },
+  "required": []
+}
