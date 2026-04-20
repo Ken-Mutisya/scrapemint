@@ -1,0 +1,15 @@
+{
+  "actorSpecification": 1,
+  "name": "producthunt-launch-tracker",
+  "title": "Product Hunt Launch Tracker and Topic Alert Feed",
+  "description": "Watches Product Hunt for new launches matching your topics, keywords, vote floor, and age window. Dedupes across runs. Output JSON, CSV, or Excel. For founders, VCs, and devtool marketers hunting competitor launches and category intel.",
+  "version": "0.1",
+  "buildTag": "latest",
+  "input": "./input_schema.json",
+  "dockerfile": "./Dockerfile",
+  "readme": "../README.md",
+  "categories": [
+    "BUSINESS",
+    "LEAD_GENERATION"
+  ]
+}

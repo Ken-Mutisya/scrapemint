@@ -1,0 +1,94 @@
+{
+  "title": "Product Hunt Launch Tracker Input",
+  "type": "object",
+  "schemaVersion": 1,
+  "properties": {
+    "developerToken": {
+      "title": "Product Hunt developer token (required)",
+      "type": "string",
+      "description": "Create a free developer token at https://www.producthunt.com/v2/oauth/applications. Click 'Add an application', name it, click 'Create Token', and paste the long string here. Tokens do not expire.",
+      "editor": "textfield",
+      "isSecret": true
+    },
+    "topics": {
+      "title": "Topic slugs to watch",
+      "type": "array",
+      "description": "Product Hunt topic slugs. Example: artificial-intelligence, developer-tools, productivity, saas, marketing, design-tools, chrome-extensions. Find slugs in the URL of any topic page. Leave empty to watch all of Product Hunt.",
+      "editor": "stringList",
+      "prefill": ["artificial-intelligence", "developer-tools"]
+    },
+    "keywords": {
+      "title": "Keywords (client side filter)",
+      "type": "array",
+      "description": "Only launches whose name, tagline, or description contains any of these keywords are kept. Case insensitive. Leave empty to keep all launches in your topics.",
+      "editor": "stringList"
+    },
+    "sortBy": {
+      "title": "Sort",
+      "type": "string",
+      "description": "NEWEST returns the latest submissions. VOTES ranks by upvotes. RANKING uses Product Hunt's daily ranking. FEATURED_AT orders by when the post was featured on the homepage.",
+      "default": "NEWEST",
+      "enum": ["NEWEST", "VOTES", "RANKING", "FEATURED_AT"],
+      "enumTitles": ["Newest", "Most votes", "Daily ranking", "Featured at"]
+    },
+    "postedWithin": {
+      "title": "Posted within",
+      "type": "string",
+      "description": "Only return launches posted within this window.",
+      "default": "DAY_7",
+      "enum": ["HOUR_24", "DAY_7", "DAY_30", "ANY"],
+      "enumTitles": ["Last 24 hours", "Last 7 days", "Last 30 days", "Any time"]
+    },
+    "minVotes": {
+      "title": "Minimum upvotes",
+      "type": "integer",
+      "description": "Skip launches with fewer than this many upvotes. 0 keeps everything including brand new posts.",
+      "default": 0,
+      "minimum": 0,
+      "maximum": 100000
+    },
+    "minComments": {
+      "title": "Minimum comments",
+      "type": "integer",
+      "description": "Skip launches with fewer than this many comments. 0 keeps everything.",
+      "default": 0,
+      "minimum": 0,
+      "maximum": 10000
+    },
+    "featuredOnly": {
+      "title": "Featured launches only",
+      "type": "boolean",
+      "description": "Keep only launches that were featured on the Product Hunt homepage. Featured posts have moderator approval and a featuredAt timestamp.",
+      "default": false
+    },
+    "maxLaunchesPerTopic": {
+      "title": "Max launches per topic",
+      "type": "integer",
+      "description": "Per topic cap. Product Hunt pagination returns up to 20 posts per page, the actor paginates until this cap or the end of the topic feed.",
+      "default": 100,
+      "minimum": 1,
+      "maximum": 1000
+    },
+    "maxLaunchesTotal": {
+      "title": "Maximum launches per run",
+      "type": "integer",
+      "description": "Hard cap on launches pushed to the dataset per run. Controls cost.",
+      "default": 200,
+      "minimum": 1,
+      "maximum": 5000
+    },
+    "dedupe": {
+      "title": "Deduplicate across runs",
+      "type": "boolean",
+      "description": "Skip launch IDs already pushed on previous runs. IDs are stored in the key value store under SEEN_IDS. Turn off to return every match on every run.",
+      "default": true
+    },
+    "proxyConfiguration": {
+      "title": "Proxy configuration",
+      "type": "object",
+      "description": "Apify proxy settings. The Product Hunt GraphQL API is fully accessible without a proxy in most cases.",
+      "editor": "proxy"
+    }
+  },
+  "required": ["developerToken"]
+}
