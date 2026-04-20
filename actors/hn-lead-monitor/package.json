@@ -1,0 +1,13 @@
+{
+  "name": "hn-lead-monitor",
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Hacker News lead monitor: watch new/top/ask/show/jobs feeds and Algolia search, filter by keyword, dedupe across runs.",
+  "main": "src/main.js",
+  "scripts": {
+    "start": "node src/main.js"
+  },
+  "dependencies": {
+    "apify": "^3.7.0"
+  }
+}

@@ -1,0 +1,94 @@
+{
+  "title": "Hacker News Lead Monitor Input",
+  "type": "object",
+  "schemaVersion": 1,
+  "properties": {
+    "searchQueries": {
+      "title": "Search queries (Algolia)",
+      "type": "array",
+      "description": "Free text queries against Hacker News via Algolia. Example: vector database, open source crm, alternative to notion. Case insensitive. Leave empty if only using firehose feeds below.",
+      "editor": "stringList",
+      "prefill": ["vector database", "open source crm"]
+    },
+    "feeds": {
+      "title": "Firehose feeds (optional)",
+      "type": "array",
+      "description": "HN lists to pull alongside search queries. Valid values: new, top, best, ask, show, jobs. new returns the latest submissions. top/best rank by score. ask/show/jobs are the category pages.",
+      "editor": "stringList",
+      "default": []
+    },
+    "keywords": {
+      "title": "Keywords (client side filter)",
+      "type": "array",
+      "description": "Only items whose title or text contains any of these keywords are kept. Case insensitive. Leave empty to keep everything the search or feed returned.",
+      "editor": "stringList"
+    },
+    "searchType": {
+      "title": "Search type",
+      "type": "string",
+      "description": "What Algolia search returns. Stories is submissions only. Comments is only comment bodies. Both pulls from both endpoints.",
+      "default": "stories",
+      "enum": ["stories", "comments", "both"],
+      "enumTitles": ["Stories only", "Comments only", "Stories and comments"]
+    },
+    "sortBy": {
+      "title": "Sort",
+      "type": "string",
+      "description": "Newest returns the latest matches first. Popularity ranks by HN points and Algolia relevance.",
+      "default": "newest",
+      "enum": ["newest", "popularity"]
+    },
+    "maxAgeHours": {
+      "title": "Max age in hours",
+      "type": "integer",
+      "description": "Skip items older than this many hours. 0 keeps everything regardless of age.",
+      "default": 168,
+      "minimum": 0,
+      "maximum": 17520
+    },
+    "minScore": {
+      "title": "Minimum points",
+      "type": "integer",
+      "description": "Skip stories with fewer than this many HN points. Comments have no score, so this is ignored for comments.",
+      "default": 0,
+      "minimum": 0,
+      "maximum": 100000
+    },
+    "minComments": {
+      "title": "Minimum comments",
+      "type": "integer",
+      "description": "Skip stories with fewer than this many comments. Ignored for comment results.",
+      "default": 0,
+      "minimum": 0,
+      "maximum": 100000
+    },
+    "maxItemsPerSource": {
+      "title": "Max items per query or feed",
+      "type": "integer",
+      "description": "Per source cap. Algolia pages contain up to 1000 results total via pagination.",
+      "default": 100,
+      "minimum": 1,
+      "maximum": 1000
+    },
+    "maxItemsTotal": {
+      "title": "Maximum items per run",
+      "type": "integer",
+      "description": "Hard cap on items pushed to the dataset per run. Controls cost.",
+      "default": 200,
+      "minimum": 1,
+      "maximum": 5000
+    },
+    "dedupe": {
+      "title": "Deduplicate across runs",
+      "type": "boolean",
+      "description": "Skip HN item IDs pushed on previous runs. Stored in the key value store under SEEN_IDS. Turn off to return every match on every run.",
+      "default": true
+    },
+    "proxyConfiguration": {
+      "title": "Proxy configuration",
+      "type": "object",
+      "description": "Apify proxy settings. HN and Algolia endpoints are fully public and do not require a proxy, but add one if your schedule triggers rate limiting.",
+      "editor": "proxy"
+    }
+  }
+}
