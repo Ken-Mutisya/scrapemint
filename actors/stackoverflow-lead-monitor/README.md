@@ -198,6 +198,7 @@ This actor uses the official Stack Exchange API v2.3, which is rate limited and 
 
 ## Related Scrapemint actors
 
+- **GitHub Issue Monitor** for issue and PR tracking by keyword and repo
 - **Hacker News Scraper** for stories and comments matching keywords
 - **Reddit Lead Monitor** for subreddit and keyword mention tracking
 - **Upwork Opportunity Alert** for freelance lead generation

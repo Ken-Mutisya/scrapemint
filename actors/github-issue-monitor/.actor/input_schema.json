@@ -1,0 +1,107 @@
+{
+  "title": "GitHub Issue Monitor Input",
+  "type": "object",
+  "schemaVersion": 1,
+  "properties": {
+    "searchQueries": {
+      "title": "Search queries (GitHub search syntax)",
+      "type": "array",
+      "description": "Free text queries passed to GitHub's /search/issues endpoint. Supports GitHub search syntax like 'langchain in:title,body', 'stars:>100 language:python label:bug', 'org:openai type:issue'. Leave empty if only watching specific repos below.",
+      "editor": "stringList",
+      "prefill": ["\"langchain\" in:title,body"]
+    },
+    "repos": {
+      "title": "Repos to watch (owner/name)",
+      "type": "array",
+      "description": "Specific GitHub repos to pull issues from, in the format owner/name. Example: pinecone-io/pinecone-python-client, weaviate/weaviate. Leave empty if only using search queries above.",
+      "editor": "stringList",
+      "default": []
+    },
+    "keywords": {
+      "title": "Keywords (client side filter)",
+      "type": "array",
+      "description": "Only items whose title or body contains any of these keywords are kept. Case insensitive. Leave empty to keep everything the search or repo poll returned.",
+      "editor": "stringList"
+    },
+    "itemType": {
+      "title": "Item type",
+      "type": "string",
+      "description": "Filter by item kind. Issues only excludes pull requests. PRs only returns pull requests. All returns both.",
+      "default": "all",
+      "enum": ["all", "issues", "prs"],
+      "enumTitles": ["Issues and pull requests", "Issues only", "Pull requests only"]
+    },
+    "state": {
+      "title": "State",
+      "type": "string",
+      "description": "Filter by state. Open is the default. Closed returns closed items. All returns both.",
+      "default": "open",
+      "enum": ["open", "closed", "all"]
+    },
+    "labels": {
+      "title": "Labels filter",
+      "type": "array",
+      "description": "Only keep items tagged with these labels. Example: bug, help wanted, good first issue. Multiple labels are ANDed together.",
+      "editor": "stringList",
+      "default": []
+    },
+    "minRepoStars": {
+      "title": "Minimum repo stars",
+      "type": "integer",
+      "description": "Drop issues from repos with fewer than this many stars. Useful when you only want signal from production grade users. Set to 0 to keep everything.",
+      "default": 0,
+      "minimum": 0,
+      "maximum": 1000000
+    },
+    "maxAgeHours": {
+      "title": "Max age in hours",
+      "type": "integer",
+      "description": "Skip items created more than this many hours ago. 0 keeps everything regardless of age.",
+      "default": 168,
+      "minimum": 0,
+      "maximum": 17520
+    },
+    "sortBy": {
+      "title": "Sort",
+      "type": "string",
+      "description": "Created returns newest first by creation date. Updated returns items most recently updated first.",
+      "default": "created",
+      "enum": ["created", "updated"]
+    },
+    "maxItemsPerSource": {
+      "title": "Max items per query or repo",
+      "type": "integer",
+      "description": "Per source cap. GitHub pages contain up to 100 items per page and the search endpoint caps at 1000 total results.",
+      "default": 50,
+      "minimum": 1,
+      "maximum": 1000
+    },
+    "maxItemsTotal": {
+      "title": "Maximum items per run",
+      "type": "integer",
+      "description": "Hard cap on items pushed to the dataset per run. Controls cost.",
+      "default": 200,
+      "minimum": 1,
+      "maximum": 5000
+    },
+    "dedupe": {
+      "title": "Deduplicate across runs",
+      "type": "boolean",
+      "description": "Skip issue IDs pushed on previous runs. Stored in the key value store under SEEN_IDS. Turn off to return every match on every run.",
+      "default": true
+    },
+    "githubToken": {
+      "title": "GitHub personal access token (optional)",
+      "type": "string",
+      "description": "Raises the GitHub API rate limit from 60 core / 10 search per minute (anonymous) to 5000 core / 30 search per minute (authenticated). Generate a free token at github.com/settings/tokens. No scopes required for public data. For private repos, the token needs the repo scope.",
+      "editor": "textfield",
+      "isSecret": true
+    },
+    "proxyConfiguration": {
+      "title": "Proxy configuration",
+      "type": "object",
+      "description": "Apify proxy settings. The GitHub REST API is public and rate limited, not IP limited, so a proxy is rarely needed. Add one if your schedule triggers secondary rate limits.",
+      "editor": "proxy"
+    }
+  }
+}

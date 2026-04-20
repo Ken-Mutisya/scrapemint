@@ -190,6 +190,7 @@ The JSON endpoints are public by design, the same ones the web UI uses. Read acc
 
 ## Related Scrapemint actors
 
+- **GitHub Issue Monitor** for issue and PR tracking by keyword and repo
 - **Stack Overflow Lead Monitor** for dev question tracking by tag
 - **Hacker News Scraper** for stories and comments matching keywords
 - **Product Hunt Launch Tracker** for competitor launch monitoring

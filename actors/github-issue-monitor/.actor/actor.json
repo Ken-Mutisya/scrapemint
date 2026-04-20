@@ -1,0 +1,15 @@
+{
+  "actorSpecification": 1,
+  "name": "github-issue-monitor",
+  "title": "GitHub Scraper: Track Issues and Pull Requests by Keyword",
+  "description": "Track GitHub issues and pull requests by keyword, repo, label, state, and star floor. Uses the official GitHub REST API v3. Deduped across runs. Built for devtool founders, DevRel, open source maintainers, and PMs who need a live feed of category mentions, bug reports, and competitor issue activity.",
+  "version": "0.1",
+  "buildTag": "latest",
+  "input": "./input_schema.json",
+  "dockerfile": "./Dockerfile",
+  "readme": "../README.md",
+  "categories": [
+    "BUSINESS",
+    "LEAD_GENERATION"
+  ]
+}

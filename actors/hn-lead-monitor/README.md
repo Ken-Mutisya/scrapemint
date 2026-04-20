@@ -189,6 +189,7 @@ Yes. Apify Scheduler goes down to 1 minute. Pair with a webhook to push new matc
 
 ## Related Scrapemint actors
 
+- **GitHub Issue Monitor** for issue and PR tracking by keyword and repo
 - **Stack Overflow Lead Monitor** for dev question tracking by tag
 - **Reddit Lead Monitor** for subreddit and keyword mention tracking
 - **Product Hunt Launch Tracker** for competitor launch monitoring

@@ -369,3 +369,18 @@ Set `minClientSpent` to `0` and then sort or filter the export by `client.totalS
 
 **Can I run this from n8n, Make, or Zapier?**
 Yes. Apify exposes every actor as a REST endpoint and webhook source. Trigger from n8n or Make, consume the dataset items as JSON, fan out to your existing automations.
+
+---
+
+## Related Scrapemint actors
+
+- **GitHub Issue Monitor** for issue and PR tracking by keyword and repo
+- **Stack Overflow Lead Monitor** for dev question tracking by tag
+- **Hacker News Scraper** for stories and comments matching keywords
+- **Reddit Lead Monitor** for subreddit and keyword mention tracking
+- **Product Hunt Launch Tracker** for competitor launch monitoring
+- **Trustpilot Brand Reputation** for DTC and ecommerce brands
+- **Google Reviews Intelligence** for local businesses
+- **Amazon Review Intelligence** for product review mining
+
+Stack these to cover every public developer and customer conversation surface one brand touches.
