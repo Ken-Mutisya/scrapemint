@@ -18,6 +18,12 @@ const RATE_SLEEP_MS = 250;
 
 await Actor.init();
 
+let totalPushed = 0;
+let totalSeen = 0;
+let filteredOut = 0;
+let deduped = 0;
+let apiRequests = 0;
+
 const input = (await Actor.getInput()) ?? {};
 const {
     apiKey = '',
@@ -35,42 +41,37 @@ const {
     proxyConfiguration: proxyInput,
 } = input;
 
-if (!String(apiKey).trim()) {
-    throw new Error('apiKey is required. Get a free key at the-odds-api.com.');
-}
-
-const sportList = toArray(sports).map((s) => String(s).trim()).filter(Boolean);
-if (sportList.length === 0) {
-    throw new Error('Provide at least one sport key (e.g., "americanfootball_nfl", "basketball_nba").');
-}
-
 const regionList = toArray(regions).map((r) => String(r).trim().toLowerCase()).filter(Boolean);
 const marketList = toArray(markets).map((m) => String(m).trim().toLowerCase()).filter(Boolean);
 const bookFilter = new Set(toArray(bookmakers).map((b) => String(b).trim().toLowerCase()).filter(Boolean));
-
-await Actor.createProxyConfiguration(proxyInput);
+const sportList = toArray(sports).map((s) => String(s).trim()).filter(Boolean);
 
 const store = await Actor.openKeyValueStore('sports-odds-tracker-state');
 const seenState = (dedupe && (await store.getValue('SEEN_IDS'))) || [];
 const seen = new Set(seenState);
 const newSeen = new Set(seen);
 
-let totalPushed = 0;
-let totalSeen = 0;
-let filteredOut = 0;
-let deduped = 0;
-let apiRequests = 0;
+try {
+    if (!String(apiKey).trim()) {
+        log.error('apiKey is required. Get a free key at the-odds-api.com and paste it into the apiKey input field.');
+    } else if (sportList.length === 0) {
+        log.error('Provide at least one sport key (e.g., "americanfootball_nfl", "basketball_nba").');
+    } else {
+        await Actor.createProxyConfiguration(proxyInput);
+        log.info(`Fetching ${sportList.length} sport(s). regions=${regionList.join(',')} markets=${marketList.join(',')}`);
 
-log.info(`Fetching ${sportList.length} sport(s). regions=${regionList.join(',')} markets=${marketList.join(',')}`);
+        for (const sport of sportList) {
+            if (totalPushed >= maxItemsTotal) break;
+            await processSport(sport);
+        }
+    }
 
-for (const sport of sportList) {
-    if (totalPushed >= maxItemsTotal) break;
-    await processSport(sport);
-}
-
-if (dedupe) {
-    const trimmed = [...newSeen].slice(-50_000);
-    await store.setValue('SEEN_IDS', trimmed);
+    if (dedupe) {
+        const trimmed = [...newSeen].slice(-50_000);
+        await store.setValue('SEEN_IDS', trimmed);
+    }
+} catch (err) {
+    log.exception(err, 'Unhandled error during run');
 }
 
 log.info(`Run complete. Pushed ${totalPushed}. seen=${totalSeen} filteredOut=${filteredOut} deduped=${deduped} apiRequests=${apiRequests}`);
