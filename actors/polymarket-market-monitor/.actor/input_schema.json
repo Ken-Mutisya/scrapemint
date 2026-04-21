@@ -1,0 +1,118 @@
+{
+  "title": "Polymarket Market Monitor Input",
+  "type": "object",
+  "schemaVersion": 1,
+  "properties": {
+    "searchQueries": {
+      "title": "Keyword search (title or description)",
+      "type": "array",
+      "description": "Only keep markets whose question or description contains any of these keywords. Case insensitive. Leave empty to keep everything the API returned.",
+      "editor": "stringList",
+      "prefill": ["trump"]
+    },
+    "categories": {
+      "title": "Category shortcut",
+      "type": "array",
+      "description": "Shortcut for top level Polymarket categories. Options: politics, crypto, sports, technology, music, entertainment, elections, basketball, football, blockchain. Internally resolves to tag IDs. Combine with tagIds below.",
+      "editor": "stringList",
+      "default": []
+    },
+    "tagIds": {
+      "title": "Tag IDs (advanced)",
+      "type": "array",
+      "description": "Raw Polymarket tag IDs if you need a tag outside the category shortcuts. Example: 180 for Israel, 169 for Javier Milei. Browse tags at gamma-api.polymarket.com/tags.",
+      "editor": "stringList",
+      "default": []
+    },
+    "itemType": {
+      "title": "Item type",
+      "type": "string",
+      "description": "Markets returns one row per individual market (question + outcomes). Events returns one row per event group (a basket of related markets, like 'Who will win the 2028 election').",
+      "default": "markets",
+      "enum": ["markets", "events"]
+    },
+    "status": {
+      "title": "Status",
+      "type": "string",
+      "description": "Active is the default. Closed returns resolved markets. All returns both.",
+      "default": "active",
+      "enum": ["active", "closed", "all"]
+    },
+    "minVolume24h": {
+      "title": "Minimum 24h volume (USD)",
+      "type": "integer",
+      "description": "Drop markets with less than this much volume in the last 24 hours. Useful when you only want liquid, actively traded markets.",
+      "default": 0,
+      "minimum": 0,
+      "maximum": 100000000
+    },
+    "minLiquidity": {
+      "title": "Minimum liquidity (USD)",
+      "type": "integer",
+      "description": "Drop markets with less than this much resting liquidity on the CLOB. Filters thin books.",
+      "default": 0,
+      "minimum": 0,
+      "maximum": 100000000
+    },
+    "minTotalVolume": {
+      "title": "Minimum total volume (USD)",
+      "type": "integer",
+      "description": "Drop markets with less than this much lifetime traded volume. Filters toy markets.",
+      "default": 0,
+      "minimum": 0,
+      "maximum": 1000000000
+    },
+    "minPriceChangePct": {
+      "title": "Minimum price move (%)",
+      "type": "integer",
+      "description": "Only keep markets whose 1 week or 1 month price has moved by at least this many percentage points (absolute value). Set to 0 to disable. Example: 10 returns only markets that moved 10+ points. Applies to markets, not events.",
+      "default": 0,
+      "minimum": 0,
+      "maximum": 100
+    },
+    "minutesUntilEnd": {
+      "title": "Minimum minutes until end",
+      "type": "integer",
+      "description": "Drop markets ending sooner than this many minutes from now. Set to 0 to keep everything. Useful to exclude markets too close to resolution for your strategy.",
+      "default": 0,
+      "minimum": 0,
+      "maximum": 525600
+    },
+    "sortBy": {
+      "title": "Sort",
+      "type": "string",
+      "description": "Sort markets before filtering. volume24hr ranks by last 24 hours traded. liquidity ranks by depth. endDate ranks by closest to resolution. startDate returns newest first.",
+      "default": "volume24hr",
+      "enum": ["volume24hr", "liquidity", "endDate", "startDate", "volumeNum"]
+    },
+    "maxItemsPerSource": {
+      "title": "Max items per tag or run",
+      "type": "integer",
+      "description": "Per tag cap on items processed. Polymarket Gamma returns up to 100 per page; the actor paginates.",
+      "default": 100,
+      "minimum": 1,
+      "maximum": 1000
+    },
+    "maxItemsTotal": {
+      "title": "Maximum items per run",
+      "type": "integer",
+      "description": "Hard cap on items pushed to the dataset per run. Controls total cost.",
+      "default": 200,
+      "minimum": 1,
+      "maximum": 5000
+    },
+    "dedupe": {
+      "title": "Deduplicate across runs",
+      "type": "boolean",
+      "description": "Skip market IDs pushed on previous runs. Stored in the key value store under SEEN_IDS. Turn off to snapshot every run, useful when tracking price moves over time.",
+      "default": true
+    },
+    "proxyConfiguration": {
+      "title": "Proxy configuration",
+      "type": "object",
+      "description": "Apify proxy settings. The Polymarket Gamma API is public and does not IP rate limit aggressively, so proxy is rarely needed.",
+      "editor": "proxy"
+    }
+  },
+  "required": []
+}

@@ -1,0 +1,15 @@
+{
+  "actorSpecification": 1,
+  "name": "polymarket-market-monitor",
+  "title": "Polymarket Scraper: Track Prediction Markets by Category",
+  "description": "Scrape Polymarket prediction markets by category, keyword, min volume, liquidity, and price move. Returns deduped JSON with question, outcomes, prices, 24h volume, and end date. Uses the official Polymarket Gamma API.",
+  "version": "0.1",
+  "buildTag": "latest",
+  "input": "./input_schema.json",
+  "dockerfile": "./Dockerfile",
+  "readme": "../README.md",
+  "categories": [
+    "BUSINESS",
+    "LEAD_GENERATION"
+  ]
+}
