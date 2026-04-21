@@ -96,5 +96,5 @@
       "editor": "proxy"
     }
   },
-  "required": ["apiKey"]
+  "required": []
 }
