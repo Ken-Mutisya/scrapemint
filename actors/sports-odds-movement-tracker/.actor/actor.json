@@ -1,0 +1,15 @@
+{
+  "actorSpecification": 1,
+  "name": "sports-odds-movement-tracker",
+  "title": "Sports Odds Scraper: DraftKings, FanDuel, Pinnacle Arbitrage",
+  "description": "Track live sports betting odds across 40+ sportsbooks (DraftKings, FanDuel, Pinnacle, Bet365). Filter by sport, region, market. Detect arbitrage and best price edges. Returns deduped JSON with moneyline, spread, and total lines.",
+  "version": "0.1",
+  "buildTag": "latest",
+  "input": "./input_schema.json",
+  "dockerfile": "./Dockerfile",
+  "readme": "../README.md",
+  "categories": [
+    "BUSINESS",
+    "LEAD_GENERATION"
+  ]
+}

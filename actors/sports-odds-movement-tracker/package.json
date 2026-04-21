@@ -1,0 +1,13 @@
+{
+  "name": "sports-odds-movement-tracker",
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Sports odds tracker across 40+ sportsbooks: pull live h2h, spread, and total lines from DraftKings, FanDuel, Pinnacle, Bet365, and more via The Odds API. Detect arbitrage and best price edges. Deduped across runs.",
+  "main": "src/main.js",
+  "scripts": {
+    "start": "node src/main.js"
+  },
+  "dependencies": {
+    "apify": "^3.7.0"
+  }
+}
