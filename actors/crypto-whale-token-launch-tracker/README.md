@@ -1,100 +1,72 @@
-# Crypto Whale Tracker: DEX Token Launches + Wallet Alerts
+# Crypto Whale Alert API: DEX Token Launches and Wallet Tracker
 
-Track new token launches on Uniswap, PancakeSwap, Raydium, Aerodrome and 40+ DEXs via DexScreener. Monitor whale wallet transactions on Ethereum, Base, Arbitrum, BSC, Polygon, Optimism, Avalanche via Etherscan V2 (one key covers every EVM chain). Filter by liquidity, volume, token age, and USD transfer size. Deduped across runs. Pay per item.
+Whale alert API and DEX token launch scanner in one actor. Pulls new pairs from DexScreener across Uniswap, PancakeSwap, Raydium, Aerodrome, and 40+ DEXs. Monitors whale wallets on Ethereum, Base, Arbitrum, BSC, Polygon via Etherscan V2. One key covers every EVM chain. Returns JSON. Pay per item.
 
-**Searches this actor ranks for:** whale alert API, DEX new listings scraper, token launch tracker, DexScreener API, Etherscan whale monitor, ERC20 transfer feed, Base token scanner, Solana DEX tracker, onchain alerts.
+**Ranks for:** whale alert API, DEX scanner, new token listings, DexScreener API, Etherscan whale tracker, ERC20 transfer feed, Base token launch, Solana meme coin scanner, onchain alerts, smart money wallet tracker.
 
 ---
 
-## How it works in 30 seconds
+## How it works
 
 ```mermaid
 flowchart LR
-    A[Mode: tokens or wallets] --> B{Router}
-    B -->|tokens| C[DexScreener API]
+    A[Input] --> B{Mode}
+    B -->|tokens| C[DexScreener]
     B -->|wallets| D[Etherscan V2]
-    C --> E[Filter by liquidity<br/>volume, age]
-    D --> F[Filter by USD value]
-    E --> G[JSON dataset]
-    F --> G
+    C --> E[JSON rows]
+    D --> E
 ```
 
-Pick tokens mode for DEX discovery (no key needed). Pick wallets mode for address monitoring (bring your own free Etherscan key).
+Two modes, one actor. Tokens mode needs no API key. Wallets mode takes one free Etherscan key for every EVM chain.
 
 ---
 
-## Who this crypto whale tracker is for
+## Who uses this crypto whale tracker
 
-| You are a... | You use this to... |
+| Role | Use case |
 |---|---|
-| **Memecoin trader** | Scan fresh Base and Solana launches in the last 24h with real volume. |
-| **Whale follower** | Watch 50 known smart money wallets and alert on every $100k+ ERC20 move. |
-| **DeFi protocol** | Power a "trending tokens on our chain" feed without running RPC infrastructure. |
-| **Journalist or analyst** | Pull large transfers during a market event for a data driven post. |
-| **Ops / compliance** | Flag treasury wallet movements or insider token dumps in a Slack channel. |
-
----
-
-## How to track whale wallets and token launches
-
-```mermaid
-flowchart TD
-    A[Input: mode, chains] --> B{Mode}
-    B -->|tokens| C[DexScreener search<br/>or token profiles]
-    B -->|wallets| D[Etherscan V2 tokentx<br/>per wallet + chain]
-    C --> E[Shape pair row<br/>with flags]
-    D --> F[Resolve USD price<br/>via DexScreener]
-    E --> G[Push to dataset]
-    F --> G
-```
-
-1. Choose `mode`: `tokens` (DEX scanner) or `wallets` (address monitor).
-2. Actor calls the right public API for your inputs.
-3. Rows get liquidity, volume, price change, flags (`new_launch`, `pump`, `low_liquidity`, `thin_float`).
-4. Dataset lands as JSON with dedupe keys so you can poll every minute.
+| **Memecoin trader** | Fresh Base and Solana launches in the last 24h with real volume |
+| **Whale follower** | Alert on any $100k+ move from 50 known smart money wallets |
+| **DeFi protocol** | Power a trending tokens widget without running RPC |
+| **Journalist** | Pull large transfers during a market event for a data story |
+| **Compliance** | Flag treasury wallet movements in Slack |
 
 ---
 
 ## Quick start
 
-**Scan fresh Base and Solana launches:**
+**Fresh Base launches with real volume:**
 
 ```json
 {
   "mode": "tokens",
-  "chains": ["base", "solana"],
-  "minLiquidityUsd": 25000,
-  "minVolume24hUsd": 100000,
+  "chains": ["base"],
   "maxTokenAgeHours": 48,
-  "sortBy": "volume24h"
+  "minLiquidityUsd": 25000,
+  "minVolume24hUsd": 100000
 }
 ```
 
-**Search for AI narrative tokens:**
+**Search AI narrative tokens:**
 
 ```json
 {
   "mode": "tokens",
   "searchQueries": ["AI", "agent"],
   "chains": ["ethereum", "base"],
-  "minLiquidityUsd": 50000,
   "sortBy": "priceChange24h"
 }
 ```
 
-**Monitor whale wallets across every EVM chain:**
+**Monitor whale wallets across chains:**
 
 ```json
 {
   "mode": "wallets",
-  "etherscanApiKey": "YOUR_ETHERSCAN_KEY",
-  "walletAddresses": [
-    "0x28C6c06298d514Db089934071355E5743bf21d60",
-    "0x21a31Ee1afC51d94C2eFcCAa2092aD1028285549"
-  ],
+  "etherscanApiKey": "YOUR_KEY",
+  "walletAddresses": ["0x28C6...1d60", "0x21a3...5549"],
   "chains": ["ethereum", "base", "arbitrum"],
-  "minTxValueUsd": 100000,
-  "maxTxAgeHours": 24
+  "minTxValueUsd": 100000
 }
 ```
 
@@ -103,124 +75,142 @@ From the command line:
 ```bash
 curl -X POST "https://api.apify.com/v2/acts/scrapemint~crypto-whale-token-launch-tracker/run-sync-get-dataset-items?token=YOUR_APIFY_TOKEN" \
   -H "Content-Type: application/json" \
-  -d '{"mode":"tokens","chains":["base"],"minVolume24hUsd":500000}'
+  -d '{"mode":"tokens","chains":["base"]}'
 ```
 
 ---
 
 ## Supported chains
 
-| Chain | DexScreener (tokens) | Etherscan V2 (wallets) |
+| Chain | Tokens (DexScreener) | Wallets (Etherscan V2) |
 |---|---|---|
-| **Ethereum** | Yes | Yes (chainid 1) |
-| **Base** | Yes | Yes (chainid 8453) |
-| **Arbitrum** | Yes | Yes (chainid 42161) |
-| **Optimism** | Yes | Yes (chainid 10) |
-| **BSC** | Yes | Yes (chainid 56) |
-| **Polygon** | Yes | Yes (chainid 137) |
-| **Avalanche** | Yes | Yes (chainid 43114) |
-| **Linea** | Yes | Yes (chainid 59144) |
-| **Blast** | Yes | Yes (chainid 81457) |
-| **Solana** | Yes | No (not EVM) |
+| Ethereum | Yes | Yes |
+| Base | Yes | Yes |
+| Arbitrum | Yes | Yes |
+| Optimism | Yes | Yes |
+| BSC | Yes | Yes |
+| Polygon | Yes | Yes |
+| Avalanche | Yes | Yes |
+| Linea | Yes | Yes |
+| Blast | Yes | Yes |
+| Solana | Yes | No (not EVM) |
 
-One Etherscan key covers every EVM chain via the V2 multichain endpoint.
+One Etherscan V2 key covers every EVM chain above.
 
 ---
 
-## Crypto whale tracker vs the alternatives
+## Tokens mode flow
 
-| | Whale Alert (Twitter) | Nansen | Arkham | **This actor** |
+```mermaid
+flowchart TD
+    A[Search or address] --> B[DexScreener]
+    B --> C[Filter liquidity + volume + age]
+    C --> D[Flag: new_launch, pump, thin_float]
+    D --> E[JSON row per pair]
+```
+
+Output flags:
+- `new_launch` — pair under 24h old
+- `pump` — 24h price change over 100%
+- `dump` — 24h price change under minus 50%
+- `low_liquidity` — under $5k pool
+- `thin_float` — FDV to liquidity ratio over 100
+
+---
+
+## Wallets mode flow
+
+```mermaid
+flowchart TD
+    A[Wallet address] --> B[Etherscan V2 tokentx]
+    B --> C[Resolve USD price<br/>via DexScreener]
+    C --> D[Filter by USD value]
+    D --> E[JSON row per transfer]
+```
+
+---
+
+## This actor vs the alternatives
+
+| | Whale Alert | Nansen | Arkham | **This actor** |
 |---|---|---|---|---|
-| Pricing | Free feed | $150 to $1800 / mo | Free + paid tiers | Pay per item, first 50 free |
+| Free tier | Twitter feed | No | Limited | 50 items per run |
+| Paid | Enterprise | $150 to $1800/mo | $$ | Pay per item |
 | Custom wallet watch | No | Yes | Yes | Yes |
-| DEX token scanner | No | Partial | Partial | Yes |
-| JSON output | No | Paid API | Paid API | Yes, built in |
-| Schedule | N/A | Their UI | Their UI | Every 60 seconds |
-| Webhook | No | Enterprise | Premium | Any URL |
+| DEX scanner | No | Partial | Partial | Yes |
+| JSON output | No | Paid API | Paid | Yes |
+| Schedule every 60s | No | Their UI | Their UI | Yes |
 
 ---
 
-## Sample output (tokens mode)
+## Sample output (tokens)
 
 ```json
 {
-  "source": "dexscreener",
   "chain": "base",
   "dex": "aerodrome",
-  "pairAddress": "0xabc...",
-  "baseToken": { "address": "0x...", "name": "Example", "symbol": "EXM" },
+  "baseToken": { "symbol": "EXM", "name": "Example" },
   "priceUsd": 0.0123,
-  "priceChange": { "m5": 2.1, "h1": 8.4, "h24": 120.5 },
+  "priceChange": { "h1": 8.4, "h24": 120.5 },
   "volume24hUsd": 1250000,
   "liquidityUsd": 480000,
   "fdvUsd": 12000000,
-  "pairCreatedAt": "2026-04-21T04:00:00Z",
   "ageHours": 18.5,
   "flags": ["new_launch", "pump"],
   "url": "https://dexscreener.com/base/0xabc..."
 }
 ```
 
-## Sample output (wallets mode)
+## Sample output (wallets)
 
 ```json
 {
-  "source": "etherscan_v2",
   "chain": "base",
   "wallet": "0x28C6...1d60",
   "direction": "out",
   "hash": "0xdef...",
-  "timestamp": "2026-04-21T12:30:00Z",
-  "from": "0x28C6...1d60",
-  "to": "0x9876...",
+  "timestamp": "2026-04-22T12:30:00Z",
   "tokenSymbol": "USDC",
   "amount": 250000,
-  "priceUsd": 1.0,
   "valueUsd": 250000,
   "url": "https://basescan.org/tx/0xdef..."
 }
 ```
 
-Every field drops into a whale alert bot, a Sheet, a Slack channel, or a trading desk dashboard.
-
 ---
 
 ## Pricing
 
-First 50 items per run are free. After that you pay per extracted row. A 200 row whale feed lands well under $1. Tokens mode needs zero API keys. Wallets mode requires a free Etherscan key (100k calls per day, one key for every EVM chain).
+First 50 items per run are free. After that you pay per row. A 200 row whale feed lands under $1. Tokens mode needs zero keys. Wallets mode needs one free Etherscan key (100k calls per day).
 
 ---
 
 ## FAQ
 
 **Do I need an API key?**
-Tokens mode: no. DexScreener is public. Wallets mode: yes, a free Etherscan V2 key at `etherscan.io/apis`. One key covers Ethereum, Base, Arbitrum, BSC, Polygon, Optimism, Avalanche, Linea, Blast.
+Tokens mode: no. Wallets mode: yes, a free Etherscan V2 key at etherscan.io/apis. One key for every EVM chain.
 
-**What chains are supported?**
-DexScreener covers 10+ chains including Solana. Etherscan V2 covers every major EVM chain with one key. Solana wallets are not supported in wallets mode (not EVM).
+**How do I find whale wallets?**
+Nansen smart money lists, Arkham entity pages, or known addresses (Wintermute, Jump, Binance hot wallets). Paste up to 100 per run.
 
-**How do I find whale wallets to watch?**
-Nansen "smart money" lists, Arkham entity pages, or known DeFi whale addresses (Wintermute, Jump, Alameda ghost wallets, Binance hot wallets). Paste up to 100 addresses per run.
-
-**How are USD values computed for wallet transfers?**
-Token price is resolved via DexScreener at scrape time. Stablecoins resolve to $1.00. Low liquidity tokens may return null and get filtered if you set `minTxValueUsd`.
+**How are USD values resolved?**
+Token price is pulled from DexScreener at scrape time. Stablecoins resolve to $1. Low liquidity tokens may return null and get filtered out.
 
 **Can I run this every minute?**
-Yes. DexScreener has no auth limits for modest volume. Etherscan free tier is 5 calls per second and 100k per day, so 50 wallets across 5 chains every minute fits well inside the cap.
+Yes. Etherscan free tier is 5 calls per second and 100k per day. 50 wallets on 5 chains every minute fits well inside the cap.
 
-**Is scraping onchain data allowed?**
-Yes. All data is public, onchain, and served by licensed providers (DexScreener aggregator, Etherscan V2 official API). This actor never scrapes a DEX front end.
+**Is this allowed?**
+Yes. All data is public onchain and served by licensed providers. Never scrapes a DEX front end.
 
 ---
 
 ## Related Scrapemint actors
 
-- **Polymarket Market Monitor** for prediction market odds on politics, crypto, sports
-- **Sports Odds Movement Tracker** for live betting lines across 40+ sportsbooks
-- **SEC Form 4 Insider Trading Tracker** for every insider buy and sell
-- **SEC 8-K Event Tracker** for earnings, exec changes, and M&A filings
-- **GitHub Issue Monitor** for devtool category mentions and bug reports
-- **Hacker News Scraper** for stories and comments by keyword
-- **Reddit Lead Monitor** for subreddit and brand mention tracking
+- **Polymarket Market Monitor** for prediction market odds
+- **Sports Odds Movement Tracker** for live betting lines
+- **SEC Form 4 Insider Trading Tracker** for insider buys and sells
+- **SEC 8-K Event Tracker** for earnings and M&A
+- **Hacker News Scraper** for stories by keyword
+- **Reddit Lead Monitor** for subreddit and brand mentions
 
-Stack these to cover every public financial, prediction, betting, and onchain surface one desk touches.
+Stack these to cover every public financial, prediction, betting, and onchain surface.
