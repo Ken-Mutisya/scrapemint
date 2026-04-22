@@ -1,0 +1,16 @@
+{
+    "name": "crypto-whale-token-launch-tracker",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Track new token launches on DEXs and whale wallet movements across EVM chains.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}

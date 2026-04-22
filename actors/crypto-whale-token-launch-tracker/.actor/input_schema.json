@@ -1,0 +1,122 @@
+{
+  "title": "Crypto Whale + Token Launch Tracker Input",
+  "type": "object",
+  "schemaVersion": 1,
+  "properties": {
+    "mode": {
+      "title": "Mode",
+      "type": "string",
+      "description": "tokens = scan new and trending DEX tokens via DexScreener (no key needed). wallets = monitor whale wallet transactions via Etherscan V2 multichain (bring your own key).",
+      "default": "tokens",
+      "enum": ["tokens", "wallets"]
+    },
+    "chains": {
+      "title": "Chains",
+      "type": "array",
+      "description": "Chains to scan. DexScreener supports: ethereum, bsc, base, solana, polygon, arbitrum, optimism, avalanche, blast, linea. Etherscan V2 supports EVM chains only (no solana).",
+      "editor": "stringList",
+      "default": ["ethereum", "base", "solana"]
+    },
+    "searchQueries": {
+      "title": "Search queries (tokens mode)",
+      "type": "array",
+      "description": "Token name or symbol searches via DexScreener. Example: [\"AI\", \"PEPE\", \"meme\"]. Leave empty to pull the latest token profiles feed instead.",
+      "editor": "stringList",
+      "default": []
+    },
+    "tokenAddresses": {
+      "title": "Token addresses (tokens mode)",
+      "type": "array",
+      "description": "Exact token contract addresses to pull. One row per pair. Works across every DexScreener chain.",
+      "editor": "stringList",
+      "default": []
+    },
+    "minLiquidityUsd": {
+      "title": "Minimum liquidity ($, tokens mode)",
+      "type": "number",
+      "description": "Filter out pairs with less than this much liquidity. Thin pools are rug risk. Typical floor is 25000 for retail, 250000 for sharp traders.",
+      "default": 10000,
+      "minimum": 0
+    },
+    "minVolume24hUsd": {
+      "title": "Minimum 24h volume ($, tokens mode)",
+      "type": "number",
+      "description": "Drop pairs with under this much 24h volume. 50000 filters dust. 1000000 only returns real momentum.",
+      "default": 50000,
+      "minimum": 0
+    },
+    "maxTokenAgeHours": {
+      "title": "Max token age (hours, tokens mode)",
+      "type": "integer",
+      "description": "Only return pairs created in the last N hours. 24 finds fresh launches. 168 (7 days) for weekly trend. 0 disables the filter.",
+      "default": 168,
+      "minimum": 0,
+      "maximum": 8760
+    },
+    "sortBy": {
+      "title": "Sort order (tokens mode)",
+      "type": "string",
+      "description": "How to sort results before pushing. volume24h is momentum. liquidity is size. priceChange24h is mover list. age picks newest first.",
+      "default": "volume24h",
+      "enum": ["volume24h", "liquidity", "priceChange24h", "age"]
+    },
+    "walletAddresses": {
+      "title": "Wallet addresses (wallets mode)",
+      "type": "array",
+      "description": "EVM wallet addresses to monitor. One run pulls ERC20 transfers for every wallet on every chain in the chains list.",
+      "editor": "stringList",
+      "default": []
+    },
+    "etherscanApiKey": {
+      "title": "Etherscan V2 API key (wallets mode)",
+      "type": "string",
+      "description": "One key covers all EVM chains (Etherscan, Basescan, Arbiscan, BscScan, PolygonScan). Free tier gives 5 calls per second and 100k calls per day. Get one at etherscan.io/apis.",
+      "editor": "textfield",
+      "isSecret": true
+    },
+    "minTxValueUsd": {
+      "title": "Minimum tx value ($, wallets mode)",
+      "type": "number",
+      "description": "Skip transfers worth less than this much USD. Price resolved via DexScreener per token. 100000 is the usual whale floor.",
+      "default": 10000,
+      "minimum": 0
+    },
+    "maxTxAgeHours": {
+      "title": "Max tx age (hours, wallets mode)",
+      "type": "integer",
+      "description": "Only return transfers in the last N hours. 24 is a daily feed. 1 for near real time. 0 disables.",
+      "default": 24,
+      "minimum": 0,
+      "maximum": 720
+    },
+    "maxItemsPerSource": {
+      "title": "Max items per source",
+      "type": "integer",
+      "description": "Per chain + per query cap. Works as a cap on rows per DexScreener query and rows per wallet + chain pair.",
+      "default": 100,
+      "minimum": 1,
+      "maximum": 1000
+    },
+    "maxItemsTotal": {
+      "title": "Maximum items per run",
+      "type": "integer",
+      "description": "Hard cap on rows pushed to the dataset per run. Controls total cost.",
+      "default": 200,
+      "minimum": 1,
+      "maximum": 5000
+    },
+    "dedupe": {
+      "title": "Deduplicate across runs",
+      "type": "boolean",
+      "description": "Skip pair addresses and tx hashes pushed on previous runs. Stored in the key value store under SEEN_IDS.",
+      "default": true
+    },
+    "proxyConfiguration": {
+      "title": "Proxy configuration",
+      "type": "object",
+      "description": "Apify proxy settings. DexScreener and Etherscan rate limit per key or IP, so proxy helps only at very high volume.",
+      "editor": "proxy"
+    }
+  },
+  "required": []
+}

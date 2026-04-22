@@ -1,0 +1,15 @@
+{
+  "actorSpecification": 1,
+  "name": "crypto-whale-token-launch-tracker",
+  "title": "Crypto Whale Tracker: DEX Token Launches + Wallet Alerts",
+  "description": "Track new token launches across DEXs (Uniswap, PancakeSwap, Raydium, Aerodrome) via DexScreener and monitor whale wallet transactions on Ethereum, Base, Arbitrum, BSC, Polygon via Etherscan V2. Filter by liquidity, volume, age. Arb and scam flags included.",
+  "version": "0.1",
+  "buildTag": "latest",
+  "input": "./input_schema.json",
+  "dockerfile": "./Dockerfile",
+  "readme": "../README.md",
+  "categories": [
+    "BUSINESS",
+    "LEAD_GENERATION"
+  ]
+}
