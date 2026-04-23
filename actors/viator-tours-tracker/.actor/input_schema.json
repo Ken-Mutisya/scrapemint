@@ -1,0 +1,97 @@
+{
+  "title": "Viator Tours and Activities Tracker Input",
+  "type": "object",
+  "schemaVersion": 1,
+  "properties": {
+    "destinationUrls": {
+      "title": "Destination URLs",
+      "type": "array",
+      "description": "Full Viator destination URLs. Example: https://www.viator.com/Paris/d479-ttd, https://www.viator.com/London/d737-ttd. Find the URL for any city by browsing viator.com.",
+      "editor": "stringList",
+      "prefill": ["https://www.viator.com/Paris/d479-ttd"]
+    },
+    "searchQueries": {
+      "title": "Search queries",
+      "type": "array",
+      "description": "Keyword searches like \"cooking class paris\", \"sunset cruise dubai\", \"vatican skip the line\". Uses Viator's own search.",
+      "editor": "stringList",
+      "default": []
+    },
+    "productUrls": {
+      "title": "Product URLs",
+      "type": "array",
+      "description": "Direct Viator product page URLs to pull. Use when you want exact listings (price history, reviews on a specific tour).",
+      "editor": "stringList",
+      "default": []
+    },
+    "minRating": {
+      "title": "Minimum rating",
+      "type": "number",
+      "description": "Drop tours with a rating below this (out of 5). 4.5 is the sweet spot for top picks.",
+      "default": 0,
+      "minimum": 0,
+      "maximum": 5
+    },
+    "minReviewCount": {
+      "title": "Minimum review count",
+      "type": "integer",
+      "description": "Drop tours with fewer than this many reviews. 50 filters out brand new listings. 500+ only returns best sellers.",
+      "default": 0,
+      "minimum": 0
+    },
+    "maxPriceUsd": {
+      "title": "Maximum price ($)",
+      "type": "number",
+      "description": "Drop tours priced above this. Use with minPriceUsd for price brackets.",
+      "default": 0,
+      "minimum": 0
+    },
+    "minPriceUsd": {
+      "title": "Minimum price ($)",
+      "type": "number",
+      "description": "Drop tours priced below this. Useful to exclude free city walks when searching premium experiences.",
+      "default": 0,
+      "minimum": 0
+    },
+    "languageCode": {
+      "title": "Language code",
+      "type": "string",
+      "description": "Viator language code. en = English, es = Spanish, fr = French, de = German, it = Italian, pt = Portuguese, ja = Japanese, zh = Chinese.",
+      "default": "en",
+      "enum": ["en", "es", "fr", "de", "it", "pt", "ja", "zh"]
+    },
+    "maxItemsPerSource": {
+      "title": "Max items per source",
+      "type": "integer",
+      "description": "Per destination or per query cap on rows pushed. Each destination page typically has 30 to 50 featured tours.",
+      "default": 50,
+      "minimum": 1,
+      "maximum": 500
+    },
+    "maxItemsTotal": {
+      "title": "Maximum items per run",
+      "type": "integer",
+      "description": "Hard cap on rows pushed to the dataset per run. Controls total cost.",
+      "default": 200,
+      "minimum": 1,
+      "maximum": 5000
+    },
+    "dedupe": {
+      "title": "Deduplicate across runs",
+      "type": "boolean",
+      "description": "Skip product codes pushed on previous runs. Stored in the key value store under SEEN_IDS. Turn off to track price changes over time.",
+      "default": true
+    },
+    "proxyConfiguration": {
+      "title": "Proxy configuration",
+      "type": "object",
+      "description": "Apify proxy. Residential group recommended if you run every few minutes or hit rate limits.",
+      "editor": "proxy",
+      "default": {
+        "useApifyProxy": true,
+        "apifyProxyGroups": ["RESIDENTIAL"]
+      }
+    }
+  },
+  "required": []
+}
