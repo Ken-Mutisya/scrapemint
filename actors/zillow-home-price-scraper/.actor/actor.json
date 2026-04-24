@@ -1,0 +1,15 @@
+{
+  "actorSpecification": 1,
+  "name": "zillow-home-price-scraper",
+  "title": "Zillow Scraper: Home Prices, Sale History, Rentals",
+  "description": "Scrape Zillow listings by city or URL. Returns price, beds, baths, sqft, Zestimate, rent Zestimate, days on market, agent. For-sale, for-rent, sold. Filter by price, beds, sqft, type. JSON. Pay per item.",
+  "version": "0.1",
+  "buildTag": "latest",
+  "input": "./input_schema.json",
+  "dockerfile": "./Dockerfile",
+  "readme": "../README.md",
+  "categories": [
+    "REAL_ESTATE",
+    "ECOMMERCE"
+  ]
+}

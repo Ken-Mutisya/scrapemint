@@ -1,0 +1,113 @@
+{
+  "title": "Zillow Home Price Scraper Input",
+  "type": "object",
+  "schemaVersion": 1,
+  "properties": {
+    "searchUrls": {
+      "title": "Zillow search URLs",
+      "type": "array",
+      "description": "Full Zillow search URLs. Example: https://www.zillow.com/homes/Austin-TX_rb/ for Austin for-sale, or a filtered map search pasted from zillow.com.",
+      "editor": "stringList",
+      "prefill": ["https://www.zillow.com/homes/Austin-TX_rb/"]
+    },
+    "locations": {
+      "title": "Locations",
+      "type": "array",
+      "description": "City and state like \"Austin, TX\" or zip codes. Used when searchUrls is blank.",
+      "editor": "stringList",
+      "default": []
+    },
+    "listingType": {
+      "title": "Listing type",
+      "type": "string",
+      "description": "for_sale, for_rent, or sold. Default for_sale.",
+      "default": "for_sale",
+      "enum": ["for_sale", "for_rent", "sold"]
+    },
+    "minPrice": {
+      "title": "Min price ($)",
+      "type": "number",
+      "description": "Drop listings priced below this.",
+      "default": 0,
+      "minimum": 0
+    },
+    "maxPrice": {
+      "title": "Max price ($)",
+      "type": "number",
+      "description": "Drop listings priced above this.",
+      "default": 0,
+      "minimum": 0
+    },
+    "minBeds": {
+      "title": "Min beds",
+      "type": "integer",
+      "description": "Drop listings with fewer beds.",
+      "default": 0,
+      "minimum": 0,
+      "maximum": 10
+    },
+    "maxBeds": {
+      "title": "Max beds",
+      "type": "integer",
+      "description": "Drop listings with more beds.",
+      "default": 0,
+      "minimum": 0,
+      "maximum": 20
+    },
+    "minSqft": {
+      "title": "Min square feet",
+      "type": "integer",
+      "description": "Drop listings smaller than this.",
+      "default": 0,
+      "minimum": 0
+    },
+    "propertyTypes": {
+      "title": "Property types",
+      "type": "array",
+      "description": "Keep only matching types: house, condo, townhouse, apartment, manufactured, multifamily, lot, other. Empty keeps all.",
+      "editor": "stringList",
+      "default": []
+    },
+    "maxPages": {
+      "title": "Max pages per search",
+      "type": "integer",
+      "description": "Zillow returns up to 40 listings per page. 5 pages = 200 listings. Cap to control cost.",
+      "default": 3,
+      "minimum": 1,
+      "maximum": 20
+    },
+    "maxItemsPerSource": {
+      "title": "Max items per source",
+      "type": "integer",
+      "description": "Per search cap on rows pushed.",
+      "default": 100,
+      "minimum": 1,
+      "maximum": 1000
+    },
+    "maxItemsTotal": {
+      "title": "Max items per run",
+      "type": "integer",
+      "description": "Hard cap on rows per run. Controls total cost.",
+      "default": 300,
+      "minimum": 1,
+      "maximum": 5000
+    },
+    "dedupe": {
+      "title": "Deduplicate across runs",
+      "type": "boolean",
+      "description": "Skip zpids pushed on previous runs. Turn off to track price changes over time.",
+      "default": true
+    },
+    "proxyConfiguration": {
+      "title": "Proxy configuration",
+      "type": "object",
+      "description": "Apify proxy. Residential strongly recommended. Zillow blocks datacenter IPs aggressively.",
+      "editor": "proxy",
+      "default": {
+        "useApifyProxy": true,
+        "apifyProxyGroups": ["RESIDENTIAL"]
+      }
+    }
+  },
+  "required": []
+}
