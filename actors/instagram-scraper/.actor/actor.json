@@ -1,0 +1,15 @@
+{
+    "actorSpecification": 1,
+    "name": "instagram-scraper",
+    "title": "Instagram Influencer Analyzer & Sponsored Post Tracker",
+    "description": "Rank Instagram creators by real engagement rate. Flag sponsored posts and paid partnerships. Track brand mentions across posts, reels, comments, profiles, hashtags, places, and user search. For agencies, brand marketers, and ad intelligence teams. JSON. Pay per result.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "readme": "../README.md",
+    "categories": [
+        "SOCIAL_MEDIA",
+        "MARKETING"
+    ]
+}
