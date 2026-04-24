@@ -1,0 +1,15 @@
+{
+  "actorSpecification": 1,
+  "name": "flight-price-tracker",
+  "title": "Flight Price Tracker: Google Flights Fares by Route",
+  "description": "Track Google Flights fares by route and date. Returns airline, stops, duration, price, and cabin class for every option. Filter by max stops, max price, preferred airlines, nonstop only. Schedule daily to catch price drops. JSON output. Pay per item.",
+  "version": "0.1",
+  "buildTag": "latest",
+  "input": "./input_schema.json",
+  "dockerfile": "./Dockerfile",
+  "readme": "../README.md",
+  "categories": [
+    "TRAVEL",
+    "ECOMMERCE"
+  ]
+}

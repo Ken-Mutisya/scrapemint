@@ -1,0 +1,135 @@
+{
+  "title": "Flight Price Tracker Input",
+  "type": "object",
+  "schemaVersion": 1,
+  "properties": {
+    "routes": {
+      "title": "Routes",
+      "type": "array",
+      "description": "IATA route pairs like JFK-LHR, SFO-NRT, LHR-JFK. Three letter airport codes separated by a dash. One row per airline option on each route and date.",
+      "editor": "stringList",
+      "prefill": ["JFK-LHR"]
+    },
+    "departureDates": {
+      "title": "Departure dates",
+      "type": "array",
+      "description": "ISO dates like 2026-05-15. Leave blank to use departDaysAhead and dateWindowDays for a rolling window.",
+      "editor": "stringList",
+      "default": []
+    },
+    "returnDates": {
+      "title": "Return dates",
+      "type": "array",
+      "description": "Optional return dates aligned with departureDates. Leave blank for one way searches.",
+      "editor": "stringList",
+      "default": []
+    },
+    "departDaysAhead": {
+      "title": "Depart days ahead",
+      "type": "integer",
+      "description": "Used when departureDates is blank. Starts the rolling window this many days from today.",
+      "default": 30,
+      "minimum": 1,
+      "maximum": 365
+    },
+    "dateWindowDays": {
+      "title": "Date window (days)",
+      "type": "integer",
+      "description": "Used when departureDates is blank. Number of consecutive days to scan starting at departDaysAhead.",
+      "default": 7,
+      "minimum": 1,
+      "maximum": 60
+    },
+    "tripType": {
+      "title": "Trip type",
+      "type": "string",
+      "description": "one_way or round_trip. round_trip uses return dates if provided, otherwise adds 7 nights to each departure.",
+      "default": "one_way",
+      "enum": ["one_way", "round_trip"]
+    },
+    "cabinClass": {
+      "title": "Cabin class",
+      "type": "string",
+      "description": "economy, premium_economy, business, or first.",
+      "default": "economy",
+      "enum": ["economy", "premium_economy", "business", "first"]
+    },
+    "passengers": {
+      "title": "Passengers",
+      "type": "integer",
+      "description": "Number of adult passengers. Price per the whole party.",
+      "default": 1,
+      "minimum": 1,
+      "maximum": 9
+    },
+    "maxStops": {
+      "title": "Max stops",
+      "type": "integer",
+      "description": "0 for nonstop only, 1 for up to one stop, 2 for any itinerary. Default 2.",
+      "default": 2,
+      "minimum": 0,
+      "maximum": 2
+    },
+    "maxPriceUsd": {
+      "title": "Max price ($)",
+      "type": "number",
+      "description": "Drop fares above this. Use with a daily schedule for price drop alerts.",
+      "default": 0,
+      "minimum": 0
+    },
+    "minPriceUsd": {
+      "title": "Min price ($)",
+      "type": "number",
+      "description": "Drop fares below this. Useful to filter out error fare noise.",
+      "default": 0,
+      "minimum": 0
+    },
+    "preferredAirlines": {
+      "title": "Preferred airlines",
+      "type": "array",
+      "description": "IATA airline codes like BA, DL, UA, LH. Keeps only flights operated by listed carriers. Leave empty for all.",
+      "editor": "stringList",
+      "default": []
+    },
+    "excludeAirlines": {
+      "title": "Exclude airlines",
+      "type": "array",
+      "description": "IATA airline codes to drop. Useful to avoid a carrier you never book.",
+      "editor": "stringList",
+      "default": []
+    },
+    "maxItemsPerRoute": {
+      "title": "Max items per route",
+      "type": "integer",
+      "description": "Cap on fares pushed per route and date combination. Google Flights typically lists 8 to 15 options.",
+      "default": 20,
+      "minimum": 1,
+      "maximum": 100
+    },
+    "maxItemsTotal": {
+      "title": "Max items per run",
+      "type": "integer",
+      "description": "Hard cap on rows per run. Controls cost.",
+      "default": 200,
+      "minimum": 1,
+      "maximum": 5000
+    },
+    "dedupe": {
+      "title": "Deduplicate across runs",
+      "type": "boolean",
+      "description": "Skip fares seen on previous runs. Turn off to build your own price history dataset.",
+      "default": true
+    },
+    "proxyConfiguration": {
+      "title": "Proxy configuration",
+      "type": "object",
+      "description": "Apify proxy. Residential recommended for hourly schedules.",
+      "editor": "proxy",
+      "default": {
+        "useApifyProxy": true,
+        "apifyProxyGroups": ["RESIDENTIAL"]
+      }
+    }
+  },
+  "required": []
+}
