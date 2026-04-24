@@ -1,0 +1,17 @@
+{
+    "name": "linkedin-jobs-scraper",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Track LinkedIn hiring with salary parsing, tech stack extraction, and seniority classification per job row. Pay per job.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0",
+        "crawlee": "^3.16.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}
