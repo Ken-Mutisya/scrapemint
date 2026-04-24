@@ -7,11 +7,12 @@
       "title": "TripAdvisor location URLs",
       "type": "array",
       "description": "One or more TripAdvisor hotel, attraction, or restaurant review URLs. Example: https://www.tripadvisor.com/Hotel_Review-g60763-d93589-Reviews-The_Pierre_A_Taj_Hotel-New_York.html",
-      "editor": "requestListSources",
+      "editor": "stringList",
       "prefill": [
-        {
-          "url": "https://www.tripadvisor.com/Hotel_Review-g60763-d93589-Reviews-The_Pierre_A_Taj_Hotel_New_York-New_York_City_New_York.html"
-        }
+        "https://www.tripadvisor.com/Hotel_Review-g60763-d93589-Reviews-The_Pierre_A_Taj_Hotel_New_York-New_York_City_New_York.html"
+      ],
+      "default": [
+        "https://www.tripadvisor.com/Hotel_Review-g60763-d93589-Reviews-The_Pierre_A_Taj_Hotel_New_York-New_York_City_New_York.html"
       ]
     },
     "locationUrl": {
@@ -24,7 +25,7 @@
       "title": "Maximum reviews per location",
       "type": "integer",
       "description": "Hard cap per location. Prevents runaway charges on properties with thousands of reviews.",
-      "default": 500,
+      "default": 50,
       "minimum": 1,
       "maximum": 10000
     },
@@ -62,6 +63,13 @@
       "description": "Apify proxy settings. Residential proxies recommended for TripAdvisor.",
       "editor": "proxy",
       "prefill": {
+        "useApifyProxy": true,
+        "apifyProxyGroups": [
+          "RESIDENTIAL"
+        ],
+        "apifyProxyCountry": "US"
+      },
+      "default": {
         "useApifyProxy": true,
         "apifyProxyGroups": [
           "RESIDENTIAL"
