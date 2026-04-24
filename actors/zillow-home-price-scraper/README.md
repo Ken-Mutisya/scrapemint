@@ -1,207 +1,153 @@
-# Zillow Scraper: Home Prices, Sale History, Rentals
+# Zillow Scraper: Export Home Prices, Zestimates, and Rentals to JSON
 
-Scrape Zillow home listings by city, zip, or search URL. Every row has price, beds, baths, square feet, lot size, year built, Zestimate, rent Zestimate, days on market, and agent info. Works for for-sale, for-rent, and sold listings in every US market. Filter by price, beds, sqft, and property type. JSON output. Pay per row.
+Scrape Zillow listings by city, zip code, or search URL. Get price, beds, baths, square feet, lot size, Zestimate, rent Zestimate, days on market, and agent name for every listing. Works on for sale, for rent, and sold pages in any US market. Pay per row.
 
-**Ranks for:** Zillow scraper, Zillow home price API, Zillow data export, real estate scraper, MLS alternative, Zestimate API, Zillow rental scraper, sold comps scraper, Zillow listings JSON.
+**Ranks for:** Zillow scraper, Zillow API alternative, Zestimate scraper, Zillow data export, scrape Zillow home prices, Zillow listings JSON, Zillow sold comps, Zillow rental data, real estate scraper.
 
 ---
 
-## How it works
+## What this does
 
 ```mermaid
 flowchart LR
-    A[City or Zillow URL] --> B[Zillow search page]
+    A[Paste Zillow URL<br/>or city name] --> B[Fetch search page]
     B --> C[Parse listings blob]
-    C --> D[Filter price, beds,<br/>sqft, type]
-    D --> E[JSON rows with<br/>Zestimate + flags]
+    C --> D[Filter + flag rows]
+    D --> E[JSON dataset]
 ```
 
-Paste a Zillow URL or a city name. One row per listing with the full property record.
+One input, one clean dataset. No browser automation to write, no captcha to solve, no proxy to manage.
 
 ---
 
-## Who uses this
+## Why people use it
 
-| Role | Use case |
+| Role | Job it does |
 |---|---|
-| **Real estate investor** | Find undervalued listings priced below Zestimate in target zip codes. |
-| **Wholesaler** | Track price cuts and stale listings for motivated seller outreach. |
-| **Market researcher** | Pull daily for-sale inventory to chart supply by metro. |
-| **Proptech startup** | Feed Zillow data into valuation models without MLS access. |
-| **Agent** | Monitor new listings in a farm area the minute they hit Zillow. |
-| **Rental operator** | Scrape for-rent inventory to benchmark rates by neighborhood. |
+| Real estate investor | Spot homes priced below Zestimate in target zips. |
+| Wholesaler | Track price cuts and stale listings for outreach. |
+| Market analyst | Pull daily inventory to chart supply by metro. |
+| Proptech builder | Feed Zillow rows into a valuation model. |
+| Agent | Watch new listings in a farm area the minute they hit. |
+| Rental operator | Benchmark rents by neighborhood. |
 
 ---
 
 ## Quick start
 
-**Austin for-sale under 600k:**
+Paste any Zillow search URL you see in your browser. That is the whole input.
 
 ```json
 {
   "searchUrls": ["https://www.zillow.com/homes/Austin-TX_rb/"],
-  "maxPrice": 600000,
-  "minBeds": 3,
-  "maxPages": 5
-}
-```
-
-**Sold comps in a specific zip:**
-
-```json
-{
-  "locations": ["78704"],
-  "listingType": "sold",
-  "propertyTypes": ["house", "condo"],
   "maxPages": 3
 }
 ```
 
-**Rental scan across multiple cities:**
+Three common variations:
 
 ```json
-{
-  "locations": ["Austin, TX", "Denver, CO", "Nashville, TN"],
-  "listingType": "for_rent",
-  "maxPrice": 3500,
-  "minBeds": 2
-}
+{ "locations": ["78704"], "listingType": "sold" }
 ```
-
-**Price change tracking mode:**
 
 ```json
-{
-  "searchUrls": ["https://www.zillow.com/homes/Austin-TX_rb/"],
-  "dedupe": false,
-  "maxPages": 10
-}
+{ "locations": ["Denver, CO"], "listingType": "for_rent", "maxPrice": 3500 }
 ```
+
+```json
+{ "searchUrls": ["https://www.zillow.com/homes/Austin-TX_rb/"], "dedupe": false }
+```
+
+The last one turns off dedupe so you can run it on a schedule and build your own price history table.
 
 ---
 
-## Output flags
+## What you get back
+
+```json
+{
+  "zpid": "331621763",
+  "address": "14901 Ben Davis Dr, Austin, TX 78725",
+  "city": "Austin",
+  "state": "TX",
+  "zip": "78725",
+  "price": 299000,
+  "beds": 4,
+  "baths": 2,
+  "sqft": 2047,
+  "lotSize": 6930,
+  "zestimate": 297700,
+  "rentZestimate": 2174,
+  "daysOnMarket": 3,
+  "flags": ["new_listing", "below_zestimate"],
+  "url": "https://www.zillow.com/homedetails/..."
+}
+```
+
+Flags are the fastest way to filter downstream. No need to re read titles.
 
 ```mermaid
 flowchart LR
-    A[Listing row] --> B[new_listing<br/>under 7 days]
-    A --> C[price_cut<br/>seller reduced]
-    A --> D[below_zestimate<br/>priced under est]
-    A --> E[stale_listing<br/>over 60 days]
-    A --> F[pending<br/>sold<br/>foreclosure]
-    A --> G[open_house]
+    A[Row flags] --> B[new_listing]
+    A --> C[price_cut]
+    A --> D[below_zestimate]
+    A --> E[stale_listing]
+    A --> F[pending / sold / foreclosure]
 ```
-
-Flags make downstream filtering a one liner. No need to re parse titles or badges.
 
 ---
 
 ## Zillow scraper vs the alternatives
 
-| | MLS IDX feed | Zillow API | **This actor** |
+|  | MLS IDX feed | Zillow public API | **This actor** |
 |---|---|---|---|
-| Access | Broker license required | Closed since 2021 | Anyone |
-| Setup | Weeks of paperwork | Not available | 60 seconds |
+| Who can use it | Licensed brokers | Closed since 2021 | Anyone |
+| Setup | Weeks | Not available | 60 seconds |
 | Zestimate | No | Yes | Yes |
 | Sold comps | Yes | Yes | Yes |
-| Rental data | Partial | Yes | Yes |
-| Price history | Yes | Yes | Yes via dedupe off |
-| Schedule | Manual | N/A | Every 60s |
-| Pricing | $500+ per month | Closed | Pay per item |
-
----
-
-## Sample output
-
-```json
-{
-  "source": "zillow",
-  "zpid": "29444215",
-  "listingType": "for_sale",
-  "propertyType": "house",
-  "address": "2101 E 9th St, Austin, TX 78702",
-  "city": "Austin",
-  "state": "TX",
-  "zip": "78702",
-  "lat": 30.265,
-  "lng": -97.722,
-  "price": 749000,
-  "beds": 3,
-  "baths": 2,
-  "sqft": 1620,
-  "lotSize": 6098,
-  "yearBuilt": 1950,
-  "zestimate": 781400,
-  "rentZestimate": 3200,
-  "daysOnMarket": 12,
-  "priceCutAmount": 25000,
-  "flags": ["new_listing", "price_cut", "below_zestimate"],
-  "agentName": "Jane Doe",
-  "brokerName": "Compass",
-  "url": "https://www.zillow.com/homedetails/29444215_zpid/",
-  "scrapedAt": "2026-04-24T10:30:00Z"
-}
-```
+| Rentals | Partial | Yes | Yes |
+| Price history | Yes | Yes | Yes (dedupe off) |
+| Cost | $500+ /mo | Closed | Pay per item |
 
 ---
 
 ## Pricing
 
-First 50 listings per run are free. After that pay per row. A daily snapshot of one metro at 200 listings runs under $3.
-
----
-
-## Popular searches
-
-| Search | URL to paste |
-|---|---|
-| Austin TX for sale | `https://www.zillow.com/homes/Austin-TX_rb/` |
-| Miami FL for sale | `https://www.zillow.com/homes/Miami-FL_rb/` |
-| Denver CO for rent | `https://www.zillow.com/homes/for_rent/Denver-CO_rb/` |
-| Phoenix AZ sold | `https://www.zillow.com/homes/sold/Phoenix-AZ_rb/` |
-| 78704 Austin zip | `https://www.zillow.com/homes/78704_rb/` |
-
-Copy the URL from Zillow directly after you apply filters in the browser. All map and filter state is preserved.
+First 50 rows per run are free. After that you pay per row. A daily snapshot of 200 Austin listings runs under $3.
 
 ---
 
 ## FAQ
 
-**Do I need a Zillow API key?**
-No. The Zillow public API has been closed since 2021. This actor reads the same HTML a browser sees.
+**Is there a public Zillow API?**
+No. Zillow closed the public API in 2021. This actor reads the same HTML a browser sees.
+
+**Does it return the Zestimate?**
+Yes. Every row that has a Zestimate on the search page returns one.
+
+**Can I scrape rentals?**
+Yes. Set `listingType` to `for_rent` or paste a rental URL.
+
+**Can I scrape sold comps?**
+Yes. Set `listingType` to `sold` or paste a sold URL.
 
 **Can I track price changes over time?**
-Yes. Set `dedupe: false` and schedule every day. Each run writes a fresh snapshot with a `scrapedAt` timestamp so you build your own price history table.
-
-**Does it work for rentals?**
-Yes. Set `listingType: "for_rent"` or paste a rental URL. Price is monthly rent.
-
-**Does it work for sold comps?**
-Yes. Set `listingType: "sold"` or paste a sold URL. You get last sale price and sale date per row.
-
-**What is a zpid?**
-Zillow Property ID. Stable unique identifier per listing. Used as the dedupe key.
-
-**Why do some rows skip Zestimate?**
-New listings and some rentals do not expose a Zestimate on the search page. The detail page would have it but this actor runs on search pages for cost.
+Yes. Set `dedupe: false` and schedule it daily. Each row stamps `scrapedAt` so you build your own history.
 
 **Does Zillow block scrapers?**
-Yes, aggressively on datacenter IPs. The actor ships with residential proxy by default. Keep concurrency low if you run at scale.
+Yes, aggressively on datacenter IPs. The actor uses residential proxy by default.
 
-**Can I get agent phone numbers?**
-The search page exposes agent and broker name only. Phone numbers require the detail page which is a separate call.
+**What is a zpid?**
+Zillow Property ID. A stable unique id per listing. Used as the dedupe key.
 
-**Is scraping Zillow allowed?**
-This actor reads the same public HTML a browser sees. Respect the site's terms and rate limit sensibly.
+**Is scraping Zillow legal?**
+This actor reads public HTML a browser can see. Respect the site terms and rate limit sensibly.
 
 ---
 
-## Related Scrapemint actors
+## Related actors
 
-- **Flight Price Tracker** for Google Flights fares by route
-- **Viator Scraper** for tours and activities by city
+- **Flight Price Tracker** for Google Flights fares
 - **TripAdvisor Review Intelligence** for hotel and restaurant reviews
 - **Google Reviews Intelligence** for places reviews
-- **Booking Review Intelligence** for hotel reviews by city
-
-Stack these for full market and travel intelligence coverage across every public surface.
+- **Viator Scraper** for tours and activities
