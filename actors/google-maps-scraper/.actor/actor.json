@@ -1,0 +1,15 @@
+{
+    "actorSpecification": 1,
+    "name": "google-maps-scraper",
+    "title": "Google Maps Scraper: Places, Reviews, Contact Data",
+    "description": "Scrape Google Maps by query or URL. Returns name, address, phone, website, rating, reviews, reviewer names, images, opening hours, and price range. Optional website enrichment pulls emails and person names. JSON output. Pay per place.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "readme": "../README.md",
+    "categories": [
+        "LEAD_GENERATION",
+        "MARKETING"
+    ]
+}

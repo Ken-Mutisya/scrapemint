@@ -1,0 +1,100 @@
+{
+    "title": "Google Maps Scraper Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "searchQueries": {
+            "title": "Search queries",
+            "type": "array",
+            "description": "Queries to run on Google Maps. Examples: \"coffee shops in Austin\", \"dentist 78704\", \"plumbers near Miami\".",
+            "editor": "stringList",
+            "prefill": ["coffee shops in Austin TX"],
+            "default": ["coffee shops in Austin TX"]
+        },
+        "startUrls": {
+            "title": "Direct place URLs",
+            "type": "array",
+            "description": "Direct Google Maps place URLs to scrape without running a search. Example: https://www.google.com/maps/place/.../@...",
+            "editor": "stringList",
+            "default": []
+        },
+        "language": {
+            "title": "Language code",
+            "type": "string",
+            "description": "Google Maps UI language. Affects review translation and address format.",
+            "default": "en",
+            "editor": "textfield"
+        },
+        "maxPlacesPerQuery": {
+            "title": "Max places per query",
+            "type": "integer",
+            "description": "Cap on places returned per search query.",
+            "default": 10,
+            "minimum": 1,
+            "maximum": 500
+        },
+        "maxPlacesTotal": {
+            "title": "Max places per run",
+            "type": "integer",
+            "description": "Hard cap on places extracted per run. Controls total cost.",
+            "default": 50,
+            "minimum": 1,
+            "maximum": 2000
+        },
+        "scrapeReviews": {
+            "title": "Scrape reviews",
+            "type": "boolean",
+            "description": "Open each place and scroll the reviews panel.",
+            "default": true
+        },
+        "maxReviewsPerPlace": {
+            "title": "Max reviews per place",
+            "type": "integer",
+            "description": "Reviews per place cap. 0 skips reviews.",
+            "default": 5,
+            "minimum": 0,
+            "maximum": 500
+        },
+        "scrapeImages": {
+            "title": "Scrape images",
+            "type": "boolean",
+            "description": "Extract image URLs from each place.",
+            "default": false
+        },
+        "maxImagesPerPlace": {
+            "title": "Max images per place",
+            "type": "integer",
+            "description": "Image URLs per place cap.",
+            "default": 5,
+            "minimum": 0,
+            "maximum": 50
+        },
+        "enrichFromWebsite": {
+            "title": "Enrich from business website",
+            "type": "boolean",
+            "description": "Visit the business website and pull emails and person names with job titles. Adds 5 to 10 seconds per place.",
+            "default": false
+        },
+        "dedupe": {
+            "title": "Deduplicate across runs",
+            "type": "boolean",
+            "description": "Skip place IDs pushed on previous runs. Turn off to track changes.",
+            "default": true
+        },
+        "proxyConfiguration": {
+            "title": "Proxy configuration",
+            "type": "object",
+            "description": "Apify proxy. Residential strongly recommended. Google blocks datacenter IPs.",
+            "editor": "proxy",
+            "prefill": {
+                "useApifyProxy": true,
+                "apifyProxyGroups": ["RESIDENTIAL"]
+            },
+            "default": {
+                "useApifyProxy": true,
+                "apifyProxyGroups": ["RESIDENTIAL"]
+            }
+        }
+    },
+    "required": []
+}
