@@ -1,0 +1,77 @@
+{
+    "title": "TripAdvisor Property Rank Tracker Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "description": "Snapshot rank, rating, response rate, and competitor signals for any TripAdvisor hotel, restaurant, or attraction. Paste property URLs or a destination listing URL.",
+    "properties": {
+        "targetUrls": {
+            "title": "Property URLs",
+            "type": "array",
+            "description": "TripAdvisor property URLs. Hotel_Review, Restaurant_Review, or Attraction_Review pages. Each is snapshotted as one dataset row. Example: 'https://www.tripadvisor.com/Hotel_Review-g60763-d93589-Reviews-The_Pierre_A_Taj_Hotel.html'.",
+            "editor": "stringList",
+            "prefill": [
+                "https://www.tripadvisor.com/Hotel_Review-g60763-d93589-Reviews-The_Pierre_A_Taj_Hotel.html"
+            ],
+            "default": []
+        },
+        "destinationUrls": {
+            "title": "Destination listing URLs",
+            "type": "array",
+            "description": "TripAdvisor destination listing URLs to sweep top N properties from. Hotels-, Restaurants-, or Attractions- pages. Example: 'https://www.tripadvisor.com/Hotels-g60763-New_York_City_New_York-Hotels.html'.",
+            "editor": "stringList",
+            "default": []
+        },
+        "maxPerDestination": {
+            "title": "Max properties per destination URL",
+            "type": "integer",
+            "description": "When destination listing URLs are provided, snapshot at most this many top ranked properties per destination. Useful for daily competitor sweeps.",
+            "default": 25,
+            "minimum": 1,
+            "maximum": 200
+        },
+        "responseRateSampleSize": {
+            "title": "Response rate sample size",
+            "type": "integer",
+            "description": "Number of recent reviews to sample on each property to compute owner response rate. Bigger samples are more accurate but cost more time. Set to 0 to skip response rate.",
+            "default": 30,
+            "minimum": 0,
+            "maximum": 200,
+            "sectionCaption": "Snapshot depth"
+        },
+        "extractAmenities": {
+            "title": "Extract amenities and features",
+            "type": "boolean",
+            "description": "Pull the amenity and feature flags TripAdvisor lists on the property page. Adds 200 to 400 ms per property. Built in. No extra cost.",
+            "default": true
+        },
+        "extractRatingHistogram": {
+            "title": "Extract rating histogram",
+            "type": "boolean",
+            "description": "Capture the count of reviews at each star tier (5, 4, 3, 2, 1). Built in. No extra cost.",
+            "default": true
+        },
+        "concurrency": {
+            "title": "Concurrency",
+            "type": "integer",
+            "description": "Number of properties processed in parallel. TripAdvisor sits behind Cloudflare, so two to four is the safe range with residential proxy.",
+            "default": 3,
+            "minimum": 1,
+            "maximum": 12,
+            "sectionCaption": "Run options"
+        },
+        "proxyConfiguration": {
+            "title": "Proxy configuration",
+            "type": "object",
+            "description": "Apify proxy. Residential is required for TripAdvisor at any meaningful volume.",
+            "editor": "proxy",
+            "prefill": {
+                "useApifyProxy": true,
+                "apifyProxyGroups": ["RESIDENTIAL"]
+            },
+            "default": {
+                "useApifyProxy": true,
+                "apifyProxyGroups": ["RESIDENTIAL"]
+            }
+        }
+    }
+}

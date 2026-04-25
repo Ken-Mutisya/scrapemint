@@ -1,0 +1,15 @@
+{
+    "actorSpecification": 1,
+    "name": "tripadvisor-property-rank-tracker",
+    "title": "TripAdvisor Property Rank & Competitor Benchmark Tracker",
+    "description": "For hotel operators, restaurant owners, and travel agencies. Tracks daily rank, rating drift, review volume, owner response rate, Travelers' Choice status, claim status, price tier, and amenities for any TripAdvisor hotel, restaurant, or attraction. One row per property. Pay per snapshot.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "readme": "../README.md",
+    "categories": [
+        "TRAVEL",
+        "ECOMMERCE"
+    ]
+}
