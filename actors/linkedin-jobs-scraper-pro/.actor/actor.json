@@ -1,0 +1,15 @@
+{
+    "actorSpecification": 1,
+    "name": "linkedin-jobs-scraper-pro",
+    "title": "LinkedIn Jobs Scraper Pro & Recruiter Contacts",
+    "description": "Scrape LinkedIn jobs from search URLs, keywords, or company pages. Each row ships parsed salary, skill array, seniority tier, Easy Apply flag, and recruiter contact. Optional company enrichment with size, industry, and founded year. City splitting for high volume runs. Cookie free. Pay per row.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "readme": "../README.md",
+    "categories": [
+        "JOBS",
+        "LEAD_GENERATION"
+    ]
+}

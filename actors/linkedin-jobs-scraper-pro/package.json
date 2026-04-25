@@ -1,0 +1,17 @@
+{
+    "name": "linkedin-jobs-scraper-pro",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "LinkedIn Jobs Scraper Pro: scrape from search URLs, keywords, or company pages. Company enrichment, skill mining, recruiter contacts, parsed salary, seniority, Easy Apply detection, and city splitting for high volume runs. Pay per row.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0",
+        "crawlee": "^3.16.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}
