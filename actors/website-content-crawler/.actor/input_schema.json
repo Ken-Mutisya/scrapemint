@@ -1,0 +1,239 @@
+{
+    "title": "Website Content Crawler Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "description": "Crawl a website and ship clean Markdown, plain text, token estimates, and optional auto chunks for RAG and LLM pipelines. Paste start URLs and run.",
+    "properties": {
+        "startUrls": {
+            "title": "Start URLs",
+            "type": "array",
+            "description": "URLs to start the crawl from. Each URL is treated as the entry point for that website.",
+            "editor": "stringList",
+            "prefill": [
+                "https://docs.apify.com/academy/scraping-basics-javascript"
+            ],
+            "default": []
+        },
+        "crawlerType": {
+            "title": "Crawler type",
+            "type": "string",
+            "description": "Adaptive switches between a real browser and raw HTTP based on whether the page renders content via JavaScript. Use Playwright for heavy JS sites, Cheerio for static pages.",
+            "editor": "select",
+            "enum": ["adaptive", "playwright", "cheerio"],
+            "enumTitles": [
+                "Adaptive (recommended)",
+                "Playwright (real browser)",
+                "Cheerio (raw HTTP, fastest)"
+            ],
+            "default": "adaptive"
+        },
+        "maxPages": {
+            "title": "Max pages",
+            "type": "integer",
+            "description": "Hard cap on pages crawled per run across all start URLs. Set to 0 for unlimited.",
+            "default": 100,
+            "minimum": 0,
+            "maximum": 100000
+        },
+        "maxDepth": {
+            "title": "Max link depth",
+            "type": "integer",
+            "description": "How many link hops away from the start URL the crawler is allowed to follow. 0 means only the start URLs.",
+            "default": 3,
+            "minimum": 0,
+            "maximum": 20
+        },
+        "useSitemap": {
+            "title": "Use sitemap",
+            "type": "boolean",
+            "description": "Auto discover sitemap.xml, sitemap_index.xml, and robots.txt sitemap entries to seed the crawl. Recommended for large sites.",
+            "default": true,
+            "sectionCaption": "Discovery"
+        },
+        "respectRobotsTxt": {
+            "title": "Respect robots.txt",
+            "type": "boolean",
+            "description": "Skip URLs disallowed by the site's robots.txt. Turn off for internal scraping work where you have a contract.",
+            "default": true
+        },
+        "includeUrlPatterns": {
+            "title": "Include URL patterns",
+            "type": "array",
+            "description": "Glob patterns. Pages must match at least one of these to be crawled. Empty means everything on the same domain. Examples: '**/docs/**', '**/blog/*'.",
+            "editor": "stringList",
+            "default": []
+        },
+        "excludeUrlPatterns": {
+            "title": "Exclude URL patterns",
+            "type": "array",
+            "description": "Glob patterns. Pages matching any of these are skipped. Examples: '**/login/**', '**/api/**', '**/*.zip'.",
+            "editor": "stringList",
+            "default": ["**/login/**", "**/signup/**", "**/cart/**"]
+        },
+        "stayOnDomain": {
+            "title": "Stay on the same domain",
+            "type": "boolean",
+            "description": "Only follow links on the same registrable domain as the start URL (e.g. apify.com and docs.apify.com both count when on).",
+            "default": true
+        },
+        "stayOnSubdomain": {
+            "title": "Stay on the same subdomain",
+            "type": "boolean",
+            "description": "Only follow links on the exact same hostname as the start URL. Stricter than stayOnDomain.",
+            "default": false
+        },
+        "removeFluff": {
+            "title": "Remove navigation, footers, ads, and modals",
+            "type": "boolean",
+            "description": "Strip nav, footer, header, aside, ads, cookie banners, and modals before extracting content. Recommended for AI pipelines.",
+            "default": true,
+            "sectionCaption": "Content extraction"
+        },
+        "extractor": {
+            "title": "Main content extractor",
+            "type": "string",
+            "description": "Auto picks the best result from Readability, a custom main detector, and a body fallback. Force one if your pipeline needs consistency.",
+            "editor": "select",
+            "enum": ["auto", "readability", "main", "body"],
+            "enumTitles": [
+                "Auto (recommended)",
+                "Mozilla Readability only",
+                "Custom main detector only",
+                "Full body (no extraction)"
+            ],
+            "default": "auto"
+        },
+        "outputFormats": {
+            "title": "Output formats per page",
+            "type": "array",
+            "description": "Each row carries the formats you select. Markdown is the default for AI pipelines. Plain text is best for token tight LLM contexts. HTML is the cleaned post extraction HTML.",
+            "editor": "select",
+            "items": {
+                "type": "string",
+                "enum": ["markdown", "text", "html"],
+                "enumTitles": ["Markdown", "Plain text", "Cleaned HTML"]
+            },
+            "default": ["markdown", "text"]
+        },
+        "minContentLength": {
+            "title": "Minimum content length",
+            "type": "integer",
+            "description": "Drop pages whose extracted content is shorter than this many characters. Useful for filtering out empty templates and 404 pages.",
+            "default": 100,
+            "minimum": 0,
+            "maximum": 100000
+        },
+        "chunkOutput": {
+            "title": "Auto split into RAG chunks",
+            "type": "boolean",
+            "description": "Push one row per chunk instead of one row per page. Each chunk row carries url, chunkIndex, totalChunks, markdown, tokens, and the page metadata. Built for vector database ingestion.",
+            "default": false,
+            "sectionCaption": "RAG and chunking"
+        },
+        "chunkSize": {
+            "title": "Chunk size in tokens",
+            "type": "integer",
+            "description": "Target token count per chunk when chunkOutput is on. 800 to 1000 works well for most embedding models.",
+            "default": 1000,
+            "minimum": 100,
+            "maximum": 8192
+        },
+        "chunkOverlap": {
+            "title": "Chunk overlap in tokens",
+            "type": "integer",
+            "description": "Tokens of overlap between consecutive chunks. Helps preserve context at chunk boundaries during retrieval.",
+            "default": 100,
+            "minimum": 0,
+            "maximum": 2000
+        },
+        "redactPII": {
+            "title": "Redact PII",
+            "type": "boolean",
+            "description": "Replace emails, phone numbers, IBANs, and US Social Security numbers with [REDACTED] tokens before output. Useful for GDPR safe RAG indexing.",
+            "default": false
+        },
+        "extractMetadata": {
+            "title": "Extract metadata",
+            "type": "boolean",
+            "description": "Pull JSON LD article and product schemas, OpenGraph tags, author, publish date, and modified date for every page.",
+            "default": true,
+            "sectionCaption": "Metadata and links"
+        },
+        "extractLinks": {
+            "title": "Extract link graph",
+            "type": "boolean",
+            "description": "Each row carries outbound link count split by internal vs external, plus a sample of up to 25 link URLs.",
+            "default": true
+        },
+        "infiniteScroll": {
+            "title": "Trigger infinite scroll",
+            "type": "boolean",
+            "description": "Scroll the page in stages so lazy loaded content renders before extraction. Playwright crawler only.",
+            "default": false,
+            "sectionCaption": "Browser behavior"
+        },
+        "waitForSelector": {
+            "title": "Wait for selector",
+            "type": "string",
+            "description": "Optional CSS selector. The crawler waits for this element before extracting content. Playwright crawler only.",
+            "editor": "textfield",
+            "default": ""
+        },
+        "cookies": {
+            "title": "Cookies",
+            "type": "array",
+            "description": "Cookies to set before crawling. Use this for pages behind a login. Format: array of {name, value, domain}.",
+            "editor": "json",
+            "default": []
+        },
+        "downloadFiles": {
+            "title": "Download linked files",
+            "type": "boolean",
+            "description": "Save linked PDF, DOC, DOCX, XLS, XLSX, and CSV files to the key value store. Useful for indexing knowledge bases and research libraries.",
+            "default": false,
+            "sectionCaption": "File downloads"
+        },
+        "downloadFileTypes": {
+            "title": "File extensions to download",
+            "type": "array",
+            "description": "File extensions the crawler should download when downloadFiles is on.",
+            "editor": "select",
+            "items": {
+                "type": "string",
+                "enum": ["pdf", "doc", "docx", "xls", "xlsx", "csv", "txt", "json", "xml"]
+            },
+            "default": ["pdf", "doc", "docx"]
+        },
+        "concurrency": {
+            "title": "Concurrency",
+            "type": "integer",
+            "description": "Pages processed in parallel. Eight is a safe default. Drop to two or three for sites with strict rate limits.",
+            "default": 8,
+            "minimum": 1,
+            "maximum": 64,
+            "sectionCaption": "Run options"
+        },
+        "requestTimeoutSecs": {
+            "title": "Request timeout in seconds",
+            "type": "integer",
+            "description": "Per page timeout. Long pages or slow sites may need 60 to 90 seconds.",
+            "default": 45,
+            "minimum": 5,
+            "maximum": 600
+        },
+        "proxyConfiguration": {
+            "title": "Proxy configuration",
+            "type": "object",
+            "description": "Apify proxy. Datacenter is fine for most documentation sites. Use residential for sites with anti scraping protection.",
+            "editor": "proxy",
+            "prefill": {
+                "useApifyProxy": true,
+                "apifyProxyGroups": ["RESIDENTIAL"]
+            },
+            "default": {
+                "useApifyProxy": true
+            }
+        }
+    },
+    "required": ["startUrls"]
+}
