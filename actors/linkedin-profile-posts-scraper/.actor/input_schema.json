@@ -1,0 +1,99 @@
+{
+    "title": "LinkedIn Profile & Company Posts Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "description": "Pull posts from any LinkedIn profile or company page without a cookie or login. Paste profile or company URLs, set the post window, and run.",
+    "properties": {
+        "targetUrls": {
+            "title": "Target URLs",
+            "type": "array",
+            "description": "List of LinkedIn profile or company URLs whose posts you want to scrape. Examples: 'https://www.linkedin.com/in/satyanadella/', 'https://www.linkedin.com/company/microsoft/'.",
+            "editor": "stringList",
+            "prefill": [
+                "https://www.linkedin.com/in/satyanadella/",
+                "https://www.linkedin.com/company/openai/"
+            ],
+            "default": []
+        },
+        "maxPosts": {
+            "title": "Max posts per profile",
+            "type": "integer",
+            "description": "Hard cap on posts returned per target URL. Set to 0 to scrape all discovered posts.",
+            "default": 20,
+            "minimum": 0,
+            "maximum": 1000
+        },
+        "postedLimitDate": {
+            "title": "Posted on or after",
+            "type": "string",
+            "description": "Only return posts published on or after this date. Accepts ISO date strings like '2026-01-01' or '2026-04-15T08:00:00Z' and unix timestamps in milliseconds. Leave blank for any age.",
+            "editor": "textfield",
+            "default": ""
+        },
+        "includeQuotePosts": {
+            "title": "Include quote posts",
+            "type": "boolean",
+            "description": "Quote posts are reshares with new commentary added by the profile. Turn off to filter them out.",
+            "default": true
+        },
+        "includeReposts": {
+            "title": "Include reposts",
+            "type": "boolean",
+            "description": "Reposts are reshares without commentary. Turn off to keep only original posts and quote posts.",
+            "default": true
+        },
+        "scrapeReactions": {
+            "title": "Scrape reactions",
+            "type": "boolean",
+            "description": "Push the people who reacted to each post as separate dataset items. Each reaction row carries the post id, the reactor's name, profile URL, and reaction type. Charged per reaction. Each post still ships a nested reactions preview.",
+            "default": false,
+            "sectionCaption": "Engagement enrichment"
+        },
+        "maxReactions": {
+            "title": "Max reactions per post",
+            "type": "integer",
+            "description": "Hard cap on reactions scraped per post. Set to 0 to scrape every reaction LinkedIn exposes.",
+            "default": 50,
+            "minimum": 0,
+            "maximum": 1000
+        },
+        "scrapeComments": {
+            "title": "Scrape comments",
+            "type": "boolean",
+            "description": "Push every comment on each post as a separate dataset item. Each comment row carries the post id, the commenter's name, profile URL, comment text, and reply count. Charged per comment. Each post still ships a nested comments preview.",
+            "default": false
+        },
+        "maxComments": {
+            "title": "Max comments per post",
+            "type": "integer",
+            "description": "Hard cap on comments scraped per post. Set to 0 to scrape every comment LinkedIn exposes.",
+            "default": 50,
+            "minimum": 0,
+            "maximum": 1000
+        },
+        "concurrency": {
+            "title": "Concurrency",
+            "type": "integer",
+            "description": "Number of profiles processed in parallel. Higher concurrency runs faster but increases proxy and detection risk. Six is a safe default.",
+            "default": 6,
+            "minimum": 1,
+            "maximum": 20,
+            "sectionCaption": "Run options"
+        },
+        "proxyConfiguration": {
+            "title": "Proxy configuration",
+            "type": "object",
+            "description": "Apify proxy. Residential is required for LinkedIn at any meaningful volume.",
+            "editor": "proxy",
+            "prefill": {
+                "useApifyProxy": true,
+                "apifyProxyGroups": ["RESIDENTIAL"]
+            },
+            "default": {
+                "useApifyProxy": true,
+                "apifyProxyGroups": ["RESIDENTIAL"]
+            }
+        }
+    },
+    "required": ["targetUrls"]
+}

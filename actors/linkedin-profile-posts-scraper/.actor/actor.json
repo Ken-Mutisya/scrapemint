@@ -1,0 +1,16 @@
+{
+    "actorSpecification": 1,
+    "name": "linkedin-profile-posts-scraper",
+    "title": "LinkedIn Profile & Company Post Tracker (No Cookies)",
+    "description": "Pull posts from any LinkedIn profile or company page without a cookie or login. Each row carries author, engagement counts, media, post type, and timestamp. Optional reactions and comments. JSON. Pay per post.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "readme": "../README.md",
+    "categories": [
+        "SOCIAL_MEDIA",
+        "MARKETING",
+        "LEAD_GENERATION"
+    ]
+}
