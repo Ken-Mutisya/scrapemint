@@ -1,0 +1,15 @@
+{
+    "actorSpecification": 1,
+    "name": "amazon-product-scraper",
+    "title": "Amazon Product Scraper",
+    "description": "Scrape Amazon products from search URLs, category URLs, ASINs, or seller stores. Each row ships pricing (list, savings, coupons), seller intel (FBA vs FBM, buy box), BSR, variants, ratings histogram, badges, and stock signals. 10 marketplaces. Pay per product.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "readme": "../README.md",
+    "categories": [
+        "ECOMMERCE",
+        "MARKETING"
+    ]
+}

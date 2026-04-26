@@ -1,0 +1,18 @@
+{
+    "name": "amazon-product-scraper",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Scrape Amazon products from search URLs, category URLs, ASINs, or seller stores. Each row ships price intelligence, seller details, BSR, variants, ratings, badges, stock status, and shipping estimates. Multi marketplace.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0",
+        "crawlee": "^3.16.0",
+        "playwright": "1.54.1"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}
