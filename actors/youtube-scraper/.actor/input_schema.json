@@ -1,0 +1,318 @@
+{
+    "title": "YouTube Scraper Pro Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "description": "Scrape YouTube with rich enrichment. Mix search terms, video URLs, channel handles, playlists, video IDs, hashtag URLs, and shorts URLs. Each video ships as one dataset row.",
+    "properties": {
+        "searchTerms": {
+            "title": "Search terms",
+            "type": "array",
+            "description": "YouTube search queries. Each term runs an independent search. Combine with sortBy, uploadDate, duration, and features filters below.",
+            "editor": "stringList",
+            "prefill": ["crawlee tutorial"],
+            "default": []
+        },
+        "startUrls": {
+            "title": "YouTube URLs",
+            "type": "array",
+            "description": "Mix any of: video URL (/watch?v= or youtu.be/), channel URL (/@handle, /channel/UC..., /c/, /user/), playlist URL (/playlist?list=), shorts URL (/shorts/), hashtag URL (/hashtag/), or search results URL (/results?search_query=).",
+            "editor": "stringList",
+            "default": []
+        },
+        "videoIds": {
+            "title": "Direct video IDs",
+            "type": "array",
+            "description": "11 character YouTube video IDs (e.g. dQw4w9WgXcQ). Fastest input mode. Skip the listing crawl and fetch each video directly.",
+            "editor": "stringList",
+            "default": []
+        },
+        "channelHandles": {
+            "title": "Channel handles",
+            "type": "array",
+            "description": "Channel handles like @MrBeast or @veritasium. Pulls the channel's video catalog up to maxVideosPerChannel. Combine with dateFrom or dateTo to slice the catalog by upload date.",
+            "editor": "stringList",
+            "default": []
+        },
+        "maxVideosPerSearch": {
+            "title": "Max videos per search term",
+            "type": "integer",
+            "description": "Cap on regular videos returned per search. 0 means everything YouTube exposes (typically up to a few hundred).",
+            "default": 50,
+            "minimum": 0,
+            "maximum": 5000,
+            "sectionCaption": "Volume caps"
+        },
+        "maxShortsPerSearch": {
+            "title": "Max shorts per search term",
+            "type": "integer",
+            "description": "Cap on shorts returned per search. 0 disables shorts in search results.",
+            "default": 0,
+            "minimum": 0,
+            "maximum": 5000
+        },
+        "maxStreamsPerSearch": {
+            "title": "Max live streams per search term",
+            "type": "integer",
+            "description": "Cap on live streams returned per search. 0 disables live results.",
+            "default": 0,
+            "minimum": 0,
+            "maximum": 5000
+        },
+        "maxVideosPerChannel": {
+            "title": "Max videos per channel",
+            "type": "integer",
+            "description": "Cap on videos pulled per channel handle or channel URL. Older catalogs scroll deep, so this is the safest knob to control cost.",
+            "default": 100,
+            "minimum": 0,
+            "maximum": 10000
+        },
+        "maxVideosPerPlaylist": {
+            "title": "Max videos per playlist",
+            "type": "integer",
+            "description": "Cap on videos pulled per playlist URL.",
+            "default": 200,
+            "minimum": 0,
+            "maximum": 10000
+        },
+        "uploadDate": {
+            "title": "Upload date filter",
+            "type": "string",
+            "description": "Restrict search results by recency. Applies to searchTerms only.",
+            "editor": "select",
+            "enum": ["any", "hour", "today", "week", "month", "year"],
+            "enumTitles": [
+                "Any time",
+                "Last hour",
+                "Today",
+                "This week",
+                "This month",
+                "This year"
+            ],
+            "default": "any",
+            "sectionCaption": "Search filters"
+        },
+        "duration": {
+            "title": "Duration filter",
+            "type": "string",
+            "description": "Restrict search results by length. Applies to searchTerms only.",
+            "editor": "select",
+            "enum": ["any", "short", "medium", "long"],
+            "enumTitles": [
+                "Any length",
+                "Under 4 minutes",
+                "4 to 20 minutes",
+                "Over 20 minutes"
+            ],
+            "default": "any"
+        },
+        "sortBy": {
+            "title": "Sort search results",
+            "type": "string",
+            "description": "Sort order for searchTerms. Default is relevance.",
+            "editor": "select",
+            "enum": ["relevance", "uploadDate", "viewCount", "rating"],
+            "enumTitles": [
+                "Relevance (default)",
+                "Most recent first",
+                "Most viewed first",
+                "Highest rated first"
+            ],
+            "default": "relevance"
+        },
+        "features": {
+            "title": "Feature filters",
+            "type": "array",
+            "description": "Restrict search to videos with these features. Multiple values stack. Applies to searchTerms only.",
+            "editor": "select",
+            "items": {
+                "type": "string",
+                "enum": ["live", "fourK", "hd", "subtitles", "creativeCommons", "vr360", "hdr", "purchased"],
+                "enumTitles": [
+                    "Live now",
+                    "4K resolution",
+                    "HD resolution",
+                    "Has subtitles or CC",
+                    "Creative Commons license",
+                    "VR 360",
+                    "HDR",
+                    "Purchased"
+                ]
+            },
+            "default": []
+        },
+        "dateFrom": {
+            "title": "Date from (channel + playlist scraping)",
+            "type": "string",
+            "description": "ISO date (YYYY-MM-DD). Drops videos uploaded before this date when crawling channels or playlists. Leave blank for no lower bound.",
+            "editor": "textfield",
+            "default": ""
+        },
+        "dateTo": {
+            "title": "Date to (channel + playlist scraping)",
+            "type": "string",
+            "description": "ISO date (YYYY-MM-DD). Drops videos uploaded after this date when crawling channels or playlists. Leave blank for no upper bound.",
+            "editor": "textfield",
+            "default": ""
+        },
+        "extractTranscript": {
+            "title": "Download transcript",
+            "type": "boolean",
+            "description": "Pull the auto generated or human written transcript. Each segment carries start time, duration, and text. Useful for AI summarization, content audits, and SEO research.",
+            "default": false,
+            "sectionCaption": "Enrichment depth"
+        },
+        "transcriptLanguages": {
+            "title": "Transcript languages",
+            "type": "array",
+            "description": "Preferred transcript language codes in priority order (e.g. en, es, de, ja, hi). The first available track is used. Leave default to take whatever YouTube serves first.",
+            "editor": "stringList",
+            "default": ["en"]
+        },
+        "extractTopComments": {
+            "title": "Extract top comments",
+            "type": "boolean",
+            "description": "Pull the top comments thread. Each comment carries author, channel ID, text, like count, reply count, posted time, and pinned or hearted flag.",
+            "default": false
+        },
+        "maxComments": {
+            "title": "Max comments per video",
+            "type": "integer",
+            "description": "Cap on top level comments returned per video. Ignored if extractTopComments is off.",
+            "default": 50,
+            "minimum": 0,
+            "maximum": 5000
+        },
+        "extractCommentReplies": {
+            "title": "Extract comment replies",
+            "type": "boolean",
+            "description": "Walk into each top level comment and pull the first batch of replies. Adds latency. Off by default.",
+            "default": false
+        },
+        "extractChapters": {
+            "title": "Extract chapters",
+            "type": "boolean",
+            "description": "Pull the chapter timeline if the creator added one (or YouTube auto generated one). Each chapter has title, start time, and thumbnail.",
+            "default": true
+        },
+        "extractRelatedVideos": {
+            "title": "Extract related videos",
+            "type": "boolean",
+            "description": "Pull the up next sidebar (video ID, title, channel, view count). Useful for content recommendation graphs.",
+            "default": false
+        },
+        "extractChannelStats": {
+            "title": "Enrich with channel stats",
+            "type": "boolean",
+            "description": "Resolve subscriber count, total video count, joined date, country, and links for every distinct channel encountered. One extra page hit per channel.",
+            "default": true
+        },
+        "extractMusicAndCredits": {
+            "title": "Extract music tracks and credits",
+            "type": "boolean",
+            "description": "Pull the music tracks panel (song title, artist, album, license) and the credit list (people, locations) if present.",
+            "default": false
+        },
+        "extractMostReplayed": {
+            "title": "Extract most replayed heatmap",
+            "type": "boolean",
+            "description": "Pull the most replayed segment markers (timestamp + intensity 0 to 1). Lets analysts find the highest engagement moments programmatically.",
+            "default": false
+        },
+        "extractStreamUrls": {
+            "title": "Extract direct stream URLs",
+            "type": "boolean",
+            "description": "Capture available video and audio stream URLs and bitrates from the player response. Some streams are signed and time bounded.",
+            "default": false
+        },
+        "extractEndScreens": {
+            "title": "Extract end screens and cards",
+            "type": "boolean",
+            "description": "Pull end screen elements and info cards. Useful for cross promotion analysis on creator networks.",
+            "default": false
+        },
+        "region": {
+            "title": "Region (gl)",
+            "type": "string",
+            "description": "Two letter country code passed as gl. Affects which results YouTube returns and which currency monetary fields show.",
+            "editor": "select",
+            "enum": ["US", "GB", "CA", "AU", "DE", "FR", "IT", "ES", "NL", "SE", "PL", "TR", "BR", "MX", "JP", "KR", "IN", "ID"],
+            "enumTitles": [
+                "United States",
+                "United Kingdom",
+                "Canada",
+                "Australia",
+                "Germany",
+                "France",
+                "Italy",
+                "Spain",
+                "Netherlands",
+                "Sweden",
+                "Poland",
+                "Turkey",
+                "Brazil",
+                "Mexico",
+                "Japan",
+                "South Korea",
+                "India",
+                "Indonesia"
+            ],
+            "default": "US",
+            "sectionCaption": "Localization"
+        },
+        "language": {
+            "title": "Interface language (hl)",
+            "type": "string",
+            "description": "Two letter language code passed as hl. Affects which language YouTube renders metadata in.",
+            "editor": "select",
+            "enum": ["en", "es", "fr", "de", "it", "pt", "ja", "ko", "zh", "hi", "ar", "ru", "tr", "nl", "pl", "sv"],
+            "enumTitles": [
+                "English",
+                "Spanish",
+                "French",
+                "German",
+                "Italian",
+                "Portuguese",
+                "Japanese",
+                "Korean",
+                "Chinese",
+                "Hindi",
+                "Arabic",
+                "Russian",
+                "Turkish",
+                "Dutch",
+                "Polish",
+                "Swedish"
+            ],
+            "default": "en"
+        },
+        "dedupe": {
+            "title": "Deduplicate across runs",
+            "type": "boolean",
+            "description": "Skip video IDs already pushed in previous runs. Turn off to refresh stale rows.",
+            "default": true,
+            "sectionCaption": "Run options"
+        },
+        "concurrency": {
+            "title": "Concurrency",
+            "type": "integer",
+            "description": "Number of pages processed in parallel. Three to five is safe. Higher values trigger consent walls and rate limits.",
+            "default": 4,
+            "minimum": 1,
+            "maximum": 16
+        },
+        "proxyConfiguration": {
+            "title": "Proxy configuration",
+            "type": "object",
+            "description": "Apify proxy. Datacenter is fine for YouTube at modest volume. Switch to residential if consent or age gates appear.",
+            "editor": "proxy",
+            "prefill": {
+                "useApifyProxy": true,
+                "apifyProxyGroups": []
+            },
+            "default": {
+                "useApifyProxy": true,
+                "apifyProxyGroups": []
+            }
+        }
+    }
+}

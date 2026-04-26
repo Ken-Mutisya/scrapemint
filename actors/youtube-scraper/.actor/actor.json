@@ -1,0 +1,15 @@
+{
+    "actorSpecification": 1,
+    "name": "youtube-scraper",
+    "title": "YouTube Scraper Pro: Videos, Channels, Comments & Transcripts",
+    "description": "Scrape YouTube videos, channels, playlists, shorts, and live streams. Each row ships engagement, transcripts, top comments with replies, chapters, most replayed heatmap, channel stats, related videos, and music credits. 16 regions. Pay per video.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "readme": "../README.md",
+    "categories": [
+        "SOCIAL_MEDIA",
+        "MARKETING"
+    ]
+}
