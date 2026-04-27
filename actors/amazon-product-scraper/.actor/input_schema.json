@@ -10,7 +10,7 @@
             "description": "Amazon search URLs (/s?k=), category URLs (/b?node= or /gp/bestsellers), product URLs (/dp/ASIN), or seller store URLs (/stores/ or /shops/). Mix and match. Each is treated as an entry point.",
             "editor": "stringList",
             "prefill": [
-                "https://www.amazon.com/s?k=mechanical+keyboard"
+                "https://www.amazon.com/dp/B08N5WRWNW"
             ],
             "default": []
         },
@@ -45,7 +45,7 @@
             "title": "Max results per start URL",
             "type": "integer",
             "description": "Hard cap on products returned per search or category URL. 0 means everything Amazon exposes (typically up to 7 pages of 16 results).",
-            "default": 100,
+            "default": 25,
             "minimum": 0,
             "maximum": 10000
         },

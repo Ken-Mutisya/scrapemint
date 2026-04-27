@@ -39,7 +39,7 @@
             "title": "Max jobs",
             "type": "integer",
             "description": "Hard cap on jobs returned across all queries. Set to 0 for everything LinkedIn exposes (about 1000 per search).",
-            "default": 100,
+            "default": 25,
             "minimum": 0,
             "maximum": 10000
         },
@@ -106,7 +106,7 @@
             "title": "Scrape company details",
             "type": "boolean",
             "description": "Fetch each unique company's About page to enrich rows with industry, company size, headcount, founded year, headquarters, specialties, and active job count. Pushed as a separate dataset row per company.",
-            "default": true,
+            "default": false,
             "sectionCaption": "Enrichment"
         },
         "scrapeRecruiterContact": {

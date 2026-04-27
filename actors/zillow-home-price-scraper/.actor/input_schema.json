@@ -72,7 +72,7 @@
       "title": "Max pages per search",
       "type": "integer",
       "description": "Zillow returns up to 40 listings per page. 5 pages = 200 listings. Cap to control cost.",
-      "default": 3,
+      "default": 1,
       "minimum": 1,
       "maximum": 20
     },
@@ -80,7 +80,7 @@
       "title": "Max items per source",
       "type": "integer",
       "description": "Per search cap on rows pushed.",
-      "default": 100,
+      "default": 25,
       "minimum": 1,
       "maximum": 1000
     },
@@ -88,7 +88,7 @@
       "title": "Max items per run",
       "type": "integer",
       "description": "Hard cap on rows per run. Controls total cost.",
-      "default": 300,
+      "default": 25,
       "minimum": 1,
       "maximum": 5000
     },

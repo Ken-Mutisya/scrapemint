@@ -31,7 +31,7 @@
             "title": "Max pages",
             "type": "integer",
             "description": "Hard cap on pages crawled per run across all start URLs. Set to 0 for unlimited.",
-            "default": 100,
+            "default": 25,
             "minimum": 0,
             "maximum": 100000
         },
