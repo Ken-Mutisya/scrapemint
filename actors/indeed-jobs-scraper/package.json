@@ -1,0 +1,18 @@
+{
+    "name": "indeed-jobs-scraper",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Scrape Indeed jobs from search keywords, search URLs, job IDs, or company pages. Each row ships parsed salary, skills, seniority tier, remote/hybrid signal, Easy Apply flag, sponsored flag, and optional company enrichment with rating, reviews, size, industry, and founded year. 18 countries. Pay per row.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0",
+        "crawlee": "^3.16.0",
+        "playwright": "1.54.1"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}
