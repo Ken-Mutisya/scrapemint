@@ -1,0 +1,18 @@
+{
+    "name": "tripadvisor-scraper",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Scrape TripAdvisor hotels, restaurants, attractions, things to do, vacation rentals, and tours. Each row ships pricing, contact info, amenities, awards, ratings breakdown, photos, coordinates, address, hours, cuisine, and review summaries. Multi country, multi currency, multi language. Pay per row.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0",
+        "crawlee": "^3.16.0",
+        "playwright": "1.54.1"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}

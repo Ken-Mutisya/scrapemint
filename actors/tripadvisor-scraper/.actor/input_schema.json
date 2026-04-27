@@ -1,0 +1,233 @@
+{
+    "title": "TripAdvisor Scraper Pro Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "description": "Scrape TripAdvisor with rich enrichment. Drop in a city name and place type, or paste any TripAdvisor URL (Tourism, Hotel_Review, Restaurant_Review, Attraction_Review, VacationRentalReview, AttractionProductReview). Each property ships as one dataset row.",
+    "properties": {
+        "searchQuery": {
+            "title": "Search query",
+            "type": "string",
+            "description": "City, neighborhood, or country name. The actor resolves it to a TripAdvisor geo ID and pulls the matching place lists. Leave blank if you only want to scrape startUrls.",
+            "editor": "textfield",
+            "prefill": "Chicago",
+            "default": ""
+        },
+        "startUrls": {
+            "title": "Start URLs",
+            "type": "array",
+            "description": "Mix any of: Tourism (city overview), Hotel_Review, Restaurant_Review, Attraction_Review, VacationRentalReview, AttractionProductReview, or list URLs (Hotels-, Restaurants-, Attractions-).",
+            "editor": "stringList",
+            "default": []
+        },
+        "maxResults": {
+            "title": "Max results per search query / start URL",
+            "type": "integer",
+            "description": "Hard cap on properties returned per search or list URL. 0 means everything TripAdvisor exposes.",
+            "default": 25,
+            "minimum": 0,
+            "maximum": 5000
+        },
+        "placeTypes": {
+            "title": "Place types to include",
+            "type": "array",
+            "description": "Which TripAdvisor sections to crawl when scraping by search query. Direct URLs always honor their type.",
+            "editor": "select",
+            "items": {
+                "type": "string",
+                "enum": ["hotels", "restaurants", "things_to_do", "vacation_rentals", "tours"],
+                "enumTitles": [
+                    "Hotels",
+                    "Restaurants",
+                    "Things to do (attractions)",
+                    "Vacation rentals",
+                    "Tours and experiences"
+                ]
+            },
+            "default": ["hotels", "restaurants", "things_to_do"]
+        },
+        "includeReviewTags": {
+            "title": "Include review tags",
+            "type": "boolean",
+            "description": "Pull the auto generated review tags (e.g. great location, romantic, family friendly). Used by travelers to filter reviews.",
+            "default": true,
+            "sectionCaption": "Enrichment"
+        },
+        "includeNearbyResults": {
+            "title": "Include nearby results",
+            "type": "boolean",
+            "description": "Also pull the nearby section that TripAdvisor shows on every detail page (10 to 20 nearby properties).",
+            "default": false
+        },
+        "extractAmenities": {
+            "title": "Extract amenities and features",
+            "type": "boolean",
+            "description": "Hotels, vacation rentals, and attractions ship every listed amenity (pool, free Wi-Fi, accessibility, family rooms).",
+            "default": true
+        },
+        "extractAwards": {
+            "title": "Extract awards",
+            "type": "boolean",
+            "description": "Travelers' Choice, Certificate of Excellence, Best of the Best, and category awards.",
+            "default": true
+        },
+        "extractRatingBreakdown": {
+            "title": "Extract rating breakdown",
+            "type": "boolean",
+            "description": "Per category ratings (cleanliness, service, value, location, rooms, sleep) for hotels, plus food / service / value / atmosphere for restaurants.",
+            "default": true
+        },
+        "extractRecentReviewSnippets": {
+            "title": "Extract recent review snippets",
+            "type": "boolean",
+            "description": "Capture the first three review snippets visible on the detail page. Useful for sentiment summaries without pulling every review.",
+            "default": true
+        },
+        "extractContact": {
+            "title": "Extract contact details",
+            "type": "boolean",
+            "description": "Phone number, website URL, structured address, and coordinates when present.",
+            "default": true
+        },
+        "extractHoursAndPricing": {
+            "title": "Extract hours and pricing",
+            "type": "boolean",
+            "description": "Operating hours, price tier, lowest rate (hotels and vacation rentals), tour duration and price, and meal types served.",
+            "default": true
+        },
+        "extractPhotos": {
+            "title": "Extract photo URLs",
+            "type": "boolean",
+            "description": "Pull the gallery photo URLs in original resolution.",
+            "default": true
+        },
+        "maxPhotosPerProperty": {
+            "title": "Max photos per property",
+            "type": "integer",
+            "description": "Cap on photo URLs returned per row. Set 0 for all.",
+            "default": 12,
+            "minimum": 0,
+            "maximum": 200
+        },
+        "checkInDate": {
+            "title": "Check in date (hotels and vacation rentals)",
+            "type": "string",
+            "description": "ISO date YYYY-MM-DD. Drives availability and pricing for hotels and vacation rentals. Leave blank for default rate.",
+            "editor": "textfield",
+            "default": ""
+        },
+        "checkOutDate": {
+            "title": "Check out date (hotels and vacation rentals)",
+            "type": "string",
+            "description": "ISO date YYYY-MM-DD. Required when checkInDate is set.",
+            "editor": "textfield",
+            "default": ""
+        },
+        "guests": {
+            "title": "Guests (hotels and vacation rentals)",
+            "type": "integer",
+            "description": "Number of adult guests. Affects pricing.",
+            "default": 2,
+            "minimum": 1,
+            "maximum": 10
+        },
+        "rooms": {
+            "title": "Rooms (hotels)",
+            "type": "integer",
+            "description": "Number of rooms. Hotels only.",
+            "default": 1,
+            "minimum": 1,
+            "maximum": 8
+        },
+        "minRating": {
+            "title": "Minimum rating (filter)",
+            "type": "number",
+            "description": "Drop properties rated below this number of stars (1.0 to 5.0). 0 means no filter.",
+            "default": 0,
+            "minimum": 0,
+            "maximum": 5
+        },
+        "language": {
+            "title": "Language",
+            "type": "string",
+            "description": "TripAdvisor interface and review language. Affects which reviews are surfaced and how metadata reads.",
+            "editor": "select",
+            "enum": ["en", "es", "fr", "de", "it", "pt", "nl", "ru", "ja", "ko", "zh", "ar", "tr", "pl", "sv", "th"],
+            "enumTitles": [
+                "English",
+                "Spanish",
+                "French",
+                "German",
+                "Italian",
+                "Portuguese",
+                "Dutch",
+                "Russian",
+                "Japanese",
+                "Korean",
+                "Chinese (simplified)",
+                "Arabic",
+                "Turkish",
+                "Polish",
+                "Swedish",
+                "Thai"
+            ],
+            "default": "en",
+            "sectionCaption": "Localization"
+        },
+        "currency": {
+            "title": "Currency",
+            "type": "string",
+            "description": "Currency for hotel rates, vacation rental rates, and tour pricing.",
+            "editor": "select",
+            "enum": ["USD", "EUR", "GBP", "CAD", "AUD", "JPY", "CHF", "BRL", "MXN", "INR", "AED", "SGD", "HKD", "ZAR", "NZD", "SEK", "PLN"],
+            "enumTitles": [
+                "US Dollar",
+                "Euro",
+                "British Pound",
+                "Canadian Dollar",
+                "Australian Dollar",
+                "Japanese Yen",
+                "Swiss Franc",
+                "Brazilian Real",
+                "Mexican Peso",
+                "Indian Rupee",
+                "UAE Dirham",
+                "Singapore Dollar",
+                "Hong Kong Dollar",
+                "South African Rand",
+                "New Zealand Dollar",
+                "Swedish Krona",
+                "Polish Zloty"
+            ],
+            "default": "USD"
+        },
+        "dedupe": {
+            "title": "Deduplicate across runs",
+            "type": "boolean",
+            "description": "Skip property IDs already pushed in previous runs. Turn off to refresh stale rows.",
+            "default": true,
+            "sectionCaption": "Run options"
+        },
+        "concurrency": {
+            "title": "Concurrency",
+            "type": "integer",
+            "description": "Number of pages processed in parallel. Three to five is safe. Higher triggers Cloudflare challenges.",
+            "default": 4,
+            "minimum": 1,
+            "maximum": 16
+        },
+        "proxyConfiguration": {
+            "title": "Proxy configuration",
+            "type": "object",
+            "description": "Apify proxy. Residential is required for TripAdvisor at meaningful volume.",
+            "editor": "proxy",
+            "prefill": {
+                "useApifyProxy": true,
+                "apifyProxyGroups": ["RESIDENTIAL"]
+            },
+            "default": {
+                "useApifyProxy": true,
+                "apifyProxyGroups": ["RESIDENTIAL"]
+            }
+        }
+    }
+}

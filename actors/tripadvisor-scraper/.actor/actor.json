@@ -1,0 +1,15 @@
+{
+    "actorSpecification": 1,
+    "name": "tripadvisor-scraper",
+    "title": "TripAdvisor Scraper: Hotels, Restaurants & Attractions",
+    "description": "Scrape TripAdvisor hotels, restaurants, attractions, things to do, vacation rentals, and tours. Each row ships pricing, contact, amenities, awards, ratings breakdown, photos, coordinates, hours, cuisine, and review summaries. Multi country, multi currency. Pay per row.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "readme": "../README.md",
+    "categories": [
+        "TRAVEL",
+        "ECOMMERCE"
+    ]
+}
