@@ -1,0 +1,226 @@
+{
+    "title": "Sports Odds Scraper Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "description": "Scrape live odds across DraftKings, Pinnacle, FanDuel, BetMGM, Caesars, and any sportsbook event page. Pick sports + leagues, paste direct event URLs, or both. Each row is one event with a normalized markets array.",
+    "properties": {
+        "sports": {
+            "title": "Sports + leagues",
+            "type": "array",
+            "description": "Pick which leagues to scrape. Each pulls every upcoming event with currently posted lines from the selected sportsbooks.",
+            "editor": "select",
+            "items": {
+                "type": "string",
+                "enum": [
+                    "nfl",
+                    "ncaaf",
+                    "nba",
+                    "wnba",
+                    "ncaab",
+                    "mlb",
+                    "nhl",
+                    "ufc",
+                    "boxing",
+                    "soccer_epl",
+                    "soccer_laliga",
+                    "soccer_bundesliga",
+                    "soccer_seriea",
+                    "soccer_ligue1",
+                    "soccer_mls",
+                    "soccer_uefa_cl",
+                    "soccer_uefa_el",
+                    "tennis_atp",
+                    "tennis_wta",
+                    "golf_pga",
+                    "f1",
+                    "esports_csgo",
+                    "esports_lol",
+                    "esports_dota2"
+                ],
+                "enumTitles": [
+                    "NFL",
+                    "NCAA Football",
+                    "NBA",
+                    "WNBA",
+                    "NCAA Basketball",
+                    "MLB",
+                    "NHL",
+                    "UFC / MMA",
+                    "Boxing",
+                    "Soccer - Premier League",
+                    "Soccer - La Liga",
+                    "Soccer - Bundesliga",
+                    "Soccer - Serie A",
+                    "Soccer - Ligue 1",
+                    "Soccer - MLS",
+                    "Soccer - UEFA Champions League",
+                    "Soccer - UEFA Europa League",
+                    "Tennis - ATP",
+                    "Tennis - WTA",
+                    "Golf - PGA",
+                    "Formula 1",
+                    "Esports - CS:GO",
+                    "Esports - League of Legends",
+                    "Esports - Dota 2"
+                ]
+            },
+            "default": [],
+            "sectionCaption": "What to scrape",
+            "sectionDescription": "Pick leagues, paste event URLs, or both. Each event ships as one row with markets[]."
+        },
+        "eventUrls": {
+            "title": "Event URLs",
+            "type": "array",
+            "description": "Direct event page URLs from any supported sportsbook (DraftKings, Pinnacle, FanDuel, BetMGM, Caesars, Bet365). Mix and match. Unknown books fall back to JSON-LD extraction.",
+            "editor": "stringList",
+            "default": []
+        },
+        "books": {
+            "title": "Sportsbooks to include",
+            "type": "array",
+            "description": "Which sportsbooks to query when sports + leagues are selected. Empty means all supported books.",
+            "editor": "select",
+            "items": {
+                "type": "string",
+                "enum": [
+                    "draftkings",
+                    "pinnacle",
+                    "fanduel",
+                    "betmgm",
+                    "caesars",
+                    "bet365"
+                ],
+                "enumTitles": [
+                    "DraftKings (US)",
+                    "Pinnacle (Global, sharpest lines)",
+                    "FanDuel (US)",
+                    "BetMGM (US)",
+                    "Caesars (US)",
+                    "Bet365 (Global)"
+                ]
+            },
+            "default": ["draftkings", "pinnacle"]
+        },
+        "markets": {
+            "title": "Markets",
+            "type": "array",
+            "description": "Which betting markets to pull per event.",
+            "editor": "select",
+            "items": {
+                "type": "string",
+                "enum": ["h2h", "spreads", "totals", "player_props", "team_totals", "first_half"],
+                "enumTitles": [
+                    "Moneyline (h2h)",
+                    "Spreads / point spread",
+                    "Totals (over / under)",
+                    "Player props",
+                    "Team totals",
+                    "First half"
+                ]
+            },
+            "default": ["h2h", "spreads", "totals"]
+        },
+        "oddsFormat": {
+            "title": "Odds format",
+            "type": "string",
+            "description": "How to express prices in the row.",
+            "editor": "select",
+            "enum": ["american", "decimal", "fractional", "implied_probability"],
+            "enumTitles": [
+                "American (-110 / +200)",
+                "Decimal (1.91 / 3.00)",
+                "Fractional (10/11 / 2/1)",
+                "Implied probability (0.524 / 0.333)"
+            ],
+            "default": "american"
+        },
+        "computeBestPrice": {
+            "title": "Compute best price per outcome",
+            "type": "boolean",
+            "description": "When at least two books are queried, attach a bestPrice field per outcome with the highest odds and which book offers it.",
+            "default": true,
+            "sectionCaption": "Edge detection"
+        },
+        "computeArbitrage": {
+            "title": "Compute arbitrage edges",
+            "type": "boolean",
+            "description": "Flag two way and three way markets where the best prices across books guarantee a profit. Adds an arbitrage object per market when found.",
+            "default": false
+        },
+        "minArbPct": {
+            "title": "Minimum arbitrage edge (%)",
+            "type": "number",
+            "description": "Drop arbitrage opportunities below this edge. 0.5 means at least 0.5% guaranteed return.",
+            "default": 0,
+            "minimum": 0,
+            "maximum": 50
+        },
+        "minBestEdgePct": {
+            "title": "Minimum best price edge vs market average (%)",
+            "type": "number",
+            "description": "Filter best price flags to only those that beat the average price across books by this percent.",
+            "default": 0,
+            "minimum": 0,
+            "maximum": 100
+        },
+        "totalMaxEvents": {
+            "title": "Total maximum events",
+            "type": "integer",
+            "description": "Hard cap on event rows pushed per run. 0 means unlimited.",
+            "default": 50,
+            "minimum": 0,
+            "maximum": 5000
+        },
+        "maxEventsPerSport": {
+            "title": "Max events per sport",
+            "type": "integer",
+            "description": "Per league cap. Useful when scraping multiple leagues in one run.",
+            "default": 100,
+            "minimum": 1,
+            "maximum": 5000
+        },
+        "includeStartedEvents": {
+            "title": "Include in play events",
+            "type": "boolean",
+            "description": "Include events already in progress. Off keeps the feed to upcoming events only.",
+            "default": false
+        },
+        "lookAheadHours": {
+            "title": "Look ahead window (hours)",
+            "type": "integer",
+            "description": "Only return events starting within this many hours from now. 0 means no time limit.",
+            "default": 0,
+            "minimum": 0,
+            "maximum": 720
+        },
+        "dedupe": {
+            "title": "Deduplicate across runs",
+            "type": "boolean",
+            "description": "Skip event IDs already pushed in previous runs (keyed by sport + home + away + commenceTime). Turn off to refresh stale rows.",
+            "default": true,
+            "sectionCaption": "Run options"
+        },
+        "concurrency": {
+            "title": "Concurrency",
+            "type": "integer",
+            "description": "Number of book + sport combinations fetched in parallel.",
+            "default": 4,
+            "minimum": 1,
+            "maximum": 16
+        },
+        "proxyConfiguration": {
+            "title": "Proxy configuration",
+            "type": "object",
+            "description": "Apify proxy. Pinnacle public API works on datacenter or unproxied. DraftKings is geo gated and Akamai protected, so US residential is required. FanDuel, BetMGM, Bet365 also need residential.",
+            "editor": "proxy",
+            "prefill": {
+                "useApifyProxy": true,
+                "apifyProxyGroups": ["RESIDENTIAL"]
+            },
+            "default": {
+                "useApifyProxy": true,
+                "apifyProxyGroups": ["RESIDENTIAL"]
+            }
+        }
+    }
+}
