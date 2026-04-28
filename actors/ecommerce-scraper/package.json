@@ -1,0 +1,18 @@
+{
+    "name": "ecommerce-scraper",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Scrape products from any e-commerce site. Auto detects 14 major marketplaces (Amazon, Walmart, Target, eBay, Etsy, AliExpress, Best Buy, Costco, Wayfair, Home Depot, IKEA, Zalando, ASOS, Shopify) with a JSON-LD primary parser that covers most other retailers. Pricing, stock, ratings, variants, images, AI summaries. Pay per row.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0",
+        "crawlee": "^3.16.0",
+        "playwright": "1.54.1"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}

@@ -1,0 +1,243 @@
+{
+    "title": "E-commerce Scraper Pro Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "description": "Configure how products are collected. Pass direct product URLs, category listing URLs, or a keyword search across selected marketplaces. Each product ships as one dataset row.",
+    "properties": {
+        "scrapeMode": {
+            "title": "Scrape mode",
+            "type": "string",
+            "description": "Auto picks the fastest path per URL: Cheerio for static HTML pages, Playwright for JS heavy retailers (Amazon, Walmart, Target, AliExpress). Force one mode if you have a preference.",
+            "editor": "select",
+            "enum": ["auto", "playwright", "cheerio"],
+            "enumTitles": [
+                "Auto (recommended)",
+                "Playwright (full browser, slower, more reliable)",
+                "Cheerio (raw HTTP, fastest, JSON-LD only)"
+            ],
+            "default": "auto",
+            "sectionCaption": "Product options",
+            "sectionDescription": "Use this section to configure how product data is collected. Provide direct product URLs, category listing URLs, or keywords for product searches."
+        },
+        "productUrls": {
+            "title": "Product detail URLs",
+            "type": "array",
+            "description": "Direct product page URLs. Mix any of the supported marketplaces (Amazon, Walmart, Target, eBay, Etsy, AliExpress, Best Buy, Costco, Wayfair, Home Depot, IKEA, Zalando, ASOS, Shopify). Unknown retailers fall back to JSON-LD.",
+            "editor": "stringList",
+            "default": []
+        },
+        "categoryUrls": {
+            "title": "Category listing URLs",
+            "type": "array",
+            "description": "Category, search results, brand, or seller store URLs. The actor walks the listing, queues each product, and respects totalMaxProducts.",
+            "editor": "stringList",
+            "default": []
+        },
+        "keyword": {
+            "title": "Keyword for search",
+            "type": "string",
+            "description": "Search term applied across each selected marketplace. Pair with marketplaces below.",
+            "editor": "textfield",
+            "default": ""
+        },
+        "marketplaces": {
+            "title": "Marketplaces for keyword search",
+            "type": "array",
+            "description": "Which marketplaces to run the keyword search on. Independent searches per marketplace, results merged into one dataset.",
+            "editor": "select",
+            "items": {
+                "type": "string",
+                "enum": [
+                    "amazon_us", "amazon_uk", "amazon_de", "amazon_fr", "amazon_jp", "amazon_in",
+                    "walmart_us", "target_us", "bestbuy_us", "costco_us", "wayfair_us", "homedepot_us",
+                    "ebay_us", "etsy_us", "aliexpress",
+                    "ikea_us", "zalando_de", "asos_uk"
+                ],
+                "enumTitles": [
+                    "Amazon (US)", "Amazon (UK)", "Amazon (DE)", "Amazon (FR)", "Amazon (JP)", "Amazon (IN)",
+                    "Walmart (US)", "Target (US)", "Best Buy (US)", "Costco (US)", "Wayfair (US)", "Home Depot (US)",
+                    "eBay (US)", "Etsy (US)", "AliExpress (Global)",
+                    "IKEA (US)", "Zalando (DE)", "ASOS (UK)"
+                ]
+            },
+            "default": []
+        },
+        "includeAdditionalProperties": {
+            "title": "Include additional properties",
+            "type": "boolean",
+            "description": "Pull extras when present: variant matrix, ratings histogram, Q&A counts, shipping options, return policy summary, eco labels, certifications, dimensions and weight. Off keeps rows lean.",
+            "default": true
+        },
+        "aiSummaryDataPoints": {
+            "title": "AI summary - data points",
+            "type": "array",
+            "description": "Generate per product AI summaries for the chosen aspects. Requires an OpenAI API key (set in run env). Skip for raw data only.",
+            "editor": "select",
+            "items": {
+                "type": "string",
+                "enum": [
+                    "pros",
+                    "cons",
+                    "best_for",
+                    "avoid_if",
+                    "value_rating",
+                    "sentiment_breakdown",
+                    "feature_highlights",
+                    "comparison_notes",
+                    "buyer_questions",
+                    "fit_recommendation"
+                ],
+                "enumTitles": [
+                    "Pros (top positives)",
+                    "Cons (top negatives)",
+                    "Best for (target audience)",
+                    "Avoid if (warning signals)",
+                    "Value rating (price vs quality)",
+                    "Sentiment breakdown (positive / neutral / negative)",
+                    "Feature highlights (top features)",
+                    "Comparison notes (vs alternatives)",
+                    "Buyer questions (FAQs)",
+                    "Fit recommendation (sizing or compatibility)"
+                ]
+            },
+            "default": []
+        },
+        "aiSummaryCustomPrompt": {
+            "title": "AI summary - custom prompt",
+            "type": "string",
+            "description": "Optional extra instruction passed to the AI summarizer. Example: 'Only mention long term durability and warranty terms'.",
+            "editor": "textarea",
+            "default": ""
+        },
+        "totalMaxProducts": {
+            "title": "Total maximum products",
+            "type": "integer",
+            "description": "Hard cap on rows pushed per run. 0 means unlimited.",
+            "default": 25,
+            "minimum": 0,
+            "maximum": 50000
+        },
+        "searchEngine": {
+            "title": "Search engine",
+            "type": "string",
+            "description": "When categoryUrls is empty and keyword is set on a marketplace without a built in search, fall back to a search engine to find product URLs. Use 'none' to disable.",
+            "editor": "select",
+            "enum": ["none", "google_shopping", "bing_shopping", "duckduckgo"],
+            "enumTitles": [
+                "None (skip search engine fallback)",
+                "Google Shopping",
+                "Bing Shopping",
+                "DuckDuckGo"
+            ],
+            "default": "none",
+            "sectionCaption": "Search engine options"
+        },
+        "searchEngineCountry": {
+            "title": "Search engine country",
+            "type": "string",
+            "description": "Country gl param. Affects which retailers Google or Bing surface.",
+            "editor": "select",
+            "enum": ["US", "GB", "CA", "AU", "DE", "FR", "IT", "ES", "NL", "JP", "IN", "BR", "MX"],
+            "default": "US"
+        },
+        "searchEngineLanguage": {
+            "title": "Search engine language",
+            "type": "string",
+            "description": "Language hl param.",
+            "editor": "select",
+            "enum": ["en", "es", "fr", "de", "it", "pt", "nl", "ja", "hi"],
+            "default": "en"
+        },
+        "currency": {
+            "title": "Output currency",
+            "type": "string",
+            "description": "Normalize all prices to this currency in the row. Conversion uses the most recent rate at scrape time.",
+            "editor": "select",
+            "enum": ["original", "USD", "EUR", "GBP", "CAD", "AUD", "JPY", "INR", "BRL", "MXN", "AED", "SGD"],
+            "enumTitles": [
+                "Keep original currency",
+                "US Dollar",
+                "Euro",
+                "British Pound",
+                "Canadian Dollar",
+                "Australian Dollar",
+                "Japanese Yen",
+                "Indian Rupee",
+                "Brazilian Real",
+                "Mexican Peso",
+                "UAE Dirham",
+                "Singapore Dollar"
+            ],
+            "default": "original",
+            "sectionCaption": "Localization"
+        },
+        "extractImages": {
+            "title": "Extract image URLs",
+            "type": "boolean",
+            "description": "Pull primary plus gallery image URLs at original resolution.",
+            "default": true,
+            "sectionCaption": "Enrichment depth"
+        },
+        "maxImagesPerProduct": {
+            "title": "Max images per product",
+            "type": "integer",
+            "description": "Cap on image URLs returned. Set 0 for all.",
+            "default": 12,
+            "minimum": 0,
+            "maximum": 60
+        },
+        "extractVariants": {
+            "title": "Extract variant matrix",
+            "type": "boolean",
+            "description": "When the product ships in sizes, colors, or styles, return every variant with its own price, stock, and SKU.",
+            "default": true
+        },
+        "extractRatingHistogram": {
+            "title": "Extract rating histogram",
+            "type": "boolean",
+            "description": "Pull the percentage split across 5, 4, 3, 2, 1 star reviews when the marketplace exposes it.",
+            "default": false
+        },
+        "extractQuestionsCount": {
+            "title": "Extract questions count",
+            "type": "boolean",
+            "description": "Pull the answered questions count when present (Amazon, Walmart, Best Buy).",
+            "default": false
+        },
+        "extractShippingInfo": {
+            "title": "Extract shipping info",
+            "type": "boolean",
+            "description": "Free shipping flag, delivery estimate text, in store pickup options where applicable.",
+            "default": true
+        },
+        "dedupe": {
+            "title": "Deduplicate across runs",
+            "type": "boolean",
+            "description": "Skip product IDs already pushed in previous runs. Turn off to refresh stale rows.",
+            "default": true,
+            "sectionCaption": "Run options"
+        },
+        "concurrency": {
+            "title": "Concurrency",
+            "type": "integer",
+            "description": "Number of pages processed in parallel. Three to five is safe across retailers.",
+            "default": 4,
+            "minimum": 1,
+            "maximum": 16
+        },
+        "proxyConfiguration": {
+            "title": "Proxy configuration",
+            "type": "object",
+            "description": "Apify proxy. Residential is required for Amazon, Walmart, Target, AliExpress. Datacenter is fine for Shopify and most other retailers.",
+            "editor": "proxy",
+            "prefill": {
+                "useApifyProxy": true,
+                "apifyProxyGroups": ["RESIDENTIAL"]
+            },
+            "default": {
+                "useApifyProxy": true,
+                "apifyProxyGroups": ["RESIDENTIAL"]
+            }
+        }
+    }
+}
