@@ -1,0 +1,16 @@
+{
+    "name": "polymarket-scraper",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Polymarket prediction market scraper: bulk pull markets with metadata, current YES/NO prices, 24h and total volume, liquidity, end date, plus optional order book depth, recent trades, and price history time series. JSON, CSV, Excel. No third party API key. Pay per row.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}

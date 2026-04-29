@@ -1,0 +1,201 @@
+{
+    "title": "Polymarket Scraper Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "description": "Pull Polymarket prediction markets at scale. Filter by search query, category, tag, or fetch direct slugs / condition IDs. Optionally enrich each row with order book depth, recent trades, and price history. One row per market.",
+    "properties": {
+        "searchQueries": {
+            "title": "Search queries",
+            "type": "array",
+            "description": "Keyword search across market questions and descriptions. Each query runs separately and results merge.",
+            "editor": "stringList",
+            "default": [],
+            "sectionCaption": "What to scrape",
+            "sectionDescription": "Pick any combination: keywords, categories, tags, slugs, or condition IDs."
+        },
+        "categories": {
+            "title": "Categories",
+            "type": "array",
+            "description": "Top level Polymarket categories. Resolves to internal tag IDs.",
+            "editor": "select",
+            "items": {
+                "type": "string",
+                "enum": [
+                    "sports",
+                    "politics",
+                    "crypto",
+                    "tech",
+                    "music",
+                    "entertainment",
+                    "elections",
+                    "basketball",
+                    "football",
+                    "blockchain"
+                ],
+                "enumTitles": [
+                    "Sports",
+                    "Politics",
+                    "Crypto",
+                    "Tech",
+                    "Music",
+                    "Entertainment",
+                    "Elections",
+                    "Basketball",
+                    "Football",
+                    "Blockchain"
+                ]
+            },
+            "default": []
+        },
+        "tagIds": {
+            "title": "Tag IDs",
+            "type": "array",
+            "description": "Direct numeric tag IDs from Polymarket (advanced). Useful when a category is not in the dropdown.",
+            "editor": "stringList",
+            "default": []
+        },
+        "marketSlugs": {
+            "title": "Market slugs",
+            "type": "array",
+            "description": "Direct market slugs to scrape, e.g. \"will-trump-win-2024\". Found in the Polymarket URL after /event/.",
+            "editor": "stringList",
+            "default": []
+        },
+        "conditionIds": {
+            "title": "Condition IDs",
+            "type": "array",
+            "description": "Direct hex condition IDs (0x...). Bypasses search and pulls the exact market.",
+            "editor": "stringList",
+            "default": []
+        },
+        "status": {
+            "title": "Market status",
+            "type": "string",
+            "description": "Active = currently trading. Closed = no longer accepting orders. Resolved = outcome decided.",
+            "editor": "select",
+            "enum": ["active", "closed", "resolved", "all"],
+            "enumTitles": ["Active", "Closed", "Resolved", "All"],
+            "default": "active"
+        },
+        "minVolume24h": {
+            "title": "Minimum 24h volume (USD)",
+            "type": "number",
+            "description": "Drop markets below this 24h trading volume.",
+            "default": 0,
+            "minimum": 0
+        },
+        "minTotalVolume": {
+            "title": "Minimum total volume (USD)",
+            "type": "number",
+            "description": "Drop markets below this lifetime volume.",
+            "default": 0,
+            "minimum": 0
+        },
+        "minLiquidity": {
+            "title": "Minimum liquidity (USD)",
+            "type": "number",
+            "description": "Drop markets below this on book liquidity. Useful for filtering thin markets.",
+            "default": 0,
+            "minimum": 0
+        },
+        "sortBy": {
+            "title": "Sort by",
+            "type": "string",
+            "description": "Order applied before maxItemsTotal cap.",
+            "editor": "select",
+            "enum": ["volume24hr", "liquidity", "endDate", "startDate"],
+            "enumTitles": ["24h volume", "Liquidity", "End date (soonest first)", "Start date (newest first)"],
+            "default": "volume24hr"
+        },
+        "includeOrderbook": {
+            "title": "Include order book",
+            "type": "boolean",
+            "description": "Pull the live CLOB order book per outcome (top bids and asks with size). Adds 1 request per outcome.",
+            "default": false,
+            "sectionCaption": "Enrichment (optional)",
+            "sectionDescription": "Each enrichment adds API calls. Off by default to keep runs cheap."
+        },
+        "orderbookDepth": {
+            "title": "Order book depth",
+            "type": "integer",
+            "description": "Max number of bid + ask levels to keep per outcome.",
+            "default": 10,
+            "minimum": 1,
+            "maximum": 50
+        },
+        "includeRecentTrades": {
+            "title": "Include recent trades",
+            "type": "boolean",
+            "description": "Pull the most recent trades for each market from the public data API. Adds 1 request per market.",
+            "default": false
+        },
+        "recentTradesLimit": {
+            "title": "Recent trades per market",
+            "type": "integer",
+            "description": "Max number of recent trades to attach per market.",
+            "default": 25,
+            "minimum": 1,
+            "maximum": 500
+        },
+        "includePriceHistory": {
+            "title": "Include price history",
+            "type": "boolean",
+            "description": "Pull the YES outcome price history time series for each market. Adds 1 request per market.",
+            "default": false
+        },
+        "priceHistoryInterval": {
+            "title": "Price history interval",
+            "type": "string",
+            "description": "Time window for price history. Polymarket samples within the window.",
+            "editor": "select",
+            "enum": ["1h", "6h", "1d", "1w", "1m", "max"],
+            "enumTitles": ["Last 1 hour", "Last 6 hours", "Last 1 day", "Last 1 week", "Last 1 month", "Max"],
+            "default": "1d"
+        },
+        "maxItemsPerSource": {
+            "title": "Max items per source",
+            "type": "integer",
+            "description": "Hard cap per (search query, category, tag) combination. Stops paging once reached.",
+            "default": 100,
+            "minimum": 1,
+            "maximum": 5000
+        },
+        "maxItemsTotal": {
+            "title": "Total maximum items",
+            "type": "integer",
+            "description": "Hard cap on rows pushed per run across all sources. 0 means unlimited.",
+            "default": 200,
+            "minimum": 0,
+            "maximum": 10000
+        },
+        "dedupe": {
+            "title": "Deduplicate across runs",
+            "type": "boolean",
+            "description": "Skip condition IDs already pushed in previous runs. Persisted in a key value store. Turn off to refresh.",
+            "default": true,
+            "sectionCaption": "Run options"
+        },
+        "concurrency": {
+            "title": "Concurrency",
+            "type": "integer",
+            "description": "Number of enrichment requests fetched in parallel.",
+            "default": 4,
+            "minimum": 1,
+            "maximum": 16
+        },
+        "proxyConfiguration": {
+            "title": "Proxy configuration",
+            "type": "object",
+            "description": "Apify proxy. Polymarket public APIs work fine on datacenter or unproxied; residential is only needed if you hit aggressive rate limits.",
+            "editor": "proxy",
+            "prefill": {
+                "useApifyProxy": true,
+                "apifyProxyGroups": []
+            },
+            "default": {
+                "useApifyProxy": true,
+                "apifyProxyGroups": []
+            }
+        }
+    }
+}
