@@ -15,7 +15,7 @@
             "title": "Number of videos per hashtag, profile or search",
             "type": "integer",
             "description": "Cap on how many videos are returned per source. Larger numbers take longer and cost more.",
-            "default": 100,
+            "default": 25,
             "minimum": 1,
             "maximum": 5000
         },
@@ -56,6 +56,9 @@
             "type": "array",
             "description": "Direct TikTok video URLs to scrape without running a search. Example: https://www.tiktok.com/@user/video/1234567890.",
             "editor": "stringList",
+            "prefill": [
+                "https://www.tiktok.com/@tiktok/video/7106594312292453675"
+            ],
             "default": []
         },
         "downloadVideos": {
@@ -113,7 +116,7 @@
             "title": "Max videos per run",
             "type": "integer",
             "description": "Hard cap across all sources. Controls total cost.",
-            "default": 500,
+            "default": 25,
             "minimum": 1,
             "maximum": 50000
         },

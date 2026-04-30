@@ -39,7 +39,7 @@
             "title": "Max link depth",
             "type": "integer",
             "description": "How many link hops away from the start URL the crawler is allowed to follow. 0 means only the start URLs.",
-            "default": 3,
+            "default": 2,
             "minimum": 0,
             "maximum": 20
         },
@@ -207,8 +207,8 @@
         "concurrency": {
             "title": "Concurrency",
             "type": "integer",
-            "description": "Pages processed in parallel. Eight is a safe default. Drop to two or three for sites with strict rate limits.",
-            "default": 8,
+            "description": "Pages processed in parallel. Four is a safe default. Drop to two for sites with strict rate limits, raise for fast static sites.",
+            "default": 4,
             "minimum": 1,
             "maximum": 64,
             "sectionCaption": "Run options"
@@ -227,8 +227,7 @@
             "description": "Apify proxy. Datacenter is fine for most documentation sites. Use residential for sites with anti scraping protection.",
             "editor": "proxy",
             "prefill": {
-                "useApifyProxy": true,
-                "apifyProxyGroups": ["RESIDENTIAL"]
+                "useApifyProxy": true
             },
             "default": {
                 "useApifyProxy": true

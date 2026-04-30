@@ -178,13 +178,22 @@ async function handleSitemap({ request, body, $, page, crawler: c }) {
     else if (page) xml = await page.content().catch(() => '');
     else if ($) xml = $.html();
 
+    const isIndex = /<sitemapindex[\s>]/i.test(xml);
     const urls = parseSitemap(xml);
-    log.info(`Sitemap ${request.url}: ${urls.length} URLs.`);
+    log.info(`Sitemap ${request.url}: ${urls.length} ${isIndex ? 'sub-sitemaps' : 'URLs'}.`);
     const queued = [];
     for (const u of urls) {
+        if (seenUrls.has(u)) continue;
+        const looksLikeSitemap = isIndex || /\.xml(\?|$)/i.test(u) || /sitemap/i.test(u);
+        if (looksLikeSitemap) {
+            queued.push({
+                url: u,
+                userData: { type: 'sitemap', depth: 0, source: 'sitemap-index' },
+            });
+            continue;
+        }
         if (queued.length + pagesCrawled >= cap) break;
         if (!filterPolicy.allow(u)) continue;
-        if (seenUrls.has(u)) continue;
         seenUrls.add(u);
         queued.push({
             url: u,

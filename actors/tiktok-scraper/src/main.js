@@ -47,7 +47,8 @@ const queries = cleanList(searchQueries);
 const directVideos = cleanList(videoUrls);
 
 if (tags.length === 0 && profs.length === 0 && queries.length === 0 && directVideos.length === 0) {
-    tags.push('fyp');
+    log.warning('No input provided. Add a video URL, profile, hashtag, or search query and run again.');
+    await Actor.exit();
 }
 
 const proxyConfiguration = await Actor.createProxyConfiguration(proxyInput);
@@ -91,9 +92,9 @@ let videosPushed = 0;
 
 const crawler = new PlaywrightCrawler({
     proxyConfiguration,
-    navigationTimeoutSecs: 90,
-    requestHandlerTimeoutSecs: 420,
-    maxRequestRetries: 4,
+    navigationTimeoutSecs: 60,
+    requestHandlerTimeoutSecs: 180,
+    maxRequestRetries: 2,
     retryOnBlocked: true,
     useSessionPool: true,
     persistCookiesPerSession: true,
