@@ -1,0 +1,90 @@
+{
+    "title": "Flight Delay & Cancellation Tracker Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "description": "Track flight delays and cancellations by flight number or route. IATA flight codes like UA1, BA112 are auto translated to FlightAware's ICAO format.",
+    "properties": {
+        "flightNumbers": {
+            "title": "Flight numbers",
+            "type": "array",
+            "description": "Flight identifiers like UA1, BA112, AF22, LH400. IATA two letter codes are auto translated to ICAO. ICAO codes (UAL1, BAW112) work directly.",
+            "editor": "stringList",
+            "prefill": [
+                "UA1"
+            ],
+            "default": []
+        },
+        "routes": {
+            "title": "Routes",
+            "type": "array",
+            "description": "Origin to destination on a specific date. Format: array of objects with origin, destination (IATA codes like JFK, LAX), and date (YYYY-MM-DD). Example: [{\"origin\":\"JFK\",\"destination\":\"LAX\",\"date\":\"2026-05-15\"}]. Returns scheduled flights on that route.",
+            "editor": "json",
+            "default": []
+        },
+        "minDelayMinutes": {
+            "title": "Minimum delay in minutes",
+            "type": "integer",
+            "description": "Drop rows with departure delay below this value. Set to 0 to keep on-time flights. Use 180 to focus on EU 261 eligible delays (3 hours and above).",
+            "default": 0,
+            "minimum": 0,
+            "maximum": 1440,
+            "sectionCaption": "Filters"
+        },
+        "includeStatuses": {
+            "title": "Statuses to keep",
+            "type": "array",
+            "description": "Which flight statuses to push. Default keeps everything.",
+            "editor": "select",
+            "items": {
+                "type": "string",
+                "enum": ["scheduled", "on-time", "delayed", "cancelled", "diverted", "landed", "en-route", "unknown"],
+                "enumTitles": ["Scheduled", "On time", "Delayed", "Cancelled", "Diverted", "Landed", "En route", "Unknown"]
+            },
+            "default": ["scheduled", "on-time", "delayed", "cancelled", "diverted", "landed", "en-route", "unknown"]
+        },
+        "cancelledOnly": {
+            "title": "Cancellations and diversions only",
+            "type": "boolean",
+            "description": "Override status filter to keep only cancelled and diverted flights. Useful for travel insurance and EU 261 lead generation.",
+            "default": false
+        },
+        "maxItemsPerSource": {
+            "title": "Max items per source",
+            "type": "integer",
+            "description": "Cap on flights returned per flight number or route.",
+            "default": 25,
+            "minimum": 1,
+            "maximum": 5000,
+            "sectionCaption": "Run options"
+        },
+        "maxItemsTotal": {
+            "title": "Max items per run",
+            "type": "integer",
+            "description": "Hard cap across all sources. Controls total cost.",
+            "default": 100,
+            "minimum": 1,
+            "maximum": 50000
+        },
+        "dedupe": {
+            "title": "Deduplicate across runs",
+            "type": "boolean",
+            "description": "Skip flight rows already pushed in previous runs (key is ident plus scheduled departure). Turn off to track status changes for the same flight over time.",
+            "default": true
+        },
+        "proxyConfiguration": {
+            "title": "Proxy configuration",
+            "type": "object",
+            "description": "Apify proxy. FlightAware blocks datacenter IPs aggressively. Residential is strongly recommended.",
+            "editor": "proxy",
+            "prefill": {
+                "useApifyProxy": true,
+                "apifyProxyGroups": ["RESIDENTIAL"]
+            },
+            "default": {
+                "useApifyProxy": true,
+                "apifyProxyGroups": ["RESIDENTIAL"]
+            }
+        }
+    },
+    "required": []
+}

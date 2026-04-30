@@ -1,0 +1,14 @@
+{
+    "actorSpecification": 1,
+    "name": "flight-delay-tracker",
+    "title": "Flight Delay & Cancellation Tracker, EU 261 Claims Feed",
+    "description": "Track flight delays, cancellations, and diversions from FlightAware. Input flight number, airport, or route. Returns scheduled vs actual times, delay minutes, status, aircraft, and cancel reason. Built for EU 261 firms, travel insurance, and ops alerts. Pay per item.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "readme": "../README.md",
+    "categories": [
+        "TRAVEL"
+    ]
+}

@@ -1,0 +1,18 @@
+{
+    "name": "flight-delay-tracker",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Track flight delays and cancellations from FlightAware. Returns per-flight rows with scheduled vs actual times, delay minutes, status, aircraft, and cancel reason. Pay per item.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0",
+        "crawlee": "^3.16.0",
+        "playwright": "1.54.1"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}
