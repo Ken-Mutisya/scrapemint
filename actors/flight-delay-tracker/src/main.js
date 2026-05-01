@@ -15,12 +15,12 @@
 // Turnstile, so this actor does not support airport input. Use flight numbers
 // or routes instead.
 //
-// Free tier: first 50 items per run are free. Charge per item after.
+// Free tier: first 20 items per run are free. Charge per item after.
 
 import { Actor, log } from 'apify';
 import { PlaywrightCrawler } from 'crawlee';
 
-const FREE_TIER_ITEMS = 50;
+const FREE_TIER_ITEMS = 20;
 
 // FlightAware uses ICAO airline codes (3-letter) for flight idents. Most users
 // know IATA (2-char) codes, so we translate the common carriers transparently.
@@ -483,7 +483,7 @@ async function isBlocked(page) {
 
 function maybeCharge() {
     if (totalPushed > FREE_TIER_ITEMS) {
-        Actor.charge({ eventName: 'item_extracted' }).catch((err) => {
+        Actor.charge({ eventName: 'result_item' }).catch((err) => {
             log.warning(`charge failed (continuing): ${err?.message}`);
         });
     }
