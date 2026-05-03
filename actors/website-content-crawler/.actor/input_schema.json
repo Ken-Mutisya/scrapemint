@@ -17,21 +17,21 @@
         "crawlerType": {
             "title": "Crawler type",
             "type": "string",
-            "description": "Adaptive switches between a real browser and raw HTTP based on whether the page renders content via JavaScript. Use Playwright for heavy JS sites, Cheerio for static pages.",
+            "description": "Cheerio is the fast default for static pages and docs sites. Use Playwright for sites that render content via JavaScript. Adaptive picks Playwright automatically.",
             "editor": "select",
-            "enum": ["adaptive", "playwright", "cheerio"],
+            "enum": ["cheerio", "playwright", "adaptive"],
             "enumTitles": [
-                "Adaptive (recommended)",
-                "Playwright (real browser)",
-                "Cheerio (raw HTTP, fastest)"
+                "Cheerio (raw HTTP, fastest, recommended)",
+                "Playwright (real browser, for JS-heavy sites)",
+                "Adaptive (forces Playwright)"
             ],
-            "default": "adaptive"
+            "default": "cheerio"
         },
         "maxPages": {
             "title": "Max pages",
             "type": "integer",
             "description": "Hard cap on pages crawled per run across all start URLs. Set to 0 for unlimited.",
-            "default": 25,
+            "default": 10,
             "minimum": 0,
             "maximum": 100000
         },

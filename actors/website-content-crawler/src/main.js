@@ -32,9 +32,9 @@ await Actor.init();
 const input = (await Actor.getInput()) ?? {};
 const {
     startUrls = [],
-    crawlerType = 'adaptive',
-    maxPages = 100,
-    maxDepth = 3,
+    crawlerType = 'cheerio',
+    maxPages = 10,
+    maxDepth = 2,
     useSitemap = true,
     respectRobotsTxt = true,
     includeUrlPatterns = [],
@@ -601,10 +601,17 @@ async function discoverSitemaps(seed, respectRobots) {
     let origin = '';
     try { origin = new URL(seed).origin; } catch { return []; }
 
+    const fetchWithTimeout = async (url, opts = {}, ms = 5000) => {
+        const ctrl = new AbortController();
+        const t = setTimeout(() => ctrl.abort(), ms);
+        try { return await fetch(url, { ...opts, signal: ctrl.signal }); }
+        finally { clearTimeout(t); }
+    };
+
     const robotsUrl = `${origin}/robots.txt`;
     if (respectRobots) {
         try {
-            const r = await fetch(robotsUrl, { headers: { 'User-Agent': 'Mozilla/5.0 (compatible; Crawler/1.0)' } });
+            const r = await fetchWithTimeout(robotsUrl, { headers: { 'User-Agent': 'Mozilla/5.0 (compatible; Crawler/1.0)' } });
             if (r.ok) {
                 const txt = await r.text();
                 for (const line of txt.split('\n')) {
@@ -615,12 +622,12 @@ async function discoverSitemaps(seed, respectRobots) {
         } catch {}
     }
 
-    for (const path of ['/sitemap.xml', '/sitemap_index.xml', '/sitemap-index.xml']) {
+    await Promise.all(['/sitemap.xml', '/sitemap_index.xml', '/sitemap-index.xml'].map(async (path) => {
         try {
-            const r = await fetch(`${origin}${path}`, { method: 'HEAD' });
+            const r = await fetchWithTimeout(`${origin}${path}`, { method: 'HEAD' });
             if (r.ok) out.add(`${origin}${path}`);
         } catch {}
-    }
+    }));
 
     return [...out];
 }
