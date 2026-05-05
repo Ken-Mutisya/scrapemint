@@ -1,0 +1,15 @@
+{
+    "actorSpecification": 1,
+    "name": "pubmed-clinical-trials-intelligence",
+    "title": "Pharma Research & Clinical Trial Monitor",
+    "description": "Pull PubMed papers and ClinicalTrials.gov studies at scale. PMIDs, DOIs, abstracts, MeSH terms, NCT IDs, phases, sponsors, enrollment, primary outcomes, results. One row per record. Pay per row.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "readme": "../README.md",
+    "categories": [
+        "BUSINESS",
+        "EDUCATION"
+    ]
+}
