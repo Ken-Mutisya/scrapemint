@@ -19,6 +19,8 @@ const PUBMED_BASE = 'https://eutils.ncbi.nlm.nih.gov/entrez/eutils';
 const ICITE_BASE = 'https://icite.od.nih.gov/api/pubs';
 const CT_BASE = 'https://clinicaltrials.gov/api/v2/studies';
 
+const FREE_TIER_ITEMS = 20;
+
 await Actor.init();
 
 const input = (await Actor.getInput()) ?? {};
@@ -77,6 +79,14 @@ if (pubmedQueryList.length === 0 && ctQueryList.length === 0 && pmidList.length 
 }
 
 log.info(`Seeds: ${pubmedQueryList.length} PubMed queries, ${ctQueryList.length} CT.gov queries, ${pmidList.length} direct PMIDs, ${nctIdList.length} direct NCT IDs.`);
+
+function maybeCharge() {
+    if (pushedRows > FREE_TIER_ITEMS) {
+        Actor.charge({ eventName: 'result_item' }).catch((err) => {
+            log.warning(`charge failed (continuing): ${err?.message}`);
+        });
+    }
+}
 
 function toStringList(arr) {
     return (Array.isArray(arr) ? arr : []).map((s) => String(s).trim()).filter(Boolean);
@@ -394,6 +404,7 @@ async function processPubmedIds(ids, sourceQuery = null) {
 
             await Actor.pushData(row);
             pushedRows += 1;
+            maybeCharge();
             seenPmids.add(String(row.pmid));
         }
     }
@@ -531,6 +542,7 @@ async function processCtQuery(query) {
             await Actor.pushData(row);
             pushedRows += 1;
             count += 1;
+            maybeCharge();
             seenNctIds.add(row.nctId);
         }
         pageToken = data?.nextPageToken;
@@ -551,6 +563,7 @@ async function processCtIds(ids) {
             if (!row.nctId) continue;
             await Actor.pushData(row);
             pushedRows += 1;
+            maybeCharge();
             seenNctIds.add(row.nctId);
         } catch (e) {
             log.warning(`Failed to fetch ${nctId}: ${e.message}`);
