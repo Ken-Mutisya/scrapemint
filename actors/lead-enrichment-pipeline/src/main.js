@@ -7,12 +7,14 @@
 // per domain is written to the default dataset.
 //
 // Pay-per-event:
-//   ENRICHED_LEAD ($0.03)  charged when at least one email OR two+ socials found
-//   BASIC_CRAWL   ($0.005) charged when domain crawled but no contacts found
-//   no charge for unreachable domains
+//   enriched_lead ($0.03)  charged when at least one email OR two+ socials found
+//   basic_crawl   ($0.005) charged when domain crawled but no contacts found
+//   First 5 enriched leads per run are free (lets buyers test on a small list).
 
 import { Actor, log } from 'apify';
 import { PlaywrightCrawler } from 'crawlee';
+
+const FREE_TIER_ENRICHED_LEADS = 5;
 
 const PRIORITY_PATHS = [
     '/',
@@ -245,10 +247,12 @@ for (const s of state.values()) {
 
     if (emails.length >= 1 || socialsCount >= 2) {
         enrichedCount += 1;
-        try { await Actor.charge({ eventName: 'ENRICHED_LEAD' }); } catch (e) { log.debug(`charge skipped: ${e.message}`); }
+        if (enrichedCount > FREE_TIER_ENRICHED_LEADS) {
+            Actor.charge({ eventName: 'enriched_lead' }).catch((err) => log.warning(`charge failed: ${err?.message}`));
+        }
     } else {
         basicCount += 1;
-        try { await Actor.charge({ eventName: 'BASIC_CRAWL' }); } catch (e) { log.debug(`charge skipped: ${e.message}`); }
+        Actor.charge({ eventName: 'basic_crawl' }).catch((err) => log.warning(`charge failed: ${err?.message}`));
     }
 }
 
