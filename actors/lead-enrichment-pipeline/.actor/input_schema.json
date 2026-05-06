@@ -1,0 +1,70 @@
+{
+    "title": "Lead Enrichment Pipeline Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "description": "Pass a list of company domains. The actor crawls each domain's priority pages (homepage, contact, about, team, careers) and returns one enriched record per domain with emails, phones, social profiles, and company signals.",
+    "properties": {
+        "domains": {
+            "title": "Company domains",
+            "type": "array",
+            "description": "List of root domains to enrich. Accepts plain domains or full URLs. Examples: [\"acme.com\", \"https://www.example.io\"]. Subpaths are ignored; we always start from the root.",
+            "editor": "stringList",
+            "default": [],
+            "sectionCaption": "What to enrich",
+            "sectionDescription": "Provide at least one domain. Up to 10,000 per run is supported. Each domain becomes one row in the dataset."
+        },
+        "maxPagesPerDomain": {
+            "title": "Max pages per domain",
+            "type": "integer",
+            "description": "Upper bound on pages crawled per domain. The actor walks priority paths first (contact, about, team, careers, imprint) and stops once this cap is hit. Higher values find more leads but cost more time per run.",
+            "default": 8,
+            "minimum": 1,
+            "maximum": 25
+        },
+        "includeSocialDiscovery": {
+            "title": "Discover social profiles",
+            "type": "boolean",
+            "description": "Extract LinkedIn, Twitter/X, Instagram, Facebook, YouTube, GitHub, and TikTok URLs found in page links and footers. Adds no extra requests.",
+            "default": true,
+            "sectionCaption": "Enrichment toggles"
+        },
+        "includeCompanyData": {
+            "title": "Resolve company data",
+            "type": "boolean",
+            "description": "Pull company name, tagline, and meta description from the homepage. Detect tech signals (has blog, careers page, pricing page) by attempting standard URLs.",
+            "default": true
+        },
+        "obeyRobotsTxt": {
+            "title": "Obey robots.txt",
+            "type": "boolean",
+            "description": "Skip pages disallowed in robots.txt. Recommended on. Turning off may surface more leads on sites that disallow contact pages but reduces compliance posture for end users.",
+            "default": true
+        },
+        "navigationDelayMs": {
+            "title": "Delay between requests (ms)",
+            "type": "integer",
+            "description": "Per request delay to be polite to target sites. Lower values run faster but raise block rates.",
+            "default": 1500,
+            "minimum": 0,
+            "maximum": 30000
+        },
+        "concurrency": {
+            "title": "Concurrent domains",
+            "type": "integer",
+            "description": "How many domains to crawl in parallel. Apify proxies handle the load; the cap is per actor instance.",
+            "default": 4,
+            "minimum": 1,
+            "maximum": 20
+        },
+        "proxyConfiguration": {
+            "title": "Proxy configuration",
+            "type": "object",
+            "description": "Apify proxy settings. Residential proxies recommended for higher success on protected sites.",
+            "editor": "proxy",
+            "default": {
+                "useApifyProxy": true
+            }
+        }
+    },
+    "required": ["domains"]
+}

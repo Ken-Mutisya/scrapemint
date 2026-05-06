@@ -1,0 +1,15 @@
+{
+    "actorSpecification": 1,
+    "name": "lead-enrichment-pipeline",
+    "title": "Lead Enrichment Pipeline: Emails, Phones, Socials, Company",
+    "description": "Turn a list of domains into enriched leads. Per domain: emails, phones, social profiles (LinkedIn, Twitter, Instagram, Facebook, YouTube, GitHub, TikTok), and company signals. Built for sales and BD teams running cold outbound. One row per enriched lead. Pay per result.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "readme": "../README.md",
+    "categories": [
+        "BUSINESS",
+        "LEAD_GENERATION"
+    ]
+}

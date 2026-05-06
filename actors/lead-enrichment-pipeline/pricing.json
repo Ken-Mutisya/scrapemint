@@ -1,0 +1,20 @@
+{
+    "_note": "PUT this to /v2/acts/{actorId}/pricing-configurations after first deploy. Per playbook: PAY_PER_EVENT, object format, startedAt 14+ days out. Apify takes 20% margin.",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~lead-enrichment-pipeline/pricing-configurations?token=APIFY_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "ENRICHED_LEAD": {
+                "eventTitle": "Enriched lead",
+                "eventDescription": "One company domain returned with at least one email or two or more social profiles found.",
+                "eventPriceUsd": 0.03
+            },
+            "BASIC_CRAWL": {
+                "eventTitle": "Basic crawl",
+                "eventDescription": "One company domain crawled and reachable but no contacts or socials found.",
+                "eventPriceUsd": 0.005
+            }
+        }
+    },
+    "startedAt": "2026-05-21T00:00:00.000Z"
+}
