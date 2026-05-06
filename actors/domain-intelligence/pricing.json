@@ -1,0 +1,19 @@
+{
+    "_note": "PUT to /v2/acts/{actorId} with pricingInfos in body. PAY_PER_EVENT only. startedAt 14+ days out. Apify takes 20% margin.",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~domain-intelligence?token=APIFY_TOKEN",
+    "pricingInfos": [
+        {
+            "pricingModel": "PAY_PER_EVENT",
+            "startedAt": "2026-05-21T00:00:00.000Z",
+            "pricingPerEvent": {
+                "actorChargeEvents": {
+                    "domain_lookup": {
+                        "eventTitle": "Domain lookup",
+                        "eventDescription": "One domain returned with WHOIS or DNS data. First 10 lookups per run are free.",
+                        "eventPriceUsd": 0.005
+                    }
+                }
+            }
+        }
+    ]
+}

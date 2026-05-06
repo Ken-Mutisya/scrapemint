@@ -1,0 +1,15 @@
+{
+    "actorSpecification": 1,
+    "name": "domain-intelligence",
+    "title": "Domain Intelligence: WHOIS + DNS Bulk Lookup",
+    "description": "Pass a list of domains, get WHOIS data, DNS records, and inferred signals like email provider, DNS provider, and SPF/DMARC presence. Built for SDRs, brand protection teams, and email deliverability consultants. One row per domain. Pay per lookup.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "readme": "../README.md",
+    "categories": [
+        "BUSINESS",
+        "LEAD_GENERATION"
+    ]
+}

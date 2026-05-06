@@ -1,0 +1,45 @@
+{
+    "title": "Domain Intelligence Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "description": "Pass a list of domains. Returns WHOIS, DNS records (A, MX, NS, TXT), and inferred signals (email provider, DNS provider, SPF/DMARC presence) per domain.",
+    "properties": {
+        "domains": {
+            "title": "Domains",
+            "type": "array",
+            "description": "List of root domains. Plain domains or full URLs both accepted. Example: [\"acme.com\", \"https://www.example.io\"].",
+            "editor": "stringList",
+            "default": [],
+            "sectionCaption": "What to look up",
+            "sectionDescription": "One domain per row, up to 10,000 per run."
+        },
+        "includeWhois": {
+            "title": "Include WHOIS",
+            "type": "boolean",
+            "description": "Pull registrar, creation date, expiry date, organization, and country via RDAP. Adds one HTTP request per domain.",
+            "default": true,
+            "sectionCaption": "Lookup toggles"
+        },
+        "includeDns": {
+            "title": "Include DNS records",
+            "type": "boolean",
+            "description": "Pull A, MX, NS, and TXT records via system DNS resolver.",
+            "default": true
+        },
+        "includeDmarc": {
+            "title": "Check DMARC policy",
+            "type": "boolean",
+            "description": "Look up the DMARC TXT record at _dmarc.<domain> and report presence and policy (none, quarantine, reject).",
+            "default": true
+        },
+        "concurrency": {
+            "title": "Concurrent lookups",
+            "type": "integer",
+            "description": "How many domains to process in parallel. Default is fine for most runs.",
+            "default": 10,
+            "minimum": 1,
+            "maximum": 50
+        }
+    },
+    "required": ["domains"]
+}
