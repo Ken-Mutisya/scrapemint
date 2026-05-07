@@ -1,0 +1,18 @@
+{
+    "name": "linkedin-pulse-articles-scraper",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Scrape LinkedIn Pulse long-form articles without cookies. Returns title, full body, author, published date, cover image, and topic tags. Pay per article.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0",
+        "crawlee": "^3.16.0",
+        "playwright": "1.54.1"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}

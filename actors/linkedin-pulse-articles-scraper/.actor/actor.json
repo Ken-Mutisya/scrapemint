@@ -1,0 +1,16 @@
+{
+    "actorSpecification": 1,
+    "name": "linkedin-pulse-articles-scraper",
+    "title": "LinkedIn Pulse Articles Scraper (No Cookies)",
+    "description": "Pull long-form Pulse articles from any LinkedIn author or by topic without a cookie or login. Each row carries title, full body, author, published date, cover image, and topic tags. Discover by author profile, by keyword, or paste article URLs. JSON. Pay per article.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "readme": "../README.md",
+    "categories": [
+        "SOCIAL_MEDIA",
+        "MARKETING",
+        "BUSINESS"
+    ]
+}

@@ -1,0 +1,67 @@
+{
+    "title": "LinkedIn Pulse Articles Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "description": "Pull Pulse articles from any LinkedIn author or by topic without a cookie or login. Provide author profile URLs, keywords, or direct article URLs.",
+    "properties": {
+        "articleUrls": {
+            "title": "Article URLs",
+            "type": "array",
+            "description": "Direct LinkedIn Pulse article URLs. Examples: 'https://www.linkedin.com/pulse/title-slug-author-handle'.",
+            "editor": "stringList",
+            "default": []
+        },
+        "profileUrls": {
+            "title": "Author profile URLs",
+            "type": "array",
+            "description": "LinkedIn profile URLs whose Pulse articles you want to scrape. The actor uses public search engine discovery to find each author's articles. Examples: 'https://www.linkedin.com/in/satyanadella/'.",
+            "editor": "stringList",
+            "default": []
+        },
+        "keywords": {
+            "title": "Keyword search",
+            "type": "array",
+            "description": "Topics to discover Pulse articles for via public search engines. Examples: 'AI strategy', 'devrel playbook', 'fintech infrastructure'.",
+            "editor": "stringList",
+            "prefill": ["AI strategy"],
+            "default": []
+        },
+        "maxArticles": {
+            "title": "Max articles per source",
+            "type": "integer",
+            "description": "Hard cap on articles per profile or keyword. Set to 0 to take everything we can discover. Ignored for direct articleUrls.",
+            "default": 20,
+            "minimum": 0,
+            "maximum": 500
+        },
+        "includeBody": {
+            "title": "Include full body",
+            "type": "boolean",
+            "description": "Pull the full article body. Turn off to keep only summary fields and reduce row size.",
+            "default": true
+        },
+        "concurrency": {
+            "title": "Concurrency",
+            "type": "integer",
+            "description": "Number of pages processed in parallel. Higher concurrency runs faster but increases proxy and detection risk. Six is a safe default.",
+            "default": 6,
+            "minimum": 1,
+            "maximum": 20,
+            "sectionCaption": "Run options"
+        },
+        "proxyConfiguration": {
+            "title": "Proxy configuration",
+            "type": "object",
+            "description": "Apify proxy. Residential is required for LinkedIn at any meaningful volume.",
+            "editor": "proxy",
+            "prefill": {
+                "useApifyProxy": true,
+                "apifyProxyGroups": ["RESIDENTIAL"]
+            },
+            "default": {
+                "useApifyProxy": true,
+                "apifyProxyGroups": ["RESIDENTIAL"]
+            }
+        }
+    }
+}
