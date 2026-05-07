@@ -1,0 +1,16 @@
+{
+    "actorSpecification": 1,
+    "name": "linkedin-company-profile-scraper",
+    "title": "LinkedIn Company Profile Scraper (No Cookies)",
+    "description": "Pull structured company facts from any LinkedIn company page without a cookie or login. Each row carries name, tagline, description, industry, headcount range, headquarters, founded year, specialties, website, follower count, and locations. JSON. Pay per company.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "readme": "../README.md",
+    "categories": [
+        "BUSINESS",
+        "LEAD_GENERATION",
+        "MARKETING"
+    ]
+}

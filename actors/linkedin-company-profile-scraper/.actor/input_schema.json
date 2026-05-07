@@ -1,0 +1,55 @@
+{
+    "title": "LinkedIn Company Profile Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "description": "Pull structured company facts from any LinkedIn company page without a cookie or login. Paste company URLs and run.",
+    "properties": {
+        "companyUrls": {
+            "title": "Company URLs",
+            "type": "array",
+            "description": "List of LinkedIn company URLs whose profile facts you want to scrape. Examples: 'https://www.linkedin.com/company/microsoft/', 'https://www.linkedin.com/company/openai/'. School and showcase pages are also accepted.",
+            "editor": "stringList",
+            "prefill": [
+                "https://www.linkedin.com/company/microsoft/",
+                "https://www.linkedin.com/company/openai/"
+            ],
+            "default": []
+        },
+        "includeLocations": {
+            "title": "Include locations",
+            "type": "boolean",
+            "description": "Pull every office location LinkedIn lists for the company. Each location ships nested on the company row.",
+            "default": true
+        },
+        "includeSpecialties": {
+            "title": "Include specialties",
+            "type": "boolean",
+            "description": "Pull the company's self declared specialty tags. Useful for industry classification and lookalike search.",
+            "default": true
+        },
+        "concurrency": {
+            "title": "Concurrency",
+            "type": "integer",
+            "description": "Number of companies processed in parallel. Higher concurrency runs faster but increases proxy and detection risk. Six is a safe default.",
+            "default": 6,
+            "minimum": 1,
+            "maximum": 20,
+            "sectionCaption": "Run options"
+        },
+        "proxyConfiguration": {
+            "title": "Proxy configuration",
+            "type": "object",
+            "description": "Apify proxy. Residential is required for LinkedIn at any meaningful volume.",
+            "editor": "proxy",
+            "prefill": {
+                "useApifyProxy": true,
+                "apifyProxyGroups": ["RESIDENTIAL"]
+            },
+            "default": {
+                "useApifyProxy": true,
+                "apifyProxyGroups": ["RESIDENTIAL"]
+            }
+        }
+    },
+    "required": ["companyUrls"]
+}
