@@ -60,7 +60,8 @@ const {
 } = input;
 
 if (!Array.isArray(domains) || domains.length === 0) {
-    throw new Error('Provide at least one domain in `domains`.');
+    log.warning('No domains provided in input. Add at least one domain to the `domains` field and run again.');
+    await Actor.exit();
 }
 
 const normalizeDomain = (raw) => {
