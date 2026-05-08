@@ -1,0 +1,65 @@
+{
+    "title": "LinkedIn Profile Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "description": "Pull public profile facts from any LinkedIn member URL without a cookie or login. Paste profile URLs and run.",
+    "properties": {
+        "profileUrls": {
+            "title": "Profile URLs",
+            "type": "array",
+            "description": "List of LinkedIn member URLs whose public profile facts you want to scrape. Examples: 'https://www.linkedin.com/in/williamhgates', 'https://www.linkedin.com/in/satyanadella'. Slug or full URL both accepted.",
+            "editor": "stringList",
+            "prefill": [
+                "https://www.linkedin.com/in/williamhgates",
+                "https://www.linkedin.com/in/satyanadella",
+                "https://www.linkedin.com/in/jeffweiner08"
+            ],
+            "default": [
+                "https://www.linkedin.com/in/williamhgates",
+                "https://www.linkedin.com/in/satyanadella",
+                "https://www.linkedin.com/in/jeffweiner08"
+            ]
+        },
+        "includeExperience": {
+            "title": "Include experience",
+            "type": "boolean",
+            "description": "Pull the top experience items LinkedIn shows publicly. Each item ships with title, company, employment dates, and location when available.",
+            "default": true
+        },
+        "includeEducation": {
+            "title": "Include education",
+            "type": "boolean",
+            "description": "Pull the top education entries LinkedIn shows publicly. Each entry ships with school, degree, field, and date range when available.",
+            "default": true
+        },
+        "includeSkills": {
+            "title": "Include skills",
+            "type": "boolean",
+            "description": "Pull the top skills LinkedIn shows publicly on the profile.",
+            "default": true
+        },
+        "concurrency": {
+            "title": "Concurrency",
+            "type": "integer",
+            "description": "Number of profiles processed in parallel. Higher concurrency runs faster but increases proxy and detection risk. Six is a safe default.",
+            "default": 6,
+            "minimum": 1,
+            "maximum": 20,
+            "sectionCaption": "Run options"
+        },
+        "proxyConfiguration": {
+            "title": "Proxy configuration",
+            "type": "object",
+            "description": "Apify proxy. Residential is required for LinkedIn at any meaningful volume.",
+            "editor": "proxy",
+            "prefill": {
+                "useApifyProxy": true,
+                "apifyProxyGroups": ["RESIDENTIAL"]
+            },
+            "default": {
+                "useApifyProxy": true,
+                "apifyProxyGroups": ["RESIDENTIAL"]
+            }
+        }
+    }
+}
