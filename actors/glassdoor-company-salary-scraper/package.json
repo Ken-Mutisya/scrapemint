@@ -1,0 +1,18 @@
+{
+    "name": "glassdoor-company-salary-scraper",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Scrape public Glassdoor company pages without a login. Returns rating, CEO approval, recommend rate, HQ, size, industry, founded year, salary ranges by job title, and recent review snippets. Pay per company.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0",
+        "crawlee": "^3.16.0",
+        "playwright": "1.54.1"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}
