@@ -1,0 +1,15 @@
+{
+    "_note": "PUT this to /v2/acts/{actorId} as pricingInfos array entry. Per playbook: PAY_PER_EVENT only on BRONZE plan, startedAt 14+ days out. Apify auto-adds 20% margin.",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~linkedin-company-employees-scraper?token=APIFY_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "company_people": {
+                "eventTitle": "Company people insights",
+                "eventDescription": "One LinkedIn company people page parsed and returned with total headcount, distributions by location, role, skill, and school, plus any featured employees LinkedIn renders to anonymous visitors. First 3 per run are free so you can validate output.",
+                "eventPriceUsd": 0.02
+            }
+        }
+    },
+    "startedAt": "2026-05-25T00:00:00.000Z"
+}
