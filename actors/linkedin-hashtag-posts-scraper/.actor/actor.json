@@ -1,0 +1,16 @@
+{
+    "actorSpecification": 1,
+    "name": "linkedin-hashtag-posts-scraper",
+    "title": "LinkedIn Hashtag & Topic Post Tracker (No Cookies)",
+    "description": "Discover top public LinkedIn posts by hashtag or topic without a login or cookie. Each row carries author, post body, posted date, engagement counts, hashtags matched, and media. Bring your own hashtag list. Pay per post.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "readme": "../README.md",
+    "categories": [
+        "SOCIAL_MEDIA",
+        "MARKETING",
+        "BUSINESS"
+    ]
+}

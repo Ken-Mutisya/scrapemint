@@ -1,0 +1,15 @@
+{
+    "_note": "PUT this to /v2/acts/{actorId} as pricingInfos array entry. Per playbook: PAY_PER_EVENT only on BRONZE plan, startedAt 14+ days out. Apify auto-adds 20% margin.",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~linkedin-hashtag-posts-scraper?token=APIFY_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "post_row": {
+                "eventTitle": "Post row",
+                "eventDescription": "One public LinkedIn post parsed and returned with author, body, posted date, engagement counts, matched hashtag, and media. First 3 posts per run are free so you can validate output.",
+                "eventPriceUsd": 0.015
+            }
+        }
+    },
+    "startedAt": "2026-05-24T00:00:00.000Z"
+}
