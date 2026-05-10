@@ -1,0 +1,11 @@
+{
+    "range": "this_week",
+    "currencies": ["USD"],
+    "impactLevels": ["high", "medium"],
+    "maxEvents": 10,
+    "concurrency": 2,
+    "proxyConfiguration": {
+        "useApifyProxy": true,
+        "apifyProxyGroups": ["RESIDENTIAL"]
+    }
+}

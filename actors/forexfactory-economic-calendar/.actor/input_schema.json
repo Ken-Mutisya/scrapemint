@@ -1,0 +1,89 @@
+{
+    "title": "ForexFactory Economic Calendar Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "description": "Pull the public ForexFactory economic calendar by date range. No login. Pay per event.",
+    "properties": {
+        "range": {
+            "title": "Date range",
+            "type": "string",
+            "description": "Preset date window. Choose 'custom' to use startDate and endDate.",
+            "editor": "select",
+            "enum": ["today", "tomorrow", "yesterday", "this_week", "next_week", "last_week", "this_month", "next_month", "custom"],
+            "enumTitles": ["Today", "Tomorrow", "Yesterday", "This week", "Next week", "Last week", "This month", "Next month", "Custom range"],
+            "default": "this_week"
+        },
+        "startDate": {
+            "title": "Start date",
+            "type": "string",
+            "description": "First date to pull, inclusive. Required when range is 'custom'. Format YYYY-MM-DD.",
+            "editor": "textfield",
+            "default": ""
+        },
+        "endDate": {
+            "title": "End date",
+            "type": "string",
+            "description": "Last date to pull, inclusive. Required when range is 'custom'. Max 30 days span. Format YYYY-MM-DD.",
+            "editor": "textfield",
+            "default": ""
+        },
+        "currencies": {
+            "title": "Currencies",
+            "type": "array",
+            "description": "ISO currency codes to include. Empty pulls every currency on the calendar.",
+            "editor": "stringList",
+            "prefill": ["USD", "EUR", "GBP", "JPY"],
+            "default": []
+        },
+        "impactLevels": {
+            "title": "Impact levels",
+            "type": "array",
+            "description": "Impact ratings to include. Default keeps high and medium only. Add 'low' or 'holiday' to widen.",
+            "editor": "select",
+            "items": {
+                "type": "string",
+                "enum": ["high", "medium", "low", "holiday"],
+                "enumTitles": ["High", "Medium", "Low", "Holiday or non-economic"]
+            },
+            "uniqueItems": true,
+            "default": ["high", "medium"]
+        },
+        "includeDetail": {
+            "title": "Include event detail",
+            "type": "boolean",
+            "description": "Fetch each event's detail page for description, source agency, frequency, and revision history. Adds one extra request per event.",
+            "default": false
+        },
+        "maxEvents": {
+            "title": "Max events",
+            "type": "integer",
+            "description": "Stop after this many event rows. Default 1000 covers a full month of high+medium events.",
+            "default": 1000,
+            "minimum": 1,
+            "maximum": 5000
+        },
+        "concurrency": {
+            "title": "Concurrency",
+            "type": "integer",
+            "description": "Number of pages processed in parallel. Three is a safe default for ForexFactory.",
+            "default": 3,
+            "minimum": 1,
+            "maximum": 10,
+            "sectionCaption": "Run options"
+        },
+        "proxyConfiguration": {
+            "title": "Proxy configuration",
+            "type": "object",
+            "description": "Apify proxy. Residential is required at any meaningful volume.",
+            "editor": "proxy",
+            "prefill": {
+                "useApifyProxy": true,
+                "apifyProxyGroups": ["RESIDENTIAL"]
+            },
+            "default": {
+                "useApifyProxy": true,
+                "apifyProxyGroups": ["RESIDENTIAL"]
+            }
+        }
+    }
+}
