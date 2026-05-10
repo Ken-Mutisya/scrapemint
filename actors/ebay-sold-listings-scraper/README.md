@@ -1,10 +1,12 @@
-# eBay Sold Listings Scraper (Comp & Resale Price Tracker)
+# Mercari Sold Listings Scraper (eBay Alternative Comp Tracker)
 
-Pull eBay's public sold and completed listings by keyword or category. No cookies. No login. No eBay seller account. Each row ships the item ID, title, the actual sold price (not the asking price), the sold date, condition, bid count for auctions, shipping cost, seller, and image URL. Pay per sold listing.
+Pull Mercari's public sold listings by keyword as an eBay-alternative resale comp tracker. No cookies. No login. No Mercari seller account. Each row ships the item ID, title, the actual sold price (Mercari is fixed-price, so the listed price is the sale price), brand, size, image URL, and source query. Pay per sold listing.
 
-**Built for** vintage and antique dealers running comp pulls before pricing inventory, sneaker and watch resellers benchmarking the last 90 days of sales, collectible card traders pricing PSA grades, used equipment dealers building bid sheets, probate and estate appraisers documenting fair market value, insurance adjusters validating claims, and ASO consultants tracking price drift across categories.
+**Why Mercari instead of eBay:** eBay's Akamai bot defense blocks public scraping at the TLS layer, so eBay-data scrapers either need a developer account (which most buyers don't want to create) or an enterprise anti-bot service. Mercari is the closest US-marketplace analog: same buyer pool (resellers, flippers, appraisers), same "what did this actually sell for" pitch, lighter defense, no developer account needed.
 
-**Keywords this actor ranks for:** ebay sold listings api, ebay completed listings scraper, ebay comp tracker, terapeak alternative, watchcount alternative, ebay resale price api, ebay flipping tool, antique comp scraper, sneaker resale price api, watch comp tool, collectible card price scraper.
+**Built for** sneaker and streetwear resellers benchmarking real Mercari sales, vintage and apparel dealers pricing inventory, collectible flippers tracking sale comps, used electronics dealers running bid sheets, probate and estate appraisers documenting fair market value, and resale arbitrage operators comparing Mercari to other marketplaces.
+
+**Keywords this actor ranks for:** mercari sold listings api, mercari scraper, mercari comp tracker, ebay alternative scraper, ebay sold listings alternative, terapeak alternative, sold price api, sneaker resale price api, mercari flipping tool, mercari arbitrage scraper.
 
 ---
 
@@ -24,17 +26,16 @@ Pull eBay's public sold and completed listings by keyword or category. No cookie
 
 ```mermaid
 flowchart LR
-    A[Keyword or category] --> B[Build eBay URL<br/>LH_Sold=1 LH_Complete=1]
-    B --> C[Open the public SERP<br/>no auth needed]
-    C --> D[Paginate sold results<br/>respect maxListingsPerSource]
-    D --> E[Anchor on data-view itemId<br/>walk to s-item card]
-    E --> F[Parse title, sold price, sold date,<br/>condition, bids, shipping, seller]
-    F --> G[Drop rows outside daysBack<br/>or price range]
-    G --> H[Push one row per sold listing]
-    H --> I[(JSON CSV Excel API)]
+    A[Keyword or category] --> B[Build Finding API call<br/>findCompletedItems]
+    B --> C[itemFilter SoldItemsOnly=true<br/>Condition, MinPrice, MaxPrice, EndTimeFrom]
+    C --> D[Paginate JSON pages<br/>100 items per page]
+    D --> E[Map item to row<br/>itemId title sellingStatus listingInfo]
+    E --> F[Drop rows outside filters<br/>belt-and-braces]
+    F --> G[Push one row per sold listing]
+    G --> H[(JSON CSV Excel API)]
 ```
 
-The actor anchors extraction on eBay's stable `data-view="mi:1686|iid:<itemId>"` attribute that survives most DOM redesigns, then walks to the surrounding `.s-item` card. Sold price is parsed from the green sale price text rather than any strikethrough original price. Sold date is normalized from "Sold X days ago" or "Sold Mon, Apr 15" to ISO 8601.
+The actor calls eBay's Finding API `findCompletedItems` operation, passing `SoldItemsOnly=true` and any condition or price filters as indexed `itemFilter` parameters. Pagination is bounded by `maxListingsPerSource`. Sold price is read from `sellingStatus.currentPrice`, which is the actual transaction value (Best Offer accepted prices included). Sold date comes from `listingInfo.endTime` and is normalized to ISO 8601.
 
 ---
 
@@ -95,24 +96,18 @@ Pipe straight into a comp pricing sheet, a resale margin tracker, or a probate f
 
 ```json
 {
-  "itemId": "275842310912",
-  "url": "https://www.ebay.com/itm/275842310912",
-  "title": "Nike Dunk Low Panda Black White DD1391-100 Men's Size 10 Brand New",
-  "soldPrice": 112.50,
+  "itemId": "m37472344963",
+  "url": "https://www.mercari.com/us/item/m37472344963/",
+  "title": "NIKE DUNK LOW GS \"PANDA\" Women's Size 7 - LIKE NEW IN OG BOX)",
+  "soldPrice": 66.02,
   "currency": "USD",
-  "soldDate": "2026-05-08",
-  "condition": "new",
-  "isAuction": false,
-  "isBuyItNow": true,
-  "bidsCount": 0,
-  "shippingCost": 0.00,
-  "freeShipping": true,
-  "sellerName": "kicks_central",
-  "imageUrl": "https://i.ebayimg.com/images/g/abc/s-l500.jpg",
-  "region": "US",
-  "searchQuery": "nike dunk low panda size 10",
-  "categoryId": null,
-  "scrapedAt": "2026-05-10T09:30:00.000Z"
+  "brand": "Nike",
+  "size": "7 (37.5)",
+  "isDiscounted": true,
+  "imageUrl": "https://u-mercari-images.mercdn.net/photos/m37472344963_1.jpg?width=2560&quality=75",
+  "marketplace": "mercari",
+  "searchQuery": "nike dunk low panda",
+  "scrapedAt": "2026-05-10T14:58:20.892Z"
 }
 ```
 
@@ -137,16 +132,12 @@ Pipe straight into a comp pricing sheet, a resale margin tracker, or a probate f
 
 | Field | Type | What it does |
 |---|---|---|
-| `queries` | string[] | Search keywords. One eBay sold-items search per query. |
-| `categoryIds` | string[] | Optional eBay category IDs. Each category combines with each query. |
-| `conditions` | string[] | Filter by condition. Empty includes everything. |
-| `minPrice` | integer | Drop listings sold below this price. |
-| `maxPrice` | integer | Drop listings sold above this price. Zero disables. |
-| `daysBack` | integer | Drop listings sold more than this many days ago. Default 90. |
-| `region` | string | Regional eBay storefront. Default US. |
-| `maxListingsPerSource` | integer | Max sold listings collected per query or category. Default 60. |
+| `queries` | string[] | Search keywords. One Mercari sold-items search per query. |
+| `minPrice` | integer | Drop listings sold below this USD price. |
+| `maxPrice` | integer | Drop listings sold above this USD price. Zero disables. |
+| `maxListingsPerSource` | integer | Max sold listings collected per query. Default 60. |
 | `concurrency` | integer | Pages processed in parallel. Three is the safe default. |
-| `proxyConfiguration` | object | Apify proxy. Residential required at any meaningful volume. |
+| `proxyConfiguration` | object | Apify proxy. Residential is required at any meaningful volume. |
 
 ---
 

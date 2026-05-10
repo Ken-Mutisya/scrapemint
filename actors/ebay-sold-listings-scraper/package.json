@@ -1,8 +1,8 @@
 {
     "name": "ebay-sold-listings-scraper",
-    "version": "0.1.0",
+    "version": "0.3.0",
     "type": "module",
-    "description": "Scrape eBay sold and completed listings by keyword or category. Returns item ID, title, sold price, sold date, condition, bids, shipping, seller, and image URL. Real sale prices, not asking prices. Pay per sold listing.",
+    "description": "Pull Mercari sold listings as an eBay-alternative resale comp tracker. Returns item ID, title, sold price, sold date, condition, shipping, seller, and image URL. Real fixed-price sale data. Pay per sold listing.",
     "main": "src/main.js",
     "scripts": {
         "start": "node src/main.js"

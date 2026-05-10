@@ -1,8 +1,6 @@
 {
     "queries": ["nike dunk low panda"],
-    "maxListingsPerSource": 10,
-    "daysBack": 90,
-    "region": "US",
+    "maxListingsPerSource": 15,
     "concurrency": 2,
     "proxyConfiguration": {
         "useApifyProxy": true,

@@ -1,8 +1,8 @@
 {
     "actorSpecification": 1,
     "name": "ebay-sold-listings-scraper",
-    "title": "eBay Sold Listings Scraper (Comp & Resale Price Tracker)",
-    "description": "Pull eBay's public sold/completed listings by keyword or category. Each row carries item ID, title, sold price, sold date, condition, bids, shipping, seller, and image URL. Real sale prices, not asking prices. JSON. No login. Pay per sold listing.",
+    "title": "Mercari Sold Listings Scraper (eBay Alternative Comp Tracker)",
+    "description": "Pull Mercari sold listings as an eBay-alternative resale comp tracker. Each row carries item ID, title, sold price, sold date, condition, shipping, seller rating, and image URL. Real fixed-price sale data. JSON. Pay per sold listing.",
     "version": "0.1",
     "buildTag": "latest",
     "input": "./input_schema.json",
