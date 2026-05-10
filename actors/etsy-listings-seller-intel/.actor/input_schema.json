@@ -1,0 +1,70 @@
+{
+    "title": "Etsy Listings & Seller Intel Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "description": "Pull public Etsy listings and seller intel by keyword or shop. No login. Pay per listing.",
+    "properties": {
+        "queries": {
+            "title": "Search keywords",
+            "type": "array",
+            "description": "Keywords to search the Etsy catalog. Each query runs as one search. Examples: 'wedding invitation', 'vintage typewriter', 'leather wallet'.",
+            "editor": "stringList",
+            "prefill": ["leather wallet", "wedding invitation"],
+            "default": []
+        },
+        "shopUrls": {
+            "title": "Shop URLs or names",
+            "type": "array",
+            "description": "Pull every active listing from these Etsy shops, plus shop-level intel. Accepts full shop URLs (e.g. 'https://www.etsy.com/shop/Beardbrand') or raw shop names ('Beardbrand').",
+            "editor": "stringList",
+            "prefill": [],
+            "default": []
+        },
+        "maxListingsPerSource": {
+            "title": "Max listings per source",
+            "type": "integer",
+            "description": "Stop paginating for a given query or shop once this many listings have been collected. Higher numbers add latency and proxy cost.",
+            "default": 60,
+            "minimum": 1,
+            "maximum": 1000
+        },
+        "country": {
+            "title": "Etsy region",
+            "type": "string",
+            "description": "Etsy regional storefront. Determines pricing currency and shipping defaults shown.",
+            "editor": "select",
+            "enum": ["US", "GB", "DE", "FR", "CA", "AU", "IN", "JP"],
+            "enumTitles": ["United States", "United Kingdom", "Germany", "France", "Canada", "Australia", "India", "Japan"],
+            "default": "US"
+        },
+        "includeShopIntel": {
+            "title": "Include shop-level intel on each row",
+            "type": "boolean",
+            "description": "Embed shop sales, years active, location, star seller status, and overall rating onto every listing row. Pulls one extra fetch per unique shop seen during the run.",
+            "default": true
+        },
+        "concurrency": {
+            "title": "Concurrency",
+            "type": "integer",
+            "description": "Number of search and shop pages processed in parallel. Five is a safe default for Etsy.",
+            "default": 5,
+            "minimum": 1,
+            "maximum": 15,
+            "sectionCaption": "Run options"
+        },
+        "proxyConfiguration": {
+            "title": "Proxy configuration",
+            "type": "object",
+            "description": "Apify proxy. Residential is required at any meaningful volume.",
+            "editor": "proxy",
+            "prefill": {
+                "useApifyProxy": true,
+                "apifyProxyGroups": ["RESIDENTIAL"]
+            },
+            "default": {
+                "useApifyProxy": true,
+                "apifyProxyGroups": ["RESIDENTIAL"]
+            }
+        }
+    }
+}
