@@ -1,0 +1,10 @@
+{
+    "symbols": ["EURUSD"],
+    "maxIdeasPerSource": 5,
+    "includeAuthorIntel": false,
+    "concurrency": 2,
+    "proxyConfiguration": {
+        "useApifyProxy": true,
+        "apifyProxyGroups": ["RESIDENTIAL"]
+    }
+}

@@ -1,0 +1,83 @@
+{
+    "title": "TradingView Ideas Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "description": "Pull public TradingView trade ideas by symbol, category, or tag. No login. Pay per idea.",
+    "properties": {
+        "symbols": {
+            "title": "Symbols",
+            "type": "array",
+            "description": "TradingView symbols to pull ideas for. Forex pairs, crypto pairs, equities, indices, futures all work. Examples: 'EURUSD', 'BTCUSD', 'AAPL', 'SPX', 'NQ1!'.",
+            "editor": "stringList",
+            "prefill": ["EURUSD", "BTCUSD"],
+            "default": []
+        },
+        "categories": {
+            "title": "Categories",
+            "type": "array",
+            "description": "TradingView idea categories to sweep instead of, or in addition to, specific symbols. Empty by default.",
+            "editor": "select",
+            "items": {
+                "type": "string",
+                "enum": ["forex", "crypto", "stocks", "futures", "indices", "economy", "bitcoin", "education"],
+                "enumTitles": ["Forex", "Crypto", "Stocks", "Futures", "Indices", "Economy", "Bitcoin", "Education"]
+            },
+            "uniqueItems": true,
+            "default": []
+        },
+        "tags": {
+            "title": "Tags",
+            "type": "array",
+            "description": "TradingView idea tags. Examples: 'trend-analysis', 'wave-analysis', 'supply-and-demand', 'fundamental-analysis', 'fibonacci'.",
+            "editor": "stringList",
+            "prefill": [],
+            "default": []
+        },
+        "direction": {
+            "title": "Direction filter",
+            "type": "string",
+            "description": "Filter rows by trade direction. Long and Short keep only directional ideas. Education keeps tutorial posts. All keeps everything (default).",
+            "editor": "select",
+            "enum": ["all", "long", "short", "education"],
+            "enumTitles": ["All", "Long only", "Short only", "Education only"],
+            "default": "all"
+        },
+        "maxIdeasPerSource": {
+            "title": "Max ideas per source",
+            "type": "integer",
+            "description": "Stop paginating for a given symbol, category, or tag once this many ideas have been collected. Higher numbers add latency and proxy cost.",
+            "default": 60,
+            "minimum": 1,
+            "maximum": 1000
+        },
+        "includeAuthorIntel": {
+            "title": "Include author intel on each row",
+            "type": "boolean",
+            "description": "Embed author followers, ideas published count, and TradingView reputation onto every idea row. Pulls one extra fetch per unique author seen during the run.",
+            "default": true
+        },
+        "concurrency": {
+            "title": "Concurrency",
+            "type": "integer",
+            "description": "Number of pages processed in parallel. Five is a safe default for TradingView.",
+            "default": 5,
+            "minimum": 1,
+            "maximum": 15,
+            "sectionCaption": "Run options"
+        },
+        "proxyConfiguration": {
+            "title": "Proxy configuration",
+            "type": "object",
+            "description": "Apify proxy. Residential is required at any meaningful volume.",
+            "editor": "proxy",
+            "prefill": {
+                "useApifyProxy": true,
+                "apifyProxyGroups": ["RESIDENTIAL"]
+            },
+            "default": {
+                "useApifyProxy": true,
+                "apifyProxyGroups": ["RESIDENTIAL"]
+            }
+        }
+    }
+}

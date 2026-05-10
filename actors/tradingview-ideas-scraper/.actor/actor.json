@@ -1,0 +1,16 @@
+{
+    "actorSpecification": 1,
+    "name": "tradingview-ideas-scraper",
+    "title": "TradingView Ideas Scraper (No Login)",
+    "description": "Pull public TradingView trade ideas by symbol, category, or tag. Returns idea ID, title, symbol, direction (long/short/education), timeframe, chart snapshot, author, followers, likes, views, tags. No login. Pay per idea.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "readme": "../README.md",
+    "categories": [
+        "BUSINESS",
+        "MARKETING",
+        "ECOMMERCE"
+    ]
+}
