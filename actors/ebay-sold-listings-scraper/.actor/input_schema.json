@@ -1,0 +1,99 @@
+{
+    "title": "eBay Sold Listings Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "description": "Pull eBay sold and completed listings by keyword or category. Real sale prices. No login. Pay per sold listing.",
+    "properties": {
+        "queries": {
+            "title": "Search keywords",
+            "type": "array",
+            "description": "Keywords to search the eBay sold-items index. Each query runs as one search. Examples: 'pokemon charizard psa 9', 'omega seamaster', 'nike dunk low panda size 10'.",
+            "editor": "stringList",
+            "prefill": ["nike dunk low", "omega seamaster"],
+            "default": []
+        },
+        "categoryIds": {
+            "title": "eBay category IDs",
+            "type": "array",
+            "description": "Optional eBay category IDs to constrain searches. Each category combines with each query. Find IDs at https://www.isoldwhat.com or the eBay category tree.",
+            "editor": "stringList",
+            "prefill": [],
+            "default": []
+        },
+        "conditions": {
+            "title": "Item condition",
+            "type": "array",
+            "description": "Filter by condition. Empty includes everything.",
+            "editor": "select",
+            "items": {
+                "type": "string",
+                "enum": ["new", "open_box", "manufacturer_refurbished", "seller_refurbished", "used", "for_parts"],
+                "enumTitles": ["New", "Open Box", "Manufacturer Refurbished", "Seller Refurbished", "Used / Pre-owned", "For Parts or Not Working"]
+            },
+            "uniqueItems": true,
+            "default": []
+        },
+        "minPrice": {
+            "title": "Minimum sold price",
+            "type": "integer",
+            "description": "Drop listings sold below this price. Currency matches the chosen region.",
+            "default": 0,
+            "minimum": 0
+        },
+        "maxPrice": {
+            "title": "Maximum sold price",
+            "type": "integer",
+            "description": "Drop listings sold above this price. Zero or empty disables the cap.",
+            "default": 0,
+            "minimum": 0
+        },
+        "daysBack": {
+            "title": "Lookback window in days",
+            "type": "integer",
+            "description": "Drop listings sold more than this many days ago. eBay's sold index typically returns the last 90 days regardless. Default 90.",
+            "default": 90,
+            "minimum": 1,
+            "maximum": 365
+        },
+        "region": {
+            "title": "eBay region",
+            "type": "string",
+            "description": "Regional eBay storefront. Determines currency and search index.",
+            "editor": "select",
+            "enum": ["US", "GB", "DE", "AU", "CA", "FR", "IT", "ES"],
+            "enumTitles": ["United States", "United Kingdom", "Germany", "Australia", "Canada", "France", "Italy", "Spain"],
+            "default": "US"
+        },
+        "maxListingsPerSource": {
+            "title": "Max listings per source",
+            "type": "integer",
+            "description": "Stop paginating for a given query or category once this many sold listings have been collected. Higher numbers add latency and proxy cost.",
+            "default": 60,
+            "minimum": 1,
+            "maximum": 1000
+        },
+        "concurrency": {
+            "title": "Concurrency",
+            "type": "integer",
+            "description": "Number of search pages processed in parallel. Three is a safe default for eBay.",
+            "default": 3,
+            "minimum": 1,
+            "maximum": 10,
+            "sectionCaption": "Run options"
+        },
+        "proxyConfiguration": {
+            "title": "Proxy configuration",
+            "type": "object",
+            "description": "Apify proxy. Residential is required at any meaningful volume.",
+            "editor": "proxy",
+            "prefill": {
+                "useApifyProxy": true,
+                "apifyProxyGroups": ["RESIDENTIAL"]
+            },
+            "default": {
+                "useApifyProxy": true,
+                "apifyProxyGroups": ["RESIDENTIAL"]
+            }
+        }
+    }
+}
