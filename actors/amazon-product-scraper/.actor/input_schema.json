@@ -1,103 +1,77 @@
 {
-    "title": "Amazon Product Scraper Input",
+    "title": "Walmart Product Scraper Input",
     "type": "object",
     "schemaVersion": 1,
-    "description": "Scrape Amazon products with rich enrichment. Paste search URLs, category URLs, direct ASINs, or seller store URLs. Each product ships as one dataset row.",
+    "description": "Scrape Walmart products as an Amazon-alternative product intel feed. Paste search URLs, category URLs, or direct product URLs. Each product ships as one dataset row.",
     "properties": {
         "startUrls": {
-            "title": "Amazon URLs",
+            "title": "Walmart URLs",
             "type": "array",
-            "description": "Amazon search URLs (/s?k=), category URLs (/b?node= or /gp/bestsellers), product URLs (/dp/ASIN), or seller store URLs (/stores/ or /shops/). Mix and match. Each is treated as an entry point.",
+            "description": "Walmart search URLs (walmart.com/search?q=), category URLs (walmart.com/cp/...), or product URLs (walmart.com/ip/...). Mix and match. Each is treated as an entry point.",
             "editor": "stringList",
             "prefill": [
-                "https://www.amazon.com/dp/B08N5WRWNW"
+                "https://www.walmart.com/search?q=ninja+blender"
             ],
             "default": []
         },
-        "asins": {
-            "title": "Direct ASINs (alternative input)",
+        "itemIds": {
+            "title": "Direct item IDs (alternative input)",
             "type": "array",
-            "description": "List of 10 character Amazon ASINs to scrape directly. Skip if you are using URLs. Combined with the marketplace below.",
+            "description": "List of Walmart item IDs to scrape directly. Skip if you are using URLs.",
             "editor": "stringList",
             "default": []
-        },
-        "marketplace": {
-            "title": "Marketplace for direct ASINs",
-            "type": "string",
-            "description": "Amazon marketplace used when ASINs are passed directly. Search and category URLs already carry their own marketplace.",
-            "editor": "select",
-            "enum": ["US", "UK", "DE", "FR", "IT", "ES", "CA", "AU", "JP", "IN"],
-            "enumTitles": [
-                "amazon.com (United States)",
-                "amazon.co.uk (United Kingdom)",
-                "amazon.de (Germany)",
-                "amazon.fr (France)",
-                "amazon.it (Italy)",
-                "amazon.es (Spain)",
-                "amazon.ca (Canada)",
-                "amazon.com.au (Australia)",
-                "amazon.co.jp (Japan)",
-                "amazon.in (India)"
-            ],
-            "default": "US"
         },
         "maxResultsPerStartUrl": {
             "title": "Max results per start URL",
             "type": "integer",
-            "description": "Hard cap on products returned per search or category URL. 0 means everything Amazon exposes (typically up to 7 pages of 16 results).",
+            "description": "Hard cap on products returned per search or category URL. 0 means everything Walmart exposes for that URL.",
             "default": 25,
             "minimum": 0,
             "maximum": 10000
         },
+        "deliveryZipcode": {
+            "title": "Delivery zipcode",
+            "type": "string",
+            "description": "US zipcode used to set the delivery location. Affects pricing, availability, and shipping estimates. Leave blank to use Walmart's default.",
+            "editor": "textfield",
+            "default": ""
+        },
         "extractVariants": {
             "title": "Extract variant matrix",
             "type": "boolean",
-            "description": "Pull all child ASINs, sizes, colors, and price points for products that ship in multiple variants. Built in. No extra cost.",
+            "description": "Pull all child item IDs, sizes, colors, and price points for products that ship in multiple variants. Built in. No extra cost.",
             "default": true,
             "sectionCaption": "Enrichment depth"
         },
-        "extractBSR": {
-            "title": "Extract Best Sellers Rank",
+        "extractSeller": {
+            "title": "Extract seller intel",
             "type": "boolean",
-            "description": "Pull BSR by category for every product. Includes primary and subcategory ranks. Useful for product researchers and FBA sourcing.",
+            "description": "Capture seller name and whether the listing is Walmart Fulfilled or sold by a marketplace seller. Useful for sourcing and competitive intel.",
+            "default": true
+        },
+        "extractStock": {
+            "title": "Extract stock signal",
+            "type": "boolean",
+            "description": "Capture in stock / out of stock / limited stock signal and any stock count text Walmart renders.",
             "default": true
         },
         "extractRatingHistogram": {
             "title": "Extract rating histogram",
             "type": "boolean",
-            "description": "Capture the percentage split across 5, 4, 3, 2, and 1 star reviews. Adds 200 to 400 ms per product.",
-            "default": true
-        },
-        "extractFrequentlyBoughtTogether": {
-            "title": "Extract frequently bought together",
-            "type": "boolean",
-            "description": "Capture the FBT bundle ASINs and total bundle price.",
+            "description": "Capture the rating split across 5, 4, 3, 2, and 1 star reviews when Walmart exposes it.",
             "default": false
-        },
-        "extractAPlusContent": {
-            "title": "Extract A+ content",
-            "type": "boolean",
-            "description": "Capture the brand A+ content blocks (rich product description with images and comparison tables).",
-            "default": false
-        },
-        "deliveryZipcode": {
-            "title": "Delivery zipcode",
-            "type": "string",
-            "description": "US zipcode used to set the delivery location cookie. Affects pricing and shipping estimates. Leave blank to use Amazon's default.",
-            "editor": "textfield",
-            "default": ""
         },
         "dedupe": {
             "title": "Deduplicate across runs",
             "type": "boolean",
-            "description": "Skip ASINs already pushed in previous runs. Turn off to refresh stale rows.",
+            "description": "Skip item IDs already pushed in previous runs. Turn off to refresh stale rows.",
             "default": true,
             "sectionCaption": "Run options"
         },
         "concurrency": {
             "title": "Concurrency",
             "type": "integer",
-            "description": "Number of products processed in parallel. Three to four is safe. Higher concurrency triggers Amazon CAPTCHAs faster.",
+            "description": "Number of products processed in parallel. Three is safe. Higher concurrency triggers PerimeterX challenges faster.",
             "default": 3,
             "minimum": 1,
             "maximum": 12
@@ -105,7 +79,7 @@
         "proxyConfiguration": {
             "title": "Proxy configuration",
             "type": "object",
-            "description": "Apify proxy. Residential is required for Amazon at any meaningful volume.",
+            "description": "Apify proxy. Residential is required for Walmart at any meaningful volume.",
             "editor": "proxy",
             "prefill": {
                 "useApifyProxy": true,

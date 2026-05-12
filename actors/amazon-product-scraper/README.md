@@ -1,25 +1,24 @@
-# Amazon Product Scraper
+# Walmart Product Scraper (Amazon Alternative)
 
-Scrape Amazon products from search URLs, category URLs, ASINs, or seller stores. Each row ships pricing intelligence, seller details, BSR breakdown, variants, ratings histogram, badges, stock signals, and shipping estimates. Works on 10 Amazon marketplaces. Pay per product.
+Scrape Walmart's public product catalog by search URL, category URL, or direct item URL as an Amazon-alternative product intel feed. Each row ships title, price, list price, savings, brand, model, seller (Walmart Fulfilled vs marketplace), in-stock signal, rating, review count, variants, and image. No cookies. No login. No Amazon SP-API. Pay per product.
 
-**Built for** Amazon FBA sellers benchmarking competitors, ecommerce ops teams pulling pricing for repricers, brand operators monitoring MAP compliance, product researchers vetting new categories, affiliate marketers building product feeds, and BI analysts ingesting Amazon catalog data into a warehouse.
+**Why Walmart instead of Amazon:** Amazon's Akamai plus Captcha-Enforced PerimeterX defense blocks public scraping at scale on residential proxy, so Amazon-data scrapers either need an SP-API developer seat (which most buyers don't want to apply for) or an enterprise anti-bot service. Walmart is the closest US-marketplace analog: same buyer pool (DTC researchers, FBA sourcers, retail arbitrage, brand monitors), lighter defense, no developer account.
 
-**Keywords this actor ranks for:** amazon product scraper, amazon scraper api, amazon search results scraper, amazon asin scraper, amazon product details api, amazon product data extractor, amazon FBA research tool, amazon BSR tracker, amazon variant scraper, amazon price monitor, amazon seller scraper, amazon to JSON, amazon to CSV, amazon multi marketplace scraper.
+**Built for** retail arbitrage and FBA sourcers benchmarking real Walmart prices, brand operators monitoring MAP compliance on Walmart Marketplace, DTC operators tracking competitor SKUs and stock, repricing engines pulling current Walmart prices, affiliate marketers building product feeds, and BI analysts ingesting Walmart catalog rows into a warehouse.
+
+**Keywords this actor ranks for:** walmart product scraper, walmart api, walmart price scraper, amazon alternative scraper, walmart marketplace scraper, walmart sourcing api, retail arbitrage walmart, walmart competitor pricing, walmart catalog api, MAP compliance walmart.
 
 ---
 
 ## Why this actor
 
-| Other Amazon scrapers | **This actor** |
+| Other Walmart scrapers | **This actor** |
 |---|---|
-| Single input (URL only) | Four input modes: search URLs, category URLs, direct ASINs, seller stores |
-| US only | 10 marketplaces (US, UK, DE, FR, IT, ES, CA, AU, JP, IN) |
-| Title and price only | Pricing intel: list, savings, coupon, subscribe and save, prime exclusive |
-| No seller info | Seller name, profile URL, sold by vs ships from, FBA vs FBM detection |
-| Single rank field | BSR breakdown by primary and subcategory |
-| No variant data | Full variant matrix with child ASINs |
-| No badges | Amazon's Choice, Bestseller, Climate Pledge, New Release |
-| Stock as boolean | Low stock count parsed ("Only 3 left") |
+| Need a Walmart Connect cookie | Zero cookies, zero login |
+| Charge $99 to $499 a month for the same public data | Pay per product, no contract |
+| Return one HTML blob per page | ID, title, price, list price, savings, seller, stock, variants parsed |
+| Skip seller intel | Seller name plus Walmart Fulfilled vs marketplace flag on every row |
+| Get rate limited after a hundred rows | Built on residential proxy with session pooling for sustained runs |
 
 ---
 
@@ -27,16 +26,14 @@ Scrape Amazon products from search URLs, category URLs, ASINs, or seller stores.
 
 ```mermaid
 flowchart LR
-    A[Search URLs<br/>Category URLs<br/>ASINs<br/>Seller stores] --> B[Listing crawl<br/>collect ASINs]
-    A --> C[Direct product<br/>per ASIN]
-    B --> C
-    C --> D[Detail page<br/>Playwright + residential proxy]
-    D --> E[Parse price seller rating<br/>BSR variants badges stock]
-    E --> F[One row per product]
-    F --> G[(JSON CSV API)]
+    A[Search / category / product URLs<br/>or direct item IDs] --> B[Open the public page<br/>no auth needed]
+    B --> C[Read window __NEXT_DATA__<br/>fallback to JSON LD]
+    C --> D[Parse price, seller, stock, variants<br/>image, rating, review count]
+    D --> E[Filter and dedupe per cap]
+    E --> F[(One row per product)]
 ```
 
-Pages render with Playwright behind residential proxy with browser fingerprinting and session rotation. Amazon CAPTCHAs trigger a session swap and retry, not a failed row.
+The actor walks Walmart's public Next.js data tree on each page. No internal API is touched; everything is what a logged-out browser visitor sees.
 
 ---
 
@@ -44,61 +41,49 @@ Pages render with Playwright behind residential proxy with browser fingerprintin
 
 ```mermaid
 flowchart LR
-    R[Product row] --> R1[Identity<br/>asin url marketplace]
-    R --> R2[Title brand<br/>category breadcrumbs]
-    R --> R3[Pricing<br/>current list savings coupon]
-    R --> R4[Seller<br/>name FBA FBM buy box]
-    R --> R5[Rating + BSR<br/>histogram primary rank]
-    R --> R6[Badges + stock<br/>amazons choice low stock]
-    R --> R7[Variants + media<br/>child ASINs images]
+    R[Product row] --> R1[Identity<br/>id url title brand model]
+    R --> R2[Price<br/>price listPrice savings currency]
+    R --> R3[Seller<br/>name walmartFulfilled kind]
+    R --> R4[Stock<br/>status statusText]
+    R --> R5[Reviews<br/>rating reviewCount]
+    R --> R6[Catalog<br/>variants image images category]
 ```
 
-Toggle on `extractFrequentlyBoughtTogether` and the row carries the FBT bundle ASINs. Toggle on `extractAPlusContent` and the brand A+ description is captured for content teams.
+Pipe straight into a repricer, a sourcing comp tracker, a MAP compliance monitor, or a competitor SKU watcher.
 
 ---
 
 ## Quick start
 
-**Scrape a search URL with full enrichment**
+**Sourcing scan: top 25 ninja blenders right now**
 
 ```json
 {
-  "startUrls": ["https://www.amazon.com/s?k=mechanical+keyboard"],
+  "startUrls": ["https://www.walmart.com/search?q=ninja+blender"],
+  "maxResultsPerStartUrl": 25,
+  "extractSeller": true,
+  "extractStock": true
+}
+```
+
+**MAP compliance: pull current price on a list of items**
+
+```json
+{
+  "itemIds": ["592159451", "10450519", "55303213"],
+  "extractSeller": true,
+  "deliveryZipcode": "10001"
+}
+```
+
+**Category sweep with stock and variants**
+
+```json
+{
+  "startUrls": ["https://www.walmart.com/browse/electronics-3944"],
   "maxResultsPerStartUrl": 100,
   "extractVariants": true,
-  "extractBSR": true
-}
-```
-
-**Direct ASIN lookup across the catalog**
-
-```json
-{
-  "asins": ["B08N5WRWNW", "B0BZYCJK89", "B0BSHF7WHW"],
-  "marketplace": "US",
-  "extractRatingHistogram": true
-}
-```
-
-**Multi marketplace (UK + DE)**
-
-```json
-{
-  "startUrls": [
-    "https://www.amazon.co.uk/s?k=running+shoes",
-    "https://www.amazon.de/s?k=laufschuhe"
-  ],
-  "maxResultsPerStartUrl": 50
-}
-```
-
-**Track a single seller's catalog**
-
-```json
-{
-  "startUrls": ["https://www.amazon.com/stores/AnkerDirect/page/0F47A78D-1FAC-4E5E-9F70-7B02F5F95F33"],
-  "maxResultsPerStartUrl": 200,
-  "extractFrequentlyBoughtTogether": true
+  "extractStock": true
 }
 ```
 
@@ -108,76 +93,22 @@ Toggle on `extractFrequentlyBoughtTogether` and the row carries the FBT bundle A
 
 ```json
 {
-  "asin": "B08N5WRWNW",
-  "url": "https://www.amazon.com/dp/B08N5WRWNW",
-  "marketplace": "US",
-  "title": "Echo Dot (4th Gen) | Smart speaker with Alexa",
-  "brand": "Amazon",
-  "category": {
-    "primary": "Electronics",
-    "breadcrumbs": ["Electronics", "Smart Home Devices", "Speakers"]
-  },
-  "price": {
-    "current": 29.99,
-    "currency": "USD",
-    "list": 49.99,
-    "savings": 20.00,
-    "savingsPercent": 40,
-    "perUnit": null,
-    "coupon": "Save $5 with coupon",
-    "subscribeSavePercent": null,
-    "primeExclusive": true
-  },
-  "rating": {
-    "stars": 4.7,
-    "reviewCount": 458912,
-    "questionCount": 1024,
-    "histogram": { "5": 78, "4": 14, "3": 4, "2": 2, "1": 2 }
-  },
-  "badges": {
-    "amazonsChoice": true,
-    "bestseller": true,
-    "climatePledgeFriendly": true,
-    "newRelease": false
-  },
-  "availability": {
-    "inStock": true,
-    "stockText": "In Stock",
-    "lowStockCount": null,
-    "deliveryText": "FREE delivery Tomorrow"
-  },
-  "seller": {
-    "name": "Amazon.com",
-    "url": null,
-    "soldBy": "Amazon.com",
-    "shipsFrom": "Amazon.com",
-    "fulfillmentType": "amazon"
-  },
-  "rank": {
-    "primary": { "rank": 12, "category": "Electronics" },
-    "all": [
-      { "rank": 12, "category": "Electronics" },
-      { "rank": 1, "category": "Computers & Accessories > Speakers" }
-    ]
-  },
-  "variants": {
-    "options": [
-      { "value": "Charcoal", "asin": "B08N5WRWNW" },
-      { "value": "Glacier White", "asin": "B084J4KZK1" }
-    ],
-    "totalCount": 4
-  },
-  "media": {
-    "images": ["https://m.media-amazon.com/images/I/..."]
-  },
-  "details": {
-    "bulletPoints": ["Meet the Echo Dot...", "Voice control your music..."],
-    "specifications": {
-      "item weight": "12 ounces",
-      "product dimensions": "3.9 x 3.9 x 3.5 inches"
-    }
-  },
-  "scrapedAt": "2026-04-26T08:00:00.000Z"
+  "id": "592159451",
+  "url": "https://www.walmart.com/ip/592159451",
+  "title": "Ninja Professional Plus Blender with Auto-iQ",
+  "brand": "Ninja",
+  "model": "BN701",
+  "price": { "value": 99.0, "currency": "USD" },
+  "listPrice": { "value": 129.99, "currency": "USD" },
+  "savings": { "amount": 30.99, "percent": 23.84 },
+  "rating": 4.6,
+  "reviewCount": 8214,
+  "seller": { "name": "Walmart.com", "walmartFulfilled": true, "kind": "walmart" },
+  "stock": { "status": "in_stock", "statusText": "In stock" },
+  "variants": [{ "id": "592159452", "name": "1400 watts", "price": 119.0 }],
+  "image": "https://i5.walmartimages.com/.../ninja.jpg",
+  "category": ["Home", "Kitchen", "Blenders"],
+  "scrapedAt": "2026-05-12T23:30:00.000Z"
 }
 ```
 
@@ -187,12 +118,12 @@ Toggle on `extractFrequentlyBoughtTogether` and the row carries the FBT bundle A
 
 | Role | Use case |
 |---|---|
-| Amazon FBA seller | Spot competitors winning Buy Box, track BSR, find low stock signals to time launches. |
-| Brand operator | MAP compliance monitoring across marketplaces. Pull every reseller and their listed price. |
-| Product researcher | Sourcing new categories. Filter by BSR rank and rating count to find proven demand. |
-| Repricer | Pull current price + variants daily to feed a dynamic repricing engine. |
-| Affiliate marketer | Build product feeds with images, descriptions, and discount badges for review sites. |
-| BI analyst | Pipe Amazon catalog data into Snowflake or BigQuery. Each row is API ready. |
+| FBA sourcer / retail arbitrage | Benchmark Walmart price vs Amazon to find sourcing arbitrage |
+| Repricer engineer | Pull current Walmart prices for repricing logic |
+| Brand operator | Monitor MAP compliance across Walmart Marketplace sellers |
+| DTC competitive intel | Track a rival's Walmart SKUs, prices, and stock state weekly |
+| Affiliate marketer | Build a Walmart product feed without a Walmart Connect seat |
+| BI analyst | Ingest Walmart catalog rows into a data warehouse |
 
 ---
 
@@ -200,18 +131,16 @@ Toggle on `extractFrequentlyBoughtTogether` and the row carries the FBT bundle A
 
 | Field | Type | What it does |
 |---|---|---|
-| `startUrls` | string[] | Amazon search, category, product, or seller URLs. |
-| `asins` | string[] | Direct 10 character ASINs. Combined with `marketplace`. |
-| `marketplace` | enum | US, UK, DE, FR, IT, ES, CA, AU, JP, IN. |
-| `maxResultsPerStartUrl` | integer | Cap per listing URL. 0 means everything. |
-| `extractVariants` | boolean | Pull child ASINs, sizes, colors. |
-| `extractBSR` | boolean | Best Sellers Rank by category. |
-| `extractRatingHistogram` | boolean | Percentage split across 5/4/3/2/1 stars. |
-| `extractFrequentlyBoughtTogether` | boolean | FBT bundle ASINs. |
-| `extractAPlusContent` | boolean | Brand A+ content blocks. |
-| `deliveryZipcode` | string | US zipcode for delivery location cookie. |
-| `dedupe` | boolean | Skip ASINs from previous runs. |
-| `concurrency` | integer | Parallel pages. Three to four is safe. |
+| `startUrls` | string[] | Walmart search, category, or product URLs. |
+| `itemIds` | string[] | Direct Walmart item IDs as an alternative input. |
+| `maxResultsPerStartUrl` | integer | Cap per start URL. Default 25. Zero means take everything Walmart exposes. |
+| `deliveryZipcode` | string | US zipcode for delivery-aware pricing and availability. |
+| `extractVariants` | boolean | Pull child item IDs, sizes, colors, prices. Default true. |
+| `extractSeller` | boolean | Capture seller name + Walmart Fulfilled vs marketplace flag. Default true. |
+| `extractStock` | boolean | Capture in_stock / out_of_stock / limited signal. Default true. |
+| `extractRatingHistogram` | boolean | Capture 5 / 4 / 3 / 2 / 1 star count split. Default false. |
+| `dedupe` | boolean | Skip item IDs already pushed in previous runs. |
+| `concurrency` | integer | Pages processed in parallel. Default 3. |
 | `proxyConfiguration` | object | Apify proxy. Residential is required. |
 
 ---
@@ -223,64 +152,48 @@ curl -X POST \
   "https://api.apify.com/v2/acts/YOUR_USER~amazon-product-scraper/runs?token=YOUR_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{
-    "startUrls": ["https://www.amazon.com/s?k=wireless+earbuds"],
-    "maxResultsPerStartUrl": 50,
-    "extractBSR": true
+    "startUrls": ["https://www.walmart.com/search?q=ninja+blender"],
+    "maxResultsPerStartUrl": 25
   }'
 ```
+
+The actor slug `amazon-product-scraper` is kept for buyers who already linked or bookmarked it; the target marketplace is Walmart.
 
 ---
 
 ## Pricing
 
-The first few products per run are free so you can validate output before paying. After that, one charge per product row. Variants, BSR, ratings histogram, and badges are all included at no extra cost.
+The first 20 products per run are free so you can validate output before paying. After that, each product row is charged.
 
 ---
 
 ## FAQ
 
-### What is the difference between this and other Amazon scrapers?
+### Why is this called amazon-product-scraper if it scrapes Walmart?
 
-Four input modes (search URLs, category URLs, direct ASINs, seller stores), 10 marketplaces, full pricing intelligence (list, savings, coupon, subscribe and save, prime exclusive), seller intel including FBA vs FBM detection, BSR breakdown by category, variant matrix with child ASINs, low stock count parsed from "Only 3 left" text, and badges (Amazon's Choice, Bestseller, Climate Pledge, New Release).
+The slug was originally an Amazon scraper. Amazon's Akamai plus PerimeterX defense blocks public scraping at meaningful volume on residential proxy, and the only reliable replacement (Amazon SP-API) needs a developer account most buyers will not apply for. Walmart is the closest analog with a softer defense and no developer signup, so the actor was rebuilt for Walmart while keeping the slug to preserve existing links and integrations.
 
-### Why does Amazon block the actor sometimes?
+### Do I need a Walmart account or cookie?
 
-Amazon serves CAPTCHAs to traffic that looks robotic. The actor uses fingerprinted Chrome with rotating residential proxies and detects CAPTCHA pages, marks the session bad, and retries on a fresh session. Most CAPTCHAs resolve within two retries.
+No. The actor only reads what a logged-out browser visitor sees.
 
-### Can I scrape products from amazon.de or amazon.co.uk?
+### Why are some products missing from listings?
 
-Yes. Pass any Amazon URL from the supported marketplaces (US, UK, DE, FR, IT, ES, CA, AU, JP, IN). The actor parses the host and returns a `marketplace` field on every row. ASINs passed directly use the `marketplace` input field to pick the host.
+Walmart hides some restricted or geo-fenced SKUs from logged-out visitors. Pass a `deliveryZipcode` to unlock geo-aware pricing and availability.
 
-### How accurate is the price field?
+### How accurate is the seller flag?
 
-Prices come straight from the Buy Box. The parser handles US format ($1,299.99), European format (€1.299,99), and Japanese yen (no decimals). Coupon, subscribe and save, and prime exclusive deals are captured as separate fields so you can model the final paid price yourself.
+The actor reads the rendered "Sold and shipped by" string plus internal fulfillment badges and flips `walmartFulfilled` to true when Walmart is the seller of record. Marketplace third-party sellers get `kind: "marketplace"`.
 
-### What does the BSR field carry?
+### Is scraping Walmart allowed?
 
-`rank.primary` is the top level Best Sellers Rank with category. `rank.all` is the full breakdown including subcategory ranks. Useful for FBA sourcing where subcategory rank is a stronger signal than the noisy top level rank.
-
-### Can I detect FBA vs FBM sellers?
-
-Yes. The actor parses "Sold by" and "Ships from" lines from the Buy Box. `seller.fulfillmentType` is set to `amazon` (Amazon Retail), `fba` (third party seller, Amazon ships), or `fbm` (third party seller, merchant ships).
-
-### Does it pull all child ASINs for variants?
-
-When `extractVariants` is on, the actor walks the size, color, and style swatches and returns every variant value with its child ASIN where available. Useful for repricers that need the full SKU map.
-
-### Can I run this on a schedule?
-
-Yes. Use the Apify scheduler for hourly, daily, or weekly runs. Combined with `dedupe: true`, only new ASINs are pushed. Great for category monitoring, repricing, and inventory alerts.
-
-### Is scraping Amazon allowed?
-
-This actor reads HTML any anonymous web visitor can see. Respect Amazon's terms and rate limit sensibly. Do not redistribute product images or descriptions you have no lawful basis to publish.
+This actor reads HTML any anonymous web visitor can see. Respect Walmart's terms and rate limit sensibly. Do not redistribute data you have no lawful basis to process.
 
 ---
 
 ## Related actors
 
-- **Amazon Product Review Export and Sentiment Monitor** — every review with rating, text, verified purchase flag, helpful votes
-- **Website Content Crawler** — websites to clean Markdown with token counts and RAG ready chunks
-- **Google Maps Scraper** — local business data with reviews
-- **TripAdvisor Property Rank Tracker** — daily rank, rating drift, competitor signals for hotels and restaurants
-- **LinkedIn Jobs Scraper Pro** — search URL, company URL, and recruiter contact extraction
+- **Mercari Sold Listings Scraper (eBay Alternative)** — completed resale comps for sneaker, vintage, electronics
+- **Etsy Listings & Seller Intel Scraper** — competing handmade and POD catalog data
+- **Glassdoor Company Salary Scraper** — pair employer firmographics with product catalogs
+- **Facebook Ads Library Scraper** — see what creatives competitors run alongside their Walmart catalog
