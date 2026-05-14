@@ -1,0 +1,104 @@
+{
+    "title": "Substack Newsletter Intelligence Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "description": "Pull Substack publications by direct subdomain, publication URL, or search query. Each publication ships as one row with subscriber count, writer profile, paid tier status, and optional recent posts and engagement.",
+    "properties": {
+        "subdomains": {
+            "title": "Substack subdomains",
+            "type": "array",
+            "description": "Direct subdomain slugs to enrich. Example: [\"noahpinion\", \"platformer\", \"stratechery\"]. Skips discovery and goes straight to the publication.",
+            "editor": "stringList",
+            "default": [],
+            "sectionCaption": "What to scrape",
+            "sectionDescription": "Provide at least one of: subdomains, publicationUrls, or queries."
+        },
+        "publicationUrls": {
+            "title": "Publication URLs",
+            "type": "array",
+            "description": "Direct Substack publication URLs. Examples: [\"https://noahpinion.substack.com\", \"https://www.platformer.news\"]. Custom domains are supported when the publication still serves /about on the same host.",
+            "editor": "stringList",
+            "default": []
+        },
+        "queries": {
+            "title": "Search queries",
+            "type": "array",
+            "description": "Substack search terms. Each query opens substack.com/search/{term} and harvests publication cards. Example: [\"economics\", \"AI safety\", \"product management\"].",
+            "editor": "stringList",
+            "default": []
+        },
+        "fetchRecentPosts": {
+            "title": "Fetch recent posts",
+            "type": "boolean",
+            "description": "Pull the most recent posts per publication from the public archive API. Adds recentPosts[] with title, slug, postDate, audience (everyone vs paid), commentCount, and URL.",
+            "default": true,
+            "sectionCaption": "Enrichment",
+            "sectionDescription": "Each enrichment toggle adds requests per publication. Use with maxPublications to bound cost."
+        },
+        "maxRecentPosts": {
+            "title": "Max recent posts per publication",
+            "type": "integer",
+            "description": "How many recent posts to include when fetchRecentPosts is on.",
+            "default": 12,
+            "minimum": 1,
+            "maximum": 100
+        },
+        "fetchAuthorLinks": {
+            "title": "Fetch author external links",
+            "type": "boolean",
+            "description": "Extract external links from the about page (Twitter / X, website, LinkedIn) where the writer lists them publicly.",
+            "default": true
+        },
+        "maxPublications": {
+            "title": "Total maximum publications",
+            "type": "integer",
+            "description": "Hard cap on publication rows pushed per run. 0 means unlimited.",
+            "default": 50,
+            "minimum": 0,
+            "maximum": 5000
+        },
+        "maxResultsPerQuery": {
+            "title": "Max results per query",
+            "type": "integer",
+            "description": "Cap on publications harvested per search query. Substack search renders 25 to 50 cards before lazy load.",
+            "default": 25,
+            "minimum": 1,
+            "maximum": 200
+        },
+        "dedupe": {
+            "title": "Deduplicate across runs",
+            "type": "boolean",
+            "description": "Skip subdomains already pushed in previous runs. Keyed on Substack subdomain. Turn off to refresh stale rows on a recurring schedule.",
+            "default": true,
+            "sectionCaption": "Run options"
+        },
+        "navigationDelayMs": {
+            "title": "Delay between navigations (ms)",
+            "type": "integer",
+            "description": "Pause between page loads. 1000 to 3000 ms is the safe range for Substack.",
+            "default": 1500,
+            "minimum": 0,
+            "maximum": 60000
+        },
+        "concurrency": {
+            "title": "Concurrency",
+            "type": "integer",
+            "description": "Parallel browser pages. Substack is light, 3 to 6 is safe on residential proxy.",
+            "default": 4,
+            "minimum": 1,
+            "maximum": 16
+        },
+        "proxyConfiguration": {
+            "title": "Proxy configuration",
+            "type": "object",
+            "description": "Apify proxy. Substack accepts datacenter for low volume. Switch to residential past a few hundred requests in a short window.",
+            "editor": "proxy",
+            "prefill": {
+                "useApifyProxy": true
+            },
+            "default": {
+                "useApifyProxy": true
+            }
+        }
+    }
+}

@@ -1,0 +1,16 @@
+{
+    "actorSpecification": 1,
+    "name": "substack-newsletter-intelligence",
+    "title": "Substack Newsletter Intelligence: Top Writer Tracker",
+    "description": "Track Substack publications by subscriber count, paid vs free posting cadence, comments, and writer profile. Built for ad networks, creator economy VCs, agencies, and writers reverse engineering top performers. Pay per publication.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "readme": "../README.md",
+    "categories": [
+        "BUSINESS",
+        "MARKETING",
+        "LEAD_GENERATION"
+    ]
+}
