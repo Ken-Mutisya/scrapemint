@@ -1,0 +1,178 @@
+{
+    "title": "Kickstarter Campaign Tracker Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "description": "Pull Kickstarter campaigns by category, search term, state, and sort. Each campaign ships as one row with funding, backers, pledge tiers, and creator data. Optional enrichment pulls full reward tiers and update counts per campaign.",
+    "properties": {
+        "queries": {
+            "title": "Search terms",
+            "type": "array",
+            "description": "Free text Kickstarter search terms. Example: [\"smart home\", \"board game\", \"wallet\"]. Empty means do not run any keyword search.",
+            "editor": "stringList",
+            "default": [],
+            "sectionCaption": "What to scrape",
+            "sectionDescription": "Provide at least one of: queries, categories, or projectUrls."
+        },
+        "categories": {
+            "title": "Categories",
+            "type": "array",
+            "description": "Kickstarter top level category slugs. Empty means pull across all categories.",
+            "editor": "select",
+            "items": {
+                "type": "string",
+                "enum": ["art", "comics", "crafts", "dance", "design", "fashion", "film-video", "food", "games", "journalism", "music", "photography", "publishing", "technology", "theater"],
+                "enumTitles": ["Art", "Comics", "Crafts", "Dance", "Design", "Fashion", "Film & Video", "Food", "Games", "Journalism", "Music", "Photography", "Publishing", "Technology", "Theater"]
+            },
+            "uniqueItems": true,
+            "default": []
+        },
+        "projectUrls": {
+            "title": "Project URLs",
+            "type": "array",
+            "description": "Direct kickstarter.com project URLs to fetch. Example: [\"https://www.kickstarter.com/projects/creator/slug\"]. Skips discovery and goes straight to detail enrichment.",
+            "editor": "stringList",
+            "default": []
+        },
+        "states": {
+            "title": "Campaign states",
+            "type": "array",
+            "description": "Filter by campaign lifecycle state.",
+            "editor": "select",
+            "items": {
+                "type": "string",
+                "enum": ["live", "successful", "failed", "canceled", "submitted", "upcoming"],
+                "enumTitles": ["Live (taking pledges now)", "Successful (funded and closed)", "Failed (closed unfunded)", "Canceled", "Submitted (pending review)", "Upcoming (prelaunch page live)"]
+            },
+            "uniqueItems": true,
+            "default": ["live"]
+        },
+        "sort": {
+            "title": "Sort order",
+            "type": "string",
+            "description": "Discover sort key.",
+            "editor": "select",
+            "enum": ["magic", "popularity", "newest", "end_date", "most_funded", "most_backed"],
+            "enumTitles": [
+                "Magic (Kickstarter default mix)",
+                "Popularity",
+                "Newest",
+                "End date (soonest first)",
+                "Most funded",
+                "Most backed"
+            ],
+            "default": "magic"
+        },
+        "country": {
+            "title": "Country",
+            "type": "string",
+            "description": "Filter to campaigns based in one country. ISO 3166-1 alpha-2 code, for example US, GB, DE, JP. Empty means worldwide.",
+            "editor": "textfield",
+            "default": ""
+        },
+        "minPercentFunded": {
+            "title": "Minimum percent funded",
+            "type": "integer",
+            "description": "Only push campaigns at or above this funding percent. 100 means fully funded only. 0 disables the filter.",
+            "default": 0,
+            "minimum": 0,
+            "maximum": 10000
+        },
+        "minBackers": {
+            "title": "Minimum backers",
+            "type": "integer",
+            "description": "Only push campaigns with at least this many backers. 0 disables the filter.",
+            "default": 0,
+            "minimum": 0,
+            "maximum": 1000000
+        },
+        "minPledgedUsd": {
+            "title": "Minimum pledged (USD)",
+            "type": "integer",
+            "description": "Only push campaigns with at least this much pledged in USD. 0 disables the filter.",
+            "default": 0,
+            "minimum": 0,
+            "maximum": 100000000
+        },
+        "launchedAfterDays": {
+            "title": "Launched within last N days",
+            "type": "integer",
+            "description": "Only push campaigns launched within this many days. 0 disables the filter.",
+            "default": 0,
+            "minimum": 0,
+            "maximum": 3650
+        },
+        "fetchRewards": {
+            "title": "Fetch reward tiers",
+            "type": "boolean",
+            "description": "Fetch the full pledge reward tiers per campaign. Adds rewards[] with title, price, backer count, items, estimated delivery, and shipping options. Adds one extra request per campaign.",
+            "default": false,
+            "sectionCaption": "Enrichment",
+            "sectionDescription": "Each enrichment toggle adds requests per campaign. Use with maxCampaigns to bound cost."
+        },
+        "fetchUpdates": {
+            "title": "Fetch update count",
+            "type": "boolean",
+            "description": "Fetch the number of creator updates, comments, and FAQ entries per campaign. Adds updateCount, commentCount, faqCount.",
+            "default": false
+        },
+        "fetchCreator": {
+            "title": "Fetch creator history",
+            "type": "boolean",
+            "description": "Fetch the creator profile to count prior launched projects and lifetime backers. Adds creatorLaunchedCount and creatorBackedCount.",
+            "default": false
+        },
+        "maxCampaigns": {
+            "title": "Total maximum campaigns",
+            "type": "integer",
+            "description": "Hard cap on campaign rows pushed per run. 0 means unlimited.",
+            "default": 100,
+            "minimum": 0,
+            "maximum": 50000
+        },
+        "maxPagesPerSeed": {
+            "title": "Max pages per seed",
+            "type": "integer",
+            "description": "Pages of 12 campaigns to walk per seed. Kickstarter discover caps near 200 pages per filter combination.",
+            "default": 5,
+            "minimum": 1,
+            "maximum": 200
+        },
+        "dedupe": {
+            "title": "Deduplicate across runs",
+            "type": "boolean",
+            "description": "Skip project IDs already pushed in previous runs. Keyed on Kickstarter project ID. Turn off to refresh stale rows.",
+            "default": true,
+            "sectionCaption": "Run options"
+        },
+        "navigationDelayMs": {
+            "title": "Delay between navigations (ms)",
+            "type": "integer",
+            "description": "Pause between page loads. Kickstarter throttles fast scraping. 1500 to 4000 ms is the safe range.",
+            "default": 2000,
+            "minimum": 0,
+            "maximum": 60000
+        },
+        "concurrency": {
+            "title": "Concurrency",
+            "type": "integer",
+            "description": "Parallel HTTP requests. Keep at 2 to 4 unless you have a residential proxy pool.",
+            "default": 3,
+            "minimum": 1,
+            "maximum": 16
+        },
+        "proxyConfiguration": {
+            "title": "Proxy configuration",
+            "type": "object",
+            "description": "Apify proxy. Datacenter works for low volume. Switch to residential past a few hundred requests in a short window.",
+            "editor": "proxy",
+            "prefill": {
+                "useApifyProxy": true,
+                "apifyProxyGroups": ["RESIDENTIAL"]
+            },
+            "default": {
+                "useApifyProxy": true,
+                "apifyProxyGroups": ["RESIDENTIAL"]
+            }
+        }
+    }
+}

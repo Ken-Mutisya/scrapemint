@@ -1,0 +1,18 @@
+{
+    "name": "kickstarter-campaign-tracker",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Kickstarter live campaign intelligence. Funding velocity, backer counts, pledge tiers, category rankings, creator history across every live, successful, and recently launched project. One row per campaign. Pay per row.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0",
+        "crawlee": "^3.16.0",
+        "playwright": "1.54.1"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}
