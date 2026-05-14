@@ -1,8 +1,8 @@
 {
     "name": "tradingview-ideas-scraper",
-    "version": "0.1.0",
+    "version": "0.2.0",
     "type": "module",
-    "description": "Scrape TradingView trade ideas by symbol, category, or tag. Returns idea ID, title, description, symbol, direction, timeframe, chart snapshot URL, author handle, author followers, likes, comments, views, published date, and tags. Pay per idea.",
+    "description": "Scrape TradingView trade ideas by symbol, category, or tag. Parses TradingView's server-side init-data JSON for idea id, title, description, symbol, direction, timeframe, chart snapshot URL, author handle, author followers and ideas published count, likes, comments, views, published date, and pro plan flag. Pay per idea.",
     "main": "src/main.js",
     "scripts": {
         "start": "node src/main.js"
@@ -10,7 +10,7 @@
     "dependencies": {
         "apify": "^3.7.0",
         "crawlee": "^3.16.0",
-        "playwright": "1.54.1"
+        "cheerio": "^1.0.0"
     },
     "engines": {
         "node": ">=20"

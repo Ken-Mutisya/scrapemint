@@ -2,25 +2,34 @@
 //
 // Strategy
 // --------
-// TradingView renders idea pages publicly at:
-//   /symbols/<SYMBOL>/ideas/page-<N>/    (per symbol)
-//   /ideas/<category>/page-<N>/          (per category, e.g. forex, crypto)
-//   /ideas/?stream=<tag>                 (per tag, fallback)
-// Each idea card carries a stable `/chart/<chartId>/<slug>/` link that
-// survives most React reflows. Each public author page exposes followers,
-// total ideas published, and a TradingView reputation score.
+// TradingView ships every public ideas page with a server-side init-data
+// payload at <script type="application/prs.init-data+json">...</script>.
+// That payload includes a fully populated `items` array (up to 24 per
+// page) with idea id, title, description, chart_url, symbol, user,
+// likes_count, comments_count, views_count, is_education, image, and
+// timestamps. We skip browser rendering and parse the init-data directly,
+// which is faster, cheaper, and resilient against TradingView's React UI
+// changes (the old DOM-based selectors broke when TradingView moved
+// in-page idea anchors to /v/<shortid>/ shortlinks).
 //
-// We accept symbols, categories, and tags as inputs. For each source we
-// paginate the ideas grid up to maxIdeasPerSource. When includeAuthorIntel
-// is on we fetch each unique author profile once to enrich every idea row
-// from that author.
+// Discovery
+// ---------
+//   symbols     -> /symbols/<SYMBOL>/ideas/page-<N>/
+//   categories  -> /ideas/<category>/page-<N>/
+//   tags        -> /ideas/?stream=<tag>&page=<N>
+//
+// Author intel
+// ------------
+// Author profile pages /u/<handle>/ also embed init-data with a
+// `ssrData.statistics.{followers, following, charts_total, scripts_total}`
+// block. One fetch per unique author hydrates every idea from that author.
 //
 // Pay-per-event:
 //   idea_row ($0.004) charged when an idea row is pushed.
 //   First 25 idea rows per run are free so buyers can validate output.
 
 import { Actor, log } from 'apify';
-import { PlaywrightCrawler } from 'crawlee';
+import { CheerioCrawler } from 'crawlee';
 
 const FREE_TIER_ROWS = 25;
 const BASE = 'https://www.tradingview.com';
@@ -40,7 +49,7 @@ const {
 } = input;
 
 const cleanSymbols = (Array.isArray(symbols) ? symbols : [symbols])
-    .map((s) => String(s || '').trim().toUpperCase().replace(/[^A-Z0-9!.:_\-]/g, '')).filter(Boolean);
+    .map((s) => String(s || '').trim().toUpperCase().replace(/[^A-Z0-9!.:_-]/g, '')).filter(Boolean);
 const cleanCategories = (Array.isArray(categories) ? categories : [categories])
     .map((c) => String(c || '').trim().toLowerCase()).filter(Boolean);
 const cleanTags = (Array.isArray(tags) ? tags : [tags])
@@ -81,35 +90,24 @@ for (const tag of cleanTags) {
 const seenIdeaIds = new Set();
 const sourcePushed = new Map();
 let totalRowsPushed = 0;
-const authorIntelCache = new Map(); // author -> intel | 'pending'
-const pendingIdeasByAuthor = new Map(); // author -> [{ row }]
+const authorIntelCache = new Map();
+const pendingIdeasByAuthor = new Map();
 
-const crawler = new PlaywrightCrawler({
+const crawler = new CheerioCrawler({
     proxyConfiguration,
     maxConcurrency: Math.max(1, Math.min(15, Number(concurrency) || 5)),
-    headless: true,
-    navigationTimeoutSecs: 60,
-    requestHandlerTimeoutSecs: 120,
+    navigationTimeoutSecs: 30,
+    requestHandlerTimeoutSecs: 60,
     maxRequestRetries: 3,
-    useSessionPool: true,
-    persistCookiesPerSession: false,
-    sessionPoolOptions: {
-        maxPoolSize: 100,
-        sessionOptions: { maxUsageCount: 8, maxErrorScore: 1 },
-    },
-    launchContext: {
-        launchOptions: {
-            args: [
-                '--disable-blink-features=AutomationControlled',
-                '--disable-features=IsolateOrigins,site-per-process',
-            ],
-        },
-    },
+    additionalMimeTypes: ['text/html'],
     preNavigationHooks: [
-        async ({ page }, gotoOptions) => {
-            gotoOptions.waitUntil = 'domcontentloaded';
-            gotoOptions.timeout = 60000;
-            await page.setExtraHTTPHeaders({ 'Accept-Language': 'en-US,en;q=0.9' });
+        async ({ request }) => {
+            request.headers = {
+                ...(request.headers || {}),
+                'Accept-Language': 'en-US,en;q=0.9',
+                'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+                'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36',
+            };
         },
     ],
     async requestHandler(ctx) {
@@ -125,7 +123,6 @@ const crawler = new PlaywrightCrawler({
 await crawler.addRequests(initialRequests);
 await crawler.run();
 
-// Drain ideas whose author intel never resolved.
 for (const [author, pending] of pendingIdeasByAuthor.entries()) {
     for (const { row } of pending) flushRow(row);
     pendingIdeasByAuthor.delete(author);
@@ -136,30 +133,29 @@ await Actor.exit();
 
 // ---------- Handlers ----------
 
-async function handleIdeasGrid({ page, request, crawler: c }) {
-    await dismissBanners(page);
+async function handleIdeasGrid({ body, request, crawler: c }) {
     const { sourceKey, sourceType, page: pageNum } = request.userData;
     log.info(`Ideas ${sourceKey} page ${pageNum}: ${request.url}`);
 
-    try {
-        await page.waitForSelector('article, .tv-widget-idea, a[href*="/chart/"]', { timeout: 12000 });
-    } catch {
-        log.warning(`Ideas ${sourceKey}: no idea cards found, page may be gated.`);
+    const html = body.toString('utf8');
+    const items = extractItemsFromInitData(html);
+
+    if (!items || items.length === 0) {
+        log.warning(`Ideas ${sourceKey} page ${pageNum}: no items in init-data.`);
+        return;
     }
 
-    // Lazy load: scroll a few times to materialize cards.
-    await autoScroll(page, 4);
-
-    const cards = await extractIdeaCards(page);
     let pushedThisPage = 0;
-
-    for (const card of cards) {
-        if (!card.ideaId || seenIdeaIds.has(card.ideaId)) continue;
+    for (const item of items) {
+        if (!item?.id) continue;
+        const ideaId = String(item.id);
+        if (seenIdeaIds.has(ideaId)) continue;
         if ((sourcePushed.get(sourceKey) || 0) >= maxIdeasPerSource) break;
-        if (directionFilter !== 'all' && card.direction !== directionFilter) continue;
 
-        seenIdeaIds.add(card.ideaId);
-        const row = buildRow(card, request.userData);
+        const row = mapItem(item, request.userData);
+        if (directionFilter !== 'all' && row.direction !== directionFilter) continue;
+
+        seenIdeaIds.add(ideaId);
         await routeRow(row, c);
         sourcePushed.set(sourceKey, (sourcePushed.get(sourceKey) || 0) + 1);
         pushedThisPage += 1;
@@ -167,7 +163,8 @@ async function handleIdeasGrid({ page, request, crawler: c }) {
 
     log.info(`Ideas ${sourceKey} page ${pageNum}: collected ${pushedThisPage} new (source total ${sourcePushed.get(sourceKey) || 0}).`);
 
-    if ((sourcePushed.get(sourceKey) || 0) < maxIdeasPerSource && pushedThisPage > 0) {
+    const fullPage = items.length >= 20;
+    if ((sourcePushed.get(sourceKey) || 0) < maxIdeasPerSource && pushedThisPage > 0 && fullPage) {
         const next = pageNum + 1;
         let nextUrl;
         if (sourceType === 'symbol') nextUrl = buildSymbolUrl(request.userData.symbol, next);
@@ -182,15 +179,10 @@ async function handleIdeasGrid({ page, request, crawler: c }) {
     }
 }
 
-async function handleAuthorIntel({ page, request }) {
-    await dismissBanners(page);
+async function handleAuthorIntel({ body, request }) {
     const { author } = request.userData;
-
-    try {
-        await page.waitForSelector('main, h1, [class*="profile"], [class*="username"]', { timeout: 10000 });
-    } catch {}
-
-    const intel = await extractAuthorIntel(page);
+    const html = body.toString('utf8');
+    const intel = extractAuthorIntel(html);
     authorIntelCache.set(author, intel);
 
     const pending = pendingIdeasByAuthor.get(author) || [];
@@ -199,12 +191,12 @@ async function handleAuthorIntel({ page, request }) {
         Object.assign(row, projectAuthorIntel(intel));
         flushRow(row);
     }
-    log.info(`Author ${author}: followers=${intel.followers ?? '?'}, ideas=${intel.ideasPublished ?? '?'}, rep=${intel.reputation ?? '?'}. Drained ${pending.length} ideas.`);
+    log.info(`Author ${author}: followers=${intel.followers ?? '?'}, ideas=${intel.ideasPublished ?? '?'}. Drained ${pending.length} ideas.`);
 }
 
 // ---------- Routing ----------
 
-async function routeRow(row, crawler) {
+async function routeRow(row, c) {
     if (!includeAuthorIntel || !row.author) {
         flushRow(row);
         return;
@@ -221,7 +213,7 @@ async function routeRow(row, crawler) {
 
     if (!cached) {
         authorIntelCache.set(row.author, 'pending');
-        await crawler.addRequests([{
+        await c.addRequests([{
             url: `${BASE}/u/${encodeURIComponent(row.author)}/`,
             userData: { type: 'author_intel', author: row.author },
             uniqueKey: `author_intel:${row.author}`,
@@ -238,27 +230,45 @@ function flushRow(row) {
     }
 }
 
-function buildRow(card, ctx) {
+function mapItem(item, ctx) {
+    const text = `${item.name || ''}\n${item.description || ''}`;
+    let dir = null;
+    if (item.is_education) dir = 'education';
+    else if (/\bShort\b/i.test(text) && !/\bLong\b/i.test(text)) dir = 'short';
+    else if (/\bLong\b/i.test(text) && !/\bShort\b/i.test(text)) dir = 'long';
+    else if (/\bLong\b/i.test(item.name || '')) dir = 'long';
+    else if (/\bShort\b/i.test(item.name || '')) dir = 'short';
+
+    const interval = item.symbol?.interval;
+    const timeframe = mapInterval(interval);
+
     return {
-        ideaId: card.ideaId,
-        url: card.url,
-        title: card.title || null,
-        description: card.description || null,
-        symbol: card.symbol || null,
-        direction: card.direction || null,
-        timeframe: card.timeframe || null,
-        imageUrl: card.imageUrl || null,
-        author: card.author || null,
-        authorUrl: card.author ? `${BASE}/u/${card.author}/` : null,
+        ideaId: String(item.id),
+        url: item.chart_url || null,
+        title: item.name || null,
+        description: item.description || null,
+        symbol: item.symbol?.short_name || item.symbol?.name || null,
+        symbolExchange: item.symbol?.exchange || null,
+        direction: dir,
+        timeframe,
+        imageUrl: item.image?.big || (item.image_url ? `https://s3.tradingview.com/o/${item.image_url}_big.png` : null),
+        author: item.user?.username || null,
+        authorUrl: item.user?.username ? `${BASE}/u/${item.user.username}/` : null,
+        authorIsPro: !!item.user?.is_pro,
+        authorPlan: item.user?.pro_plan || null,
         authorFollowers: null,
         authorIdeasPublished: null,
-        authorReputation: null,
-        likes: card.likes ?? null,
-        comments: card.comments ?? null,
-        views: card.views ?? null,
-        publishedAt: card.publishedAt || null,
-        tags: card.tags || [],
-        isEditorsPick: !!card.isEditorsPick,
+        authorReputation: typeof item.reputation === 'number' ? item.reputation : null,
+        likes: typeof item.likes_count === 'number' ? item.likes_count : null,
+        comments: typeof item.comments_count === 'number' ? item.comments_count : null,
+        views: typeof item.views_count === 'number' ? item.views_count : null,
+        publishedAt: item.created_at || null,
+        updatedAt: item.updated_at || null,
+        tags: [],
+        isEditorsPick: !!item.is_picked,
+        isHot: !!item.is_hot,
+        isVideo: !!item.is_video,
+        isEducation: !!item.is_education,
         sourceType: ctx.sourceType,
         sourceKey: ctx.sourceKey,
         scrapedAt: null,
@@ -275,213 +285,100 @@ function projectAuthorIntel(intel) {
 
 // ---------- Extraction ----------
 
-async function dismissBanners(page) {
-    try {
-        await page.evaluate(() => {
-            const sel = [
-                'button[aria-label*="accept" i]',
-                'button[aria-label*="agree" i]',
-                'button[name="accept"]',
-                '[class*="cookie"] button',
-                '[data-name="close"]',
-            ];
-            for (const s of sel) {
-                const el = document.querySelector(s);
-                if (el) { el.click(); break; }
-            }
-        });
-        await page.waitForTimeout(400);
-    } catch {}
-}
-
-async function autoScroll(page, rounds = 3) {
-    for (let i = 0; i < rounds; i += 1) {
-        await page.evaluate(() => window.scrollBy(0, document.body.scrollHeight));
-        await page.waitForTimeout(900);
+function extractItemsFromInitData(html) {
+    const scripts = extractInitDataScripts(html);
+    for (const c of scripts) {
+        let data;
+        try { data = JSON.parse(c); } catch { continue; }
+        const items = findItemsArray(data);
+        if (items && items.length > 0) return items;
     }
+    return [];
 }
 
-async function extractIdeaCards(page) {
-    return page.evaluate(() => {
-        const text = (el) => (el?.textContent || '').replace(/\s+/g, ' ').trim();
-        const seen = new Set();
-        const out = [];
-
-        const cardRoots = new Set();
-        // Anchor on chart links and walk to the card root.
-        for (const a of document.querySelectorAll('a[href*="/chart/"]')) {
-            const card = a.closest('article')
-                || a.closest('[class*="card"]')
-                || a.closest('[class*="idea"]')
-                || a.closest('div');
-            if (card) cardRoots.add(card);
+function findItemsArray(obj, depth = 0) {
+    if (depth > 8) return null;
+    if (Array.isArray(obj)) {
+        for (const x of obj) {
+            const r = findItemsArray(x, depth + 1);
+            if (r) return r;
         }
-        // Also any explicit article roots.
-        for (const el of document.querySelectorAll('article')) cardRoots.add(el);
-
-        for (const card of cardRoots) {
-            const chartLink = card.querySelector('a[href*="/chart/"]');
-            if (!chartLink) continue;
-            const href = chartLink.getAttribute('href') || '';
-            const m = href.match(/\/chart\/[^/]+\/([A-Za-z0-9]+)-/) || href.match(/\/chart\/([A-Za-z0-9]+)\//);
-            if (!m) continue;
-            const ideaId = m[1];
-            if (seen.has(ideaId)) continue;
-            seen.add(ideaId);
-
-            const url = href.startsWith('http') ? href.split('?')[0] : `https://www.tradingview.com${href.split('?')[0]}`;
-            const title = (chartLink.getAttribute('title') || '').trim() || text(card.querySelector('h3, h2, [class*="title"]'));
-
-            const cardText = card.textContent || '';
-
-            // Symbol: link to /symbols/<SYM>/
-            let symbol = null;
-            const symLink = card.querySelector('a[href*="/symbols/"]');
-            if (symLink) {
-                const sm = symLink.getAttribute('href').match(/\/symbols\/([^/?#]+)/i);
-                if (sm) symbol = decodeURIComponent(sm[1]).toUpperCase();
-            }
-
-            // Direction: explicit Long/Short/Education badge.
-            let dir = null;
-            if (/\bLong\b/i.test(cardText) && !/\bEducation\b/i.test(cardText)) dir = 'long';
-            if (/\bShort\b/i.test(cardText) && !/\bLong\b/i.test(cardText)) dir = dir || 'short';
-            if (/\bEducation\b/i.test(cardText)) dir = dir || 'education';
-            // Prefer dedicated direction badge if present.
-            const dirBadge = card.querySelector('[class*="direction"], [class*="long"], [class*="short"]');
-            if (dirBadge) {
-                const t = (dirBadge.textContent || '').toLowerCase();
-                if (t.includes('long')) dir = 'long';
-                else if (t.includes('short')) dir = 'short';
-                else if (t.includes('education')) dir = 'education';
-            }
-
-            // Timeframe: e.g. "1D", "4H", "15m" rendered as a small badge.
-            let timeframe = null;
-            const tfMatch = cardText.match(/\b(\d{1,3}(?:[smhDWMy]|min|H|D|W|M))\b/);
-            if (tfMatch) timeframe = tfMatch[1];
-
-            // Image (chart snapshot).
-            const img = card.querySelector('img[src*="snapshots"], picture img, img');
-            const imageUrl = img?.getAttribute('src') || img?.getAttribute('data-src') || null;
-
-            // Author: link to /u/<handle>/
-            let author = null;
-            const userLink = card.querySelector('a[href*="/u/"]');
-            if (userLink) {
-                const um = userLink.getAttribute('href').match(/\/u\/([^/?#]+)/i);
-                if (um) author = decodeURIComponent(um[1]);
-            }
-
-            // Engagement counts.
-            const likes = parseCountByLabel(cardText, /([\d,kKmM.]+)\s*(?:likes?|boosts?)/);
-            const comments = parseCountByLabel(cardText, /([\d,kKmM.]+)\s*(?:comments?|replies?)/);
-            const views = parseCountByLabel(cardText, /([\d,kKmM.]+)\s*views?/);
-
-            // Published date: TradingView shows relative ("3 hours ago") or absolute.
-            let publishedAt = null;
-            const timeEl = card.querySelector('time, [datetime]');
-            if (timeEl) {
-                publishedAt = timeEl.getAttribute('datetime') || timeEl.getAttribute('title') || null;
-            }
-            if (!publishedAt) {
-                const rel = cardText.match(/(\d+)\s*(minute|hour|day|week|month|year)s?\s*ago/i);
-                if (rel) {
-                    const n = parseInt(rel[1], 10);
-                    const unit = rel[2].toLowerCase();
-                    const ms = { minute: 60e3, hour: 3600e3, day: 86400e3, week: 7 * 86400e3, month: 30 * 86400e3, year: 365 * 86400e3 }[unit];
-                    if (ms) publishedAt = new Date(Date.now() - n * ms).toISOString();
-                }
-            }
-
-            // Description snippet: first paragraph-ish text.
-            const descEl = card.querySelector('p, [class*="description"], [class*="paragraph"]');
-            const description = (descEl ? text(descEl) : '').slice(0, 600) || null;
-
-            // Tags: TradingView renders tag chips as anchors with /ideas/?stream=<tag> or class names.
-            const tags = [];
-            for (const tagA of card.querySelectorAll('a[href*="/ideas/"][href*="stream="], a[class*="tag"]')) {
-                const tHref = tagA.getAttribute('href') || '';
-                const sm = tHref.match(/[?&]stream=([^&]+)/);
-                const tagText = sm ? decodeURIComponent(sm[1]) : (tagA.textContent || '').trim();
-                if (tagText && tagText.length < 40 && !tags.includes(tagText)) tags.push(tagText.toLowerCase());
-            }
-
-            const isEditorsPick = /editor'?s\s*pick/i.test(cardText);
-
-            out.push({
-                ideaId,
-                url,
-                title,
-                description,
-                symbol,
-                direction: dir,
-                timeframe,
-                imageUrl,
-                author,
-                likes,
-                comments,
-                views,
-                publishedAt,
-                tags,
-                isEditorsPick,
-            });
+    } else if (obj && typeof obj === 'object') {
+        if (Array.isArray(obj.items) && obj.items.length > 0 && obj.items[0] && typeof obj.items[0] === 'object' && 'chart_url' in obj.items[0]) {
+            return obj.items;
         }
-
-        return out;
-
-        function parseCountByLabel(t, re) {
-            const m = String(t).match(re);
-            if (!m) return null;
-            return parseCountToken(m[1]);
+        for (const k of Object.keys(obj)) {
+            const r = findItemsArray(obj[k], depth + 1);
+            if (r) return r;
         }
-        function parseCountToken(s) {
-            if (!s) return null;
-            const t = String(s).toLowerCase().replace(/,/g, '');
-            const m = t.match(/^([\d.]+)\s*([kmb])?/);
-            if (!m) return null;
-            let n = parseFloat(m[1]);
-            if (!Number.isFinite(n)) return null;
-            if (m[2] === 'k') n *= 1000;
-            else if (m[2] === 'm') n *= 1000000;
-            else if (m[2] === 'b') n *= 1000000000;
-            return Math.round(n);
-        }
-    });
+    }
+    return null;
 }
 
-async function extractAuthorIntel(page) {
-    return page.evaluate(() => {
-        const body = document.body?.textContent || '';
-
-        let followers = null;
-        const fm = body.match(/([\d,kKmM.]+)\s+Followers?/);
-        if (fm) followers = parseCountToken(fm[1]);
-
-        let ideasPublished = null;
-        const im = body.match(/([\d,kKmM.]+)\s+Ideas?\s+published/i)
-            || body.match(/Ideas?\s*[:\-]?\s*([\d,kKmM.]+)/);
-        if (im) ideasPublished = parseCountToken(im[1]);
-
-        let reputation = null;
-        const rm = body.match(/Reputation[^\d]*([\d,]+)/i);
-        if (rm) reputation = parseCountToken(rm[1]);
-
-        return { followers, ideasPublished, reputation };
-
-        function parseCountToken(s) {
-            if (!s) return null;
-            const t = String(s).toLowerCase().replace(/,/g, '');
-            const m = t.match(/^([\d.]+)\s*([kmb])?/);
-            if (!m) return null;
-            let n = parseFloat(m[1]);
-            if (!Number.isFinite(n)) return null;
-            if (m[2] === 'k') n *= 1000;
-            else if (m[2] === 'm') n *= 1000000;
-            else if (m[2] === 'b') n *= 1000000000;
-            return Math.round(n);
+function extractAuthorIntel(html) {
+    const scripts = extractInitDataScripts(html);
+    for (const c of scripts) {
+        let data;
+        try { data = JSON.parse(c); } catch { continue; }
+        const stats = findAuthorStats(data);
+        if (stats) {
+            return {
+                followers: typeof stats.followers === 'number' ? stats.followers : null,
+                ideasPublished: typeof stats.charts_total === 'number' ? stats.charts_total : null,
+                reputation: null,
+            };
         }
-    });
+    }
+    return { followers: null, ideasPublished: null, reputation: null };
+}
+
+function findAuthorStats(obj, depth = 0) {
+    if (depth > 8) return null;
+    if (Array.isArray(obj)) {
+        for (const x of obj) {
+            const r = findAuthorStats(x, depth + 1);
+            if (r) return r;
+        }
+    } else if (obj && typeof obj === 'object') {
+        if (obj.statistics && typeof obj.statistics === 'object' && ('followers' in obj.statistics || 'charts_total' in obj.statistics)) {
+            return obj.statistics;
+        }
+        for (const k of Object.keys(obj)) {
+            const r = findAuthorStats(obj[k], depth + 1);
+            if (r) return r;
+        }
+    }
+    return null;
+}
+
+function extractInitDataScripts(html) {
+    const out = [];
+    const re = /<script[^>]*type="application\/prs\.init-data\+json"[^>]*>([\s\S]*?)<\/script>/g;
+    let m;
+    while ((m = re.exec(html)) !== null) {
+        out.push(m[1].trim());
+    }
+    return out;
+}
+
+function mapInterval(iv) {
+    if (iv === undefined || iv === null) return null;
+    const s = String(iv);
+    if (s === '1') return '1m';
+    if (s === '3') return '3m';
+    if (s === '5') return '5m';
+    if (s === '15') return '15m';
+    if (s === '30') return '30m';
+    if (s === '60') return '1H';
+    if (s === '120') return '2H';
+    if (s === '180') return '3H';
+    if (s === '240') return '4H';
+    if (s === '360') return '6H';
+    if (s === '720') return '12H';
+    if (s === '1D' || s === 'D') return '1D';
+    if (s === '1W' || s === 'W') return '1W';
+    if (s === '1M' || s === 'M') return '1M';
+    return s;
 }
 
 // ---------- URL helpers ----------

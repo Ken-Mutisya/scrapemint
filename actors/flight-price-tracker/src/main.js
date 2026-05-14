@@ -73,12 +73,12 @@ try {
             const crawler = new PlaywrightCrawler({
                 proxyConfiguration,
                 maxConcurrency: 1,
-                maxRequestRetries: 4,
+                maxRequestRetries: 2,
                 retryOnBlocked: true,
                 useSessionPool: true,
                 sessionPoolOptions: { maxPoolSize: 15 },
-                navigationTimeoutSecs: 60,
-                requestHandlerTimeoutSecs: 120,
+                navigationTimeoutSecs: 45,
+                requestHandlerTimeoutSecs: 90,
                 browserPoolOptions: {
                     useFingerprints: true,
                     fingerprintOptions: {
@@ -95,16 +95,23 @@ try {
                         await page.setExtraHTTPHeaders({ 'accept-language': 'en-US,en;q=0.9' });
                     },
                 ],
-                requestHandler: async ({ page, request }) => {
+                requestHandler: async ({ page, request, session }) => {
                     pageFetches += 1;
-                    await page.waitForLoadState('domcontentloaded', { timeout: 30_000 }).catch(() => {});
+                    await page.waitForLoadState('domcontentloaded', { timeout: 25_000 }).catch(() => {});
 
-                    await page.waitForSelector('[role="main"], [aria-label*="flight" i]', { timeout: 25_000 }).catch(() => {});
-                    await page.waitForTimeout(5000);
-
-                    const title = await page.title();
+                    const title = (await page.title().catch(() => '')) || '';
                     const url = page.url();
                     log.info(`page title="${title}" url=${url}`);
+
+                    if (/sorry|unusual traffic|captcha|before you continue/i.test(title) || /\/sorry\/|consent\.google\./i.test(url)) {
+                        log.warning(`Blocked / consent page detected for ${request.url}. Marking session bad and skipping retries.`);
+                        if (session && typeof session.retire === 'function') session.retire();
+                        request.noRetry = true;
+                        return;
+                    }
+
+                    await page.waitForSelector('[role="main"], [aria-label*="flight" i]', { timeout: 20_000 }).catch(() => {});
+                    await page.waitForTimeout(4000);
 
                     const flights = await extractFlights(page);
                     const { route, depart, ret } = request.userData;
