@@ -1,0 +1,80 @@
+{
+  "title": "Steam Game Review Intelligence Input",
+  "type": "object",
+  "schemaVersion": 1,
+  "properties": {
+    "appUrls": {
+      "title": "Steam store URLs or app IDs",
+      "type": "array",
+      "description": "Paste Steam store page URLs or bare numeric app IDs. Example: https://store.steampowered.com/app/570/Dota_2/  or  570",
+      "editor": "requestListSources",
+      "prefill": [
+        { "url": "https://store.steampowered.com/app/570/Dota_2/" },
+        { "url": "https://store.steampowered.com/app/730/CounterStrike_2/" }
+      ]
+    },
+    "maxReviewsPerApp": {
+      "title": "Maximum reviews per app",
+      "type": "integer",
+      "description": "Hard cap per app. Steam paginates 100 reviews per page via a cursor, so popular titles return thousands.",
+      "default": 500,
+      "minimum": 1,
+      "maximum": 50000
+    },
+    "reviewLanguage": {
+      "title": "Review language",
+      "type": "string",
+      "description": "Steam language code, or 'all' for every language. Example: english, schinese, russian, brazilian.",
+      "default": "all",
+      "editor": "textfield"
+    },
+    "reviewType": {
+      "title": "Review type",
+      "type": "string",
+      "description": "Return all reviews, only positive, or only negative.",
+      "default": "all",
+      "enum": ["all", "positive", "negative"],
+      "enumTitles": ["All reviews", "Positive only", "Negative only"]
+    },
+    "purchaseType": {
+      "title": "Purchase type",
+      "type": "string",
+      "description": "Filter by how the reviewer got the game. 'steam' excludes activated keys and free copies.",
+      "default": "all",
+      "enum": ["all", "steam", "non_steam_purchase"],
+      "enumTitles": ["All", "Steam purchases only", "Non Steam purchases only"]
+    },
+    "sortBy": {
+      "title": "Sort reviews by",
+      "type": "string",
+      "description": "recent sorts by date. updated sorts by last edit. all uses Steam's helpfulness ranking.",
+      "default": "recent",
+      "enum": ["recent", "updated", "all"],
+      "enumTitles": ["Most recent", "Recently updated", "Most helpful"]
+    },
+    "dayRange": {
+      "title": "Day range",
+      "type": "integer",
+      "description": "Only used when sort is Most helpful. Look back this many days, max 365. Leave at default for all time.",
+      "default": 365,
+      "minimum": 1,
+      "maximum": 365
+    },
+    "includeSteamSpy": {
+      "title": "Include SteamSpy ownership estimate",
+      "type": "boolean",
+      "description": "Adds an estimated owners band and average playtime per app from SteamSpy's public API. One extra request per app.",
+      "default": false
+    },
+    "proxyConfiguration": {
+      "title": "Proxy configuration",
+      "type": "object",
+      "description": "Apify proxy settings. Datacenter proxies are enough for Steam's public store and review endpoints.",
+      "editor": "proxy",
+      "prefill": {
+        "useApifyProxy": true
+      }
+    }
+  },
+  "required": []
+}
