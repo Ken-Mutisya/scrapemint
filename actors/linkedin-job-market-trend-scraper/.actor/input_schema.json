@@ -1,0 +1,77 @@
+{
+    "title": "LinkedIn Job Market Trend Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "description": "Define the job market segments to track. Each keyword and location pair becomes one trend row, with a change figure when run on a schedule.",
+    "properties": {
+        "keywords": {
+            "title": "Keywords",
+            "type": "array",
+            "description": "Role or skill terms to track. Each keyword is crossed with each location. Examples: 'data engineer', 'registered nurse', 'product manager'.",
+            "editor": "stringList",
+            "prefill": ["data engineer", "product manager"],
+            "default": []
+        },
+        "locations": {
+            "title": "Locations",
+            "type": "array",
+            "description": "Locations to track. Leave empty for worldwide. Examples: 'United States', 'Germany', 'Remote', 'London'.",
+            "editor": "stringList",
+            "prefill": ["United States"],
+            "default": []
+        },
+        "experienceLevel": {
+            "title": "Experience level",
+            "type": "string",
+            "description": "Optional LinkedIn experience filter applied to every query.",
+            "default": "",
+            "enum": ["", "internship", "entry", "associate", "mid-senior", "director", "executive"],
+            "enumTitles": ["Any", "Internship", "Entry", "Associate", "Mid-Senior", "Director", "Executive"]
+        },
+        "jobType": {
+            "title": "Job type",
+            "type": "string",
+            "description": "Optional employment type filter applied to every query.",
+            "default": "",
+            "enum": ["", "full-time", "part-time", "contract", "temporary", "internship"],
+            "enumTitles": ["Any", "Full-time", "Part-time", "Contract", "Temporary", "Internship"]
+        },
+        "remoteFilter": {
+            "title": "Remote type",
+            "type": "string",
+            "description": "Optional on-site, remote, or hybrid filter applied to every query.",
+            "default": "",
+            "enum": ["", "onsite", "remote", "hybrid"],
+            "enumTitles": ["Any", "On-site", "Remote", "Hybrid"]
+        },
+        "postedSince": {
+            "title": "Posted since",
+            "type": "string",
+            "description": "Optional recency filter. Tracking a 24 hour window run daily gives a clean new-postings velocity.",
+            "default": "",
+            "enum": ["", "1d", "1w", "1m"],
+            "enumTitles": ["Any time", "Past 24 hours", "Past week", "Past month"]
+        },
+        "includeBreakdown": {
+            "title": "Include seniority and function breakdown",
+            "type": "boolean",
+            "description": "Parse the sample of role cards LinkedIn renders to add a seniority and function split per query. Adds no extra request.",
+            "default": true
+        },
+        "trackDeltas": {
+            "title": "Track change since last run",
+            "type": "boolean",
+            "description": "Store each query's count between runs so a scheduled run reports the change versus the previous run. The trend is the whole point.",
+            "default": true
+        },
+        "proxyConfiguration": {
+            "title": "Proxy configuration",
+            "type": "object",
+            "description": "Apify proxy. The public jobs search page is light; residential improves reliability at volume.",
+            "editor": "proxy",
+            "prefill": { "useApifyProxy": true },
+            "default": { "useApifyProxy": true }
+        }
+    },
+    "required": ["keywords"]
+}

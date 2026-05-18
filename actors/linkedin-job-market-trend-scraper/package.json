@@ -1,0 +1,17 @@
+{
+    "name": "linkedin-job-market-trend-scraper",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Per query LinkedIn job market index: total open roles for a keyword, location, and filter set with seniority and function breakdown plus run over run change. No cookie. Pay per query.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0",
+        "crawlee": "^3.16.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}
