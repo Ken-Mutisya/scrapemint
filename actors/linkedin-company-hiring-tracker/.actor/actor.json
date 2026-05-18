@@ -1,0 +1,16 @@
+{
+    "actorSpecification": 1,
+    "name": "linkedin-company-hiring-tracker",
+    "title": "LinkedIn Company Hiring Signal Tracker",
+    "description": "One row per company per run: total open roles on LinkedIn, broken down by seniority, function, and location, plus the change since the last run. A buying signal feed for B2B sales, recruiters, and analysts. No cookie, no login. JSON. Pay per company.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "readme": "../README.md",
+    "categories": [
+        "JOBS",
+        "LEAD_GENERATION",
+        "BUSINESS"
+    ]
+}

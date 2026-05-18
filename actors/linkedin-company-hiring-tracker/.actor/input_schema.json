@@ -1,0 +1,60 @@
+{
+    "title": "LinkedIn Company Hiring Tracker Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "description": "Paste LinkedIn company URLs. The actor returns one hiring signal row per company, with a change figure when run on a schedule.",
+    "properties": {
+        "companyUrls": {
+            "title": "Company URLs or numeric IDs",
+            "type": "array",
+            "description": "LinkedIn company page URLs, or raw numeric organization IDs. Examples: 'https://www.linkedin.com/company/stripe/', 'https://www.linkedin.com/company/anthropicresearch/', '74126343'.",
+            "editor": "stringList",
+            "prefill": [
+                "https://www.linkedin.com/company/anthropicresearch/"
+            ],
+            "default": []
+        },
+        "maxRolesScanPerCompany": {
+            "title": "Max roles to scan per company",
+            "type": "integer",
+            "description": "Pagination cap. The actor walks the company's public job list 25 at a time up to this many roles, then reports the total it counted. Raise it for very large employers.",
+            "default": 300,
+            "minimum": 25,
+            "maximum": 3000
+        },
+        "roleKeyword": {
+            "title": "Restrict to roles matching",
+            "type": "string",
+            "description": "Optional. Only count roles whose title contains this text, for example 'engineer' or 'sales'. Leave blank to count every open role.",
+            "editor": "textfield",
+            "default": ""
+        },
+        "trackDeltas": {
+            "title": "Track change since last run",
+            "type": "boolean",
+            "description": "Store each company's count between runs so a scheduled run reports the change versus the previous run. The hiring velocity is the whole point of this actor.",
+            "default": true
+        },
+        "topLocations": {
+            "title": "Top locations to include",
+            "type": "integer",
+            "description": "How many of the busiest hiring locations to include in the per company breakdown.",
+            "default": 8,
+            "minimum": 1,
+            "maximum": 50
+        },
+        "proxyConfiguration": {
+            "title": "Proxy configuration",
+            "type": "object",
+            "description": "Apify proxy. The public jobs endpoint is light, but residential improves reliability at volume.",
+            "editor": "proxy",
+            "prefill": {
+                "useApifyProxy": true
+            },
+            "default": {
+                "useApifyProxy": true
+            }
+        }
+    },
+    "required": ["companyUrls"]
+}
