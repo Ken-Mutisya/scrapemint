@@ -1,0 +1,68 @@
+{
+    "title": "LinkedIn Post Engagers Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "description": "Paste LinkedIn post URLs. The actor returns the people who commented and reacted, deduped into one lead row per person per post.",
+    "properties": {
+        "postUrls": {
+            "title": "Post URLs",
+            "type": "array",
+            "description": "LinkedIn post or share URLs, or raw activity URNs. Examples: 'https://www.linkedin.com/posts/satyanadella_ai-activity-7180000000000000000-abcd', 'urn:li:activity:7180000000000000000'.",
+            "editor": "stringList",
+            "prefill": [
+                "https://www.linkedin.com/feed/update/urn:li:activity:7180000000000000000/"
+            ],
+            "default": []
+        },
+        "scrapeComments": {
+            "title": "Include commenters",
+            "type": "boolean",
+            "description": "Add people who commented on the post. Their comment text and reply count are attached to the lead row.",
+            "default": true
+        },
+        "scrapeReactions": {
+            "title": "Include reactors",
+            "type": "boolean",
+            "description": "Add people who reacted to the post. Their reaction type (like, celebrate, support, and so on) is attached to the lead row.",
+            "default": true
+        },
+        "maxEngagersPerPost": {
+            "title": "Max engagers per post",
+            "type": "integer",
+            "description": "Hard cap on engager rows per post after the comment and reaction lists are merged. Set to 0 for every engager the public embed exposes.",
+            "default": 0,
+            "minimum": 0,
+            "maximum": 5000
+        },
+        "includePostSummary": {
+            "title": "Include a post summary row",
+            "type": "boolean",
+            "description": "Push one extra row per post with the author, body snippet, and total reaction, comment, and repost counts so each lead row has context. Not charged.",
+            "default": true
+        },
+        "concurrency": {
+            "title": "Concurrency",
+            "type": "integer",
+            "description": "Number of posts processed in parallel. Higher runs faster but raises proxy and detection risk. Four is a safe default.",
+            "default": 4,
+            "minimum": 1,
+            "maximum": 20,
+            "sectionCaption": "Run options"
+        },
+        "proxyConfiguration": {
+            "title": "Proxy configuration",
+            "type": "object",
+            "description": "Apify proxy. Residential is required for LinkedIn at any meaningful volume.",
+            "editor": "proxy",
+            "prefill": {
+                "useApifyProxy": true,
+                "apifyProxyGroups": ["RESIDENTIAL"]
+            },
+            "default": {
+                "useApifyProxy": true,
+                "apifyProxyGroups": ["RESIDENTIAL"]
+            }
+        }
+    },
+    "required": ["postUrls"]
+}

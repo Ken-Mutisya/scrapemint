@@ -1,0 +1,15 @@
+{
+    "_note": "PUT this to /v2/acts/{actorId} as pricingInfos array entry. Per playbook: PAY_PER_EVENT only on BRONZE plan, startedAt 14+ days out. Apify auto-adds 20% margin.",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~linkedin-post-engagers-scraper?token=APIFY_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "engager_extracted": {
+                "eventTitle": "LinkedIn engager extracted",
+                "eventDescription": "One person who engaged with the post, deduped across comments and reactions into a single lead row with name, profile URL, headline, comment text, and reaction type. A person who both commented and reacted counts once. The optional post summary row is not charged. First 25 engagers per run are free so you can validate output.",
+                "eventPriceUsd": 0.004
+            }
+        }
+    },
+    "startedAt": "2026-06-02T00:00:00.000Z"
+}
