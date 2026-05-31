@@ -1,0 +1,16 @@
+{
+    "actorSpecification": 1,
+    "name": "linkedin-creator-ranker",
+    "title": "LinkedIn Top Voice & Creator Engagement Ranker (No Cookies)",
+    "description": "Pass a list of LinkedIn creators (profiles or company pages), get back one row per creator with engagement velocity, total reactions, average reactions per post, top performing post, and posts-per-day in a lookback window. No cookie, no login. Pay per creator.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "readme": "../README.md",
+    "categories": [
+        "BUSINESS",
+        "MARKETING",
+        "SOCIAL_MEDIA"
+    ]
+}

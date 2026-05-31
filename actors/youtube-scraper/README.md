@@ -1,10 +1,10 @@
-# YouTube Scraper Pro: Videos, Channels, Comments & Transcripts
+# YouTube Channel Intelligence Pro: Videos, Comments, Transcripts
 
-Scrape YouTube videos, channels, playlists, shorts, and live streams. Each row ships video metadata, channel intelligence, engagement metrics, transcripts in multiple languages, top comments with replies, chapters, most replayed heatmap, related videos, and music credits. 16 regions, 16 languages, no API quota. Pay per video.
+Pull YouTube videos, channels, playlists, shorts, and live streams. Each row ships video metadata, channel intelligence, engagement metrics, transcripts in multiple languages, top comments with replies, chapters, most replayed heatmap, related videos, and music credits. 16 regions, 16 languages, no API quota. Pay per video.
 
 **Built for** content marketers tracking competitor performance, brand teams monitoring mentions across creators, AI researchers harvesting transcripts for training data, journalists investigating viral content, sponsorship platforms benchmarking creator audiences, social listening tools, and BI teams piping YouTube catalog data into a warehouse.
 
-**Keywords this actor ranks for:** youtube scraper, youtube api alternative, youtube data extractor, youtube video scraper, youtube channel scraper, youtube comments scraper, youtube transcript scraper, youtube shorts scraper, youtube playlist scraper, youtube hashtag scraper, youtube to JSON, youtube to CSV, youtube most replayed, youtube heatmap api, youtube chapters api.
+**Keywords this actor ranks for:** youtube intelligence, youtube api alternative, youtube data finder, youtube video intelligence, youtube channel intelligence, youtube comments intelligence, youtube transcript intelligence, youtube shorts intelligence, youtube playlist intelligence, youtube hashtag intelligence, youtube to JSON, youtube to CSV, youtube most replayed, youtube heatmap api, youtube chapters api.
 
 ---
 
@@ -65,7 +65,7 @@ Toggle on `extractStreamUrls` and the row carries the available video and audio 
 
 ## Quick start
 
-**Scrape a search with 4K filter, sorted by view count**
+**Pull a search with 4K filter, sorted by view count**
 
 ```json
 {
@@ -228,13 +228,13 @@ Toggle on `extractStreamUrls` and the row carries the available video and audio 
 | `maxVideosPerSearch` | integer | Cap on regular videos per search. |
 | `maxShortsPerSearch` | integer | Cap on shorts per search. |
 | `maxStreamsPerSearch` | integer | Cap on live streams per search. |
-| `maxVideosPerChannel` | integer | Cap when scraping channel catalogs. |
-| `maxVideosPerPlaylist` | integer | Cap when scraping playlists. |
+| `maxVideosPerChannel` | integer | Cap when pulling channel catalogs. |
+| `maxVideosPerPlaylist` | integer | Cap when pulling playlists. |
 | `uploadDate` | enum | hour, today, week, month, year, any. |
 | `duration` | enum | short (<4m), medium (4-20m), long (>20m), any. |
 | `sortBy` | enum | relevance, uploadDate, viewCount, rating. |
 | `features` | string[] | live, fourK, hd, subtitles, creativeCommons, vr360, hdr. |
-| `dateFrom`, `dateTo` | string | ISO date bounds for channel and playlist scraping. |
+| `dateFrom`, `dateTo` | string | ISO date bounds for channel and playlist pulling. |
 | `extractTranscript` | boolean | Multi language transcript with timecodes. |
 | `transcriptLanguages` | string[] | Priority list of language codes. |
 | `extractTopComments` | boolean | Top comment thread with author and like count. |
@@ -292,7 +292,7 @@ Yes. Pass `transcriptLanguages: ["es", "en"]` to prefer Spanish and fall back to
 
 YouTube ships an internal heatmap with `intensityScoreNormalized` values from 0 to 1 across video segments. The actor returns every segment so you can find the highest engagement moments programmatically. Useful for clip generation, viewer retention analysis, and content research.
 
-### Can I scrape comments?
+### Can I pull comments?
 
 Yes. Toggle on `extractTopComments` and the actor scrolls the comment thread and returns the top N comments. Each comment ships with author, channel handle, text, like count, posted time, pinned and hearted flags, and reply count. Toggle on `extractCommentReplies` for the first batch of replies per thread.
 
@@ -312,7 +312,7 @@ Yes. Pass `uploadDate: "month"` and `duration: "long"` and the actor builds the 
 
 Yes. Shorts are detected automatically and tagged with `type: "short"` and `flags.isShort: true`. The row carries both `url` and `shortsUrl`. Pass `maxShortsPerSearch` to control how many shorts come back per query.
 
-### Is scraping YouTube allowed?
+### Is pulling YouTube allowed?
 
 This actor reads HTML any anonymous viewer can see. Do not redistribute video files or transcripts you have no lawful basis to publish. Respect YouTube's terms.
 
@@ -320,9 +320,9 @@ This actor reads HTML any anonymous viewer can see. Do not redistribute video fi
 
 ## Related actors
 
-- **TikTok Scraper**. Videos, profiles, hashtags, and music data with optional video file and subtitle downloads.
-- **Instagram Scraper**. Posts, reels, stories, comments, and follower data.
-- **LinkedIn Jobs Scraper Pro**. Search URL, company URL, and recruiter contact extraction.
-- **Website Content Crawler**. Websites to clean Markdown with token counts and RAG ready chunks.
-- **Google Maps Scraper**. Local business data with reviews.
-- **Amazon Product Scraper**. Product details, BSR, variants, ratings histogram across 10 marketplaces.
+- **TikTok Intelligence**. Videos, profiles, hashtags, and music data with optional video file and subtitle downloads.
+- **Instagram Intelligence**. Posts, reels, stories, comments, and follower data.
+- **LinkedIn Jobs Intelligence Pro**. Search URL, company URL, and recruiter contact extraction.
+- **Website Content Pipeline**. Websites to clean Markdown with token counts and RAG ready chunks.
+- **Google Maps Intelligence**. Local business data with reviews.
+- **Amazon Product Intelligence**. Product details, BSR, variants, ratings histogram across 10 marketplaces.

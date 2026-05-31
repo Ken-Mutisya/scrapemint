@@ -12,5 +12,9 @@
   "scripts": {
     "check": "node --check automation/*.mjs 2>&1 || true",
     "test": "echo \"no tests yet\" && exit 0"
+  },
+  "dependencies": {
+    "@crawlee/basic": "^3.16.0",
+    "@sapphire/shapeshift": "^4.0.0"
   }
 }

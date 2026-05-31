@@ -1,0 +1,20 @@
+{
+    "_note": "PUT this to /v2/acts/{actorId} as pricingInfos array entry. Per playbook: PAY_PER_EVENT only on BRONZE plan, startedAt 14+ days out. Apify auto-adds 20% margin.",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~local-lead-pipeline?token=APIFY_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "basic_lead": {
+                "eventTitle": "Basic lead",
+                "eventDescription": "One local business found on Google Maps with name, address, phone, category, and rating. Does not meet the enriched tier rules (no working website, or below the min-rating and min-reviews bars).",
+                "eventPriceUsd": 0.03
+            },
+            "enriched_lead": {
+                "eventTitle": "Enriched lead",
+                "eventDescription": "One local business that passed all qualification rules: working website with valid MX record, rating at or above the configured minimum (default 4.0), review count at or above the configured minimum (default 10), and a phone. Includes likely contact email patterns. First 5 enriched leads per run are free so you can validate output.",
+                "eventPriceUsd": 0.08
+            }
+        }
+    },
+    "startedAt": "2026-06-15T00:00:00.000Z"
+}

@@ -1,8 +1,8 @@
-# Hacker News Scraper: Monitor Show HN, Ask HN, and Keyword Mentions
+# Hacker News Intelligence: Monitor Show HN, Ask HN, and Keyword Mentions
 
-Scrape Hacker News stories and comments matching your keywords, score floor, and age window. Export item ID, title, body, author, URL, permalink, points, comment count, parent link, and timestamp to JSON, CSV, or Excel. Deduped across runs so you only see new items. No auth. No API key. Pay per item.
+Pull Hacker News stories and comments matching your keywords, score floor, and age window. Export item ID, title, body, author, URL, permalink, points, comment count, parent link, and timestamp to JSON, CSV, or Excel. Deduped across runs so you only see new items. No auth. No API key. Pay per item.
 
-**Keywords this actor is built for:** Hacker News scraper, HN API, Show HN monitor, Ask HN scraper, HN keyword alert, Hacker News lead generation, HN Algolia API, scrape Hacker News comments.
+**Keywords this actor is built for:** Hacker News intelligence, HN API, Show HN monitor, Ask HN intelligence, HN keyword alert, Hacker News lead generation, HN Algolia API, pull Hacker News comments.
 
 ---
 
@@ -19,7 +19,7 @@ Paste a keyword. Pick a feed. Get a clean JSON feed of new matching HN stories a
 
 ---
 
-## Who this HN scraper is for
+## Who this HN intelligence is for
 
 | You are a... | You use this to... |
 |---|---|
@@ -103,7 +103,7 @@ curl -X POST "https://api.apify.com/v2/acts/scrapemint~hn-lead-monitor/run-sync-
 
 ---
 
-## This scraper vs the alternatives
+## This intelligence vs the alternatives
 
 ```mermaid
 flowchart LR
@@ -161,13 +161,13 @@ First 50 items per run are free. After that you pay per extracted item. No seat 
 
 ## FAQ
 
-**Does this scrape all of Hacker News?**
+**Does this pull all of Hacker News?**
 Yes. The Algolia API indexes every story and comment ever posted. The Firebase feeds cover the current 500 newest, top, best, Ask HN, Show HN, and jobs lists.
 
 **How fresh is the data?**
 Algolia indexes new items within 30 to 90 seconds of posting. Firebase feeds update in real time.
 
-**Is scraping HN allowed?**
+**Is pulling HN allowed?**
 Yes. The Algolia API is run by HN's search partner for programmatic access. The Firebase API is maintained by Y Combinator for the same reason. No rate limit, no key required.
 
 **Does it return comment bodies?**
@@ -194,7 +194,7 @@ Yes. Apify Scheduler goes down to 1 minute. Pair with a webhook to push new matc
 - **Reddit Lead Monitor** for subreddit and keyword mention tracking
 - **Product Hunt Launch Tracker** for competitor launch monitoring
 - **Upwork Opportunity Alert** for freelance lead generation
-- **App Store Review Scraper** for mobile apps on iOS and Android
+- **App Store Review Intelligence** for mobile apps on iOS and Android
 - **Trustpilot Brand Reputation** for DTC and ecommerce brands
 - **Google Reviews Intelligence** for local businesses
 - **Amazon Review Intelligence** for product review mining

@@ -1,5 +1,5 @@
 {
-    "title": "LinkedIn Events Scraper Input",
+    "title": "LinkedIn Events Intelligence Input",
     "type": "object",
     "schemaVersion": 1,
     "description": "Discover and parse public LinkedIn events. No cookie or login needed. Provide direct event URLs, keyword queries, or LinkedIn organizer URLs (company or person pages). Mix and match.",
@@ -16,7 +16,9 @@
             "type": "array",
             "description": "Discover events by topic. Each keyword is used to search the public web for matching LinkedIn event pages. Examples: 'fintech webinar', 'AI summit', 'devrel meetup'.",
             "editor": "stringList",
-            "prefill": ["ai webinar"],
+            "prefill": [
+                "ai webinar"
+            ],
             "default": []
         },
         "organizerUrls": {
@@ -38,7 +40,13 @@
             "title": "Time window",
             "type": "string",
             "description": "Only keep events whose start time falls in this window.",
-            "enum": ["any", "upcoming", "past", "next30days", "next90days"],
+            "enum": [
+                "any",
+                "upcoming",
+                "past",
+                "next30days",
+                "next90days"
+            ],
             "enumTitles": [
                 "Any time (default)",
                 "Upcoming only",
@@ -52,8 +60,16 @@
             "title": "Event format",
             "type": "string",
             "description": "Filter by virtual, in person, or both.",
-            "enum": ["any", "virtual", "in_person"],
-            "enumTitles": ["Any (default)", "Virtual only", "In person only"],
+            "enum": [
+                "any",
+                "virtual",
+                "in_person"
+            ],
+            "enumTitles": [
+                "Any (default)",
+                "Virtual only",
+                "In person only"
+            ],
             "default": "any"
         },
         "locationContains": {
@@ -87,11 +103,15 @@
             "editor": "proxy",
             "prefill": {
                 "useApifyProxy": true,
-                "apifyProxyGroups": ["RESIDENTIAL"]
+                "apifyProxyGroups": [
+                    "RESIDENTIAL"
+                ]
             },
             "default": {
                 "useApifyProxy": true,
-                "apifyProxyGroups": ["RESIDENTIAL"]
+                "apifyProxyGroups": [
+                    "RESIDENTIAL"
+                ]
             }
         }
     }

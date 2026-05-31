@@ -1,8 +1,8 @@
 {
   "actorSpecification": 1,
   "name": "viator-tours-tracker",
-  "title": "Viator Scraper: Tours, Activities, Prices, Reviews",
-  "description": "Scrape Viator tours and activities by destination, keyword, or product URL. Returns price from, rating, review count, duration, highlights, category, and bookable status for every listing. Filter by minimum rating, reviews, price range. JSON output.",
+  "title": "Viator Tours Intelligence: Activities, Prices, Reviews",
+  "description": "Pull Viator tours and activities by destination, keyword, or product URL. Returns price from, rating, review count, duration, highlights, category, and bookable status for every listing. Filter by minimum rating, reviews, price range. JSON output.",
   "version": "0.1",
   "buildTag": "latest",
   "input": "./input_schema.json",

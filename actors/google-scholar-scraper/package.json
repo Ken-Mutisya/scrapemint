@@ -1,0 +1,18 @@
+{
+    "name": "google-scholar-scraper",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Google Scholar search at scale. Papers, authors, citation counts, cited by lists, BibTeX, PDF links. One row per paper, normalized schema. Pay per row.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0",
+        "crawlee": "^3.16.0",
+        "playwright": "1.54.1"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}

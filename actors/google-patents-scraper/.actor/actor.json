@@ -1,0 +1,15 @@
+{
+    "actorSpecification": 1,
+    "name": "google-patents-scraper",
+    "title": "Google Patents Intelligence: Claims, Citations, Family Tree",
+    "description": "Search Google Patents at scale. Pulls patent metadata, inventors, assignees, full claims, patent + non-patent citations, family members across jurisdictions, legal status, and PDF links. One row per patent. Pay per row.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "readme": "../README.md",
+    "categories": [
+        "BUSINESS",
+        "LEAD_GENERATION"
+    ]
+}

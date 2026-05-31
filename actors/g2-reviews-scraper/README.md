@@ -1,10 +1,10 @@
-# G2 Product Reviews Scraper (No Login Required)
+# G2 Product Reviews Intelligence (No Login Required)
 
 Pull public G2 product pages and review snippets from any product. No cookies. No login. No vendor seat. Each row ships the product, vendor, overall rating, review count, star distribution, top features mentioned, pricing tiers when listed, and the most recent review snippets. Pay per product.
 
 **Built for** B2B SaaS competitive marketers, sales enablement teams pulling battlecards, product teams tracking review velocity, and PMM teams sourcing voice-of-customer quotes.
 
-**Keywords this actor ranks for:** g2 scraper, g2 reviews api, g2 crowd scraper, b2b review intelligence, sales battlecard data, voice of customer api, competitor review tracker, capterra alternative, trustradius alternative, software review scraper, b2b saas competitive intelligence, review velocity tracking.
+**Keywords this actor ranks for:** g2 intelligence, g2 reviews api, g2 crowd intelligence, b2b review intelligence, sales battlecard data, voice of customer api, competitor review tracker, capterra alternative, trustradius alternative, software review intelligence, b2b saas competitive intelligence, review velocity tracking.
 
 ---
 
@@ -12,7 +12,7 @@ Pull public G2 product pages and review snippets from any product. No cookies. N
 
 | Other G2 scrapers | **This actor** |
 |---|---|
-| Need a vendor seat or scraping cookie | Zero cookies, zero login |
+| Need a vendor seat or pulling cookie | Zero cookies, zero login |
 | Return one HTML blob per product | Rating, review count, star distribution, top pros, top cons, pricing parsed |
 | Drop the most-mentioned pros and cons aggregate | Top pros, top cons, and top features shipped as discrete rows with counts |
 | Charge per page hit | Charge per product, get the whole snapshot plus first page of reviews |
@@ -216,15 +216,15 @@ Yes. When pricing tiers are surfaced inline on the reviews page they are capture
 
 The actor returns the row with whatever it could parse. Missing fields land as null and arrays land empty. You only pay on push, so a stub product is still one paid row, not a blank charge surprise.
 
-### Can I scrape entire G2 categories?
+### Can I pull entire G2 categories?
 
 Not from a category URL directly. Pass the product URLs you care about. To enumerate a category, do the category listing externally and feed the resulting product URLs in.
 
 ### How fresh is the data?
 
-Each run hits the live page, so rating and review snippets reflect what G2 renders at scrape time. Schedule weekly runs to track sentiment and pricing shifts over time.
+Each run hits the live page, so rating and review snippets reflect what G2 renders at pull time. Schedule weekly runs to track sentiment and pricing shifts over time.
 
-### Is scraping G2 allowed?
+### Is pulling G2 allowed?
 
 This actor reads HTML any anonymous web visitor can see. Respect G2's terms and rate limit sensibly. Do not redistribute personal data you have no lawful basis to process.
 
@@ -232,8 +232,8 @@ This actor reads HTML any anonymous web visitor can see. Respect G2's terms and 
 
 ## Related actors
 
-- **Glassdoor Company & Salary Scraper** — pull employer rating, salary ranges, review snippets per company
-- **LinkedIn Company Profile Scraper (No Cookies)** — pull industry, headcount range, HQ, founded year, specialties, website per company
-- **Lead Enrichment Pipeline** — multi source enrichment for a list of company domains
-- **Domain Intelligence** — pull WHOIS, MX, tech stack, and traffic signals per domain
-- **TripAdvisor Scraper** — pull hotel, restaurant, and attraction listings with reviews
+- **Glassdoor Company & Salary Intelligence** , pull employer rating, salary ranges, review snippets per company
+- **LinkedIn Company Profile Intelligence (No Cookies)** , pull industry, headcount range, HQ, founded year, specialties, website per company
+- **Lead Enrichment Pipeline** , multi source enrichment for a list of company domains
+- **Domain Intelligence** , pull WHOIS, MX, tech stack, and traffic signals per domain
+- **TripAdvisor Intelligence** , pull hotel, restaurant, and attraction listings with reviews

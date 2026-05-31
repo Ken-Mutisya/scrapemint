@@ -1,10 +1,10 @@
-# E-commerce Scraper Pro: Multi Marketplace Product Intelligence
+# Ecommerce Intelligence Pro: Multi Marketplace Product Monitor
 
-Scrape products across Amazon, Walmart, Target, eBay, Etsy, AliExpress, Best Buy, Costco, Wayfair, Home Depot, IKEA, Zalando, ASOS, plus any Shopify, WooCommerce, BigCommerce, Magento, or Salesforce Commerce storefront. Each row ships pricing, stock, ratings, variants, images, specs, shipping, seller, and optional AI generated pros and cons. Auto detects the retailer. JSON-LD primary parser covers any storefront with Schema.org Product data. Pay per row.
+Pull products across Amazon, Walmart, Target, eBay, Etsy, AliExpress, Best Buy, Costco, Wayfair, Home Depot, IKEA, Zalando, ASOS, plus any Shopify, WooCommerce, BigCommerce, Magento, or Salesforce Commerce storefront. Each row ships pricing, stock, ratings, variants, images, specs, shipping, seller, and optional AI generated pros and cons. Auto detects the retailer. JSON-LD primary parser covers any storefront with Schema.org Product data. Pay per row.
 
 **Built for** price intelligence teams tracking competitor catalogs, dropshippers sourcing winning products, brand managers watching MAP violations across resellers, BI teams piping retail catalogs into a warehouse, content teams powering shopping guides with structured data, lead gen platforms enriching company records with retailer signals, and AI builders training product recommenders on a clean cross marketplace dataset.
 
-**Keywords this actor ranks for:** ecommerce scraper, product scraper, amazon scraper, walmart scraper, target scraper, ebay scraper, etsy scraper, aliexpress scraper, best buy scraper, ikea scraper, shopify scraper, woocommerce scraper, bigcommerce scraper, product data api, ecommerce data extractor, jsonld product scraper, retail price tracker, MAP monitoring, product catalog to JSON, product catalog to CSV.
+**Keywords this actor ranks for:** ecommerce intelligence, product intelligence, amazon intelligence, walmart intelligence, target intelligence, ebay intelligence, etsy intelligence, aliexpress intelligence, best buy intelligence, ikea intelligence, shopify intelligence, woocommerce intelligence, bigcommerce intelligence, product data api, ecommerce data finder, jsonld product intelligence, retail price tracker, MAP monitoring, product catalog to JSON, product catalog to CSV.
 
 ---
 
@@ -217,7 +217,7 @@ The AI summary path requires an `OPENAI_API_KEY` environment variable on the act
 | Role | Use case |
 |---|---|
 | Price intelligence team | Track competitor catalogs daily across Amazon, Walmart, Target. One row per product per snapshot. |
-| Dropshipper / reseller | Source winning products from AliExpress, scrape demand signals from Amazon and eBay. |
+| Dropshipper / reseller | Source winning products from AliExpress, pull demand signals from Amazon and eBay. |
 | Brand manager | MAP monitoring across reseller channels. Catch unauthorized discounting. |
 | BI / data analyst | Pipe retail catalogs into Snowflake, BigQuery, or Postgres. Each row API ready. |
 | Content team | Power shopping guides with structured product data: specs, ratings, images. |
@@ -294,7 +294,7 @@ Amazon uses CAPTCHA, request rate analysis, and TLS fingerprinting. The actor us
 
 Cheerio is raw HTTP, ten times faster, but only works on server rendered pages (Shopify, WooCommerce, most boutique storefronts). Playwright renders the page in a real Chromium and handles every retailer including JS heavy ones (Amazon, Walmart, Target). Use auto unless you have a preference.
 
-### Does it scrape reviews?
+### Does it pull reviews?
 
 This actor focuses on product data with summary review fields (count, stars, histogram). For full review text with author and timestamps, use the related Amazon Review Intelligence actor.
 
@@ -306,7 +306,7 @@ Yes. Set `includeAdditionalProperties` false and `extractImages` false. The row 
 
 No. Set `OPENAI_API_KEY` as an environment variable on the actor run. Without it, AI fields are skipped and the rest of the row ships normally. Default model is `gpt-4o-mini`. Override with `OPENAI_MODEL` env if needed.
 
-### Can I scrape product variants with their own prices?
+### Can I pull product variants with their own prices?
 
 Yes. Toggle `extractVariants` and the row ships an array with each color, size, or style and its SKU. Per variant pricing is captured when the marketplace exposes it on the parent product page.
 
@@ -314,7 +314,7 @@ Yes. Toggle `extractVariants` and the row ships an array with each color, size, 
 
 Prices come from JSON-LD `offers.price` first, then meta tags, then DOM selectors. Currency comes from `offers.priceCurrency`, then `meta[product:price:currency]`, then symbol detection. Sale price lands in `price`, list price in `originalPrice` when both are present.
 
-### Is ecommerce scraping legal?
+### Is ecommerce pulling legal?
 
 This actor reads HTML any anonymous web visitor can see. Respect each retailer's terms and rate limit sensibly. Do not redistribute product images, descriptions, or reviews you have no lawful basis to publish.
 
@@ -322,9 +322,9 @@ This actor reads HTML any anonymous web visitor can see. Respect each retailer's
 
 ## Related actors
 
-- **Amazon Product Scraper**. Same shape, Amazon only, with deeper Amazon specific fields (BSR, A+ content, sponsored signals).
+- **Amazon Product Intelligence**. Same shape, Amazon only, with deeper Amazon specific fields (BSR, A+ content, sponsored signals).
 - **Amazon Review Intelligence**. Every review with author, rating, helpful votes, verified purchase, and timestamps.
 - **Trustpilot Brand Reputation**. Cross brand reputation tracking with review intelligence.
 - **Google Reviews Intelligence**. Local business reviews with sentiment.
-- **Zillow Home Price Scraper**. Same shape applied to real estate listings.
-- **Website Content Crawler**. Generic content crawl when you need raw HTML or text instead of structured product data.
+- **Zillow Home Price Intelligence**. Same shape applied to real estate listings.
+- **Website Content Pipeline**. Generic content crawl when you need raw HTML or text instead of structured product data.

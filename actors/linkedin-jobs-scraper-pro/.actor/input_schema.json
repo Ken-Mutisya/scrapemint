@@ -1,5 +1,5 @@
 {
-    "title": "LinkedIn Jobs Scraper Pro Input",
+    "title": "LinkedIn Jobs Intelligence Pro Input",
     "type": "object",
     "schemaVersion": 1,
     "description": "Three ways in: paste LinkedIn jobs search URLs, type keywords, or paste company URLs to find every job at a target firm. Toggles control company enrichment, recruiter contact extraction, and city splitting.",
@@ -48,7 +48,15 @@
             "type": "string",
             "description": "Filter by seniority. Applied when keywords mode is used. Search URLs already carry their own filters.",
             "editor": "select",
-            "enum": ["", "internship", "entry", "associate", "mid-senior", "director", "executive"],
+            "enum": [
+                "",
+                "internship",
+                "entry",
+                "associate",
+                "mid-senior",
+                "director",
+                "executive"
+            ],
             "enumTitles": [
                 "Any",
                 "Internship",
@@ -65,8 +73,26 @@
             "type": "string",
             "description": "Employment type filter. Applied when keywords mode is used.",
             "editor": "select",
-            "enum": ["", "full-time", "part-time", "contract", "temporary", "volunteer", "internship", "other"],
-            "enumTitles": ["Any", "Full-time", "Part-time", "Contract", "Temporary", "Volunteer", "Internship", "Other"],
+            "enum": [
+                "",
+                "full-time",
+                "part-time",
+                "contract",
+                "temporary",
+                "volunteer",
+                "internship",
+                "other"
+            ],
+            "enumTitles": [
+                "Any",
+                "Full-time",
+                "Part-time",
+                "Contract",
+                "Temporary",
+                "Volunteer",
+                "Internship",
+                "Other"
+            ],
             "default": ""
         },
         "remoteFilter": {
@@ -74,8 +100,18 @@
             "type": "string",
             "description": "Restrict to onsite, remote, or hybrid roles.",
             "editor": "select",
-            "enum": ["", "onsite", "remote", "hybrid"],
-            "enumTitles": ["Any", "Onsite", "Remote", "Hybrid"],
+            "enum": [
+                "",
+                "onsite",
+                "remote",
+                "hybrid"
+            ],
+            "enumTitles": [
+                "Any",
+                "Onsite",
+                "Remote",
+                "Hybrid"
+            ],
             "default": ""
         },
         "postedSince": {
@@ -83,8 +119,18 @@
             "type": "string",
             "description": "Only include jobs posted within this window.",
             "editor": "select",
-            "enum": ["", "1d", "1w", "1m"],
-            "enumTitles": ["Any time", "Past 24 hours", "Past week", "Past month"],
+            "enum": [
+                "",
+                "1d",
+                "1w",
+                "1m"
+            ],
+            "enumTitles": [
+                "Any time",
+                "Past 24 hours",
+                "Past week",
+                "Past month"
+            ],
             "default": ""
         },
         "splitByCity": {
@@ -99,7 +145,18 @@
             "type": "string",
             "description": "Country whose top cities are used when splitByCity is on.",
             "editor": "select",
-            "enum": ["United States", "United Kingdom", "Canada", "Australia", "Germany", "India", "France", "Spain", "Netherlands", "Brazil"],
+            "enum": [
+                "United States",
+                "United Kingdom",
+                "Canada",
+                "Australia",
+                "Germany",
+                "India",
+                "France",
+                "Spain",
+                "Netherlands",
+                "Brazil"
+            ],
             "default": "United States"
         },
         "scrapeCompanyDetails": {
@@ -161,11 +218,15 @@
             "editor": "proxy",
             "prefill": {
                 "useApifyProxy": true,
-                "apifyProxyGroups": ["RESIDENTIAL"]
+                "apifyProxyGroups": [
+                    "RESIDENTIAL"
+                ]
             },
             "default": {
                 "useApifyProxy": true,
-                "apifyProxyGroups": ["RESIDENTIAL"]
+                "apifyProxyGroups": [
+                    "RESIDENTIAL"
+                ]
             }
         }
     }

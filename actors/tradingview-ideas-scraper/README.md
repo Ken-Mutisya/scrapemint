@@ -1,10 +1,10 @@
-# TradingView Ideas Scraper (No Login Required)
+# TradingView Ideas Intelligence (No Login Required)
 
 Pull public TradingView trade ideas from any symbol, category, or tag. No cookies. No login. No TradingView Pro account. Each row ships the idea ID, title, description snippet, symbol, direction (long, short, education), timeframe, chart snapshot image URL, author handle, plus author intel like follower count, total ideas published, and TradingView reputation. Pay per idea.
 
 **Built for** retail traders sourcing setups, prop firm analysts surveying the FX and crypto idea flow, fintech newsletter writers tracking what is being called, sentiment quants modelling crowd direction, and trader copy platforms benchmarking author pull.
 
-**Keywords this actor ranks for:** tradingview scraper, tradingview ideas api, tradingview ideas scraper, tradingview author scraper, forex trade ideas api, crypto trade ideas api, retail trader sentiment, tradingview followers, copy trading research, fx setups api, btc ideas tracker.
+**Keywords this actor ranks for:** tradingview intelligence, tradingview ideas api, tradingview ideas intelligence, tradingview author intelligence, forex trade ideas api, crypto trade ideas api, retail trader sentiment, tradingview followers, copy trading research, fx setups api, btc ideas tracker.
 
 ---
 
@@ -174,7 +174,7 @@ No. The actor only touches TradingView's public ideas pages and public author pr
 
 ### Can I get the actual chart data behind the idea?
 
-The actor returns the public chart snapshot image URL plus the structured idea metadata. Live OHLC for the symbol is not pulled here — pair it with a market data feed if you need bars.
+The actor returns the public chart snapshot image URL plus the structured idea metadata. Live OHLC for the symbol is not pulled here , pair it with a market data feed if you need bars.
 
 ### How many ideas can I pull per symbol?
 
@@ -190,9 +190,9 @@ This actor returns trade ideas, not Pine Script publications. Strategy and indic
 
 ### How fresh is the data?
 
-Each run hits the live page, so likes, views, and the most recent ideas reflect what TradingView renders at scrape time. Schedule daily runs to track sentiment shifts.
+Each run hits the live page, so likes, views, and the most recent ideas reflect what TradingView renders at pull time. Schedule daily runs to track sentiment shifts.
 
-### Is scraping TradingView allowed?
+### Is pulling TradingView allowed?
 
 This actor reads HTML any anonymous web visitor can see. Respect TradingView's terms and rate limit sensibly. Do not redistribute personal data you have no lawful basis to process.
 
@@ -200,8 +200,8 @@ This actor reads HTML any anonymous web visitor can see. Respect TradingView's t
 
 ## Related actors
 
-- **Polymarket Scraper** — pull live prediction market odds, volume, and resolution metadata
-- **Sports Odds Scraper** — pull live moneyline, spread, and total odds across sportsbooks
-- **Crypto Whale Token Launch Tracker** — pull on-chain whale wallet activity around new launches
-- **Google Patents Scraper** — pull patent metadata, claims, and citations by query
-- **PubMed Clinical Trials Intelligence** — pull clinical trials and pubmed records by condition
+- **Polymarket Intelligence** , pull live prediction market odds, volume, and resolution metadata
+- **Sports Odds Intelligence** , pull live moneyline, spread, and total odds across sportsbooks
+- **Crypto Whale Token Launch Tracker** , pull on-chain whale wallet activity around new launches
+- **Google Patents Intelligence** , pull patent metadata, claims, and citations by query
+- **PubMed Clinical Trials Intelligence** , pull clinical trials and pubmed records by condition

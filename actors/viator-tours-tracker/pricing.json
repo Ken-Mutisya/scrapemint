@@ -1,0 +1,15 @@
+{
+    "_note": "PUT this to /v2/acts/{actorId} as pricingInfos array entry. Per playbook: PAY_PER_EVENT only on BRONZE plan, startedAt 14+ days out. Apify auto-adds 20% margin.",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~viator-tours-tracker?token=APIFY_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "tour_row": {
+                "eventTitle": "Viator tour row",
+                "eventDescription": "One Viator tour or experience parsed and returned with title, location, duration, price from, currency, rating, review count, language options, free cancellation flag, photos, and listing URL. First 10 per run are free so you can validate output.",
+                "eventPriceUsd": 0.005
+            }
+        }
+    },
+    "startedAt": "2026-06-14T00:00:00.000Z"
+}

@@ -7,9 +7,9 @@
             "query_tracked": {
                 "eventTitle": "Job market query tracked",
                 "eventDescription": "One keyword, location, and filter query with the total open role count on LinkedIn, a seniority and function breakdown from the rendered sample, and the change versus the previous run when scheduled. First 5 queries per run are free so you can validate output.",
-                "eventPriceUsd": 0.008
+                "eventPriceUsd": 0.016
             }
         }
     },
-    "startedAt": "2026-06-02T00:00:00.000Z"
+    "startedAt": "2026-06-14T00:00:00.000Z"
 }

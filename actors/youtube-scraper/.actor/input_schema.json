@@ -1,15 +1,17 @@
 {
-    "title": "YouTube Scraper Pro Input",
+    "title": "YouTube Intelligence Pro Input",
     "type": "object",
     "schemaVersion": 1,
-    "description": "Scrape YouTube with rich enrichment. Mix search terms, video URLs, channel handles, playlists, video IDs, hashtag URLs, and shorts URLs. Each video ships as one dataset row.",
+    "description": "Pull YouTube with rich enrichment. Mix search terms, video URLs, channel handles, playlists, video IDs, hashtag URLs, and shorts URLs. Each video ships as one dataset row.",
     "properties": {
         "searchTerms": {
             "title": "Search terms",
             "type": "array",
             "description": "YouTube search queries. Each term runs an independent search. Combine with sortBy, uploadDate, duration, and features filters below.",
             "editor": "stringList",
-            "prefill": ["crawlee tutorial"],
+            "prefill": [
+                "crawlee tutorial"
+            ],
             "default": []
         },
         "startUrls": {
@@ -37,7 +39,7 @@
             "title": "Max videos per search term",
             "type": "integer",
             "description": "Cap on regular videos returned per search. 0 means everything YouTube exposes (typically up to a few hundred).",
-            "default": 50,
+            "default": 15,
             "minimum": 0,
             "maximum": 5000,
             "sectionCaption": "Volume caps"
@@ -62,7 +64,7 @@
             "title": "Max videos per channel",
             "type": "integer",
             "description": "Cap on videos pulled per channel handle or channel URL. Older catalogs scroll deep, so this is the safest knob to control cost.",
-            "default": 100,
+            "default": 25,
             "minimum": 0,
             "maximum": 10000
         },
@@ -70,7 +72,7 @@
             "title": "Max videos per playlist",
             "type": "integer",
             "description": "Cap on videos pulled per playlist URL.",
-            "default": 200,
+            "default": 50,
             "minimum": 0,
             "maximum": 10000
         },
@@ -79,7 +81,14 @@
             "type": "string",
             "description": "Restrict search results by recency. Applies to searchTerms only.",
             "editor": "select",
-            "enum": ["any", "hour", "today", "week", "month", "year"],
+            "enum": [
+                "any",
+                "hour",
+                "today",
+                "week",
+                "month",
+                "year"
+            ],
             "enumTitles": [
                 "Any time",
                 "Last hour",
@@ -96,7 +105,12 @@
             "type": "string",
             "description": "Restrict search results by length. Applies to searchTerms only.",
             "editor": "select",
-            "enum": ["any", "short", "medium", "long"],
+            "enum": [
+                "any",
+                "short",
+                "medium",
+                "long"
+            ],
             "enumTitles": [
                 "Any length",
                 "Under 4 minutes",
@@ -110,7 +124,12 @@
             "type": "string",
             "description": "Sort order for searchTerms. Default is relevance.",
             "editor": "select",
-            "enum": ["relevance", "uploadDate", "viewCount", "rating"],
+            "enum": [
+                "relevance",
+                "uploadDate",
+                "viewCount",
+                "rating"
+            ],
             "enumTitles": [
                 "Relevance (default)",
                 "Most recent first",
@@ -126,7 +145,16 @@
             "editor": "select",
             "items": {
                 "type": "string",
-                "enum": ["live", "fourK", "hd", "subtitles", "creativeCommons", "vr360", "hdr", "purchased"],
+                "enum": [
+                    "live",
+                    "fourK",
+                    "hd",
+                    "subtitles",
+                    "creativeCommons",
+                    "vr360",
+                    "hdr",
+                    "purchased"
+                ],
                 "enumTitles": [
                     "Live now",
                     "4K resolution",
@@ -166,7 +194,9 @@
             "type": "array",
             "description": "Preferred transcript language codes in priority order (e.g. en, es, de, ja, hi). The first available track is used. Leave default to take whatever YouTube serves first.",
             "editor": "stringList",
-            "default": ["en"]
+            "default": [
+                "en"
+            ]
         },
         "extractTopComments": {
             "title": "Extract top comments",
@@ -235,7 +265,26 @@
             "type": "string",
             "description": "Two letter country code passed as gl. Affects which results YouTube returns and which currency monetary fields show.",
             "editor": "select",
-            "enum": ["US", "GB", "CA", "AU", "DE", "FR", "IT", "ES", "NL", "SE", "PL", "TR", "BR", "MX", "JP", "KR", "IN", "ID"],
+            "enum": [
+                "US",
+                "GB",
+                "CA",
+                "AU",
+                "DE",
+                "FR",
+                "IT",
+                "ES",
+                "NL",
+                "SE",
+                "PL",
+                "TR",
+                "BR",
+                "MX",
+                "JP",
+                "KR",
+                "IN",
+                "ID"
+            ],
             "enumTitles": [
                 "United States",
                 "United Kingdom",
@@ -264,7 +313,24 @@
             "type": "string",
             "description": "Two letter language code passed as hl. Affects which language YouTube renders metadata in.",
             "editor": "select",
-            "enum": ["en", "es", "fr", "de", "it", "pt", "ja", "ko", "zh", "hi", "ar", "ru", "tr", "nl", "pl", "sv"],
+            "enum": [
+                "en",
+                "es",
+                "fr",
+                "de",
+                "it",
+                "pt",
+                "ja",
+                "ko",
+                "zh",
+                "hi",
+                "ar",
+                "ru",
+                "tr",
+                "nl",
+                "pl",
+                "sv"
+            ],
             "enumTitles": [
                 "English",
                 "Spanish",
@@ -296,22 +362,26 @@
             "title": "Concurrency",
             "type": "integer",
             "description": "Number of pages processed in parallel. Three to five is safe. Higher values trigger consent walls and rate limits.",
-            "default": 4,
+            "default": 3,
             "minimum": 1,
             "maximum": 16
         },
         "proxyConfiguration": {
             "title": "Proxy configuration",
             "type": "object",
-            "description": "Apify proxy. Datacenter is fine for YouTube at modest volume. Switch to residential if consent or age gates appear.",
+            "description": "Apify proxy. Residential is required because YouTube serves bot challenges to datacenter IPs on most high-traffic videos.",
             "editor": "proxy",
             "prefill": {
                 "useApifyProxy": true,
-                "apifyProxyGroups": []
+                "apifyProxyGroups": [
+                    "RESIDENTIAL"
+                ]
             },
             "default": {
                 "useApifyProxy": true,
-                "apifyProxyGroups": []
+                "apifyProxyGroups": [
+                    "RESIDENTIAL"
+                ]
             }
         }
     }

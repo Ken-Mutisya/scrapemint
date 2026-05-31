@@ -1,7 +1,7 @@
 {
     "actorSpecification": 1,
     "name": "website-content-crawler",
-    "title": "Website Content Crawler — Markdown, Token Counts & RAG Chunks",
+    "title": "Website Content Pipeline for AI: Markdown, Tokens, RAG Chunks",
     "description": "Crawl any website and ship clean Markdown, plain text, and HTML for AI, LLM, and RAG pipelines. Each row carries token estimates, JSON LD metadata, link graph, and optional auto chunk splitting for vector databases. Pay per page.",
     "version": "0.1",
     "buildTag": "latest",

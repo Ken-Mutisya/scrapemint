@@ -1,8 +1,8 @@
 {
     "actorSpecification": 1,
     "name": "polymarket-scraper",
-    "title": "Polymarket Scraper: Markets, Order Book, Trades, Price History",
-    "description": "Bulk scrape Polymarket prediction markets by category, keyword, tag, slug, or condition ID. One row per market with outcomes, YES and NO prices, 24h volume, liquidity, end date, plus optional order book, recent trades, and price history. No third party API key. Pay per row.",
+    "title": "Polymarket Trade Intelligence: Order Book and Prices",
+    "description": "Bulk pull Polymarket prediction markets by category, keyword, tag, slug, or condition ID. One row per market with outcomes, YES and NO prices, 24h volume, liquidity, end date, plus optional order book, recent trades, and price history. No third party API key. Pay per row.",
     "version": "0.1",
     "buildTag": "latest",
     "input": "./input_schema.json",

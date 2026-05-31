@@ -1,10 +1,10 @@
-# ForexFactory Economic Calendar Scraper (No Login Required)
+# ForexFactory Economic Calendar Intelligence (No Login Required)
 
 Pull the public ForexFactory economic calendar by any date range. No cookies. No login. No ForexFactory account. Each row ships the event date and UTC timestamp, currency, impact rating (high, medium, low, holiday), event title, actual release, market forecast (consensus), previous reading, revised previous, unit, source agency, and the link to the event detail page. Pay per event.
 
 **Built for** FX traders pricing in NFP and CPI prints, equity desks tracking earnings season alongside macro releases, fixed income analysts modelling rate decisions, fintech newsletter writers shipping a daily macro brief, sentiment quants joining release surprises to candle moves, and crypto desks watching FOMC and SPR data for risk regime shifts.
 
-**Keywords this actor ranks for:** forex factory scraper, economic calendar api, forex calendar api, nfp scraper, cpi release scraper, fomc calendar, macro events api, central bank calendar, economic data api, forecasting calendar.
+**Keywords this actor ranks for:** forex factory intelligence, economic calendar api, forex calendar api, nfp intelligence, cpi release intelligence, fomc calendar, macro events api, central bank calendar, economic data api, forecasting calendar.
 
 ---
 
@@ -194,9 +194,9 @@ The actor sets `isAllDay: true` and leaves `time` and `timestamp` null for event
 
 ### How fresh is the data?
 
-Each run hits the live calendar page, so actual values reflect what ForexFactory shows at scrape time. Schedule a run every 30 minutes during high impact event windows for near-live release tracking.
+Each run hits the live calendar page, so actual values reflect what ForexFactory shows at pull time. Schedule a run every 30 minutes during high impact event windows for near-live release tracking.
 
-### Is scraping ForexFactory allowed?
+### Is pulling ForexFactory allowed?
 
 This actor reads HTML any anonymous web visitor can see. Respect ForexFactory's terms and rate limit sensibly. Do not redistribute personal data you have no lawful basis to process.
 
@@ -204,8 +204,8 @@ This actor reads HTML any anonymous web visitor can see. Respect ForexFactory's 
 
 ## Related actors
 
-- **TradingView Ideas Scraper** — pull public trade ideas with author, direction, timeframe, and engagement
-- **Polymarket Scraper** — pull live prediction market odds, volume, and resolution metadata
-- **Sports Odds Scraper** — pull live moneyline, spread, and total odds across sportsbooks
-- **Crypto Whale Token Launch Tracker** — pull on-chain whale wallet activity around new launches
-- **Google Patents Scraper** — pull patent metadata, claims, and citations by query
+- **TradingView Ideas Intelligence** , pull public trade ideas with author, direction, timeframe, and engagement
+- **Polymarket Intelligence** , pull live prediction market odds, volume, and resolution metadata
+- **Sports Odds Intelligence** , pull live moneyline, spread, and total odds across sportsbooks
+- **Crypto Whale Token Launch Tracker** , pull on-chain whale wallet activity around new launches
+- **Google Patents Intelligence** , pull patent metadata, claims, and citations by query

@@ -1,10 +1,10 @@
-# LinkedIn Pulse Articles Scraper (No Login Required)
+# LinkedIn Pulse Articles Intelligence (No Login Required)
 
 Pull long-form Pulse articles from any LinkedIn author or by topic. No cookies. No login. No Sales Navigator seat. Each row ships the full article body, title, author, published date, cover image, topic tags, word count, and engagement counts. Pay per article.
 
 **Built for** content marketers, ghostwriters, competitive intelligence teams, and analysts who need clean structured access to LinkedIn long form content for benchmarking, research, and lead generation.
 
-**Keywords this actor ranks for:** linkedin pulse scraper, linkedin article api, linkedin long form content scraper, linkedin pulse to json, linkedin author tracker, linkedin thought leadership tracker, linkedin content benchmarking, linkedin article scraper no cookie, scrape linkedin pulse, linkedin newsletter alternative, linkedin content monitoring, content competitive intel.
+**Keywords this actor ranks for:** linkedin pulse intelligence, linkedin article api, linkedin long form content intelligence, linkedin pulse to json, linkedin author tracker, linkedin thought leadership tracker, linkedin content benchmarking, linkedin article intelligence no cookie, pull linkedin pulse, linkedin newsletter alternative, linkedin content monitoring, content competitive intel.
 
 ---
 
@@ -176,9 +176,9 @@ LinkedIn aggressively blocks datacenter IPs on Pulse pages. Residential proxy is
 
 ### How fresh is the data?
 
-Each run hits the live article page so reaction counts, comment counts, and updated dates reflect what LinkedIn renders at scrape time.
+Each run hits the live article page so reaction counts, comment counts, and updated dates reflect what LinkedIn renders at pull time.
 
-### Is scraping LinkedIn allowed?
+### Is pulling LinkedIn allowed?
 
 This actor reads HTML any anonymous web visitor can see. Respect LinkedIn's terms and rate limit sensibly. Do not redistribute author or commenter identities you have no lawful basis to process.
 
@@ -186,8 +186,8 @@ This actor reads HTML any anonymous web visitor can see. Respect LinkedIn's term
 
 ## Related actors
 
-- **LinkedIn Profile & Company Post Tracker** — scrape posts from any profile or company without a cookie
-- **LinkedIn Company Profile Scraper** — name, industry, headcount range, HQ, specialties on every company row
-- **LinkedIn Hiring Tracker & Salary Intelligence** — parsed salary, tech stack, and seniority on every job row
-- **HN Lead Monitor** — Hacker News mentions and high intent leads
-- **Reddit Brand Monitor & Lead Finder** — subreddit mentions and high intent leads
+- **LinkedIn Profile & Company Post Tracker** , pull posts from any profile or company without a cookie
+- **LinkedIn Company Profile Intelligence** , name, industry, headcount range, HQ, specialties on every company row
+- **LinkedIn Hiring Tracker & Salary Intelligence** , parsed salary, tech stack, and seniority on every job row
+- **HN Lead Monitor** , Hacker News mentions and high intent leads
+- **Reddit Brand Monitor & Lead Finder** , subreddit mentions and high intent leads

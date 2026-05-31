@@ -7,9 +7,9 @@
             "profile": {
                 "eventTitle": "Profile",
                 "eventDescription": "One LinkedIn member profile parsed and returned with name, headline, location, current company, current title, summary, top experience, top education, top skills, and profile photo. First 3 per run are free so you can validate output.",
-                "eventPriceUsd": 0.02
+                "eventPriceUsd": 0.04
             }
         }
     },
-    "startedAt": "2026-05-23T00:00:00.000Z"
+    "startedAt": "2026-06-14T00:00:00.000Z"
 }

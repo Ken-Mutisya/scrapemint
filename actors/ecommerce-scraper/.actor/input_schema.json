@@ -1,5 +1,5 @@
 {
-    "title": "E-commerce Scraper Pro Input",
+    "title": "E-commerce Intelligence Pro Input",
     "type": "object",
     "schemaVersion": 1,
     "description": "Configure how products are collected. Pass direct product URLs, category listing URLs, or a keyword search across selected marketplaces. Each product ships as one dataset row.",
@@ -9,7 +9,11 @@
             "type": "string",
             "description": "Auto picks the fastest path per URL: Cheerio for static HTML pages, Playwright for JS heavy retailers (Amazon, Walmart, Target, AliExpress). Force one mode if you have a preference.",
             "editor": "select",
-            "enum": ["auto", "playwright", "cheerio"],
+            "enum": [
+                "auto",
+                "playwright",
+                "cheerio"
+            ],
             "enumTitles": [
                 "Auto (recommended)",
                 "Playwright (full browser, slower, more reliable)",
@@ -48,16 +52,44 @@
             "items": {
                 "type": "string",
                 "enum": [
-                    "amazon_us", "amazon_uk", "amazon_de", "amazon_fr", "amazon_jp", "amazon_in",
-                    "walmart_us", "target_us", "bestbuy_us", "costco_us", "wayfair_us", "homedepot_us",
-                    "ebay_us", "etsy_us", "aliexpress",
-                    "ikea_us", "zalando_de", "asos_uk"
+                    "amazon_us",
+                    "amazon_uk",
+                    "amazon_de",
+                    "amazon_fr",
+                    "amazon_jp",
+                    "amazon_in",
+                    "walmart_us",
+                    "target_us",
+                    "bestbuy_us",
+                    "costco_us",
+                    "wayfair_us",
+                    "homedepot_us",
+                    "ebay_us",
+                    "etsy_us",
+                    "aliexpress",
+                    "ikea_us",
+                    "zalando_de",
+                    "asos_uk"
                 ],
                 "enumTitles": [
-                    "Amazon (US)", "Amazon (UK)", "Amazon (DE)", "Amazon (FR)", "Amazon (JP)", "Amazon (IN)",
-                    "Walmart (US)", "Target (US)", "Best Buy (US)", "Costco (US)", "Wayfair (US)", "Home Depot (US)",
-                    "eBay (US)", "Etsy (US)", "AliExpress (Global)",
-                    "IKEA (US)", "Zalando (DE)", "ASOS (UK)"
+                    "Amazon (US)",
+                    "Amazon (UK)",
+                    "Amazon (DE)",
+                    "Amazon (FR)",
+                    "Amazon (JP)",
+                    "Amazon (IN)",
+                    "Walmart (US)",
+                    "Target (US)",
+                    "Best Buy (US)",
+                    "Costco (US)",
+                    "Wayfair (US)",
+                    "Home Depot (US)",
+                    "eBay (US)",
+                    "Etsy (US)",
+                    "AliExpress (Global)",
+                    "IKEA (US)",
+                    "Zalando (DE)",
+                    "ASOS (UK)"
                 ]
             },
             "default": []
@@ -122,7 +154,12 @@
             "type": "string",
             "description": "When categoryUrls is empty and keyword is set on a marketplace without a built in search, fall back to a search engine to find product URLs. Use 'none' to disable.",
             "editor": "select",
-            "enum": ["none", "google_shopping", "bing_shopping", "duckduckgo"],
+            "enum": [
+                "none",
+                "google_shopping",
+                "bing_shopping",
+                "duckduckgo"
+            ],
             "enumTitles": [
                 "None (skip search engine fallback)",
                 "Google Shopping",
@@ -137,7 +174,21 @@
             "type": "string",
             "description": "Country gl param. Affects which retailers Google or Bing surface.",
             "editor": "select",
-            "enum": ["US", "GB", "CA", "AU", "DE", "FR", "IT", "ES", "NL", "JP", "IN", "BR", "MX"],
+            "enum": [
+                "US",
+                "GB",
+                "CA",
+                "AU",
+                "DE",
+                "FR",
+                "IT",
+                "ES",
+                "NL",
+                "JP",
+                "IN",
+                "BR",
+                "MX"
+            ],
             "default": "US"
         },
         "searchEngineLanguage": {
@@ -145,7 +196,17 @@
             "type": "string",
             "description": "Language hl param.",
             "editor": "select",
-            "enum": ["en", "es", "fr", "de", "it", "pt", "nl", "ja", "hi"],
+            "enum": [
+                "en",
+                "es",
+                "fr",
+                "de",
+                "it",
+                "pt",
+                "nl",
+                "ja",
+                "hi"
+            ],
             "default": "en"
         },
         "currency": {
@@ -153,7 +214,20 @@
             "type": "string",
             "description": "Normalize all prices to this currency in the row. Conversion uses the most recent rate at scrape time.",
             "editor": "select",
-            "enum": ["original", "USD", "EUR", "GBP", "CAD", "AUD", "JPY", "INR", "BRL", "MXN", "AED", "SGD"],
+            "enum": [
+                "original",
+                "USD",
+                "EUR",
+                "GBP",
+                "CAD",
+                "AUD",
+                "JPY",
+                "INR",
+                "BRL",
+                "MXN",
+                "AED",
+                "SGD"
+            ],
             "enumTitles": [
                 "Keep original currency",
                 "US Dollar",
@@ -232,11 +306,15 @@
             "editor": "proxy",
             "prefill": {
                 "useApifyProxy": true,
-                "apifyProxyGroups": ["RESIDENTIAL"]
+                "apifyProxyGroups": [
+                    "RESIDENTIAL"
+                ]
             },
             "default": {
                 "useApifyProxy": true,
-                "apifyProxyGroups": ["RESIDENTIAL"]
+                "apifyProxyGroups": [
+                    "RESIDENTIAL"
+                ]
             }
         }
     }

@@ -1,0 +1,18 @@
+{
+    "name": "github-trending-scraper",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Scrape GitHub trending repos by timeframe, programming language, and spoken language. Returns owner, name, description, total stars, stars added in period, forks, language, and top contributors. Pay per repo.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0",
+        "crawlee": "^3.16.0",
+        "cheerio": "^1.0.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}

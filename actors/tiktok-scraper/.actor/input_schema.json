@@ -1,8 +1,8 @@
 {
-    "title": "TikTok Scraper Input",
+    "title": "TikTok Intelligence Input",
     "type": "object",
     "schemaVersion": 1,
-    "description": "Choose your starting point: hashtags, profiles, search results, or specific TikToks. To try the scraper, add a hashtag, set Number of videos, and hit Start.",
+    "description": "Choose your starting point: hashtags, profiles, search results, or specific TikToks. To try the intelligence, add a hashtag, set Number of videos, and hit Start.",
     "properties": {
         "hashtags": {
             "title": "Videos with this hashtag",
@@ -31,8 +31,18 @@
             "type": "string",
             "description": "Which profile tab to scrape when a profile is supplied.",
             "editor": "select",
-            "enum": ["videos", "reposts", "liked", "favorites"],
-            "enumTitles": ["Videos", "Reposts", "Liked (public only)", "Favorites (public only)"],
+            "enum": [
+                "videos",
+                "reposts",
+                "liked",
+                "favorites"
+            ],
+            "enumTitles": [
+                "Videos",
+                "Reposts",
+                "Liked (public only)",
+                "Favorites (public only)"
+            ],
             "default": "videos"
         },
         "searchQueries": {
@@ -47,8 +57,18 @@
             "type": "string",
             "description": "Which search tab to scrape.",
             "editor": "select",
-            "enum": ["top", "videos", "users", "live"],
-            "enumTitles": ["Top", "Videos", "Users", "Live"],
+            "enum": [
+                "top",
+                "videos",
+                "users",
+                "live"
+            ],
+            "enumTitles": [
+                "Top",
+                "Videos",
+                "Users",
+                "Live"
+            ],
             "default": "videos"
         },
         "videoUrls": {
@@ -80,7 +100,9 @@
             "type": "array",
             "description": "Preferred subtitle language codes. First match wins. Example: en, es, fr.",
             "editor": "stringList",
-            "default": ["en"]
+            "default": [
+                "en"
+            ]
         },
         "scrapeComments": {
             "title": "TikTok comments ($)",
@@ -127,11 +149,15 @@
             "editor": "proxy",
             "prefill": {
                 "useApifyProxy": true,
-                "apifyProxyGroups": ["RESIDENTIAL"]
+                "apifyProxyGroups": [
+                    "RESIDENTIAL"
+                ]
             },
             "default": {
                 "useApifyProxy": true,
-                "apifyProxyGroups": ["RESIDENTIAL"]
+                "apifyProxyGroups": [
+                    "RESIDENTIAL"
+                ]
             }
         }
     },

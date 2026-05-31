@@ -1,10 +1,10 @@
-# LinkedIn Company Profile Scraper (No Login Required)
+# LinkedIn Company Profile Intelligence (No Login Required)
 
 Pull structured company facts from any LinkedIn company page. No cookies. No login. No Sales Navigator seat. Each row ships the company name, tagline, description, industry, headcount range, headquarters, founded year, specialties, website, follower count, and every office location LinkedIn lists. Pay per company.
 
 **Built for** B2B sales teams, recruiters, agencies, founders, and CRM enrichment pipelines that need clean structured company records for prospecting, account research, and lead scoring.
 
-**Keywords this actor ranks for:** linkedin company scraper, linkedin company profile api, scrape linkedin company without cookie, linkedin company info api, linkedin headcount tracker, linkedin company size scraper, linkedin company about page, crm enrichment linkedin, account research linkedin, linkedin scraper no login, linkedin company specialties, linkedin company website scraper.
+**Keywords this actor ranks for:** linkedin company intelligence, linkedin company profile api, pull linkedin company without cookie, linkedin company info api, linkedin headcount tracker, linkedin company size intelligence, linkedin company about page, crm enrichment linkedin, account research linkedin, linkedin intelligence no login, linkedin company specialties, linkedin company website intelligence.
 
 ---
 
@@ -180,19 +180,19 @@ No. The actor only touches LinkedIn's public about and landing pages. Your accou
 
 The actor falls back to the company landing page and pulls what is available there from JSON-LD and Open Graph tags. Name, tagline, logo, follower count, and website still ship in that path.
 
-### Can I scrape schools or showcase pages?
+### Can I pull schools or showcase pages?
 
 Yes. URLs in the form `linkedin.com/school/{handle}/` and `linkedin.com/showcase/{handle}/` are supported alongside `linkedin.com/company/{handle}/`.
 
 ### How fresh is the data?
 
-Each run hits the live about page, so headcount range, follower count, and locations reflect what LinkedIn renders at scrape time. Schedule weekly runs to track changes over time.
+Each run hits the live about page, so headcount range, follower count, and locations reflect what LinkedIn renders at pull time. Schedule weekly runs to track changes over time.
 
 ### Why is `companySize` a range and not a number?
 
 LinkedIn publishes the headcount range publicly (for example "1,001-5,000 employees") and the precise headcount only behind an authenticated view. The actor ships both the range and a parsed `employeeCount` when LinkedIn renders it.
 
-### Is scraping LinkedIn allowed?
+### Is pulling LinkedIn allowed?
 
 This actor reads HTML any anonymous web visitor can see. Respect LinkedIn's terms and rate limit sensibly. Do not redistribute data you have no lawful basis to process.
 
@@ -200,8 +200,8 @@ This actor reads HTML any anonymous web visitor can see. Respect LinkedIn's term
 
 ## Related actors
 
-- **LinkedIn Profile & Company Post Tracker** — scrape posts from any profile or company without a cookie
-- **LinkedIn Hiring Tracker & Salary Intelligence** — parsed salary, tech stack, and seniority on every job row
-- **Lead Enrichment Pipeline** — multi source enrichment for a list of company domains
-- **HN Lead Monitor** — Hacker News mentions and high intent leads
-- **Reddit Brand Monitor & Lead Finder** — subreddit mentions and high intent leads
+- **LinkedIn Profile & Company Post Tracker** , pull posts from any profile or company without a cookie
+- **LinkedIn Hiring Tracker & Salary Intelligence** , parsed salary, tech stack, and seniority on every job row
+- **Lead Enrichment Pipeline** , multi source enrichment for a list of company domains
+- **HN Lead Monitor** , Hacker News mentions and high intent leads
+- **Reddit Brand Monitor & Lead Finder** , subreddit mentions and high intent leads

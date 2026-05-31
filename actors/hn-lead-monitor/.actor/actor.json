@@ -1,7 +1,7 @@
 {
   "actorSpecification": 1,
   "name": "hn-lead-monitor",
-  "title": "Hacker News Scraper and Keyword Alert Monitor",
+  "title": "Hacker News Keyword Alert Monitor and Lead Feed",
   "description": "Watches Hacker News new, top, Ask HN, Show HN, and jobs feeds plus Algolia search for stories and comments matching your keywords, score floor, and age window. Dedupes across runs. For founders, devtool marketers, and recruiters tracking mentions, launches, and hiring signals on HN.",
   "version": "0.1",
   "buildTag": "latest",

@@ -1,0 +1,16 @@
+{
+    "actorSpecification": 1,
+    "name": "linkedin-learning-course-scraper",
+    "title": "LinkedIn Learning Course Intelligence (No Login)",
+    "description": "Pull structured LinkedIn Learning course data without a cookie or login. Each row carries title, instructors, skills covered, level, duration, release date, rating, learner count, and curriculum. Discover by instructor, by keyword, or paste course URLs. JSON. Pay per course.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "readme": "../README.md",
+    "categories": [
+        "EDUCATION",
+        "BUSINESS",
+        "MARKETING"
+    ]
+}

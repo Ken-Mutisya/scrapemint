@@ -7,9 +7,9 @@
             "company_profile": {
                 "eventTitle": "Company profile",
                 "eventDescription": "One LinkedIn company profile parsed and returned with name, industry, headcount range, headquarters, founded year, specialties, website, follower count, and locations. First 3 per run are free so you can validate output.",
-                "eventPriceUsd": 0.02
+                "eventPriceUsd": 0.04
             }
         }
     },
-    "startedAt": "2026-05-22T00:00:00.000Z"
+    "startedAt": "2026-06-14T00:00:00.000Z"
 }

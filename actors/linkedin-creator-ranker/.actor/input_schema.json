@@ -1,0 +1,63 @@
+{
+    "title": "LinkedIn Creator Ranker Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "description": "Pass a list of LinkedIn creators. Returns one row per creator with engagement velocity, total reactions, average reactions per post, top post, and posts-per-day inside a lookback window.",
+    "properties": {
+        "creatorUrls": {
+            "title": "Creator URLs",
+            "type": "array",
+            "description": "List of LinkedIn profile or company URLs. Examples: 'https://www.linkedin.com/in/satyanadella/', 'https://www.linkedin.com/company/openai/'.",
+            "editor": "stringList",
+            "prefill": [
+                "https://www.linkedin.com/in/satyanadella/",
+                "https://www.linkedin.com/in/williamhgates/",
+                "https://www.linkedin.com/in/jeffweiner08/"
+            ],
+            "default": [
+                "https://www.linkedin.com/in/satyanadella/",
+                "https://www.linkedin.com/in/williamhgates/",
+                "https://www.linkedin.com/in/jeffweiner08/"
+            ]
+        },
+        "lookbackDays": {
+            "title": "Lookback window (days)",
+            "type": "integer",
+            "description": "Only posts published within the last N days are counted toward the ranking. 30 is the default.",
+            "default": 30,
+            "minimum": 1,
+            "maximum": 365
+        },
+        "maxPostsPerCreator": {
+            "title": "Max posts per creator",
+            "type": "integer",
+            "description": "Cap on posts pulled per creator. Higher values produce more accurate rankings but cost more compute.",
+            "default": 30,
+            "minimum": 5,
+            "maximum": 200
+        },
+        "concurrency": {
+            "title": "Concurrency",
+            "type": "integer",
+            "description": "Parallel page fetches. Six is a safe default for LinkedIn.",
+            "default": 6,
+            "minimum": 1,
+            "maximum": 20,
+            "sectionCaption": "Run options"
+        },
+        "proxyConfiguration": {
+            "title": "Proxy configuration",
+            "type": "object",
+            "description": "Apify proxy. Residential is required for LinkedIn at any meaningful volume.",
+            "editor": "proxy",
+            "prefill": {
+                "useApifyProxy": true,
+                "apifyProxyGroups": ["RESIDENTIAL"]
+            },
+            "default": {
+                "useApifyProxy": true,
+                "apifyProxyGroups": ["RESIDENTIAL"]
+            }
+        }
+    }
+}

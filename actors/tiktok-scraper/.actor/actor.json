@@ -1,8 +1,8 @@
 {
     "actorSpecification": 1,
     "name": "tiktok-scraper",
-    "title": "TikTok Scraper: Videos, Profiles, Hashtags & Music Data",
-    "description": "Scrape TikTok by hashtag, profile, search query, or direct video URL. Returns plays, likes, shares, saves, comments, follower counts, hearts, music title, and captions. Optional video file and subtitle downloads. JSON output. Pay per video.",
+    "title": "TikTok Trend Intelligence: Videos, Profiles, Hashtags, Music",
+    "description": "Pull TikTok by hashtag, profile, search query, or direct video URL. Returns plays, likes, shares, saves, comments, follower counts, hearts, music title, and captions. Optional video file and subtitle downloads. JSON output. Pay per video.",
     "version": "0.1",
     "buildTag": "latest",
     "input": "./input_schema.json",

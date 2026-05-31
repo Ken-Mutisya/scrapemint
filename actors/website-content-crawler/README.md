@@ -1,10 +1,10 @@
-# Website Content Crawler — Markdown, Token Counts & RAG Chunks
+# Website Content Pipeline for AI: Markdown, Tokens, RAG Chunks
 
 Crawl any website and ship clean Markdown, plain text, and HTML for AI, LLM, and RAG pipelines. Each row carries a token estimate, JSON LD metadata, and a link graph. Optional auto chunk splitting drops your data straight into a vector database. Pay per page.
 
 **Built for** AI engineers feeding RAG pipelines, LLM application teams indexing documentation, vector database operators ingesting knowledge bases, and content teams converting websites to clean Markdown for fine tuning.
 
-**Keywords this actor ranks for:** website to markdown, website crawler for LLM, RAG pipeline crawler, scrape website to JSON, website content scraper API, llamaindex web scraper, langchain web crawler, vector database ingestion, AI training data crawler, documentation to markdown, website to RAG chunks, html to markdown converter API, knowledge base crawler.
+**Keywords this actor ranks for:** website to markdown, website pipeline for LLM, RAG pipeline pipeline, pull website to JSON, website content intelligence API, llamaindex web intelligence, langchain web pipeline, vector database ingestion, AI training data pipeline, documentation to markdown, website to RAG chunks, html to markdown converter API, knowledge base pipeline.
 
 ---
 
@@ -13,7 +13,7 @@ Crawl any website and ship clean Markdown, plain text, and HTML for AI, LLM, and
 | Other crawlers | **This actor** |
 |---|---|
 | Raw HTML or plain text only | Markdown, plain text, AND cleaned HTML in one row |
-| One extractor, take it or leave it | Three extractors race, the highest scored wins, the winner is tagged |
+| One finder, take it or leave it | Three extractors race, the highest scored wins, the winner is tagged |
 | Manual chunking on your side | Auto chunks at paragraph boundaries with token aware overlap |
 | No token info | Every row ships an estimated GPT and Claude token count |
 | Sitemap configuration required | Auto discovers sitemap.xml, sitemap_index.xml, and robots.txt |
@@ -36,7 +36,7 @@ flowchart LR
     G --> H[(JSON CSV API<br/>vector database)]
 ```
 
-Three extractors run on every page. Mozilla Readability, a custom main content detector, and a body fallback each return text plus a content score. The highest scoring result wins and the row is tagged with which extractor produced it, so you can audit quality on a per row basis.
+Three extractors run on every page. Mozilla Readability, a custom main content detector, and a body fallback each return text plus a content score. The highest scoring result wins and the row is tagged with which finder produced it, so you can audit quality on a per row basis.
 
 ---
 
@@ -192,7 +192,7 @@ Toggle `chunkOutput` and the same row format is split into RAG ready chunks. Eac
 | `stayOnDomain` | boolean | Stay on the registrable domain of the start URL. |
 | `stayOnSubdomain` | boolean | Stricter than stayOnDomain. Same hostname only. |
 | `removeFluff` | boolean | Strip nav, footer, ads, and modals before extracting. |
-| `extractor` | enum | auto, readability, main, or body. |
+| `finder` | enum | auto, readability, main, or body. |
 | `outputFormats` | string[] | Any of markdown, text, html. |
 | `minContentLength` | integer | Drop pages below this many characters. |
 | `chunkOutput` | boolean | Split pages into RAG chunks and push one row per chunk. |
@@ -234,11 +234,11 @@ The first few rows per run are free so you can validate output before paying. Af
 
 ## FAQ
 
-### Why is this better than the official Website Content Crawler?
+### Why is this better than the official Website Content Pipeline?
 
 This actor races three extractors and tags the winner per row, ships token estimates on every row, auto chunks for RAG with a single toggle, redacts PII at the source, and adds a link graph (internal vs external counts plus samples) without extra config.
 
-### Will this actor scrape JavaScript heavy sites?
+### Will this actor pull JavaScript heavy sites?
 
 Yes. Set `crawlerType` to `playwright` or leave it on `adaptive`. The browser pool ships fingerprinted Chrome with anti detection patches. Use `infiniteScroll: true` for sites that load content as you scroll, and `waitForSelector` to wait for a specific element before extraction.
 
@@ -256,7 +256,7 @@ Set `redactPII: true` and emails, phone numbers, US Social Security numbers, and
 
 ### Can I crawl pages behind a login?
 
-Yes. Pass authentication cookies in the `cookies` field. Format is an array of `{name, value, domain}` objects. The crawler sets these on every browser context before navigating.
+Yes. Pass authentication cookies in the `cookies` field. Format is an array of `{name, value, domain}` objects. The pipeline sets these on every browser context before navigating.
 
 ### Does it download PDF files for indexing?
 
@@ -274,8 +274,8 @@ Yes. The Markdown output, page URL, and metadata fields map directly to LangChai
 
 ## Related actors
 
-- **TripAdvisor Property Rank Tracker** — daily rank, rating, and competitor signals for hotels and restaurants
-- **LinkedIn Profile & Company Post Tracker** — public LinkedIn posts without a cookie
-- **LinkedIn Hiring Tracker & Salary Intelligence** — parsed salary, tech stack, seniority on every job row
-- **Google Maps Scraper** — local business data with reviews
-- **Reddit Brand Monitor & Lead Finder** — subreddit mentions and high intent leads
+- **TripAdvisor Property Rank Tracker** , daily rank, rating, and competitor signals for hotels and restaurants
+- **LinkedIn Profile & Company Post Tracker** , public LinkedIn posts without a cookie
+- **LinkedIn Hiring Tracker & Salary Intelligence** , parsed salary, tech stack, seniority on every job row
+- **Google Maps Intelligence** , local business data with reviews
+- **Reddit Brand Monitor & Lead Finder** , subreddit mentions and high intent leads

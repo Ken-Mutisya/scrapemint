@@ -1,8 +1,8 @@
-# Google Maps Scraper: Places, Reviews, and Contact Data to JSON
+# Google Maps Intelligence: Places, Reviews, and Contact Data to JSON
 
-Scrape Google Maps by search query or direct place URL. Every row has business name, address, phone, website, rating, review count, category, price range, opening hours, reviews, and reviewer details. Optional website enrichment pulls email addresses and person names with job titles. Pay per place.
+Pull Google Maps by search query or direct place URL. Every row has business name, address, phone, website, rating, review count, category, price range, opening hours, reviews, and reviewer details. Optional website enrichment pulls email addresses and person names with job titles. Pay per place.
 
-**Ranks for:** Google Maps scraper, Google Maps API alternative, Maps business scraper, Maps lead generation, Maps review scraper, Google Places scraper, scrape Google Maps, Google Maps to CSV.
+**Ranks for:** Google Maps intelligence, Google Maps API alternative, Maps business intelligence, Maps lead generation, Maps review intelligence, Google Places intelligence, pull Google Maps, Google Maps to CSV.
 
 ---
 
@@ -126,7 +126,7 @@ Contacts and emails come from a best effort scan of the linked business website 
 
 ---
 
-## Google Maps scraper vs the alternatives
+## Google Maps intelligence vs the alternatives
 
 |  | Google Places API | Paid SaaS scrapers | **This actor** |
 |---|---|---|---|
@@ -168,15 +168,15 @@ Yes. Use the Apify scheduler to run this actor on any interval. Flip `dedupe` of
 **What is `placeId` in the output?**
 The Google Maps canonical id for the place, read from the URL. Stable across runs. Used as the dedupe key.
 
-**Is scraping Google Maps allowed?**
+**Is pulling Google Maps allowed?**
 This actor reads public HTML a browser can see. Respect the site terms and rate limit sensibly.
 
 ---
 
 ## Related actors
 
-- **Zillow Home Price Scraper** for listings and Zestimates
+- **Zillow Home Price Intelligence** for listings and Zestimates
 - **Flight Price Tracker** for Google Flights fares
 - **TripAdvisor Review Intelligence** for hotel and restaurant reviews
 - **Google Reviews Intelligence** for places reviews only
-- **Viator Scraper** for tours and activities
+- **Viator Intelligence** for tours and activities

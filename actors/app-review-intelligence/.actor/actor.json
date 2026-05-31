@@ -1,7 +1,7 @@
 {
   "actorSpecification": 1,
   "name": "app-review-intelligence",
-  "title": "App Store and Play Store Review Scraper",
+  "title": "App Store and Play Store Review Intelligence",
   "description": "Pulls every review for any iOS App Store or Google Play app: rating, title, body, reviewer, date, app version, country, and developer replies. Track release sentiment, flag regressions per version, and benchmark competitors.",
   "version": "0.1",
   "buildTag": "latest",

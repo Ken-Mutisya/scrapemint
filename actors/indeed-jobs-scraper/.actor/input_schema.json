@@ -1,15 +1,17 @@
 {
-    "title": "Indeed Jobs Scraper Pro Input",
+    "title": "Indeed Jobs Intelligence Pro Input",
     "type": "object",
     "schemaVersion": 1,
-    "description": "Scrape Indeed with rich enrichment. Mix keywords, search URLs, direct job IDs, and company pages. Filter by date posted, job type, experience, remote, salary, and radius. 18 countries.",
+    "description": "Pull Indeed with rich enrichment. Mix keywords, search URLs, direct job IDs, and company pages. Filter by date posted, job type, experience, remote, salary, and radius. 18 countries.",
     "properties": {
         "keywords": {
             "title": "Search keywords",
             "type": "array",
             "description": "Position or keyword strings. Each runs an independent search and combines with locations. Leave blank if you are passing searchUrls or jobIds directly.",
             "editor": "stringList",
-            "prefill": ["product manager"],
+            "prefill": [
+                "product manager"
+            ],
             "default": []
         },
         "locations": {
@@ -17,7 +19,9 @@
             "type": "array",
             "description": "Cities, states, postal codes, or country names. Each combines with each keyword (cartesian product). Leave blank for nationwide searches.",
             "editor": "stringList",
-            "prefill": ["San Francisco, CA"],
+            "prefill": [
+                "San Francisco, CA"
+            ],
             "default": []
         },
         "country": {
@@ -25,7 +29,26 @@
             "type": "string",
             "description": "Indeed regional domain. Affects which jobs are surfaced. 18 countries supported.",
             "editor": "select",
-            "enum": ["US", "GB", "CA", "AU", "IE", "DE", "FR", "IT", "ES", "NL", "BE", "IN", "JP", "SG", "BR", "MX", "ZA", "AE"],
+            "enum": [
+                "US",
+                "GB",
+                "CA",
+                "AU",
+                "IE",
+                "DE",
+                "FR",
+                "IT",
+                "ES",
+                "NL",
+                "BE",
+                "IN",
+                "JP",
+                "SG",
+                "BR",
+                "MX",
+                "ZA",
+                "AE"
+            ],
             "enumTitles": [
                 "United States (indeed.com)",
                 "United Kingdom (indeed.co.uk)",
@@ -83,7 +106,13 @@
             "type": "string",
             "description": "Filter by recency. Maps to Indeed's fromage param.",
             "editor": "select",
-            "enum": ["any", "1", "3", "7", "14"],
+            "enum": [
+                "any",
+                "1",
+                "3",
+                "7",
+                "14"
+            ],
             "enumTitles": [
                 "Any time",
                 "Last 24 hours",
@@ -99,7 +128,14 @@
             "type": "string",
             "description": "Filter by employment type.",
             "editor": "select",
-            "enum": ["any", "fulltime", "parttime", "contract", "temporary", "internship"],
+            "enum": [
+                "any",
+                "fulltime",
+                "parttime",
+                "contract",
+                "temporary",
+                "internship"
+            ],
             "enumTitles": [
                 "Any",
                 "Full time",
@@ -115,7 +151,12 @@
             "type": "string",
             "description": "Filter by Indeed experience tag.",
             "editor": "select",
-            "enum": ["any", "entry_level", "mid_level", "senior_level"],
+            "enum": [
+                "any",
+                "entry_level",
+                "mid_level",
+                "senior_level"
+            ],
             "enumTitles": [
                 "Any",
                 "Entry level",
@@ -129,7 +170,12 @@
             "type": "string",
             "description": "Filter by work location type.",
             "editor": "select",
-            "enum": ["any", "remote", "hybrid", "onsite"],
+            "enum": [
+                "any",
+                "remote",
+                "hybrid",
+                "onsite"
+            ],
             "enumTitles": [
                 "Any",
                 "Remote only",
@@ -214,7 +260,7 @@
             "title": "Concurrency",
             "type": "integer",
             "description": "Number of pages processed in parallel. Three to five is safe. Higher values trigger Cloudflare challenges.",
-            "default": 4,
+            "default": 3,
             "minimum": 1,
             "maximum": 16
         },
@@ -225,11 +271,15 @@
             "editor": "proxy",
             "prefill": {
                 "useApifyProxy": true,
-                "apifyProxyGroups": ["RESIDENTIAL"]
+                "apifyProxyGroups": [
+                    "RESIDENTIAL"
+                ]
             },
             "default": {
                 "useApifyProxy": true,
-                "apifyProxyGroups": ["RESIDENTIAL"]
+                "apifyProxyGroups": [
+                    "RESIDENTIAL"
+                ]
             }
         }
     }

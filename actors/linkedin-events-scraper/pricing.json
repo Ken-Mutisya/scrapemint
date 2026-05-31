@@ -7,9 +7,9 @@
             "event_row": {
                 "eventTitle": "Event row",
                 "eventDescription": "One public LinkedIn event parsed and returned with title, start time, location, virtual flag, organizer, description, image, and registration link. First 3 events per run are free so you can validate output.",
-                "eventPriceUsd": 0.02
+                "eventPriceUsd": 0.04
             }
         }
     },
-    "startedAt": "2026-05-26T00:00:00.000Z"
+    "startedAt": "2026-06-14T00:00:00.000Z"
 }

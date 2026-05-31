@@ -1,0 +1,15 @@
+{
+    "_note": "PUT this to /v2/acts/{actorId} as pricingInfos array entry. Per playbook: PAY_PER_EVENT only on BRONZE plan, startedAt 14+ days out. Apify auto-adds 20% margin.",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~linkedin-learning-course-scraper?token=APIFY_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "course_row": {
+                "eventTitle": "Course row",
+                "eventDescription": "One LinkedIn Learning course parsed and returned with title, instructors, skills covered, level, duration, release date, rating, learner count, and curriculum. First 3 per run are free so you can validate output.",
+                "eventPriceUsd": 0.04
+            }
+        }
+    },
+    "startedAt": "2026-06-14T00:00:00.000Z"
+}

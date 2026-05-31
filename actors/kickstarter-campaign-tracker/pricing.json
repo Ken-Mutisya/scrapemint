@@ -7,9 +7,9 @@
             "campaign_row": {
                 "eventTitle": "Kickstarter campaign row",
                 "eventDescription": "One Kickstarter campaign row with funding totals, backers, category, creator, country, deadline, and source filter context. Optional enrichment (rewards, update counts, creator history) is included at no extra per row charge. First 5 rows per run are free so you can validate output.",
-                "eventPriceUsd": 0.005
+                "eventPriceUsd": 0.01
             }
         }
     },
-    "startedAt": "2026-05-30T00:00:00.000Z"
+    "startedAt": "2026-06-14T00:00:00.000Z"
 }

@@ -1,8 +1,8 @@
 {
     "actorSpecification": 1,
     "name": "indeed-jobs-scraper",
-    "title": "Indeed Jobs Scraper Pro: Search, Salaries & Company Intel",
-    "description": "Scrape Indeed jobs from keywords, search URLs, job IDs, or company pages. Each row ships parsed salary, skills, seniority tier, remote/hybrid signal, Easy Apply flag, sponsored flag, optional company enrichment. 18 countries. Pay per row.",
+    "title": "Indeed Hiring Tracker Pro: Salaries and Company Intel",
+    "description": "Pull Indeed jobs from keywords, search URLs, job IDs, or company pages. Each row ships parsed salary, skills, seniority tier, remote/hybrid signal, Easy Apply flag, sponsored flag, optional company enrichment. 18 countries. Pay per row.",
     "version": "0.1",
     "buildTag": "latest",
     "input": "./input_schema.json",

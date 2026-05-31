@@ -1,0 +1,15 @@
+{
+    "_note": "PUT this to /v2/acts/{actorId} as pricingInfos array entry. Per playbook: PAY_PER_EVENT only on BRONZE plan, startedAt 14+ days out. Apify auto-adds 20% margin.",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~pubmed-clinical-trials-intelligence?token=APIFY_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "trial_row": {
+                "eventTitle": "Clinical trial row",
+                "eventDescription": "One PubMed or ClinicalTrials.gov trial parsed and returned with NCT ID, title, phase, status, condition, intervention, sponsor, locations, enrollment, start date, completion date, primary outcome, and PubMed paper links. First 5 per run are free so you can validate output.",
+                "eventPriceUsd": 0.015
+            }
+        }
+    },
+    "startedAt": "2026-06-14T00:00:00.000Z"
+}

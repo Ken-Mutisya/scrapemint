@@ -1,0 +1,15 @@
+{
+    "actorSpecification": 1,
+    "name": "local-lead-pipeline",
+    "title": "Local Business Lead Pipeline: Maps + Domain + Email Intel",
+    "description": "City and category in, ranked lead list out. Chains Google Maps, website enrichment, and DNS MX check to return one row per qualified lead with name, address, phone, rating, sentiment, verified website, and likely contact emails. For agencies and SMB outbound teams. Pay per qualified lead.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "readme": "../README.md",
+    "categories": [
+        "BUSINESS",
+        "LEAD_GENERATION"
+    ]
+}

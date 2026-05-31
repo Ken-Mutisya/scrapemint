@@ -1,10 +1,10 @@
-# LinkedIn Jobs Scraper Pro — Company Enrichment & Recruiter Contacts
+# LinkedIn Jobs Intelligence Pro , Company Enrichment & Recruiter Contacts
 
-Scrape LinkedIn jobs from search URLs, keywords, or company pages without a cookie or login. Each row ships parsed salary, skill array, seniority tier, Easy Apply flag, recruiter contact, and direct apply URL. Optional company enrichment pulls industry, size, headcount range, founded year, and headquarters. City splitting breaks past LinkedIn's 1000 result cap. Pay per row.
+Pull LinkedIn jobs from search URLs, keywords, or company pages without a cookie or login. Each row ships parsed salary, skill array, seniority tier, Easy Apply flag, recruiter contact, and direct apply URL. Optional company enrichment pulls industry, size, headcount range, founded year, and headquarters. City splitting breaks past LinkedIn's 1000 result cap. Pay per row.
 
 **Built for** technical recruiters, sales teams selling to tech buyers, M&A scouts watching hiring velocity, comp researchers benchmarking pay bands, and founders vetting competitor hiring pipelines.
 
-**Keywords this actor ranks for:** linkedin jobs scraper, linkedin jobs api, scrape linkedin jobs no login, linkedin jobs search url scraper, linkedin company jobs scraper, linkedin recruiter contact scraper, linkedin job skills scraper, linkedin jobs to JSON, linkedin jobs to CSV, linkedin salary scraper, linkedin hiring tracker, linkedin jobs by company, linkedin recruiter intel, easy apply detection, linkedin jobs API alternative.
+**Keywords this actor ranks for:** linkedin jobs intelligence, linkedin jobs api, pull linkedin jobs no login, linkedin jobs search url intelligence, linkedin company jobs intelligence, linkedin recruiter contact intelligence, linkedin job skills intelligence, linkedin jobs to JSON, linkedin jobs to CSV, linkedin salary intelligence, linkedin hiring tracker, linkedin jobs by company, linkedin recruiter intel, easy apply detection, linkedin jobs API alternative.
 
 ---
 
@@ -247,7 +247,7 @@ The first few rows per run are free so you can validate output. After that, each
 
 No. The actor only touches LinkedIn's public guest endpoints, the same ones Google uses to index public job listings.
 
-### What is the difference between this and a basic LinkedIn jobs scraper?
+### What is the difference between this and a basic LinkedIn jobs intelligence?
 
 This one accepts three input modes (search URLs, keywords, company URLs), splits searches by city to break past the 1000 result cap, enriches with company about page data, extracts recruiter contact info, parses salary and skills on every row, and detects Easy Apply vs external ATS jobs.
 
@@ -279,7 +279,7 @@ Yes. Paste the company URL into `companyUrls`. The actor walks every active job 
 
 Yes. Use the Apify scheduler for hourly, daily, or weekly runs. Combined with `dedupe: true`, only new job IDs are pushed. Great for competitor hiring watch and recruiter alerting.
 
-### Is scraping LinkedIn allowed?
+### Is pulling LinkedIn allowed?
 
 This actor reads HTML any anonymous web visitor can see. Respect LinkedIn's terms and rate limit sensibly. Do not redistribute job descriptions or recruiter contact info you have no lawful basis to publish.
 
@@ -287,8 +287,8 @@ This actor reads HTML any anonymous web visitor can see. Respect LinkedIn's term
 
 ## Related actors
 
-- **LinkedIn Hiring Tracker & Salary Intelligence** — keyword driven version with deeper salary parsing and tech stack focus
-- **LinkedIn Profile & Company Post Tracker** — public LinkedIn posts without a cookie, with reactions and comments
-- **TripAdvisor Property Rank Tracker** — daily rank, rating drift, and competitor signals for hotels and restaurants
-- **Website Content Crawler** — websites to clean Markdown with token counts and RAG ready chunks
-- **Reddit Brand Monitor & Lead Finder** — subreddit mentions and high intent leads
+- **LinkedIn Hiring Tracker & Salary Intelligence** , keyword driven version with deeper salary parsing and tech stack focus
+- **LinkedIn Profile & Company Post Tracker** , public LinkedIn posts without a cookie, with reactions and comments
+- **TripAdvisor Property Rank Tracker** , daily rank, rating drift, and competitor signals for hotels and restaurants
+- **Website Content Pipeline** , websites to clean Markdown with token counts and RAG ready chunks
+- **Reddit Brand Monitor & Lead Finder** , subreddit mentions and high intent leads

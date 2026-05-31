@@ -7,9 +7,9 @@
             "event_row": {
                 "eventTitle": "Economic event row",
                 "eventDescription": "One ForexFactory economic event parsed and returned with date, time, displayTimezone, currency, impact rating, title, actual, forecast, previous, revised, unit, source agency, and detail URL. First 25 event rows per run are free so you can validate output.",
-                "eventPriceUsd": 0.005
+                "eventPriceUsd": 0.01
             }
         }
     },
-    "startedAt": "2026-05-26T00:00:00.000Z"
+    "startedAt": "2026-06-14T00:00:00.000Z"
 }

@@ -1,5 +1,5 @@
 {
-    "title": "Google Maps Scraper Input",
+    "title": "Google Maps Intelligence Input",
     "type": "object",
     "schemaVersion": 1,
     "properties": {
@@ -8,8 +8,12 @@
             "type": "array",
             "description": "Queries to run on Google Maps. Examples: \"coffee shops in Austin\", \"dentist 78704\", \"plumbers near Miami\".",
             "editor": "stringList",
-            "prefill": ["coffee shops in Austin TX"],
-            "default": ["coffee shops in Austin TX"]
+            "prefill": [
+                "coffee shops in Austin TX"
+            ],
+            "default": [
+                "coffee shops in Austin TX"
+            ]
         },
         "startUrls": {
             "title": "Direct place URLs",
@@ -88,11 +92,15 @@
             "editor": "proxy",
             "prefill": {
                 "useApifyProxy": true,
-                "apifyProxyGroups": ["RESIDENTIAL"]
+                "apifyProxyGroups": [
+                    "RESIDENTIAL"
+                ]
             },
             "default": {
                 "useApifyProxy": true,
-                "apifyProxyGroups": ["RESIDENTIAL"]
+                "apifyProxyGroups": [
+                    "RESIDENTIAL"
+                ]
             }
         }
     },

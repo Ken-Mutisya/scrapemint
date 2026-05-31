@@ -1,10 +1,10 @@
-# LinkedIn Company Employees Scraper (No Login Required)
+# LinkedIn Company Employees Intelligence (No Login Required)
 
 Pull public employee insights from any LinkedIn company page. No cookies. No login. No Sales Navigator seat. Each row ships the total headcount, distributions of employees by location, role, top skill, and top school, plus any employee profile cards LinkedIn renders to anonymous visitors. Pay per company.
 
 **Built for** B2B sales teams, recruiters, sourcers, agencies, and competitive intel pipelines that need fast workforce snapshots for prospecting, talent mapping, and account research.
 
-**Keywords this actor ranks for:** linkedin company employees scraper, linkedin headcount tracker, linkedin people insights api, linkedin talent mapping, linkedin workforce intelligence, linkedin employee distribution, linkedin company size scraper, linkedin people search no login, sourcing linkedin employees, linkedin top skills by company, linkedin top schools by company, account research linkedin.
+**Keywords this actor ranks for:** linkedin company employees intelligence, linkedin headcount tracker, linkedin people insights api, linkedin talent mapping, linkedin workforce intelligence, linkedin employee distribution, linkedin company size intelligence, linkedin people search no login, sourcing linkedin employees, linkedin top skills by company, linkedin top schools by company, account research linkedin.
 
 ---
 
@@ -202,15 +202,15 @@ No. The full employee list is gated behind a logged in session and is not expose
 
 The actor falls back to the company landing page and pulls total headcount and company name from JSON-LD and Open Graph tags. The insights and featured employee arrays may be empty in that path.
 
-### Can I scrape schools or showcase pages?
+### Can I pull schools or showcase pages?
 
 Yes. URLs in the form `linkedin.com/school/{handle}/` and `linkedin.com/showcase/{handle}/` are supported alongside `linkedin.com/company/{handle}/`.
 
 ### How fresh is the data?
 
-Each run hits the live people page, so headcount and distribution counts reflect what LinkedIn renders at scrape time. Schedule weekly runs to track hiring trends and team composition over time.
+Each run hits the live people page, so headcount and distribution counts reflect what LinkedIn renders at pull time. Schedule weekly runs to track hiring trends and team composition over time.
 
-### Is scraping LinkedIn allowed?
+### Is pulling LinkedIn allowed?
 
 This actor reads HTML any anonymous web visitor can see. Respect LinkedIn's terms and rate limit sensibly. Do not redistribute personal data you have no lawful basis to process.
 
@@ -218,8 +218,8 @@ This actor reads HTML any anonymous web visitor can see. Respect LinkedIn's term
 
 ## Related actors
 
-- **LinkedIn Company Profile Scraper (No Cookies)** — pull industry, headcount range, HQ, founded year, specialties, website per company
-- **LinkedIn Profile Scraper (No Cookies)** — pull a single profile's experience, education, and skills
-- **LinkedIn Hiring Tracker & Salary Intelligence** — parsed salary, tech stack, and seniority on every job row
-- **Lead Enrichment Pipeline** — multi source enrichment for a list of company domains
-- **Reddit Brand Monitor & Lead Finder** — subreddit mentions and high intent leads
+- **LinkedIn Company Profile Intelligence (No Cookies)** , pull industry, headcount range, HQ, founded year, specialties, website per company
+- **LinkedIn Profile Intelligence (No Cookies)** , pull a single profile's experience, education, and skills
+- **LinkedIn Hiring Tracker & Salary Intelligence** , parsed salary, tech stack, and seniority on every job row
+- **Lead Enrichment Pipeline** , multi source enrichment for a list of company domains
+- **Reddit Brand Monitor & Lead Finder** , subreddit mentions and high intent leads

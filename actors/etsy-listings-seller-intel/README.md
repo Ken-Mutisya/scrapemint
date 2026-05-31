@@ -1,10 +1,10 @@
-# Etsy Listings & Seller Intel Scraper (No Login Required)
+# Etsy Listings & Seller Intel Intelligence (No Login Required)
 
 Pull public Etsy listings and seller intel from any keyword search or shop URL. No cookies. No login. No Etsy seller account. Each row ships the listing ID, title, price (sale and original), favorites, rating, review count, plus shop-level intel like total sales, years on Etsy, location, and star seller status. Pay per listing.
 
 **Built for** dropshippers hunting trending products, niche makers benchmarking competitors, vintage and antique dealers tracking comps, DTC brands sourcing creative angles, and acquirers vetting shop-level seller intel.
 
-**Keywords this actor ranks for:** etsy scraper, etsy listing scraper, etsy product api, etsy seller scraper, etsy shop intel, etsy bestseller tracker, etsy trend scraper, etsy competitor research, dropshipping etsy, etsy product hunt, etsy keyword research, etsy sales estimator.
+**Keywords this actor ranks for:** etsy intelligence, etsy listing intelligence, etsy product api, etsy seller intelligence, etsy shop intel, etsy bestseller tracker, etsy trend intelligence, etsy competitor research, dropshipping etsy, etsy product hunt, etsy keyword research, etsy sales estimator.
 
 ---
 
@@ -188,7 +188,7 @@ Etsy hides historical sold prices from anonymous visitors. The actor returns act
 
 Up to `maxListingsPerSource`, capped at 1000. Most Etsy shops surface their full active inventory through the shop grid.
 
-### Can I scrape regional Etsy storefronts?
+### Can I pull regional Etsy storefronts?
 
 Yes. Set `country` to GB, DE, FR, CA, AU, IN, or JP. Pricing currency and shipping defaults will reflect the chosen storefront.
 
@@ -198,9 +198,9 @@ The actor returns nothing for that source and logs a warning. You only pay per p
 
 ### How fresh is the data?
 
-Each run hits the live page, so prices, favorites, and badges reflect what Etsy renders at scrape time. Schedule weekly runs to track sale cadence and sentiment shifts.
+Each run hits the live page, so prices, favorites, and badges reflect what Etsy renders at pull time. Schedule weekly runs to track sale cadence and sentiment shifts.
 
-### Is scraping Etsy allowed?
+### Is pulling Etsy allowed?
 
 This actor reads HTML any anonymous web visitor can see. Respect Etsy's terms and rate limit sensibly. Do not redistribute personal data you have no lawful basis to process.
 
@@ -208,8 +208,8 @@ This actor reads HTML any anonymous web visitor can see. Respect Etsy's terms an
 
 ## Related actors
 
-- **Amazon Product Scraper** — pull product listings, prices, and badges from Amazon storefronts
-- **E-commerce Scraper Pro** — pull product listings across major shop platforms
-- **Facebook Marketplace Deal Finder** — pull live Marketplace listings with price, location, and seller
-- **Google Maps Scraper** — pull local business listings with rating, address, and category
-- **Trustpilot Brand Reputation** — pull TrustScore, review count, and review snippets per business
+- **Amazon Product Intelligence** , pull product listings, prices, and badges from Amazon storefronts
+- **E-commerce Intelligence Pro** , pull product listings across major shop platforms
+- **Facebook Marketplace Deal Finder** , pull live Marketplace listings with price, location, and seller
+- **Google Maps Intelligence** , pull local business listings with rating, address, and category
+- **Trustpilot Brand Reputation** , pull TrustScore, review count, and review snippets per business

@@ -7,9 +7,9 @@
             "idea_row": {
                 "eventTitle": "Trade idea row",
                 "eventDescription": "One TradingView idea parsed and returned with title, symbol, direction, timeframe, chart snapshot URL, author handle, author followers, author reputation, likes, comments, views, published date, and tags. First 25 idea rows per run are free so you can validate output.",
-                "eventPriceUsd": 0.004
+                "eventPriceUsd": 0.008
             }
         }
     },
-    "startedAt": "2026-05-26T00:00:00.000Z"
+    "startedAt": "2026-06-14T00:00:00.000Z"
 }

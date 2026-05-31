@@ -1,7 +1,7 @@
 {
     "actorSpecification": 1,
     "name": "forexfactory-economic-calendar",
-    "title": "ForexFactory Economic Calendar Scraper (No Login)",
+    "title": "ForexFactory Economic Calendar Feed (No Login)",
     "description": "Pull the public ForexFactory economic calendar by date range. Returns event date, time, currency, impact rating (high/med/low), title, actual, forecast, previous, revised values, and source. JSON. No login. Pay per event.",
     "version": "0.1",
     "buildTag": "latest",

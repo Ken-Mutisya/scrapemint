@@ -7,9 +7,9 @@
             "product_intel": {
                 "eventTitle": "Product intel and reviews",
                 "eventDescription": "One G2 product parsed and returned with vendor, overall rating, review count, star distribution, top features, pricing tiers when listed, and recent review snippets. First 3 per run are free so you can validate output.",
-                "eventPriceUsd": 0.04
+                "eventPriceUsd": 0.08
             }
         }
     },
-    "startedAt": "2026-05-26T00:00:00.000Z"
+    "startedAt": "2026-06-14T00:00:00.000Z"
 }

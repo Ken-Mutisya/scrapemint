@@ -1,5 +1,5 @@
 {
-    "title": "Website Content Crawler Input",
+    "title": "Website Content Pipeline Input",
     "type": "object",
     "schemaVersion": 1,
     "description": "Crawl a website and ship clean Markdown, plain text, token estimates, and optional auto chunks for RAG and LLM pipelines. Paste start URLs and run.",
@@ -19,7 +19,11 @@
             "type": "string",
             "description": "Cheerio is the fast default for static pages and docs sites. Use Playwright for sites that render content via JavaScript. Adaptive picks Playwright automatically.",
             "editor": "select",
-            "enum": ["cheerio", "playwright", "adaptive"],
+            "enum": [
+                "cheerio",
+                "playwright",
+                "adaptive"
+            ],
             "enumTitles": [
                 "Cheerio (raw HTTP, fastest, recommended)",
                 "Playwright (real browser, for JS-heavy sites)",
@@ -68,7 +72,11 @@
             "type": "array",
             "description": "Glob patterns. Pages matching any of these are skipped. Examples: '**/login/**', '**/api/**', '**/*.zip'.",
             "editor": "stringList",
-            "default": ["**/login/**", "**/signup/**", "**/cart/**"]
+            "default": [
+                "**/login/**",
+                "**/signup/**",
+                "**/cart/**"
+            ]
         },
         "stayOnDomain": {
             "title": "Stay on the same domain",
@@ -94,7 +102,12 @@
             "type": "string",
             "description": "Auto picks the best result from Readability, a custom main detector, and a body fallback. Force one if your pipeline needs consistency.",
             "editor": "select",
-            "enum": ["auto", "readability", "main", "body"],
+            "enum": [
+                "auto",
+                "readability",
+                "main",
+                "body"
+            ],
             "enumTitles": [
                 "Auto (recommended)",
                 "Mozilla Readability only",
@@ -110,10 +123,21 @@
             "editor": "select",
             "items": {
                 "type": "string",
-                "enum": ["markdown", "text", "html"],
-                "enumTitles": ["Markdown", "Plain text", "Cleaned HTML"]
+                "enum": [
+                    "markdown",
+                    "text",
+                    "html"
+                ],
+                "enumTitles": [
+                    "Markdown",
+                    "Plain text",
+                    "Cleaned HTML"
+                ]
             },
-            "default": ["markdown", "text"]
+            "default": [
+                "markdown",
+                "text"
+            ]
         },
         "minContentLength": {
             "title": "Minimum content length",
@@ -200,9 +224,23 @@
             "editor": "select",
             "items": {
                 "type": "string",
-                "enum": ["pdf", "doc", "docx", "xls", "xlsx", "csv", "txt", "json", "xml"]
+                "enum": [
+                    "pdf",
+                    "doc",
+                    "docx",
+                    "xls",
+                    "xlsx",
+                    "csv",
+                    "txt",
+                    "json",
+                    "xml"
+                ]
             },
-            "default": ["pdf", "doc", "docx"]
+            "default": [
+                "pdf",
+                "doc",
+                "docx"
+            ]
         },
         "concurrency": {
             "title": "Concurrency",
@@ -234,5 +272,7 @@
             }
         }
     },
-    "required": ["startUrls"]
+    "required": [
+        "startUrls"
+    ]
 }

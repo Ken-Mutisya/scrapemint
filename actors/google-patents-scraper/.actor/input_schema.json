@@ -1,0 +1,237 @@
+{
+    "title": "Google Patents Intelligence Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "description": "Search Google Patents at scale. Pass queries, patent numbers, assignee names, or inventor names. Filter by jurisdiction, year, status, and CPC class. Each patent ships as one row with optional claims, citations, and family members.",
+    "properties": {
+        "queries": {
+            "title": "Search queries",
+            "type": "array",
+            "description": "Free text Google Patents queries. Supports operators: \"exact phrase\", inventor:Smith, assignee:Apple, CPC=H04L. Example: [\"battery thermal management\", \"assignee:Tesla cathode\"].",
+            "editor": "stringList",
+            "default": [],
+            "sectionCaption": "What to scrape",
+            "sectionDescription": "Provide at least one of: queries, patentIds, assignees, or inventors."
+        },
+        "patentIds": {
+            "title": "Patent numbers",
+            "type": "array",
+            "description": "Direct patent publication numbers. Example: US10000000B2, EP3000000A1, WO2022123456A1. The actor normalizes formatting.",
+            "editor": "stringList",
+            "default": []
+        },
+        "assignees": {
+            "title": "Assignees (companies)",
+            "type": "array",
+            "description": "Company names to search as assignees. Example: [\"Apple Inc\", \"Tesla\", \"Samsung Electronics\"]. Returns every patent assigned to that company.",
+            "editor": "stringList",
+            "default": []
+        },
+        "inventors": {
+            "title": "Inventors",
+            "type": "array",
+            "description": "Inventor names to search. Example: [\"John Smith\", \"Elon Musk\"]. Returns every patent listing the named inventor.",
+            "editor": "stringList",
+            "default": []
+        },
+        "yearFrom": {
+            "title": "Filing date from year",
+            "type": "integer",
+            "description": "Lower bound on filing year. 0 means no lower bound.",
+            "default": 0,
+            "minimum": 0,
+            "maximum": 2100,
+            "sectionCaption": "Filters"
+        },
+        "yearTo": {
+            "title": "Filing date to year",
+            "type": "integer",
+            "description": "Upper bound on filing year. 0 means no upper bound.",
+            "default": 0,
+            "minimum": 0,
+            "maximum": 2100
+        },
+        "jurisdictions": {
+            "title": "Jurisdictions",
+            "type": "array",
+            "description": "Patent offices to include. Empty means all.",
+            "editor": "select",
+            "items": {
+                "type": "string",
+                "enum": [
+                    "US",
+                    "EP",
+                    "WO",
+                    "CN",
+                    "JP",
+                    "KR",
+                    "DE",
+                    "GB",
+                    "FR",
+                    "CA",
+                    "AU",
+                    "IN"
+                ],
+                "enumTitles": [
+                    "US (USPTO)",
+                    "EP (European Patent Office)",
+                    "WO (PCT / WIPO)",
+                    "CN (China)",
+                    "JP (Japan)",
+                    "KR (Korea)",
+                    "DE (Germany)",
+                    "GB (United Kingdom)",
+                    "FR (France)",
+                    "CA (Canada)",
+                    "AU (Australia)",
+                    "IN (India)"
+                ]
+            },
+            "default": []
+        },
+        "statusFilter": {
+            "title": "Status filter",
+            "type": "string",
+            "description": "Limit results by legal status.",
+            "editor": "select",
+            "enum": [
+                "any",
+                "grant",
+                "application"
+            ],
+            "enumTitles": [
+                "Any",
+                "Granted only",
+                "Applications only"
+            ],
+            "default": "any"
+        },
+        "cpcClasses": {
+            "title": "CPC classifications",
+            "type": "array",
+            "description": "Filter to specific Cooperative Patent Classification codes. Example: [\"H04L\", \"G06N3/08\"]. Empty means no filter.",
+            "editor": "stringList",
+            "default": []
+        },
+        "language": {
+            "title": "Language",
+            "type": "string",
+            "description": "Patent text language for search and display.",
+            "editor": "select",
+            "enum": [
+                "en",
+                "de",
+                "fr",
+                "es",
+                "ja",
+                "ko",
+                "zh"
+            ],
+            "enumTitles": [
+                "English",
+                "German",
+                "French",
+                "Spanish",
+                "Japanese",
+                "Korean",
+                "Chinese"
+            ],
+            "default": "en"
+        },
+        "fetchClaims": {
+            "title": "Fetch full claims",
+            "type": "boolean",
+            "description": "Pull the full claims text per patent. Adds claims (string) to the row. Adds one extra request per patent.",
+            "default": false,
+            "sectionCaption": "Enrichment",
+            "sectionDescription": "Each enrichment toggle adds requests per patent. Use with maxPatents to bound cost."
+        },
+        "fetchDescription": {
+            "title": "Fetch full description",
+            "type": "boolean",
+            "description": "Pull the full description text per patent. This is the long body and can run to tens of thousands of characters.",
+            "default": false
+        },
+        "fetchCitations": {
+            "title": "Fetch citations",
+            "type": "boolean",
+            "description": "For each patent, pull the cited patent list and non-patent literature (NPL). Adds citedPatents[] and citedNonPatentLiterature[] to the row.",
+            "default": false
+        },
+        "fetchCitedBy": {
+            "title": "Fetch citing patents",
+            "type": "boolean",
+            "description": "For each patent, pull the list of later patents that cite this one. Adds citingPatents[] to the row.",
+            "default": false
+        },
+        "fetchFamily": {
+            "title": "Fetch family members",
+            "type": "boolean",
+            "description": "Pull the patent family list (equivalents in other jurisdictions). Adds family[] to the row with publication numbers and filing offices.",
+            "default": false
+        },
+        "fetchPdf": {
+            "title": "Include PDF URL",
+            "type": "boolean",
+            "description": "Resolve the direct PDF URL hosted on patentimages.storage.googleapis.com per patent.",
+            "default": true
+        },
+        "maxPatents": {
+            "title": "Total maximum patents",
+            "type": "integer",
+            "description": "Hard cap on patent rows pushed per run. 0 means unlimited.",
+            "default": 100,
+            "minimum": 0,
+            "maximum": 50000
+        },
+        "maxPagesPerQuery": {
+            "title": "Max pages per query",
+            "type": "integer",
+            "description": "Pages of 10 results to walk per query. Google Patents caps at 100 pages.",
+            "default": 10,
+            "minimum": 1,
+            "maximum": 100
+        },
+        "dedupe": {
+            "title": "Deduplicate across runs",
+            "type": "boolean",
+            "description": "Skip patent numbers already pushed in previous runs. Keyed on publication number. Turn off to refresh stale rows.",
+            "default": true,
+            "sectionCaption": "Run options"
+        },
+        "navigationDelayMs": {
+            "title": "Delay between navigations (ms)",
+            "type": "integer",
+            "description": "Pause between page loads. Google Patents throttles fast scraping. 3000 to 6000 ms is the safe range.",
+            "default": 3500,
+            "minimum": 0,
+            "maximum": 60000
+        },
+        "concurrency": {
+            "title": "Concurrency",
+            "type": "integer",
+            "description": "Parallel browser pages. Keep at 1 to 2 unless you have a residential proxy pool.",
+            "default": 2,
+            "minimum": 1,
+            "maximum": 8
+        },
+        "proxyConfiguration": {
+            "title": "Proxy configuration",
+            "type": "object",
+            "description": "Apify proxy. Google Patents accepts datacenter for low volume. Switch to residential past a few hundred requests.",
+            "editor": "proxy",
+            "prefill": {
+                "useApifyProxy": true,
+                "apifyProxyGroups": [
+                    "RESIDENTIAL"
+                ]
+            },
+            "default": {
+                "useApifyProxy": true,
+                "apifyProxyGroups": [
+                    "RESIDENTIAL"
+                ]
+            }
+        }
+    }
+}

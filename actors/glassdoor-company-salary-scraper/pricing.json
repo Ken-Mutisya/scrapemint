@@ -7,9 +7,9 @@
             "company_intel": {
                 "eventTitle": "Company intel and salaries",
                 "eventDescription": "One Glassdoor company parsed and returned with rating, CEO approval, recommend rate, headquarters, size, industry, founded year, salary ranges by title, and recent review snippets. First 3 per run are free so you can validate output.",
-                "eventPriceUsd": 0.03
+                "eventPriceUsd": 0.06
             }
         }
     },
-    "startedAt": "2026-05-26T00:00:00.000Z"
+    "startedAt": "2026-06-14T00:00:00.000Z"
 }

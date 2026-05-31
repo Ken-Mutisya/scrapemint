@@ -1,8 +1,8 @@
 {
-    "title": "Sports Odds Scraper Input",
+    "title": "Sports Odds Intelligence Input",
     "type": "object",
     "schemaVersion": 1,
-    "description": "Scrape live odds across DraftKings, Pinnacle, FanDuel, BetMGM, Caesars, and any sportsbook event page. Pick sports + leagues, paste direct event URLs, or both. Each row is one event with a normalized markets array.",
+    "description": "Pull live odds across DraftKings, Pinnacle, FanDuel, BetMGM, Caesars, and any sportsbook event page. Pick sports + leagues, paste direct event URLs, or both. Each row is one event with a normalized markets array.",
     "properties": {
         "sports": {
             "title": "Sports + leagues",
@@ -99,7 +99,10 @@
                     "Bet365 (Global)"
                 ]
             },
-            "default": ["draftkings", "pinnacle"]
+            "default": [
+                "draftkings",
+                "pinnacle"
+            ]
         },
         "markets": {
             "title": "Markets",
@@ -108,7 +111,14 @@
             "editor": "select",
             "items": {
                 "type": "string",
-                "enum": ["h2h", "spreads", "totals", "player_props", "team_totals", "first_half"],
+                "enum": [
+                    "h2h",
+                    "spreads",
+                    "totals",
+                    "player_props",
+                    "team_totals",
+                    "first_half"
+                ],
                 "enumTitles": [
                     "Moneyline (h2h)",
                     "Spreads / point spread",
@@ -118,14 +128,23 @@
                     "First half"
                 ]
             },
-            "default": ["h2h", "spreads", "totals"]
+            "default": [
+                "h2h",
+                "spreads",
+                "totals"
+            ]
         },
         "oddsFormat": {
             "title": "Odds format",
             "type": "string",
             "description": "How to express prices in the row.",
             "editor": "select",
-            "enum": ["american", "decimal", "fractional", "implied_probability"],
+            "enum": [
+                "american",
+                "decimal",
+                "fractional",
+                "implied_probability"
+            ],
             "enumTitles": [
                 "American (-110 / +200)",
                 "Decimal (1.91 / 3.00)",
@@ -215,11 +234,15 @@
             "editor": "proxy",
             "prefill": {
                 "useApifyProxy": true,
-                "apifyProxyGroups": ["RESIDENTIAL"]
+                "apifyProxyGroups": [
+                    "RESIDENTIAL"
+                ]
             },
             "default": {
                 "useApifyProxy": true,
-                "apifyProxyGroups": ["RESIDENTIAL"]
+                "apifyProxyGroups": [
+                    "RESIDENTIAL"
+                ]
             }
         }
     }

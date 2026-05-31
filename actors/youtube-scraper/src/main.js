@@ -62,11 +62,11 @@ const {
     videoIds = [],
     channelHandles = [],
 
-    maxVideosPerSearch = 50,
+    maxVideosPerSearch = 15,
     maxShortsPerSearch = 0,
     maxStreamsPerSearch = 0,
-    maxVideosPerChannel = 100,
-    maxVideosPerPlaylist = 200,
+    maxVideosPerChannel = 25,
+    maxVideosPerPlaylist = 50,
 
     uploadDate = 'any',
     duration = 'any',
@@ -115,10 +115,10 @@ if (initial.length === 0) {
 
 const crawler = new PlaywrightCrawler({
     proxyConfiguration,
-    maxConcurrency: Math.max(1, Math.min(16, Number(concurrency) || 4)),
+    maxConcurrency: Math.max(1, Math.min(16, Number(concurrency) || 3)),
     headless: true,
-    navigationTimeoutSecs: 60,
-    requestHandlerTimeoutSecs: 240,
+    navigationTimeoutSecs: 45,
+    requestHandlerTimeoutSecs: 150,
     maxRequestRetries: 4,
     retryOnBlocked: true,
     useSessionPool: true,
@@ -152,9 +152,11 @@ const crawler = new PlaywrightCrawler({
             });
             try {
                 await page.context().addCookies([
-                    { name: 'CONSENT', value: 'YES+1', domain: '.youtube.com', path: '/' },
-                    { name: 'SOCS', value: 'CAI', domain: '.youtube.com', path: '/' },
-                    { name: 'PREF', value: `hl=${language}&gl=${region}`, domain: '.youtube.com', path: '/' },
+                    { name: 'CONSENT', value: 'YES+srp.gws-20230531-0-RC2.en-US+FX+1', domain: '.youtube.com', path: '/' },
+                    { name: 'SOCS', value: 'CAESEwgDEgk0ODE3Nzk3MjQaAmVuIAEaBgiA_LyaBg', domain: '.youtube.com', path: '/' },
+                    { name: 'PREF', value: `tz=UTC&hl=${language}&gl=${region}&f6=40000000`, domain: '.youtube.com', path: '/' },
+                    { name: 'VISITOR_INFO1_LIVE', value: 'oKckVSqvaGw', domain: '.youtube.com', path: '/' },
+                    { name: 'YSC', value: 'BiCUU3-5Gdk', domain: '.youtube.com', path: '/' },
                 ]);
             } catch {}
         },
@@ -429,6 +431,7 @@ async function handleWatch({ page, request, crawler: c }) {
     await dismissConsent(page);
 
     try { await page.waitForSelector('ytd-watch-flexy, #player, ytd-app', { timeout: 12000 }); } catch {}
+    try { await page.waitForFunction(() => !!window.ytInitialPlayerResponse, { timeout: 8000 }); } catch {}
 
     if (extractTopComments) {
         await page.evaluate(() => window.scrollTo(0, 600)).catch(() => {});
@@ -446,7 +449,15 @@ async function handleWatch({ page, request, crawler: c }) {
     });
 
     if (!raw || !raw.videoId) {
-        log.warning(`No watch data for ${videoId}. Possibly age gated or removed.`);
+        const challenged = await page.evaluate(() => {
+            const t = (document.body?.innerText || '');
+            return /Sign in to confirm|not a bot|unusual traffic|This helps protect our community/i.test(t);
+        }).catch(() => false);
+        if (challenged) {
+            request.session?.markBad();
+            throw new Error('YouTube bot challenge');
+        }
+        log.warning(`No watch data for ${videoId}. Possibly age gated, removed, or region locked.`);
         return;
     }
 
@@ -574,8 +585,38 @@ async function extractListingFromYtInitialData(page) {
 
 async function extractWatchData(page, opts) {
     return page.evaluate((opts) => {
-        const data = window.ytInitialData || {};
-        const player = window.ytInitialPlayerResponse || {};
+        const parseFromScripts = (key) => {
+            const scripts = document.querySelectorAll('script');
+            for (const s of scripts) {
+                const t = s.textContent || '';
+                const idx = t.indexOf(`var ${key} = `);
+                if (idx === -1) continue;
+                const start = t.indexOf('{', idx);
+                if (start === -1) continue;
+                let depth = 0;
+                let end = -1;
+                let inStr = false;
+                let strCh = '';
+                let escape = false;
+                for (let i = start; i < t.length; i += 1) {
+                    const ch = t[i];
+                    if (escape) { escape = false; continue; }
+                    if (inStr) {
+                        if (ch === '\\') { escape = true; continue; }
+                        if (ch === strCh) inStr = false;
+                        continue;
+                    }
+                    if (ch === '"' || ch === "'") { inStr = true; strCh = ch; continue; }
+                    if (ch === '{') depth += 1;
+                    else if (ch === '}') { depth -= 1; if (depth === 0) { end = i; break; } }
+                }
+                if (end === -1) continue;
+                try { return JSON.parse(t.slice(start, end + 1)); } catch {}
+            }
+            return null;
+        };
+        const data = window.ytInitialData || parseFromScripts('ytInitialData') || {};
+        const player = window.ytInitialPlayerResponse || parseFromScripts('ytInitialPlayerResponse') || {};
         const text = (t) => {
             if (!t) return '';
             if (typeof t === 'string') return t;
@@ -952,17 +993,31 @@ async function extractChannelMetadata(page) {
 async function waitForRoot(page) {
     try {
         await page.waitForLoadState('domcontentloaded', { timeout: 30000 });
-        await page.waitForFunction(() => !!window.ytInitialData, { timeout: 12000 });
+        // YouTube may redirect to consent.youtube.com; wait until we land on
+        // the canonical host before evaluating any expressions.
+        await page.waitForFunction(
+            () => /(^|\.)youtube\.com$/.test(location.hostname) && !/^\/(consent|sorry)/.test(location.pathname),
+            { timeout: 15000 },
+        ).catch(() => {});
+        await page.waitForLoadState('load', { timeout: 15000 }).catch(() => {});
+        await page.waitForFunction(() => !!window.ytInitialData, { timeout: 12000 }).catch(() => {});
     } catch {}
 }
 
 async function dismissConsent(page) {
     try {
+        const onConsent = /\/consent\?|consent\.youtube\.com/.test(page.url());
+        if (onConsent) {
+            await page.waitForLoadState('load', { timeout: 8000 }).catch(() => {});
+        }
         const sel = 'button[aria-label*="Accept" i], button[aria-label*="agree" i], form[action*="consent"] button';
-        const btn = await page.$(sel);
+        const btn = await page.$(sel).catch(() => null);
         if (btn) {
-            await btn.click({ timeout: 3000 }).catch(() => {});
-            await page.waitForLoadState('domcontentloaded', { timeout: 8000 }).catch(() => {});
+            await Promise.all([
+                page.waitForNavigation({ timeout: 15000, waitUntil: 'domcontentloaded' }).catch(() => {}),
+                btn.click({ timeout: 3000 }).catch(() => {}),
+            ]);
+            await page.waitForFunction(() => !!window.ytInitialData, { timeout: 12000 }).catch(() => {});
         }
     } catch {}
 }

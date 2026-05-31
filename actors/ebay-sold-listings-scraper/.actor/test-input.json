@@ -1,9 +1,0 @@
-{
-    "queries": ["nike dunk low panda"],
-    "maxListingsPerSource": 15,
-    "concurrency": 2,
-    "proxyConfiguration": {
-        "useApifyProxy": true,
-        "apifyProxyGroups": ["RESIDENTIAL"]
-    }
-}

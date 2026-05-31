@@ -9,6 +9,7 @@
             "type": "array",
             "description": "List of root domains to enrich. Accepts plain domains or full URLs. Examples: [\"acme.com\", \"https://www.example.io\"]. Subpaths are ignored; we always start from the root.",
             "editor": "stringList",
+            "prefill": ["stripe.com", "anthropic.com"],
             "default": [],
             "sectionCaption": "What to enrich",
             "sectionDescription": "Provide at least one domain. Up to 10,000 per run is supported. Each domain becomes one row in the dataset."

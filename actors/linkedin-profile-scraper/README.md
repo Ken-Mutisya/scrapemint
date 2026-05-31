@@ -1,10 +1,10 @@
-# LinkedIn Profile Scraper (No Login Required)
+# LinkedIn Profile Intelligence (No Login Required)
 
 Pull structured profile facts from any public LinkedIn member URL. No cookies. No login. No Sales Navigator seat. Each row ships the member name, headline, location, current company, current title, public summary, top experience, top education, top skills, and profile photo. Pay per profile.
 
 **Built for** B2B sales teams, recruiters, agencies, founders, and CRM enrichment pipelines that need clean structured contact records for prospecting, account research, and lead scoring.
 
-**Keywords this actor ranks for:** linkedin profile scraper, linkedin people scraper, linkedin scraper no cookie, linkedin profile api, scrape linkedin profile without login, linkedin contact enrichment, linkedin lead scraper, linkedin headline scraper, linkedin experience scraper, linkedin education scraper, linkedin skills scraper, linkedin no login.
+**Keywords this actor ranks for:** linkedin profile intelligence, linkedin people intelligence, linkedin intelligence no cookie, linkedin profile api, pull linkedin profile without login, linkedin contact enrichment, linkedin lead intelligence, linkedin headline intelligence, linkedin experience intelligence, linkedin education intelligence, linkedin skills intelligence, linkedin no login.
 
 ---
 
@@ -195,13 +195,13 @@ Yes. `williamhgates` and `/in/williamhgates` are accepted alongside the full `ht
 
 ### How fresh is the data?
 
-Each run hits the live profile page, so headline, current role, and recent experience reflect what LinkedIn renders at scrape time. Schedule weekly runs to track changes over time.
+Each run hits the live profile page, so headline, current role, and recent experience reflect what LinkedIn renders at pull time. Schedule weekly runs to track changes over time.
 
 ### Why is `connectionCount` capped at 500?
 
 LinkedIn publicly displays connection counts as "500+" once a member crosses that threshold. The parsed value reflects exactly what LinkedIn shows.
 
-### Is scraping LinkedIn allowed?
+### Is pulling LinkedIn allowed?
 
 This actor reads HTML any anonymous web visitor can see. Respect LinkedIn's terms and rate limit sensibly. Do not redistribute data you have no lawful basis to process.
 
@@ -209,8 +209,8 @@ This actor reads HTML any anonymous web visitor can see. Respect LinkedIn's term
 
 ## Related actors
 
-- **LinkedIn Company Profile Scraper** — pull industry, headcount, HQ, and founded year for the company a contact works at
-- **LinkedIn Profile & Company Post Tracker** — scrape posts from any profile or company without a cookie
-- **LinkedIn Hiring Tracker & Salary Intelligence** — parsed salary, tech stack, and seniority on every job row
-- **LinkedIn Pulse Articles Scraper** — long form articles by author or topic
-- **Lead Enrichment Pipeline** — multi source enrichment for a list of company domains
+- **LinkedIn Company Profile Intelligence** , pull industry, headcount, HQ, and founded year for the company a contact works at
+- **LinkedIn Profile & Company Post Tracker** , pull posts from any profile or company without a cookie
+- **LinkedIn Hiring Tracker & Salary Intelligence** , parsed salary, tech stack, and seniority on every job row
+- **LinkedIn Pulse Articles Intelligence** , long form articles by author or topic
+- **Lead Enrichment Pipeline** , multi source enrichment for a list of company domains

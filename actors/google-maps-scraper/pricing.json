@@ -1,0 +1,15 @@
+{
+    "_note": "PUT this to /v2/acts/{actorId} as pricingInfos array entry. Per playbook: PAY_PER_EVENT only on BRONZE plan, startedAt 14+ days out. Apify auto-adds 20% margin.",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~google-maps-scraper?token=APIFY_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "place_row": {
+                "eventTitle": "Google Maps place row",
+                "eventDescription": "One Google Maps place parsed and returned with name, category, address, phone, website, rating, review count, hours, price level, latitude, longitude, and place ID. First 5 per run are free so you can validate output.",
+                "eventPriceUsd": 0.02
+            }
+        }
+    },
+    "startedAt": "2026-06-14T00:00:00.000Z"
+}

@@ -1,12 +1,12 @@
-# Steam Review Scraper and Steam Game Data Export Tool
+# Steam Review Intelligence and Steam Game Data Export Tool
 
 Export every review for any Steam game into a clean JSON, CSV, or Excel file. Pull review text, thumbs up or down, playtime at the moment the review was written, Steam purchase flag, early access flag, helpful and funny votes, plus store metadata like developer, publisher, genres, price, release date, and Metacritic score for your game and every competitor in one run.
 
-Built for game producers, live ops teams, indie developers, community managers, and market researchers who need Steam review data without building a scraper from scratch or paying for a games analytics seat.
+Built for game producers, live ops teams, indie developers, community managers, and market researchers who need Steam review data without building a intelligence from scratch or paying for a games analytics seat.
 
 ---
 
-## Who uses this Steam review scraper
+## Who uses this Steam review intelligence
 
 ```mermaid
 flowchart TD
@@ -19,7 +19,7 @@ flowchart TD
     D --> H[Community triage queue]
 ```
 
-| Role | What this scraper unlocks |
+| Role | What this intelligence unlocks |
 |---|---|
 | **Game producer** | Sentiment split by patch window, so you see which update lost goodwill |
 | **Live ops** | Review velocity and thumbs ratio tracked the same day a patch ships |
@@ -29,7 +29,7 @@ flowchart TD
 
 ---
 
-## How the Steam review scraper works
+## How the Steam review intelligence works
 
 ```mermaid
 flowchart LR
@@ -42,7 +42,7 @@ flowchart LR
     F --> G[(JSON / CSV / Excel)]
 ```
 
-Paste one or more Steam store URLs or bare numeric app IDs. The actor pulls the public store metadata feed and the public review feed Steam already exposes, then returns one normalized dataset. No login, no captcha, no fragile DOM scraping.
+Paste one or more Steam store URLs or bare numeric app IDs. The actor pulls the public store metadata feed and the public review feed Steam already exposes, then returns one normalized dataset. No login, no captcha, no fragile DOM pulling.
 
 Store metadata comes from Steam's appdetails endpoint: name, developer, publisher, genres, price, release date, and Metacritic score.
 
@@ -52,7 +52,7 @@ Turn on the SteamSpy option to add an estimated owners band, average playtime, a
 
 ---
 
-## Games dashboards vs this scraper
+## Games dashboards vs this intelligence
 
 ```mermaid
 flowchart LR
@@ -163,13 +163,13 @@ First 100 reviews per run are free. After that you pay per review extracted. No 
 
 ## FAQ
 
-**Can this scrape Steam reviews for any game?**
+**Can this pull Steam reviews for any game?**
 Yes. Any title with a public Steam store page. Paste the store URL or the numeric app id and the actor pulls the review feed.
 
 **How many reviews can I get per game?**
 Steam paginates 100 reviews per cursor page with no documented ceiling, so a popular title can return tens of thousands. The `maxReviewsPerApp` cap controls the stop point.
 
-**Is scraping Steam reviews legal?**
+**Is pulling Steam reviews legal?**
 Both feeds are public and Steam exposes them openly. The appreviews and appdetails endpoints are the same ones the Steam store and community pages call.
 
 **How do I track sentiment per patch?**
@@ -194,7 +194,7 @@ Yes. Use the Apify Scheduler to run hourly or daily. Add a webhook to push fresh
 - **App Review Intelligence** for iOS App Store and Google Play reviews
 - **Trustpilot Brand Reputation** for DTC and ecommerce brands
 - **Amazon Review Intelligence** for product reviews and listings
-- **G2 Reviews Scraper** for B2B software
+- **G2 Reviews Intelligence** for B2B software
 - **ProductHunt Launch Tracker** for launch day signal
 
 Stack these to cover every review surface one product touches.

@@ -1,0 +1,62 @@
+{
+    "title": "GitHub Trending Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "description": "Pull the GitHub trending list for any timeframe, programming language, or spoken language.",
+    "properties": {
+        "timeframes": {
+            "title": "Timeframes",
+            "type": "array",
+            "description": "Which trending windows to scrape. Pick any of daily, weekly, monthly.",
+            "editor": "select",
+            "items": {
+                "type": "string",
+                "enum": ["daily", "weekly", "monthly"],
+                "enumTitles": ["Daily (last 24 hours)", "Weekly (last 7 days)", "Monthly (last 30 days)"]
+            },
+            "uniqueItems": true,
+            "default": ["daily"]
+        },
+        "languages": {
+            "title": "Programming languages",
+            "type": "array",
+            "description": "Filter trending by programming language slug. Examples: 'python', 'typescript', 'rust', 'go'. Leave empty to scrape the all languages list.",
+            "editor": "stringList",
+            "default": []
+        },
+        "spokenLanguageCode": {
+            "title": "Spoken language code",
+            "type": "string",
+            "description": "Filter by author's spoken language. Two letter ISO code, for example 'en' or 'zh'. Leave empty for all.",
+            "editor": "textfield",
+            "default": ""
+        },
+        "maxReposPerList": {
+            "title": "Max repos per list",
+            "type": "integer",
+            "description": "Hard cap per timeframe and language combination. GitHub trending shows up to 25 repos per list. 0 means take everything.",
+            "default": 25,
+            "minimum": 0,
+            "maximum": 25
+        },
+        "includeContributors": {
+            "title": "Include top contributors",
+            "type": "boolean",
+            "description": "Pull the small avatars under each repo (the 'Built by' row) with username and profile URL.",
+            "default": true
+        },
+        "proxyConfiguration": {
+            "title": "Proxy configuration",
+            "type": "object",
+            "description": "Apify proxy. Datacenter is fine for GitHub trending.",
+            "editor": "proxy",
+            "prefill": {
+                "useApifyProxy": true
+            },
+            "default": {
+                "useApifyProxy": true
+            }
+        }
+    },
+    "required": ["timeframes"]
+}

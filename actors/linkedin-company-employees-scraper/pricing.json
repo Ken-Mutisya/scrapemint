@@ -7,9 +7,9 @@
             "company_people": {
                 "eventTitle": "Company people insights",
                 "eventDescription": "One LinkedIn company people page parsed and returned with total headcount, distributions by location, role, skill, and school, plus any featured employees LinkedIn renders to anonymous visitors. First 3 per run are free so you can validate output.",
-                "eventPriceUsd": 0.02
+                "eventPriceUsd": 0.04
             }
         }
     },
-    "startedAt": "2026-05-25T00:00:00.000Z"
+    "startedAt": "2026-06-14T00:00:00.000Z"
 }

@@ -1,8 +1,8 @@
-# Viator Scraper: Tours, Activities, Prices, and Reviews
+# Viator Intelligence: Tours, Activities, Prices, and Reviews
 
 Pull Viator tours and activities by destination, keyword, or product URL. Every row has price from, star rating, review count, duration, highlights, supplier, category, and free cancellation flag. Works for Paris, London, Rome, Tokyo, New York, Dubai, and every Viator city. JSON output. Pay per item.
 
-**Ranks for:** Viator scraper, Viator API, tour price tracker, travel activity data, TripAdvisor experiences, destination tour feed, sightseeing price monitor, attraction booking data.
+**Ranks for:** Viator intelligence, Viator API, tour price tracker, travel activity data, TripAdvisor experiences, destination tour feed, sightseeing price monitor, attraction booking data.
 
 ---
 
@@ -98,7 +98,7 @@ Each row has a `flags` array so pipelines filter without parsing titles.
 
 ---
 
-## Viator scraper vs the alternatives
+## Viator intelligence vs the alternatives
 
 | | Viator Partner API | Manual copy paste | **This actor** |
 |---|---|---|---|
@@ -159,7 +159,7 @@ Viator shows a from price per tour. The actor returns `priceFrom` in the page cu
 **Does Viator block scrapers?**
 Viator runs Cloudflare. The actor ships with residential proxy enabled by default. If you run at high volume and see 403s, rotate proxy groups or lower concurrency.
 
-**Is scraping Viator allowed?**
+**Is pulling Viator allowed?**
 This actor reads the same public HTML a browser sees. Respect the site's terms of service and rate limit sensibly.
 
 ---

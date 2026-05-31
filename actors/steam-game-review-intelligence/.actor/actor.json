@@ -1,7 +1,7 @@
 {
   "actorSpecification": 1,
   "name": "steam-game-review-intelligence",
-  "title": "Steam Game and Review Scraper",
+  "title": "Steam Game and Review Intelligence Monitor",
   "description": "Pulls the full review stream and store metadata for any Steam game: review text, thumbs direction, playtime at review, purchase and early access flags, votes, developer, publisher, genres, price, release date. Track launch sentiment and benchmark competitors.",
   "version": "0.1",
   "buildTag": "latest",

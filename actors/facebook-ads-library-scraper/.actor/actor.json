@@ -1,7 +1,7 @@
 {
     "actorSpecification": 1,
     "name": "facebook-ads-library-scraper",
-    "title": "Facebook Ads Library Scraper (Public, No Login)",
+    "title": "Facebook Ads Library Intelligence (Public, No Login)",
     "description": "Pull live and inactive ads from Meta's public Ads Library by keyword or advertiser page. Each row carries library ID, advertiser, ad copy, creative URL, started date, platforms, country, ad type, and active status. JSON. Pay per ad row.",
     "version": "0.1",
     "buildTag": "latest",

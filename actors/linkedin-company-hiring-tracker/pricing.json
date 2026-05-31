@@ -7,9 +7,9 @@
             "company_tracked": {
                 "eventTitle": "Company hiring signal tracked",
                 "eventDescription": "One company row with total open roles on LinkedIn, a breakdown by seniority, function, and location, the newest role date, sample titles, and the change versus the previous run when scheduled. Walking the full public job list per company is included. First 3 companies per run are free so you can validate output.",
-                "eventPriceUsd": 0.03
+                "eventPriceUsd": 0.06
             }
         }
     },
-    "startedAt": "2026-06-02T00:00:00.000Z"
+    "startedAt": "2026-06-14T00:00:00.000Z"
 }

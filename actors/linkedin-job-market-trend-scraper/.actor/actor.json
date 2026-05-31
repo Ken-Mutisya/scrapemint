@@ -1,7 +1,7 @@
 {
     "actorSpecification": 1,
     "name": "linkedin-job-market-trend-scraper",
-    "title": "LinkedIn Job Market Trend Scraper",
+    "title": "LinkedIn Job Market Trend Intelligence",
     "description": "One row per job market query per run: total open roles on LinkedIn for a keyword, location, and filter set, with a seniority and function breakdown and the change since the last run. A labor market index for analysts and planners. No cookie. JSON. Pay per query.",
     "version": "0.1",
     "buildTag": "latest",

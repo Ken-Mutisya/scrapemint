@@ -1,8 +1,8 @@
-# Zillow Scraper: Export Home Prices, Zestimates, and Rentals to JSON
+# Zillow Intelligence: Export Home Prices, Zestimates, and Rentals to JSON
 
-Scrape Zillow listings by city, zip code, or search URL. Get price, beds, baths, square feet, lot size, Zestimate, rent Zestimate, days on market, and agent name for every listing. Works on for sale, for rent, and sold pages in any US market. Pay per row.
+Pull Zillow listings by city, zip code, or search URL. Get price, beds, baths, square feet, lot size, Zestimate, rent Zestimate, days on market, and agent name for every listing. Works on for sale, for rent, and sold pages in any US market. Pay per row.
 
-**Ranks for:** Zillow scraper, Zillow API alternative, Zestimate scraper, Zillow data export, scrape Zillow home prices, Zillow listings JSON, Zillow sold comps, Zillow rental data, real estate scraper.
+**Ranks for:** Zillow intelligence, Zillow API alternative, Zestimate intelligence, Zillow data export, pull Zillow home prices, Zillow listings JSON, Zillow sold comps, Zillow rental data, real estate intelligence.
 
 ---
 
@@ -97,7 +97,7 @@ flowchart LR
 
 ---
 
-## Zillow scraper vs the alternatives
+## Zillow intelligence vs the alternatives
 
 |  | MLS IDX feed | Zillow public API | **This actor** |
 |---|---|---|---|
@@ -125,10 +125,10 @@ No. Zillow closed the public API in 2021. This actor reads the same HTML a brows
 **Does it return the Zestimate?**
 Yes. Every row that has a Zestimate on the search page returns one.
 
-**Can I scrape rentals?**
+**Can I pull rentals?**
 Yes. Set `listingType` to `for_rent` or paste a rental URL.
 
-**Can I scrape sold comps?**
+**Can I pull sold comps?**
 Yes. Set `listingType` to `sold` or paste a sold URL.
 
 **Can I track price changes over time?**
@@ -140,7 +140,7 @@ Yes, aggressively on datacenter IPs. The actor uses residential proxy by default
 **What is a zpid?**
 Zillow Property ID. A stable unique id per listing. Used as the dedupe key.
 
-**Is scraping Zillow legal?**
+**Is pulling Zillow legal?**
 This actor reads public HTML a browser can see. Respect the site terms and rate limit sensibly.
 
 ---
@@ -150,4 +150,4 @@ This actor reads public HTML a browser can see. Respect the site terms and rate 
 - **Flight Price Tracker** for Google Flights fares
 - **TripAdvisor Review Intelligence** for hotel and restaurant reviews
 - **Google Reviews Intelligence** for places reviews
-- **Viator Scraper** for tours and activities
+- **Viator Intelligence** for tours and activities

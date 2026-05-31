@@ -1,8 +1,8 @@
-# TikTok Scraper: Videos, Profiles, Hashtags & Music Data to JSON
+# TikTok Trend Intelligence: Videos, Profiles, Hashtags, Music to JSON
 
-Scrape TikTok without an API key. Pull plays, likes, shares, saves, follower counts, hearts, captions, hashtags, and music from any TikTok video, creator profile, hashtag, or search. One JSON row per item. Pay only for what you keep.
+Pull TikTok without an API key. Pull plays, likes, shares, saves, follower counts, hearts, captions, hashtags, and music from any TikTok video, creator profile, hashtag, or search. One JSON row per item. Pay only for what you keep.
 
-**Ranks for:** TikTok scraper, TikTok API alternative, TikTok API free, scrape TikTok videos, TikTok data export, TikTok profile scraper, TikTok follower count API, TikTok hashtag tracker, TikTok trend monitor, TikTok video downloader, TikTok music search, TikTok creator stats, TikTok to CSV, TikTok to JSON.
+**Ranks for:** TikTok intelligence, TikTok API alternative, TikTok API free, pull TikTok videos, TikTok data export, TikTok profile intelligence, TikTok follower count API, TikTok hashtag tracker, TikTok trend monitor, TikTok video downloader, TikTok music search, TikTok creator stats, TikTok to CSV, TikTok to JSON.
 
 ---
 
@@ -31,7 +31,7 @@ Feed the actor a hashtag, a handle, a search query, or a direct video URL. The a
 | `hashtags` | Limited | TikTok restricts anonymous hashtag browsing. Expect few or no results without a session. |
 | `searchQueries` | Limited | TikTok redirects anonymous search to the For You feed. Limited results without a session. |
 
-> **Best practice:** scrape a list of profiles first, collect the returned video URLs, then run the actor again with `videoUrls` for full stats. Diagram below.
+> **Best practice:** pull a list of profiles first, collect the returned video URLs, then run the actor again with `videoUrls` for full stats. Diagram below.
 
 ---
 
@@ -208,9 +208,9 @@ Poll the run, read the dataset. Or use the Apify client SDK in Node, Python, or 
 
 ---
 
-## TikTok scraper alternatives compared
+## TikTok intelligence alternatives compared
 
-|  | Official TikTok Research API | Custom scraper | **This actor** |
+|  | Official TikTok Research API | Custom intelligence | **This actor** |
 |---|---|---|---|
 | Access | Gated, academic email | Self hosted maintenance | Anyone with an Apify account |
 | Setup time | Weeks of approval | Days of coding | 60 seconds |
@@ -234,14 +234,14 @@ First 10 videos per run are free so you can test the output before paying. After
 **Is there a free TikTok API?**
 TikTok's own Research API is gated to approved academics. This actor gives anyone public TikTok data with a pay per use model, no API key required.
 
-**How do I scrape TikTok without an API key?**
+**How do I pull TikTok without an API key?**
 Pick a profile or a direct video URL, drop it in the input, hit Start. The actor handles headless Chromium, fingerprint rotation, and residential proxy for you.
 
 **Can I download TikTok videos as MP4?**
 Yes. Turn on `downloadVideos`. Each row includes a `downloadAddr` link to the source MP4.
 
 **How accurate are TikTok follower counts?**
-The counts come straight from TikTok's rendered profile response, same numbers a visitor sees in the web app. Accurate at the moment of the scrape.
+The counts come straight from TikTok's rendered profile response, same numbers a visitor sees in the web app. Accurate at the moment of the pull.
 
 **Does it return TikTok comments?**
 Yes. Enable `scrapeComments` and set `maxCommentsPerVideo`. The actor opens the comment drawer on each video and pulls the top comments.
@@ -261,7 +261,7 @@ Yes. Use the Apify scheduler to run the actor hourly, daily, or weekly. Turn `de
 **Does it work in any country?**
 Set `countryCode` to the two letter ISO code. The actor matches the proxy locale and returns results as they appear to viewers in that country.
 
-**Is scraping TikTok allowed?**
+**Is pulling TikTok allowed?**
 This actor reads public HTML that any web visitor can see. Respect TikTok's terms and rate limit sensibly. Do not store or redistribute content you do not have the right to use.
 
 ---
@@ -269,8 +269,8 @@ This actor reads public HTML that any web visitor can see. Respect TikTok's term
 ## Related actors
 
 - **Reddit Brand Monitor & Lead Finder** for subreddit mentions and high intent leads
-- **Google Maps Scraper** for local business data and reviews
+- **Google Maps Intelligence** for local business data and reviews
 - **TripAdvisor Review Intelligence** for hotel and restaurant review monitoring
 - **Yelp Review Intelligence** for local service reviews
 - **Amazon Review Intelligence** for product review tracking
-- **Zillow Home Price Scraper** for real estate listings and price history
+- **Zillow Home Price Intelligence** for real estate listings and price history

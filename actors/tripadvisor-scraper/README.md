@@ -1,10 +1,10 @@
-# TripAdvisor Scraper Pro: Hotels, Restaurants, Attractions, Tours & Rentals
+# TripAdvisor Intelligence Pro: Hotels, Restaurants, Attractions, Tours & Rentals
 
-Scrape TripAdvisor hotels, restaurants, attractions, things to do, vacation rentals, and tours. Each row ships pricing, contact details, amenities, awards, ratings breakdown, photos, coordinates, address, hours, cuisine types, and review summaries. Multi country, multi currency, multi language. Pay per row.
+Pull TripAdvisor hotels, restaurants, attractions, things to do, vacation rentals, and tours. Each row ships pricing, contact details, amenities, awards, ratings breakdown, photos, coordinates, address, hours, cuisine types, and review summaries. Multi country, multi currency, multi language. Pay per row.
 
 **Built for** travel agencies pulling supplier catalogs, OTAs benchmarking competitors, hotel revenue managers tracking comp set rates, restaurant owners watching neighborhood rankings, BI teams piping travel data into a warehouse, content teams powering travel guides with structured data, and lead-gen platforms enriching travel records with TripAdvisor authority signals.
 
-**Keywords this actor ranks for:** tripadvisor scraper, tripadvisor api, tripadvisor data extractor, tripadvisor hotel scraper, tripadvisor restaurant scraper, tripadvisor attraction scraper, tripadvisor reviews api, tripadvisor pricing api, vacation rental scraper, tripadvisor to JSON, tripadvisor to CSV, hotel competitor benchmarking, restaurant ranking tracker.
+**Keywords this actor ranks for:** tripadvisor intelligence, tripadvisor api, tripadvisor data finder, tripadvisor hotel intelligence, tripadvisor restaurant intelligence, tripadvisor attraction intelligence, tripadvisor reviews api, tripadvisor pricing api, vacation rental intelligence, tripadvisor to JSON, tripadvisor to CSV, hotel competitor benchmarking, restaurant ranking tracker.
 
 ---
 
@@ -62,7 +62,7 @@ Toggle on `includeNearbyResults` and the row carries the surrounding properties 
 
 ## Quick start
 
-**Scrape Chicago top hotels, restaurants, and attractions**
+**Pull Chicago top hotels, restaurants, and attractions**
 
 ```json
 {
@@ -290,11 +290,11 @@ TripAdvisor sits behind DataDome with aggressive bot detection. The actor uses f
 
 Yes. Pass `placeTypes: ["vacation_rentals"]` plus `checkInDate` / `checkOutDate` and the actor returns the available rentals with per-night rates in your chosen currency.
 
-### Does it scrape reviews?
+### Does it pull reviews?
 
 This actor focuses on property data with summary review fields (count, breakdown, recent snippets, tags). For full reviews with author and timestamps, use the related TripAdvisor Review Intelligence actor.
 
-### Can I scrape attractions and tours separately?
+### Can I pull attractions and tours separately?
 
 Yes. `things_to_do` covers all attractions. `tours` filters to bookable tour products with duration and price.
 
@@ -306,7 +306,7 @@ Yes. `things_to_do` covers all attractions. `tours` filters to bookable tour pro
 
 Yes. From JSON-LD when available, falling back to embedded map data. Returned as `{ lat, lng }` decimal degrees.
 
-### Is TripAdvisor scraping legal?
+### Is TripAdvisor pulling legal?
 
 This actor reads HTML any anonymous web visitor can see. Respect TripAdvisor's terms and rate limit sensibly. Do not redistribute photos or descriptions you have no lawful basis to publish.
 
@@ -319,4 +319,4 @@ This actor reads HTML any anonymous web visitor can see. Respect TripAdvisor's t
 - **Booking Review Intelligence**. Same shape across Booking.com hotels.
 - **Airbnb Market Intelligence**. Vacation rental market data on Airbnb.
 - **Yelp Review Intelligence**. Restaurant and local business reviews.
-- **Google Maps Scraper**. Local business data with reviews and photos.
+- **Google Maps Intelligence**. Local business data with reviews and photos.

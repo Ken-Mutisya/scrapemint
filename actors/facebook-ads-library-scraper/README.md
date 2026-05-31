@@ -1,10 +1,10 @@
-# Facebook Ads Library Scraper (Public, No Login)
+# Facebook Ads Library Intelligence (Public, No Login)
 
 Pull live and inactive ads from Meta's public Ads Library by keyword or by advertiser page. No cookies. No login. No app review or token rotation. Each row ships the library ID, advertiser, ad copy, creative URL, started date, platforms, country, ad type, and active status. Pay per ad row.
 
 **Built for** competitive intel teams, media buyers, performance marketing agencies, brand monitoring, PR research, and political/issue analysts who need fast access to every ad an advertiser is running on Facebook, Instagram, Audience Network, and Messenger.
 
-**Keywords this actor ranks for:** facebook ads library scraper, meta ads library api, instagram ads scraper, ad creative intelligence, competitor ad spy, ad creative database, facebook ad copy scraper, political ad scraper, ad transparency api, magicbrief alternative, bigspy alternative, adespresso alternative, adsparo alternative.
+**Keywords this actor ranks for:** facebook ads library intelligence, meta ads library api, instagram ads intelligence, ad creative intelligence, competitor ad spy, ad creative database, facebook ad copy intelligence, political ad intelligence, ad transparency api, magicbrief alternative, bigspy alternative, adespresso alternative, adsparo alternative.
 
 ---
 
@@ -199,7 +199,7 @@ The official API requires app review, a Meta developer account in good standing,
 
 Open the brand's Facebook page and copy the URL. The actor accepts both the slug form (facebook.com/Nike) and the numeric form (facebook.com/15087023444).
 
-### Is scraping the Ads Library allowed?
+### Is pulling the Ads Library allowed?
 
 This actor reads HTML any anonymous web visitor can see. Meta publishes the Ads Library specifically as a transparency tool. Respect Meta's terms and rate limit sensibly. Do not redistribute personal data you have no lawful basis to process.
 
@@ -207,8 +207,8 @@ This actor reads HTML any anonymous web visitor can see. Meta publishes the Ads 
 
 ## Related actors
 
-- **Facebook Marketplace Deal Finder** — pull live Marketplace listings with price, location, and seller
-- **Threads Intelligence** — pull public Threads posts and creator metrics
-- **TripAdvisor Scraper** — pull hotel, restaurant, and attraction listings with reviews
-- **E-commerce Scraper Pro** — pull product listings across major shop platforms
-- **Lead Enrichment Pipeline** — multi source enrichment for a list of company domains
+- **Facebook Marketplace Deal Finder** , pull live Marketplace listings with price, location, and seller
+- **Threads Intelligence** , pull public Threads posts and creator metrics
+- **TripAdvisor Intelligence** , pull hotel, restaurant, and attraction listings with reviews
+- **E-commerce Intelligence Pro** , pull product listings across major shop platforms
+- **Lead Enrichment Pipeline** , multi source enrichment for a list of company domains

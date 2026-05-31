@@ -1,10 +1,10 @@
-# Glassdoor Company & Salary Scraper (No Login Required)
+# Glassdoor Company & Salary Intelligence (No Login Required)
 
 Pull public Glassdoor company facts and salary intelligence from any company page. No cookies. No login. No employer subscription. Each row ships the rating, CEO approval rate, recommend rate, headquarters, size, industry, founded year, salary ranges by job title, and the most recent review snippets. Pay per company.
 
 **Built for** comp teams pricing offers, recruiters benchmarking pay, sales teams researching target accounts, and HR ops tracking employer brand over time.
 
-**Keywords this actor ranks for:** glassdoor scraper, glassdoor api, glassdoor salary scraper, salary benchmarking api, employer brand tracker, comp benchmarking api, recruiter intelligence, glassdoor company data, glassdoor reviews scraper, payscale alternative, lightcast alternative, salary intelligence api.
+**Keywords this actor ranks for:** glassdoor intelligence, glassdoor api, glassdoor salary intelligence, salary benchmarking api, employer brand tracker, comp benchmarking api, recruiter intelligence, glassdoor company data, glassdoor reviews intelligence, payscale alternative, lightcast alternative, salary intelligence api.
 
 ---
 
@@ -232,15 +232,15 @@ The actor runs through Apify residential proxy with session pooling and stealth 
 
 The actor returns the row with whatever it could parse. Missing fields land as null. You only pay for the company on push, so if Glassdoor returns nothing for that ID you get the row with nulls, not a blank charge surprise.
 
-### Can I scrape regional Glassdoor pages?
+### Can I pull regional Glassdoor pages?
 
 Yes. Country variants like glassdoor.co.uk, glassdoor.de, and glassdoor.fr all share the employer ID format and are accepted.
 
 ### How fresh is the data?
 
-Each run hits the live page, so rating and salary ranges reflect what Glassdoor renders at scrape time. Schedule weekly runs to track sentiment and pay shifts over time.
+Each run hits the live page, so rating and salary ranges reflect what Glassdoor renders at pull time. Schedule weekly runs to track sentiment and pay shifts over time.
 
-### Is scraping Glassdoor allowed?
+### Is pulling Glassdoor allowed?
 
 This actor reads HTML any anonymous web visitor can see. Respect Glassdoor's terms and rate limit sensibly. Do not redistribute personal data you have no lawful basis to process.
 
@@ -248,8 +248,8 @@ This actor reads HTML any anonymous web visitor can see. Respect Glassdoor's ter
 
 ## Related actors
 
-- **LinkedIn Company Profile Scraper (No Cookies)** — pull industry, headcount range, HQ, founded year, specialties, website per company
-- **LinkedIn Company Employees Scraper (No Cookies)** — pull headcount, location split, top roles, top skills, top schools per company
-- **Indeed Jobs Scraper Pro** — pull live job postings with salary, employer, and location
-- **Lead Enrichment Pipeline** — multi source enrichment for a list of company domains
-- **Domain Intelligence** — pull WHOIS, MX, tech stack, and traffic signals per domain
+- **LinkedIn Company Profile Intelligence (No Cookies)** , pull industry, headcount range, HQ, founded year, specialties, website per company
+- **LinkedIn Company Employees Intelligence (No Cookies)** , pull headcount, location split, top roles, top skills, top schools per company
+- **Indeed Jobs Intelligence Pro** , pull live job postings with salary, employer, and location
+- **Lead Enrichment Pipeline** , multi source enrichment for a list of company domains
+- **Domain Intelligence** , pull WHOIS, MX, tech stack, and traffic signals per domain

@@ -1,8 +1,8 @@
-# GitHub Scraper: Track Issues and Pull Requests by Keyword
+# GitHub Issue and PR Alert Monitor by Keyword
 
-Scrape GitHub for new issues and pull requests that match your keywords, repos, labels, state, and star floor. Export title, body, author, labels, reactions, repo metadata, and timestamps to JSON, CSV, or Excel. Deduped across runs. Uses the official GitHub REST API. Pay per item.
+Pull GitHub for new issues and pull requests that match your keywords, repos, labels, state, and star floor. Export title, body, author, labels, reactions, repo metadata, and timestamps to JSON, CSV, or Excel. Deduped across runs. Uses the official GitHub REST API. Pay per item.
 
-**Searches this actor is built for:** GitHub scraper, scrape GitHub issues, GitHub issue tracker, GitHub PR monitor, GitHub API alternative, GitHub keyword alert, track GitHub issues, competitor GitHub monitor, GitHub lead generation.
+**Searches this actor is built for:** GitHub intelligence, pull GitHub issues, GitHub issue tracker, GitHub PR monitor, GitHub API alternative, GitHub keyword alert, track GitHub issues, competitor GitHub monitor, GitHub lead generation.
 
 ---
 
@@ -20,7 +20,7 @@ Paste a keyword or a `owner/repo` slug. Pick filters. Get a clean JSON feed of n
 
 ---
 
-## Who this GitHub scraper is for
+## Who this GitHub intelligence is for
 
 | You are a... | You use this to... |
 |---|---|
@@ -32,7 +32,7 @@ Paste a keyword or a `owner/repo` slug. Pick filters. Get a clean JSON feed of n
 
 ---
 
-## How to scrape GitHub issues step by step
+## How to pull GitHub issues step by step
 
 ```mermaid
 flowchart TD
@@ -100,7 +100,7 @@ curl -X POST "https://api.apify.com/v2/acts/scrapemint~github-issue-monitor/run-
 
 ---
 
-## GitHub scraper vs the alternatives
+## GitHub intelligence vs the alternatives
 
 ```mermaid
 flowchart LR
@@ -172,7 +172,7 @@ First 50 items per run are free. After that you pay per extracted item. No seats
 
 ## FAQ
 
-**How do I scrape GitHub issues without an API key?**
+**How do I pull GitHub issues without an API key?**
 Run the actor with no token. GitHub caps anonymous requests at 60 core and 10 search per minute. Fine for small keyword batches or one repo. For a scheduled fleet, generate a free token at `github.com/settings/tokens` and paste it into `githubToken`. Your cap jumps to 5000 core and 30 search per minute. Public data only, no scopes needed.
 
 **Can I monitor pull requests too?**
@@ -196,15 +196,15 @@ Yes. Apify Scheduler goes down to 1 minute. Pair with a webhook to push new issu
 **What about GitHub Discussions?**
 Discussions are GraphQL only on GitHub's API. This actor covers issues and pull requests via REST for speed. A separate discussions actor is on the roadmap.
 
-**Is scraping GitHub allowed?**
-Yes. This actor uses the official GitHub REST API v3, which is rate limited and public by design. No HTML scraping.
+**Is pulling GitHub allowed?**
+Yes. This actor uses the official GitHub REST API v3, which is rate limited and public by design. No HTML pulling.
 
 ---
 
 ## Related Scrapemint actors
 
 - **Stack Overflow Lead Monitor** for dev question tracking by tag
-- **Hacker News Scraper** for stories and comments by keyword
+- **Hacker News Intelligence** for stories and comments by keyword
 - **Reddit Lead Monitor** for subreddit and brand mention tracking
 - **Product Hunt Launch Tracker** for competitor launch monitoring
 - **Upwork Opportunity Alert** for freelance lead generation

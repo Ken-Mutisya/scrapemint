@@ -1,8 +1,8 @@
 {
-    "title": "TripAdvisor Scraper Pro Input",
+    "title": "TripAdvisor Intelligence Pro Input",
     "type": "object",
     "schemaVersion": 1,
-    "description": "Scrape TripAdvisor with rich enrichment. Drop in a city name and place type, or paste any TripAdvisor URL (Tourism, Hotel_Review, Restaurant_Review, Attraction_Review, VacationRentalReview, AttractionProductReview). Each property ships as one dataset row.",
+    "description": "Pull TripAdvisor with rich enrichment. Drop in a city name and place type, or paste any TripAdvisor URL (Tourism, Hotel_Review, Restaurant_Review, Attraction_Review, VacationRentalReview, AttractionProductReview). Each property ships as one dataset row.",
     "properties": {
         "searchQuery": {
             "title": "Search query",
@@ -34,7 +34,13 @@
             "editor": "select",
             "items": {
                 "type": "string",
-                "enum": ["hotels", "restaurants", "things_to_do", "vacation_rentals", "tours"],
+                "enum": [
+                    "hotels",
+                    "restaurants",
+                    "things_to_do",
+                    "vacation_rentals",
+                    "tours"
+                ],
                 "enumTitles": [
                     "Hotels",
                     "Restaurants",
@@ -43,7 +49,11 @@
                     "Tours and experiences"
                 ]
             },
-            "default": ["hotels", "restaurants", "things_to_do"]
+            "default": [
+                "hotels",
+                "restaurants",
+                "things_to_do"
+            ]
         },
         "includeReviewTags": {
             "title": "Include review tags",
@@ -151,7 +161,24 @@
             "type": "string",
             "description": "TripAdvisor interface and review language. Affects which reviews are surfaced and how metadata reads.",
             "editor": "select",
-            "enum": ["en", "es", "fr", "de", "it", "pt", "nl", "ru", "ja", "ko", "zh", "ar", "tr", "pl", "sv", "th"],
+            "enum": [
+                "en",
+                "es",
+                "fr",
+                "de",
+                "it",
+                "pt",
+                "nl",
+                "ru",
+                "ja",
+                "ko",
+                "zh",
+                "ar",
+                "tr",
+                "pl",
+                "sv",
+                "th"
+            ],
             "enumTitles": [
                 "English",
                 "Spanish",
@@ -178,7 +205,25 @@
             "type": "string",
             "description": "Currency for hotel rates, vacation rental rates, and tour pricing.",
             "editor": "select",
-            "enum": ["USD", "EUR", "GBP", "CAD", "AUD", "JPY", "CHF", "BRL", "MXN", "INR", "AED", "SGD", "HKD", "ZAR", "NZD", "SEK", "PLN"],
+            "enum": [
+                "USD",
+                "EUR",
+                "GBP",
+                "CAD",
+                "AUD",
+                "JPY",
+                "CHF",
+                "BRL",
+                "MXN",
+                "INR",
+                "AED",
+                "SGD",
+                "HKD",
+                "ZAR",
+                "NZD",
+                "SEK",
+                "PLN"
+            ],
             "enumTitles": [
                 "US Dollar",
                 "Euro",
@@ -222,11 +267,15 @@
             "editor": "proxy",
             "prefill": {
                 "useApifyProxy": true,
-                "apifyProxyGroups": ["RESIDENTIAL"]
+                "apifyProxyGroups": [
+                    "RESIDENTIAL"
+                ]
             },
             "default": {
                 "useApifyProxy": true,
-                "apifyProxyGroups": ["RESIDENTIAL"]
+                "apifyProxyGroups": [
+                    "RESIDENTIAL"
+                ]
             }
         }
     }

@@ -7,14 +7,14 @@
             "enriched_lead": {
                 "eventTitle": "Enriched lead",
                 "eventDescription": "One company domain returned with at least one email or two or more social profiles found. First 5 per run are free.",
-                "eventPriceUsd": 0.03
+                "eventPriceUsd": 0.06
             },
             "basic_crawl": {
                 "eventTitle": "Basic crawl",
                 "eventDescription": "One company domain crawled and reachable but no contacts or socials found.",
-                "eventPriceUsd": 0.005
+                "eventPriceUsd": 0.01
             }
         }
     },
-    "startedAt": "2026-05-21T00:00:00.000Z"
+    "startedAt": "2026-06-14T00:00:00.000Z"
 }

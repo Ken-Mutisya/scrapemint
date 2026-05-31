@@ -1,10 +1,10 @@
-# Indeed Jobs Scraper Pro: Search, Salaries & Company Intel
+# Indeed Hiring Tracker Pro: Salaries, Search, Company Intelligence
 
-Scrape Indeed jobs from keywords, search URLs, direct job IDs, or company pages. Each row ships parsed salary, skills, seniority tier, remote/hybrid signal, Easy Apply flag, sponsored flag, and optional company enrichment with rating, reviews, size, industry, and founded year. 18 countries. Pay per row.
+Pull Indeed jobs from keywords, search URLs, direct job IDs, or company pages. Each row ships parsed salary, skills, seniority tier, remote/hybrid signal, Easy Apply flag, sponsored flag, and optional company enrichment with rating, reviews, size, industry, and founded year. 18 countries. Pay per row.
 
 **Built for** sales teams sourcing leads at hiring companies, recruiters benchmarking salary bands, talent acquisition tracking competitor reqs, market research firms watching hiring trends, BI teams piping job market data into a warehouse, and lead-gen platforms enriching company records with active req counts.
 
-**Keywords this actor ranks for:** indeed scraper, indeed jobs scraper, indeed scraper api, indeed job listings, indeed salary scraper, indeed company scraper, indeed jobs to JSON, indeed lead finder, hiring intent signals, recruiting intelligence, job board scraper, indeed scraping tool.
+**Keywords this actor ranks for:** indeed intelligence, indeed jobs intelligence, indeed intelligence api, indeed job listings, indeed salary intelligence, indeed company intelligence, indeed jobs to JSON, indeed lead finder, hiring intent signals, recruiting intelligence, job board intelligence, indeed pulling tool.
 
 ---
 
@@ -255,13 +255,13 @@ The first few jobs per run are free so you can validate the output before paying
 
 ### What is the difference between this and the official Indeed Publisher API?
 
-Indeed sunset the public Publisher API in 2023. The current options are unofficial scraping or partner-tier deals at $100K+ per year. This actor reads HTML any anonymous web visitor sees, with no key required, no quota, and 18 country domains.
+Indeed sunset the public Publisher API in 2023. The current options are unofficial pulling or partner-tier deals at $100K+ per year. This actor reads HTML any anonymous web visitor sees, with no key required, no quota, and 18 country domains.
 
 ### Why does Indeed block scrapers?
 
 Indeed sits behind Cloudflare with aggressive bot detection. The actor uses fingerprinted Chrome with rotating residential proxies, per-session homepage warmup, and Cloudflare interstitial resolution. Most challenges resolve within two retries.
 
-### Can I scrape salaries that Indeed estimates?
+### Can I pull salaries that Indeed estimates?
 
 Yes. The `compensation.isListed` flag tells you whether the employer listed the salary or whether Indeed estimated it. Both ship with min, max, period, currency, and a normalized annual estimate.
 
@@ -281,17 +281,17 @@ Yes. Pass the company's Indeed `/cmp/CompanyName` URL in `companyUrls`. The acto
 
 Indeed caps each search at about 1000 results. For large nationwide pulls, enable `splitByCity` and the actor expands the query across the country's top metro areas, multiplying total reach.
 
-### Is Indeed scraping legal?
+### Is Indeed pulling legal?
 
-This actor reads HTML any anonymous web visitor can see. Respect Indeed's terms and rate limit sensibly. Do not use scraped contact info for unsolicited messaging in jurisdictions where that violates law.
+This actor reads HTML any anonymous web visitor can see. Respect Indeed's terms and rate limit sensibly. Do not use pulled contact info for unsolicited messaging in jurisdictions where that violates law.
 
 ---
 
 ## Related actors
 
-- **LinkedIn Jobs Scraper Pro & Recruiter Contacts**. Search URL, company URL, and recruiter contact extraction.
+- **LinkedIn Jobs Intelligence Pro & Recruiter Contacts**. Search URL, company URL, and recruiter contact extraction.
 - **HackerNews Lead Monitor**. Alerts for hiring threads matching your skills.
 - **Upwork Opportunity Alert**. Live alerts for new freelance jobs matching your stack.
 - **Stack Overflow Lead Monitor**. Detect technical questions from buyers in your niche.
-- **Website Content Crawler**. Companies websites to clean Markdown with token counts.
-- **Amazon Product Scraper**. Product catalog for ecommerce ops teams.
+- **Website Content Pipeline**. Companies websites to clean Markdown with token counts.
+- **Amazon Product Intelligence**. Product catalog for ecommerce ops teams.

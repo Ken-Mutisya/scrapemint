@@ -1,12 +1,12 @@
-# App Store Review Scraper and Google Play Review Export Tool
+# App Store Review Intelligence and Google Play Review Export Tool
 
 Export every review for any iOS App Store or Google Play app into a clean JSON, CSV, or Excel file. Pull star ratings, review titles, full text, app version, country storefront, developer replies, and reviewer names for your app and every competitor in one run.
 
-Built for mobile product managers, ASO specialists, QA leads, indie developers, and user research teams who need App Store and Play Store review data without building a scraper from scratch or paying $299 per month for an ASO dashboard.
+Built for mobile product managers, ASO specialists, QA leads, indie developers, and user research teams who need App Store and Play Store review data without building a intelligence from scratch or paying $299 per month for an ASO dashboard.
 
 ---
 
-## Who uses this app review scraper
+## Who uses this app review intelligence
 
 ```mermaid
 flowchart TD
@@ -19,7 +19,7 @@ flowchart TD
     D --> H[Support ticket queue]
 ```
 
-| Role | What this scraper unlocks |
+| Role | What this intelligence unlocks |
 |---|---|
 | **Mobile PM** | Review count and star trend per app version, so you see which release regressed |
 | **ASO specialist** | Full review corpus for keyword mining and sentiment tracking |
@@ -29,7 +29,7 @@ flowchart TD
 
 ---
 
-## How the app review scraper works
+## How the app review intelligence works
 
 ```mermaid
 flowchart LR
@@ -43,7 +43,7 @@ flowchart LR
     G --> H[(JSON / CSV / Excel)]
 ```
 
-Paste one or more App Store or Google Play URLs. The actor auto detects the platform from the hostname, pulls the public review feeds both stores already expose, and returns one normalized dataset. No login, no captcha, no fragile DOM scraping.
+Paste one or more App Store or Google Play URLs. The actor auto detects the platform from the hostname, pulls the public review feeds both stores already expose, and returns one normalized dataset. No login, no captcha, no fragile DOM pulling.
 
 iOS uses Apple's RSS customer reviews feed. Up to 500 reviews per country storefront. Loop multiple countries in one run.
 
@@ -51,7 +51,7 @@ Android uses the same reviews endpoint the Play Store web UI uses. Pagination is
 
 ---
 
-## ASO dashboards vs this scraper
+## ASO dashboards vs this intelligence
 
 ```mermaid
 flowchart LR
@@ -154,13 +154,13 @@ First 100 reviews per run are free. After that you pay per review extracted. No 
 
 ## FAQ
 
-**Can this scrape App Store reviews for any app?**
+**Can this pull App Store reviews for any app?**
 Yes. Any iOS or Android app with a public store listing. Paste the URL, the actor pulls the review feed.
 
 **How many reviews can I get per app?**
 iOS caps at 500 per country storefront. Across 10 countries that is 5000 per app. Android returns up to a few thousand per call depending on the app's total review count.
 
-**Is scraping App Store reviews legal?**
+**Is pulling App Store reviews legal?**
 Both feeds are public and Apple and Google expose them openly. The iOS RSS feed is documented by Apple. The Play Store reviews endpoint is the same one Google's own web UI uses.
 
 **How do I track review sentiment per release?**

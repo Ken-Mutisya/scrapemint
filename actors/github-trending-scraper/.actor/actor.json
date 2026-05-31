@@ -1,0 +1,16 @@
+{
+    "actorSpecification": 1,
+    "name": "github-trending-scraper",
+    "title": "GitHub Trending and Repo Mover Tracker",
+    "description": "Pull the GitHub trending list for any timeframe, programming language, or spoken language. Each row carries owner, name, description, total stars, stars added in period, forks, language, and top contributors. JSON. Pay per repo.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "readme": "../README.md",
+    "categories": [
+        "DEVELOPER_TOOLS",
+        "BUSINESS",
+        "MARKETING"
+    ]
+}

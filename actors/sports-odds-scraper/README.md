@@ -1,10 +1,10 @@
-# Sports Odds Scraper: Live Lines from DraftKings, Pinnacle, FanDuel, BetMGM
+# Sports Odds Intelligence: Live Lines from DraftKings, Pinnacle, FanDuel, BetMGM
 
-Scrape live sports betting odds across DraftKings, Pinnacle, FanDuel, BetMGM, Caesars, Bet365, and any sportsbook event page. One row per event with a normalized markets array covering moneyline, spreads, totals, team totals, first half, and player props. Best price per outcome flagged across books, optional arbitrage detection. No third party API key required. Pay per row.
+Pull live sports betting odds across DraftKings, Pinnacle, FanDuel, BetMGM, Caesars, Bet365, and any sportsbook event page. One row per event with a normalized markets array covering moneyline, spreads, totals, team totals, first half, and player props. Best price per outcome flagged across books, optional arbitrage detection. No third party API key required. Pay per row.
 
 **Built for** sharp bettors hunting closing line value, syndicate traders running middle and arb strategies, fantasy and DFS analysts modeling implied probabilities, sportsbook operators monitoring competitor lines, BI teams piping odds into a warehouse, content teams powering odds widgets and previews, and AI builders training EV models or pick generators on a clean cross book dataset.
 
-**Keywords this actor ranks for:** sports odds scraper, sportsbook odds api, draftkings odds scraper, fanduel odds scraper, pinnacle odds api, sports betting data, arbitrage finder, best odds tracker, betting line tracker, odds movement, closing line value, sportsbook data feed, odds to JSON, odds to CSV, NFL odds api, NBA odds api, soccer odds scraper, prop bet data.
+**Keywords this actor ranks for:** sports odds intelligence, sportsbook odds api, draftkings odds intelligence, fanduel odds intelligence, pinnacle odds api, sports betting data, arbitrage finder, best odds tracker, betting line tracker, odds movement, closing line value, sportsbook data feed, odds to JSON, odds to CSV, NFL odds api, NBA odds api, soccer odds intelligence, prop bet data.
 
 ---
 
@@ -14,7 +14,7 @@ Scrape live sports betting odds across DraftKings, Pinnacle, FanDuel, BetMGM, Ca
 |---|---|
 | Require a paid API key (The Odds API, OpsBet) | Hits public sportsbook JSON endpoints directly. No third party key. |
 | Single book or single sport | DraftKings + Pinnacle on every league out of the box, with a JSON-LD fallback for any other book |
-| Rough HTML scraping that breaks weekly | Public JSON the books use to render their own clients. Same source, lower brittleness. |
+| Rough HTML pulling that breaks weekly | Public JSON the books use to render their own clients. Same source, lower brittleness. |
 | Decimal only | American, decimal, fractional, and implied probability formats |
 | No edge detection | Best price flag per outcome plus arbitrage compute across books |
 | No deduplication | Per event dedupe across runs, persisted in a key value store |
@@ -315,7 +315,7 @@ Yes. Run the actor at your bet placement time and again 5 minutes before kickoff
 
 Yes. Pass `sports: ["soccer_epl"]` (Premier League), `soccer_laliga`, `soccer_bundesliga`, `soccer_seriea`, `soccer_ligue1`, `soccer_mls`, `soccer_uefa_cl` (Champions League), or `soccer_uefa_el` (Europa League). Pinnacle is especially deep on soccer markets.
 
-### Is sports odds scraping legal?
+### Is sports odds pulling legal?
 
 This actor reads JSON any anonymous web visitor of the sportsbook website can see. Respect each sportsbook's terms and rate limit sensibly. Do not redistribute their odds data in a commercial product without checking their TOS and licensing requirements where you operate.
 
@@ -325,7 +325,7 @@ This actor reads JSON any anonymous web visitor of the sportsbook website can se
 
 - **Sports Odds Movement Tracker**. Same odds shape, optimized for cron schedules with timestamped snapshots and odds movement diffs out of the box.
 - **Polymarket Market Monitor**. Same shape applied to crypto prediction markets. Useful as a sanity check against sportsbook lines.
-- **Sports Odds Scraper Pro**. Pipeline version that joins live odds with team and player metadata in one row.
+- **Sports Odds Intelligence Pro**. Pipeline version that joins live odds with team and player metadata in one row.
 - **TripAdvisor Property Rank Tracker**. Daily rank tracking applied to hospitality.
 - **Crypto Whale Token Launch Tracker**. Same temporal shape applied to onchain trades.
 - **SEC 8-K Event Tracker**. Same temporal shape applied to corporate events.

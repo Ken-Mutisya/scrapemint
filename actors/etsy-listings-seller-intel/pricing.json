@@ -7,9 +7,9 @@
             "listing_row": {
                 "eventTitle": "Listing row",
                 "eventDescription": "One Etsy listing parsed and returned with title, price, favorites, rating, review count, shop name, shop sales, shop years active, location, star seller status, and tags. First 30 listing rows per run are free so you can validate output.",
-                "eventPriceUsd": 0.003
+                "eventPriceUsd": 0.006
             }
         }
     },
-    "startedAt": "2026-05-26T00:00:00.000Z"
+    "startedAt": "2026-06-14T00:00:00.000Z"
 }

@@ -72,7 +72,8 @@ const {
 } = input;
 
 if (!Array.isArray(domains) || domains.length === 0) {
-    throw new Error('Provide at least one domain in `domains`.');
+    log.warning('No domains provided. Pass `domains` as an array of root domains. Examples: ["acme.com", "https://www.example.io"].');
+    await Actor.exit();
 }
 
 const proxyConfiguration = await Actor.createProxyConfiguration(proxyInput);
@@ -86,6 +87,10 @@ const normalizeDomain = (raw) => {
 };
 
 const cleanDomains = [...new Set(domains.map(normalizeDomain).filter(Boolean))];
+if (cleanDomains.length === 0) {
+    log.warning(`Got ${domains.length} entries but none parsed as valid domains. Each entry must look like "acme.com" or a full URL.`);
+    await Actor.exit();
+}
 log.info(`Enriching ${cleanDomains.length} domains.`);
 
 // State per domain. Keyed by normalized root domain.

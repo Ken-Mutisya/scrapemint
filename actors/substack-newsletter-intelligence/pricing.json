@@ -7,9 +7,9 @@
             "publication_row": {
                 "eventTitle": "Substack publication row",
                 "eventDescription": "One Substack publication row with name, writer, tagline, subscriber count, paid tier flag, cover image, external links, and optional recent posts with comment counts and free vs paid mix. Recent posts and author links are included at no extra per row charge. First 3 rows per run are free so you can validate output.",
-                "eventPriceUsd": 0.005
+                "eventPriceUsd": 0.01
             }
         }
     },
-    "startedAt": "2026-05-30T00:00:00.000Z"
+    "startedAt": "2026-06-14T00:00:00.000Z"
 }

@@ -127,11 +127,11 @@ if (initial.length === 0) {
 
 const crawler = new PlaywrightCrawler({
     proxyConfiguration,
-    maxConcurrency: Math.max(1, Math.min(16, Number(concurrency) || 4)),
+    maxConcurrency: Math.max(1, Math.min(16, Number(concurrency) || 3)),
     headless: true,
-    navigationTimeoutSecs: 90,
-    requestHandlerTimeoutSecs: 240,
-    maxRequestRetries: 6,
+    navigationTimeoutSecs: 60,
+    requestHandlerTimeoutSecs: 150,
+    maxRequestRetries: 3,
     retryOnBlocked: false,
     useSessionPool: true,
     persistCookiesPerSession: true,

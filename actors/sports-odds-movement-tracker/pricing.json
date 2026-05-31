@@ -1,0 +1,15 @@
+{
+    "_note": "PUT this to /v2/acts/{actorId} as pricingInfos array entry. Per playbook: PAY_PER_EVENT only on BRONZE plan, startedAt 14+ days out. Apify auto-adds 20% margin.",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~sports-odds-movement-tracker?token=APIFY_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "odds_movement": {
+                "eventTitle": "Sports odds movement",
+                "eventDescription": "One material line move detected for a game with sport, league, home, away, kickoff, market, book, prior line, new line, delta, and timestamp. First 10 per run are free so you can validate output.",
+                "eventPriceUsd": 0.005
+            }
+        }
+    },
+    "startedAt": "2026-06-14T00:00:00.000Z"
+}

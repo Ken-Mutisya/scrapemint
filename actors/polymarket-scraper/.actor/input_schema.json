@@ -1,5 +1,5 @@
 {
-    "title": "Polymarket Scraper Input",
+    "title": "Polymarket Intelligence Input",
     "type": "object",
     "schemaVersion": 1,
     "description": "Pull Polymarket prediction markets at scale. Filter by search query, category, tag, or fetch direct slugs / condition IDs. Optionally enrich each row with order book depth, recent trades, and price history. One row per market.",
@@ -73,8 +73,18 @@
             "type": "string",
             "description": "Active = currently trading. Closed = no longer accepting orders. Resolved = outcome decided.",
             "editor": "select",
-            "enum": ["active", "closed", "resolved", "all"],
-            "enumTitles": ["Active", "Closed", "Resolved", "All"],
+            "enum": [
+                "active",
+                "closed",
+                "resolved",
+                "all"
+            ],
+            "enumTitles": [
+                "Active",
+                "Closed",
+                "Resolved",
+                "All"
+            ],
             "default": "active"
         },
         "minVolume24h": {
@@ -103,8 +113,18 @@
             "type": "string",
             "description": "Order applied before maxItemsTotal cap.",
             "editor": "select",
-            "enum": ["volume24hr", "liquidity", "endDate", "startDate"],
-            "enumTitles": ["24h volume", "Liquidity", "End date (soonest first)", "Start date (newest first)"],
+            "enum": [
+                "volume24hr",
+                "liquidity",
+                "endDate",
+                "startDate"
+            ],
+            "enumTitles": [
+                "24h volume",
+                "Liquidity",
+                "End date (soonest first)",
+                "Start date (newest first)"
+            ],
             "default": "volume24hr"
         },
         "includeOrderbook": {
@@ -148,8 +168,22 @@
             "type": "string",
             "description": "Time window for price history. Polymarket samples within the window.",
             "editor": "select",
-            "enum": ["1h", "6h", "1d", "1w", "1m", "max"],
-            "enumTitles": ["Last 1 hour", "Last 6 hours", "Last 1 day", "Last 1 week", "Last 1 month", "Max"],
+            "enum": [
+                "1h",
+                "6h",
+                "1d",
+                "1w",
+                "1m",
+                "max"
+            ],
+            "enumTitles": [
+                "Last 1 hour",
+                "Last 6 hours",
+                "Last 1 day",
+                "Last 1 week",
+                "Last 1 month",
+                "Max"
+            ],
             "default": "1d"
         },
         "maxItemsPerSource": {

@@ -1,5 +1,5 @@
 {
-  "title": "Zillow Home Price Scraper Input",
+  "title": "Zillow Home Price Intelligence Input",
   "type": "object",
   "schemaVersion": 1,
   "properties": {
@@ -8,7 +8,9 @@
       "type": "array",
       "description": "Full Zillow search URLs. Example: https://www.zillow.com/homes/Austin-TX_rb/ for Austin for-sale, or a filtered map search pasted from zillow.com.",
       "editor": "stringList",
-      "prefill": ["https://www.zillow.com/homes/Austin-TX_rb/"]
+      "prefill": [
+        "https://www.zillow.com/homes/Austin-TX_rb/"
+      ]
     },
     "locations": {
       "title": "Locations",
@@ -22,7 +24,11 @@
       "type": "string",
       "description": "for_sale, for_rent, or sold. Default for_sale.",
       "default": "for_sale",
-      "enum": ["for_sale", "for_rent", "sold"]
+      "enum": [
+        "for_sale",
+        "for_rent",
+        "sold"
+      ]
     },
     "minPrice": {
       "title": "Min price ($)",
@@ -105,7 +111,9 @@
       "editor": "proxy",
       "default": {
         "useApifyProxy": true,
-        "apifyProxyGroups": ["RESIDENTIAL"]
+        "apifyProxyGroups": [
+          "RESIDENTIAL"
+        ]
       }
     }
   },

@@ -1,0 +1,93 @@
+{
+    "title": "Local Business Lead Pipeline Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "description": "Two ways to scope a run. Easy mode: pass cities and categories and the pipeline cross-joins them into Google Maps queries. Power mode: pass raw search queries. Each returned place is enriched with website verification, DNS MX, and email patterns, then scored as basic or enriched.",
+    "properties": {
+        "cities": {
+            "title": "Cities",
+            "type": "array",
+            "description": "Cities or locations to search. Examples: [\"Austin TX\", \"Brooklyn NY\", \"Manchester UK\"]. Combined with categories to form one query per pair.",
+            "editor": "stringList",
+            "prefill": ["Austin TX", "Denver CO"],
+            "default": [],
+            "sectionCaption": "Easy mode: cities x categories",
+            "sectionDescription": "Use either this block or the raw queries below. If both are set, both run."
+        },
+        "categories": {
+            "title": "Business categories",
+            "type": "array",
+            "description": "Business categories. Examples: [\"dentists\", \"hvac contractors\", \"law firms\", \"medspas\"].",
+            "editor": "stringList",
+            "prefill": ["dentists", "medspas"],
+            "default": []
+        },
+        "searchQueries": {
+            "title": "Raw search queries",
+            "type": "array",
+            "description": "Optional. Pre-built Google Maps queries. Examples: \"dentist 78704\", \"plumbers near Miami\".",
+            "editor": "stringList",
+            "default": [],
+            "sectionCaption": "Power mode: raw queries"
+        },
+        "maxPlacesPerQuery": {
+            "title": "Max places per query",
+            "type": "integer",
+            "description": "Cap on Google Maps results pulled per query. Higher values find more leads but cost more time.",
+            "default": 25,
+            "minimum": 1,
+            "maximum": 200
+        },
+        "maxPlacesTotal": {
+            "title": "Max places per run",
+            "type": "integer",
+            "description": "Hard cap on places processed per run. Controls total cost.",
+            "default": 100,
+            "minimum": 1,
+            "maximum": 2000
+        },
+        "minRating": {
+            "title": "Minimum rating (enriched tier)",
+            "type": "number",
+            "description": "Places below this rating are still returned as basic leads, but cannot qualify as enriched. Default 4.0 filters out neglected listings.",
+            "default": 4.0,
+            "minimum": 0,
+            "maximum": 5
+        },
+        "minReviews": {
+            "title": "Minimum review count (enriched tier)",
+            "type": "integer",
+            "description": "Places below this review count are still returned as basic leads, but cannot qualify as enriched. Default 10 filters out fake or new listings.",
+            "default": 10,
+            "minimum": 0
+        },
+        "requireWebsite": {
+            "title": "Require a working website for enriched tier",
+            "type": "boolean",
+            "description": "Enriched leads must have a website that resolves and has a valid MX record. Recommended on for outbound use cases.",
+            "default": true,
+            "sectionCaption": "Qualification rules"
+        },
+        "scrapeReviewsForSentiment": {
+            "title": "Pull recent reviews for sentiment",
+            "type": "boolean",
+            "description": "Asks the Maps scraper for up to 5 recent reviews per place to surface negative review count. Adds time per place.",
+            "default": true
+        },
+        "proxyConfiguration": {
+            "title": "Proxy configuration",
+            "type": "object",
+            "description": "Apify proxy passed through to the Google Maps stage. Residential strongly recommended.",
+            "editor": "proxy",
+            "prefill": {
+                "useApifyProxy": true,
+                "apifyProxyGroups": ["RESIDENTIAL"]
+            },
+            "default": {
+                "useApifyProxy": true,
+                "apifyProxyGroups": ["RESIDENTIAL"]
+            }
+        }
+    },
+    "required": []
+}
