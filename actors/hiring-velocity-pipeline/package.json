@@ -1,0 +1,16 @@
+{
+    "name": "hiring-velocity-pipeline",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "B2B lead pipeline. Chains Indeed jobs scraper with company enrichment, HEAD reachability, DNS MX verification, and email pattern inference. Pay per qualified hiring company.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}

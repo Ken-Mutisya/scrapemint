@@ -1,0 +1,15 @@
+{
+    "actorSpecification": 1,
+    "name": "hiring-velocity-pipeline",
+    "title": "Hiring Velocity B2B Pipeline: Indeed + Domain + Email",
+    "description": "Find companies hiring senior engineers in your skill area, scored by hiring velocity, enriched with verified domain and likely contact emails. Chains Indeed search with HTTP HEAD reachability, DNS MX verification, and email pattern inference. For dev tool sellers. Pay per qualified hiring company.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "readme": "../README.md",
+    "categories": [
+        "BUSINESS",
+        "LEAD_GENERATION"
+    ]
+}

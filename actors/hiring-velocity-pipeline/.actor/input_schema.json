@@ -1,0 +1,96 @@
+{
+    "title": "Hiring Velocity B2B Pipeline Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "description": "Pass skill keywords and a country. The pipeline pulls Indeed jobs matching those skills, groups jobs by company, scores hiring velocity, and enriches each company with HEAD reachability, DNS MX, and email pattern inference. Only companies passing your minimum velocity gate are charged as qualified.",
+    "properties": {
+        "keywords": {
+            "title": "Skill keywords",
+            "type": "array",
+            "description": "Skills, technologies, or role keywords to search on Indeed. Examples: [\"kubernetes\", \"react\", \"go developer\", \"data platform engineer\"]. Each runs an independent search.",
+            "editor": "stringList",
+            "prefill": ["kubernetes", "react"],
+            "default": [],
+            "sectionCaption": "What to search for"
+        },
+        "country": {
+            "title": "Country",
+            "type": "string",
+            "description": "Indeed regional domain.",
+            "editor": "select",
+            "enum": ["US", "GB", "CA", "AU", "DE", "FR", "IN"],
+            "enumTitles": ["United States", "United Kingdom", "Canada", "Australia", "Germany", "France", "India"],
+            "default": "US"
+        },
+        "locations": {
+            "title": "Locations",
+            "type": "array",
+            "description": "Optional locations to constrain each keyword search. Leave empty for nationwide. Examples: [\"San Francisco, CA\", \"Remote\"].",
+            "editor": "stringList",
+            "default": []
+        },
+        "datePosted": {
+            "title": "Date posted",
+            "type": "string",
+            "description": "Filter by recency. Last 14 days catches active hiring without old stale roles.",
+            "editor": "select",
+            "enum": ["any", "1", "3", "7", "14"],
+            "enumTitles": ["Any time", "Last 24 hours", "Last 3 days", "Last 7 days", "Last 14 days"],
+            "default": "14"
+        },
+        "experienceLevel": {
+            "title": "Experience level",
+            "type": "string",
+            "description": "Senior level is the strongest buying signal (companies with budget for senior hires also have budget for tools).",
+            "editor": "select",
+            "enum": ["any", "entry_level", "mid_level", "senior_level"],
+            "enumTitles": ["Any", "Entry level", "Mid level", "Senior level"],
+            "default": "senior_level"
+        },
+        "maxJobsPerSearch": {
+            "title": "Max jobs per search",
+            "type": "integer",
+            "description": "Cap on Indeed results pulled per keyword. Higher values find more companies but cost more time.",
+            "default": 50,
+            "minimum": 1,
+            "maximum": 500
+        },
+        "maxJobsTotal": {
+            "title": "Max jobs per run",
+            "type": "integer",
+            "description": "Hard cap on jobs processed per run. Controls total cost.",
+            "default": 200,
+            "minimum": 1,
+            "maximum": 5000
+        },
+        "minPostingsPerCompany": {
+            "title": "Minimum postings per company (qualified tier)",
+            "type": "integer",
+            "description": "Companies with fewer than this many matching postings are still returned as basic, but cannot qualify. Default 2 filters out one off opportunistic listings and surfaces companies in active hiring mode.",
+            "default": 2,
+            "minimum": 1,
+            "maximum": 50
+        },
+        "requireWebsite": {
+            "title": "Require a working website for qualified tier",
+            "type": "boolean",
+            "description": "Qualified companies must have a company website on Indeed that resolves and has a valid MX record. Recommended on for outbound use cases.",
+            "default": true
+        },
+        "proxyConfiguration": {
+            "title": "Proxy configuration",
+            "type": "object",
+            "description": "Apify proxy passed through to the Indeed stage. Residential strongly recommended.",
+            "editor": "proxy",
+            "prefill": {
+                "useApifyProxy": true,
+                "apifyProxyGroups": ["RESIDENTIAL"]
+            },
+            "default": {
+                "useApifyProxy": true,
+                "apifyProxyGroups": ["RESIDENTIAL"]
+            }
+        }
+    },
+    "required": ["keywords"]
+}
