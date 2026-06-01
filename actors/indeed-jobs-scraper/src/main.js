@@ -352,7 +352,14 @@ async function handleListing({ page, request, crawler: c }) {
         const initial = window._initialData || window.mosaic?.serverData?.['mosaic-provider-jobcards']?.metaData?.mosaicProviderJobCardsModel
             || (() => { try { return JSON.parse(document.querySelector('script#mosaic-data')?.textContent || '{}'); } catch { return null; } })();
 
-        const text = (n) => (n?.textContent || '').replace(/\s+/g, ' ').trim();
+        const text = (n) => {
+            if (!n) return '';
+            const clone = n.cloneNode(true);
+            clone.querySelectorAll('style, script, noscript').forEach((el) => el.remove());
+            const out = (clone.textContent || '').replace(/\s+/g, ' ').trim();
+            if (out.startsWith('.css') || out.startsWith('.') && /\{[a-z-]+\s*:/i.test(out)) return '';
+            return out;
+        };
         const links = document.querySelectorAll('a[data-jk]');
         links.forEach((a) => {
             const jk = a.getAttribute('data-jk');
@@ -431,7 +438,14 @@ async function handleJob({ page, request, crawler: c }) {
     try { await page.waitForSelector('h1[data-testid="jobsearch-JobInfoHeader-title"], h1.jobsearch-JobInfoHeader-title, [data-testid="jobTitle"]', { timeout: 12000 }); } catch {}
 
     const job = await page.evaluate(() => {
-        const text = (n) => (n?.textContent || '').replace(/\s+/g, ' ').trim();
+        const text = (n) => {
+            if (!n) return '';
+            const clone = n.cloneNode(true);
+            clone.querySelectorAll('style, script, noscript').forEach((el) => el.remove());
+            const out = (clone.textContent || '').replace(/\s+/g, ' ').trim();
+            if (out.startsWith('.css') || out.startsWith('.') && /\{[a-z-]+\s*:/i.test(out)) return '';
+            return out;
+        };
         const initial = window._initialData || (() => {
             try { return JSON.parse(document.querySelector('script#mosaic-data')?.textContent || '{}'); } catch { return null; }
         })();
@@ -557,7 +571,14 @@ async function handleCompany({ page, request }) {
     try { await page.waitForSelector('div[data-testid="company-snippet"], h1[data-testid="company-page-name"]', { timeout: 12000 }); } catch {}
 
     const data = await page.evaluate(() => {
-        const text = (n) => (n?.textContent || '').replace(/\s+/g, ' ').trim();
+        const text = (n) => {
+            if (!n) return '';
+            const clone = n.cloneNode(true);
+            clone.querySelectorAll('style, script, noscript').forEach((el) => el.remove());
+            const out = (clone.textContent || '').replace(/\s+/g, ' ').trim();
+            if (out.startsWith('.css') || out.startsWith('.') && /\{[a-z-]+\s*:/i.test(out)) return '';
+            return out;
+        };
         const detailVal = (label) => {
             const rows = document.querySelectorAll('[data-testid="company-summary"] li, .css-jybh7s, [data-testid="companyInfo"] li');
             for (const r of rows) {
