@@ -1,0 +1,75 @@
+{
+    "title": "SEC Insider Conviction Pipeline Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "description": "Pass a list of tickers or CIKs. The pipeline pulls Form 4 insider transactions and 8-K material events from SEC EDGAR over your lookback window, joins them per company on issuer CIK, and scores each company 0-100 on insider buy intensity plus material catalysts. Optionally enrich with LinkedIn hiring momentum.",
+    "properties": {
+        "tickers": {
+            "title": "Tickers to watch",
+            "type": "array",
+            "description": "Stock tickers to evaluate. Examples: [\"NVDA\", \"AAPL\", \"PLTR\"]. Provide tickers or CIKs (at least one list is required).",
+            "editor": "stringList",
+            "prefill": ["NVDA", "PLTR", "SOFI"],
+            "default": [],
+            "sectionCaption": "Companies to evaluate"
+        },
+        "ciks": {
+            "title": "CIKs to watch",
+            "type": "array",
+            "description": "SEC Central Index Keys, if you prefer them over tickers. Leading zeros are optional. Combines with the ticker list.",
+            "editor": "stringList",
+            "default": []
+        },
+        "lookbackDays": {
+            "title": "Lookback window (days)",
+            "type": "integer",
+            "description": "How far back to evaluate insider transactions and 8-K filings. 90 days captures a quarter of accumulation without stale signal.",
+            "default": 90,
+            "minimum": 7,
+            "maximum": 365,
+            "sectionCaption": "Window and thresholds"
+        },
+        "minBuyValueUsd": {
+            "title": "Minimum insider buy value (USD)",
+            "type": "integer",
+            "description": "Ignore insider transactions below this dollar value. 0 includes every reported transaction. Raise it to filter out token purchases.",
+            "default": 0,
+            "minimum": 0
+        },
+        "maxItemsTotal": {
+            "title": "Max filings per source",
+            "type": "integer",
+            "description": "Hard cap on rows pulled from each EDGAR source (Form 4 and 8-K) per run. Controls total cost.",
+            "default": 300,
+            "minimum": 50,
+            "maximum": 2000
+        },
+        "includeHiringEnrichment": {
+            "title": "Add LinkedIn hiring enrichment",
+            "type": "boolean",
+            "description": "Optional. When on AND you supply the ticker to LinkedIn URL map below, the pipeline adds hiring momentum to the conviction score. Off keeps the run 100% SEC EDGAR with no antibot exposure.",
+            "default": false,
+            "sectionCaption": "Optional hiring enrichment (LinkedIn)"
+        },
+        "linkedinCompanyMap": {
+            "title": "Ticker to LinkedIn company URL map",
+            "type": "array",
+            "description": "Only used when hiring enrichment is on. Each entry maps a ticker to its LinkedIn company URL, e.g. {\"ticker\": \"NVDA\", \"companyUrl\": \"https://www.linkedin.com/company/nvidia/\"}. There is no automatic ticker to LinkedIn lookup, so you must supply these.",
+            "editor": "json",
+            "default": []
+        },
+        "proxyConfiguration": {
+            "title": "Proxy configuration",
+            "type": "object",
+            "description": "Optional Apify proxy passed to the child actors. EDGAR does not require a proxy; the LinkedIn enrichment stage benefits from residential.",
+            "editor": "proxy",
+            "prefill": {
+                "useApifyProxy": true
+            },
+            "default": {
+                "useApifyProxy": true
+            }
+        }
+    },
+    "required": []
+}

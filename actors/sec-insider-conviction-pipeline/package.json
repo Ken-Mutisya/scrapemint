@@ -1,0 +1,16 @@
+{
+    "name": "sec-insider-conviction-pipeline",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Conviction signal pipeline. Chains SEC Form 4 insider buys with 8-K material events (and optional LinkedIn hiring momentum), joins on issuer CIK, and scores each company 0-100. Core tier is 100% SEC EDGAR with no antibot exposure. Pay per scored company.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}

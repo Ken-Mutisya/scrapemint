@@ -1,0 +1,25 @@
+{
+    "_note": "PUT this to /v2/acts/{actorId} as pricingInfos array entry. Per playbook: PAY_PER_EVENT only on BRONZE plan, startedAt 14+ days out. Apify auto-adds 20% margin. NOTE: this pipeline calls sec-form4-insider-tracker and sec-8k-event-tracker, whose own per-event charges also bill the buyer in addition to these events. Document combined cost in README.",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~sec-insider-conviction-pipeline?token=APIFY_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "watch_company": {
+                "eventTitle": "Watch company",
+                "eventDescription": "One company that appeared in the EDGAR window but did not meet the accumulation bar (no qualifying insider open-market buys, or a bearish risk flag such as bankruptcy, delisting, or a non-reliance restatement voided the thesis). Includes the conviction score, any 8-K catalysts, and risk flags.",
+                "eventPriceUsd": 0.04
+            },
+            "accumulation_company": {
+                "eventTitle": "Accumulation company",
+                "eventDescription": "One company with at least one insider open-market buy and a conviction score of 40 or higher. Includes insider buy value, cluster-buy flag, top buyers, 8-K catalysts, and the 0-100 conviction score.",
+                "eventPriceUsd": 0.10
+            },
+            "high_conviction_company": {
+                "eventTitle": "High-conviction company",
+                "eventDescription": "One company scoring 70 or higher with a cluster buy (two or more distinct insiders buying on the open market) AND at least one material 8-K catalyst, with no bearish risk flag. The strongest accumulation signal. Includes full insider buyer detail, catalyst breakdown, and optional hiring momentum. First 3 high-conviction rows per run are free so you can validate output.",
+                "eventPriceUsd": 0.18
+            }
+        }
+    },
+    "startedAt": "2026-06-15T00:00:00.000Z"
+}

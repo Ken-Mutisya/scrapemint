@@ -1,0 +1,15 @@
+{
+    "actorSpecification": 1,
+    "name": "sec-insider-conviction-pipeline",
+    "title": "SEC Insider Conviction Pipeline: Form 4 Buys + 8-K Catalysts",
+    "description": "Find companies where insiders are buying on the open market AND filing material 8-K catalysts. Chains SEC Form 4 with 8-K events, joins on issuer CIK, and scores each company 0-100 by conviction tier. Core tier is 100% SEC EDGAR, no antibot risk. Pay per scored company.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "readme": "../README.md",
+    "categories": [
+        "BUSINESS",
+        "LEAD_GENERATION"
+    ]
+}
