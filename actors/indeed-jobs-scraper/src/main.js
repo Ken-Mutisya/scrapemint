@@ -112,7 +112,18 @@ const {
     proxyConfiguration: proxyInput,
 } = input;
 
-const proxyConfiguration = await Actor.createProxyConfiguration(proxyInput);
+// Pin the residential exit node to the Indeed host country. A US job board hit
+// from a random global residential IP is exactly the mismatch Cloudflare scores
+// against; geo-matching the exit drops the challenge rate on deep pages (/cmp/).
+const proxyOpts = proxyInput ? { ...proxyInput } : { useApifyProxy: true, apifyProxyGroups: ['RESIDENTIAL'] };
+if (proxyOpts.useApifyProxy !== false
+    && Array.isArray(proxyOpts.apifyProxyGroups)
+    && proxyOpts.apifyProxyGroups.includes('RESIDENTIAL')
+    && !proxyOpts.apifyProxyCountry
+    && /^[A-Z]{2}$/.test(country)) {
+    proxyOpts.apifyProxyCountry = country;
+}
+const proxyConfiguration = await Actor.createProxyConfiguration(proxyOpts);
 const seenStore = dedupe ? await Actor.openKeyValueStore('indeed-jobs-seen') : null;
 const seenJobIds = new Set(seenStore ? (await seenStore.getValue('seen-job-ids')) || [] : []);
 const seenCompanies = new Set();
@@ -162,18 +173,32 @@ const crawler = new PlaywrightCrawler({
         async ({ page, session, request }, gotoOptions) => {
             gotoOptions.waitUntil = 'domcontentloaded';
             gotoOptions.timeout = 90000;
+
+            // Job and company pages are reached by following a link mid-crawl, so
+            // they should carry a same-origin referer. Sending Sec-Fetch-Site:none
+            // (a typed/address-bar visit) for a deep /cmp/ page is itself a tell.
+            const reqType = request.userData?.type;
+            const host = request.userData?.host || COUNTRY_HOST[country] || COUNTRY_HOST.US;
+            const linkedNav = reqType === 'company' || reqType === 'job';
+            const referer = request.userData?.originatingStartUrl || `https://${host}/`;
             await page.setExtraHTTPHeaders({
                 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8',
                 'Accept-Language': 'en-US,en;q=0.9',
                 'Upgrade-Insecure-Requests': '1',
                 'Sec-Fetch-Dest': 'document',
                 'Sec-Fetch-Mode': 'navigate',
-                'Sec-Fetch-Site': 'none',
+                'Sec-Fetch-Site': linkedNav ? 'same-origin' : 'none',
                 'Sec-Fetch-User': '?1',
+                ...(linkedNav ? { 'Referer': referer } : {}),
             });
 
+            // Company pages are the most aggressively protected; stagger them with a
+            // short random delay so a burst of /cmp/ hits doesn't trip rate scoring.
+            if (reqType === 'company') {
+                await page.waitForTimeout(700 + Math.floor(Math.random() * 1600));
+            }
+
             // Session warmup: hit homepage once per session to set Cloudflare cookies.
-            const host = request.userData?.host || COUNTRY_HOST[country] || COUNTRY_HOST.US;
             if (session && !session.userData?.warmed) {
                 try {
                     await page.goto(`https://${host}/`, { waitUntil: 'domcontentloaded', timeout: 45000 });
@@ -562,12 +587,16 @@ async function handleCompany({ page, request }) {
     await page.waitForLoadState('domcontentloaded');
     await dismissModals(page);
 
+    // Give the Cloudflare interstitial its 5-10s to auto-resolve BEFORE judging
+    // the page. Checking first (as this handler used to) treated every transient
+    // "Just a moment" as a hard block, which is most of the /cmp/ challenge rate.
+    await passCloudflareIfPresent(page);
+
     if (await looksLikeChallenge(page)) {
         request.session?.markBad();
         throw new Error('Indeed challenge');
     }
 
-    await passCloudflareIfPresent(page);
     try { await page.waitForSelector('div[data-testid="company-snippet"], h1[data-testid="company-page-name"]', { timeout: 12000 }); } catch {}
 
     const data = await page.evaluate(() => {
@@ -808,8 +837,10 @@ async function looksLikeChallenge(page) {
     try {
         const html = await page.content();
         if (!/Cloudflare|Just a moment|hcaptcha|recaptcha|cf-error-details|please verify you are a human/i.test(html)) return false;
-        // If the page also contains job content, the challenge already cleared.
-        return !/data-jk=|jobsearch-JobInfoHeader|mosaic-provider-jobcards/i.test(html);
+        // If the page also contains real content, the challenge already cleared.
+        // Company (/cmp/) pages never carry job markers, so they need their own
+        // tells here or a resolved company page reads as a permanent block.
+        return !/data-jk=|jobsearch-JobInfoHeader|mosaic-provider-jobcards|company-page-name|company-snippet|companyAboutSection|data-testid="company-summary"/i.test(html);
     } catch { return false; }
 }
 
