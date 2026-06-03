@@ -327,7 +327,11 @@ async function fetchForm4Xml(cik, accNoDashes, primaryDoc) {
     let xmlName = null;
 
     if (primaryDoc && primaryDoc.endsWith('.xml')) {
-        xmlName = primaryDoc;
+        // EDGAR's primaryDocument for Form 4/5 points at the XSLT-rendered
+        // viewer path (xslF345X0N/<file>.xml), which is HTML, not the ownership
+        // XML. Strip that prefix to reach the raw XML in the accession root, or
+        // every filing parses to zero transactions.
+        xmlName = primaryDoc.replace(/^xslF345X\d+\//i, '');
     }
 
     if (!xmlName) {
