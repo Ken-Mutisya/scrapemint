@@ -77,8 +77,7 @@
             "type": "string",
             "description": "Your own Product Hunt developer token. Create one at https://www.producthunt.com/v2/oauth/applications. Only used when the toggle above is on.",
             "editor": "textfield",
-            "isSecret": true,
-            "default": ""
+            "isSecret": true
         },
         "productHuntTopics": {
             "title": "Product Hunt topics",
