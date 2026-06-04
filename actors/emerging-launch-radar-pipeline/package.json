@@ -1,0 +1,16 @@
+{
+    "name": "emerging-launch-radar-pipeline",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Cross-platform launch momentum pipeline. Chains GitHub trending velocity with Hacker News attention (and optional Product Hunt), joins per project on GitHub owner/name, domain, then name token, and scores momentum 0-100. Core sources are token-free and antibot-free. Pay per scored project.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}

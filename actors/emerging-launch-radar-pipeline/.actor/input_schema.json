@@ -1,0 +1,111 @@
+{
+    "title": "Emerging Launch Radar Pipeline Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "description": "Pulls GitHub trending repos and Hacker News launch / front-page stories over your window, joins them per project, and scores cross-platform momentum 0-100. Optionally adds Product Hunt (needs your own token) and domain WHOIS/MX enrichment.",
+    "properties": {
+        "keywords": {
+            "title": "Keywords / topics",
+            "type": "array",
+            "description": "Optional. Narrows the Hacker News search (and Product Hunt, if on) to these terms. Leave empty to take the whole GitHub trending list plus the HN feeds below. Examples: [\"ai agent\", \"vector db\", \"devtool\"].",
+            "editor": "stringList",
+            "prefill": ["ai", "developer tool"],
+            "default": [],
+            "sectionCaption": "What to scan"
+        },
+        "githubTimeframes": {
+            "title": "GitHub trending timeframes",
+            "type": "array",
+            "description": "Which GitHub trending lists to pull. daily catches the freshest movers; weekly/monthly are steadier.",
+            "editor": "stringList",
+            "default": ["daily"]
+        },
+        "githubLanguages": {
+            "title": "GitHub languages",
+            "type": "array",
+            "description": "Optional language filters for GitHub trending, e.g. [\"python\", \"typescript\", \"rust\"]. Empty pulls all languages.",
+            "editor": "stringList",
+            "default": []
+        },
+        "hnFeeds": {
+            "title": "Hacker News feeds",
+            "type": "array",
+            "description": "Which HN feeds to pull. Valid: show (Show HN launches), top (front page), best, new, ask, jobs. Default show + top is the launch / traction signal.",
+            "editor": "stringList",
+            "default": ["show", "top"]
+        },
+        "hnMaxAgeHours": {
+            "title": "Hacker News max age (hours)",
+            "type": "integer",
+            "description": "Ignore HN stories older than this. 168 = one week of launches.",
+            "default": 168,
+            "minimum": 24,
+            "maximum": 2160,
+            "sectionCaption": "Window and thresholds"
+        },
+        "minStarsInPeriod": {
+            "title": "Minimum GitHub stars in period",
+            "type": "integer",
+            "description": "A project with fewer stars-in-period than this AND below the HN points floor (and no Product Hunt votes) is dropped as noise.",
+            "default": 10,
+            "minimum": 0
+        },
+        "minHnPoints": {
+            "title": "Minimum Hacker News points",
+            "type": "integer",
+            "description": "HN points floor used by the same noise gate as above.",
+            "default": 10,
+            "minimum": 0
+        },
+        "maxItemsPerSource": {
+            "title": "Max items per source",
+            "type": "integer",
+            "description": "Hard cap on rows pulled from each source per run. Controls total cost (each child also bills per row).",
+            "default": 150,
+            "minimum": 20,
+            "maximum": 500
+        },
+        "includeProductHunt": {
+            "title": "Add Product Hunt source",
+            "type": "boolean",
+            "description": "Optional third signal. When on AND you supply your own Product Hunt developer token below, launches are joined in as a corroborating source. Off keeps the run token-free.",
+            "default": false,
+            "sectionCaption": "Optional Product Hunt source"
+        },
+        "productHuntToken": {
+            "title": "Product Hunt developer token",
+            "type": "string",
+            "description": "Your own Product Hunt developer token. Create one at https://www.producthunt.com/v2/oauth/applications. Only used when the toggle above is on.",
+            "editor": "textfield",
+            "isSecret": true,
+            "default": ""
+        },
+        "productHuntTopics": {
+            "title": "Product Hunt topics",
+            "type": "array",
+            "description": "Optional Product Hunt topic slugs to scan, e.g. [\"developer-tools\", \"artificial-intelligence\"].",
+            "editor": "stringList",
+            "default": []
+        },
+        "includeDomainEnrichment": {
+            "title": "Add domain WHOIS + MX enrichment",
+            "type": "boolean",
+            "description": "Optional. Runs domain-intelligence on each project's domain so rows carry registrar, domain age, and whether the domain has mail (MX) for outreach. Adds child cost.",
+            "default": false,
+            "sectionCaption": "Optional domain enrichment"
+        },
+        "proxyConfiguration": {
+            "title": "Proxy configuration",
+            "type": "object",
+            "description": "Optional Apify proxy passed to the child actors. GitHub and Hacker News do not require a proxy.",
+            "editor": "proxy",
+            "prefill": {
+                "useApifyProxy": true
+            },
+            "default": {
+                "useApifyProxy": true
+            }
+        }
+    },
+    "required": []
+}

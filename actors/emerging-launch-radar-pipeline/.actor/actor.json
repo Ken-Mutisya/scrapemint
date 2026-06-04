@@ -1,0 +1,15 @@
+{
+    "actorSpecification": 1,
+    "name": "emerging-launch-radar-pipeline",
+    "title": "Emerging Launch Radar: GitHub Trending + Hacker News Momentum",
+    "description": "Find software products gaining real traction now. Chains GitHub trending velocity with Hacker News attention (optional Product Hunt), joins them per project, and scores momentum 0-100 into breakout / momentum / mention tiers. Core sources are token-free and antibot-free. Pay per scored project.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "readme": "../README.md",
+    "categories": [
+        "BUSINESS",
+        "LEAD_GENERATION"
+    ]
+}
