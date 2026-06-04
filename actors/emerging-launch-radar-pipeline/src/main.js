@@ -64,11 +64,24 @@ const ghRun = await Actor.call(
 const ghRows = await readDataset(ghRun, 'GitHub trending');
 
 // ---------- Stage 2: Hacker News (attention-side signal) ----------
-log.info('Stage 2: pulling Hacker News launch / front-page stories.');
+// Search HN for the top trending repo names so we catch when a GitHub mover is
+// ALSO getting Hacker News attention (the cross-platform breakout signal), not
+// just whatever happens to be on the live front page this minute. The join only
+// grants cross-platform credit on a precise GitHub-URL / domain match, so noisy
+// name searches that miss just become harmless HN-only rows.
+const repoQueries = ghRows
+    .slice()
+    .sort((a, b) => (Number(b.starsInPeriod) || 0) - (Number(a.starsInPeriod) || 0))
+    .map((r) => (r.name || '').toString().trim())
+    .filter((n) => n.length >= 3)
+    .slice(0, 20);
+const hnQueries = [...new Set([...cleanKeywords, ...repoQueries])];
+
+log.info(`Stage 2: pulling Hacker News (feeds + ${repoQueries.length} trending-repo searches).`);
 const hnRun = await Actor.call(
     'scrapemint/hn-lead-monitor',
     {
-        searchQueries: cleanKeywords,
+        searchQueries: hnQueries,
         feeds: Array.isArray(hnFeeds) ? hnFeeds : ['show', 'top'],
         keywords: cleanKeywords,
         searchType: 'stories',
@@ -179,9 +192,9 @@ for (const s of hnRows) {
         dom = registrable(host);
         if (dom) e = byDomain.get(dom);
     }
-
-    const nk = normName(s.title);
-    if (!e && nk.length >= 4) e = byName.get(nk);
+    // Note: GitHub<->HN bridging is intentionally limited to precise GitHub-URL
+    // and domain matches. Name-token bridging is too noisy (e.g. a "supermemory"
+    // sleep article vs the supermemory repo) and would inflate cross-platform.
 
     if (!e) {
         e = newEntity({ name: productName(s.title) });
