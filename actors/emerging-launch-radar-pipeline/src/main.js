@@ -55,7 +55,7 @@ const ghRun = await Actor.call(
     {
         timeframes: Array.isArray(githubTimeframes) && githubTimeframes.length ? githubTimeframes : ['daily'],
         languages: Array.isArray(githubLanguages) ? githubLanguages : [],
-        maxReposPerList: perSource,
+        maxReposPerList: Math.min(25, perSource), // github-trending-scraper hard caps this at 25 per list
         includeContributors: false,
         proxyConfiguration: proxyInput,
     },
