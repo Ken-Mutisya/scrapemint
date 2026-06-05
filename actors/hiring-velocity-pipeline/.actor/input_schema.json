@@ -51,7 +51,7 @@
             "title": "Max jobs per search",
             "type": "integer",
             "description": "Cap on Indeed results pulled per keyword. Higher values find more companies but cost more time.",
-            "default": 50,
+            "default": 25,
             "minimum": 1,
             "maximum": 500
         },
@@ -59,7 +59,7 @@
             "title": "Max jobs per run",
             "type": "integer",
             "description": "Hard cap on jobs processed per run. Controls total cost.",
-            "default": 200,
+            "default": 50,
             "minimum": 1,
             "maximum": 5000
         },

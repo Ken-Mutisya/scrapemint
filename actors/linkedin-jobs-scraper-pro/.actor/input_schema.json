@@ -217,16 +217,10 @@
             "description": "Apify proxy. Datacenter works for low volume. Residential is required above a few hundred jobs or for company enrichment.",
             "editor": "proxy",
             "prefill": {
-                "useApifyProxy": true,
-                "apifyProxyGroups": [
-                    "RESIDENTIAL"
-                ]
+                "useApifyProxy": true
             },
             "default": {
-                "useApifyProxy": true,
-                "apifyProxyGroups": [
-                    "RESIDENTIAL"
-                ]
+                "useApifyProxy": true
             }
         }
     }

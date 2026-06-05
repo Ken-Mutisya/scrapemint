@@ -42,7 +42,7 @@
             "title": "Max places per run",
             "type": "integer",
             "description": "Hard cap on places processed per run. Controls total cost.",
-            "default": 100,
+            "default": 25,
             "minimum": 1,
             "maximum": 2000
         },
@@ -72,7 +72,7 @@
             "title": "Pull recent reviews for sentiment",
             "type": "boolean",
             "description": "Asks the Maps scraper for up to 5 recent reviews per place to surface negative review count. Adds time per place.",
-            "default": true
+            "default": false
         },
         "proxyConfiguration": {
             "title": "Proxy configuration",
