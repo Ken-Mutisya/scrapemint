@@ -1,0 +1,49 @@
+{
+    "title": "Brand Reputation Pipeline Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "description": "Give each brand a name plus one or more platform URLs (Google Maps place, Yelp business, Trustpilot review page, G2 product). The pipeline pulls reviews from each, then returns one cross-platform reputation profile per brand.",
+    "properties": {
+        "brands": {
+            "title": "Brands to profile",
+            "type": "array",
+            "description": "One object per brand. Each needs a name and at least one platform URL. Fields: name, googlePlaceUrl, googleSearchQuery (used only if googlePlaceUrl is empty), yelpUrl, trustpilotUrl, g2Url. Up to 25 brands per run.",
+            "editor": "json",
+            "prefill": [
+                {
+                    "name": "Notion",
+                    "trustpilotUrl": "https://www.trustpilot.com/review/notion.so",
+                    "g2Url": "https://www.g2.com/products/notion/reviews"
+                }
+            ]
+        },
+        "maxReviewsPerPlatform": {
+            "title": "Maximum reviews per platform",
+            "type": "integer",
+            "description": "Hard cap on reviews pulled from each platform per brand. Higher gives steadier averages and richer themes but raises the per-review charges from the child actors. G2 is additionally capped at 50 by that child.",
+            "default": 150,
+            "minimum": 10,
+            "maximum": 2000,
+            "sectionCaption": "Run options"
+        },
+        "recentWindowDays": {
+            "title": "Recent window (days)",
+            "type": "integer",
+            "description": "Reviews newer than this feed the recent vs overall trend. 90 covers the last quarter.",
+            "default": 90,
+            "minimum": 7,
+            "maximum": 730
+        },
+        "proxyConfiguration": {
+            "title": "Proxy configuration",
+            "type": "object",
+            "description": "Passed through to every review child. Residential is recommended; the children fall back to their own defaults if you leave this empty.",
+            "editor": "proxy",
+            "prefill": {
+                "useApifyProxy": true,
+                "apifyProxyGroups": ["RESIDENTIAL"]
+            }
+        }
+    },
+    "required": ["brands"]
+}

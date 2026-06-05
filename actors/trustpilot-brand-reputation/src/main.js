@@ -20,7 +20,7 @@
 //     status, review source, language, company reply text).
 
 import { Actor, log } from 'apify';
-import { PlaywrightCrawler } from 'crawlee';
+import { CheerioCrawler } from 'crawlee';
 
 const FREE_TIER_REVIEWS = 100;
 const REVIEWS_PER_PAGE = 20;
@@ -59,27 +59,32 @@ const proxyConfiguration = await Actor.createProxyConfiguration(proxyInput);
 const pushedPerBusiness = new Map();
 let totalPushed = 0;
 
-const crawler = new PlaywrightCrawler({
+// Trustpilot server-renders the full page state into <script id="__NEXT_DATA__">,
+// so we never need a browser. A plain HTTP fetch (got-scraping, via
+// CheerioCrawler) with a residential proxy carries a real browser header /
+// TLS profile and slips past the PerimeterX challenge that 403s a headless
+// Playwright fingerprint. Sessions rotate on a block so a bad IP is retired.
+const crawler = new CheerioCrawler({
     proxyConfiguration,
     maxRequestsPerCrawl: Math.max(starts.length * 10, Math.ceil(maxReviews / REVIEWS_PER_PAGE) * starts.length + 5),
+    requestHandlerTimeoutSecs: 90,
     navigationTimeoutSecs: 45,
-    requestHandlerTimeoutSecs: 120,
-    headless: true,
-    launchContext: {
-        launchOptions: {
-            args: ['--disable-blink-features=AutomationControlled'],
+    maxRequestRetries: 6,
+    retryOnBlocked: true,
+    useSessionPool: true,
+    persistCookiesPerSession: true,
+    sessionPoolOptions: { maxPoolSize: 50 },
+    preNavigationHooks: [
+        async ({ request }) => {
+            request.headers = {
+                ...request.headers,
+                'Accept-Language': 'en-US,en;q=0.9',
+                Accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+                Referer: 'https://www.trustpilot.com/',
+            };
         },
-    },
-    browserPoolOptions: {
-        useFingerprints: true,
-        preLaunchHooks: [
-            async (_pageId, launchContext) => {
-                launchContext.launchOptions ??= {};
-                launchContext.launchOptions.locale = 'en-US';
-            },
-        ],
-    },
-    async requestHandler({ request, page, crawler }) {
+    ],
+    async requestHandler({ request, $, body, crawler, session }) {
         const { businessKey, pageNum } = request.userData;
         const reviewCap = maxReviews;
         const pushedForBiz = pushedPerBusiness.get(businessKey) ?? 0;
@@ -89,13 +94,13 @@ const crawler = new PlaywrightCrawler({
         }
 
         log.info(`Fetching ${request.url} (page ${pageNum})`);
-        await page.goto(request.url, { waitUntil: 'domcontentloaded' });
-        await page.waitForTimeout(2500);
 
-        const nextData = await extractNextData(page);
+        const nextData = extractNextData($, body);
         if (!nextData) {
-            log.warning(`No __NEXT_DATA__ found for ${request.url}. Trustpilot may be blocking. Skipping.`);
-            return;
+            // No data contract on the page usually means a soft block or a
+            // challenge interstitial. Retire the session and retry on a new IP.
+            session?.retire();
+            throw new Error(`No __NEXT_DATA__ for ${request.url} (possible block); retrying on a fresh session.`);
         }
 
         const pageProps = nextData?.props?.pageProps;
@@ -166,9 +171,14 @@ await Actor.exit();
 
 // ---- helpers ----
 
-async function extractNextData(page) {
+function extractNextData($, body) {
     try {
-        const raw = await page.$eval('#__NEXT_DATA__', (el) => el.textContent);
+        let raw = $ ? $('#__NEXT_DATA__').first().html() : null;
+        if (!raw && body) {
+            // Fallback: pull the script payload straight out of the raw HTML.
+            const m = String(body).match(/<script[^>]*id="__NEXT_DATA__"[^>]*>([\s\S]*?)<\/script>/i);
+            raw = m ? m[1] : null;
+        }
         return raw ? JSON.parse(raw) : null;
     } catch (err) {
         log.debug(`__NEXT_DATA__ extraction failed: ${err?.message}`);

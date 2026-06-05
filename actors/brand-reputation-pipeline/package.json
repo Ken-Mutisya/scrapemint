@@ -1,0 +1,16 @@
+{
+    "name": "brand-reputation-pipeline",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Cross-platform brand reputation pipeline. Chains Google, Yelp, Trustpilot, and G2 review actors per brand, then returns a volume-weighted reputation score 0-100, cross-platform rating divergence, a recent vs overall trend, and the top complaint and praise themes. Pay per brand profile.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}

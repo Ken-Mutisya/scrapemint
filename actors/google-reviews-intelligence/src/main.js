@@ -193,7 +193,7 @@ const crawler = new PlaywrightCrawler({
         log.info(`Collected ${reviews.length} reviews for ${placeKey}.`);
 
         if (process.env.GRI_DEBUG_CARD) {
-            const cardHtml = await page.$eval('div[data-review-id]', (c) => c.outerHTML).catch(() => null);
+            const cardHtml = await page.$eval('div[data-review-id], div.jftiEf', (c) => c.outerHTML).catch(() => null);
             if (cardHtml) {
                 const store = await Actor.openKeyValueStore();
                 await store.setValue(`debug_card_${placeKey.replace(/[^a-zA-Z0-9_-]/g, '_').slice(0, 60)}`, cardHtml, { contentType: 'text/html' });
@@ -285,16 +285,48 @@ async function extractPlaceMeta(page) {
             }
             return null;
         };
-        const name = pick(['h1.DUwDvf', 'h1[class*="DUwDvf"]', 'h1']);
-        // Aggregate rating sits in a div with role=img aria-label like "4.6 stars".
-        const ratingEl = document.querySelector('div.F7nice span[aria-hidden="true"]')
-            || document.querySelector('[class*="F7nice"] span');
-        const ratingText = ratingEl?.textContent?.trim() ?? '';
-        const ratingNum = parseFloat(ratingText.replace(',', '.'));
-        const reviewCountEl = document.querySelector('div.F7nice span:nth-child(2) span')
-            || document.querySelector('button[aria-label*="reviews" i] span');
-        const reviewCountText = reviewCountEl?.textContent?.trim() ?? '';
-        const reviewCount = Number(reviewCountText.replace(/[^0-9]/g, '')) || null;
+        // The place title h1 class has churned over time (DUwDvf -> LoqBob).
+        // Try the known classes, ignore the search pane's "Results" heading,
+        // then fall back to the document title ("<Name> - Google Maps").
+        const titleEls = [...document.querySelectorAll('h1.DUwDvf, h1.LoqBob, h1[class*="DUwDvf"], h1[class*="LoqBob"], h1')];
+        let name = null;
+        for (const el of titleEls) {
+            const t = el.textContent?.trim();
+            if (t && !/^results$/i.test(t)) { name = t; break; }
+        }
+        if (!name) {
+            const dt = (document.title || '').replace(/\s*-\s*Google Maps\s*$/i, '').trim();
+            if (dt) name = dt;
+        }
+
+        // The rating block exposes one aria-label like "4.3 stars 14,013 Reviews".
+        // That single attribute is the most stable source for both numbers.
+        let ratingNum = null;
+        let reviewCount = null;
+        const labelled = [...document.querySelectorAll('[aria-label*="stars" i][aria-label*="review" i], [role="img"][aria-label*="star" i]')];
+        for (const el of labelled) {
+            const lbl = el.getAttribute('aria-label') || '';
+            const m = lbl.match(/([\d.,]+)\s*stars?\s*([\d.,]+)?\s*reviews?/i);
+            if (m) {
+                ratingNum = parseFloat(m[1].replace(/,/g, ''));
+                if (m[2]) reviewCount = Number(m[2].replace(/[^0-9]/g, '')) || null;
+                break;
+            }
+        }
+        if (ratingNum === null) {
+            const ratingEl = document.querySelector('div.F7nice span[aria-hidden="true"]')
+                || document.querySelector('[class*="F7nice"] span');
+            const ratingText = ratingEl?.textContent?.trim() ?? '';
+            const n = parseFloat(ratingText.replace(',', '.'));
+            ratingNum = Number.isFinite(n) ? n : null;
+        }
+        if (reviewCount === null) {
+            const rc = document.querySelector('button[aria-label*="reviews" i]')?.getAttribute('aria-label')
+                || document.querySelector('div.F7nice')?.textContent
+                || '';
+            const m = rc.match(/([\d,]+)\s*reviews?/i);
+            if (m) reviewCount = Number(m[1].replace(/[^0-9]/g, '')) || null;
+        }
 
         const category = pick(['button[jsaction*="category"]', 'button[class*="DkEaL"]']);
         const address = pick(['button[data-item-id="address"]', 'button[aria-label*="Address"]']);
@@ -340,8 +372,11 @@ async function acceptConsent(page) {
 }
 
 async function clickReviewsTab(page) {
-    // Already on the reviews feed? Nothing to do.
-    if (await page.$('div[role="feed"]').catch(() => null)) return;
+    // If review cards are already in the DOM we are on the reviews feed.
+    // Note: a plain div[role="feed"] is NOT a reliable signal because the
+    // search-results list also uses role="feed" with zero review cards, which
+    // previously made this function early-return and scroll the wrong panel.
+    if (await page.$('div[data-review-id], div.jftiEf').catch(() => null)) return;
 
     // The reviews tab is a [role="tab"] button. Its aria-label in English is
     // "Reviews for <name>" on place pages. Wait up to 10s for it to render.
@@ -352,8 +387,8 @@ async function clickReviewsTab(page) {
 
     if (!tab) return;
     await tab.click().catch(() => {});
-    // Wait for the reviews feed panel to populate.
-    await page.waitForSelector('div[role="feed"]', { timeout: 15000 }).catch(() => {});
+    // Wait for actual review cards (not just any feed) to populate.
+    await page.waitForSelector('div[data-review-id], div.jftiEf', { timeout: 15000 }).catch(() => {});
     await page.waitForTimeout(1500);
 }
 
@@ -385,17 +420,33 @@ async function setSortOrder(page, sortBy) {
 }
 
 async function scrollAndCollectReviews(page, maxReviews) {
-    // The reviews scroll container is the div with role=feed or the aria-label
-    // "reviews of <name>" div. Fall back to document scroll.
-    const panelHandle = await page.$('div[role="feed"]')
-        || await page.$('div[aria-label*="Reviews of" i]');
+    // The reviews scroll container is the role=feed that actually holds review
+    // cards. Pick it by walking up from the first data-review-id card so we do
+    // not accidentally scroll the search-results feed (also role=feed).
+    const rawHandle = await page.evaluateHandle(() => {
+        const card = document.querySelector('div[data-review-id], div.jftiEf');
+        if (card) {
+            let el = card.parentElement;
+            while (el && el !== document.body) {
+                if (el.getAttribute('role') === 'feed' || /Reviews of/i.test(el.getAttribute('aria-label') || '')) return el;
+                el = el.parentElement;
+            }
+        }
+        const feeds = [...document.querySelectorAll('div[role="feed"]')];
+        // Prefer a feed that contains review cards over the search-results feed.
+        return feeds.find((f) => f.querySelector('div[data-review-id], div.jftiEf'))
+            || document.querySelector('div[aria-label*="Reviews of" i]')
+            || feeds[0]
+            || null;
+    }).catch(() => null);
+    const panelHandle = rawHandle ? rawHandle.asElement() : null;
 
     let stale = 0;
     let lastCount = 0;
 
     for (let i = 0; i < 80; i++) {
         await expandMoreButtons(page);
-        const currentCount = await page.$$eval('div[data-review-id]', (els) => els.length).catch(() => 0);
+        const currentCount = await page.$$eval('div[data-review-id], div.jftiEf', (els) => els.length).catch(() => 0);
         if (currentCount >= maxReviews) break;
         if (currentCount === lastCount) {
             stale += 1;
@@ -415,7 +466,7 @@ async function scrollAndCollectReviews(page, maxReviews) {
 
     await expandMoreButtons(page);
 
-    return await page.$$eval('div[data-review-id]', (cards) => {
+    return await page.$$eval('div[data-review-id], div.jftiEf', (cards) => {
         const parseStars = (card) => {
             const starEl = card.querySelector('span[role="img"][aria-label*="star" i]')
                 || card.querySelector('[aria-label*="star" i]');
@@ -440,7 +491,13 @@ async function scrollAndCollectReviews(page, maxReviews) {
             };
         };
         return cards.slice(0, 5000).map((card) => {
-            const reviewId = card.getAttribute('data-review-id');
+            // Google dropped the data-review-id attribute from review cards.
+            // Take it where present, else fall back to the jslog/jsdata token
+            // some cards still carry, else null (deduped later by content).
+            const reviewId = card.getAttribute('data-review-id')
+                || card.querySelector('[data-review-id]')?.getAttribute('data-review-id')
+                || (card.getAttribute('jsdata')?.match(/;([^;]+);/)?.[1] ?? null)
+                || (card.getAttribute('jslog')?.match(/2:\[[^\]]*"([^"]{8,})"/)?.[1] ?? null);
             const nameEl = card.querySelector('div.d4r55, div[class*="d4r55"]');
             const profileEl = card.querySelector('button[data-review-id] img, a[class*="WNxzHc"] img');
             const reviewerReviewCountEl = card.querySelector('div.RfnDt, div[class*="RfnDt"]');
@@ -454,21 +511,31 @@ async function scrollAndCollectReviews(page, maxReviews) {
                 .slice(0, 20);
             const ownerResponse = parseOwnerResponse(card);
 
+            const rating = parseStars(card);
+            const text = parseText(card);
+            const reviewerName = nameEl?.textContent?.trim() ?? null;
+            const writtenDate = parseDate(card);
+            // Fall back to a content fingerprint so cards with no id still dedupe.
+            const stableId = reviewId
+                || (reviewerName || text || writtenDate
+                    ? `syn:${(reviewerName || '').slice(0, 40)}|${writtenDate || ''}|${(text || '').slice(0, 40)}`
+                    : null);
+
             return {
-                reviewId,
-                rating: parseStars(card),
-                text: parseText(card),
-                reviewerName: nameEl?.textContent?.trim() ?? null,
+                reviewId: stableId,
+                rating,
+                text,
+                reviewerName,
                 reviewerProfileImage: profileEl?.getAttribute('src') ?? null,
                 reviewerReviewCount: reviewerReviewCountEl?.textContent?.trim() ?? null,
-                writtenDate: parseDate(card),
+                writtenDate,
                 photoUrls: photos,
                 language: null,
                 hasOwnerResponse: !!ownerResponse.text,
                 ownerResponseText: ownerResponse.text,
                 ownerResponseDate: ownerResponse.date,
             };
-        }).filter((r) => r.reviewId);
+        }).filter((r) => r.reviewId && (r.rating !== null || r.text || r.reviewerName));
     }).catch(() => []);
 }
 
