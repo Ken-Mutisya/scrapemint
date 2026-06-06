@@ -1,0 +1,15 @@
+{
+    "actorSpecification": 1,
+    "name": "macro-event-edge-pipeline",
+    "title": "Macro Event Edge: Calendar, Trader Sentiment, Market Odds",
+    "description": "For each upcoming high-impact economic event, see how traders are positioned and what prediction markets imply. Chains an economic calendar with TradingView trader sentiment for the affected symbols and Polymarket odds for the macro topic, scores an edge 0 to 100, and tiers events. No API keys.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "readme": "../README.md",
+    "categories": [
+        "BUSINESS",
+        "FINANCE"
+    ]
+}

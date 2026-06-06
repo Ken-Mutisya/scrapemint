@@ -1,0 +1,16 @@
+{
+    "name": "macro-event-edge-pipeline",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Macro trading edge pipeline. Anchors on upcoming high-impact economic events, attaches TradingView trader sentiment for the affected symbols and Polymarket prediction-market odds for the macro topic, scores an edge 0-100, and tiers events high_conviction / elevated / watch. Public sources, no API keys.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}

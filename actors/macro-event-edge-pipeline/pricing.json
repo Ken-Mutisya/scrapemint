@@ -1,0 +1,25 @@
+{
+    "_note": "PUT this to /v2/acts/{actorId} as a pricingInfos array entry. PAY_PER_EVENT only on BRONZE. startedAt must be 14+ days out. Apify auto-adds 20% margin. NOTE: this pipeline calls forexfactory-economic-calendar, tradingview-ideas-scraper, and polymarket-market-monitor, whose own per-event charges also bill the buyer in addition to these events. Document combined cost in README.",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~macro-event-edge-pipeline?token=APIFY_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "macro_watch": {
+                "eventTitle": "Watch event",
+                "eventDescription": "One scored economic event that cleared the noise gate but carries a lower edge. Includes the event, currency, forecast vs previous, time, and any attached trader sentiment or prediction-market odds.",
+                "eventPriceUsd": 0.05
+            },
+            "macro_elevated": {
+                "eventTitle": "Elevated event",
+                "eventDescription": "One high-impact event, or any event with an edge score of 42 or higher. Includes the catalyst plus the trader bull/bear lean on the affected symbols and the related prediction-market odds.",
+                "eventPriceUsd": 0.10
+            },
+            "macro_high_conviction": {
+                "eventTitle": "High conviction event",
+                "eventDescription": "One high-impact event with an edge score of 60 or higher AND a strong trader lean or a strong prediction-market move. The clearest setups. Includes full trader sentiment and prediction-market detail. First 3 high conviction events per run are free so you can validate output.",
+                "eventPriceUsd": 0.15
+            }
+        }
+    },
+    "startedAt": "2026-06-21T00:00:00.000Z"
+}

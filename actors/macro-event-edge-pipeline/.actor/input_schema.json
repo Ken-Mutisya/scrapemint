@@ -1,0 +1,77 @@
+{
+    "title": "Macro Event Edge Pipeline Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "description": "Pulls upcoming high-impact economic events, attaches trader sentiment and prediction-market odds, scores an edge 0 to 100, and tiers each event.",
+    "properties": {
+        "range": {
+            "title": "Calendar range",
+            "type": "string",
+            "description": "Which window of the economic calendar to pull. this_month gives the fullest catalyst set.",
+            "editor": "select",
+            "enum": ["this_week", "next_week", "today", "tomorrow", "this_month"],
+            "default": "this_week",
+            "sectionCaption": "What to scan"
+        },
+        "impactLevels": {
+            "title": "Impact levels",
+            "type": "array",
+            "description": "Which event impact levels to score. high alone is the cleanest catalyst set.",
+            "editor": "stringList",
+            "default": ["high", "medium"]
+        },
+        "currencies": {
+            "title": "Currencies (optional)",
+            "type": "array",
+            "description": "Limit to events for these currencies, e.g. [\"USD\", \"EUR\"]. Empty pulls all.",
+            "editor": "stringList",
+            "default": []
+        },
+        "maxEventsTotal": {
+            "title": "Max events to score",
+            "type": "integer",
+            "description": "Cap on events scored, soonest first.",
+            "default": 60,
+            "minimum": 1,
+            "maximum": 200,
+            "sectionCaption": "Thresholds"
+        },
+        "includeTradingView": {
+            "title": "Include trader sentiment",
+            "type": "boolean",
+            "description": "Attach TradingView ideas for the symbols tied to each event's currency.",
+            "default": true
+        },
+        "includePolymarket": {
+            "title": "Include prediction markets",
+            "type": "boolean",
+            "description": "Attach Polymarket odds for the macro topics present in the calendar.",
+            "default": true
+        },
+        "maxIdeasPerSymbol": {
+            "title": "Max trader ideas per symbol",
+            "type": "integer",
+            "description": "How many TradingView ideas to pull per affected symbol. Higher reads sentiment better but raises the child cost.",
+            "default": 30,
+            "minimum": 10,
+            "maximum": 60
+        },
+        "minScore": {
+            "title": "Minimum edge score",
+            "type": "integer",
+            "description": "Drop and never charge events scoring below this 0 to 100 threshold. 0 keeps every qualifying event.",
+            "default": 0,
+            "minimum": 0,
+            "maximum": 100
+        },
+        "proxyConfiguration": {
+            "title": "Proxy configuration",
+            "type": "object",
+            "description": "Proxy passed through to the child actors. Residential is recommended for the calendar and TradingView.",
+            "editor": "proxy",
+            "default": { "useApifyProxy": true, "apifyProxyGroups": ["RESIDENTIAL"] },
+            "prefill": { "useApifyProxy": true, "apifyProxyGroups": ["RESIDENTIAL"] }
+        }
+    },
+    "required": []
+}
