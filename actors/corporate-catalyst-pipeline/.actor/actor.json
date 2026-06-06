@@ -1,0 +1,15 @@
+{
+    "actorSpecification": 1,
+    "name": "corporate-catalyst-pipeline",
+    "title": "Corporate Catalyst: Material 8-K Plus Insider Buying",
+    "description": "For each ticker, correlates a material 8-K event with insider open-market buying in the days around it, scores conviction 0 to 100, and tiers events high_conviction, elevated, or watch. Insiders buying right as a material event files is the signal. Pure EDGAR data, no API keys.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "readme": "../README.md",
+    "categories": [
+        "BUSINESS",
+        "NEWS"
+    ]
+}

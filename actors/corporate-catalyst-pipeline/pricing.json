@@ -1,0 +1,25 @@
+{
+    "_note": "PUT this to /v2/acts/{actorId} as a pricingInfos array entry. PAY_PER_EVENT only on BRONZE. startedAt must be 14+ days out. Apify auto-adds 20% margin. NOTE: this pipeline calls sec-8k-event-tracker and sec-form4-insider-tracker, whose own per-event charges also bill the buyer. Both children are EDGAR HTTP (no browser, no proxy), so compute per run is tiny and these prices stay well above it even on a thin run. Free tier kept to 1 high_conviction so any run with billable events covers compute.",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~corporate-catalyst-pipeline?token=APIFY_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "catalyst_watch": {
+                "eventTitle": "Watch catalyst",
+                "eventDescription": "One material 8-K event with no insider buying in the window. Includes the item codes, materiality, filing link, and the insider buy/sell tally.",
+                "eventPriceUsd": 0.04
+            },
+            "catalyst_elevated": {
+                "eventTitle": "Elevated catalyst",
+                "eventDescription": "One material 8-K event, or any event with insider open-market buying in the window. Includes the event detail plus the insider buy/sell counts and dollar values.",
+                "eventPriceUsd": 0.09
+            },
+            "catalyst_high_conviction": {
+                "eventTitle": "High conviction catalyst",
+                "eventDescription": "A material 8-K event with net insider open-market buying in the window and a conviction score of 60 or higher. Insiders backing a material event with their own money. Includes full event and insider buy detail. The first high conviction event per run is free so you can validate output.",
+                "eventPriceUsd": 0.15
+            }
+        }
+    },
+    "startedAt": "2026-06-21T00:00:00.000Z"
+}

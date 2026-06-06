@@ -1,0 +1,77 @@
+{
+    "title": "Corporate Catalyst Pipeline Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "description": "Pulls material 8-K events for your tickers, attaches insider open-market buying in a window around each event, scores conviction 0 to 100, and tiers each catalyst.",
+    "properties": {
+        "tickers": {
+            "title": "Tickers",
+            "type": "array",
+            "description": "Stock tickers to track, e.g. [\"NVDA\", \"TSLA\", \"PLTR\"]. Provide tickers or CIKs.",
+            "editor": "stringList",
+            "prefill": ["NVDA", "TSLA", "AMD"],
+            "default": [],
+            "sectionCaption": "What to scan"
+        },
+        "ciks": {
+            "title": "CIKs (optional)",
+            "type": "array",
+            "description": "SEC CIK numbers, an alternative to tickers.",
+            "editor": "stringList",
+            "default": []
+        },
+        "maxAgeHours": {
+            "title": "Max age (hours)",
+            "type": "integer",
+            "description": "Ignore 8-K filings older than this. 720 = 30 days.",
+            "default": 720,
+            "minimum": 24,
+            "maximum": 8760,
+            "sectionCaption": "Window and thresholds"
+        },
+        "insiderWindowDays": {
+            "title": "Insider window (days)",
+            "type": "integer",
+            "description": "Count insider buys and sells within this many days on either side of the 8-K event date.",
+            "default": 14,
+            "minimum": 1,
+            "maximum": 90
+        },
+        "materialOnly": {
+            "title": "Material events only",
+            "type": "boolean",
+            "description": "Drop 8-K filings that carry only routine items (such as exhibits or routine votes) and keep the ones that move stocks.",
+            "default": true
+        },
+        "includeInsider": {
+            "title": "Include insider buying",
+            "type": "boolean",
+            "description": "Attach insider open-market buys and sells around each event. Turn off for events only.",
+            "default": true
+        },
+        "maxEventsTotal": {
+            "title": "Max events to score",
+            "type": "integer",
+            "description": "Cap on events scored, most recent first.",
+            "default": 100,
+            "minimum": 1,
+            "maximum": 400
+        },
+        "minScore": {
+            "title": "Minimum conviction score",
+            "type": "integer",
+            "description": "Drop and never charge events scoring below this 0 to 100 threshold. 0 keeps every material event.",
+            "default": 0,
+            "minimum": 0,
+            "maximum": 100
+        },
+        "proxyConfiguration": {
+            "title": "Proxy configuration",
+            "type": "object",
+            "description": "Optional. EDGAR does not need a proxy, so the default is no proxy.",
+            "editor": "proxy",
+            "default": { "useApifyProxy": false }
+        }
+    },
+    "required": []
+}

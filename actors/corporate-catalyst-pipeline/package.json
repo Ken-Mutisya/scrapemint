@@ -1,0 +1,16 @@
+{
+    "name": "corporate-catalyst-pipeline",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Event-driven catalyst pipeline. For each ticker, correlates a material 8-K event with insider open-market buying in a window around it, scores conviction 0-100, and tiers events high_conviction / elevated / watch. Pure EDGAR data, no browser, no API keys.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}
