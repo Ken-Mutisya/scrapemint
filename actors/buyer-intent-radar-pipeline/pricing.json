@@ -1,0 +1,25 @@
+{
+    "_note": "PUT this to /v2/acts/{actorId} as a pricingInfos array entry. PAY_PER_EVENT only on BRONZE. startedAt must be 14+ days out. Apify auto-adds 20% margin. NOTE: this pipeline calls reddit-lead-monitor, stackoverflow-lead-monitor, and hn-lead-monitor, whose own per-event charges (reddit post_extracted, stackoverflow question, hn item) also bill the buyer in addition to these events. Document combined cost in README.",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~buyer-intent-radar-pipeline?token=APIFY_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "lead_mention": {
+                "eventTitle": "Mention lead",
+                "eventDescription": "One person who cleared the noise gate with light topical or low-intent language. Includes the platform, author, intent score, matched phrases, the best post link, and a snippet.",
+                "eventPriceUsd": 0.03
+            },
+            "lead_warm": {
+                "eventTitle": "Warm lead",
+                "eventDescription": "One person showing real intent: a strong intent score (40+) or explicit evaluation language. Includes their best post, all matched intent phrases, topics, post count, recency, and platform engagement.",
+                "eventPriceUsd": 0.08
+            },
+            "lead_hot": {
+                "eventTitle": "Hot lead",
+                "eventDescription": "One person actively evaluating or asking for a recommendation now (intent score 60+ with explicit purchase/switch/recommendation language), ranked by recency and engagement. The most outreach-ready signal. First 3 hot leads per run are free so you can validate output.",
+                "eventPriceUsd": 0.15
+            }
+        }
+    },
+    "startedAt": "2026-06-21T00:00:00.000Z"
+}

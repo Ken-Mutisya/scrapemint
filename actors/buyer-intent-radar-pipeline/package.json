@@ -1,0 +1,16 @@
+{
+    "name": "buyer-intent-radar-pipeline",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Cross-platform buyer-intent lead pipeline. Chains Reddit, Stack Overflow, and Hacker News lead monitors, scores intent 0-100 from active evaluation/problem language plus recency and engagement, groups by person, and tiers leads hot/warm/mention. Antibot-free public sources, no API keys. Pay per scored lead.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}
