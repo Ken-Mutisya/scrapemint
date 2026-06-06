@@ -124,8 +124,11 @@ async function handleCalendar({ page, request, crawler: c }) {
         log.warning('Calendar table did not render; page may be gated.');
     }
 
-    // Trigger any lazy expand and scroll a couple times.
-    await autoScroll(page, 2);
+    // The week table lazy-renders as you scroll, so a fixed scroll count raced
+    // the parse and often captured only the first day (counts swung 9..76 run
+    // to run). Scroll and poll until the row count stabilizes and more than one
+    // day section is present, so the whole week is in the DOM before parsing.
+    await waitForFullCalendar(page);
 
     const events = await extractCalendarEvents(page);
     log.info(`Parsed ${events.length} candidate events.`);
@@ -214,6 +217,31 @@ async function autoScroll(page, rounds = 2) {
         await page.evaluate(() => window.scrollBy(0, document.body.scrollHeight));
         await page.waitForTimeout(700);
     }
+}
+
+// Scroll to the bottom repeatedly, polling the calendar row count until it stops
+// growing across two consecutive checks (and at least two day sections exist),
+// or a hard cap is hit. This makes the whole week render before we parse it.
+async function waitForFullCalendar(page, { maxRounds = 22, settleRounds = 3, minRounds = 6 } = {}) {
+    const count = () => page.evaluate(() => document.querySelectorAll('tr.calendar__row, .calendar__row').length).catch(() => 0);
+
+    let prev = -1;
+    let stable = 0;
+    for (let i = 0; i < maxRounds; i += 1) {
+        await page.evaluate(() => window.scrollBy(0, document.body.scrollHeight)).catch(() => {});
+        await page.waitForTimeout(900);
+        const rows = await count();
+        if (rows === prev) stable += 1;
+        else stable = 0;
+        // Only allow an early exit after a minimum number of rounds, so a brief
+        // mid-load plateau (e.g. the first day rendered before the rest) does
+        // not end the wait prematurely.
+        if (i + 1 >= minRounds && stable >= settleRounds) break;
+        prev = rows;
+    }
+    // Scroll back to top so any top-anchored rows are in view for extraction.
+    await page.evaluate(() => window.scrollTo(0, 0)).catch(() => {});
+    await page.waitForTimeout(400);
 }
 
 async function extractCalendarEvents(page) {
