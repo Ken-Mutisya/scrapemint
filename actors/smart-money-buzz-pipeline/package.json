@@ -1,0 +1,16 @@
+{
+    "name": "smart-money-buzz-pipeline",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Convergence pipeline. For each ticker, joins insider open-market buying (SEC Form 4) with social chatter on Reddit and Hacker News, scores 0-100, and tiers tickers converging / insider_only / buzz_only / watch. Pure HTTP and public APIs, no browser, no API keys.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}

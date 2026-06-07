@@ -1,0 +1,25 @@
+{
+    "_note": "PUT this to /v2/acts/{actorId} as a pricingInfos array entry. PAY_PER_EVENT only on BRONZE. startedAt must be 14+ days out. Apify auto-adds 20% margin. NOTE: this pipeline calls sec-form4-insider-tracker, reddit-lead-monitor, and hn-lead-monitor, whose own per-event charges also bill the buyer. All three are HTTP / public-API children (no browser, no proxy), so compute per run is tiny and these prices stay well above it even on a quiet run. Free tier is 1 converging ticker so any run with billable rows covers compute.",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~smart-money-buzz-pipeline?token=APIFY_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "smb_watch": {
+                "eventTitle": "Watch ticker",
+                "eventDescription": "One ticker with weak signal: below the buzz threshold and no insider open-market buying. Includes the insider buy/sell tally and the social mention counts so you can see why it scored low.",
+                "eventPriceUsd": 0.03
+            },
+            "smb_signal": {
+                "eventTitle": "Single-signal ticker",
+                "eventDescription": "One ticker showing exactly one leg of the thesis: either insider open-market buying with little social chatter (insider_only), or active Reddit/HN buzz with no insider buying (buzz_only). Includes insider dollar values and the top social posts.",
+                "eventPriceUsd": 0.07
+            },
+            "smb_converging": {
+                "eventTitle": "Converging ticker",
+                "eventDescription": "One ticker where insiders are buying on the open market AND the crowd is talking on Reddit and Hacker News at the same time. The premium convergence signal. Includes the insider buy detail, the social post list, and the 0-100 score breakdown. The first converging ticker per run is free so you can validate output.",
+                "eventPriceUsd": 0.12
+            }
+        }
+    },
+    "startedAt": "2026-06-21T00:00:00.000Z"
+}

@@ -1,0 +1,85 @@
+{
+    "title": "Smart Money Buzz Pipeline Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "description": "Pulls insider open-market buying (SEC Form 4) for your tickers, counts Reddit and Hacker News chatter for each, scores convergence 0 to 100, and tiers every ticker.",
+    "properties": {
+        "tickers": {
+            "title": "Tickers",
+            "type": "array",
+            "description": "Stock tickers to scan, e.g. [\"GME\", \"NVDA\", \"PLTR\"]. The buzz search uses the cashtag form ($TICKER) to keep social matches precise.",
+            "editor": "stringList",
+            "prefill": ["GME", "PLTR", "SOFI"],
+            "default": [],
+            "sectionCaption": "What to scan"
+        },
+        "companyNames": {
+            "title": "Company names (optional)",
+            "type": "object",
+            "description": "Map of ticker to company name, e.g. {\"GME\": \"GameStop\", \"SOFI\": \"SoFi\"}. Adds a second social search by name so you also catch posts that never use the cashtag. Optional but improves buzz coverage.",
+            "editor": "json",
+            "default": {}
+        },
+        "insiderLookbackDays": {
+            "title": "Insider lookback (days)",
+            "type": "integer",
+            "description": "How far back to pull insider open-market buys and sells from SEC Form 4.",
+            "default": 30,
+            "minimum": 1,
+            "maximum": 365,
+            "sectionCaption": "Windows and thresholds"
+        },
+        "buzzMaxAgeHours": {
+            "title": "Buzz window (hours)",
+            "type": "integer",
+            "description": "Only count Reddit and Hacker News posts newer than this. 168 = 7 days. Social attention is short lived, so keep this tight.",
+            "default": 168,
+            "minimum": 1,
+            "maximum": 4320
+        },
+        "minMentions": {
+            "title": "Minimum mentions for buzz",
+            "type": "integer",
+            "description": "A ticker needs at least this many combined Reddit plus Hacker News posts to count as having buzz. Below it, buzz is treated as absent.",
+            "default": 2,
+            "minimum": 1,
+            "maximum": 100
+        },
+        "includeInsider": {
+            "title": "Include insider buying",
+            "type": "boolean",
+            "description": "Pull insider open-market buys and sells. Turn off to score on social buzz alone.",
+            "default": true
+        },
+        "includeBuzz": {
+            "title": "Include social buzz",
+            "type": "boolean",
+            "description": "Pull Reddit and Hacker News chatter. Turn off to score on insider buying alone.",
+            "default": true
+        },
+        "maxPostsPerSource": {
+            "title": "Max posts per social search",
+            "type": "integer",
+            "description": "Per query cap passed to the Reddit and Hacker News children. Controls cost.",
+            "default": 80,
+            "minimum": 10,
+            "maximum": 500
+        },
+        "minScore": {
+            "title": "Minimum convergence score",
+            "type": "integer",
+            "description": "Drop and never charge tickers scoring below this 0 to 100 threshold. 0 keeps every ticker with any signal.",
+            "default": 0,
+            "minimum": 0,
+            "maximum": 100
+        },
+        "proxyConfiguration": {
+            "title": "Proxy configuration",
+            "type": "object",
+            "description": "Optional. EDGAR, Reddit RSS, and the HN Algolia API do not need a proxy, so the default is no proxy.",
+            "editor": "proxy",
+            "default": { "useApifyProxy": false }
+        }
+    },
+    "required": []
+}
