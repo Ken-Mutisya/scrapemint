@@ -1,0 +1,25 @@
+{
+    "_note": "PUT this to /v2/acts/{actorId} as a pricingInfos array entry. PAY_PER_EVENT only on BRONZE. startedAt must be 14+ days out. Apify auto-adds 20% margin. Use the apify CLI token in ~/.apify/auth.json for this PUT, NOT the env APIFY_TOKEN (read/build only). NOTE: this pipeline calls sec-8k-event-tracker, reddit-lead-monitor, and hn-lead-monitor, whose own per-event charges also bill the buyer. All three are HTTP / public-API children (no browser, no proxy), so compute per run is tiny and these prices stay well above it. Free tier is 1 hot event so any run with billable rows covers compute.",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~event-buzz-radar-pipeline?token=CLI_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "ebr_watch": {
+                "eventTitle": "Watch event",
+                "eventDescription": "One material 8-K event with little or no social chatter on the company. Includes the item codes, materiality, filing link, and the Reddit/HN mention counts so you can see why it scored low.",
+                "eventPriceUsd": 0.04
+            },
+            "ebr_elevated": {
+                "eventTitle": "Elevated event",
+                "eventDescription": "One 8-K event with real Reddit/HN chatter on the company, or a high-materiality event with lighter chatter. Includes the event detail plus the social mention counts and the top posts.",
+                "eventPriceUsd": 0.09
+            },
+            "ebr_hot": {
+                "eventTitle": "Hot event",
+                "eventDescription": "A material 8-K event the crowd is reacting to on Reddit and Hacker News at the same time. A news catalyst meeting retail attention. Includes the full event detail, the social post list, and the 0-100 score breakdown. The first hot event per run is free so you can validate output.",
+                "eventPriceUsd": 0.14
+            }
+        }
+    },
+    "startedAt": "2026-06-21T00:00:00.000Z"
+}

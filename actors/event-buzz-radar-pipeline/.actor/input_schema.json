@@ -1,0 +1,108 @@
+{
+    "title": "Event Buzz Radar Pipeline Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "description": "Pulls material 8-K events for your tickers, counts the Reddit and Hacker News chatter on each company, scores the overlap 0 to 100, and tiers each event.",
+    "properties": {
+        "tickers": {
+            "title": "Tickers",
+            "type": "array",
+            "description": "Stock tickers to scan, e.g. [\"GME\", \"NVDA\", \"PLTR\"]. The buzz search uses the cashtag form ($TICKER) to keep social matches precise. Provide tickers or CIKs.",
+            "editor": "stringList",
+            "prefill": ["GME", "PLTR", "SOFI"],
+            "default": [],
+            "sectionCaption": "What to scan"
+        },
+        "ciks": {
+            "title": "CIKs (optional)",
+            "type": "array",
+            "description": "SEC CIK numbers, an alternative to tickers. Buzz is matched once the 8-K resolves the CIK to a ticker.",
+            "editor": "stringList",
+            "default": []
+        },
+        "companyNames": {
+            "title": "Company names (optional)",
+            "type": "object",
+            "description": "Map of ticker to company name, e.g. {\"GME\": \"GameStop\"}. Adds a second social search by name so you also catch posts that never use the cashtag.",
+            "editor": "json",
+            "default": {}
+        },
+        "maxAgeHours": {
+            "title": "Event max age (hours)",
+            "type": "integer",
+            "description": "Ignore 8-K filings older than this. 168 = 7 days. Recent filings are where a chatter reaction is still measurable.",
+            "default": 168,
+            "minimum": 24,
+            "maximum": 8760,
+            "sectionCaption": "Windows and thresholds"
+        },
+        "buzzMaxAgeHours": {
+            "title": "Chatter fetch window (hours)",
+            "type": "integer",
+            "description": "How far back to pull Reddit and Hacker News posts. 336 = 14 days. Must comfortably exceed the event window plus the reaction window so there is both a post-filing reaction and a pre-filing baseline to compare.",
+            "default": 336,
+            "minimum": 24,
+            "maximum": 4320
+        },
+        "reactionWindowDays": {
+            "title": "Reaction window (days)",
+            "type": "integer",
+            "description": "Only chatter posted within this many days AFTER a filing counts as a reaction to it. Posts before the filing form the baseline the reaction is measured against. Keeps buzz tied to the event instead of a company's steady background chatter.",
+            "default": 7,
+            "minimum": 1,
+            "maximum": 60
+        },
+        "minMentions": {
+            "title": "Minimum reaction mentions",
+            "type": "integer",
+            "description": "A filing needs at least this many post-filing Reddit plus Hacker News posts (and a chatter spike above the company's baseline) to count as a reaction. Below it, buzz is treated as absent.",
+            "default": 2,
+            "minimum": 1,
+            "maximum": 100
+        },
+        "materialOnly": {
+            "title": "Material events only",
+            "type": "boolean",
+            "description": "Drop 8-K filings that carry only routine items (such as exhibits or routine votes) and keep the ones that move stocks.",
+            "default": true
+        },
+        "includeBuzz": {
+            "title": "Include social buzz",
+            "type": "boolean",
+            "description": "Pull Reddit and Hacker News chatter. Turn off to score on event materiality alone.",
+            "default": true
+        },
+        "maxPostsPerSource": {
+            "title": "Max posts per social search",
+            "type": "integer",
+            "description": "Per query cap passed to the Reddit and Hacker News children. Controls cost.",
+            "default": 80,
+            "minimum": 10,
+            "maximum": 500
+        },
+        "maxEventsTotal": {
+            "title": "Max events to score",
+            "type": "integer",
+            "description": "Cap on events scored, most recent first.",
+            "default": 100,
+            "minimum": 1,
+            "maximum": 400
+        },
+        "minScore": {
+            "title": "Minimum radar score",
+            "type": "integer",
+            "description": "Drop and never charge events scoring below this 0 to 100 threshold. 0 keeps every material event.",
+            "default": 0,
+            "minimum": 0,
+            "maximum": 100
+        },
+        "proxyConfiguration": {
+            "title": "Proxy configuration",
+            "type": "object",
+            "description": "Optional. EDGAR, Reddit RSS, and the HN Algolia API do not need a proxy, so the default is no proxy.",
+            "editor": "proxy",
+            "default": { "useApifyProxy": false }
+        }
+    },
+    "required": []
+}

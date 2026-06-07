@@ -1,0 +1,16 @@
+{
+    "name": "event-buzz-radar-pipeline",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Catalyst pipeline. For each ticker, pairs material 8-K events with Reddit and Hacker News chatter on the same company, scores 0-100, and tiers events hot / elevated / watch. Pure HTTP and public APIs, no browser, no API keys.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}
