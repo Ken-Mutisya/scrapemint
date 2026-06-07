@@ -49,19 +49,27 @@ const cleanKeywords = [...new Set((keywords || []).map((k) => String(k).trim()).
 const perSource = Math.max(20, Math.min(500, Number(maxItemsPerSource) || 150));
 
 // ---------- Stage 1: GitHub trending (build-side velocity) ----------
+// Wrapped so a transient child failure (GitHub HTML change, antibot, a rejected
+// input) degrades to HN-only instead of crashing the whole pipeline to FAILED,
+// which is what re-flags the actor as under maintenance.
 log.info('Stage 1: pulling GitHub trending repos.');
-const ghRun = await Actor.call(
-    'scrapemint/github-trending-scraper',
-    {
-        timeframes: Array.isArray(githubTimeframes) && githubTimeframes.length ? githubTimeframes : ['daily'],
-        languages: Array.isArray(githubLanguages) ? githubLanguages : [],
-        maxReposPerList: Math.min(25, perSource), // github-trending-scraper hard caps this at 25 per list
-        includeContributors: false,
-        proxyConfiguration: proxyInput,
-    },
-    { memory: 1024, build: 'latest' },
-);
-const ghRows = await readDataset(ghRun, 'GitHub trending');
+let ghRows = [];
+try {
+    const ghRun = await Actor.call(
+        'scrapemint/github-trending-scraper',
+        {
+            timeframes: Array.isArray(githubTimeframes) && githubTimeframes.length ? githubTimeframes : ['daily'],
+            languages: Array.isArray(githubLanguages) ? githubLanguages : [],
+            maxReposPerList: Math.min(25, perSource), // github-trending-scraper hard caps this at 25 per list
+            includeContributors: false,
+            proxyConfiguration: proxyInput,
+        },
+        { memory: 1024, build: 'latest' },
+    );
+    ghRows = await readDataset(ghRun, 'GitHub trending');
+} catch (err) {
+    log.warning(`GitHub trending stage failed (continuing with Hacker News only): ${err?.message}`);
+}
 
 // ---------- Stage 2: Hacker News (attention-side signal) ----------
 // Search HN for the top trending repo names so we catch when a GitHub mover is
@@ -78,24 +86,36 @@ const repoQueries = ghRows
 const hnQueries = [...new Set([...cleanKeywords, ...repoQueries])];
 
 log.info(`Stage 2: pulling Hacker News (feeds + ${repoQueries.length} trending-repo searches).`);
-const hnRun = await Actor.call(
-    'scrapemint/hn-lead-monitor',
-    {
-        searchQueries: hnQueries,
-        feeds: Array.isArray(hnFeeds) ? hnFeeds : ['show', 'top'],
-        keywords: cleanKeywords,
-        searchType: 'stories',
-        sortBy: 'popularity',
-        maxAgeHours: Math.max(24, Number(hnMaxAgeHours) || 168),
-        minScore: 0,
-        maxItemsPerSource: perSource,
-        maxItemsTotal: perSource * 2,
-        dedupe: false,
-        proxyConfiguration: proxyInput,
-    },
-    { memory: 1024, build: 'latest' },
-);
-const hnRows = await readDataset(hnRun, 'Hacker News');
+let hnRows = [];
+try {
+    const hnRun = await Actor.call(
+        'scrapemint/hn-lead-monitor',
+        {
+            searchQueries: hnQueries,
+            feeds: Array.isArray(hnFeeds) ? hnFeeds : ['show', 'top'],
+            keywords: cleanKeywords,
+            searchType: 'stories',
+            sortBy: 'popularity',
+            maxAgeHours: Math.max(24, Number(hnMaxAgeHours) || 168),
+            minScore: 0,
+            maxItemsPerSource: perSource,
+            maxItemsTotal: perSource * 2,
+            dedupe: false,
+            proxyConfiguration: proxyInput,
+        },
+        { memory: 1024, build: 'latest' },
+    );
+    hnRows = await readDataset(hnRun, 'Hacker News');
+} catch (err) {
+    log.warning(`Hacker News stage failed (continuing): ${err?.message}`);
+}
+
+// If both upstream signals are empty, there is nothing to score. Exit cleanly
+// (green) rather than pushing nothing through the rest of the pipeline.
+if (ghRows.length === 0 && hnRows.length === 0) {
+    log.warning('Both GitHub and Hacker News stages returned no data. Nothing to score.');
+    await Actor.exit();
+}
 
 // ---------- Stage 3: Product Hunt (optional, buyer token) ----------
 let phRows = [];
