@@ -140,9 +140,12 @@ const crawler = new PlaywrightCrawler({
     proxyConfiguration,
     maxConcurrency: Math.max(1, Math.min(16, Number(concurrency) || 3)),
     headless: true,
-    navigationTimeoutSecs: 60,
-    requestHandlerTimeoutSecs: 150,
-    maxRequestRetries: 3,
+    // Real Indeed pages load in ~5s; only antibot-challenged requests run long.
+    // Keep these tight so a blocked /cmp/ page fails fast (was 60/150/3, which
+    // let each blocked request burn up to ~10 min and stall dependent pipelines).
+    navigationTimeoutSecs: 45,
+    requestHandlerTimeoutSecs: 45,
+    maxRequestRetries: 1,
     retryOnBlocked: false,
     useSessionPool: true,
     persistCookiesPerSession: true,

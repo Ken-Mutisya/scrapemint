@@ -45,7 +45,9 @@ if (cleanKeywords.length === 0) {
 
 log.info(`Pulling Indeed jobs for ${cleanKeywords.length} keywords in ${country} (${experienceLevel}, last ${datePosted} days).`);
 
-const indeedRun = await Actor.call(
+let indeedRun = null;
+try {
+    indeedRun = await Actor.call(
     'scrapemint/indeed-jobs-scraper',
     {
         keywords: cleanKeywords,
@@ -63,11 +65,18 @@ const indeedRun = await Actor.call(
         concurrency: 3,
         proxyConfiguration: proxyInput,
     },
-    { memory: 2048, build: 'latest' },
-);
+    // Backstop: Indeed /cmp/ company pages can hang on antibot challenges. Cap
+    // the child at 5 minutes so a stuck request can never hang the pipeline to
+    // its own 1h timeout. A timed-out child still returns its dataset with the
+    // jobs scraped so far, so we degrade to partial results instead of failing.
+    { memory: 2048, build: 'latest', timeout: 300 },
+    );
+} catch (err) {
+    log.warning(`Indeed stage threw (continuing, may have partial or no data): ${err?.message}`);
+}
 
 if (!indeedRun?.defaultDatasetId) {
-    log.error('Indeed stage returned no dataset. Aborting.');
+    log.error('Indeed stage returned no dataset. Exiting cleanly with no rows.');
     await Actor.exit();
 }
 log.info(`Indeed stage finished. Reading rows from ${indeedRun.defaultDatasetId}.`);
