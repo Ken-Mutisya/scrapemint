@@ -135,7 +135,9 @@ async function runScholar(topic) {
                 fetchCitedBy: false,
                 proxyConfiguration: proxyInput,
             },
-            { memory: 512, build: 'latest' },
+            // Cap each Google child call: residential Google can block/hang, and
+            // the child's own timeout is 3600s. On timeout we read partial.
+            { memory: 512, build: 'latest', timeout: 240 },
         );
         return (await readDataset(run, `Scholar "${topic}"`)).filter((r) => r && r.title && r.type !== 'citedBy');
     } catch (err) {
@@ -158,7 +160,7 @@ async function runPatents(topic) {
                 fetchPdf: false,
                 proxyConfiguration: proxyInput,
             },
-            { memory: 512, build: 'latest' },
+            { memory: 512, build: 'latest', timeout: 300 },
         );
         return (await readDataset(run, `Patents "${topic}"`)).filter((r) => r && r.publicationNumber);
     } catch (err) {

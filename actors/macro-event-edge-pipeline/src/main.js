@@ -95,7 +95,10 @@ try {
             maxEvents: 500,
             proxyConfiguration: proxyInput,
         },
-        { memory: 2048, build: 'latest' },
+        // forexfactory is Playwright + residential and occasionally hangs; cap
+        // the call so it can never ride to its own 3600s timeout and take the
+        // parent with it. On timeout we read partial calendar and continue.
+        { memory: 2048, build: 'latest', timeout: 600 },
     );
     events = (await readDataset(run, 'calendar'))
         .filter((e) => wantImpact.has(String(e.impact || '').toLowerCase()))
@@ -131,7 +134,9 @@ if (includeTradingView && symbolUniverse.length) {
                 includeAuthorIntel: false,
                 proxyConfiguration: proxyInput,
             },
-            { memory: 1024, build: 'latest' },
+            // tradingview times out ~17% of the time at its own 3600s limit;
+            // cap the call and read partial ideas so it can't hang the parent.
+            { memory: 1024, build: 'latest', timeout: 480 },
         );
         const ideas = await readDataset(run, 'TradingView');
         for (const idea of ideas) {
@@ -165,7 +170,7 @@ if (includePolymarket && topicsPresent.length) {
                 dedupe: true,
                 proxyConfiguration: proxyInput,
             },
-            { memory: 1024, build: 'latest' },
+            { memory: 1024, build: 'latest', timeout: 300 },
         );
         const markets = (await readDataset(run, 'Polymarket')).map(normMarket).filter(Boolean);
         for (const m of markets) {

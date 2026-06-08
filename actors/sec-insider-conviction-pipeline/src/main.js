@@ -98,12 +98,19 @@ const hiringByTicker = new Map();
 const urlMap = normalizeLinkedinMap(linkedinCompanyMap);
 if (includeHiringEnrichment && urlMap.size > 0) {
     log.info(`Stage 3/3: hiring enrichment ON for ${urlMap.size} mapped companies (LinkedIn).`);
-    const hiringRun = await Actor.call(
-        'scrapemint/linkedin-company-hiring-tracker',
-        { companyUrls: [...urlMap.values()], maxRolesScanPerCompany: 200, trackDeltas: true, proxyConfiguration: proxyInput },
-        { memory: 2048, build: 'latest' },
-    );
-    const hiringRows = await readDataset(hiringRun, 'hiring');
+    let hiringRows = [];
+    try {
+        const hiringRun = await Actor.call(
+            'scrapemint/linkedin-company-hiring-tracker',
+            { companyUrls: [...urlMap.values()], maxRolesScanPerCompany: 200, trackDeltas: true, proxyConfiguration: proxyInput },
+            // LinkedIn is a browser child with a 3600s self-timeout; cap the call
+            // and wrap it so this opt-in stage can never hang or fail the parent.
+            { memory: 2048, build: 'latest', timeout: 600 },
+        );
+        hiringRows = await readDataset(hiringRun, 'hiring');
+    } catch (err) {
+        log.warning(`Hiring enrichment stage failed (continuing without it): ${err?.message}`);
+    }
     // Re-key hiring rows back to ticker via the URL the caller supplied.
     const urlToTicker = new Map([...urlMap.entries()].map(([tk, url]) => [normalizeLinkedinUrl(url), tk]));
     for (const h of hiringRows) {
