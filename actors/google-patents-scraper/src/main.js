@@ -6,15 +6,22 @@
 //
 // Strategy
 // --------
-// 1. Build seed URLs from queries, assignees, inventors, and direct patentIds.
-// 2. Crawl with Playwright. Patents.google.com renders results via web
-//    components, so we navigate the HTML and read structured data from the
-//    rendered DOM.
-// 3. Search pages return basic patent metadata. Enrichment toggles queue
-//    detail page fetches for full claims, description, citations, and family.
+// patents.google.com renders the search UI client-side, but the data it shows
+// comes from a public XHR JSON endpoint and the per-patent pages are
+// server-rendered for SEO. So we skip the browser entirely:
+//
+// 1. Search/assignee/inventor seeds hit `/xhr/query`, which returns JSON with
+//    one object per result (title, snippet, dates, assignee, inventor, pdf).
+//    We paginate by bumping the `page` param.
+// 2. Direct patentIds and (when enrichment is on) each search hit fetch the
+//    server-rendered `/patent/{id}/en` page and read structured data from the
+//    itemprop DOM with Cheerio: inventors, assignees, dates, CPC/IPC, claims,
+//    description, citations, forward citations, family members.
+//
+// Plain HTTP + residential proxy. No Playwright, no shadow DOM.
 
 import { Actor, log } from 'apify';
-import { PlaywrightCrawler } from 'crawlee';
+import { CheerioCrawler } from 'crawlee';
 
 const PATENTS_BASE = 'https://patents.google.com';
 
@@ -41,13 +48,15 @@ const {
     maxPatents = 100,
     maxPagesPerQuery = 10,
     dedupe = true,
-    navigationDelayMs = 3500,
     concurrency = 2,
     proxyConfiguration: proxyInput,
 } = input;
 
 const cap = Number(maxPatents) > 0 ? Number(maxPatents) : Infinity;
-const proxyConfiguration = await Actor.createProxyConfiguration(proxyInput);
+// Default to Apify residential: Google blocks datacenter IPs on these endpoints.
+const proxyConfiguration = await Actor.createProxyConfiguration(
+    proxyInput ?? { groups: ['RESIDENTIAL'] },
+);
 const seenStore = dedupe ? await Actor.openKeyValueStore('google-patents-scraper-seen') : null;
 const seenPatents = new Set(seenStore ? (await seenStore.getValue('seen-patents')) || [] : []);
 let pushedRows = 0;
@@ -64,21 +73,20 @@ if (queryList.length === 0 && patentIdList.length === 0 && assigneeList.length =
     await Actor.exit();
 }
 
+const wantsDetailFetch = fetchClaims || fetchDescription || fetchCitations || fetchCitedBy || fetchFamily;
+
 function normalizePatentId(s) {
     if (!s) return null;
     const id = String(s).trim().toUpperCase().replace(/[^A-Z0-9]/g, '');
     return id || null;
 }
 
+// Build the Google Patents query string (the value of the `q=` term). Note:
+// date bounds are NOT part of q on the XHR API; they go in before=/after=
+// params (see buildQueryXhrUrl). Putting them in q returns zero results.
 function buildSearchQuery(rawQuery) {
     const parts = [];
     if (rawQuery) parts.push(rawQuery);
-    if (yearFrom > 0 || yearTo > 0) {
-        const lo = yearFrom > 0 ? `${yearFrom}0101` : '';
-        const hi = yearTo > 0 ? `${yearTo}1231` : '';
-        if (lo) parts.push(`after:filing:${lo}`);
-        if (hi) parts.push(`before:filing:${hi}`);
-    }
     if (statusFilter === 'grant') parts.push('status:GRANT');
     if (statusFilter === 'application') parts.push('status:APPLICATION');
     for (const c of cpcList) parts.push(`CPC=${c}`);
@@ -86,14 +94,21 @@ function buildSearchQuery(rawQuery) {
     return parts.filter(Boolean).join(' ');
 }
 
-function buildSearchUrl(rawQuery, page = 0) {
-    const q = buildSearchQuery(rawQuery);
-    const params = new URLSearchParams();
-    params.set('q', q);
-    params.set('hl', language);
-    params.set('num', '10');
-    if (page > 0) params.set('page', String(page));
-    return `${PATENTS_BASE}/?${params.toString()}`;
+// The XHR endpoint takes a single `url` param whose value is itself a
+// query string (q, before, after, num, page, ...) that we encode once.
+// Date filtering uses before=/after= with a literal `filing:YYYYMMDD` value:
+// the colon must survive as a single %3A, so we append these as raw text and
+// keep them out of URLSearchParams (which would pre-encode the colon and leave
+// it double-encoded as %253A, which Google rejects with a 500).
+function buildQueryXhrUrl(rawQuery, page = 0) {
+    const usp = new URLSearchParams();
+    usp.set('q', buildSearchQuery(rawQuery));
+    usp.set('num', '10');
+    if (page > 0) usp.set('page', String(page));
+    let inner = usp.toString();
+    if (yearFrom > 0) inner += `&after=filing:${yearFrom}0101`;
+    if (yearTo > 0) inner += `&before=filing:${yearTo}1231`;
+    return `${PATENTS_BASE}/xhr/query?url=${encodeURIComponent(inner)}&exp=`;
 }
 
 function buildPatentUrl(patentId) {
@@ -102,15 +117,15 @@ function buildPatentUrl(patentId) {
 
 const startUrls = [];
 for (const q of queryList) {
-    startUrls.push({ url: buildSearchUrl(q, 0), userData: { label: 'search', query: q, rawSeed: q, page: 0 } });
+    startUrls.push({ url: buildQueryXhrUrl(q, 0), userData: { label: 'search', rawQuery: q, query: buildSearchQuery(q), rawSeed: q, page: 0 } });
 }
 for (const a of assigneeList) {
     const q = `assignee:"${a}"`;
-    startUrls.push({ url: buildSearchUrl(q, 0), userData: { label: 'search', query: q, rawSeed: a, page: 0 } });
+    startUrls.push({ url: buildQueryXhrUrl(q, 0), userData: { label: 'search', rawQuery: q, query: buildSearchQuery(q), rawSeed: a, page: 0 } });
 }
 for (const inv of inventorList) {
     const q = `inventor:"${inv}"`;
-    startUrls.push({ url: buildSearchUrl(q, 0), userData: { label: 'search', query: q, rawSeed: inv, page: 0 } });
+    startUrls.push({ url: buildQueryXhrUrl(q, 0), userData: { label: 'search', rawQuery: q, query: buildSearchQuery(q), rawSeed: inv, page: 0 } });
 }
 for (const id of patentIdList) {
     startUrls.push({ url: buildPatentUrl(id), userData: { label: 'detail', patentId: id, fromSearch: false } });
@@ -118,31 +133,23 @@ for (const id of patentIdList) {
 
 log.info(`Seeds: ${startUrls.length} (${queryList.length} queries, ${assigneeList.length} assignees, ${inventorList.length} inventors, ${patentIdList.length} direct patent IDs).`);
 
-const wantsDetailFetch = fetchClaims || fetchDescription || fetchCitations || fetchCitedBy || fetchFamily;
-
-const crawler = new PlaywrightCrawler({
+const crawler = new CheerioCrawler({
     proxyConfiguration,
+    // The XHR endpoint returns application/json; let Crawlee accept it.
+    additionalMimeTypes: ['application/json', 'text/javascript', 'application/javascript'],
     maxConcurrency: Math.max(1, Math.min(8, Number(concurrency) || 2)),
-    navigationTimeoutSecs: 60,
-    requestHandlerTimeoutSecs: 120,
-    maxRequestRetries: 3,
-    launchContext: {
-        launchOptions: {
-            args: ['--disable-blink-features=AutomationControlled'],
-        },
-    },
-    async requestHandler({ request, page, log: ll }) {
+    navigationTimeoutSecs: 45,
+    requestHandlerTimeoutSecs: 90,
+    maxRequestRetries: 4,
+    async requestHandler(context) {
+        const { request } = context;
         const { label } = request.userData;
-        if (navigationDelayMs > 0) {
-            await page.waitForTimeout(navigationDelayMs);
-        }
-
         if (label === 'search') {
-            await handleSearchPage({ request, page, ll });
+            await handleSearchPage(context);
         } else if (label === 'detail') {
-            await handleDetailPage({ request, page, ll });
+            await handleDetailPage(context);
         } else {
-            ll.warning(`Unknown label: ${label}`);
+            context.log.warning(`Unknown label: ${label}`);
         }
     },
     failedRequestHandler({ request, log: ll }) {
@@ -150,187 +157,201 @@ const crawler = new PlaywrightCrawler({
     },
 });
 
-async function handleSearchPage({ request, page, ll }) {
-    const { query, rawSeed, page: pageIdx = 0 } = request.userData;
+async function handleSearchPage({ request, body, json, log: ll }) {
+    const { rawQuery, query, rawSeed, page: pageIdx = 0 } = request.userData;
 
-    await page.waitForSelector('search-result-item, state-modifier[data-result]', { timeout: 25000 }).catch(() => {});
-    await page.waitForTimeout(1500);
-
-    const results = await page.$$eval(
-        'search-result-item',
-        (nodes) => nodes.slice(0, 20).map((n) => {
-            const root = n.shadowRoot || n;
-            const stateMod = n.querySelector('state-modifier') || root.querySelector?.('state-modifier');
-            const dataResult = stateMod?.getAttribute('data-result') || null;
-            const id = stateMod?.getAttribute('data-result')?.split('/')?.[1] || stateMod?.getAttribute('data-id') || null;
-            const title = (n.querySelector('h3, h4, span.result-title') || root.querySelector?.('h3, h4, span.result-title'))?.textContent?.trim() || null;
-            const snippet = (n.querySelector('.abstract, .snippet') || root.querySelector?.('.abstract, .snippet'))?.textContent?.trim() || null;
-            const meta = (n.querySelector('.metadata, .result-source') || root.querySelector?.('.metadata, .result-source'))?.textContent?.trim() || null;
-            return { id, title, snippet, meta, dataResult };
-        })
-    ).catch(() => []);
+    let data = json;
+    if (!data) {
+        try { data = JSON.parse(body.toString()); } catch { data = null; }
+    }
+    const clusters = data?.results?.cluster || [];
+    const results = clusters.flatMap((c) => c?.result || []);
 
     if (results.length === 0) {
-        const fallback = await page.$$eval(
-            'state-modifier[data-result]',
-            (nodes) => nodes.slice(0, 20).map((n) => ({
-                id: n.getAttribute('data-result')?.split('/')?.[1] || null,
-                title: n.querySelector('h3, h4, span')?.textContent?.trim() || null,
-                snippet: n.parentElement?.querySelector('.abstract, .snippet')?.textContent?.trim() || null,
-                meta: n.parentElement?.querySelector('.metadata')?.textContent?.trim() || null,
-                dataResult: n.getAttribute('data-result'),
-            }))
-        ).catch(() => []);
-        results.push(...fallback);
+        ll.warning(`[search] "${rawSeed}" page ${pageIdx + 1}: no results in response (possible block or empty query).`);
+        return;
     }
 
-    let pushedThisPage = 0;
+    let queuedThisPage = 0;
     for (const r of results) {
         if (pushedRows >= cap) break;
-        if (!r.id) continue;
-        const patentId = normalizePatentId(r.id);
-        if (!patentId) continue;
-        if (dedupe && seenPatents.has(patentId)) continue;
+        const base = mapSearchResult(r, query, rawSeed);
+        if (!base.publicationNumber) continue;
+        if (dedupe && seenPatents.has(base.publicationNumber)) continue;
 
-        if (wantsDetailFetch || fetchPdf) {
+        if (wantsDetailFetch) {
             await crawler.addRequests([{
-                url: buildPatentUrl(patentId),
-                userData: { label: 'detail', patentId, fromSearch: true, baseRow: { searchTitle: r.title, searchSnippet: r.snippet, searchMeta: r.meta, sourceQuery: query, sourceSeed: rawSeed } },
+                url: buildPatentUrl(base.publicationNumber),
+                userData: { label: 'detail', patentId: base.publicationNumber, fromSearch: true, baseRow: base },
             }]);
         } else {
-            await Actor.pushData({
-                publicationNumber: patentId,
-                title: r.title,
-                snippet: r.snippet,
-                meta: r.meta,
-                url: buildPatentUrl(patentId),
-                sourceQuery: query,
-                sourceSeed: rawSeed,
-                scrapedAt: new Date().toISOString(),
-            });
+            await Actor.pushData({ ...base, scrapedAt: new Date().toISOString() });
             pushedRows += 1;
-            seenPatents.add(patentId);
+            seenPatents.add(base.publicationNumber);
         }
-        pushedThisPage += 1;
+        queuedThisPage += 1;
     }
 
-    ll.info(`[search] page ${pageIdx + 1} for "${rawSeed}": ${results.length} results, queued ${pushedThisPage}, pushed total ${pushedRows}/${cap === Infinity ? '∞' : cap}.`);
+    ll.info(`[search] "${rawSeed}" page ${pageIdx + 1}: ${results.length} results, ${queuedThisPage} new, pushed ${pushedRows}/${cap === Infinity ? '∞' : cap}.`);
 
-    if (pushedRows >= cap || pushedThisPage === 0) return;
+    if (pushedRows >= cap || queuedThisPage === 0) return;
     if (pageIdx + 1 >= maxPagesPerQuery) return;
 
     await crawler.addRequests([{
-        url: buildSearchUrl(query, pageIdx + 1),
-        userData: { label: 'search', query, rawSeed, page: pageIdx + 1 },
+        url: buildQueryXhrUrl(rawQuery, pageIdx + 1),
+        userData: { label: 'search', rawQuery, query, rawSeed, page: pageIdx + 1 },
     }]);
 }
 
-async function handleDetailPage({ request, page, ll }) {
+// Map one /xhr/query result object into our row shape.
+function mapSearchResult(r, query, rawSeed) {
+    const id = String(r.id || '');
+    const p = r.patent || {};
+    const pubNum = normalizePatentId(id.split('/')[1] || p.publication_number);
+    const assignee = cleanText(p.assignee);
+    const inventor = cleanText(p.inventor);
+    return {
+        publicationNumber: pubNum,
+        title: cleanText(p.title),
+        snippet: cleanText(p.snippet),
+        assignees: assignee ? [assignee] : [],
+        inventors: inventor ? [inventor] : [],
+        priorityDate: p.priority_date || null,
+        filingDate: p.filing_date || null,
+        publicationDate: p.publication_date || null,
+        grantDate: p.grant_date || null,
+        language: p.language || language,
+        countryCode: p.country_code || (pubNum ? pubNum.slice(0, 2) : null),
+        pdfUrl: fetchPdf ? buildPdfUrl(p.pdf) : null,
+        url: pubNum ? buildPatentUrl(pubNum) : null,
+        sourceQuery: query,
+        sourceSeed: rawSeed,
+    };
+}
+
+function buildPdfUrl(pdf) {
+    if (!pdf) return null;
+    const s = String(pdf);
+    if (s.startsWith('http')) return s;
+    return `https://patentimages.storage.googleapis.com/${s.replace(/^\/+/, '')}`;
+}
+
+async function handleDetailPage({ request, $, log: ll }) {
     const { patentId, baseRow = {} } = request.userData;
 
-    await page.waitForSelector('h1, h1[itemprop="title"], .important-people, dd[itemprop="inventor"]', { timeout: 25000 }).catch(() => {});
-    await page.waitForTimeout(1200);
+    const text = (sel) => $(sel).first().text().trim() || null;
+    const metaC = (name) => $(`meta[name="${name}"]`).first().attr('content') || null;
+    const allText = (sel) => $(sel).map((_, el) => $(el).text().trim()).get().filter(Boolean);
+    const allMeta = (name) => $(`meta[name="${name}"]`).map((_, el) => $(el).attr('content')).get().filter(Boolean);
 
-    const detail = await page.evaluate(({ wantClaims, wantDesc, wantCitations, wantCitedBy, wantFamily, wantPdf }) => {
-        const text = (sel) => document.querySelector(sel)?.textContent?.trim() || null;
-        const all = (sel) => Array.from(document.querySelectorAll(sel)).map((el) => el.textContent?.trim() || null).filter(Boolean);
-        const attr = (sel, a) => document.querySelector(sel)?.getAttribute(a) || null;
+    const title = text('h1[itemprop="title"]') || text('h1#title') || metaC('DC.title') || baseRow.title || null;
+    const abstract = text('div.abstract') || text('section.abstract') || text('abstract') || metaC('description') || baseRow.snippet || null;
 
-        const title = text('h1[itemprop="title"]') || text('h1');
-        const abstract = text('div.abstract, section.abstract, abstract');
+    let inventorsArr = allText('dd[itemprop="inventor"]');
+    if (inventorsArr.length === 0) inventorsArr = allMeta('DC.contributor');
+    let assigneesCurrent = allText('dd[itemprop="assigneeCurrent"]');
+    const assigneesOriginal = allText('dd[itemprop="assigneeOriginal"]');
+    if (assigneesCurrent.length === 0) assigneesCurrent = allMeta('DC.assignee');
 
-        const inventors = all('dd[itemprop="inventor"]');
-        const assigneesOriginal = all('dd[itemprop="assigneeOriginal"]');
-        const assigneesCurrent = all('dd[itemprop="assigneeCurrent"]');
+    const filingDate = $('time[itemprop="filingDate"]').first().attr('datetime') || text('time[itemprop="filingDate"]') || baseRow.filingDate || null;
+    const publicationDate = $('time[itemprop="publicationDate"]').first().attr('datetime') || text('time[itemprop="publicationDate"]') || baseRow.publicationDate || null;
+    const priorityDate = $('time[itemprop="priorityDate"]').first().attr('datetime') || text('time[itemprop="priorityDate"]') || baseRow.priorityDate || null;
+    const grantDate = $('time[itemprop="grantDate"]').first().attr('datetime') || text('time[itemprop="grantDate"]') || baseRow.grantDate || null;
 
-        const filingDate = attr('time[itemprop="filingDate"]', 'datetime') || text('time[itemprop="filingDate"]');
-        const publicationDate = attr('time[itemprop="publicationDate"]', 'datetime') || text('time[itemprop="publicationDate"]');
-        const priorityDate = attr('time[itemprop="priorityDate"]', 'datetime') || text('time[itemprop="priorityDate"]');
-        const grantDate = attr('time[itemprop="grantDate"]', 'datetime') || text('time[itemprop="grantDate"]');
+    const cpcCodes = uniq($('li[itemprop="cpcs"] span[itemprop="Code"], ul[itemprop="cpcs"] li[itemprop="Code"]').map((_, el) => $(el).text().trim()).get().filter(Boolean));
+    const ipcCodes = uniq($('li[itemprop="ipcs"] span[itemprop="Code"]').map((_, el) => $(el).text().trim()).get().filter(Boolean));
 
-        const cpcCodes = Array.from(document.querySelectorAll('ul[itemprop="cpcs"] li[itemprop="classifications"], li[itemprop="cpcs"] span[itemprop="Code"]')).map((el) => el.textContent?.trim()).filter(Boolean);
-        const ipcCodes = Array.from(document.querySelectorAll('ul[itemprop="ipcs"] li, li[itemprop="ipcs"] span[itemprop="Code"]')).map((el) => el.textContent?.trim()).filter(Boolean);
+    const legalStatus = text('span[itemprop="status"]') || text('.legal-status') || null;
+    const applicationNumber = text('dd[itemprop="applicationNumber"]') || null;
+    const familyId = text('dd[itemprop="familyId"]') || null;
 
-        const legalStatus = text('span[itemprop="status"]') || text('.legal-status');
-        const applicationNumber = text('dd[itemprop="applicationNumber"]');
-        const familyId = text('dd[itemprop="familyId"]');
+    const detail = {
+        title,
+        abstract,
+        inventors: inventorsArr.length ? inventorsArr : (baseRow.inventors || []),
+        assignees: assigneesCurrent.length ? assigneesCurrent : (assigneesOriginal.length ? assigneesOriginal : (baseRow.assignees || [])),
+        assigneesOriginal,
+        assigneesCurrent,
+        filingDate,
+        publicationDate,
+        priorityDate,
+        grantDate,
+        applicationNumber,
+        familyId,
+        cpcCodes,
+        ipcCodes,
+        legalStatus,
+    };
 
-        const out = {
-            title,
-            abstract,
-            inventors,
-            assigneesOriginal,
-            assigneesCurrent,
-            filingDate,
-            publicationDate,
-            priorityDate,
-            grantDate,
-            applicationNumber,
-            familyId,
-            cpcCodes: [...new Set(cpcCodes)],
-            ipcCodes: [...new Set(ipcCodes)],
-            legalStatus,
-        };
+    if (fetchClaims) {
+        detail.claims = text('section[itemprop="claims"]') || text('#claims') || text('.claims');
+    }
+    if (fetchDescription) {
+        detail.description = text('section[itemprop="description"]') || text('#description') || text('.description');
+    }
+    if (fetchCitations) {
+        detail.citedPatents = $('tr[itemprop="backwardReferencesOrig"], tr[itemprop="backwardReferences"]').map((_, tr) => ({
+            publicationNumber: $(tr).find('span[itemprop="publicationNumber"]').first().text().trim() || null,
+            priorityDate: $(tr).find('time[itemprop="priorityDate"]').first().attr('datetime') || null,
+            publicationDate: $(tr).find('time[itemprop="publicationDate"]').first().attr('datetime') || null,
+            assignee: $(tr).find('span[itemprop="assigneeOriginal"]').first().text().trim() || null,
+            title: $(tr).find('span[itemprop="title"]').first().text().trim() || null,
+        })).get().filter((c) => c.publicationNumber);
+        detail.citedNonPatentLiterature = allText('dd[itemprop="nplCitations"], span[itemprop="description"][itemprop="nplCitations"]');
+    }
+    if (fetchCitedBy) {
+        detail.citingPatents = $('tr[itemprop="forwardReferencesOrig"], tr[itemprop="forwardReferences"]').map((_, tr) => ({
+            publicationNumber: $(tr).find('span[itemprop="publicationNumber"]').first().text().trim() || null,
+            priorityDate: $(tr).find('time[itemprop="priorityDate"]').first().attr('datetime') || null,
+            publicationDate: $(tr).find('time[itemprop="publicationDate"]').first().attr('datetime') || null,
+            assignee: $(tr).find('span[itemprop="assigneeOriginal"]').first().text().trim() || null,
+            title: $(tr).find('span[itemprop="title"]').first().text().trim() || null,
+        })).get().filter((c) => c.publicationNumber);
+    }
+    if (fetchFamily) {
+        detail.family = $('tr[itemprop="familyMembers"]').map((_, tr) => ({
+            publicationNumber: $(tr).find('span[itemprop="publicationNumber"]').first().text().trim() || null,
+            country: $(tr).find('span[itemprop="countryCode"]').first().text().trim() || null,
+            publicationDate: $(tr).find('time[itemprop="publicationDate"]').first().attr('datetime') || null,
+            title: $(tr).find('span[itemprop="title"]').first().text().trim() || null,
+        })).get().filter((m) => m.publicationNumber);
+    }
 
-        if (wantClaims) {
-            out.claims = text('section[itemprop="claims"]') || text('.claims') || text('section#claims');
-        }
-        if (wantDesc) {
-            out.description = text('section[itemprop="description"]') || text('.description') || text('section#description');
-        }
-        if (wantCitations) {
-            out.citedPatents = Array.from(document.querySelectorAll('tr[itemprop="backwardReferencesOrig"], tr[itemprop="backwardReferences"]')).map((tr) => ({
-                publicationNumber: tr.querySelector('span[itemprop="publicationNumber"]')?.textContent?.trim() || null,
-                primaryExaminer: tr.querySelector('span[itemprop="primaryExaminer"]')?.textContent?.trim() || null,
-                priorityDate: tr.querySelector('time[itemprop="priorityDate"]')?.getAttribute('datetime') || null,
-                publicationDate: tr.querySelector('time[itemprop="publicationDate"]')?.getAttribute('datetime') || null,
-                assignee: tr.querySelector('span[itemprop="assigneeOriginal"]')?.textContent?.trim() || null,
-                title: tr.querySelector('span[itemprop="title"]')?.textContent?.trim() || null,
-            })).filter((c) => c.publicationNumber);
-            out.citedNonPatentLiterature = Array.from(document.querySelectorAll('dd[itemprop="nplCitations"]')).map((el) => el.textContent?.trim()).filter(Boolean);
-        }
-        if (wantCitedBy) {
-            out.citingPatents = Array.from(document.querySelectorAll('tr[itemprop="forwardReferencesOrig"], tr[itemprop="forwardReferences"]')).map((tr) => ({
-                publicationNumber: tr.querySelector('span[itemprop="publicationNumber"]')?.textContent?.trim() || null,
-                priorityDate: tr.querySelector('time[itemprop="priorityDate"]')?.getAttribute('datetime') || null,
-                publicationDate: tr.querySelector('time[itemprop="publicationDate"]')?.getAttribute('datetime') || null,
-                assignee: tr.querySelector('span[itemprop="assigneeOriginal"]')?.textContent?.trim() || null,
-                title: tr.querySelector('span[itemprop="title"]')?.textContent?.trim() || null,
-            })).filter((c) => c.publicationNumber);
-        }
-        if (wantFamily) {
-            out.family = Array.from(document.querySelectorAll('tr[itemprop="familyMembers"]')).map((tr) => ({
-                publicationNumber: tr.querySelector('span[itemprop="publicationNumber"]')?.textContent?.trim() || null,
-                country: tr.querySelector('span[itemprop="countryCode"]')?.textContent?.trim() || null,
-                publicationDate: tr.querySelector('time[itemprop="publicationDate"]')?.getAttribute('datetime') || null,
-                title: tr.querySelector('span[itemprop="title"]')?.textContent?.trim() || null,
-            })).filter((m) => m.publicationNumber);
-        }
-        if (wantPdf) {
-            out.pdfUrl = document.querySelector('meta[name="citation_pdf_url"]')?.getAttribute('content') || null;
-        }
-        return out;
-    }, {
-        wantClaims: !!fetchClaims,
-        wantDesc: !!fetchDescription,
-        wantCitations: !!fetchCitations,
-        wantCitedBy: !!fetchCitedBy,
-        wantFamily: !!fetchFamily,
-        wantPdf: !!fetchPdf,
-    });
+    const pdfUrl = fetchPdf ? (metaC('citation_pdf_url') || baseRow.pdfUrl || null) : null;
 
     const row = {
         publicationNumber: patentId,
         url: buildPatentUrl(patentId),
-        ...baseRow,
+        sourceQuery: baseRow.sourceQuery || null,
+        sourceSeed: baseRow.sourceSeed || null,
         ...detail,
+        pdfUrl,
         scrapedAt: new Date().toISOString(),
     };
 
     await Actor.pushData(row);
     pushedRows += 1;
     seenPatents.add(patentId);
-    ll.info(`[detail] ${patentId}: "${(detail.title || '').slice(0, 60)}", ${detail.inventors?.length || 0} inventors, ${detail.cpcCodes?.length || 0} CPC.`);
+    ll.info(`[detail] ${patentId}: "${(title || '').slice(0, 60)}", ${detail.inventors.length} inventors, ${detail.cpcCodes.length} CPC.`);
+}
+
+function cleanText(s) {
+    if (s === null || s === undefined) return null;
+    return String(s)
+        .replace(/<[^>]*>/g, '')
+        .replace(/&hellip;/g, '…')
+        .replace(/&amp;/g, '&')
+        .replace(/&quot;/g, '"')
+        .replace(/&#39;/g, "'")
+        .replace(/&lt;/g, '<')
+        .replace(/&gt;/g, '>')
+        .replace(/&nbsp;/g, ' ')
+        .replace(/\s+/g, ' ')
+        .trim() || null;
+}
+
+function uniq(arr) {
+    return [...new Set(arr)];
 }
 
 await crawler.run(startUrls);

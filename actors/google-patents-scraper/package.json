@@ -1,6 +1,6 @@
 {
     "name": "google-patents-scraper",
-    "version": "0.1.0",
+    "version": "0.2.0",
     "type": "module",
     "description": "Google Patents search at scale. Patent metadata, claims, citations, family members across jurisdictions, legal status, PDF links. One row per patent. Pay per row.",
     "main": "src/main.js",
@@ -9,8 +9,7 @@
     },
     "dependencies": {
         "apify": "^3.7.0",
-        "crawlee": "^3.16.0",
-        "playwright": "1.54.1"
+        "crawlee": "^3.16.0"
     },
     "engines": {
         "node": ">=20"
