@@ -1,0 +1,16 @@
+{
+    "name": "research-patent-radar-pipeline",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Commercialization radar. For each technology topic, correlates academic research momentum (Google Scholar) with patent filing activity (Google Patents), scores convergence 0-100, and tiers topics commercializing / emerging / watch. Surfaces early leads before the IP race. No browser, no API keys.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}

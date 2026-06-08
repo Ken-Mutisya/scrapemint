@@ -1,0 +1,66 @@
+{
+    "title": "Research to Patent Commercialization Radar Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "description": "Pass technology topics. For each one the radar pulls recent Google Scholar papers and Google Patents filings, then scores how far the field has moved from research toward commercialization.",
+    "properties": {
+        "topics": {
+            "title": "Technology topics",
+            "type": "array",
+            "description": "Free text technology or research topics. One row per topic. Example: [\"solid state battery electrolyte\", \"perovskite solar cell\", \"mRNA cancer vaccine\"].",
+            "editor": "stringList",
+            "default": [],
+            "prefill": ["solid state battery electrolyte", "perovskite solar cell"],
+            "sectionCaption": "What to scan"
+        },
+        "yearFrom": {
+            "title": "Earliest year",
+            "type": "integer",
+            "description": "Lower bound on paper publication and patent filing year. Defaults to three years ago. 0 also means three years ago.",
+            "default": 0,
+            "minimum": 0,
+            "maximum": 2100,
+            "sectionCaption": "Window and limits"
+        },
+        "maxTopics": {
+            "title": "Max topics",
+            "type": "integer",
+            "description": "Hard cap on topics scanned per run. Each topic triggers one Scholar call and one Patents call.",
+            "default": 8,
+            "minimum": 1,
+            "maximum": 40
+        },
+        "papersPerTopic": {
+            "title": "Papers per topic",
+            "type": "integer",
+            "description": "How many Scholar papers to pull per topic for the research-momentum signal.",
+            "default": 15,
+            "minimum": 5,
+            "maximum": 40
+        },
+        "patentsPerTopic": {
+            "title": "Patents per topic",
+            "type": "integer",
+            "description": "How many patent filings to pull per topic for the patent-activity signal.",
+            "default": 20,
+            "minimum": 5,
+            "maximum": 50
+        },
+        "minScore": {
+            "title": "Minimum score",
+            "type": "integer",
+            "description": "Drop topics scoring below this convergence score (0 to 100). 0 keeps everything with any data.",
+            "default": 0,
+            "minimum": 0,
+            "maximum": 100
+        },
+        "proxyConfiguration": {
+            "title": "Proxy configuration",
+            "type": "object",
+            "description": "Proxy passed through to the Scholar and Patents children. Both default to Apify residential, which is required for Google.",
+            "editor": "proxy",
+            "default": { "useApifyProxy": true, "apifyProxyGroups": ["RESIDENTIAL"] }
+        }
+    },
+    "required": ["topics"]
+}

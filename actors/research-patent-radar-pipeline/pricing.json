@@ -1,0 +1,25 @@
+{
+    "_note": "PUT this to /v2/acts/{actorId} as a pricingInfos array entry. PAY_PER_EVENT only on BRONZE. startedAt must be 14+ days out. Apify auto-adds 20% margin. NOTE: this pipeline calls google-scholar-scraper and google-patents-scraper once per topic, whose own per-event charges (one paper row, one patent row) also bill the buyer. Both children are HTTP + residential proxy with no browser, so compute per topic is small and these prices stay above it. Free tier kept to 1 commercializing so any run with billable rows covers compute.",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~research-patent-radar-pipeline?token=APIFY_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "radar_watch": {
+                "eventTitle": "Watch topic",
+                "eventDescription": "One topic with limited convergence between research and patents. Includes paper and patent counts, top venues, and top assignees.",
+                "eventPriceUsd": 0.04
+            },
+            "radar_emerging": {
+                "eventTitle": "Emerging topic",
+                "eventDescription": "One topic where academic research is accelerating but patent activity is still thin. An early lead before the IP race. Includes research momentum, top papers, and the few patents on file.",
+                "eventPriceUsd": 0.09
+            },
+            "radar_commercializing": {
+                "eventTitle": "Commercializing topic",
+                "eventDescription": "One topic with strong research momentum and active patent filing at the same time. Commercialization underway. Includes top papers, top assignees, recent filings, and the full convergence score. The first commercializing topic per run is free so you can validate output.",
+                "eventPriceUsd": 0.15
+            }
+        }
+    },
+    "startedAt": "2026-06-23T00:00:00.000Z"
+}

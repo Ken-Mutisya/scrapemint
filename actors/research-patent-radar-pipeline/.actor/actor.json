@@ -1,0 +1,15 @@
+{
+    "actorSpecification": 1,
+    "name": "research-patent-radar-pipeline",
+    "title": "Research to Patent Commercialization Radar",
+    "description": "For each technology topic, correlates academic research momentum from Google Scholar with patent filing activity from Google Patents, scores convergence 0 to 100, and tiers topics commercializing, emerging, or watch. Finds early leads before the IP race starts. No API keys.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "readme": "../README.md",
+    "categories": [
+        "BUSINESS",
+        "NEWS"
+    ]
+}
