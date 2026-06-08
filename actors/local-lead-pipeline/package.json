@@ -1,6 +1,6 @@
 {
     "name": "local-lead-pipeline",
-    "version": "0.1.0",
+    "version": "0.2.0",
     "type": "module",
     "description": "Local business lead pipeline. Chains Google Maps search with website + DNS enrichment and quality scoring. Pay per qualified lead.",
     "main": "src/main.js",

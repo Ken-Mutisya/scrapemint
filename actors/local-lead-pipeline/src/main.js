@@ -51,25 +51,38 @@ if (dedupedQueries.length === 0) {
 
 log.info(`Running ${dedupedQueries.length} Maps queries with maxPlacesTotal=${maxPlacesTotal}.`);
 
-const mapsRun = await Actor.call(
-    'scrapemint/google-maps-scraper',
-    {
-        searchQueries: dedupedQueries,
-        maxPlacesPerQuery,
-        maxPlacesTotal,
-        scrapeReviews: scrapeReviewsForSentiment,
-        maxReviewsPerPlace: scrapeReviewsForSentiment ? 5 : 0,
-        scrapeImages: false,
-        enrichFromWebsite: true,
-        dedupe: true,
-        proxyConfiguration: proxyInput,
-    },
-    { memory: 2048, build: 'latest' },
-);
+// enrichFromWebsite is OFF on purpose. The Maps child's per-site enrichment is
+// the bottleneck that timed out every public run (~1 place/min on residential,
+// so 25+ places never finished inside the hour). We do our own fast parallel
+// website enrichment below instead. timeoutSecs caps the child so a slow or
+// hung Maps run can never consume the parent's whole hour.
+let mapsRun = null;
+try {
+    mapsRun = await Actor.call(
+        'scrapemint/google-maps-scraper',
+        {
+            searchQueries: dedupedQueries,
+            maxPlacesPerQuery,
+            maxPlacesTotal,
+            scrapeReviews: scrapeReviewsForSentiment,
+            maxReviewsPerPlace: scrapeReviewsForSentiment ? 5 : 0,
+            scrapeImages: false,
+            enrichFromWebsite: false,
+            dedupe: true,
+            proxyConfiguration: proxyInput,
+        },
+        { memory: 2048, build: 'latest', timeout: 1500 },
+    );
+} catch (err) {
+    log.warning(`Maps stage call error (continuing if a dataset exists): ${err?.message}`);
+}
 
 if (!mapsRun?.defaultDatasetId) {
-    log.error('Maps stage returned no dataset. Aborting.');
+    log.error('Maps stage returned no dataset. Nothing to enrich.');
     await Actor.exit();
+}
+if (mapsRun.status && mapsRun.status !== 'SUCCEEDED') {
+    log.warning(`Maps stage status ${mapsRun.status}; enriching whatever places it produced.`);
 }
 log.info(`Maps stage finished. Reading places from dataset ${mapsRun.defaultDatasetId}.`);
 
@@ -89,16 +102,31 @@ const extractDomain = (urlOrHost) => {
     }
 };
 
-const headReachable = async (websiteUrl) => {
-    if (!websiteUrl) return false;
+const SITE_FETCH_TIMEOUT_MS = 6000;
+const EMAIL_RE = /[a-z0-9._%+\-]+@[a-z0-9._\-]+\.[a-z]{2,}/gi;
+
+// GET the homepage once: confirms reachability AND pulls real contact emails in
+// the same request. Replaces the Maps child's slow per-site enrichment.
+const fetchSite = async (websiteUrl) => {
+    if (!websiteUrl) return { reachable: false, emails: [] };
     try {
         const controller = new AbortController();
-        const timeout = setTimeout(() => controller.abort(), 6000);
-        const res = await fetch(websiteUrl, { method: 'HEAD', redirect: 'follow', signal: controller.signal });
-        clearTimeout(timeout);
-        return res.status < 500;
+        const timer = setTimeout(() => controller.abort(), SITE_FETCH_TIMEOUT_MS);
+        const res = await fetch(websiteUrl, {
+            redirect: 'follow',
+            signal: controller.signal,
+            headers: { 'User-Agent': 'Mozilla/5.0 (compatible; LeadEnrich/1.0)' },
+        });
+        clearTimeout(timer);
+        const reachable = res.status < 500;
+        let emails = [];
+        if (reachable && (res.headers.get('content-type') || '').includes('text')) {
+            const html = (await res.text()).slice(0, 300000);
+            emails = extractEmailsFromHtml(html);
+        }
+        return { reachable, emails };
     } catch {
-        return false;
+        return { reachable: false, emails: [] };
     }
 };
 
@@ -134,15 +162,53 @@ const inferContactEmails = (domain, existing) => {
     return [...set];
 };
 
+// Pull real emails from page HTML: mailto: links first, then loose matches,
+// filtering out asset filenames, package versions, and common false positives.
+const extractEmailsFromHtml = (html) => {
+    if (!html) return [];
+    const set = new Set();
+    for (const m of html.matchAll(/mailto:([^"'?>\s]+)/gi)) {
+        const e = decodeURIComponent(m[1]).toLowerCase().trim();
+        if (EMAIL_SHAPE.test(e) && !PACKAGE_VERSION.test(e)) set.add(e);
+    }
+    for (const m of html.matchAll(EMAIL_RE)) {
+        const e = m[0].toLowerCase();
+        if (!EMAIL_SHAPE.test(e) || PACKAGE_VERSION.test(e)) continue;
+        if (/\.(png|jpe?g|gif|svg|webp|css|js|json|woff2?)$/i.test(e)) continue;
+        if (/@(?:sentry|wixpress|example|email)\./i.test(e)) continue;
+        set.add(e);
+    }
+    return [...set];
+};
+
+// Run an async mapper over items with a bounded number of workers, preserving
+// input order in the result. Keeps website enrichment fast without flooding.
+const mapWithConcurrency = async (items, limit, fn) => {
+    const out = new Array(items.length);
+    let next = 0;
+    const worker = async () => {
+        while (next < items.length) {
+            const i = next++;
+            out[i] = await fn(items[i], i);
+        }
+    };
+    await Promise.all(Array.from({ length: Math.min(limit, items.length || 1) }, worker));
+    return out;
+};
+
 let enrichedCharged = 0;
 let basicCharged = 0;
 let enrichedFree = 0;
 
-for (const p of places) {
+// Stage 2: enrich every place in parallel (bounded). The slow parts (site GET,
+// MX lookup) run concurrently here instead of one place at a time.
+const enrichPlace = async (p) => {
     const website = p.website || p.websiteUrl || null;
     const domain = extractDomain(website);
 
-    const websiteReachable = website ? await headReachable(website) : false;
+    const { reachable: websiteReachable, emails: scrapedEmails } = website
+        ? await fetchSite(website)
+        : { reachable: false, emails: [] };
     const mxFound = websiteReachable ? await hasMx(domain) : false;
     const recentNegativeReviewCount = countNegativeReviews(p.reviews);
 
@@ -157,7 +223,15 @@ for (const p of places) {
 
     const qualityTier = (passesRating && passesReviews && passesWebsite && passesPhone) ? 'enriched' : 'basic';
 
-    const row = {
+    // Real emails scraped from the site, plus existing Maps emails and inferred
+    // role addresses. scrapedEmails are the verified ones worth surfacing.
+    const scrapedClean = scrapedEmails.filter((e) => EMAIL_SHAPE.test(e) && !PACKAGE_VERSION.test(e));
+    const likelyContactEmails = inferContactEmails(domain, [
+        ...(Array.isArray(p.emails) ? p.emails : []),
+        ...scrapedClean,
+    ]);
+
+    return {
         name: p.name || p.title || null,
         category: p.category || p.categoryName || null,
         address: p.address || null,
@@ -169,7 +243,8 @@ for (const p of places) {
         websiteReachable,
         domain,
         mxFound,
-        likelyContactEmails: inferContactEmails(domain, p.emails),
+        scrapedEmails: scrapedClean,
+        likelyContactEmails,
         latitude: p.latitude ?? p.location?.lat ?? null,
         longitude: p.longitude ?? p.location?.lng ?? null,
         placeId: p.placeId || p.place_id || null,
@@ -177,10 +252,15 @@ for (const p of places) {
         qualityTier,
         sourceQuery: p.searchQuery || p.query || null,
     };
+};
 
+const rows = await mapWithConcurrency(places, 10, enrichPlace);
+
+// Stage 3: push and charge sequentially so the free-tier accounting stays exact.
+for (const row of rows) {
     await Actor.pushData(row);
 
-    if (qualityTier === 'enriched') {
+    if (row.qualityTier === 'enriched') {
         if (enrichedCharged + enrichedFree < FREE_TIER_ENRICHED_LEADS) {
             enrichedFree++;
         } else {
@@ -193,6 +273,6 @@ for (const p of places) {
     }
 }
 
-log.info(`Done. enriched_charged=${enrichedCharged} enriched_free=${enrichedFree} basic=${basicCharged} total_rows=${places.length}`);
+log.info(`Done. enriched_charged=${enrichedCharged} enriched_free=${enrichedFree} basic=${basicCharged} total_rows=${rows.length}`);
 
 await Actor.exit();
