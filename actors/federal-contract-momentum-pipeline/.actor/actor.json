@@ -1,0 +1,15 @@
+{
+    "actorSpecification": 1,
+    "name": "federal-contract-momentum-pipeline",
+    "title": "Federal Contract Momentum: Gov Awards + Insider Buying",
+    "description": "Joins accelerating federal contract awards (USAspending) with insider open-market buying (SEC Form 4), scores 0 to 100, and tiers companies converging, contract_only, insider_only, or watch. A contractor winning surging government dollars while insiders buy is the signal. Public data, no API keys.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "readme": "../README.md",
+    "categories": [
+        "BUSINESS",
+        "NEWS"
+    ]
+}

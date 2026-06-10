@@ -1,0 +1,25 @@
+{
+    "_note": "PUT this to /v2/acts/{actorId} as a pricingInfos array entry. PAY_PER_EVENT only on BRONZE. startedAt must be 14+ days out. Apify auto-adds 20% margin. NOTE: this pipeline calls sec-form4-insider-tracker, whose own per-event charges also bill the buyer. USAspending is queried inline with plain fetch (public JSON API, no key, no proxy, no browser), so compute per run is tiny and these prices stay well above it even on a quiet run. Free tier is 1 converging company so any run with billable rows covers compute.",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~federal-contract-momentum-pipeline?token=APIFY_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "fcm_watch": {
+                "eventTitle": "Watch company",
+                "eventDescription": "One company with weak signal: no new federal award dollars above the threshold and no insider open-market buying. Includes the new award tally and the insider buy/sell counts so you can see why it scored low.",
+                "eventPriceUsd": 0.02
+            },
+            "fcm_signal": {
+                "eventTitle": "Single-signal company",
+                "eventDescription": "One company showing exactly one leg of the thesis: either accelerating federal contract awards with no insider buying (contract_only), or insider open-market buying with no contract momentum (insider_only). Includes the new award detail or the insider dollar values.",
+                "eventPriceUsd": 0.06
+            },
+            "fcm_converging": {
+                "eventTitle": "Converging company",
+                "eventDescription": "One company winning accelerating federal contract dollars AND showing insider open-market buying at the same time. The premium convergence signal. Includes the top new awards, the insider buy detail, and the 0-100 score breakdown. The first converging company per run is free so you can validate output.",
+                "eventPriceUsd": 0.12
+            }
+        }
+    },
+    "startedAt": "2026-06-25T00:00:00.000Z"
+}

@@ -1,0 +1,93 @@
+{
+    "title": "Federal Contract Momentum Pipeline Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "description": "Pulls new federal contract awards (USAspending) for each company, measures momentum against the prior window, joins insider open-market buying (SEC Form 4), scores convergence 0 to 100, and tiers every company.",
+    "properties": {
+        "tickers": {
+            "title": "Tickers",
+            "type": "array",
+            "description": "Stock tickers of the public contractors to scan, e.g. [\"LDOS\", \"LMT\", \"BAH\"]. The insider leg uses the ticker; the contract leg uses the recipient names below.",
+            "editor": "stringList",
+            "prefill": ["LDOS", "LMT", "BAH"],
+            "default": [],
+            "sectionCaption": "What to scan"
+        },
+        "recipientNames": {
+            "title": "Recipient names (recommended)",
+            "type": "object",
+            "description": "Map of ticker to the USAspending recipient name(s) to search, e.g. {\"LDOS\": [\"LEIDOS\"], \"LMT\": [\"LOCKHEED MARTIN\"]}. USAspending lists legal entity names, which often differ from the brand. Provide one or more strings per ticker for accurate matching. If omitted, the company name (or ticker) is used.",
+            "editor": "json",
+            "prefill": {
+                "LDOS": ["LEIDOS"],
+                "LMT": ["LOCKHEED MARTIN"],
+                "BAH": ["BOOZ ALLEN HAMILTON"]
+            },
+            "default": {}
+        },
+        "companyNames": {
+            "title": "Company names (optional)",
+            "type": "object",
+            "description": "Map of ticker to a human readable company name, e.g. {\"LDOS\": \"Leidos\"}. Used only to label output rows and as a fallback recipient search when no recipientNames entry is given.",
+            "editor": "json",
+            "prefill": {
+                "LDOS": "Leidos",
+                "LMT": "Lockheed Martin",
+                "BAH": "Booz Allen Hamilton"
+            },
+            "default": {}
+        },
+        "recentWindowDays": {
+            "title": "Recent window (days)",
+            "type": "integer",
+            "description": "Length of the recent award window. Momentum compares new awards in this window against an equal window immediately before it. 90 = last quarter vs the quarter before.",
+            "default": 90,
+            "minimum": 7,
+            "maximum": 365,
+            "sectionCaption": "Windows and thresholds"
+        },
+        "insiderLookbackDays": {
+            "title": "Insider lookback (days)",
+            "type": "integer",
+            "description": "How far back to pull insider open-market buys and sells from SEC Form 4.",
+            "default": 90,
+            "minimum": 1,
+            "maximum": 365
+        },
+        "minNewAwardValueUsd": {
+            "title": "Minimum new award value (USD)",
+            "type": "integer",
+            "description": "A company needs at least this much in new award dollars within the recent window to count as having contract momentum. Below it, contract momentum is treated as absent.",
+            "default": 1000000,
+            "minimum": 0
+        },
+        "includeContracts": {
+            "title": "Include federal contracts",
+            "type": "boolean",
+            "description": "Pull federal contract awards from USAspending. Turn off to score on insider buying alone.",
+            "default": true
+        },
+        "includeInsider": {
+            "title": "Include insider buying",
+            "type": "boolean",
+            "description": "Pull insider open-market buys and sells from SEC Form 4. Turn off to score on contract momentum alone.",
+            "default": true
+        },
+        "minScore": {
+            "title": "Minimum convergence score",
+            "type": "integer",
+            "description": "Drop and never charge companies scoring below this 0 to 100 threshold. 0 keeps every company with any signal.",
+            "default": 0,
+            "minimum": 0,
+            "maximum": 100
+        },
+        "proxyConfiguration": {
+            "title": "Proxy configuration",
+            "type": "object",
+            "description": "Optional. USAspending and EDGAR are public APIs that do not need a proxy, so the default is no proxy.",
+            "editor": "proxy",
+            "default": { "useApifyProxy": false }
+        }
+    },
+    "required": []
+}
