@@ -1,0 +1,25 @@
+{
+    "_note": "PUT this to /v2/acts/{actorId} as a pricingInfos array entry. PAY_PER_EVENT only on BRONZE. startedAt must be 14+ days out. Apify auto-adds 20% margin. First 20 rows per run are free (covers a validation pull); after that each row is charged by its change tier.",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~sec-13f-whale-tracker?token=APIFY_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "holding": {
+                "eventTitle": "Holding row",
+                "eventDescription": "One current 13F position that did not change materially since last quarter, with issuer, CUSIP, share count, position value, and portfolio weight.",
+                "eventPriceUsd": 0.004
+            },
+            "position_change": {
+                "eventTitle": "Position change",
+                "eventDescription": "One position the manager materially added to or trimmed since last quarter, with the prior and current share count, the percent change, and the value change.",
+                "eventPriceUsd": 0.01
+            },
+            "key_move": {
+                "eventTitle": "Key move (new or exit)",
+                "eventDescription": "A brand new position the manager opened, or a holding they fully exited, since last quarter. The highest signal rows. Includes prior and current share count and value.",
+                "eventPriceUsd": 0.02
+            }
+        }
+    },
+    "startedAt": "2026-06-25T00:00:00.000Z"
+}

@@ -1,0 +1,16 @@
+{
+    "name": "sec-13f-whale-tracker",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Track institutional fund managers' SEC 13F holdings from EDGAR and diff them quarter over quarter: new positions, adds, trims, and full exits with position value and portfolio weight. Public EDGAR APIs, no API keys.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}

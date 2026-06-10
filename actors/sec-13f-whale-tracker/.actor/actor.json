@@ -1,0 +1,15 @@
+{
+    "actorSpecification": 1,
+    "name": "sec-13f-whale-tracker",
+    "title": "SEC 13F Whale Tracker: New Buys, Adds, Trims, Exits",
+    "description": "Track institutional fund managers' SEC 13F holdings from EDGAR and diff them quarter over quarter. Surfaces new positions, adds, trims, and full exits per manager with position value and portfolio weight. Resolve managers by name or CIK. Official EDGAR APIs, no API keys.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "readme": "../README.md",
+    "categories": [
+        "BUSINESS",
+        "NEWS"
+    ]
+}

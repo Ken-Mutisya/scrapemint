@@ -1,0 +1,70 @@
+{
+    "title": "SEC 13F Whale Tracker Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "description": "Pulls each fund manager's latest 13F-HR holdings from EDGAR and diffs them against the prior quarter, returning new positions, adds, trims, exits, and unchanged holdings with value and portfolio weight.",
+    "properties": {
+        "managers": {
+            "title": "Fund managers",
+            "type": "array",
+            "description": "Institutional managers to track, each a fund name or an SEC CIK number. Names are resolved to a CIK via EDGAR full text search over 13F filers, e.g. [\"Berkshire Hathaway\", \"Scion Asset Management\", \"1336528\"].",
+            "editor": "stringList",
+            "prefill": ["Berkshire Hathaway", "Scion Asset Management", "Pershing Square Capital Management"],
+            "default": [],
+            "sectionCaption": "What to track"
+        },
+        "maxManagers": {
+            "title": "Max managers",
+            "type": "integer",
+            "description": "Cap on how many managers to process from the list above.",
+            "default": 10,
+            "minimum": 1,
+            "maximum": 100
+        },
+        "minPositionValueUsd": {
+            "title": "Minimum position value (USD)",
+            "type": "integer",
+            "description": "Drop holdings worth less than this. 0 keeps every position. Useful to focus on a manager's meaningful bets.",
+            "default": 0,
+            "minimum": 0,
+            "sectionCaption": "Filters"
+        },
+        "materialChangePct": {
+            "title": "Material change threshold (percent)",
+            "type": "integer",
+            "description": "A share count change smaller than this percent is labeled unchanged rather than increased or reduced. 10 means a position must move at least 10 percent to count as an add or trim.",
+            "default": 10,
+            "minimum": 0,
+            "maximum": 100
+        },
+        "includeUnchanged": {
+            "title": "Include unchanged holdings",
+            "type": "boolean",
+            "description": "Keep positions that did not change materially. Turn off to return only new positions, adds, trims, and exits.",
+            "default": true
+        },
+        "maxHoldingsPerManager": {
+            "title": "Max holdings per manager",
+            "type": "integer",
+            "description": "Cap on rows returned per manager, applied to current holdings plus exits.",
+            "default": 500,
+            "minimum": 1,
+            "maximum": 5000
+        },
+        "userAgent": {
+            "title": "User-Agent (optional)",
+            "type": "string",
+            "description": "SEC requires a descriptive User-Agent with a contact email. Provide your own, e.g. \"Acme Research you@acme.com\". A default is used if blank.",
+            "editor": "textfield",
+            "default": ""
+        },
+        "proxyConfiguration": {
+            "title": "Proxy configuration",
+            "type": "object",
+            "description": "Optional. EDGAR is a public API that does not need a proxy, so the default is no proxy.",
+            "editor": "proxy",
+            "default": { "useApifyProxy": false }
+        }
+    },
+    "required": []
+}
