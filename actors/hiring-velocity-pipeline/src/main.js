@@ -31,7 +31,7 @@ const {
     datePosted = '14',
     experienceLevel = 'senior_level',
     maxJobsPerSearch = 50,
-    maxJobsTotal = 200,
+    maxJobsTotal = 100,
     minPostingsPerCompany = 2,
     requireWebsite = true,
     proxyConfiguration: proxyInput,
@@ -192,11 +192,33 @@ const headReachable = async (websiteUrl) => {
 const hasMx = async (domain) => {
     if (!domain) return false;
     try {
-        const records = await dns.resolveMx(domain);
+        // dns.resolveMx has no built-in timeout and can hang on broken DNS, so
+        // race it against a 4s deadline. A timeout just means "treat as no MX".
+        const records = await Promise.race([
+            dns.resolveMx(domain),
+            new Promise((resolve) => setTimeout(() => resolve(null), 4000)),
+        ]);
         return Array.isArray(records) && records.length > 0;
     } catch {
         return false;
     }
+};
+
+// Bounded-concurrency map: never let the enrichment fan-out grow with the
+// number of companies. Worst case wall-clock = ceil(n/limit) * per-op timeout,
+// so a big buyer run can no longer crawl the pipeline toward its 1h timeout.
+const mapPool = async (items, limit, fn) => {
+    const results = new Array(items.length);
+    let next = 0;
+    const workers = Array.from({ length: Math.min(limit, items.length) }, async () => {
+        while (true) {
+            const i = next++;
+            if (i >= items.length) return;
+            results[i] = await fn(items[i], i);
+        }
+    });
+    await Promise.all(workers);
+    return results;
 };
 
 const inferContactEmails = (domain) => {
@@ -211,14 +233,27 @@ let qualifiedCharged = 0;
 let basicCharged = 0;
 let qualifiedFree = 0;
 
-for (const [key, agg] of byCompany) {
+// Stage 3: enrich every company's website concurrently (bounded pool), so the
+// total enrichment time stays roughly constant regardless of company count.
+const companyEntries = [...byCompany.entries()];
+const enrichment = await mapPool(companyEntries, 10, async ([key, agg]) => {
+    const meta = companyMeta.get(key) || {};
+    const website = meta.website || null;
+    const domain = extractDomain(website);
+    const websiteReachable = website ? await headReachable(website) : false;
+    const mxFound = websiteReachable ? await hasMx(domain) : false;
+    return { websiteReachable, mxFound, domain };
+});
+log.info(`Enriched ${companyEntries.length} companies (parallel pool).`);
+
+// Stage 4+5: fast sequential pass — scoring, tiering, charging, pushing. No
+// network here, so this can never approach the run timeout.
+for (let idx = 0; idx < companyEntries.length; idx++) {
+    const [key, agg] = companyEntries[idx];
+    const { websiteReachable, mxFound, domain } = enrichment[idx];
     const meta = companyMeta.get(key) || {};
     const companyName = meta.companyName || agg.keyName;
     const website = meta.website || null;
-    const domain = extractDomain(website);
-
-    const websiteReachable = website ? await headReachable(website) : false;
-    const mxFound = websiteReachable ? await hasMx(domain) : false;
 
     const openRolesCount = agg.titles.size + Math.max(0, agg.postingDates.length - agg.titles.size);
     const totalPostings = agg.postingDates.length || agg.titles.size;
