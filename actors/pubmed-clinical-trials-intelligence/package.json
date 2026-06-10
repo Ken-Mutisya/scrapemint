@@ -1,6 +1,6 @@
 {
     "name": "pubmed-clinical-trials-intelligence",
-    "version": "0.1.0",
+    "version": "0.1.2",
     "type": "module",
     "description": "Pharma research and clinical trial monitor: pull PubMed papers and ClinicalTrials.gov studies at scale. One row per record. PMIDs, NCT IDs, abstracts, MeSH terms, sponsors, phases, enrollment, results. Pay per row.",
     "main": "src/main.js",

@@ -423,8 +423,11 @@ function buildCtFilters() {
         advanced.push(`AREA[StudyType]COVERAGE[FullMatch] (${studyTypes.join(' OR ')})`);
     }
     if (dateFrom || dateTo) {
-        const from = dateFrom || '1900-01-01';
-        const to = dateTo || '3000-01-01';
+        // CT.gov v2 RANGE wants real dates or the MIN/MAX sentinels. Placeholder
+        // dates like 1900-01-01 / 3000-01-01 are rejected ("Unknown date format")
+        // and 400 the whole query, so use MIN/MAX for the open-ended side.
+        const from = dateFrom || 'MIN';
+        const to = dateTo || 'MAX';
         advanced.push(`AREA[LastUpdatePostDate]RANGE[${from},${to}]`);
     }
     if (advanced.length > 0) {
@@ -521,7 +524,9 @@ async function fetchCtPage(query, pageToken = null) {
     params.set('pageSize', '100');
     if (pageToken) params.set('pageToken', pageToken);
     for (const [k, v] of buildCtFilters()) params.append(k, v);
-    if (fetchTrialResults) params.set('fields', '');
+    // The v2 API already returns resultsSection by default when a study hasResults,
+    // so we never need a `fields` param. An empty `fields=` is a hard 400, so the
+    // old `params.set('fields', '')` here crashed every clinical-trials run.
     const url = `${CT_BASE}?${params.toString()}`;
     await sleep(delayMs);
     return fetchJson(url);
@@ -587,7 +592,13 @@ try {
     for (const q of ctQueryList) {
         if (pushedRows >= cap) break;
         log.info(`ClinicalTrials.gov query: "${q}"`);
-        await processCtQuery(q);
+        // A transient CT.gov 400/429/503 on one query must not discard the rows
+        // already pushed (PubMed + earlier CT queries). Degrade gracefully.
+        try {
+            await processCtQuery(q);
+        } catch (e) {
+            log.warning(`ClinicalTrials.gov query "${q}" failed (continuing): ${e.message}`);
+        }
     }
 
     if (nctIdList.length > 0 && pushedRows < cap) {

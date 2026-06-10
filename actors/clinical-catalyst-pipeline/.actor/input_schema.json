@@ -1,0 +1,72 @@
+{
+    "title": "Clinical Catalyst Radar Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "description": "Pass biotech companies as \"Company Name | TICKER\". For each one the radar pulls ClinicalTrials.gov studies and PubMed papers (matched to the company by sponsor), pulls SEC Form 4 insider transactions by ticker, then scores how strongly an advancing clinical asset and insider buying line up.",
+    "properties": {
+        "companies": {
+            "title": "Companies",
+            "type": "array",
+            "description": "One entry per company, formatted \"Company Name | TICKER\". The name drives the ClinicalTrials.gov sponsor match and PubMed search; the ticker drives the Form 4 insider lookup. Example: [\"Moderna | MRNA\", \"BioNTech | BNTX\", \"CRISPR Therapeutics | CRSP\"].",
+            "editor": "stringList",
+            "default": [],
+            "prefill": ["Moderna | MRNA", "CRISPR Therapeutics | CRSP", "BioNTech | BNTX"],
+            "sectionCaption": "What to scan"
+        },
+        "insiderLookbackDays": {
+            "title": "Insider lookback (days)",
+            "type": "integer",
+            "description": "How far back to read SEC Form 4 open-market buys and sells.",
+            "default": 90,
+            "minimum": 7,
+            "maximum": 365,
+            "sectionCaption": "Windows and limits"
+        },
+        "clinicalSinceDays": {
+            "title": "Clinical/research window (days)",
+            "type": "integer",
+            "description": "Only count ClinicalTrials.gov studies and PubMed papers updated within this window. Defaults to 540 days (18 months) so the score reflects current momentum, not history.",
+            "default": 540,
+            "minimum": 30,
+            "maximum": 1825
+        },
+        "trialsPerCompany": {
+            "title": "Trials per company",
+            "type": "integer",
+            "description": "How many ClinicalTrials.gov studies to pull per company for the clinical-progress signal.",
+            "default": 25,
+            "minimum": 5,
+            "maximum": 60
+        },
+        "papersPerCompany": {
+            "title": "Papers per company",
+            "type": "integer",
+            "description": "How many PubMed papers to pull per company for the research-momentum signal.",
+            "default": 20,
+            "minimum": 5,
+            "maximum": 50
+        },
+        "includeInsider": {
+            "title": "Include insider buying",
+            "type": "boolean",
+            "description": "Pull SEC Form 4 open-market buys/sells. Turn off to score clinical + research only.",
+            "default": true
+        },
+        "minScore": {
+            "title": "Minimum score",
+            "type": "integer",
+            "description": "Drop companies scoring below this convergence score (0 to 100). 0 keeps everything with any data.",
+            "default": 0,
+            "minimum": 0,
+            "maximum": 100
+        },
+        "proxyConfiguration": {
+            "title": "Proxy configuration",
+            "type": "object",
+            "description": "Proxy passed through to the SEC Form 4 child. The clinical/research child uses government APIs directly and needs no proxy.",
+            "editor": "proxy",
+            "default": { "useApifyProxy": true }
+        }
+    },
+    "required": ["companies"]
+}

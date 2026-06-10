@@ -1,0 +1,25 @@
+{
+    "_note": "PUT this to /v2/acts/{actorId} as a pricingInfos array entry. PAY_PER_EVENT only on BRONZE. startedAt must be 14+ days out. Apify auto-adds 20% margin. NOTE: this pipeline calls pubmed-clinical-trials-intelligence once per company and sec-form4-insider-tracker once per run, whose own per-event charges (one trial/paper row, one Form 4 transaction) also bill the buyer. Both children are HTTP + public government JSON APIs with no browser, so compute per company is small and these prices stay above it. Free tier kept to 1 catalyst so any run with billable rows covers compute.",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~clinical-catalyst-pipeline?token=APIFY_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "cat_watch": {
+                "eventTitle": "Watch company",
+                "eventDescription": "One company with limited convergence: thin clinical activity and no qualifying insider buying. Includes trial, paper, and insider counts and the convergence score.",
+                "eventPriceUsd": 0.05
+            },
+            "cat_signal": {
+                "eventTitle": "Single-signal lead",
+                "eventDescription": "One company with a strong clinical/research pipeline OR insider buying, but not both at once. Includes top trials by phase, top cited papers, and insider buy detail.",
+                "eventPriceUsd": 0.10
+            },
+            "cat_catalyst": {
+                "eventTitle": "Catalyst company",
+                "eventDescription": "One company where a Phase 2+ asset is actively advancing AND insiders are buying on the open market at the same time. Includes top trials, research momentum, the full insider buy breakdown, and the convergence score. The first catalyst per run is free so you can validate output.",
+                "eventPriceUsd": 0.16
+            }
+        }
+    },
+    "startedAt": "2026-06-24T00:00:00.000Z"
+}
