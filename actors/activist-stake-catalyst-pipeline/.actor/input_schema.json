@@ -1,0 +1,87 @@
+{
+    "title": "Activist Stake Catalyst Pipeline Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "description": "Finds recent Schedule 13D / 13G activist and large-holder filings for your tickers, attaches insider open-market buying in a window around each filing, scores conviction 0 to 100, and tiers each catalyst.",
+    "properties": {
+        "tickers": {
+            "title": "Tickers",
+            "type": "array",
+            "description": "Stock tickers of the companies to scan as 13D/13G targets, e.g. [\"DIS\", \"BHC\", \"MSFT\"].",
+            "editor": "stringList",
+            "prefill": ["DIS", "PARA", "BHC"],
+            "default": [],
+            "sectionCaption": "What to scan"
+        },
+        "formTypes": {
+            "title": "Filing types",
+            "type": "array",
+            "description": "Which schedules to include. SC 13D = activist intent to influence. SC 13G = passive >5% holder.",
+            "editor": "select",
+            "items": { "type": "string", "enum": ["SC 13D", "SC 13G"] },
+            "default": ["SC 13D", "SC 13G"]
+        },
+        "maxAgeDays": {
+            "title": "Max age (days)",
+            "type": "integer",
+            "description": "Ignore filings older than this many days. 90 = last quarter.",
+            "default": 90,
+            "minimum": 1,
+            "maximum": 730,
+            "sectionCaption": "Window and thresholds"
+        },
+        "insiderWindowDays": {
+            "title": "Insider window (days)",
+            "type": "integer",
+            "description": "Count insider buys and sells within this many days on either side of the filing date.",
+            "default": 21,
+            "minimum": 1,
+            "maximum": 90
+        },
+        "includeInsider": {
+            "title": "Include insider buying",
+            "type": "boolean",
+            "description": "Attach insider open-market buys and sells around each filing. Turn off for filings only.",
+            "default": true
+        },
+        "minScore": {
+            "title": "Minimum conviction score",
+            "type": "integer",
+            "description": "Drop and never charge filings scoring below this 0 to 100 threshold. 0 keeps every filing.",
+            "default": 0,
+            "minimum": 0,
+            "maximum": 100
+        },
+        "maxFilingsPerCompany": {
+            "title": "Max filings per company",
+            "type": "integer",
+            "description": "Cap on filings returned per ticker, most recent first.",
+            "default": 25,
+            "minimum": 1,
+            "maximum": 100
+        },
+        "maxFilingsTotal": {
+            "title": "Max filings total",
+            "type": "integer",
+            "description": "Cap on filings scored across all tickers.",
+            "default": 200,
+            "minimum": 1,
+            "maximum": 1000
+        },
+        "userAgent": {
+            "title": "SEC User-Agent (optional)",
+            "type": "string",
+            "description": "EDGAR asks for a descriptive User-Agent that includes an email. Defaults to a generic scrapemint value if left blank.",
+            "editor": "textfield",
+            "default": ""
+        },
+        "proxyConfiguration": {
+            "title": "Proxy configuration",
+            "type": "object",
+            "description": "Optional. EDGAR does not need a proxy, so the default is no proxy.",
+            "editor": "proxy",
+            "default": { "useApifyProxy": false }
+        }
+    },
+    "required": []
+}

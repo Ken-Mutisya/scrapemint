@@ -1,0 +1,16 @@
+{
+    "name": "activist-stake-catalyst-pipeline",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Activist stake catalyst pipeline. For each ticker, correlates recent Schedule 13D / 13G filings with insider open-market buying in a window around the filing, scores conviction 0-100, and tiers each as activist_confirmed / accumulation / watch. Pure EDGAR data, no browser, no API keys.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}

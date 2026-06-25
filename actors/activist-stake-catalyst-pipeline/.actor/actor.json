@@ -1,0 +1,15 @@
+{
+    "actorSpecification": 1,
+    "name": "activist-stake-catalyst-pipeline",
+    "title": "Activist Stake Catalyst: 13D/13G Plus Insider Buying",
+    "description": "For each ticker, finds recent Schedule 13D and 13G filings on EDGAR and correlates them with insider open-market buying around the filing, scores conviction 0 to 100, and tiers each as activist_confirmed, accumulation, or watch. An activist filing while insiders buy is the signal.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "readme": "../README.md",
+    "categories": [
+        "BUSINESS",
+        "NEWS"
+    ]
+}

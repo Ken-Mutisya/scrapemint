@@ -1,0 +1,25 @@
+{
+    "_note": "PUT this to /v2/acts/{actorId} as a pricingInfos array entry. PAY_PER_EVENT only on BRONZE. startedAt must be 14+ days out. Apify auto-adds 20% margin. NOTE: this pipeline calls sec-form4-insider-tracker, whose own per-event charges also bill the buyer. The Form 4 child is EDGAR HTTP (no browser, no proxy) and the 13D/13G stage is inline EDGAR, so compute per run is tiny and these prices stay well above it. Free tier kept to 1 activist_confirmed so any run with billable rows covers compute.",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~activist-stake-catalyst-pipeline?token=APIFY_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "watch": {
+                "eventTitle": "Watch filing",
+                "eventDescription": "One passive 13G large-holder filing with no insider buying in the window. Includes the filer, filing type, filing link, and the insider buy/sell tally.",
+                "eventPriceUsd": 0.05
+            },
+            "accumulation": {
+                "eventTitle": "Accumulation signal",
+                "eventDescription": "A 13D activist filing, or any large-holder filing with insider open-market buying in the window. Includes filer, intent, filing detail, and the insider buy/sell counts and dollar values.",
+                "eventPriceUsd": 0.10
+            },
+            "activist_confirmed": {
+                "eventTitle": "Activist confirmed catalyst",
+                "eventDescription": "A recent Schedule 13D (intent to influence), optionally with net insider open-market buying in the window. An activist taking a stake while insiders also buy. Includes full filing and insider buy detail. The first activist_confirmed per run is free so you can validate output.",
+                "eventPriceUsd": 0.18
+            }
+        }
+    },
+    "startedAt": "2026-07-11T00:00:00.000Z"
+}
