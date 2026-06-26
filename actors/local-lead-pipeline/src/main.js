@@ -54,11 +54,19 @@ log.info(`Running ${dedupedQueries.length} Maps queries with maxPlacesTotal=${ma
 // enrichFromWebsite is OFF on purpose. The Maps child's per-site enrichment is
 // the bottleneck that timed out every public run (~1 place/min on residential,
 // so 25+ places never finished inside the hour). We do our own fast parallel
-// website enrichment below instead. timeoutSecs caps the child so a slow or
-// hung Maps run can never consume the parent's whole hour.
+// website enrichment below instead.
+//
+// A child run's own timeout cannot be relied on to free the parent, so the
+// parent drives its own deadline: START the Maps child, wait at most
+// CHILD_WAIT_SECS, then ABORT and read whatever partial dataset it produced.
+// This guarantees the parent always returns control before its 1h run timeout,
+// which was the root cause of the maintenance flag (96% of public runs timed
+// out waiting on a hung Maps child).
+const CHILD_TIMEOUT_SECS = 1200; // child self-cap (belt)
+const CHILD_WAIT_SECS = 1500; // parent hard deadline to regain control (suspenders)
 let mapsRun = null;
 try {
-    mapsRun = await Actor.call(
+    const started = await Actor.start(
         'scrapemint/google-maps-scraper',
         {
             searchQueries: dedupedQueries,
@@ -71,8 +79,19 @@ try {
             dedupe: true,
             proxyConfiguration: proxyInput,
         },
-        { memory: 2048, build: 'latest', timeout: 1500 },
+        { memory: 2048, build: 'latest', timeout: CHILD_TIMEOUT_SECS },
     );
+    const runClient = Actor.apifyClient.run(started.id);
+    mapsRun = await runClient.waitForFinish({ waitSecs: CHILD_WAIT_SECS });
+    if (mapsRun && (mapsRun.status === 'RUNNING' || mapsRun.status === 'READY')) {
+        log.warning(`Maps child still ${mapsRun.status} after ${CHILD_WAIT_SECS}s; aborting and using partial dataset.`);
+        try {
+            mapsRun = await runClient.abort({ gracefully: true });
+        } catch (e) {
+            log.warning(`Abort failed (using whatever exists): ${e?.message}`);
+        }
+    }
+    if (mapsRun && !mapsRun.defaultDatasetId) mapsRun.defaultDatasetId = started.defaultDatasetId;
 } catch (err) {
     log.warning(`Maps stage call error (continuing if a dataset exists): ${err?.message}`);
 }
@@ -133,7 +152,13 @@ const fetchSite = async (websiteUrl) => {
 const hasMx = async (domain) => {
     if (!domain) return false;
     try {
-        const records = await dns.resolveMx(domain);
+        // dns.resolveMx has no built-in timeout and can hang on broken DNS, which
+        // stalled the enrichment pool and ran the whole pipeline to its 1h run
+        // timeout. Race it against a 4s deadline; a timeout means "treat as no MX".
+        const records = await Promise.race([
+            dns.resolveMx(domain),
+            new Promise((resolve) => setTimeout(() => resolve(null), 4000)),
+        ]);
         return Array.isArray(records) && records.length > 0;
     } catch {
         return false;

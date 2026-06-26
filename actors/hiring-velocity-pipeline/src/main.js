@@ -45,32 +45,48 @@ if (cleanKeywords.length === 0) {
 
 log.info(`Pulling Indeed jobs for ${cleanKeywords.length} keywords in ${country} (${experienceLevel}, last ${datePosted} days).`);
 
+// Backstop: Indeed /cmp/ company pages hang on antibot challenges, and a child
+// run's own timeout cannot be relied on to free the parent — the parent has to
+// drive its own deadline. We START the child (non-blocking), then wait at most
+// CHILD_WAIT_SECS for it; if it overruns we ABORT it and read whatever partial
+// dataset it produced. This guarantees the parent regains control well before
+// its own 1h run timeout, which was the root cause of the maintenance flag.
+const CHILD_TIMEOUT_SECS = 600; // child self-cap (belt)
+const CHILD_WAIT_SECS = 900; // parent hard deadline to regain control (suspenders)
 let indeedRun = null;
 try {
-    indeedRun = await Actor.call(
-    'scrapemint/indeed-jobs-scraper',
-    {
-        keywords: cleanKeywords,
-        country,
-        locations,
-        datePosted,
-        experienceLevel,
-        maxJobs: maxJobsTotal,
-        scrapeCompanyDetails: true,
-        extractSkills: true,
-        classifySeniority: true,
-        parseSalary: false,
-        detectRemoteHybrid: true,
-        dedupe: true,
-        concurrency: 3,
-        proxyConfiguration: proxyInput,
-    },
-    // Backstop: Indeed /cmp/ company pages can hang on antibot challenges. Cap
-    // the child at 5 minutes so a stuck request can never hang the pipeline to
-    // its own 1h timeout. A timed-out child still returns its dataset with the
-    // jobs scraped so far, so we degrade to partial results instead of failing.
-    { memory: 2048, build: 'latest', timeout: 300 },
+    const started = await Actor.start(
+        'scrapemint/indeed-jobs-scraper',
+        {
+            keywords: cleanKeywords,
+            country,
+            locations,
+            datePosted,
+            experienceLevel,
+            maxJobs: maxJobsTotal,
+            scrapeCompanyDetails: true,
+            extractSkills: true,
+            classifySeniority: true,
+            parseSalary: false,
+            detectRemoteHybrid: true,
+            dedupe: true,
+            concurrency: 3,
+            proxyConfiguration: proxyInput,
+        },
+        { memory: 2048, build: 'latest', timeout: CHILD_TIMEOUT_SECS },
     );
+    const runClient = Actor.apifyClient.run(started.id);
+    indeedRun = await runClient.waitForFinish({ waitSecs: CHILD_WAIT_SECS });
+    if (indeedRun && (indeedRun.status === 'RUNNING' || indeedRun.status === 'READY')) {
+        log.warning(`Indeed child still ${indeedRun.status} after ${CHILD_WAIT_SECS}s; aborting and using partial dataset.`);
+        try {
+            indeedRun = await runClient.abort({ gracefully: true });
+        } catch (e) {
+            log.warning(`Abort failed (using whatever exists): ${e?.message}`);
+        }
+    }
+    // Fall back to the started run's dataset id if the wait/abort object lacks it.
+    if (indeedRun && !indeedRun.defaultDatasetId) indeedRun.defaultDatasetId = started.defaultDatasetId;
 } catch (err) {
     log.warning(`Indeed stage threw (continuing, may have partial or no data): ${err?.message}`);
 }
