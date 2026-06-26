@@ -1,0 +1,25 @@
+{
+    "_note": "PUT this to /v2/acts/{actorId} as a pricingInfos array entry. PAY_PER_EVENT only on BRONZE. startedAt must be 14+ days out. Apify auto-adds 20% margin. NOTE: this pipeline calls sec-form4-insider-tracker, whose own per-event charges also bill the buyer. The Form 4 child is EDGAR HTTP (no browser, no proxy) and the buyback 8-K stage is inline EDGAR, so compute per run is tiny and these prices stay well above it. Free tier kept to 1 conviction_buyback so any run with billable rows covers compute.",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~buyback-insider-conviction-pipeline?token=APIFY_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "watch": {
+                "eventTitle": "Watch buyback",
+                "eventDescription": "One 8-K share repurchase announcement with no insider buying in the window. Includes the filing link, recency, and the insider buy/sell tally.",
+                "eventPriceUsd": 0.05
+            },
+            "accumulation": {
+                "eventTitle": "Accumulation signal",
+                "eventDescription": "A buyback announcement with insider open-market buying in the window. Includes the filing detail plus the insider buy/sell counts and dollar values.",
+                "eventPriceUsd": 0.10
+            },
+            "conviction_buyback": {
+                "eventTitle": "Conviction buyback catalyst",
+                "eventDescription": "A buyback announcement with a net insider buying cluster (two or more insiders) in the window and a conviction score of 55 or higher. The company and its insiders backing the stock at the same time. Includes full filing and insider buy detail. The first conviction_buyback per run is free so you can validate output.",
+                "eventPriceUsd": 0.18
+            }
+        }
+    },
+    "startedAt": "2026-07-11T00:00:00.000Z"
+}

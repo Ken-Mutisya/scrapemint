@@ -1,0 +1,86 @@
+{
+    "title": "Buyback Insider Conviction Pipeline Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "description": "Finds recent 8-K share repurchase announcements for your tickers, attaches insider open-market buying in a window around each announcement, scores conviction 0 to 100, and tiers each catalyst.",
+    "properties": {
+        "tickers": {
+            "title": "Tickers",
+            "type": "array",
+            "description": "Stock tickers to scan for buyback 8-K announcements, e.g. [\"AAPL\", \"OLN\", \"EQT\"].",
+            "editor": "stringList",
+            "prefill": ["AAPL", "OLN", "EQT"],
+            "default": [],
+            "sectionCaption": "What to scan"
+        },
+        "buybackKeywords": {
+            "title": "Buyback keywords",
+            "type": "array",
+            "description": "Words an 8-K must contain to count as a buyback announcement. EDGAR full-text matches these in the filing body.",
+            "editor": "stringList",
+            "default": ["repurchase", "buyback"]
+        },
+        "maxAgeDays": {
+            "title": "Max age (days)",
+            "type": "integer",
+            "description": "Ignore filings older than this many days. 120 = about a quarter.",
+            "default": 120,
+            "minimum": 1,
+            "maximum": 730,
+            "sectionCaption": "Window and thresholds"
+        },
+        "insiderWindowDays": {
+            "title": "Insider window (days)",
+            "type": "integer",
+            "description": "Count insider buys and sells within this many days on either side of the announcement.",
+            "default": 21,
+            "minimum": 1,
+            "maximum": 90
+        },
+        "includeInsider": {
+            "title": "Include insider buying",
+            "type": "boolean",
+            "description": "Attach insider open-market buys and sells around each announcement. Turn off for announcements only.",
+            "default": true
+        },
+        "minScore": {
+            "title": "Minimum conviction score",
+            "type": "integer",
+            "description": "Drop and never charge filings scoring below this 0 to 100 threshold. 0 keeps every buyback announcement.",
+            "default": 0,
+            "minimum": 0,
+            "maximum": 100
+        },
+        "maxFilingsPerCompany": {
+            "title": "Max filings per company",
+            "type": "integer",
+            "description": "Cap on buyback filings returned per ticker, most recent first.",
+            "default": 25,
+            "minimum": 1,
+            "maximum": 100
+        },
+        "maxFilingsTotal": {
+            "title": "Max filings total",
+            "type": "integer",
+            "description": "Cap on filings scored across all tickers.",
+            "default": 200,
+            "minimum": 1,
+            "maximum": 1000
+        },
+        "userAgent": {
+            "title": "SEC User-Agent (optional)",
+            "type": "string",
+            "description": "EDGAR asks for a descriptive User-Agent that includes an email. Defaults to a generic scrapemint value if left blank.",
+            "editor": "textfield",
+            "default": ""
+        },
+        "proxyConfiguration": {
+            "title": "Proxy configuration",
+            "type": "object",
+            "description": "Optional. EDGAR does not need a proxy, so the default is no proxy.",
+            "editor": "proxy",
+            "default": { "useApifyProxy": false }
+        }
+    },
+    "required": []
+}

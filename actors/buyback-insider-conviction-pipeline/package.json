@@ -1,0 +1,16 @@
+{
+    "name": "buyback-insider-conviction-pipeline",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Buyback insider conviction pipeline. For each ticker, correlates recent 8-K share repurchase announcements with insider open-market buying in a window around each, scores conviction 0-100, and tiers each as conviction_buyback / accumulation / watch. Pure EDGAR data, no browser, no API keys.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}

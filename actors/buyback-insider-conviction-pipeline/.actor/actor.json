@@ -1,0 +1,15 @@
+{
+    "actorSpecification": 1,
+    "name": "buyback-insider-conviction-pipeline",
+    "title": "Buyback Insider Conviction: 8-K Repurchase Plus Insider Buys",
+    "description": "For each ticker, finds 8-K share repurchase announcements and correlates them with insider open-market buying around the filing, scores conviction 0 to 100, and tiers each as conviction_buyback, accumulation, or watch. A buyback plus insiders buying is the signal. Pure EDGAR data, no keys.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "readme": "../README.md",
+    "categories": [
+        "BUSINESS",
+        "NEWS"
+    ]
+}
