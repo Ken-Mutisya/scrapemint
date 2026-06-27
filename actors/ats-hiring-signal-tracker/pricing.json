@@ -1,0 +1,25 @@
+{
+    "_note": "PUT this to /v2/acts/{actorId} as a pricingInfos array entry. PAY_PER_EVENT only on BRONZE. startedAt must be 14+ days out. Apify auto-adds 20% margin. Greenhouse + Lever public APIs are keyless (no browser, no proxy), so compute per company is tiny. Premium account-intelligence pricing. Companies not found on any ATS are returned but never charged. First 5 hot_account per run are free for validation.",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~ats-hiring-signal-tracker?token=APIFY_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "quiet_account": {
+                "eventTitle": "Quiet account",
+                "eventDescription": "A company found on Greenhouse or Lever with no open roles right now. Confirms the ATS and that the account is not currently hiring.",
+                "eventPriceUsd": 0.03
+            },
+            "active_account": {
+                "eventTitle": "Active account",
+                "eventDescription": "A company with open roles: open-role count, departments hiring, locations, senior-role count, newest posting, and sample titles. A live hiring signal on the account.",
+                "eventPriceUsd": 0.08
+            },
+            "hot_account": {
+                "eventTitle": "Hot account",
+                "eventDescription": "A company scaling fast: at or above the hot threshold of open roles, with the full department and location breakdown. A strong buying trigger. The first 5 hot_account per run are free so you can validate output.",
+                "eventPriceUsd": 0.15
+            }
+        }
+    },
+    "startedAt": "2026-07-12T00:00:00.000Z"
+}

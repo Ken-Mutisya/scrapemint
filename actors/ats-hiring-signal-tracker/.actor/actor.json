@@ -1,0 +1,12 @@
+{
+    "actorSpecification": 1,
+    "name": "ats-hiring-signal-tracker",
+    "title": "ATS Hiring-Signal Tracker (Greenhouse + Lever)",
+    "description": "Give it target companies and it resolves each on Greenhouse and Lever, returning the live hiring signal: open-role count, departments hiring, locations, senior roles, and recent postings. Account intelligence for sales and competitive intel. Keyless.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "readme": "../README.md",
+    "categories": ["BUSINESS", "LEAD_GENERATION"]
+}

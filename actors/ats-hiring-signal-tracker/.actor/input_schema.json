@@ -1,0 +1,40 @@
+{
+    "title": "ATS Hiring-Signal Tracker Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "description": "Give target companies, get each one's live hiring signal from Greenhouse + Lever. Pay per resolved company.",
+    "properties": {
+        "companies": {
+            "title": "Target companies",
+            "type": "array",
+            "description": "Company names or ATS tokens to check. A name is slugified to guess the token; for an exact match pass 'greenhouse:token' or 'lever:token' (the token is the slug in the careers URL, e.g. boards.greenhouse.io/TOKEN).",
+            "editor": "stringList",
+            "prefill": ["Stripe", "Ramp", "Notion", "greenhouse:airbnb"],
+            "default": []
+        },
+        "hotMinRoles": {
+            "title": "Hot account threshold (open roles)",
+            "type": "integer",
+            "description": "A company with at least this many open roles and a posting in the last 30 days is tiered hot_account.",
+            "default": 10,
+            "minimum": 1
+        },
+        "maxCompanies": {
+            "title": "Max companies",
+            "type": "integer",
+            "description": "Cap how many companies are checked per run.",
+            "default": 200,
+            "minimum": 1,
+            "maximum": 2000
+        },
+        "concurrency": {
+            "title": "Concurrency",
+            "type": "integer",
+            "description": "Companies resolved in parallel.",
+            "default": 5,
+            "minimum": 1,
+            "maximum": 15
+        }
+    },
+    "required": ["companies"]
+}
