@@ -1,0 +1,16 @@
+{
+    "name": "wordpress-plugin-developer-leads",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "WordPress plugin and theme developer lead scraper. Query the keyless WordPress.org API by keyword and get author, company website, active installs, rating, downloads, and a scraped contact email. One B2B lead per plugin or theme.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}

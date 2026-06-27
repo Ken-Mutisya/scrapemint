@@ -1,0 +1,15 @@
+{
+    "actorSpecification": 1,
+    "name": "wordpress-plugin-developer-leads",
+    "title": "WordPress Plugin & Theme Developer Leads",
+    "description": "Query the keyless WordPress.org directory by keyword and turn plugins and themes into B2B leads: author, company website, active installs, rating, downloads, maintenance signals, and a scraped contact email. One lead per plugin or theme.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "readme": "../README.md",
+    "categories": [
+        "BUSINESS",
+        "LEAD_GENERATION"
+    ]
+}

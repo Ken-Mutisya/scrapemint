@@ -1,0 +1,25 @@
+{
+    "_note": "PUT this to /v2/acts/{actorId} as a pricingInfos array entry. PAY_PER_EVENT only on BRONZE. startedAt must be 14+ days out. Apify auto-adds 20% margin. The directory stage is a keyless WordPress.org JSON API (no browser, no proxy); only optional email enrichment fetches homepages, done cheaply in a bounded parallel pool. High volume, so prices are low. First 10 qualified_lead per run are free for validation.",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~wordpress-plugin-developer-leads?token=APIFY_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "listing": {
+                "eventTitle": "Listing",
+                "eventDescription": "One plugin or theme with author, active installs, rating, downloads, and maintenance signals, but no company website.",
+                "eventPriceUsd": 0.01
+            },
+            "lead": {
+                "eventTitle": "Developer lead",
+                "eventDescription": "A plugin or theme with the author's company website, plus installs, rating, downloads, and maintenance signals.",
+                "eventPriceUsd": 0.02
+            },
+            "qualified_lead": {
+                "eventTitle": "Qualified developer lead",
+                "eventDescription": "A plugin with a scraped contact email and active installs at or above the qualified bar. A reachable, established developer. The first 10 qualified_lead per run are free so you can validate output.",
+                "eventPriceUsd": 0.05
+            }
+        }
+    },
+    "startedAt": "2026-07-11T00:00:00.000Z"
+}
