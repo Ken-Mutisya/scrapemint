@@ -1,0 +1,25 @@
+{
+    "_note": "PUT this to /v2/acts/{actorId} as a pricingInfos array entry. PAY_PER_EVENT only on BRONZE. startedAt must be 14+ days out. Apify auto-adds 20% margin. NOTE: when includeContacts is on, this pipeline calls google-maps-scraper, whose own per-place charges also bill the buyer. The funding stage is inline EDGAR (no browser, no proxy) and Maps runs with enrichFromWebsite OFF (email scraping is done cheaply in the parent), so compute per run stays small. Free tier kept to 1 hot_lead so any run with billable rows covers compute.",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~funded-startup-lead-pipeline?token=APIFY_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "lead": {
+                "eventTitle": "Lead",
+                "eventDescription": "One operating company that recently filed a Form D private raise. Includes company, amount offered and sold, industry, filing date and link, named executives, and location.",
+                "eventPriceUsd": 0.03
+            },
+            "qualified_lead": {
+                "eventTitle": "Qualified lead",
+                "eventDescription": "A Form D raise of at least 250k sold, or a raise with named decision makers and a matched website or phone. Includes the funding detail, executives, and any enriched contact info.",
+                "eventPriceUsd": 0.07
+            },
+            "hot_lead": {
+                "eventTitle": "Hot lead",
+                "eventDescription": "A recent raise of at least 1M sold with a named decision maker or matched contact info. Fresh capital, clear decision makers, and a way to reach them. The first hot_lead per run is free so you can validate output.",
+                "eventPriceUsd": 0.12
+            }
+        }
+    },
+    "startedAt": "2026-07-11T00:00:00.000Z"
+}

@@ -1,0 +1,15 @@
+{
+    "actorSpecification": 1,
+    "name": "funded-startup-lead-pipeline",
+    "title": "Funded Startup Lead Pipeline: Form D Plus Contacts",
+    "description": "Turns recent SEC Form D private fundraises into B2B leads. Parses company, amount raised, industry, named executives, and location, filters out investment funds, optionally enriches with website, phone, and contact emails, then scores and tiers each lead. Fresh capital plus decision makers.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "readme": "../README.md",
+    "categories": [
+        "BUSINESS",
+        "LEAD_GENERATION"
+    ]
+}

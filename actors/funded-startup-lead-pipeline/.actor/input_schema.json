@@ -1,0 +1,77 @@
+{
+    "title": "Funded Startup Lead Pipeline Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "description": "Turn recent SEC Form D private fundraises into enriched B2B leads. Pay per scored lead.",
+    "properties": {
+        "maxAgeDays": {
+            "title": "Filing lookback (days)",
+            "type": "integer",
+            "description": "How far back to pull Form D filings. Default 30 days catches the freshest raises.",
+            "default": 30,
+            "minimum": 1,
+            "maximum": 365
+        },
+        "minAmountSoldUsd": {
+            "title": "Minimum amount sold (USD)",
+            "type": "integer",
+            "description": "Only keep raises where at least this much has been sold. Zero keeps every operating-company filing.",
+            "default": 0,
+            "minimum": 0
+        },
+        "states": {
+            "title": "Issuer states",
+            "type": "array",
+            "description": "Two-letter state codes to include (e.g. CA, NY, TX). Empty includes every state.",
+            "editor": "stringList",
+            "default": []
+        },
+        "includeFunds": {
+            "title": "Include investment funds",
+            "type": "boolean",
+            "description": "Off by default. When off, pooled investment funds and SPVs are dropped so leads are operating companies. Turn on to include fund vehicles.",
+            "default": false
+        },
+        "includeContacts": {
+            "title": "Enrich with contacts",
+            "type": "boolean",
+            "description": "Look up each top lead on Google Maps for a website and phone, then scrape contact emails from the site. Turn off for funding data only.",
+            "default": true
+        },
+        "maxLeads": {
+            "title": "Max leads",
+            "type": "integer",
+            "description": "Cap total leads scored per run, ranked by amount raised.",
+            "default": 100,
+            "minimum": 1,
+            "maximum": 1000
+        },
+        "maxContactLookups": {
+            "title": "Max contact lookups",
+            "type": "integer",
+            "description": "Cap how many of the top leads get the Google Maps + email enrichment, to bound run time and cost.",
+            "default": 40,
+            "minimum": 0,
+            "maximum": 200
+        },
+        "userAgent": {
+            "title": "User-Agent (with email)",
+            "type": "string",
+            "description": "SEC EDGAR requires a User-Agent containing a contact email. Example: 'yourname research@yourdomain.com'. Leave blank to use a default.",
+            "editor": "textfield",
+            "default": ""
+        },
+        "proxyConfiguration": {
+            "title": "Proxy configuration",
+            "type": "object",
+            "description": "Apify proxy, passed through to the Google Maps child. EDGAR is called directly and does not need a proxy.",
+            "editor": "proxy",
+            "prefill": {
+                "useApifyProxy": true
+            },
+            "default": {
+                "useApifyProxy": true
+            }
+        }
+    }
+}
