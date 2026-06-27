@@ -1,0 +1,10 @@
+{
+    "name": "hn-hiring-company-leads",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Hacker News Who is Hiring company lead scraper. Parse the monthly HN hiring thread into B2B leads: company, role, location, remote, salary, apply email, apply URL, and website. One lead per post. Keyless HN API.",
+    "main": "src/main.js",
+    "scripts": { "start": "node src/main.js" },
+    "dependencies": { "apify": "^3.7.0" },
+    "engines": { "node": ">=20" }
+}

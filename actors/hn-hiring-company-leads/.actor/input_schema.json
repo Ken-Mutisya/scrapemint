@@ -1,0 +1,51 @@
+{
+    "title": "Hacker News Who is Hiring Company Leads Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "description": "Parse HN Who is Hiring threads into company leads. Pay per lead.",
+    "properties": {
+        "months": {
+            "title": "Number of recent months",
+            "type": "integer",
+            "description": "How many recent 'Who is hiring' threads to include (1 = latest month).",
+            "default": 1,
+            "minimum": 1,
+            "maximum": 12
+        },
+        "keywords": {
+            "title": "Keywords",
+            "type": "array",
+            "description": "Filter posts by text match (e.g. rust, react, ml, senior, fintech). Empty keeps all.",
+            "editor": "stringList",
+            "default": []
+        },
+        "remoteOnly": {
+            "title": "Remote only",
+            "type": "boolean",
+            "description": "Keep only posts that mention remote.",
+            "default": false
+        },
+        "requireEmail": {
+            "title": "Only posts with an apply email",
+            "type": "boolean",
+            "description": "Skip posts that do not include a contact email.",
+            "default": false
+        },
+        "maxLeads": {
+            "title": "Max leads",
+            "type": "integer",
+            "description": "Cap total leads per run.",
+            "default": 500,
+            "minimum": 1,
+            "maximum": 10000
+        },
+        "concurrency": {
+            "title": "Concurrency",
+            "type": "integer",
+            "description": "Comments fetched in parallel.",
+            "default": 10,
+            "minimum": 1,
+            "maximum": 30
+        }
+    }
+}

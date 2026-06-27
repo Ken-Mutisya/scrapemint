@@ -1,0 +1,12 @@
+{
+    "actorSpecification": 1,
+    "name": "hn-hiring-company-leads",
+    "title": "Hacker News Who is Hiring Company Leads",
+    "description": "Parse the monthly Hacker News Who is Hiring thread into B2B leads: company, role, location, remote flag, salary, apply email, apply URL, and website. One lead per post. Keyless HN API.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "readme": "../README.md",
+    "categories": ["BUSINESS", "LEAD_GENERATION"]
+}
