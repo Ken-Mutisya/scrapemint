@@ -1,0 +1,15 @@
+{
+    "actorSpecification": 1,
+    "name": "google-play-developer-leads",
+    "title": "Google Play Developer Lead Scraper",
+    "description": "Search the Google Play store by keyword or category and turn app listings into B2B leads: developer contact email, website, name, category, install band, rating, and monetization flags. One lead per app. No login, no API key.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "readme": "../README.md",
+    "categories": [
+        "BUSINESS",
+        "LEAD_GENERATION"
+    ]
+}

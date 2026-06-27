@@ -1,0 +1,93 @@
+{
+    "title": "Google Play Developer Lead Scraper Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "description": "Search Google Play and extract developer leads. Pay per lead.",
+    "properties": {
+        "keywords": {
+            "title": "Search keywords",
+            "type": "array",
+            "description": "Search terms to pull apps for (e.g. invoicing, crm, meditation). Each term is one Play search.",
+            "editor": "stringList",
+            "prefill": ["invoicing", "crm", "habit tracker"],
+            "default": []
+        },
+        "categories": {
+            "title": "Categories",
+            "type": "array",
+            "description": "Play category IDs to pull top apps from (e.g. BUSINESS, PRODUCTIVITY, FINANCE, HEALTH_AND_FITNESS). Optional, used alongside keywords.",
+            "editor": "stringList",
+            "default": []
+        },
+        "country": {
+            "title": "Country",
+            "type": "string",
+            "description": "Two-letter country code for the store (gl). Default us.",
+            "editor": "textfield",
+            "default": "us"
+        },
+        "language": {
+            "title": "Language",
+            "type": "string",
+            "description": "Two-letter language code (hl). Default en.",
+            "editor": "textfield",
+            "default": "en"
+        },
+        "maxApps": {
+            "title": "Max apps",
+            "type": "integer",
+            "description": "Cap total apps scraped per run across all queries.",
+            "default": 200,
+            "minimum": 1,
+            "maximum": 5000
+        },
+        "maxAppsPerQuery": {
+            "title": "Max apps per query",
+            "type": "integer",
+            "description": "Cap apps taken from each keyword or category.",
+            "default": 60,
+            "minimum": 1,
+            "maximum": 500
+        },
+        "requireEmail": {
+            "title": "Only apps with a developer email",
+            "type": "boolean",
+            "description": "Skip apps that do not publish a developer contact email.",
+            "default": false
+        },
+        "minInstalls": {
+            "title": "Minimum installs",
+            "type": "integer",
+            "description": "Drop apps below this install count. Zero keeps every app.",
+            "default": 0,
+            "minimum": 0
+        },
+        "qualifiedMinInstalls": {
+            "title": "Qualified install bar",
+            "type": "integer",
+            "description": "Installs at or above this, with an email and website, tier a lead as qualified_lead.",
+            "default": 10000,
+            "minimum": 0
+        },
+        "concurrency": {
+            "title": "Concurrency",
+            "type": "integer",
+            "description": "Pages fetched in parallel.",
+            "default": 10,
+            "minimum": 1,
+            "maximum": 30
+        },
+        "proxyConfiguration": {
+            "title": "Proxy configuration",
+            "type": "object",
+            "description": "Apify proxy. Recommended at volume so Play does not rate limit a single IP.",
+            "editor": "proxy",
+            "prefill": {
+                "useApifyProxy": true
+            },
+            "default": {
+                "useApifyProxy": true
+            }
+        }
+    }
+}

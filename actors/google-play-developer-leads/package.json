@@ -1,0 +1,17 @@
+{
+    "name": "google-play-developer-leads",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Google Play developer lead scraper. Search the Play store by keyword or category and extract each app's developer contact email, website, name, category, install band, and rating. One B2B lead per app. No login, no API key.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0",
+        "crawlee": "^3.16.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}
