@@ -1,0 +1,10 @@
+{
+    "name": "podcast-host-leads",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Podcast host lead scraper. Search the podcast directory by keyword and extract each show host's public email, website, category, episode count, and last-episode date. One B2B lead per podcast. Keyless, no API key.",
+    "main": "src/main.js",
+    "scripts": { "start": "node src/main.js" },
+    "dependencies": { "apify": "^3.7.0" },
+    "engines": { "node": ">=20" }
+}

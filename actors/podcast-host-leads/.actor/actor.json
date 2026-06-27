@@ -1,0 +1,12 @@
+{
+    "actorSpecification": 1,
+    "name": "podcast-host-leads",
+    "title": "Podcast Host Lead Scraper",
+    "description": "Search the podcast directory by keyword and turn shows into B2B leads: the host's public email, show name, author, website, category, episode count, and last-episode date. One lead per podcast. Keyless, no API key.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "readme": "../README.md",
+    "categories": ["BUSINESS", "LEAD_GENERATION"]
+}

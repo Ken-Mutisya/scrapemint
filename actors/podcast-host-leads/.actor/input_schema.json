@@ -1,0 +1,67 @@
+{
+    "title": "Podcast Host Lead Scraper Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "description": "Search the podcast directory and extract host leads. Pay per lead.",
+    "properties": {
+        "keywords": {
+            "title": "Search keywords",
+            "type": "array",
+            "description": "Topics or niches to find podcasts for (e.g. marketing, true crime, startup, fitness).",
+            "editor": "stringList",
+            "prefill": ["marketing", "startup", "real estate"],
+            "default": []
+        },
+        "country": {
+            "title": "Country",
+            "type": "string",
+            "description": "Two-letter store country code for the directory. Default US.",
+            "editor": "textfield",
+            "default": "US"
+        },
+        "maxLeads": {
+            "title": "Max leads",
+            "type": "integer",
+            "description": "Cap total leads scored per run.",
+            "default": 200,
+            "minimum": 1,
+            "maximum": 5000
+        },
+        "maxPerKeyword": {
+            "title": "Max per keyword",
+            "type": "integer",
+            "description": "Cap shows taken from each keyword (iTunes returns up to 200).",
+            "default": 100,
+            "minimum": 1,
+            "maximum": 200
+        },
+        "minEpisodes": {
+            "title": "Minimum episodes",
+            "type": "integer",
+            "description": "Drop shows with fewer episodes than this. Zero keeps everything.",
+            "default": 0,
+            "minimum": 0
+        },
+        "activeSinceDays": {
+            "title": "Active in last N days",
+            "type": "integer",
+            "description": "Only keep shows with a new episode in this many days. Zero keeps all, active or dormant.",
+            "default": 0,
+            "minimum": 0
+        },
+        "requireEmail": {
+            "title": "Only shows with a host email",
+            "type": "boolean",
+            "description": "Skip shows whose RSS feed has no public owner email.",
+            "default": false
+        },
+        "concurrency": {
+            "title": "Concurrency",
+            "type": "integer",
+            "description": "Feeds fetched in parallel.",
+            "default": 8,
+            "minimum": 1,
+            "maximum": 20
+        }
+    }
+}
