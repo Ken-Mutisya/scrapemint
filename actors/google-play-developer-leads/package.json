@@ -9,7 +9,8 @@
     },
     "dependencies": {
         "apify": "^3.7.0",
-        "crawlee": "^3.16.0"
+        "crawlee": "^3.16.0",
+        "google-play-scraper": "^10.0.0"
     },
     "engines": {
         "node": ">=20"

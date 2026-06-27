@@ -13,7 +13,7 @@ The developer contact email is published right on the Play listing, so every lea
 
 ## How it works
 
-1. For each keyword you pass, it runs a Play store search. For each category, it pulls the top apps.
+1. It collects app IDs at volume: a search per keyword, the top-chart for each category (up to ~250 apps each), and optionally apps similar to the seeds found.
 2. It opens each app's detail page and extracts the developer contact email, website, name, category, install band, rating, and whether the app shows ads or in-app purchases.
 3. Each app is scored into a tier and pushed as one lead.
 
@@ -60,8 +60,10 @@ Because everything is plain HTTP (no browser), runs are fast and cheap, so a sin
 | `keywords` | `[]` | Search terms, one Play search each. |
 | `categories` | `[]` | Play category IDs (BUSINESS, PRODUCTIVITY, FINANCE, etc.). |
 | `country` / `language` | `us` / `en` | Store country (gl) and language (hl). |
+| `collection` | `TOP_FREE` | Chart pulled per category: TOP_FREE, TOP_PAID, or GROSSING. |
+| `expandSimilar` | `false` | Also pull apps similar to the seeds for more volume. |
 | `maxApps` | `200` | Cap total apps per run. |
-| `maxAppsPerQuery` | `60` | Cap apps per keyword or category. |
+| `maxAppsPerQuery` | `60` | Cap apps per keyword or category (categories return up to ~250). |
 | `requireEmail` | `false` | Only keep apps with a developer email. |
 | `minInstalls` | `0` | Drop apps below this install count. |
 | `qualifiedMinInstalls` | `10000` | Install bar for the qualified_lead tier. |

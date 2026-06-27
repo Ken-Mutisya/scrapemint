@@ -19,6 +19,7 @@
 
 import { Actor, log } from 'apify';
 import { CheerioCrawler } from 'crawlee';
+import gplay from 'google-play-scraper';
 
 const FREE_TIER_QUALIFIED = 10;
 const BASE = 'https://play.google.com';
@@ -31,6 +32,8 @@ const {
     categories = [],
     country = 'us',
     language = 'en',
+    collection = 'TOP_FREE',
+    expandSimilar = false,
     maxApps = 200,
     maxAppsPerQuery = 60,
     minInstalls = 0,
@@ -55,10 +58,19 @@ const qualMinInst = Math.max(0, Number(qualifiedMinInstalls) || 10000);
 
 const proxyConfiguration = await Actor.createProxyConfiguration(proxyInput);
 
-const seenApps = new Set();
-let enqueuedApps = 0;
 let qualifiedCharged = 0; let qualifiedFree = 0; let leadCount = 0; let listingCount = 0;
 
+// ---------- Stage A: collect app IDs ----------
+// google-play-scraper handles Play's internal batchexecute pagination for search,
+// category top-charts (the high-volume lever), and similar-apps expansion.
+const appIds = await collectAppIds();
+log.info(`Collected ${appIds.length} unique app IDs to scrape.`);
+if (appIds.length === 0) {
+    log.warning('No apps found for the given keywords/categories.');
+    await Actor.exit();
+}
+
+// ---------- Stage B: scrape each detail page (proxied) for the developer email ----------
 const crawler = new CheerioCrawler({
     proxyConfiguration,
     maxConcurrency: Math.max(1, Math.min(30, Number(concurrency) || 10)),
@@ -75,62 +87,66 @@ const crawler = new CheerioCrawler({
         },
     ],
     async requestHandler(ctx) {
-        const t = ctx.request.userData.type;
-        if (t === 'list') return handleList(ctx);
-        if (t === 'detail') return handleDetail(ctx);
+        return handleDetail(ctx);
     },
     failedRequestHandler({ request, error }) {
         log.warning(`Failed: ${request.url} -> ${error?.message}`);
     },
 });
 
-// Seed: one list request per keyword and per category.
-const seed = [];
-for (const kw of cleanKeywords) {
-    seed.push({
-        url: `${BASE}/store/search?q=${encodeURIComponent(kw)}&c=apps&hl=${hl}&gl=${gl}`,
-        userData: { type: 'list', query: kw },
-        uniqueKey: `list:kw:${kw}`,
-    });
-}
-for (const cat of cleanCategories) {
-    seed.push({
-        url: `${BASE}/store/apps/category/${cat}?hl=${hl}&gl=${gl}`,
-        userData: { type: 'list', query: cat },
-        uniqueKey: `list:cat:${cat}`,
-    });
-}
-
-await crawler.addRequests(seed);
+await crawler.addRequests(appIds.map((id) => ({
+    url: `${BASE}/store/apps/details?id=${id}&hl=${hl}&gl=${gl}`,
+    userData: { type: 'detail', appId: id },
+    uniqueKey: `detail:${id}`,
+})));
 await crawler.run();
 
-log.info(`Done. qualified_lead charged=${qualifiedCharged} free=${qualifiedFree}, lead=${leadCount}, listing=${listingCount}. Apps seen=${seenApps.size}.`);
+log.info(`Done. qualified_lead charged=${qualifiedCharged} free=${qualifiedFree}, lead=${leadCount}, listing=${listingCount}. Apps scraped=${appIds.length}.`);
 await Actor.exit();
 
-// ---------- Handlers ----------
+// ---------- Stage A helper ----------
 
-async function handleList({ body, request, crawler: c }) {
-    const html = body.toString();
-    const ids = [...new Set([...html.matchAll(/\/store\/apps\/details\?id=([a-zA-Z0-9._]+)/g)].map((m) => m[1]))];
-    log.info(`List "${request.userData.query}": found ${ids.length} apps.`);
+async function collectAppIds() {
+    const ids = new Set();
+    const add = (arr) => {
+        for (const a of arr || []) {
+            if (ids.size >= appCap) break;
+            if (a?.appId) ids.add(a.appId);
+        }
+    };
 
-    let added = 0;
-    const reqs = [];
-    for (const id of ids) {
-        if (added >= perQueryCap) break;
-        if (enqueuedApps >= appCap) break;
-        if (seenApps.has(id)) continue;
-        seenApps.add(id);
-        enqueuedApps += 1;
-        added += 1;
-        reqs.push({
-            url: `${BASE}/store/apps/details?id=${id}&hl=${hl}&gl=${gl}`,
-            userData: { type: 'detail', appId: id },
-            uniqueKey: `detail:${id}`,
-        });
+    for (const kw of cleanKeywords) {
+        if (ids.size >= appCap) break;
+        try {
+            add(await gplay.search({ term: kw, num: perQueryCap, country: gl, lang: hl }));
+            log.info(`search "${kw}": running total ${ids.size} apps.`);
+        } catch (e) { log.warning(`search "${kw}" failed: ${e?.message}`); }
     }
-    if (reqs.length) await c.addRequests(reqs);
+
+    // Category top-charts are the volume lever: up to ~250 apps per category.
+    for (const cat of cleanCategories) {
+        if (ids.size >= appCap) break;
+        try {
+            add(await gplay.list({ category: cat, collection, num: Math.min(250, perQueryCap), country: gl, lang: hl }));
+            log.info(`category "${cat}" (${collection}): running total ${ids.size} apps.`);
+        } catch (e) { log.warning(`list "${cat}" failed: ${e?.message}`); }
+    }
+
+    // Optional: widen the net with apps similar to the seeds collected so far.
+    if (expandSimilar && ids.size < appCap) {
+        const seeds = [...ids].slice(0, 15);
+        for (const id of seeds) {
+            if (ids.size >= appCap) break;
+            try { add(await gplay.similar({ appId: id, num: 30, country: gl, lang: hl })); }
+            catch (e) { log.debug(`similar(${id}) failed: ${e?.message}`); }
+        }
+        log.info(`After similar expansion: ${ids.size} apps.`);
+    }
+
+    return [...ids].slice(0, appCap);
 }
+
+// ---------- Stage B handler ----------
 
 async function handleDetail({ body, request }) {
     const html = body.toString();

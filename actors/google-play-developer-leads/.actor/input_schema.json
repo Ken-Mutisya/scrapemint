@@ -33,6 +33,21 @@
             "editor": "textfield",
             "default": "en"
         },
+        "collection": {
+            "title": "Category collection",
+            "type": "string",
+            "description": "Which chart to pull for each category. TOP_FREE is the broadest.",
+            "editor": "select",
+            "enum": ["TOP_FREE", "TOP_PAID", "GROSSING"],
+            "enumTitles": ["Top free", "Top paid", "Top grossing"],
+            "default": "TOP_FREE"
+        },
+        "expandSimilar": {
+            "title": "Expand with similar apps",
+            "type": "boolean",
+            "description": "Widen the net by also pulling apps similar to the first seeds found. Increases volume and diversity.",
+            "default": false
+        },
         "maxApps": {
             "title": "Max apps",
             "type": "integer",
