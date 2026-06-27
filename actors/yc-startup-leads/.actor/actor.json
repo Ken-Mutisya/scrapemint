@@ -1,0 +1,12 @@
+{
+    "actorSpecification": 1,
+    "name": "yc-startup-leads",
+    "title": "Y Combinator Startup Lead Scraper",
+    "description": "Filter the Y Combinator company directory by keyword, batch, industry, or hiring status and turn startups into B2B leads: company, website, scraped contact email, one-liner, industry, team size, location, and batch. One lead per startup. Keyless.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "readme": "../README.md",
+    "categories": ["BUSINESS", "LEAD_GENERATION"]
+}

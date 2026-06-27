@@ -1,0 +1,10 @@
+{
+    "name": "yc-startup-leads",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Y Combinator startup lead scraper. Filter the YC company directory by keyword, batch, industry, or hiring status and extract company, website, scraped contact email, one-liner, industry, team size, location, and batch. One B2B lead per startup. Keyless.",
+    "main": "src/main.js",
+    "scripts": { "start": "node src/main.js" },
+    "dependencies": { "apify": "^3.7.0" },
+    "engines": { "node": ">=20" }
+}

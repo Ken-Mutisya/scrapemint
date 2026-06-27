@@ -1,0 +1,72 @@
+{
+    "title": "Y Combinator Startup Lead Scraper Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "description": "Filter the YC directory and extract startup leads. Pay per lead.",
+    "properties": {
+        "keywords": {
+            "title": "Keywords",
+            "type": "array",
+            "description": "Match company name, one-liner, description, industry, or tags (e.g. fintech, ai, healthcare). Empty matches all.",
+            "editor": "stringList",
+            "default": []
+        },
+        "batches": {
+            "title": "Batches",
+            "type": "array",
+            "description": "Limit to YC batches, e.g. 'Summer 2026', 'Winter 2025'. Empty includes all batches.",
+            "editor": "stringList",
+            "default": []
+        },
+        "industries": {
+            "title": "Industries",
+            "type": "array",
+            "description": "Match the company industry or subindustry (e.g. Fintech, Healthcare, B2B). Empty includes all.",
+            "editor": "stringList",
+            "default": []
+        },
+        "onlyHiring": {
+            "title": "Only companies hiring",
+            "type": "boolean",
+            "description": "Keep only companies currently marked as hiring. Useful for recruiters.",
+            "default": false
+        },
+        "minTeamSize": {
+            "title": "Minimum team size",
+            "type": "integer",
+            "description": "Drop companies below this team size. Zero keeps everything.",
+            "default": 0,
+            "minimum": 0
+        },
+        "maxLeads": {
+            "title": "Max leads",
+            "type": "integer",
+            "description": "Cap total leads per run, ranked by most recent batch then team size.",
+            "default": 200,
+            "minimum": 1,
+            "maximum": 6000
+        },
+        "includeEmail": {
+            "title": "Scrape contact emails",
+            "type": "boolean",
+            "description": "Fetch each company website and scrape a contact email.",
+            "default": true
+        },
+        "maxEmailLookups": {
+            "title": "Max email lookups",
+            "type": "integer",
+            "description": "Cap how many top leads get the website email scrape.",
+            "default": 100,
+            "minimum": 0,
+            "maximum": 2000
+        },
+        "concurrency": {
+            "title": "Concurrency",
+            "type": "integer",
+            "description": "Website scrapes in parallel.",
+            "default": 8,
+            "minimum": 1,
+            "maximum": 20
+        }
+    }
+}
