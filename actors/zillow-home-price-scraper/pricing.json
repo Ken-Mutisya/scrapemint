@@ -6,7 +6,7 @@
         "actorChargeEvents": {
             "property_row": {
                 "eventTitle": "Zillow property row",
-                "eventDescription": "One Zillow property parsed and returned with address, city, state, zip, price, Zestimate, bedrooms, bathrooms, square footage, lot size, year built, days on market, status, and listing URL. First 10 per run are free so you can validate output.",
+                "eventDescription": "One Zillow property parsed and returned with address, city, state, zip, price, Zestimate, bedrooms, bathrooms, square footage, lot size, year built, days on market, status, and listing URL. First 50 per run are free so you can validate output.",
                 "eventPriceUsd": 0.005
             }
         }

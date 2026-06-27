@@ -299,6 +299,13 @@ function mapListingType(statusType, fallback) {
 
 async function pushRow(row) {
     if (!row.zpid) { filteredOut += 1; return false; }
+    // Never push (and therefore never charge for) a row that has no real data.
+    // Zillow's anti-bot can return cards that carry a zpid but strip the actual
+    // listing fields; charging for those is what produced "empty results, charged"
+    // complaints. Require at least one substantive field beyond the id.
+    const hasValue = row.price != null || row.zestimate != null || row.rentZestimate != null
+        || row.beds != null || row.baths != null || row.sqft != null || Boolean(row.address);
+    if (!hasValue) { filteredOut += 1; return false; }
     if (minPrice > 0 && row.price != null && row.price < minPrice) { filteredOut += 1; return false; }
     if (maxPrice > 0 && row.price != null && row.price > maxPrice) { filteredOut += 1; return false; }
     if (minBeds > 0 && row.beds != null && row.beds < minBeds) { filteredOut += 1; return false; }
@@ -332,8 +339,11 @@ function toArray(v) {
 }
 
 function maybeCharge() {
+    // Must match the event defined in pricing.json / the deployed pricing
+    // ('property_row'). The old 'item_extracted' name was undefined, so charges
+    // were silently dropped on a fresh push and the repo drifted from production.
     if (totalPushed > FREE_TIER_ITEMS) {
-        Actor.charge({ eventName: 'item_extracted' }).catch((err) => {
+        Actor.charge({ eventName: 'property_row' }).catch((err) => {
             log.warning(`charge failed (continuing): ${err?.message}`);
         });
     }
