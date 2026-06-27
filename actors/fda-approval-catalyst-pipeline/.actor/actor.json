@@ -1,0 +1,15 @@
+{
+    "actorSpecification": 1,
+    "name": "fda-approval-catalyst-pipeline",
+    "title": "FDA Approval Catalyst: Approvals Plus Insider Buying",
+    "description": "For each ticker, correlates recent FDA wins on openFDA (drug approvals, device PMA, 510(k) clearances) with insider open-market buying around the decision date, scores conviction 0 to 100, and tiers each as approval_confirmed, accumulation, or watch.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "readme": "../README.md",
+    "categories": [
+        "BUSINESS",
+        "NEWS"
+    ]
+}

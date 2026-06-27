@@ -117,7 +117,7 @@ await crawler.run();
 // Drain any listings that never got their shop intel (because shop fetch failed).
 for (const [shopName, pending] of pendingListingsByShop.entries()) {
     for (const { row } of pending) {
-        flushRow(row);
+        await flushRow(row);
     }
     pendingListingsByShop.delete(shopName);
 }
@@ -221,7 +221,7 @@ async function handleShopIntel({ page, request }) {
     pendingListingsByShop.delete(shopName);
     for (const { row } of pending) {
         Object.assign(row, projectShopIntel(intel));
-        flushRow(row);
+        await flushRow(row);
     }
     log.info(`Shop intel ${shopName}: rating=${intel.rating ?? '?'}, sales=${intel.totalSales ?? '?'}, opened=${intel.openedYear ?? '?'}. Drained ${pending.length} listings.`);
 }
@@ -230,14 +230,14 @@ async function handleShopIntel({ page, request }) {
 
 async function routeRow(row, crawler) {
     if (!includeShopIntel || !row.shopName) {
-        flushRow(row);
+        await flushRow(row);
         return;
     }
 
     const cached = shopIntelCache.get(row.shopName);
     if (cached && cached !== 'pending') {
         Object.assign(row, projectShopIntel(cached));
-        flushRow(row);
+        await flushRow(row);
         return;
     }
 
@@ -255,12 +255,18 @@ async function routeRow(row, crawler) {
     }
 }
 
-function flushRow(row) {
+// pushData and charge must be awaited so a fast actor exit cannot drop the
+// buffered write/charge (see forexfactory feed-path bug, 2026-06-27).
+async function flushRow(row) {
     row.scrapedAt = new Date().toISOString();
-    Actor.pushData(row);
+    await Actor.pushData(row);
     totalRowsPushed += 1;
     if (totalRowsPushed > FREE_TIER_ROWS) {
-        Actor.charge({ eventName: 'listing_row' }).catch((err) => log.warning(`charge failed: ${err?.message}`));
+        try {
+            await Actor.charge({ eventName: 'listing_row' });
+        } catch (err) {
+            log.warning(`charge failed: ${err?.message}`);
+        }
     }
 }
 

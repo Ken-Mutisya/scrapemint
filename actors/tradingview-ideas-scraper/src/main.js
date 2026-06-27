@@ -124,7 +124,7 @@ await crawler.addRequests(initialRequests);
 await crawler.run();
 
 for (const [author, pending] of pendingIdeasByAuthor.entries()) {
-    for (const { row } of pending) flushRow(row);
+    for (const { row } of pending) await flushRow(row);
     pendingIdeasByAuthor.delete(author);
 }
 
@@ -189,7 +189,7 @@ async function handleAuthorIntel({ body, request }) {
     pendingIdeasByAuthor.delete(author);
     for (const { row } of pending) {
         Object.assign(row, projectAuthorIntel(intel));
-        flushRow(row);
+        await flushRow(row);
     }
     log.info(`Author ${author}: followers=${intel.followers ?? '?'}, ideas=${intel.ideasPublished ?? '?'}. Drained ${pending.length} ideas.`);
 }
@@ -198,13 +198,13 @@ async function handleAuthorIntel({ body, request }) {
 
 async function routeRow(row, c) {
     if (!includeAuthorIntel || !row.author) {
-        flushRow(row);
+        await flushRow(row);
         return;
     }
     const cached = authorIntelCache.get(row.author);
     if (cached && cached !== 'pending') {
         Object.assign(row, projectAuthorIntel(cached));
-        flushRow(row);
+        await flushRow(row);
         return;
     }
 
@@ -221,12 +221,18 @@ async function routeRow(row, c) {
     }
 }
 
-function flushRow(row) {
+// pushData and charge must be awaited so a fast actor exit cannot drop the
+// buffered write/charge (see forexfactory feed-path bug, 2026-06-27).
+async function flushRow(row) {
     row.scrapedAt = new Date().toISOString();
-    Actor.pushData(row);
+    await Actor.pushData(row);
     totalRowsPushed += 1;
     if (totalRowsPushed > FREE_TIER_ROWS) {
-        Actor.charge({ eventName: 'idea_row' }).catch((err) => log.warning(`charge failed: ${err?.message}`));
+        try {
+            await Actor.charge({ eventName: 'idea_row' });
+        } catch (err) {
+            log.warning(`charge failed: ${err?.message}`);
+        }
     }
 }
 

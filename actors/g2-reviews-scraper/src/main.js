@@ -100,7 +100,7 @@ const crawler = new PlaywrightCrawler({
         if (t === 'reviews') return handleReviews(ctx);
         if (t === 'pricing') return handlePricing(ctx);
     },
-    failedRequestHandler({ request, error }) {
+    async failedRequestHandler({ request, error }) {
         log.warning(`Failed: ${request.url} -> ${error?.message}`);
         const slug = request.userData?.slug;
         const t = request.userData?.type;
@@ -108,7 +108,7 @@ const crawler = new PlaywrightCrawler({
             const s = stages.get(slug);
             if (s && !s[t]) {
                 s[t] = true;
-                tryFlush(slug);
+                await tryFlush(slug);
             }
         }
     },
@@ -153,7 +153,7 @@ async function handleReviews({ page, request, crawler: c }) {
         s.pricing = true;
     }
 
-    tryFlush(product.slug);
+    await tryFlush(product.slug);
 }
 
 async function handlePricing({ page, request }) {
@@ -172,12 +172,14 @@ async function handlePricing({ page, request }) {
 
     const s = stages.get(product.slug);
     s.pricing = true;
-    tryFlush(product.slug);
+    await tryFlush(product.slug);
 }
 
 // ---------- Flush ----------
 
-function tryFlush(slug) {
+// pushData and charge must be awaited so a fast actor exit cannot drop the
+// buffered write/charge (see forexfactory feed-path bug, 2026-06-27).
+async function tryFlush(slug) {
     const s = stages.get(slug);
     if (!s || s.pushed) return;
     if (!s.reviews) return;
@@ -192,9 +194,13 @@ function tryFlush(slug) {
     s.pushed = true;
     pushed.add(slug);
 
-    Actor.pushData(row);
+    await Actor.pushData(row);
     if (pushed.size > FREE_TIER_PRODUCTS) {
-        Actor.charge({ eventName: 'product_intel' }).catch((err) => log.warning(`charge failed: ${err?.message}`));
+        try {
+            await Actor.charge({ eventName: 'product_intel' });
+        } catch (err) {
+            log.warning(`charge failed: ${err?.message}`);
+        }
     }
     log.info(`Pushed ${slug} ${row.productName ?? ''}: rating=${row.rating ?? '?'}, reviews=${row.reviews.length}, tiers=${row.pricingTiers.length}.`);
 }

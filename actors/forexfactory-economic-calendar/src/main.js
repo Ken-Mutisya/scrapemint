@@ -2,7 +2,14 @@
 //
 // Strategy
 // --------
-// ForexFactory renders a public calendar at /calendar. The page accepts:
+// ForexFactory itself publishes its weekly calendar as a free static JSON
+// feed on a CDN (faireconomy.media). For the common ranges we fetch that
+// feed over plain HTTP: no browser, no proxy, near-zero compute. Each feed
+// entry is { title, country, date (ISO+offset), impact, forecast, previous }.
+//
+// For ranges the feed cannot serve (this_month, next_month, custom spans,
+// or when the caller wants per-event detail pages) we fall back to scraping
+// the public HTML calendar with Playwright. The HTML page accepts:
 //   ?day=may9.2026          single day
 //   ?week=may3.2026         week starting Sunday
 //   ?month=may.2026         full month
@@ -11,13 +18,11 @@
 // impact, title, actual, forecast, previous. Day-breaker rows reset the
 // current date as we walk the table top to bottom.
 //
-// We set the cookie `fftimezoneoffset=0` and `fftimeformat=1` (24h) before
-// navigation so the displayed time is UTC. Each event row is emitted as
-// one dataset record with parsed numeric forms of actual, forecast,
-// previous, and the revised previous when ForexFactory exposes one.
+// Output schema is identical for both paths so downstream pipelines do not
+// care which path produced a row.
 //
 // Pay-per-event:
-//   event_row ($0.005) charged when an event row is pushed.
+//   event_row ($0.01) charged when an event row is pushed.
 //   First 25 event rows per run are free.
 
 import { Actor, log } from 'apify';
@@ -25,6 +30,7 @@ import { PlaywrightCrawler } from 'crawlee';
 
 const FREE_TIER_ROWS = 25;
 const BASE = 'https://www.forexfactory.com';
+const FEED_BASE = 'https://nfs.faireconomy.media';
 const MONTH_ABBR = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'];
 
 await Actor.init();
@@ -48,11 +54,149 @@ const cleanImpacts = new Set((Array.isArray(impactLevels) ? impactLevels : [impa
     .map((i) => String(i || '').trim().toLowerCase()).filter(Boolean));
 if (cleanImpacts.size === 0) { ['high', 'medium'].forEach((i) => cleanImpacts.add(i)); }
 
+let totalRowsPushed = 0;
+
+// ---------- Path selection: cheap HTTP feed first, browser only if needed ----------
+
+const feedPlan = includeDetail ? null : planFeeds(range, startDate, endDate);
+let served = false;
+if (feedPlan) {
+    log.info(`Trying JSON feed path (range=${range}, feeds=${feedPlan.feeds.join(',')}).`);
+    served = await runFromFeed(feedPlan);
+}
+
+if (!served) {
+    if (includeDetail) log.info('includeDetail set: using browser path for detail pages.');
+    else log.info(`Range "${range}" not served by JSON feed; using browser path.`);
+    await runPlaywright();
+}
+
+log.info(`Run complete. Events pushed: ${totalRowsPushed}.`);
+await Actor.exit();
+
+// ---------- JSON feed path ----------
+
+// Map an input range to the faireconomy weekly feed(s) that can satisfy it.
+// `feeds` are required (a fetch failure forces the browser fallback);
+// `optional` are best-effort (skipped silently if unavailable). `fromYmd`/
+// `toYmd` apply a per-day filter for single-day ranges. Returns null for
+// ranges no single weekly feed can serve (month/custom) -> browser path.
+function planFeeds(r, sd, ed) {
+    const key = String(r || 'this_week').toLowerCase();
+    const today = new Date();
+    const ymd = (d) => d.toISOString().slice(0, 10);
+    if (key === 'this_week') return { feeds: ['thisweek'], optional: [] };
+    if (key === 'next_week') return { feeds: ['nextweek'], optional: [] };
+    if (key === 'last_week') return { feeds: ['lastweek'], optional: [] };
+    if (key === 'today') { const s = ymd(today); return { feeds: ['thisweek'], optional: [], fromYmd: s, toYmd: s }; }
+    if (key === 'tomorrow') { const s = ymd(addDays(today, 1)); return { feeds: ['thisweek'], optional: ['nextweek'], fromYmd: s, toYmd: s }; }
+    if (key === 'yesterday') { const s = ymd(addDays(today, -1)); return { feeds: ['thisweek'], optional: ['lastweek'], fromYmd: s, toYmd: s }; }
+    return null; // this_month, next_month, custom
+}
+
+async function fetchFeed(name) {
+    const url = `${FEED_BASE}/ff_calendar_${name}.json`;
+    try {
+        const ac = new AbortController();
+        const timer = setTimeout(() => ac.abort(), 30000);
+        const res = await fetch(url, {
+            signal: ac.signal,
+            headers: {
+                'User-Agent': 'Mozilla/5.0 (compatible; ScrapemintCalendar/1.0)',
+                Accept: 'application/json',
+            },
+        });
+        clearTimeout(timer);
+        if (!res.ok) { log.info(`Feed ${name}: HTTP ${res.status}`); return null; }
+        const data = await res.json();
+        return Array.isArray(data) ? data : null;
+    } catch (e) {
+        log.warning(`Feed ${name} fetch failed: ${e?.message}`);
+        return null;
+    }
+}
+
+function feedEntryToEvent(fe) {
+    const iso = String(fe.date || '');
+    const date = iso.slice(0, 10) || null;
+    const timePart = iso.length >= 16 ? iso.slice(11, 16) : null;
+    const impact = mapFeedImpact(fe.impact);
+    const isAllDay = impact === 'holiday' && (!timePart || timePart === '00:00');
+    const off = iso.match(/([+-]\d{2}:\d{2})$/);
+    const displayTimezone = off ? `GMT${off[1]}` : 'ForexFactory display zone';
+    return {
+        eventIdRaw: null,
+        date,
+        time: isAllDay ? null : timePart,
+        isAllDay,
+        // Full ISO string with offset; downstream Date.parse() resolves to UTC.
+        timestamp: iso || null,
+        currency: fe.country ? String(fe.country).toUpperCase() : null,
+        impact,
+        title: fe.title || null,
+        actual: null, // weekly feed does not carry the released actual value
+        forecast: fe.forecast || null,
+        previous: fe.previous || null,
+        revised: null,
+        detailUrl: null,
+        displayTimezone,
+    };
+}
+
+function mapFeedImpact(s) {
+    const t = String(s || '').toLowerCase();
+    if (t.includes('high')) return 'high';
+    if (t.includes('medium')) return 'medium';
+    if (t.includes('low')) return 'low';
+    if (t.includes('holiday') || t.includes('non-economic')) return 'holiday';
+    return null;
+}
+
+// Returns true if the feed satisfied the request, false to force browser fallback.
+async function runFromFeed(plan) {
+    const merged = [];
+    for (const name of plan.feeds) {
+        const rows = await fetchFeed(name);
+        if (rows == null) {
+            log.warning(`Required feed "${name}" unavailable; falling back to browser.`);
+            return false;
+        }
+        merged.push(...rows);
+    }
+    for (const name of plan.optional || []) {
+        const rows = await fetchFeed(name);
+        if (rows) merged.push(...rows);
+    }
+
+    const seen = new Set();
+    let pushed = 0;
+    for (const fe of merged) {
+        if (totalRowsPushed >= maxEvents) break;
+        const ev = feedEntryToEvent(fe);
+        if (!ev.title) continue;
+        if (plan.fromYmd && (!ev.date || ev.date < plan.fromYmd || ev.date > plan.toYmd)) continue;
+        if (cleanCurrencies.size > 0 && ev.currency && !cleanCurrencies.has(ev.currency)) continue;
+        if (!ev.impact || !cleanImpacts.has(ev.impact)) continue;
+
+        const dedupeKey = `${ev.date}|${ev.time}|${ev.currency}|${ev.title}`;
+        if (seen.has(dedupeKey)) continue;
+        seen.add(dedupeKey);
+
+        const row = buildRow(ev);
+        row.displayTimezone = ev.displayTimezone || 'America/New_York';
+        await flushRow(row);
+        pushed += 1;
+    }
+    log.info(`Feed path pushed ${pushed} events (feeds: ${plan.feeds.join(', ')}).`);
+    return true;
+}
+
+// ---------- Browser fallback path ----------
+
+async function runPlaywright() {
 const proxyConfiguration = await Actor.createProxyConfiguration(proxyInput);
 const calendarUrl = buildCalendarUrl({ range, startDate, endDate });
 log.info(`Calendar URL: ${calendarUrl}`);
-
-let totalRowsPushed = 0;
 
 const crawler = new PlaywrightCrawler({
     proxyConfiguration,
@@ -108,9 +252,7 @@ await crawler.addRequests([{
     uniqueKey: `calendar:${calendarUrl}`,
 }]);
 await crawler.run();
-
-log.info(`Run complete. Events pushed: ${totalRowsPushed}.`);
-await Actor.exit();
+}
 
 // ---------- Handlers ----------
 
@@ -165,7 +307,7 @@ async function handleCalendar({ page, request, crawler: c }) {
         if (includeDetail && ev.detailUrl) {
             pendingDetailFetches.push({ row, detailUrl: ev.detailUrl });
         } else {
-            flushRow(row);
+            await flushRow(row);
         }
     }
 
@@ -188,7 +330,7 @@ async function handleEventDetail({ page, request }) {
 
     const detail = await extractEventDetail(page);
     Object.assign(row, detail);
-    flushRow(row);
+    await flushRow(row);
 }
 
 // ---------- Extraction ----------
@@ -471,12 +613,20 @@ function parseValue(s) {
     return { numeric: n, unit: m[2] || null };
 }
 
-function flushRow(row) {
+// Persist and bill one row. pushData and charge MUST be awaited: the feed path
+// emits all rows in a tight synchronous loop and then calls Actor.exit(), so an
+// un-awaited write would never flush before the process exits (the dataset would
+// come back empty and the charge would be dropped).
+async function flushRow(row) {
     row.scrapedAt = new Date().toISOString();
-    Actor.pushData(row);
+    await Actor.pushData(row);
     totalRowsPushed += 1;
     if (totalRowsPushed > FREE_TIER_ROWS) {
-        Actor.charge({ eventName: 'event_row' }).catch((err) => log.warning(`charge failed: ${err?.message}`));
+        try {
+            await Actor.charge({ eventName: 'event_row' });
+        } catch (err) {
+            log.warning(`charge failed: ${err?.message}`);
+        }
     }
 }
 

@@ -16,7 +16,7 @@ Pull the public ForexFactory economic calendar by any date range. No cookies. No
 | Lock historical revisions behind a higher tier | Revised previous value on every row by default |
 | Return one HTML blob per day | Date, time UTC, currency, impact, actual, forecast, previous, revised parsed |
 | Drop the source agency tag | Source agency (BLS, ECB, BOE, BOJ, etc.) embedded on every row |
-| Get rate limited at five rows | Built on residential proxy with session pooling for sustained runs |
+| Get rate limited at five rows | Reads ForexFactory's own JSON feed for weekly ranges, so runs are fast and cheap |
 
 ---
 
@@ -24,16 +24,16 @@ Pull the public ForexFactory economic calendar by any date range. No cookies. No
 
 ```mermaid
 flowchart LR
-    A[Date range or preset] --> B[Build calendar URL<br/>set timezone to UTC]
-    B --> C[Open the public calendar<br/>no auth needed]
-    C --> D[Walk day-breaker rows<br/>track current date]
-    D --> E[Parse impact, currency, time<br/>actual, forecast, previous]
-    E --> F[Optional fetch event detail<br/>description, source, frequency]
-    F --> G[Push one row per event]
-    G --> H[(JSON CSV Excel API)]
+    A[Date range or preset] --> B{Weekly range?}
+    B -- "this/next/last week, today, tomorrow, yesterday" --> C[Fetch ForexFactory<br/>official JSON feed]
+    B -- "month, custom, or detail" --> D[Open public HTML calendar<br/>no auth needed]
+    C --> E[Parse impact, currency, time<br/>forecast, previous]
+    D --> E
+    E --> F[Push one row per event]
+    F --> G[(JSON CSV Excel API)]
 ```
 
-The actor sets ForexFactory's display timezone cookie to UTC before extraction so every event row carries a clean ISO 8601 timestamp. Day breaker rows in the calendar table set the current date as we iterate. Impact ratings come from the row's `impact--high`, `impact--medium`, `impact--low`, or `impact--holiday` class so they survive cosmetic redesigns.
+For weekly ranges the actor reads ForexFactory's own public JSON feed over plain HTTP, so a typical run needs no browser and no proxy and returns in seconds. For full months, custom multi week spans, or when you ask for per event detail pages, it falls back to parsing the public HTML calendar with a browser. Both paths emit the exact same row schema, so it does not matter which one served your run. Every row carries an ISO 8601 timestamp with the source timezone offset.
 
 ---
 
@@ -178,7 +178,7 @@ The `time` and `timestamp` fields use ForexFactory's display timezone, which def
 
 ### How accurate is the actual value?
 
-The actual is parsed in real time from the calendar page the moment the actor runs. If you run the actor before a release, actual will be null until ForexFactory publishes the print.
+For month, custom, and detail runs the browser path parses the released `actual` straight from the calendar page at pull time, so it reflects what ForexFactory shows that moment. The fast weekly JSON feed carries only forecast and previous, not the released actual, so for weekly ranges `actual` is null. If you need released actuals for a past week, pull it as a custom range covering those dates.
 
 ### What does revised mean?
 

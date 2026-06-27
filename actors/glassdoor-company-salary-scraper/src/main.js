@@ -105,7 +105,7 @@ const crawler = new PlaywrightCrawler({
         if (t === 'salaries') return handleSalaries(ctx);
         if (t === 'reviews') return handleReviews(ctx);
     },
-    failedRequestHandler({ request, error }) {
+    async failedRequestHandler({ request, error }) {
         log.warning(`Failed: ${request.url} -> ${error?.message}`);
         // Even on failure, advance stage so we still push what we have.
         const id = request.userData?.employerId;
@@ -114,7 +114,7 @@ const crawler = new PlaywrightCrawler({
             const s = stages.get(id);
             if (s && !s[t]) {
                 s[t] = true;
-                tryFlush(id);
+                await tryFlush(id);
             }
         }
     },
@@ -161,7 +161,7 @@ async function handleOverview({ page, request, crawler: c }) {
         }]);
     }
 
-    tryFlush(company.employerId);
+    await tryFlush(company.employerId);
 }
 
 async function handleSalaries({ page, request }) {
@@ -180,7 +180,7 @@ async function handleSalaries({ page, request }) {
 
     const s = stages.get(company.employerId);
     s.salaries = true;
-    tryFlush(company.employerId);
+    await tryFlush(company.employerId);
 }
 
 async function handleReviews({ page, request }) {
@@ -199,12 +199,14 @@ async function handleReviews({ page, request }) {
 
     const s = stages.get(company.employerId);
     s.reviews = true;
-    tryFlush(company.employerId);
+    await tryFlush(company.employerId);
 }
 
 // ---------- Flush ----------
 
-function tryFlush(employerId) {
+// pushData and charge must be awaited so a fast actor exit cannot drop the
+// buffered write/charge (see forexfactory feed-path bug, 2026-06-27).
+async function tryFlush(employerId) {
     const s = stages.get(employerId);
     if (!s || s.pushed) return;
     if (!s.overview) return;
@@ -221,9 +223,13 @@ function tryFlush(employerId) {
     s.pushed = true;
     pushed.add(employerId);
 
-    Actor.pushData(row);
+    await Actor.pushData(row);
     if (pushed.size > FREE_TIER_COMPANIES) {
-        Actor.charge({ eventName: 'company_intel' }).catch((err) => log.warning(`charge failed: ${err?.message}`));
+        try {
+            await Actor.charge({ eventName: 'company_intel' });
+        } catch (err) {
+            log.warning(`charge failed: ${err?.message}`);
+        }
     }
     log.info(`Pushed ${employerId} ${row.companyName ?? ''}: rating=${row.rating ?? '?'}, salaries=${row.salaries.length}, reviews=${row.reviews.length}.`);
 }

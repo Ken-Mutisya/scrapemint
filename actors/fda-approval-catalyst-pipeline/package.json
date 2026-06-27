@@ -1,0 +1,16 @@
+{
+    "name": "fda-approval-catalyst-pipeline",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "FDA approval catalyst pipeline. For each ticker, correlates recent openFDA regulatory wins (drug approvals, device PMA approvals, 510(k) clearances) with insider open-market buying in a window around the decision date, scores conviction 0-100, and tiers each as approval_confirmed / accumulation / watch. Public openFDA + EDGAR data, no browser, no API keys.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}
