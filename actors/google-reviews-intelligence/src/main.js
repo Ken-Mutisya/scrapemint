@@ -372,24 +372,33 @@ async function acceptConsent(page) {
 }
 
 async function clickReviewsTab(page) {
-    // If review cards are already in the DOM we are on the reviews feed.
-    // Note: a plain div[role="feed"] is NOT a reliable signal because the
-    // search-results list also uses role="feed" with zero review cards, which
-    // previously made this function early-return and scroll the wrong panel.
-    if (await page.$('div[data-review-id], div.jftiEf').catch(() => null)) return;
-
-    // The reviews tab is a [role="tab"] button. Its aria-label in English is
-    // "Reviews for <name>" on place pages. Wait up to 10s for it to render.
+    // Do NOT early-return just because a review card exists: Google's Overview
+    // tab renders one or two review PREVIEW cards, so a stray card does not mean
+    // we are on the full reviews feed. The reliable signal is the Reviews tab's
+    // own aria-selected state. We must click it unless it is already selected,
+    // otherwise we scroll the Overview preview (a few cards) and collect nothing.
     const tab = await page.waitForSelector(
         'button[role="tab"][aria-label*="Reviews" i], button[jsaction*="pane.rating.moreReviews"], button[jsaction*="reviewChart.moreReviews"]',
-        { timeout: 10000 },
+        { timeout: 12000 },
     ).catch(() => null);
 
-    if (!tab) return;
-    await tab.click().catch(() => {});
-    // Wait for actual review cards (not just any feed) to populate.
-    await page.waitForSelector('div[data-review-id], div.jftiEf', { timeout: 15000 }).catch(() => {});
-    await page.waitForTimeout(1500);
+    if (tab) {
+        const selected = await tab.getAttribute('aria-selected').catch(() => null);
+        if (selected !== 'true') {
+            await tab.click().catch(() => {});
+            await page.waitForTimeout(2500);
+        }
+    }
+
+    // Wait for the actual reviews feed to populate. Require MORE THAN ONE card so
+    // a single Overview preview card cannot satisfy the wait; the full feed loads
+    // many. Falls through after the timeout so a genuinely low-review place still
+    // proceeds to extraction.
+    await page.waitForFunction(
+        () => document.querySelectorAll('div[data-review-id], div.jftiEf').length > 1,
+        { timeout: 15000 },
+    ).catch(() => {});
+    await page.waitForTimeout(1200);
 }
 
 async function setSortOrder(page, sortBy) {
