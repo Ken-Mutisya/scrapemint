@@ -1,0 +1,74 @@
+{
+    "title": "Steam Game Studio Lead Scraper Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "description": "Search Steam and extract game studio leads. Pay per lead.",
+    "properties": {
+        "keywords": {
+            "title": "Search keywords",
+            "type": "array",
+            "description": "Genres or themes to search for (e.g. roguelike, city builder, horror, visual novel).",
+            "editor": "stringList",
+            "prefill": ["roguelike", "city builder", "horror"],
+            "default": []
+        },
+        "country": {
+            "title": "Country",
+            "type": "string",
+            "description": "Two-letter store country code. Default us.",
+            "editor": "textfield",
+            "default": "us"
+        },
+        "language": {
+            "title": "Language",
+            "type": "string",
+            "description": "Language code. Default en.",
+            "editor": "textfield",
+            "default": "en"
+        },
+        "maxLeads": {
+            "title": "Max leads",
+            "type": "integer",
+            "description": "Cap total leads scored per run. Steam detail lookups are rate-limited, so very large runs take longer.",
+            "default": 150,
+            "minimum": 1,
+            "maximum": 2000
+        },
+        "minReviews": {
+            "title": "Minimum reviews",
+            "type": "integer",
+            "description": "Drop games with fewer reviews than this. Zero keeps everything.",
+            "default": 0,
+            "minimum": 0
+        },
+        "qualifiedMinReviews": {
+            "title": "Qualified review bar",
+            "type": "integer",
+            "description": "Reviews at or above this, with a scraped email, tier a lead as qualified_lead.",
+            "default": 50,
+            "minimum": 0
+        },
+        "includeEmail": {
+            "title": "Scrape contact emails",
+            "type": "boolean",
+            "description": "Fetch each studio website and scrape a contact email.",
+            "default": true
+        },
+        "maxEmailLookups": {
+            "title": "Max email lookups",
+            "type": "integer",
+            "description": "Cap how many top leads get the website email scrape.",
+            "default": 100,
+            "minimum": 0,
+            "maximum": 2000
+        },
+        "concurrency": {
+            "title": "Concurrency (website scrape)",
+            "type": "integer",
+            "description": "Studio websites fetched in parallel. Steam detail lookups are always throttled separately.",
+            "default": 8,
+            "minimum": 1,
+            "maximum": 20
+        }
+    }
+}

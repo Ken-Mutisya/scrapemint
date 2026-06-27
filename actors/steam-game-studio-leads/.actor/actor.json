@@ -1,0 +1,12 @@
+{
+    "actorSpecification": 1,
+    "name": "steam-game-studio-leads",
+    "title": "Steam Game Studio Lead Scraper",
+    "description": "Search Steam by keyword and turn games into B2B leads: studio, publisher, website, scraped contact email, genres, release date, price, and review count. One lead per game. Keyless.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "readme": "../README.md",
+    "categories": ["BUSINESS", "LEAD_GENERATION"]
+}
