@@ -1,0 +1,10 @@
+{
+    "name": "oss-maintainer-leads",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Open source maintainer lead scraper. Search npm and PyPI by keyword and extract each package maintainer's public email, repository, homepage, monthly downloads, and last publish date. One B2B lead per package. Keyless, no API key.",
+    "main": "src/main.js",
+    "scripts": { "start": "node src/main.js" },
+    "dependencies": { "apify": "^3.7.0" },
+    "engines": { "node": ">=20" }
+}

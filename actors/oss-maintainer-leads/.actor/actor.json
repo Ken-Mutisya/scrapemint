@@ -1,0 +1,12 @@
+{
+    "actorSpecification": 1,
+    "name": "oss-maintainer-leads",
+    "title": "Open Source Maintainer Leads: npm & PyPI",
+    "description": "Search npm and PyPI by keyword and turn packages into B2B leads: the maintainer's public email, repository, homepage, monthly downloads, and last publish date. One lead per package. Keyless registries, no API key.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "readme": "../README.md",
+    "categories": ["BUSINESS", "LEAD_GENERATION"]
+}
