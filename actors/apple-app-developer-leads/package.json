@@ -1,0 +1,10 @@
+{
+    "name": "apple-app-developer-leads",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Apple App Store developer lead scraper. Search iOS apps by keyword via the keyless iTunes API and extract the seller, developer website, scraped contact email, category, ratings, and price. One B2B lead per app. No API key.",
+    "main": "src/main.js",
+    "scripts": { "start": "node src/main.js" },
+    "dependencies": { "apify": "^3.7.0" },
+    "engines": { "node": ">=20" }
+}

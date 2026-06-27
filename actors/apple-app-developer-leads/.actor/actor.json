@@ -1,0 +1,12 @@
+{
+    "actorSpecification": 1,
+    "name": "apple-app-developer-leads",
+    "title": "Apple App Store Developer Leads",
+    "description": "Search the iOS App Store by keyword via the keyless iTunes API and turn apps into B2B leads: seller, developer website, scraped contact email, category, rating, review count, and price. One lead per app. No API key.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "readme": "../README.md",
+    "categories": ["BUSINESS", "LEAD_GENERATION"]
+}
