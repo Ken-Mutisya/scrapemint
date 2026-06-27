@@ -136,6 +136,11 @@ if (initial.length === 0) {
     await Actor.exit();
 }
 
+// Wall-clock budget: exit cleanly with partial results before the 3600s platform
+// timeout (anti-bot throttling can otherwise run a big query set to a TIMED-OUT).
+const RUN_START = Date.now();
+const MAX_RUN_MS = 3300 * 1000;
+
 const crawler = new PlaywrightCrawler({
     proxyConfiguration,
     maxConcurrency: Math.max(1, Math.min(16, Number(concurrency) || 3)),
@@ -213,6 +218,7 @@ const crawler = new PlaywrightCrawler({
         },
     ],
     async requestHandler(ctx) {
+        if (Date.now() - RUN_START > MAX_RUN_MS) { log.warning('Run-time budget reached; finishing with partial results.'); return; }
         const t = ctx.request.userData?.type;
         if (t === 'listing') return handleListing(ctx);
         if (t === 'job') return handleJob(ctx);

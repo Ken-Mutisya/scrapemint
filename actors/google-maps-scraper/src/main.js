@@ -64,12 +64,17 @@ for (const url of directUrls) {
 }
 
 let placesPushed = 0;
+// Wall-clock budget: anti-bot can slow each page to ~60s, so a big query set
+// would run to the platform's 3600s timeout (counted as a failed run). Stop
+// processing a bit before that and exit cleanly with whatever was collected.
+const RUN_START = Date.now();
+const MAX_RUN_MS = 3300 * 1000;
 
 const crawler = new PlaywrightCrawler({
     proxyConfiguration,
     navigationTimeoutSecs: 60,
     requestHandlerTimeoutSecs: 300,
-    maxRequestRetries: 4,
+    maxRequestRetries: 2,
     retryOnBlocked: true,
     useSessionPool: true,
     persistCookiesPerSession: true,
@@ -95,6 +100,10 @@ const crawler = new PlaywrightCrawler({
     async requestHandler({ page, request, crawler: c }) {
         if (placesPushed >= maxPlacesTotal) {
             log.info(`Cap reached (${placesPushed}/${maxPlacesTotal}), skipping ${request.url}`);
+            return;
+        }
+        if (Date.now() - RUN_START > MAX_RUN_MS) {
+            log.warning('Run-time budget reached; draining remaining requests and finishing with partial results.');
             return;
         }
 
