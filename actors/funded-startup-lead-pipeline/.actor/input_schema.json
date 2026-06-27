@@ -26,6 +26,14 @@
             "editor": "stringList",
             "default": []
         },
+        "industries": {
+            "title": "Industries",
+            "type": "array",
+            "description": "Form D industry terms to include, matched loosely (empty = all operating industries). To skew toward startups try: technology, computers, telecommunications, biotechnology, pharmaceuticals, health, manufacturing. Real estate, insurance, banking, and construction are common non-startup vehicles to omit.",
+            "editor": "stringList",
+            "prefill": ["technology", "computers", "telecommunications", "biotechnology", "pharmaceuticals", "health"],
+            "default": []
+        },
         "includeFunds": {
             "title": "Include investment funds",
             "type": "boolean",

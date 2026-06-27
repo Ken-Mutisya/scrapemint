@@ -38,6 +38,7 @@ const {
     maxAgeDays = 30,
     minAmountSoldUsd = 0,
     states = [],
+    industries = [],
     includeFunds = false,
     includeContacts = true,
     maxLeads = 100,
@@ -51,6 +52,11 @@ const minAmount = Math.max(0, Number(minAmountSoldUsd) || 0);
 const leadCap = Math.max(1, Math.min(1000, Number(maxLeads) || 100));
 const contactCap = Math.max(0, Math.min(200, Number(maxContactLookups) || 40));
 const wantStates = new Set((Array.isArray(states) ? states : [states]).map((s) => String(s || '').trim().toUpperCase()).filter(Boolean));
+// Industry include-filter (empty = all operating industries). Matched loosely
+// against Form D industryGroupType so "technology" hits "Other Technology" and
+// "health" hits "Other Health Care". Use it to skew leads toward real startups.
+const wantIndustries = (Array.isArray(industries) ? industries : [industries])
+    .map((s) => String(s || '').trim().toLowerCase()).filter(Boolean);
 
 const userAgent = String(userAgentInput).trim()
     || 'scrapemint-funded-startup-lead research@scrapemint.example';
@@ -178,6 +184,10 @@ async function fetchFormDLeads() {
             if (!includeFunds && /pooled investment fund/i.test(lead.industry || '')) continue;
             if ((lead.amountSold || 0) < minAmount) continue;
             if (wantStates.size > 0 && (!lead.state || !wantStates.has(lead.state.toUpperCase()))) continue;
+            if (wantIndustries.length > 0) {
+                const ind = String(lead.industry || '').toLowerCase();
+                if (!ind || !wantIndustries.some((w) => ind.includes(w) || w.includes(ind))) continue;
+            }
 
             out.push(lead);
         }

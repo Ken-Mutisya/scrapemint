@@ -71,6 +71,7 @@ Pay per lead. The first `hot_lead` per run is free so you can validate output.
 | `maxAgeDays` | `30` | How far back to pull Form D filings. |
 | `minAmountSoldUsd` | `0` | Drop raises below this amount sold. |
 | `states` | `[]` | Two-letter state codes to include. Empty is all states. |
+| `industries` | `[]` | Form D industry terms to include, matched loosely. Empty is all. Use e.g. technology, biotechnology, pharmaceuticals, health to skew toward startups and omit real estate / insurance / banking vehicles. |
 | `includeFunds` | `false` | Keep pooled investment funds and SPVs. Off gives operating companies. |
 | `includeContacts` | `true` | Enrich top leads with website, phone, and emails. |
 | `maxLeads` | `100` | Cap total leads scored per run, ranked by amount raised. |
