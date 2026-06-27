@@ -1,0 +1,68 @@
+{
+    "title": "Shopify App Store Developer Leads Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "description": "Find Shopify apps by keyword and extract developer leads. Pay per lead.",
+    "properties": {
+        "keywords": {
+            "title": "Search keywords",
+            "type": "array",
+            "description": "Terms matched against app handles (e.g. email, upsell, reviews, wholesale, subscription).",
+            "editor": "stringList",
+            "prefill": ["email", "upsell", "reviews"],
+            "default": []
+        },
+        "maxLeads": {
+            "title": "Max leads",
+            "type": "integer",
+            "description": "Cap total leads scored per run.",
+            "default": 200,
+            "minimum": 1,
+            "maximum": 5000
+        },
+        "maxPerKeyword": {
+            "title": "Max per keyword",
+            "type": "integer",
+            "description": "Cap apps taken from each keyword (exact and prefix matches first).",
+            "default": 80,
+            "minimum": 1,
+            "maximum": 500
+        },
+        "minReviews": {
+            "title": "Minimum reviews",
+            "type": "integer",
+            "description": "Drop apps with fewer reviews than this. Zero keeps everything.",
+            "default": 0,
+            "minimum": 0
+        },
+        "qualifiedMinReviews": {
+            "title": "Qualified review bar",
+            "type": "integer",
+            "description": "Reviews at or above this, with a support email, tier a lead as qualified_lead.",
+            "default": 10,
+            "minimum": 0
+        },
+        "requireEmail": {
+            "title": "Only apps with a support email",
+            "type": "boolean",
+            "description": "Skip apps whose listing has no public developer support email.",
+            "default": false
+        },
+        "concurrency": {
+            "title": "Concurrency",
+            "type": "integer",
+            "description": "App pages fetched in parallel.",
+            "default": 8,
+            "minimum": 1,
+            "maximum": 20
+        },
+        "proxyConfiguration": {
+            "title": "Proxy configuration",
+            "type": "object",
+            "description": "Apify proxy. Recommended at volume so the App Store does not rate limit a single IP.",
+            "editor": "proxy",
+            "prefill": { "useApifyProxy": true },
+            "default": { "useApifyProxy": true }
+        }
+    }
+}

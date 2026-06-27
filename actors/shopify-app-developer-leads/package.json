@@ -1,0 +1,10 @@
+{
+    "name": "shopify-app-developer-leads",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Shopify App Store developer lead scraper. Name-match the app sitemap by keyword and extract each app's developer support email, developer name, company website, rating, reviews, and pricing. One B2B lead per app. No API key.",
+    "main": "src/main.js",
+    "scripts": { "start": "node src/main.js" },
+    "dependencies": { "apify": "^3.7.0", "crawlee": "^3.16.0" },
+    "engines": { "node": ">=20" }
+}
