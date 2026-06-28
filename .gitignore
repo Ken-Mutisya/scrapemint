@@ -14,3 +14,9 @@ coverage/
 # Research page dumps (large, reproducible via inspect-*.mjs)
 research/*-sample.html
 research/trustpilot-sample.json
+
+# Promotion machinery kept OUT of the public repo (accounts, tactics, post logs)
+automation/
+logs/
+content/
+PLAYBOOK.md
