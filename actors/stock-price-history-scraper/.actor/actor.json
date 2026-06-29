@@ -1,0 +1,14 @@
+{
+  "actorSpecification": 1,
+  "name": "stock-price-history-scraper",
+  "title": "Stock Price History Scraper",
+  "description": "Daily open, high, low, close and volume for any stock or ETF ticker over a date range. Returns clean JSON from a keyless public API, no browser and no proxy.",
+  "version": "0.1",
+  "buildTag": "latest",
+  "input": "./input_schema.json",
+  "dockerfile": "./Dockerfile",
+  "readme": "../README.md",
+  "categories": [
+    "BUSINESS"
+  ]
+}
