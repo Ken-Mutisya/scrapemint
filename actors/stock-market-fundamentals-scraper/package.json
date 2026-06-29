@@ -1,0 +1,13 @@
+{
+  "name": "stock-market-fundamentals-scraper",
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Stock market fundamentals scraper: revenue, net income, EPS, assets, cash flow and other financial-statement line items per ticker, straight from SEC filings. Keyless JSON, no browser, no proxy.",
+  "main": "src/main.js",
+  "scripts": {
+    "start": "node src/main.js"
+  },
+  "dependencies": {
+    "apify": "^3.7.0"
+  }
+}

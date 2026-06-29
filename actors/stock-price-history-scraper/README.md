@@ -1,4 +1,4 @@
-# Stock Price History Scraper
+# Stock Market Price History Scraper
 
 Daily **open, high, low, close and volume (OHLCV)** for any stock or ETF ticker over a date range, returned as clean JSON.
 

@@ -1,0 +1,15 @@
+{
+    "_note": "PUT this to /v2/acts/{actorId} as pricingInfos array entry. PAY_PER_EVENT only on BRONZE plan, startedAt 14+ days out (free preview until then). Apify auto-adds margin.",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~stock-market-fundamentals-scraper?token=APIFY_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "fundamentals_row": {
+                "eventTitle": "Fundamentals row",
+                "eventDescription": "One financial-statement data point for one ticker: a metric (e.g. revenue, net income, EPS, total assets) with its value, unit, fiscal year and period, period dates, filing form and SEC accession number. First 15 rows per run are free so you can validate output.",
+                "eventPriceUsd": 0.003
+            }
+        }
+    },
+    "startedAt": "2026-07-13T00:00:00.000Z"
+}

@@ -1,0 +1,14 @@
+{
+  "actorSpecification": 1,
+  "name": "stock-market-fundamentals-scraper",
+  "title": "Stock Market Fundamentals Scraper",
+  "description": "Revenue, net income, EPS, assets, cash flow and other financial-statement line items per stock ticker, straight from official SEC filings (XBRL). Keyless JSON, no browser and no proxy.",
+  "version": "0.1",
+  "buildTag": "latest",
+  "input": "./input_schema.json",
+  "dockerfile": "./Dockerfile",
+  "readme": "../README.md",
+  "categories": [
+    "BUSINESS"
+  ]
+}

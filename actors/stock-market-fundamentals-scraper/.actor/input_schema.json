@@ -1,0 +1,65 @@
+{
+  "title": "Stock Market Fundamentals Scraper",
+  "type": "object",
+  "schemaVersion": 1,
+  "properties": {
+    "tickers": {
+      "title": "Tickers",
+      "type": "array",
+      "description": "Stock symbols to fetch, e.g. [\"AAPL\", \"MSFT\"].",
+      "editor": "stringList",
+      "prefill": ["AAPL"],
+      "example": ["AAPL", "MSFT"]
+    },
+    "metrics": {
+      "title": "Metrics (optional)",
+      "type": "array",
+      "description": "Limit to specific XBRL concept names (e.g. [\"Revenues\",\"NetIncomeLoss\"]). Leave empty to return the curated set of common financial-statement line items.",
+      "editor": "stringList",
+      "prefill": [],
+      "example": ["Revenues", "NetIncomeLoss", "EarningsPerShareDiluted"]
+    },
+    "includeAllConcepts": {
+      "title": "Include all concepts",
+      "type": "boolean",
+      "description": "Return every us-gaap concept the company reports (hundreds), not just the curated set. Overrides Metrics.",
+      "default": false
+    },
+    "forms": {
+      "title": "Filing forms",
+      "type": "array",
+      "description": "Only include data points from these filing forms.",
+      "editor": "stringList",
+      "default": ["10-K", "10-Q"],
+      "example": ["10-K", "10-Q"]
+    },
+    "minYear": {
+      "title": "Minimum year",
+      "type": "integer",
+      "description": "Only include data points whose period ends in this year or later. Leave empty for full history.",
+      "editor": "number",
+      "example": 2020
+    },
+    "latestOnly": {
+      "title": "Latest value only",
+      "type": "boolean",
+      "description": "Return only the most recent data point for each metric instead of full history.",
+      "default": false
+    },
+    "maxRowsPerTicker": {
+      "title": "Max rows per ticker",
+      "type": "integer",
+      "description": "Cap fundamentals rows returned per ticker.",
+      "default": 5000,
+      "minimum": 1
+    },
+    "maxRowsTotal": {
+      "title": "Max rows total",
+      "type": "integer",
+      "description": "Stop after this many rows across all tickers.",
+      "default": 50000,
+      "minimum": 1
+    }
+  },
+  "required": ["tickers"]
+}
