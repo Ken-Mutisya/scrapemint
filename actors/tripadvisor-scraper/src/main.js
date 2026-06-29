@@ -669,6 +669,7 @@ async function handleDetail({ page, request }, kind) {
     await Actor.pushData(row);
     seenLocationIds.add(locationId);
     pushedRows += 1;
+    if (pushedRows > 10) Actor.charge({ eventName: 'property_row' }).catch((err) => log.warning(`charge failed: ${err?.message}`));
     log.info(`Pushed ${kind} ${locationId} ${(row.name || '').slice(0, 55)} | ${row.rating?.stars ?? '?'}★ (${pushedRows})`);
 }
 

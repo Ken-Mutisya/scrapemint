@@ -301,6 +301,7 @@ async function handleResultsPage({ request, page, ll }) {
 
         await Actor.pushData(row);
         pushedRows += 1;
+        if (pushedRows > 10) Actor.charge({ eventName: 'paper_row' }).catch((err) => log.warning(`charge failed: ${err?.message}`));
         pushedThisPage += 1;
         if (cid) {
             seenClusters.add(cid);
@@ -418,6 +419,7 @@ async function handleAuthorPage({ request, page, ll }) {
         scrapedAt: new Date().toISOString(),
     });
     pushedRows += 1;
+    if (pushedRows > 10) Actor.charge({ eventName: 'paper_row' }).catch((err) => log.warning(`charge failed: ${err?.message}`));
     ll.info(`Author scraped: ${enrichedProfile.name} (${papers.length} papers, h-index ${enrichedProfile.stats.hIndex}).`);
 }
 

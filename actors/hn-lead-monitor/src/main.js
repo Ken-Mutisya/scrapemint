@@ -281,7 +281,7 @@ async function harvestFeed(feedName) {
 
 function maybeCharge() {
     if (totalPushed > FREE_TIER_ITEMS) {
-        Actor.charge({ eventName: 'item_extracted' }).catch((err) => {
+        Actor.charge({ eventName: 'lead_match' }).catch((err) => {
             log.warning(`charge failed (continuing): ${err?.message}`);
         });
     }

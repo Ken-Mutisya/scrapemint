@@ -188,7 +188,7 @@ for (let i = 0; i < finalList.length; i += concurrency) {
         if (row.conditionId) seenIds.add(row.conditionId);
         pushed += 1;
         if (pushed > FREE_TIER_ITEMS) {
-            await Actor.charge({ eventName: 'result_item' }).catch(() => {});
+            await Actor.charge({ eventName: 'market_row' }).catch(() => {});
             chargedAfterFreeTier += 1;
         }
         log.info(`Pushed ${row.slug || row.conditionId} | vol24h=${row.volume24h?.toFixed?.(0) ?? '?'} | yes=${row.outcomePrices?.[0] ?? '?'} (${pushed})`);

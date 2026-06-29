@@ -253,11 +253,11 @@ for (const s of state.values()) {
     if (emails.length >= 1 || socialsCount >= 2) {
         enrichedCount += 1;
         if (enrichedCount > FREE_TIER_ENRICHED_LEADS) {
-            Actor.charge({ eventName: 'enriched_lead' }).catch((err) => log.warning(`charge failed: ${err?.message}`));
+            await Actor.charge({ eventName: 'enriched_lead' }).catch((err) => log.warning(`charge failed: ${err?.message}`));
         }
     } else {
         basicCount += 1;
-        Actor.charge({ eventName: 'basic_crawl' }).catch((err) => log.warning(`charge failed: ${err?.message}`));
+        await Actor.charge({ eventName: 'basic_crawl' }).catch((err) => log.warning(`charge failed: ${err?.message}`));
     }
 }
 

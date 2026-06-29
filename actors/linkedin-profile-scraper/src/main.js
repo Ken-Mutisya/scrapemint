@@ -117,7 +117,7 @@ const crawler = new PlaywrightCrawler({
         pushed.add(profile.key);
         await Actor.pushData(merged);
         if (pushed.size > FREE_TIER_PROFILES) {
-            Actor.charge({ eventName: 'profile' }).catch((err) => log.warning(`charge failed: ${err?.message}`));
+            await Actor.charge({ eventName: 'profile' }).catch((err) => log.warning(`charge failed: ${err?.message}`));
         }
         log.info(`Pushed ${profile.slug}: name=${merged.name || '?'}, headline=${merged.headline ? merged.headline.slice(0, 60) : '?'}.`);
     },

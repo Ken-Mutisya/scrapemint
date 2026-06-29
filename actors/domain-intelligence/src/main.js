@@ -186,7 +186,7 @@ const runWorker = async () => {
             if (hasData) {
                 charged += 1;
                 if (charged > FREE_TIER_LOOKUPS) {
-                    Actor.charge({ eventName: 'domain_lookup' }).catch((err) => log.warning(`charge failed: ${err?.message}`));
+                    await Actor.charge({ eventName: 'domain_lookup' }).catch((err) => log.warning(`charge failed: ${err?.message}`));
                 }
             }
             if (processed % 25 === 0) log.info(`Processed ${processed}/${cleanDomains.length}.`);

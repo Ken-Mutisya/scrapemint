@@ -347,7 +347,7 @@ async function handlePlace(page, request) {
     placesPushed++;
 
     if (placesPushed > FREE_TIER_PLACES) {
-        await Actor.charge({ eventName: 'place_extracted' }).catch(() => {});
+        await Actor.charge({ eventName: 'place_row' }).catch(() => {});
     }
 
     log.info(`[${placesPushed}/${maxPlacesTotal}] ${core.name} | ${reviews.length} reviews | ${images.length} images`);

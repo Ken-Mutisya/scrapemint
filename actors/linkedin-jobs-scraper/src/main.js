@@ -262,6 +262,7 @@ async function handleDetail($, request) {
     await Actor.pushData(row);
     seen.add(id);
     itemsPushed += 1;
+    if (itemsPushed > 10) Actor.charge({ eventName: 'job_row' }).catch((err) => log.warning(`charge failed: ${err?.message}`));
     log.info(`Pushed ${id}: ${row.title} @ ${row.company} (${itemsPushed}/${maxResults})`);
 }
 

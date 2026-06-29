@@ -368,6 +368,7 @@ async function handleProduct(ctx, engine) {
     await Actor.pushData(row);
     if (productId) seenProductIds.add(productId);
     pushedRows += 1;
+    if (pushedRows > 10) Actor.charge({ eventName: 'product_row' }).catch((err) => log.warning(`charge failed: ${err?.message}`));
     log.info(`Pushed ${request.userData.marketplace || 'generic'} ${(row.title || '').slice(0, 55)} | ${row.price?.value ?? '?'} ${row.price?.currency ?? ''} (${pushedRows})`);
 }
 

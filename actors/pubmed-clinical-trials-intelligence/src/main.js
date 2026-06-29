@@ -82,7 +82,7 @@ log.info(`Seeds: ${pubmedQueryList.length} PubMed queries, ${ctQueryList.length}
 
 function maybeCharge() {
     if (pushedRows > FREE_TIER_ITEMS) {
-        Actor.charge({ eventName: 'result_item' }).catch((err) => {
+        Actor.charge({ eventName: 'trial_row' }).catch((err) => {
             log.warning(`charge failed (continuing): ${err?.message}`);
         });
     }

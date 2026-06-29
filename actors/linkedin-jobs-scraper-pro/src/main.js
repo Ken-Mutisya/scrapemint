@@ -349,6 +349,7 @@ async function handleDetail({ $, request, crawler: c }) {
     await Actor.pushData(row);
     seenJobs.add(id);
     pushedJobs += 1;
+    if (pushedJobs > 5) Actor.charge({ eventName: 'job_row' }).catch((err) => log.warning(`charge failed: ${err?.message}`));
     log.info(`Pushed ${id} ${row.title} @ ${row.company} (${pushedJobs}/${cap === Infinity ? '∞' : cap})`);
 
     if (scrapeCompanyDetails && row.companySlug && !enrichedCompanies.has(row.companySlug)) {

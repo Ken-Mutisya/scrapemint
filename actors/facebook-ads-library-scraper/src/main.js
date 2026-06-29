@@ -178,7 +178,7 @@ async function handleSearch({ page, request }) {
             pushedThisRound += 1;
 
             if (rowsPushed > FREE_TIER_ROWS) {
-                Actor.charge({ eventName: 'ad_row' }).catch((err) => log.warning(`charge failed: ${err?.message}`));
+                await Actor.charge({ eventName: 'ad_row' }).catch((err) => log.warning(`charge failed: ${err?.message}`));
             }
 
             if (localPushedKeys.size >= maxAdsPerQuery) break;

@@ -483,7 +483,7 @@ async function isBlocked(page) {
 
 function maybeCharge() {
     if (totalPushed > FREE_TIER_ITEMS) {
-        Actor.charge({ eventName: 'result_item' }).catch((err) => {
+        Actor.charge({ eventName: 'flight_status' }).catch((err) => {
             log.warning(`charge failed (continuing): ${err?.message}`);
         });
     }

@@ -142,7 +142,7 @@ async function handlePeople({ page, request, crawler: c }) {
     peopleDone.add(company.key);
     await Actor.pushData(merged);
     if (peopleDone.size > FREE_TIER_COMPANIES) {
-        Actor.charge({ eventName: 'company_people' }).catch((err) => log.warning(`charge failed: ${err?.message}`));
+        await Actor.charge({ eventName: 'company_people' }).catch((err) => log.warning(`charge failed: ${err?.message}`));
     }
     log.info(`Pushed ${company.key}: total=${merged.totalEmployees ?? '?'}, featured=${merged.featuredEmployees.length}, locations=${merged.insights.locations.length}.`);
 }
@@ -168,7 +168,7 @@ async function handleLanding({ page, request }) {
     peopleDone.add(company.key);
     await Actor.pushData(partial);
     if (peopleDone.size > FREE_TIER_COMPANIES) {
-        Actor.charge({ eventName: 'company_people' }).catch((err) => log.warning(`charge failed: ${err?.message}`));
+        await Actor.charge({ eventName: 'company_people' }).catch((err) => log.warning(`charge failed: ${err?.message}`));
     }
     log.info(`Pushed ${company.key} from landing fallback.`);
 }

@@ -205,7 +205,7 @@ async function harvestTopic(slug) {
             totalPushed += 1;
 
             if (totalPushed > FREE_TIER_LAUNCHES) {
-                Actor.charge({ eventName: 'launch_extracted' }).catch((err) => {
+                await Actor.charge({ eventName: 'launch_row' }).catch((err) => {
                     log.warning(`charge failed (continuing): ${err?.message}`);
                 });
             }

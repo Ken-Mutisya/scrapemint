@@ -383,7 +383,7 @@ async function isLoginRedirect(page) {
 
 function maybeCharge() {
     if (totalPushed > FREE_TIER_ITEMS) {
-        Actor.charge({ eventName: 'result_item' }).catch((err) => {
+        Actor.charge({ eventName: 'deal_row' }).catch((err) => {
             log.warning(`charge failed (continuing): ${err?.message}`);
         });
     }

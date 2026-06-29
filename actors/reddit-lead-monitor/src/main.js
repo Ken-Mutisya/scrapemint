@@ -226,7 +226,7 @@ async function harvestSource({ kind, value }) {
             totalPushed += 1;
 
             if (totalPushed > FREE_TIER_POSTS) {
-                await Actor.charge({ eventName: 'post_extracted' }).catch((err) => {
+                await Actor.charge({ eventName: 'lead_match' }).catch((err) => {
                     log.warning(`charge failed (continuing): ${err?.message}`);
                 });
             }

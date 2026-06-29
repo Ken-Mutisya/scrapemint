@@ -187,6 +187,7 @@ async function handleSearchPage({ request, body, json, log: ll }) {
         } else {
             await Actor.pushData({ ...base, scrapedAt: new Date().toISOString() });
             pushedRows += 1;
+            if (pushedRows > 5) Actor.charge({ eventName: 'patent_row' }).catch((err) => log.warning(`charge failed: ${err?.message}`));
             seenPatents.add(base.publicationNumber);
         }
         queuedThisPage += 1;
@@ -331,6 +332,7 @@ async function handleDetailPage({ request, $, log: ll }) {
 
     await Actor.pushData(row);
     pushedRows += 1;
+    if (pushedRows > 5) Actor.charge({ eventName: 'patent_row' }).catch((err) => log.warning(`charge failed: ${err?.message}`));
     seenPatents.add(patentId);
     ll.info(`[detail] ${patentId}: "${(title || '').slice(0, 60)}", ${detail.inventors.length} inventors, ${detail.cpcCodes.length} CPC.`);
 }

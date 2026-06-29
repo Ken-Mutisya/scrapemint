@@ -104,7 +104,7 @@ const crawler = new PlaywrightCrawler({
             // Matches the README pricing table. Charge events must be declared
             // in the actor pricing config (PAY_PER_EVENT) on the platform.
             if (pushedCount > FREE_TIER_PROPERTIES) {
-                await Actor.charge({ eventName: 'property_scanned' }).catch((err) => {
+                await Actor.charge({ eventName: 'property_row' }).catch((err) => {
                     log.warning(`charge failed (continuing): ${err?.message}`);
                 });
             }

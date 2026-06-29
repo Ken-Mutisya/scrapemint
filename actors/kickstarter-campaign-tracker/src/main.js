@@ -393,7 +393,7 @@ async function pushRow(row) {
     pushedRows += 1;
     if (row.projectId) seenIds.add(row.projectId);
     if (pushedRows > FREE_TIER) {
-        Actor.charge({ eventName: 'campaign_row' }).catch((err) => log.warning(`charge failed: ${err?.message}`));
+        await Actor.charge({ eventName: 'campaign_row' }).catch((err) => log.warning(`charge failed: ${err?.message}`));
     }
 }
 

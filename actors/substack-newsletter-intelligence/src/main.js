@@ -321,7 +321,7 @@ async function pushRow(row) {
     pushedRows += 1;
     if (row.subdomain) seenSubdomains.add(row.subdomain);
     if (pushedRows > FREE_TIER) {
-        Actor.charge({ eventName: 'publication_row' }).catch((err) => log.warning(`charge failed: ${err?.message}`));
+        await Actor.charge({ eventName: 'publication_row' }).catch((err) => log.warning(`charge failed: ${err?.message}`));
     }
 }
 

@@ -209,7 +209,7 @@ async function scrapeIos(appId, sourceUrl) {
                 totalPushed++;
 
                 if (totalPushed > FREE_TIER_REVIEWS) {
-                    await Actor.charge({ eventName: 'review_extracted' }).catch((err) => {
+                    await Actor.charge({ eventName: 'review_row' }).catch((err) => {
                         log.warning(`charge failed (continuing): ${err?.message}`);
                     });
                 }
@@ -290,7 +290,7 @@ async function scrapeAndroid(packageName, sourceUrl) {
         totalPushed++;
 
         if (totalPushed > FREE_TIER_REVIEWS) {
-            await Actor.charge({ eventName: 'review_extracted' }).catch((err) => {
+            await Actor.charge({ eventName: 'review_row' }).catch((err) => {
                 log.warning(`charge failed (continuing): ${err?.message}`);
             });
         }

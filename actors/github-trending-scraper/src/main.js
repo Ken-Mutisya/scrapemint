@@ -164,7 +164,7 @@ const crawler = new CheerioCrawler({
             reposPushed.add(repoKey);
             await Actor.pushData(row);
             if (reposPushed.size > FREE_TIER_REPOS) {
-                Actor.charge({ eventName: 'repo_row' }).catch((err) => log.warning(`charge failed: ${err?.message}`));
+                await Actor.charge({ eventName: 'repo_row' }).catch((err) => log.warning(`charge failed: ${err?.message}`));
             }
             pushedFromThisList += 1;
         }

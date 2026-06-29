@@ -398,7 +398,7 @@ function toArray(v) {
 
 function maybeCharge() {
     if (totalPushed > FREE_TIER_ITEMS) {
-        Actor.charge({ eventName: 'item_extracted' }).catch((err) => {
+        Actor.charge({ eventName: 'flight_price' }).catch((err) => {
             log.warning(`charge failed (continuing): ${err?.message}`);
         });
     }

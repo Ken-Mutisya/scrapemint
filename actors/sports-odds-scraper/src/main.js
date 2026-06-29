@@ -200,6 +200,7 @@ for (const ev of filtered) {
     await Actor.pushData(row);
     if (key) seenEventKeys.add(key);
     pushedRows += 1;
+    if (pushedRows > 50) Actor.charge({ eventName: 'odds_row' }).catch((err) => log.warning(`charge failed: ${err?.message}`));
     log.info(`Pushed ${row.sport} ${row.away} @ ${row.home} (${row.commenceTime || '?'}) | books=${row.books.length} markets=${row.markets.length} (${pushedRows})`);
 }
 

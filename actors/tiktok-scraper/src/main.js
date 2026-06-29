@@ -319,6 +319,7 @@ async function handleVideo(page, request) {
 
     await Actor.pushData(record);
     videosPushed += 1;
+    if (videosPushed > 10) Actor.charge({ eventName: 'video_row' }).catch((err) => log.warning(`charge failed: ${err?.message}`));
     log.info(`Pushed video ${record.id} by @${record.authorUsername || '?'} (${videosPushed}/${maxVideosTotal})`);
 }
 

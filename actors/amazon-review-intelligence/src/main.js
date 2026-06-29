@@ -195,7 +195,7 @@ async function pushReview(review, product, asin) {
     totalPushed += 1;
 
     if (totalPushed > FREE_TIER_REVIEWS) {
-        await Actor.charge({ eventName: 'review_extracted' }).catch((err) => {
+        await Actor.charge({ eventName: 'review_row' }).catch((err) => {
             log.warning(`charge failed (continuing): ${err?.message}`);
         });
     }
