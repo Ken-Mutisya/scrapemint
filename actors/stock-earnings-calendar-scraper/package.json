@@ -1,0 +1,13 @@
+{
+  "name": "stock-earnings-calendar-scraper",
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Stock earnings calendar scraper: upcoming earnings dates, EPS estimates, dividends, IPOs and stock splits for a date range or watchlist. Keyless JSON, no browser, no proxy.",
+  "main": "src/main.js",
+  "scripts": {
+    "start": "node src/main.js"
+  },
+  "dependencies": {
+    "apify": "^3.7.0"
+  }
+}

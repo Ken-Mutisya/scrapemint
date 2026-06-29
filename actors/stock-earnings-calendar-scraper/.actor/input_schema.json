@@ -1,0 +1,67 @@
+{
+  "title": "Stock Earnings Calendar Scraper",
+  "type": "object",
+  "schemaVersion": 1,
+  "properties": {
+    "dateFrom": {
+      "title": "From date",
+      "type": "string",
+      "description": "Start of the calendar range, YYYY-MM-DD. Defaults to today.",
+      "editor": "textfield",
+      "example": "2026-06-30"
+    },
+    "dateTo": {
+      "title": "To date",
+      "type": "string",
+      "description": "End of the calendar range, YYYY-MM-DD. Defaults to 7 days after the start. Range is capped at 31 days.",
+      "editor": "textfield",
+      "example": "2026-07-07"
+    },
+    "tickers": {
+      "title": "Ticker watchlist (optional)",
+      "type": "array",
+      "description": "Only return events for these stock symbols. Leave empty to return the whole market calendar.",
+      "editor": "stringList",
+      "prefill": [],
+      "example": ["AAPL", "MSFT", "NKE"]
+    },
+    "includeEarnings": {
+      "title": "Include earnings",
+      "type": "boolean",
+      "description": "Companies reporting earnings, with EPS estimates and report time.",
+      "default": true
+    },
+    "includeDividends": {
+      "title": "Include dividends",
+      "type": "boolean",
+      "description": "Upcoming ex-dividend, record and payment dates.",
+      "default": true
+    },
+    "includeIPOs": {
+      "title": "Include IPOs",
+      "type": "boolean",
+      "description": "Priced and upcoming initial public offerings.",
+      "default": true
+    },
+    "includeSplits": {
+      "title": "Include stock splits",
+      "type": "boolean",
+      "description": "Upcoming stock splits with ratio and execution date.",
+      "default": true
+    },
+    "maxRows": {
+      "title": "Max rows",
+      "type": "integer",
+      "description": "Stop after this many calendar rows.",
+      "default": 1000,
+      "minimum": 1
+    },
+    "dedupe": {
+      "title": "Deduplicate",
+      "type": "boolean",
+      "description": "Drop duplicate event rows (same type, symbol and date).",
+      "default": true
+    }
+  },
+  "required": []
+}

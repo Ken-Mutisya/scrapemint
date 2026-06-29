@@ -1,0 +1,15 @@
+{
+    "_note": "PUT this to /v2/acts/{actorId} as pricingInfos array entry. PAY_PER_EVENT only on BRONZE plan, startedAt 14+ days out (free preview until then). Apify auto-adds margin.",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~stock-earnings-calendar-scraper?token=APIFY_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "calendar_row": {
+                "eventTitle": "Calendar event row",
+                "eventDescription": "One calendar event returned: an earnings report (with EPS estimate, report time, last-year EPS, market cap), a dividend (ex-date, record and payment dates, rate), an IPO (price, shares, deal value, status), or a stock split (ratio, execution date). First 15 rows per run are free so you can validate output.",
+                "eventPriceUsd": 0.005
+            }
+        }
+    },
+    "startedAt": "2026-07-13T00:00:00.000Z"
+}
