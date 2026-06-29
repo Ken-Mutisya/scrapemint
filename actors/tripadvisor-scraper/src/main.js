@@ -71,10 +71,16 @@ if (initial.length === 0) {
     await Actor.exit();
 }
 
-// Wall-clock budget: exit cleanly with partial results before the 3600s platform
-// timeout (anti-bot throttling can otherwise run to a TIMED-OUT failure).
+// Wall-clock budget: exit cleanly with partial results before the platform hard-kills
+// the run (TIMED-OUT = a failed run). Derive the deadline from the run's ACTUAL timeout
+// (ACTOR_TIMEOUT_AT) instead of assuming 3600s -- runs with a shorter timeout (e.g. 720s)
+// were failing because a fixed 3300s budget never fired.
 const RUN_START = Date.now();
-const MAX_RUN_MS = 3300 * 1000;
+const HARD_TIMEOUT_AT = Actor.getEnv().timeoutAt
+    ? new Date(Actor.getEnv().timeoutAt).getTime()
+    : RUN_START + 3600 * 1000;
+const SOFT_DEADLINE_AT = HARD_TIMEOUT_AT
+    - Math.min(300_000, Math.max(90_000, (HARD_TIMEOUT_AT - RUN_START) * 0.1));
 
 const crawler = new PlaywrightCrawler({
     proxyConfiguration,
@@ -124,7 +130,7 @@ const crawler = new PlaywrightCrawler({
         },
     ],
     async requestHandler(ctx) {
-        if (Date.now() - RUN_START > MAX_RUN_MS) { log.warning('Run-time budget reached; finishing with partial results.'); return; }
+        if (Date.now() > SOFT_DEADLINE_AT) { log.warning('Run-time budget reached; stopping crawler.'); crawler.stop(); return; }
         const t = ctx.request.userData?.type;
         if (t === 'search') return handleSearch(ctx);
         if (t === 'listing') return handleListing(ctx);

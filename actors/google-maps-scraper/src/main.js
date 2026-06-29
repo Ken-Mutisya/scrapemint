@@ -64,11 +64,17 @@ for (const url of directUrls) {
 }
 
 let placesPushed = 0;
-// Wall-clock budget: anti-bot can slow each page to ~60s, so a big query set
-// would run to the platform's 3600s timeout (counted as a failed run). Stop
-// processing a bit before that and exit cleanly with whatever was collected.
+// Wall-clock budget: exit cleanly with partial results before the platform hard-kills
+// the run (TIMED-OUT = a failed run). Derive the deadline from the run's ACTUAL timeout
+// (ACTOR_TIMEOUT_AT) instead of assuming 3600s -- runs with a shorter timeout (e.g. 720s)
+// were failing because a fixed 3300s budget never fired. Leave a margin big enough for
+// one in-flight request to finish.
 const RUN_START = Date.now();
-const MAX_RUN_MS = 3300 * 1000;
+const HARD_TIMEOUT_AT = Actor.getEnv().timeoutAt
+    ? new Date(Actor.getEnv().timeoutAt).getTime()
+    : RUN_START + 3600 * 1000;
+const SOFT_DEADLINE_AT = HARD_TIMEOUT_AT
+    - Math.min(300_000, Math.max(90_000, (HARD_TIMEOUT_AT - RUN_START) * 0.1));
 
 const crawler = new PlaywrightCrawler({
     proxyConfiguration,
@@ -102,8 +108,9 @@ const crawler = new PlaywrightCrawler({
             log.info(`Cap reached (${placesPushed}/${maxPlacesTotal}), skipping ${request.url}`);
             return;
         }
-        if (Date.now() - RUN_START > MAX_RUN_MS) {
-            log.warning('Run-time budget reached; draining remaining requests and finishing with partial results.');
+        if (Date.now() > SOFT_DEADLINE_AT) {
+            log.warning('Run-time budget reached; stopping crawler and finishing with partial results.');
+            crawler.stop();
             return;
         }
 
