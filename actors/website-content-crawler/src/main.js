@@ -28,6 +28,7 @@ import TurndownService from 'turndown';
 import { minimatch } from 'minimatch';
 
 await Actor.init();
+const __chargeJobs = [];
 
 const input = (await Actor.getInput()) ?? {};
 const {
@@ -70,7 +71,8 @@ for (const raw of startUrls) {
 
 if (seeds.length === 0) {
     log.warning('No valid start URLs provided. Pass at least one https URL.');
-    await Actor.exit();
+    await Promise.allSettled(__chargeJobs);
+await Actor.exit();
 }
 
 const proxyConfiguration = await Actor.createProxyConfiguration(proxyInput);
@@ -167,6 +169,7 @@ await crawler.addRequests(initialRequests);
 await crawler.run();
 
 log.info(`Run complete. Pages crawled: ${pagesCrawled}. Rows pushed: ${pushedRows}.`);
+await Promise.allSettled(__chargeJobs);
 await Actor.exit();
 
 // ---------- Handlers ----------
@@ -321,7 +324,7 @@ async function pushPage(url, depth, result, metadata, linkInfo, request) {
     if (!chunkOutput) {
         await Actor.pushData(stripUndefined(base));
         pushedRows += 1;
-        if (pushedRows > 25) Actor.charge({ eventName: 'page_crawled' }).catch((err) => log.warning(`charge failed: ${err?.message}`));
+        if (pushedRows > 25) __chargeJobs.push(Actor.charge({ eventName: 'page_crawled' }).catch((err) => log.warning(`charge failed: ${err?.message}`)));
         log.info(`Pushed ${url} ext=${result.extractor} tokens~${tokens} (${pushedRows})`);
         return;
     }
@@ -339,7 +342,7 @@ async function pushPage(url, depth, result, metadata, linkInfo, request) {
         });
         await Actor.pushData(row);
         pushedRows += 1;
-        if (pushedRows > 25) Actor.charge({ eventName: 'page_crawled' }).catch((err) => log.warning(`charge failed: ${err?.message}`));
+        if (pushedRows > 25) __chargeJobs.push(Actor.charge({ eventName: 'page_crawled' }).catch((err) => log.warning(`charge failed: ${err?.message}`)));
     }
     log.info(`Pushed ${chunks.length} chunks for ${url} (${pushedRows} rows total)`);
 }
@@ -733,7 +736,7 @@ async function saveFile(ctx, fileUrl) {
             crawledAt: new Date().toISOString(),
         });
         pushedRows += 1;
-        if (pushedRows > 25) Actor.charge({ eventName: 'page_crawled' }).catch((err) => log.warning(`charge failed: ${err?.message}`));
+        if (pushedRows > 25) __chargeJobs.push(Actor.charge({ eventName: 'page_crawled' }).catch((err) => log.warning(`charge failed: ${err?.message}`)));
         log.info(`Downloaded file ${fileUrl} -> ${key} (${buf.length} bytes)`);
     } catch (err) {
         log.warning(`file download failed ${fileUrl}: ${err?.message}`);

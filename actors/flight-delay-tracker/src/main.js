@@ -38,6 +38,7 @@ const IATA_TO_ICAO = {
 };
 
 await Actor.init();
+const __chargeJobs = [];
 
 const input = (await Actor.getInput()) ?? {};
 const {
@@ -67,7 +68,8 @@ const rtes = (Array.isArray(routes) ? routes : [])
 
 if (idents.length === 0 && rtes.length === 0) {
     log.warning('No input provided. Add a flight number or route and run again.');
-    await Actor.exit();
+    await Promise.allSettled(__chargeJobs);
+await Actor.exit();
 }
 
 const proxyConfiguration = await Actor.createProxyConfiguration(proxyInput);
@@ -161,6 +163,7 @@ if (seenStore && totalPushed > 0) {
 }
 
 log.info(`Run complete. Pushed ${totalPushed} flight rows.`);
+await Promise.allSettled(__chargeJobs);
 await Actor.exit();
 
 // ---------- handlers ----------
@@ -483,8 +486,8 @@ async function isBlocked(page) {
 
 function maybeCharge() {
     if (totalPushed > FREE_TIER_ITEMS) {
-        Actor.charge({ eventName: 'flight_status' }).catch((err) => {
+        __chargeJobs.push(Actor.charge({ eventName: 'flight_status' }).catch((err) => {
             log.warning(`charge failed (continuing): ${err?.message}`);
-        });
+        }));
     }
 }

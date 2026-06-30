@@ -38,6 +38,7 @@ const CATEGORY_TO_TAG_ID = {
 };
 
 await Actor.init();
+const __chargeJobs = [];
 
 const input = (await Actor.getInput()) ?? {};
 const {
@@ -100,6 +101,7 @@ if (dedupe) {
 }
 
 log.info(`Run complete. Pushed ${totalPushed}. seen=${totalSeen} filteredOut=${filteredOut} deduped=${deduped}`);
+await Promise.allSettled(__chargeJobs);
 await Actor.exit();
 
 async function fetchAndPush(tagId) {
@@ -305,9 +307,9 @@ function toArray(v) {
 
 function maybeCharge() {
     if (totalPushed > FREE_TIER_ITEMS) {
-        Actor.charge({ eventName: 'market_signal' }).catch((err) => {
+        __chargeJobs.push(Actor.charge({ eventName: 'market_signal' }).catch((err) => {
             log.warning(`charge failed (continuing): ${err?.message}`);
-        });
+        }));
     }
 }
 

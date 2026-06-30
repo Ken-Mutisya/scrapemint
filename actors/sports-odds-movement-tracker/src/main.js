@@ -17,6 +17,7 @@ const FREE_TIER_ITEMS = 50;
 const RATE_SLEEP_MS = 250;
 
 await Actor.init();
+const __chargeJobs = [];
 
 let totalPushed = 0;
 let totalSeen = 0;
@@ -75,6 +76,7 @@ try {
 }
 
 log.info(`Run complete. Pushed ${totalPushed}. seen=${totalSeen} filteredOut=${filteredOut} deduped=${deduped} apiRequests=${apiRequests}`);
+await Promise.allSettled(__chargeJobs);
 await Actor.exit();
 
 async function processSport(sport) {
@@ -285,9 +287,9 @@ function toArray(v) {
 
 function maybeCharge() {
     if (totalPushed > FREE_TIER_ITEMS) {
-        Actor.charge({ eventName: 'odds_movement' }).catch((err) => {
+        __chargeJobs.push(Actor.charge({ eventName: 'odds_movement' }).catch((err) => {
             log.warning(`charge failed (continuing): ${err?.message}`);
-        });
+        }));
     }
 }
 

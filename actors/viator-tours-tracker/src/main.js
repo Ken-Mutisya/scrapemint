@@ -11,6 +11,7 @@ import { PlaywrightCrawler } from 'crawlee';
 const FREE_TIER_ITEMS = 50;
 
 await Actor.init();
+const __chargeJobs = [];
 
 let totalPushed = 0;
 let totalSeen = 0;
@@ -125,6 +126,7 @@ try {
 }
 
 log.info(`Run complete. Pushed ${totalPushed}. seen=${totalSeen} filteredOut=${filteredOut} deduped=${deduped} pageFetches=${pageFetches}`);
+await Promise.allSettled(__chargeJobs);
 await Actor.exit();
 
 async function handlePage(html, request) {
@@ -367,8 +369,8 @@ function toArray(v) {
 
 function maybeCharge() {
     if (totalPushed > FREE_TIER_ITEMS) {
-        Actor.charge({ eventName: 'tour_row' }).catch((err) => {
+        __chargeJobs.push(Actor.charge({ eventName: 'tour_row' }).catch((err) => {
             log.warning(`charge failed (continuing): ${err?.message}`);
-        });
+        }));
     }
 }

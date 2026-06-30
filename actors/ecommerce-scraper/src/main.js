@@ -59,6 +59,7 @@ const MARKETPLACE_SEARCH_URL = {
 };
 
 await Actor.init();
+const __chargeJobs = [];
 
 const input = (await Actor.getInput()) ?? {};
 const {
@@ -96,7 +97,8 @@ let pushedRows = 0;
 const initial = buildInitialRequests();
 if (initial.length === 0) {
     log.warning('No valid input. Provide productUrls, categoryUrls, or keyword + marketplaces.');
-    await Actor.exit();
+    await Promise.allSettled(__chargeJobs);
+await Actor.exit();
 }
 
 // Decide which crawler engine to use. cheerio is faster but only handles
@@ -165,6 +167,7 @@ await crawler.run();
 
 if (seenStore && pushedRows > 0) await seenStore.setValue('seen-product-ids', [...seenProductIds]);
 log.info(`Run complete. Products pushed: ${pushedRows}.`);
+await Promise.allSettled(__chargeJobs);
 await Actor.exit();
 
 // ---------- Routing ----------
@@ -368,7 +371,7 @@ async function handleProduct(ctx, engine) {
     await Actor.pushData(row);
     if (productId) seenProductIds.add(productId);
     pushedRows += 1;
-    if (pushedRows > 10) Actor.charge({ eventName: 'product_row' }).catch((err) => log.warning(`charge failed: ${err?.message}`));
+    if (pushedRows > 10) __chargeJobs.push(Actor.charge({ eventName: 'product_row' }).catch((err) => log.warning(`charge failed: ${err?.message}`)));
     log.info(`Pushed ${request.userData.marketplace || 'generic'} ${(row.title || '').slice(0, 55)} | ${row.price?.value ?? '?'} ${row.price?.currency ?? ''} (${pushedRows})`);
 }
 

@@ -19,6 +19,7 @@ const FREE_TIER_ITEMS = 50;
 const API_BASE = 'https://api.github.com';
 
 await Actor.init();
+const __chargeJobs = [];
 
 const input = (await Actor.getInput()) ?? {};
 const {
@@ -102,6 +103,7 @@ if (dedupe) {
 }
 
 log.info(`Run complete. Pushed ${totalPushed}. seen=${totalSeen} filteredOut=${filteredOut} deduped=${deduped}`);
+await Promise.allSettled(__chargeJobs);
 await Actor.exit();
 
 // ---- search ----
@@ -340,9 +342,9 @@ async function ghFetch(url) {
 
 function maybeCharge() {
     if (totalPushed > FREE_TIER_ITEMS) {
-        Actor.charge({ eventName: 'issue_match' }).catch((err) => {
+        __chargeJobs.push(Actor.charge({ eventName: 'issue_match' }).catch((err) => {
             log.warning(`charge failed (continuing): ${err?.message}`);
-        });
+        }));
     }
 }
 

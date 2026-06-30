@@ -24,6 +24,7 @@ import { PlaywrightCrawler } from 'crawlee';
 const SCHOLAR_BASE = 'https://scholar.google.com';
 
 await Actor.init();
+const __chargeJobs = [];
 
 const input = (await Actor.getInput()) ?? {};
 const {
@@ -65,7 +66,8 @@ const paperUrlList = (Array.isArray(paperUrls) ? paperUrls : []).map((u) => Stri
 
 if (queryList.length === 0 && authorList.length === 0 && clusterList.length === 0 && paperUrlList.length === 0) {
     log.warning('No input. Provide at least one entry in queries[], authorUrls[], clusterIds[], or paperUrls[].');
-    await Actor.exit();
+    await Promise.allSettled(__chargeJobs);
+await Actor.exit();
 }
 
 function buildSearchUrl(query, page = 0) {
@@ -301,7 +303,7 @@ async function handleResultsPage({ request, page, ll }) {
 
         await Actor.pushData(row);
         pushedRows += 1;
-        if (pushedRows > 10) Actor.charge({ eventName: 'paper_row' }).catch((err) => log.warning(`charge failed: ${err?.message}`));
+        if (pushedRows > 10) __chargeJobs.push(Actor.charge({ eventName: 'paper_row' }).catch((err) => log.warning(`charge failed: ${err?.message}`)));
         pushedThisPage += 1;
         if (cid) {
             seenClusters.add(cid);
@@ -419,7 +421,7 @@ async function handleAuthorPage({ request, page, ll }) {
         scrapedAt: new Date().toISOString(),
     });
     pushedRows += 1;
-    if (pushedRows > 10) Actor.charge({ eventName: 'paper_row' }).catch((err) => log.warning(`charge failed: ${err?.message}`));
+    if (pushedRows > 10) __chargeJobs.push(Actor.charge({ eventName: 'paper_row' }).catch((err) => log.warning(`charge failed: ${err?.message}`)));
     ll.info(`Author scraped: ${enrichedProfile.name} (${papers.length} papers, h-index ${enrichedProfile.stats.hIndex}).`);
 }
 
@@ -466,4 +468,5 @@ if (seenStore) {
 }
 
 log.info(`Done. Pushed ${pushedRows} rows.`);
+await Promise.allSettled(__chargeJobs);
 await Actor.exit();

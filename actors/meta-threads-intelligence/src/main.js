@@ -20,6 +20,7 @@ import { PlaywrightCrawler } from 'crawlee';
 const FREE_TIER_ITEMS = 50;
 
 await Actor.init();
+const __chargeJobs = [];
 
 const input = (await Actor.getInput()) ?? {};
 const {
@@ -42,7 +43,8 @@ const directUrls = cleanList(postUrls).filter((u) => /^https?:\/\/(www\.)?thread
 
 if (handles.length === 0 && queries.length === 0 && directUrls.length === 0) {
     log.warning('No input provided. Add a handle, search term, or post URL and run again.');
-    await Actor.exit();
+    await Promise.allSettled(__chargeJobs);
+await Actor.exit();
 }
 
 const proxyConfiguration = await Actor.createProxyConfiguration(proxyInput);
@@ -189,6 +191,7 @@ if (seenStore && totalPushed > 0) {
 }
 
 log.info(`Run complete. Pushed ${totalPushed} Threads posts.`);
+await Promise.allSettled(__chargeJobs);
 await Actor.exit();
 
 // ---------- push pipeline ----------
@@ -420,8 +423,8 @@ async function isBlocked(page) {
 
 function maybeCharge() {
     if (totalPushed > FREE_TIER_ITEMS) {
-        Actor.charge({ eventName: 'thread_row' }).catch((err) => {
+        __chargeJobs.push(Actor.charge({ eventName: 'thread_row' }).catch((err) => {
             log.warning(`charge failed (continuing): ${err?.message}`);
-        });
+        }));
     }
 }

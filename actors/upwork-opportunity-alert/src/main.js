@@ -30,6 +30,7 @@ const POSTED_WITHIN_HOURS = {
 };
 
 await Actor.init();
+const __chargeJobs = [];
 
 const input = (await Actor.getInput()) ?? {};
 const {
@@ -302,7 +303,7 @@ for (const [idx, route] of routes.entries()) {
         await Actor.pushData(job);
         newSeen.add(raw.uid);
         pushed += 1;
-        if (pushed > 5) Actor.charge({ eventName: 'opportunity_match' }).catch((err) => log.warning(`charge failed: ${err?.message}`));
+        if (pushed > 5) __chargeJobs.push(Actor.charge({ eventName: 'opportunity_match' }).catch((err) => log.warning(`charge failed: ${err?.message}`)));
     }
 }
 
@@ -312,4 +313,5 @@ if (dedupe) {
 }
 
 log.info(`Done. Pushed ${pushed} jobs. (seen=${totalSeen}, filtered=${filteredOut}, deduped=${deduped}, max=${maxJobs})`);
+await Promise.allSettled(__chargeJobs);
 await Actor.exit();

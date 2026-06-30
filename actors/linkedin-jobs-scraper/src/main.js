@@ -49,6 +49,7 @@ const TECH_STACK_TERMS = [
 ];
 
 await Actor.init();
+const __chargeJobs = [];
 
 const input = (await Actor.getInput()) ?? {};
 const {
@@ -155,6 +156,7 @@ if (seenStore && itemsPushed > 0) {
 }
 
 log.info(`Run complete. Pushed ${itemsPushed} jobs.`);
+await Promise.allSettled(__chargeJobs);
 await Actor.exit();
 
 // ----- URL builders -----
@@ -262,7 +264,7 @@ async function handleDetail($, request) {
     await Actor.pushData(row);
     seen.add(id);
     itemsPushed += 1;
-    if (itemsPushed > 10) Actor.charge({ eventName: 'job_row' }).catch((err) => log.warning(`charge failed: ${err?.message}`));
+    if (itemsPushed > 10) __chargeJobs.push(Actor.charge({ eventName: 'job_row' }).catch((err) => log.warning(`charge failed: ${err?.message}`)));
     log.info(`Pushed ${id}: ${row.title} @ ${row.company} (${itemsPushed}/${maxResults})`);
 }
 

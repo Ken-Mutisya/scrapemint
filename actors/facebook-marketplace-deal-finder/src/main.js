@@ -20,6 +20,7 @@ import { PlaywrightCrawler } from 'crawlee';
 const FREE_TIER_ITEMS = 30;
 
 await Actor.init();
+const __chargeJobs = [];
 
 const input = (await Actor.getInput()) ?? {};
 const {
@@ -43,7 +44,8 @@ const wantCondition = String(condition || 'any').toLowerCase();
 
 if (kws.length === 0) {
     log.warning('No keywords provided. Add at least one search keyword and run again.');
-    await Actor.exit();
+    await Promise.allSettled(__chargeJobs);
+await Actor.exit();
 }
 const finalCities = cts.length > 0 ? cts : ['sanfrancisco'];
 
@@ -61,7 +63,8 @@ const cookies = (Array.isArray(fbCookies) ? fbCookies : [])
 
 if (cookies.length === 0) {
     log.warning('No Facebook cookies provided. Marketplace search returns 400 to anonymous traffic. Paste your c_user, xs, and datr cookies in fbCookies and run again.');
-    await Actor.exit();
+    await Promise.allSettled(__chargeJobs);
+await Actor.exit();
 }
 
 const proxyConfiguration = await Actor.createProxyConfiguration(proxyInput);
@@ -202,6 +205,7 @@ if (seenStore && totalPushed > 0) {
 }
 
 log.info(`Run complete. Pushed ${totalPushed} Marketplace listings.`);
+await Promise.allSettled(__chargeJobs);
 await Actor.exit();
 
 // ---------- push pipeline ----------
@@ -383,8 +387,8 @@ async function isLoginRedirect(page) {
 
 function maybeCharge() {
     if (totalPushed > FREE_TIER_ITEMS) {
-        Actor.charge({ eventName: 'deal_row' }).catch((err) => {
+        __chargeJobs.push(Actor.charge({ eventName: 'deal_row' }).catch((err) => {
             log.warning(`charge failed (continuing): ${err?.message}`);
-        });
+        }));
     }
 }

@@ -26,6 +26,7 @@ import { Actor, log } from 'apify';
 import { CheerioCrawler } from 'crawlee';
 
 await Actor.init();
+const __chargeJobs = [];
 
 const input = (await Actor.getInput()) ?? {};
 const {
@@ -75,7 +76,8 @@ let pushedCompanies = 0;
 const initialRequests = buildSeedRequests();
 if (initialRequests.length === 0) {
     log.warning('No valid input. Provide at least one searchUrl, a keyword/location pair, or a companyUrl.');
-    await Actor.exit();
+    await Promise.allSettled(__chargeJobs);
+await Actor.exit();
 }
 
 // Wall-clock budget: exit cleanly with partial results before the platform hard-kills
@@ -138,6 +140,7 @@ if (seenStore && pushedJobs > 0) {
 }
 
 log.info(`Run complete. Jobs pushed: ${pushedJobs}. Companies pushed: ${pushedCompanies}.`);
+await Promise.allSettled(__chargeJobs);
 await Actor.exit();
 
 // ---------- Seed builders ----------
@@ -349,7 +352,7 @@ async function handleDetail({ $, request, crawler: c }) {
     await Actor.pushData(row);
     seenJobs.add(id);
     pushedJobs += 1;
-    if (pushedJobs > 5) Actor.charge({ eventName: 'job_row' }).catch((err) => log.warning(`charge failed: ${err?.message}`));
+    if (pushedJobs > 5) __chargeJobs.push(Actor.charge({ eventName: 'job_row' }).catch((err) => log.warning(`charge failed: ${err?.message}`)));
     log.info(`Pushed ${id} ${row.title} @ ${row.company} (${pushedJobs}/${cap === Infinity ? '∞' : cap})`);
 
     if (scrapeCompanyDetails && row.companySlug && !enrichedCompanies.has(row.companySlug)) {

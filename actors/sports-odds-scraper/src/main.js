@@ -83,6 +83,7 @@ const PINNACLE_LEAGUES = {
 };
 
 await Actor.init();
+const __chargeJobs = [];
 
 const input = (await Actor.getInput()) ?? {};
 const {
@@ -118,7 +119,8 @@ let pushedRows = 0;
 
 if (sportList.length === 0 && (!Array.isArray(eventUrls) || eventUrls.length === 0)) {
     log.warning('No input. Provide at least one sport (in sports[]) or one direct event URL (in eventUrls[]).');
-    await Actor.exit();
+    await Promise.allSettled(__chargeJobs);
+await Actor.exit();
 }
 
 const fetcher = await buildProxiedFetch(proxyConfiguration);
@@ -200,12 +202,13 @@ for (const ev of filtered) {
     await Actor.pushData(row);
     if (key) seenEventKeys.add(key);
     pushedRows += 1;
-    if (pushedRows > 50) Actor.charge({ eventName: 'odds_row' }).catch((err) => log.warning(`charge failed: ${err?.message}`));
+    if (pushedRows > 50) __chargeJobs.push(Actor.charge({ eventName: 'odds_row' }).catch((err) => log.warning(`charge failed: ${err?.message}`)));
     log.info(`Pushed ${row.sport} ${row.away} @ ${row.home} (${row.commenceTime || '?'}) | books=${row.books.length} markets=${row.markets.length} (${pushedRows})`);
 }
 
 if (seenStore && pushedRows > 0) await seenStore.setValue('seen-event-keys', [...seenEventKeys]);
 log.info(`Run complete. Events pushed: ${pushedRows}.`);
+await Promise.allSettled(__chargeJobs);
 await Actor.exit();
 
 // ---------- Network ----------

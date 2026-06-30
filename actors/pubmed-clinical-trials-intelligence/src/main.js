@@ -22,6 +22,7 @@ const CT_BASE = 'https://clinicaltrials.gov/api/v2/studies';
 const FREE_TIER_ITEMS = 20;
 
 await Actor.init();
+const __chargeJobs = [];
 
 const input = (await Actor.getInput()) ?? {};
 const {
@@ -75,16 +76,17 @@ const nctIdList = toStringList(nctIds).map(normalizeNctId).filter(Boolean);
 
 if (pubmedQueryList.length === 0 && ctQueryList.length === 0 && pmidList.length === 0 && nctIdList.length === 0) {
     log.warning('No input. Provide at least one entry in pubmedQueries[], clinicalTrialsQueries[], pmids[], or nctIds[].');
-    await Actor.exit();
+    await Promise.allSettled(__chargeJobs);
+await Actor.exit();
 }
 
 log.info(`Seeds: ${pubmedQueryList.length} PubMed queries, ${ctQueryList.length} CT.gov queries, ${pmidList.length} direct PMIDs, ${nctIdList.length} direct NCT IDs.`);
 
 function maybeCharge() {
     if (pushedRows > FREE_TIER_ITEMS) {
-        Actor.charge({ eventName: 'trial_row' }).catch((err) => {
+        __chargeJobs.push(Actor.charge({ eventName: 'trial_row' }).catch((err) => {
             log.warning(`charge failed (continuing): ${err?.message}`);
-        });
+        }));
     }
 }
 
@@ -613,4 +615,5 @@ try {
 }
 
 log.info(`Done. Pushed ${pushedRows} rows.`);
+await Promise.allSettled(__chargeJobs);
 await Actor.exit();

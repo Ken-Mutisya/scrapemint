@@ -24,6 +24,7 @@ const FREE_TIER_ROWS = 20;
 const EDGAR_RATE_SLEEP_MS = 120;
 
 await Actor.init();
+const __chargeJobs = [];
 
 const input = (await Actor.getInput()) ?? {};
 const {
@@ -82,6 +83,7 @@ for (const m of managerInputs) {
 }
 
 log.info(`Run complete. rows=${totalRows} (key_move=${keyMoves}, position_change=${positionChanges}, holding=${holdings}).`);
+await Promise.allSettled(__chargeJobs);
 await Actor.exit();
 
 // ---------- manager resolution ----------
@@ -315,7 +317,7 @@ function charge(changeType) {
     else { event = 'holding'; holdings += 1; }
 
     if (totalRows <= FREE_TIER_ROWS) return;
-    Actor.charge({ eventName: event }).catch((err) => log.warning(`charge ${event} failed (continuing): ${err?.message}`));
+    __chargeJobs.push(Actor.charge({ eventName: event }).catch((err) => log.warning(`charge ${event} failed (continuing): ${err?.message}`)));
 }
 
 // ---------- xml helpers ----------

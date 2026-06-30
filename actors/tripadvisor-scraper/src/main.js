@@ -28,6 +28,7 @@ const PLACE_TYPE_PATH = {
 };
 
 await Actor.init();
+const __chargeJobs = [];
 
 const input = (await Actor.getInput()) ?? {};
 const {
@@ -68,7 +69,8 @@ let pushedRows = 0;
 const initial = await buildInitialRequests();
 if (initial.length === 0) {
     log.warning('No valid input. Provide a searchQuery or startUrls.');
-    await Actor.exit();
+    await Promise.allSettled(__chargeJobs);
+await Actor.exit();
 }
 
 // Wall-clock budget: exit cleanly with partial results before the platform hard-kills
@@ -152,6 +154,7 @@ await crawler.run();
 if (seenStore && pushedRows > 0) await seenStore.setValue('seen-location-ids', [...seenLocationIds]);
 
 log.info(`Run complete. Properties pushed: ${pushedRows}.`);
+await Promise.allSettled(__chargeJobs);
 await Actor.exit();
 
 // ---------- Seed builders ----------
@@ -669,7 +672,7 @@ async function handleDetail({ page, request }, kind) {
     await Actor.pushData(row);
     seenLocationIds.add(locationId);
     pushedRows += 1;
-    if (pushedRows > 10) Actor.charge({ eventName: 'property_row' }).catch((err) => log.warning(`charge failed: ${err?.message}`));
+    if (pushedRows > 10) __chargeJobs.push(Actor.charge({ eventName: 'property_row' }).catch((err) => log.warning(`charge failed: ${err?.message}`)));
     log.info(`Pushed ${kind} ${locationId} ${(row.name || '').slice(0, 55)} | ${row.rating?.stars ?? '?'}★ (${pushedRows})`);
 }
 

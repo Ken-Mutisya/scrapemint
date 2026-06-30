@@ -21,6 +21,7 @@ import { Actor, log } from 'apify';
 import { PlaywrightCrawler } from 'crawlee';
 
 await Actor.init();
+const __chargeJobs = [];
 
 const input = (await Actor.getInput()) ?? {};
 const {
@@ -50,7 +51,8 @@ for (const raw of destinationUrls) {
 
 if (props.length === 0 && dests.length === 0) {
     log.warning('No valid TripAdvisor URLs provided. Provide property URLs (Hotel_Review, Restaurant_Review, Attraction_Review) or destination listing URLs (Hotels-, Restaurants-, Attractions-).');
-    await Actor.exit();
+    await Promise.allSettled(__chargeJobs);
+await Actor.exit();
 }
 
 const proxyConfiguration = await Actor.createProxyConfiguration(proxyInput);
@@ -127,6 +129,7 @@ await crawler.addRequests(initialRequests);
 await crawler.run();
 
 log.info(`Run complete. Properties pushed: ${pushed}.`);
+await Promise.allSettled(__chargeJobs);
 await Actor.exit();
 
 // ---------- Handlers ----------
@@ -212,7 +215,7 @@ async function handleProperty({ page, request }) {
 
     await Actor.pushData(row);
     pushed += 1;
-    if (pushed > 5) Actor.charge({ eventName: 'rank_row' }).catch((err) => log.warning(`charge failed: ${err?.message}`));
+    if (pushed > 5) __chargeJobs.push(Actor.charge({ eventName: 'rank_row' }).catch((err) => log.warning(`charge failed: ${err?.message}`)));
     log.info(`Pushed ${propertyId} ${row.name || '(no name)'} rank=${row.rank?.position ?? '?'}/${row.rank?.totalInCategory ?? '?'} rating=${rating.overall ?? '?'} reviews=${rating.reviewCount ?? '?'} (${pushed})`);
 }
 

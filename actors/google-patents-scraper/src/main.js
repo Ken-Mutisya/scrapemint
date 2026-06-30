@@ -26,6 +26,7 @@ import { CheerioCrawler } from 'crawlee';
 const PATENTS_BASE = 'https://patents.google.com';
 
 await Actor.init();
+const __chargeJobs = [];
 
 const input = (await Actor.getInput()) ?? {};
 const {
@@ -70,7 +71,8 @@ const jurisdictionSet = new Set((Array.isArray(jurisdictions) ? jurisdictions : 
 
 if (queryList.length === 0 && patentIdList.length === 0 && assigneeList.length === 0 && inventorList.length === 0) {
     log.warning('No input. Provide at least one entry in queries[], patentIds[], assignees[], or inventors[].');
-    await Actor.exit();
+    await Promise.allSettled(__chargeJobs);
+await Actor.exit();
 }
 
 const wantsDetailFetch = fetchClaims || fetchDescription || fetchCitations || fetchCitedBy || fetchFamily;
@@ -187,7 +189,7 @@ async function handleSearchPage({ request, body, json, log: ll }) {
         } else {
             await Actor.pushData({ ...base, scrapedAt: new Date().toISOString() });
             pushedRows += 1;
-            if (pushedRows > 5) Actor.charge({ eventName: 'patent_row' }).catch((err) => log.warning(`charge failed: ${err?.message}`));
+            if (pushedRows > 5) __chargeJobs.push(Actor.charge({ eventName: 'patent_row' }).catch((err) => log.warning(`charge failed: ${err?.message}`)));
             seenPatents.add(base.publicationNumber);
         }
         queuedThisPage += 1;
@@ -332,7 +334,7 @@ async function handleDetailPage({ request, $, log: ll }) {
 
     await Actor.pushData(row);
     pushedRows += 1;
-    if (pushedRows > 5) Actor.charge({ eventName: 'patent_row' }).catch((err) => log.warning(`charge failed: ${err?.message}`));
+    if (pushedRows > 5) __chargeJobs.push(Actor.charge({ eventName: 'patent_row' }).catch((err) => log.warning(`charge failed: ${err?.message}`)));
     seenPatents.add(patentId);
     ll.info(`[detail] ${patentId}: "${(title || '').slice(0, 60)}", ${detail.inventors.length} inventors, ${detail.cpcCodes.length} CPC.`);
 }
@@ -363,4 +365,5 @@ if (seenStore) {
 }
 
 log.info(`Done. Pushed ${pushedRows} rows.`);
+await Promise.allSettled(__chargeJobs);
 await Actor.exit();

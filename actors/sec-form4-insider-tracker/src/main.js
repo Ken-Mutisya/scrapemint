@@ -43,6 +43,7 @@ const TRANSACTION_CODE_DESCRIPTIONS = {
 };
 
 await Actor.init();
+const __chargeJobs = [];
 
 const input = (await Actor.getInput()) ?? {};
 const {
@@ -138,6 +139,7 @@ if (dedupe) {
 }
 
 log.info(`Run complete. Pushed ${totalPushed}. seen=${totalSeen} filteredOut=${filteredOut} deduped=${deduped}`);
+await Promise.allSettled(__chargeJobs);
 await Actor.exit();
 
 // ---- ticker map ----
@@ -458,9 +460,9 @@ function stripHostHeader(h) {
 
 function maybeCharge() {
     if (totalPushed > FREE_TIER_ITEMS) {
-        Actor.charge({ eventName: 'filing_row' }).catch((err) => {
+        __chargeJobs.push(Actor.charge({ eventName: 'filing_row' }).catch((err) => {
             log.warning(`charge failed (continuing): ${err?.message}`);
-        });
+        }));
     }
 }
 

@@ -54,6 +54,7 @@ const FEATURE_PARAM = {
 };
 
 await Actor.init();
+const __chargeJobs = [];
 
 const input = (await Actor.getInput()) ?? {};
 const {
@@ -110,7 +111,8 @@ let pushedRows = 0;
 const initial = buildInitialRequests();
 if (initial.length === 0) {
     log.warning('No valid input. Provide at least one search term, URL, video ID, or channel handle.');
-    await Actor.exit();
+    await Promise.allSettled(__chargeJobs);
+await Actor.exit();
 }
 
 const crawler = new PlaywrightCrawler({
@@ -181,6 +183,7 @@ await crawler.run();
 if (seenStore && pushedRows > 0) await seenStore.setValue('seen-video-ids', [...seenVideoIds]);
 
 log.info(`Run complete. Videos pushed: ${pushedRows}.`);
+await Promise.allSettled(__chargeJobs);
 await Actor.exit();
 
 // ---------- Seed builders ----------
@@ -484,7 +487,7 @@ async function handleWatch({ page, request, crawler: c }) {
     await Actor.pushData(row);
     seenVideoIds.add(videoId);
     pushedRows += 1;
-    if (pushedRows > 10) Actor.charge({ eventName: 'video_row' }).catch((err) => log.warning(`charge failed: ${err?.message}`));
+    if (pushedRows > 10) __chargeJobs.push(Actor.charge({ eventName: 'video_row' }).catch((err) => log.warning(`charge failed: ${err?.message}`)));
     log.info(`Pushed ${videoId} ${(row.title || '').slice(0, 60)} | ${row.engagement.viewCount ?? '?'} views (${pushedRows})`);
 }
 

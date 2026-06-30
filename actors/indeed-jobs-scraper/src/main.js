@@ -80,6 +80,7 @@ const SENIORITY_PATTERNS = [
 ];
 
 await Actor.init();
+const __chargeJobs = [];
 
 const input = (await Actor.getInput()) ?? {};
 const {
@@ -133,7 +134,8 @@ let pushedRows = 0;
 const initial = buildInitialRequests();
 if (initial.length === 0) {
     log.warning('No valid input. Provide keywords + locations, searchUrls, jobIds, or companyUrls.');
-    await Actor.exit();
+    await Promise.allSettled(__chargeJobs);
+await Actor.exit();
 }
 
 // Wall-clock budget: exit cleanly with partial results before the 3600s platform
@@ -235,6 +237,7 @@ await crawler.run();
 if (seenStore && pushedRows > 0) await seenStore.setValue('seen-job-ids', [...seenJobIds]);
 
 log.info(`Run complete. Jobs pushed: ${pushedRows}.`);
+await Promise.allSettled(__chargeJobs);
 await Actor.exit();
 
 // ---------- Seed builders ----------
@@ -581,7 +584,7 @@ async function handleJob({ page, request, crawler: c }) {
     await Actor.pushData(row);
     seenJobIds.add(jk);
     pushedRows += 1;
-    if (pushedRows > 10) Actor.charge({ eventName: 'job_row' }).catch((err) => log.warning(`charge failed: ${err?.message}`));
+    if (pushedRows > 10) __chargeJobs.push(Actor.charge({ eventName: 'job_row' }).catch((err) => log.warning(`charge failed: ${err?.message}`)));
 
     if (scrapeCompanyDetails && row.company.slug && !seenCompanies.has(row.company.slug)) {
         seenCompanies.add(row.company.slug);
