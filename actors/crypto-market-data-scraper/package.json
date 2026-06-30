@@ -1,0 +1,16 @@
+{
+    "name": "crypto-market-data-scraper",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Scrape live crypto market data from CoinGecko's keyless API. One row per coin with price, market cap and rank, volume, fully diluted valuation, circulating/total/max supply, all-time high and low, and 1h/24h/7d/30d price change. No login, no API key. Pay per row.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}

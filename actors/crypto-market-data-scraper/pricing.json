@@ -1,0 +1,15 @@
+{
+    "_note": "PUT this to /v2/acts/{actorId} as pricingInfos array entry. Per playbook: PAY_PER_EVENT only on BRONZE plan, startedAt 14+ days out. Apify auto-adds margin.",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~crypto-market-data-scraper?token=APIFY_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "coin_row": {
+                "eventTitle": "Coin row",
+                "eventDescription": "One coin returned with price, market cap and rank, volume, fully diluted valuation, circulating/total/max supply, all-time high and low, and 1h/24h/7d/30d price change. First 25 rows per run are free so you can validate output.",
+                "eventPriceUsd": 0.004
+            }
+        }
+    },
+    "startedAt": "2026-07-16T00:00:00.000Z"
+}

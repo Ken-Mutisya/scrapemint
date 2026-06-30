@@ -1,0 +1,6 @@
+{
+    "vsCurrency": "usd",
+    "order": "market_cap_desc",
+    "priceChangeWindows": "1h,24h,7d,30d",
+    "maxCoins": 30
+}

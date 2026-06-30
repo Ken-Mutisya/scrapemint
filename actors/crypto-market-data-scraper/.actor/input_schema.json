@@ -1,0 +1,58 @@
+{
+    "title": "Crypto Market Data Scraper",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "vsCurrency": {
+            "title": "Quote currency",
+            "type": "string",
+            "description": "Currency to price coins in, e.g. usd, eur, btc.",
+            "editor": "textfield",
+            "default": "usd",
+            "prefill": "usd"
+        },
+        "order": {
+            "title": "Sort order",
+            "type": "string",
+            "description": "How to rank coins.",
+            "editor": "select",
+            "enum": ["market_cap_desc", "market_cap_asc", "volume_desc", "volume_asc", "id_asc", "id_desc"],
+            "enumTitles": ["Market cap (high to low)", "Market cap (low to high)", "Volume (high to low)", "Volume (low to high)", "ID A to Z", "ID Z to A"],
+            "default": "market_cap_desc"
+        },
+        "coinIds": {
+            "title": "Specific coin IDs",
+            "type": "array",
+            "description": "Optional. Restrict to these CoinGecko coin IDs, e.g. bitcoin, ethereum, solana. Leave empty to scan the whole market by rank.",
+            "editor": "stringList"
+        },
+        "category": {
+            "title": "Category",
+            "type": "string",
+            "description": "Optional CoinGecko category filter, e.g. layer-1, decentralized-finance-defi, meme-token, artificial-intelligence.",
+            "editor": "textfield"
+        },
+        "priceChangeWindows": {
+            "title": "Price change windows",
+            "type": "string",
+            "description": "Comma separated windows to include as percent change columns. Any of: 1h,24h,7d,14d,30d,200d,1y.",
+            "editor": "textfield",
+            "default": "1h,24h,7d,30d",
+            "prefill": "1h,24h,7d,30d"
+        },
+        "maxCoins": {
+            "title": "Max coins",
+            "type": "integer",
+            "description": "Maximum number of coins to return across all pages. First 25 rows per run are free.",
+            "editor": "number",
+            "default": 100,
+            "prefill": 100
+        },
+        "proxyConfiguration": {
+            "title": "Proxy configuration",
+            "type": "object",
+            "description": "Optional. The API is keyless and tolerant, so proxy is off by default. Supply one only if you run very large pulls and hit rate limits.",
+            "editor": "proxy"
+        }
+    }
+}
