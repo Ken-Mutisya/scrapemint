@@ -1,0 +1,15 @@
+{
+    "_note": "PUT this to /v2/acts/{actorId} as pricingInfos array entry. Per playbook: PAY_PER_EVENT only on BRONZE plan, startedAt 14+ days out. Apify auto-adds margin.",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~google-news-scraper?token=APIFY_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "article_row": {
+                "eventTitle": "Article row",
+                "eventDescription": "One Google News article returned with headline, source, source URL, article link, and publish date. First 25 rows per run are free so you can validate output.",
+                "eventPriceUsd": 0.003
+            }
+        }
+    },
+    "startedAt": "2026-07-16T00:00:00.000Z"
+}

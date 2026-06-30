@@ -1,0 +1,7 @@
+{
+    "queries": ["tesla", "openai"],
+    "language": "en-US",
+    "country": "US",
+    "when": "7d",
+    "maxArticles": 40
+}

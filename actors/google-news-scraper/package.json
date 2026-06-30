@@ -1,0 +1,17 @@
+{
+    "name": "google-news-scraper",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Scrape Google News for any search term via its keyless RSS feeds. One row per article with headline, source, link, and publish date. Filter by language, country, and recency window. No login, no API key. Pay per row.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0",
+        "cheerio": "^1.0.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}

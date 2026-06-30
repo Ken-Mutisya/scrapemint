@@ -1,0 +1,59 @@
+{
+    "title": "Google News Scraper",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "queries": {
+            "title": "Search terms",
+            "type": "array",
+            "description": "One or more topics, brands, tickers, or people to search Google News for. Each runs as its own feed (up to ~100 articles).",
+            "editor": "stringList",
+            "prefill": ["tesla"]
+        },
+        "language": {
+            "title": "Language",
+            "type": "string",
+            "description": "Google News language code, e.g. en-US, en-GB, es-ES, fr-FR, de-DE.",
+            "editor": "textfield",
+            "default": "en-US",
+            "prefill": "en-US"
+        },
+        "country": {
+            "title": "Country",
+            "type": "string",
+            "description": "Two letter country code, e.g. US, GB, CA, AU, IN, DE.",
+            "editor": "textfield",
+            "default": "US",
+            "prefill": "US"
+        },
+        "when": {
+            "title": "Recency window",
+            "type": "string",
+            "description": "Optional. Only return articles from the last N hours or days, e.g. 1h, 12h, 1d, 7d. Leave empty for the default feed.",
+            "editor": "textfield"
+        },
+        "maxPerQuery": {
+            "title": "Max articles per query",
+            "type": "integer",
+            "description": "Cap on articles returned per search term (Google News serves up to about 100).",
+            "editor": "number",
+            "default": 100,
+            "prefill": 100
+        },
+        "maxArticles": {
+            "title": "Max articles total",
+            "type": "integer",
+            "description": "Maximum number of article rows to return across all queries. First 25 rows per run are free.",
+            "editor": "number",
+            "default": 200,
+            "prefill": 200
+        },
+        "proxyConfiguration": {
+            "title": "Proxy configuration",
+            "type": "object",
+            "description": "Optional. The RSS feeds are a tolerant public source, so proxy is off by default. Supply one only if you run very large pulls and hit rate limits.",
+            "editor": "proxy"
+        }
+    },
+    "required": ["queries"]
+}

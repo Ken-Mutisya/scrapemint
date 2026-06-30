@@ -1,0 +1,16 @@
+{
+    "actorSpecification": 1,
+    "name": "google-news-scraper",
+    "title": "Google News Scraper (No Login)",
+    "description": "Scrape Google News for any topic. One row per article with headline, source, link, and publish date. Filter by language, country, and recency window. No login, no API key. Pay per row.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "readme": "../README.md",
+    "categories": [
+        "BUSINESS",
+        "MARKETING",
+        "NEWS"
+    ]
+}
