@@ -1,0 +1,125 @@
+{
+    "title": "TradingView Stock Screener Scraper",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "market": {
+            "title": "Market",
+            "type": "string",
+            "description": "TradingView market to screen. Common values: america, crypto, forex, india, uk, germany, canada, australia, japan.",
+            "editor": "textfield",
+            "default": "america",
+            "prefill": "america"
+        },
+        "marketCapMin": {
+            "title": "Min market cap (USD)",
+            "type": "integer",
+            "description": "Only return symbols with market cap at or above this value.",
+            "editor": "number",
+            "prefill": 1000000000
+        },
+        "marketCapMax": {
+            "title": "Max market cap (USD)",
+            "type": "integer",
+            "description": "Only return symbols with market cap at or below this value.",
+            "editor": "number"
+        },
+        "priceMin": {
+            "title": "Min price",
+            "type": "integer",
+            "description": "Only return symbols trading at or above this price.",
+            "editor": "number"
+        },
+        "priceMax": {
+            "title": "Max price",
+            "type": "integer",
+            "description": "Only return symbols trading at or below this price.",
+            "editor": "number"
+        },
+        "volumeMin": {
+            "title": "Min daily volume",
+            "type": "integer",
+            "description": "Only return symbols with daily volume at or above this value.",
+            "editor": "number"
+        },
+        "sectors": {
+            "title": "Sectors",
+            "type": "array",
+            "description": "Restrict to these TradingView sectors, e.g. \"Technology Services\", \"Electronic Technology\", \"Finance\", \"Health Technology\", \"Energy Minerals\".",
+            "editor": "stringList"
+        },
+        "peRatioMin": {
+            "title": "Min P/E ratio",
+            "type": "integer",
+            "description": "Only return symbols with trailing P/E at or above this value.",
+            "editor": "number"
+        },
+        "peRatioMax": {
+            "title": "Max P/E ratio",
+            "type": "integer",
+            "description": "Only return symbols with trailing P/E at or below this value.",
+            "editor": "number"
+        },
+        "dividendYieldMin": {
+            "title": "Min dividend yield (%)",
+            "type": "integer",
+            "description": "Only return symbols with a dividend yield at or above this percent.",
+            "editor": "number"
+        },
+        "rsiMin": {
+            "title": "Min RSI",
+            "type": "integer",
+            "description": "Only return symbols with 14-period RSI at or above this value (e.g. 70 for overbought).",
+            "editor": "number"
+        },
+        "rsiMax": {
+            "title": "Max RSI",
+            "type": "integer",
+            "description": "Only return symbols with 14-period RSI at or below this value (e.g. 30 for oversold).",
+            "editor": "number"
+        },
+        "changeMin": {
+            "title": "Min daily change (%)",
+            "type": "integer",
+            "description": "Only return symbols up at least this percent on the day.",
+            "editor": "number"
+        },
+        "filters": {
+            "title": "Raw filters (advanced)",
+            "type": "array",
+            "description": "Power-user passthrough of raw TradingView filter objects, each { \"left\": \"<field>\", \"operation\": \"<op>\", \"right\": <value> }. Appended to the filters built above.",
+            "editor": "json"
+        },
+        "sortBy": {
+            "title": "Sort by",
+            "type": "string",
+            "description": "TradingView column to sort by, e.g. market_cap_basic, volume, change, dividend_yield_recent, RSI.",
+            "editor": "textfield",
+            "default": "market_cap_basic",
+            "prefill": "market_cap_basic"
+        },
+        "sortOrder": {
+            "title": "Sort order",
+            "type": "string",
+            "description": "Sort direction.",
+            "editor": "select",
+            "enum": ["desc", "asc"],
+            "enumTitles": ["Descending", "Ascending"],
+            "default": "desc"
+        },
+        "maxResults": {
+            "title": "Max results",
+            "type": "integer",
+            "description": "Maximum number of rows to return across all pages. First 25 rows per run are free.",
+            "editor": "number",
+            "default": 100,
+            "prefill": 100
+        },
+        "proxyConfiguration": {
+            "title": "Proxy configuration",
+            "type": "object",
+            "description": "Optional. The scanner is a tolerant public API, so proxy is off by default. Supply one only if you run very large pulls and hit rate limits.",
+            "editor": "proxy"
+        }
+    }
+}

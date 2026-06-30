@@ -1,0 +1,16 @@
+{
+    "name": "tradingview-stock-screener-scraper",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Screen stocks, crypto, and forex from TradingView's keyless scanner API. Filter by market cap, price, volume, sector, P/E, dividend yield, RSI, and daily change, then get one row per matching symbol with live price, percent change, volume, market cap, P/E, dividend yield, RSI, sector, industry, exchange, country, and YTD performance. No login. Pay per row.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}

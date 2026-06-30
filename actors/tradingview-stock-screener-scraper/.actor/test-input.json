@@ -1,0 +1,8 @@
+{
+    "market": "america",
+    "marketCapMin": 1000000000,
+    "sectors": ["Technology Services", "Electronic Technology"],
+    "sortBy": "market_cap_basic",
+    "sortOrder": "desc",
+    "maxResults": 30
+}

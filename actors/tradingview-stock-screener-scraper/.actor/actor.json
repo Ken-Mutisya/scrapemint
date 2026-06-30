@@ -1,0 +1,16 @@
+{
+    "actorSpecification": 1,
+    "name": "tradingview-stock-screener-scraper",
+    "title": "TradingView Stock Screener Scraper (No Login)",
+    "description": "Screen stocks, crypto, and forex from TradingView's scanner. Filter by market cap, price, volume, sector, P/E, dividend yield, RSI, and daily change. One row per symbol with price, change, volume, market cap, P/E, dividend yield, RSI, sector, industry, exchange, country, YTD. No login. Pay per row.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "readme": "../README.md",
+    "categories": [
+        "BUSINESS",
+        "ECOMMERCE",
+        "MARKETING"
+    ]
+}
