@@ -1,0 +1,54 @@
+{
+    "title": "SEC Filing Full-Text Search Scraper",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "query": {
+            "title": "Search query",
+            "type": "string",
+            "description": "Keyword or phrase to search the full text of EDGAR filings. Wrap phrases in double quotes, e.g. \"material weakness\" or \"going concern\". Searches filings since 2001.",
+            "editor": "textfield",
+            "prefill": "\"material weakness\""
+        },
+        "forms": {
+            "title": "Form types",
+            "type": "array",
+            "description": "Optional. Restrict to specific form types, e.g. 8-K, 10-K, 10-Q, S-1, 13D. Leave empty for all forms.",
+            "editor": "stringList",
+            "prefill": ["8-K"]
+        },
+        "startDate": {
+            "title": "Start date",
+            "type": "string",
+            "description": "Optional. Only return filings on or after this date (YYYY-MM-DD).",
+            "editor": "textfield"
+        },
+        "endDate": {
+            "title": "End date",
+            "type": "string",
+            "description": "Optional. Only return filings on or before this date (YYYY-MM-DD).",
+            "editor": "textfield"
+        },
+        "ciks": {
+            "title": "Company CIKs",
+            "type": "array",
+            "description": "Optional. Restrict to one or more companies by SEC CIK number, e.g. 0000320193 for Apple.",
+            "editor": "stringList"
+        },
+        "maxRows": {
+            "title": "Max filings",
+            "type": "integer",
+            "description": "Maximum number of filing rows to return. First 15 rows per run are free. EDGAR returns up to 10,000 matches per query.",
+            "editor": "number",
+            "default": 200,
+            "prefill": 200
+        },
+        "proxyConfiguration": {
+            "title": "Proxy configuration",
+            "type": "object",
+            "description": "Optional. EDGAR is a tolerant public source, so proxy is off by default. Supply one only if you run very large pulls and hit rate limits.",
+            "editor": "proxy"
+        }
+    },
+    "required": ["query"]
+}

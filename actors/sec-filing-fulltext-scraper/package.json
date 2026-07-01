@@ -1,0 +1,16 @@
+{
+    "name": "sec-filing-fulltext-scraper",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Search the full text of every SEC EDGAR filing since 2001 by keyword or phrase via the keyless full-text search API. One row per matching filing with company, ticker, form, filing date, and a direct link. No login, no API key. Pay per row.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}

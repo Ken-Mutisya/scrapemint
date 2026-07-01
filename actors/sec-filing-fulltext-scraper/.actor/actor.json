@@ -1,0 +1,15 @@
+{
+    "actorSpecification": 1,
+    "name": "sec-filing-fulltext-scraper",
+    "title": "SEC Filing Full-Text Search Scraper",
+    "description": "Search the full text of every SEC EDGAR filing since 2001 by keyword or phrase. One row per matching filing with company, ticker, form type, filing date, and a direct link. Filter by form, date range, or company. No login, no API key. Pay per row.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "readme": "../README.md",
+    "categories": [
+        "BUSINESS",
+        "NEWS"
+    ]
+}

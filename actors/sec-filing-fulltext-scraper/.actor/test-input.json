@@ -1,0 +1,7 @@
+{
+    "query": "\"material weakness\"",
+    "forms": ["10-K"],
+    "startDate": "2026-01-01",
+    "endDate": "2026-06-30",
+    "maxRows": 20
+}
