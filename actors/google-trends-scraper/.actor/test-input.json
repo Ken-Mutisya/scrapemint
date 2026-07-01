@@ -1,0 +1,6 @@
+{
+    "geos": ["US", "GB"],
+    "includeNews": true,
+    "maxNewsPerTrend": 3,
+    "maxRows": 20
+}

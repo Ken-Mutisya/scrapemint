@@ -1,0 +1,17 @@
+{
+    "name": "google-trends-scraper",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Scrape the current trending searches on Google Trends for any country via its keyless RSS feed. One row per trending term with approximate search volume, publish time, and the news articles driving the trend. No login, no API key. Pay per row.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0",
+        "cheerio": "^1.0.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}
