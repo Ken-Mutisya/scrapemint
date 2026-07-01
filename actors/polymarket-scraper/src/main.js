@@ -10,11 +10,11 @@
 //             https://clob.polymarket.com/prices-history?market=<token_id>&interval=<i>
 //   Data:     https://data-api.polymarket.com/trades?market=<conditionId>
 //
-// Free tier: first 20 items per run are free. Charge per row after.
+// Free tier: first 10 items per run are free. Charge per row after.
 
 import { Actor, log } from 'apify';
 
-const FREE_TIER_ITEMS = 20;
+const FREE_TIER_ITEMS = 10;
 const RATE_SLEEP_MS = 200;
 const PAGE_SIZE = 100;
 
@@ -124,7 +124,7 @@ for (const cid of conditionList) {
 // 3. Search queries.
 for (const q of queries) {
     if (collected.size >= cap) break;
-    const list = await listMarkets({ search: q }).catch((err) => {
+    const list = await searchMarkets(q).catch((err) => {
         log.warning(`Search "${q}" failed: ${err?.message}`);
         return [];
     });
@@ -265,6 +265,46 @@ async function listMarkets({ search, tagId } = {}) {
         await sleep(RATE_SLEEP_MS);
     }
     return out;
+}
+
+// Keyword search. The Gamma /markets endpoint silently ignores ?search=, so
+// use /public-search, which returns matching events. Flatten each event's
+// nested markets[] (same field shape as /markets) and keep those matching the
+// requested status. Final sort + cap are applied by the caller.
+async function searchMarkets(query) {
+    const out = [];
+    let page = 1;
+    while (out.length < perSourceCap) {
+        const params = new URLSearchParams();
+        params.set('q', query);
+        params.set('limit_per_type', '20');
+        params.set('page', String(page));
+        if (status === 'active') params.set('events_status', 'active');
+
+        const url = `${GAMMA_BASE}/public-search?${params.toString()}`;
+        const data = await getJson(url);
+        const events = Array.isArray(data?.events) ? data.events : [];
+        if (events.length === 0) break;
+
+        for (const ev of events) {
+            const markets = Array.isArray(ev.markets) ? ev.markets : [];
+            for (const m of markets) {
+                if (marketMatchesStatus(m)) out.push(m);
+            }
+        }
+
+        if (!data?.pagination?.hasMore) break;
+        page += 1;
+        await sleep(RATE_SLEEP_MS);
+    }
+    return out;
+}
+
+function marketMatchesStatus(m) {
+    if (status === 'active') return m.active === true && m.closed !== true;
+    if (status === 'closed') return m.closed === true;
+    if (status === 'resolved') return m.closed === true;
+    return true; // 'all'
 }
 
 async function fetchMarketBySlug(slug) {
