@@ -1,0 +1,31 @@
+{
+    "title": "Website Contact Scraper: Emails, Phones & Social Profiles",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "websites": {
+            "title": "Websites",
+            "type": "array",
+            "description": "List of websites to extract contacts from. Domains or full URLs both work, e.g. apify.com or https://basecamp.com. Up to 2000 per run.",
+            "editor": "stringList",
+            "prefill": ["apify.com", "basecamp.com", "posthog.com"]
+        },
+        "maxPagesPerSite": {
+            "title": "Max pages per site",
+            "type": "integer",
+            "description": "How many pages to scan per website: the homepage plus up to this many minus one contact/about/support pages discovered from its links. More pages find more contacts but run longer.",
+            "editor": "number",
+            "default": 5,
+            "prefill": 5,
+            "minimum": 1,
+            "maximum": 10
+        },
+        "proxyConfiguration": {
+            "title": "Proxy configuration",
+            "type": "object",
+            "description": "Optional. Runs without a proxy by default since these are ordinary business websites. Supply one only if your target list needs it.",
+            "editor": "proxy"
+        }
+    },
+    "required": ["websites"]
+}

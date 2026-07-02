@@ -1,0 +1,15 @@
+{
+    "actorSpecification": 1,
+    "name": "website-contact-scraper",
+    "title": "Website Contact Scraper: Emails, Phones & Social Profiles",
+    "description": "Turn a list of websites into contact data. Fetches each site's homepage plus contact and about pages and returns emails, phone numbers, and social profile links, one row per site. Built for sales teams and marketers. Pay only for sites with contacts found.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "readme": "../README.md",
+    "categories": [
+        "BUSINESS",
+        "LEAD_GENERATION"
+    ]
+}

@@ -1,0 +1,17 @@
+{
+    "name": "website-contact-scraper",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Extract emails, phone numbers, and social profile links from any list of websites. Fetches the homepage plus contact and about pages, returns one clean row per site. No login, no API key, no browser. Pay only for sites where contacts are found.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0",
+        "cheerio": "^1.0.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}

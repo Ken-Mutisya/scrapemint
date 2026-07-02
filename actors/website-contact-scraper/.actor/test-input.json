@@ -1,0 +1,17 @@
+{
+    "websites": [
+        "apify.com",
+        "basecamp.com",
+        "posthog.com",
+        "mozilla.org",
+        "digitalocean.com",
+        "automattic.com",
+        "ghost.org",
+        "zapier.com",
+        "duckduckgo.com",
+        "sentry.io",
+        "tailwindcss.com",
+        "37signals.com"
+    ],
+    "maxPagesPerSite": 5
+}
