@@ -1,0 +1,41 @@
+{
+    "title": "Company Job Openings Scraper: Greenhouse, Lever, Ashby & More",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "companies": {
+            "title": "Companies",
+            "type": "array",
+            "description": "Company names to fetch openings for, e.g. Stripe or Ramp. The Actor probes each company's public Greenhouse, Lever, Ashby, and SmartRecruiters job boards. If the board name differs from the company name, pass it explicitly as greenhouse:token, lever:token, ashby:token, or smartrecruiters:token. Up to 500 per run.",
+            "editor": "stringList",
+            "prefill": ["Stripe", "Ramp", "Visa"]
+        },
+        "keyword": {
+            "title": "Title keyword",
+            "type": "string",
+            "description": "Optional. Only return jobs whose title contains this text, e.g. engineer, sales, designer.",
+            "editor": "textfield"
+        },
+        "location": {
+            "title": "Location contains",
+            "type": "string",
+            "description": "Optional. Only return jobs whose location contains this text, e.g. New York, London, Germany.",
+            "editor": "textfield"
+        },
+        "remoteOnly": {
+            "title": "Remote only",
+            "type": "boolean",
+            "description": "Only return jobs marked remote.",
+            "default": false
+        },
+        "maxJobsPerCompany": {
+            "title": "Max jobs per company",
+            "type": "integer",
+            "description": "Maximum job rows to return per company. First 25 job rows per run are free.",
+            "editor": "number",
+            "default": 200,
+            "prefill": 200
+        }
+    },
+    "required": ["companies"]
+}

@@ -1,0 +1,4 @@
+{
+    "companies": ["Stripe", "Ramp", "Visa", "Figma", "Plaid"],
+    "maxJobsPerCompany": 40
+}

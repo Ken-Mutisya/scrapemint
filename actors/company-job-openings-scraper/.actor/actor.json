@@ -1,0 +1,15 @@
+{
+    "actorSpecification": 1,
+    "name": "company-job-openings-scraper",
+    "title": "Company Job Openings Scraper: Greenhouse, Lever, Ashby & More",
+    "description": "Get every open job at any list of companies. Reads their public Greenhouse, Lever, Ashby, and SmartRecruiters job boards and returns one row per opening: title, department, location, remote flag, posted date, and application link. Filter by keyword, location, or remote. No login, no API key.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "readme": "../README.md",
+    "categories": [
+        "JOBS",
+        "BUSINESS"
+    ]
+}
