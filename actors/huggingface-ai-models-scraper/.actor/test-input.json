@@ -1,0 +1,5 @@
+{
+    "resourceTypes": ["models", "datasets", "spaces"],
+    "sort": "trendingScore",
+    "maxRowsPerType": 30
+}

@@ -1,0 +1,58 @@
+{
+    "title": "Hugging Face Scraper: Trending AI Models, Datasets & Spaces",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "resourceTypes": {
+            "title": "What to scrape",
+            "type": "array",
+            "description": "Which Hugging Face resource types to return: models, datasets, spaces. Pick one or more.",
+            "editor": "stringList",
+            "prefill": ["models"],
+            "default": ["models"]
+        },
+        "search": {
+            "title": "Search keyword",
+            "type": "string",
+            "description": "Optional. Keyword to search names and descriptions, e.g. ocr, llama, text to speech. Leave empty to get the top items by the chosen sort.",
+            "editor": "textfield"
+        },
+        "author": {
+            "title": "Author / organization",
+            "type": "string",
+            "description": "Optional. Restrict to one author or organization, e.g. meta-llama, google, openai.",
+            "editor": "textfield"
+        },
+        "tags": {
+            "title": "Tag filters",
+            "type": "array",
+            "description": "Optional. Filter by Hub tags, e.g. text-generation, image-classification, license:mit, arxiv:2606.23050. Multiple tags are combined with AND.",
+            "editor": "stringList"
+        },
+        "sort": {
+            "title": "Sort by",
+            "type": "string",
+            "description": "Ranking to use. trendingScore surfaces what is hot right now; downloads and likes rank all-time popularity.",
+            "editor": "select",
+            "enum": ["trendingScore", "downloads", "likes", "createdAt", "lastModified"],
+            "enumTitles": ["Trending score", "Downloads", "Likes", "Newest", "Recently updated"],
+            "default": "trendingScore",
+            "prefill": "trendingScore"
+        },
+        "maxRowsPerType": {
+            "title": "Max rows per type",
+            "type": "integer",
+            "description": "Maximum rows to return for each selected resource type. First 20 rows per run are free.",
+            "editor": "number",
+            "default": 50,
+            "prefill": 50
+        },
+        "proxyConfiguration": {
+            "title": "Proxy configuration",
+            "type": "object",
+            "description": "Optional. The Hugging Face API is a tolerant public source, so proxy is off by default. Supply one only if you run very large pulls and hit rate limits.",
+            "editor": "proxy"
+        }
+    },
+    "required": []
+}

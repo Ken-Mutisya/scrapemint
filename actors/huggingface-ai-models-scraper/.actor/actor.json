@@ -1,0 +1,15 @@
+{
+    "actorSpecification": 1,
+    "name": "huggingface-ai-models-scraper",
+    "title": "Hugging Face Scraper: Trending AI Models, Datasets & Spaces",
+    "description": "Track trending AI models, datasets, and Spaces on Hugging Face. One row per item with downloads, likes, trending score, tags, pipeline type, and license. Search by keyword, author, or tag. No login, no API key. Pay per row.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "readme": "../README.md",
+    "categories": [
+        "AI",
+        "DEVELOPER_TOOLS"
+    ]
+}

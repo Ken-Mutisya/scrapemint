@@ -1,0 +1,16 @@
+{
+    "name": "huggingface-ai-models-scraper",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Track trending AI models, datasets, and Spaces on Hugging Face. One row per item with downloads, likes, trending score, tags, pipeline type, and license. Search by keyword, author, or tag. No login, no API key. Pay per row.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}
