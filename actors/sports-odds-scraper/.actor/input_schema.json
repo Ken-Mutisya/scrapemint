@@ -66,7 +66,13 @@
             },
             "default": [],
             "sectionCaption": "What to scrape",
-            "sectionDescription": "Pick leagues, paste event URLs, or both. Each event ships as one row with markets[]."
+            "sectionDescription": "Pick leagues, paste event URLs, or both. Each event ships as one row with markets[].",
+            "prefill": [
+                "mlb",
+                "soccer_mls",
+                "wnba",
+                "tennis_atp"
+            ]
         },
         "eventUrls": {
             "title": "Event URLs",
@@ -188,7 +194,8 @@
             "description": "Hard cap on event rows pushed per run. 0 means unlimited.",
             "default": 50,
             "minimum": 0,
-            "maximum": 5000
+            "maximum": 5000,
+            "prefill": 100
         },
         "maxEventsPerSport": {
             "title": "Max events per sport",

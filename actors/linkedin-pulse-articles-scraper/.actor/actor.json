@@ -12,5 +12,7 @@
         "SOCIAL_MEDIA",
         "MARKETING",
         "BUSINESS"
-    ]
+    ],
+    "minMemoryMbytes": 128,
+    "maxMemoryMbytes": 256
 }

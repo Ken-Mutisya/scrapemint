@@ -138,7 +138,7 @@ Each row has a `flags` array so pipelines filter without parsing titles.
 
 ## Pricing
 
-First 50 items per run are free. After that you pay per tour row. A 200 row Paris snapshot lands under $1.
+First 10 items per run are free. After that you pay per tour row. A 200 row Paris snapshot lands under $1.
 
 ---
 

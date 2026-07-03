@@ -202,7 +202,7 @@ for (const ev of filtered) {
     await Actor.pushData(row);
     if (key) seenEventKeys.add(key);
     pushedRows += 1;
-    if (pushedRows > 50) __chargeJobs.push(Actor.charge({ eventName: 'odds_row' }).catch((err) => log.warning(`charge failed: ${err?.message}`)));
+    if (pushedRows > 10) __chargeJobs.push(Actor.charge({ eventName: 'odds_row' }).catch((err) => log.warning(`charge failed: ${err?.message}`)));
     log.info(`Pushed ${row.sport} ${row.away} @ ${row.home} (${row.commenceTime || '?'}) | books=${row.books.length} markets=${row.markets.length} (${pushedRows})`);
 }
 
@@ -215,20 +215,17 @@ await Actor.exit();
 
 async function buildProxiedFetch(proxy) {
     if (!proxy) return (url, opts) => fetch(url, opts);
-    let HttpsProxyAgent;
+    let undiciFetch;
+    let ProxyAgent;
     try {
-        ({ HttpsProxyAgent } = await import('https-proxy-agent'));
-    } catch {
-        // node 20+ ships native fetch but doesn't take a proxy agent. We use
-        // node-fetch indirectly via crawlee for proxied calls. As a simple
-        // fallback we just use unproxied fetch and rely on Apify's default
-        // egress.
+        ({ fetch: undiciFetch, ProxyAgent } = await import('undici'));
+    } catch (err) {
+        log.warning(`undici unavailable (${err?.message}); falling back to unproxied fetch`);
         return (url, opts) => fetch(url, opts);
     }
     return async (url, opts = {}) => {
         const proxyUrl = await proxy.newUrl();
-        const agent = new HttpsProxyAgent(proxyUrl);
-        return fetch(url, { ...opts, agent });
+        return undiciFetch(url, { ...opts, dispatcher: new ProxyAgent(proxyUrl) });
     };
 }
 

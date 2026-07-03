@@ -15,7 +15,7 @@
 
 import { Actor, log } from 'apify';
 
-const FREE_TIER_ITEMS = 30;
+const FREE_TIER_ITEMS = 10;
 const EDGAR_RATE_SLEEP_MS = 120;
 
 const ITEM_DESCRIPTIONS = {

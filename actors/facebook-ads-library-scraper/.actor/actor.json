@@ -12,5 +12,7 @@
         "ECOMMERCE",
         "MARKETING",
         "SOCIAL_MEDIA"
-    ]
+    ],
+    "minMemoryMbytes": 128,
+    "maxMemoryMbytes": 256
 }
