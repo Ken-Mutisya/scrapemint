@@ -1,0 +1,84 @@
+{
+    "title": "Google Keyword Suggestions Scraper",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "keywords": {
+            "title": "Seed keywords",
+            "type": "array",
+            "description": "One or more seed keywords to expand, e.g. \"project management software\". Each seed is fanned out through the enabled modifiers.",
+            "editor": "stringList",
+            "prefill": ["project management software"]
+        },
+        "source": {
+            "title": "Suggestion source",
+            "type": "string",
+            "description": "Where the autocomplete suggestions come from.",
+            "editor": "select",
+            "default": "google",
+            "enum": ["google", "youtube"],
+            "enumTitles": ["Google Search", "YouTube Search"]
+        },
+        "language": {
+            "title": "Language",
+            "type": "string",
+            "description": "Autocomplete language code, e.g. en, es, fr, de, pt.",
+            "editor": "textfield",
+            "default": "en",
+            "prefill": "en"
+        },
+        "country": {
+            "title": "Country",
+            "type": "string",
+            "description": "Two letter country code, e.g. us, gb, ca, au, in, de.",
+            "editor": "textfield",
+            "default": "us",
+            "prefill": "us"
+        },
+        "expandLetters": {
+            "title": "Expand with a to z suffixes",
+            "type": "boolean",
+            "description": "Query the seed followed by each letter (\"seed a\" ... \"seed z\"). The biggest source of long tail suggestions.",
+            "default": true
+        },
+        "expandDigits": {
+            "title": "Expand with 0 to 9 suffixes",
+            "type": "boolean",
+            "description": "Query the seed followed by each digit. Useful for products, versions and years.",
+            "default": false
+        },
+        "expandQuestions": {
+            "title": "Expand with question prefixes",
+            "type": "boolean",
+            "description": "Query how/what/why/when/where/which/who/can/is/are/best in front of the seed. The rows content teams want.",
+            "default": true
+        },
+        "expandPrepositions": {
+            "title": "Expand with preposition suffixes",
+            "type": "boolean",
+            "description": "Query the seed followed by for/with/without/vs/versus/near/like/to. Surfaces comparison and use case queries.",
+            "default": true
+        },
+        "maxRowsPerKeyword": {
+            "title": "Max suggestions per seed",
+            "type": "integer",
+            "description": "Cap on unique suggestion rows per seed keyword.",
+            "editor": "number",
+            "default": 400
+        },
+        "maxRows": {
+            "title": "Max rows total",
+            "type": "integer",
+            "description": "Maximum suggestion rows across all seeds. First 10 rows per run are free.",
+            "editor": "number",
+            "default": 2000
+        },
+        "proxyConfiguration": {
+            "title": "Proxy configuration",
+            "type": "object",
+            "description": "Optional. The endpoint is tolerant and requests are paced, so proxy is off by default. Supply one only if you run very large expansions and see rate limit warnings.",
+            "editor": "proxy"
+        }
+    },
+    "required": ["keywords"]
+}

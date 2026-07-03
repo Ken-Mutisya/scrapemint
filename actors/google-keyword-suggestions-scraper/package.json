@@ -1,0 +1,17 @@
+{
+    "name": "google-keyword-suggestions-scraper",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Expand any seed keyword into hundreds of real Google or YouTube autocomplete suggestions: a to z suffixes, question and preposition modifiers, deduped, one row per suggestion. No login, no API key. Pay per row.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0",
+        "undici": "^6.19.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}

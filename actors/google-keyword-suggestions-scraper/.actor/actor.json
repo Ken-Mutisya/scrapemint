@@ -1,0 +1,16 @@
+{
+    "actorSpecification": 1,
+    "name": "google-keyword-suggestions-scraper",
+    "title": "Google Keyword Suggestions Scraper (Autocomplete)",
+    "description": "Expand any seed keyword into hundreds of real Google or YouTube autocomplete suggestions: a to z suffixes, question and preposition modifiers, deduped, one row per suggestion. No login, no API key. Pay per row.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "readme": "../README.md",
+    "categories": [
+        "SEO_TOOLS",
+        "MARKETING",
+        "BUSINESS"
+    ]
+}
