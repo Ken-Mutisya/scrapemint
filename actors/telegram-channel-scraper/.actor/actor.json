@@ -1,0 +1,16 @@
+{
+    "actorSpecification": 1,
+    "name": "telegram-channel-scraper",
+    "title": "Telegram Channel Scraper (No Login)",
+    "description": "Scrape public Telegram channels: messages with text, date, views, links, media and forward info, plus channel title, description and subscriber count. Paginate as deep as you need. No API key, no phone number. Pay per message.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "readme": "../README.md",
+    "categories": [
+        "SOCIAL_MEDIA",
+        "NEWS",
+        "BUSINESS"
+    ]
+}

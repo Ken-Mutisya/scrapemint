@@ -1,0 +1,6 @@
+{
+    "channels": ["durov", "telegram"],
+    "maxMessagesPerChannel": 30,
+    "maxMessages": 60,
+    "includeChannelInfo": true
+}

@@ -1,0 +1,18 @@
+{
+    "name": "telegram-channel-scraper",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Scrape public Telegram channels without login: messages with text, date, views, links, media and forward info, plus channel title, description and subscriber count. Paginate as deep as you need. No API key, no phone number. Pay per message row.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0",
+        "cheerio": "^1.0.0",
+        "undici": "^6.19.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}

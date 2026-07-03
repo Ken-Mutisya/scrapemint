@@ -1,0 +1,41 @@
+{
+    "title": "Telegram Channel Scraper",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "channels": {
+            "title": "Channels",
+            "type": "array",
+            "description": "Public channel usernames or t.me links, e.g. durov or https://t.me/telegram. Channels must be public with web preview enabled.",
+            "editor": "stringList",
+            "prefill": ["durov", "telegram"]
+        },
+        "maxMessagesPerChannel": {
+            "title": "Max messages per channel",
+            "type": "integer",
+            "description": "How deep to paginate each channel (newest first, about 20 messages per page).",
+            "editor": "number",
+            "default": 100
+        },
+        "maxMessages": {
+            "title": "Max messages total",
+            "type": "integer",
+            "description": "Maximum message rows across all channels. First 10 message rows per run are free.",
+            "editor": "number",
+            "default": 500
+        },
+        "includeChannelInfo": {
+            "title": "Include channel info rows",
+            "type": "boolean",
+            "description": "Add one free channel_info row per channel with title, description, subscriber count and photo.",
+            "default": true
+        },
+        "proxyConfiguration": {
+            "title": "Proxy configuration",
+            "type": "object",
+            "description": "Optional. The t.me preview pages are a tolerant public source, so proxy is off by default. Supply one only if you run very large pulls and hit rate limits.",
+            "editor": "proxy"
+        }
+    },
+    "required": ["channels"]
+}
