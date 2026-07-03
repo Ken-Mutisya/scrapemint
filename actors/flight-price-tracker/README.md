@@ -132,7 +132,7 @@ Flags let pipelines filter without parsing titles again.
 
 ## Pricing
 
-First 50 fares per run are free. After that pay per fare row. A daily snapshot of 10 routes and 14 days lands under $5.
+First 10 fares per run are free. After that pay per fare row. A daily snapshot of 10 routes and 14 days lands under $5.
 
 ---
 

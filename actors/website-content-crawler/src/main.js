@@ -324,7 +324,7 @@ async function pushPage(url, depth, result, metadata, linkInfo, request) {
     if (!chunkOutput) {
         await Actor.pushData(stripUndefined(base));
         pushedRows += 1;
-        if (pushedRows > 25) __chargeJobs.push(Actor.charge({ eventName: 'page_crawled' }).catch((err) => log.warning(`charge failed: ${err?.message}`)));
+        if (pushedRows > 10) __chargeJobs.push(Actor.charge({ eventName: 'page_crawled' }).catch((err) => log.warning(`charge failed: ${err?.message}`)));
         log.info(`Pushed ${url} ext=${result.extractor} tokens~${tokens} (${pushedRows})`);
         return;
     }
@@ -342,7 +342,7 @@ async function pushPage(url, depth, result, metadata, linkInfo, request) {
         });
         await Actor.pushData(row);
         pushedRows += 1;
-        if (pushedRows > 25) __chargeJobs.push(Actor.charge({ eventName: 'page_crawled' }).catch((err) => log.warning(`charge failed: ${err?.message}`)));
+        if (pushedRows > 10) __chargeJobs.push(Actor.charge({ eventName: 'page_crawled' }).catch((err) => log.warning(`charge failed: ${err?.message}`)));
     }
     log.info(`Pushed ${chunks.length} chunks for ${url} (${pushedRows} rows total)`);
 }
@@ -736,7 +736,7 @@ async function saveFile(ctx, fileUrl) {
             crawledAt: new Date().toISOString(),
         });
         pushedRows += 1;
-        if (pushedRows > 25) __chargeJobs.push(Actor.charge({ eventName: 'page_crawled' }).catch((err) => log.warning(`charge failed: ${err?.message}`)));
+        if (pushedRows > 10) __chargeJobs.push(Actor.charge({ eventName: 'page_crawled' }).catch((err) => log.warning(`charge failed: ${err?.message}`)));
         log.info(`Downloaded file ${fileUrl} -> ${key} (${buf.length} bytes)`);
     } catch (err) {
         log.warning(`file download failed ${fileUrl}: ${err?.message}`);

@@ -143,7 +143,7 @@ flowchart LR
 
 ## Pricing
 
-The first 30 listings per run are free. After that, $0.005 per listing pushed.
+The first 10 listings per run are free. After that, $0.005 per listing pushed.
 
 ---
 

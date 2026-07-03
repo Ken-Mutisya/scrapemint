@@ -8,7 +8,7 @@
 import { Actor, log } from 'apify';
 import { PlaywrightCrawler } from 'crawlee';
 
-const FREE_TIER_ITEMS = 50;
+const FREE_TIER_ITEMS = 10;
 
 await Actor.init();
 const __chargeJobs = [];

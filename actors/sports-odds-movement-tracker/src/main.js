@@ -13,7 +13,7 @@
 
 import { Actor, log } from 'apify';
 
-const FREE_TIER_ITEMS = 50;
+const FREE_TIER_ITEMS = 10;
 const RATE_SLEEP_MS = 250;
 
 await Actor.init();

@@ -111,7 +111,7 @@ flowchart LR
 
 | Feature | Manual | Alert SaaS | This actor |
 |---|---|---|---|
-| Pricing | Free, costs time | $20 to $99 per month | Pay per item, first 50 free |
+| Pricing | Free, costs time | $20 to $99 per month | Pay per item, first 10 free |
 | Keyword cap | Unlimited if you click | 5 to 50 per tier | Unlimited |
 | Repo targeting | Tab hopping | Fixed repo list | Any repo or global search |
 | Label filter | Click on GitHub | Premium tier | Built in |
@@ -166,7 +166,7 @@ Every field is ready to drop into a CRM, a Slack channel, or a Notion database.
 
 ## Pricing
 
-First 50 items per run are free. After that you pay per extracted item. No seats. No tier gating. A 500 item run lands under $1 on the Apify free plan.
+First 10 items per run are free. After that you pay per extracted item. No seats. No tier gating. A 500 item run lands under $1 on the Apify free plan.
 
 ---
 

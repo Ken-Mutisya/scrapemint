@@ -113,7 +113,7 @@ flowchart LR
 
 ## Pricing
 
-First 50 rows per run are free. After that you pay per row. A daily snapshot of 200 Austin listings runs under $3.
+First 10 rows per run are free. After that you pay per row. A daily snapshot of 200 Austin listings runs under $3.
 
 ---
 

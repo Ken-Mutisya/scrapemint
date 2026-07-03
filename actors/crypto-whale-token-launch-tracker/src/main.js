@@ -14,7 +14,7 @@
 
 import { Actor, log } from 'apify';
 
-const FREE_TIER_ITEMS = 50;
+const FREE_TIER_ITEMS = 10;
 const DEX_SLEEP_MS = 250;
 const ETHERSCAN_SLEEP_MS = 220;
 

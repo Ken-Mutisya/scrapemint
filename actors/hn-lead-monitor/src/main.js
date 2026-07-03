@@ -14,7 +14,7 @@
 
 import { Actor, log } from 'apify';
 
-const FREE_TIER_ITEMS = 50;
+const FREE_TIER_ITEMS = 10;
 const FIREBASE = 'https://hacker-news.firebaseio.com/v0';
 const ALGOLIA = 'https://hn.algolia.com/api/v1';
 

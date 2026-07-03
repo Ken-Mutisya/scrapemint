@@ -15,7 +15,7 @@
 
 import { Actor, log } from 'apify';
 
-const FREE_TIER_ITEMS = 50;
+const FREE_TIER_ITEMS = 10;
 const API_BASE = 'https://api.github.com';
 
 await Actor.init();

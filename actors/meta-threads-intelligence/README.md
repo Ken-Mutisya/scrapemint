@@ -138,7 +138,7 @@ flowchart LR
 
 ## Pricing
 
-The first 50 posts per run are free. After that, $0.002 per post pushed. Search and profile fetches are not metered, so a low signal keyword search only costs for the matches it returns.
+The first 10 posts per run are free. After that, $0.002 per post pushed. Search and profile fetches are not metered, so a low signal keyword search only costs for the matches it returns.
 
 ---
 

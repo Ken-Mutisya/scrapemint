@@ -301,7 +301,7 @@ curl -X POST \
 
 ## Pricing
 
-The first 20 rows per run are free so you can validate the schema before paying. After that, $0.005 per row pushed. PubMed papers and clinical trial rows are charged at the same rate. iCite citation counts, MeSH terms, references, and posted trial results are included at no extra per row charge.
+The first 10 rows per run are free so you can validate the schema before paying. After that, $0.005 per row pushed. PubMed papers and clinical trial rows are charged at the same rate. iCite citation counts, MeSH terms, references, and posted trial results are included at no extra per row charge.
 
 ---
 

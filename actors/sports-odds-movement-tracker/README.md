@@ -119,7 +119,7 @@ Full list at `the-odds-api.com/sports-odds-data/sports-apis.html`.
 
 | | OddsPortal | Action Network Pro | **This actor** |
 |---|---|---|---|
-| Pricing | Free, manual | $10 to $80 / mo | Pay per item, first 50 free |
+| Pricing | Free, manual | $10 to $80 / mo | Pay per item, first 10 free |
 | Books covered | 80+ UI only | 15 to 30 | 40+ |
 | Arbitrage flag | Manual math | Premium tier | Built in |
 | JSON output | No | No | Yes |
@@ -155,7 +155,7 @@ Every field drops into a line shopper, a Sheet, a Slack channel, or a model back
 
 ## Pricing
 
-First 50 items per run are free. After that you pay per extracted event + market row. A 200 row snapshot lands well under $1. Bring your own free key from The Odds API (500 requests per month included).
+First 10 items per run are free. After that you pay per extracted event + market row. A 200 row snapshot lands well under $1. Bring your own free key from The Odds API (500 requests per month included).
 
 ---
 

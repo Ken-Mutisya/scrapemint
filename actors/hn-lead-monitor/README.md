@@ -155,7 +155,7 @@ Every field ready to drop into a CRM, a Slack channel, or a Notion database.
 
 ## Pricing
 
-First 50 items per run are free. After that you pay per extracted item. No seat licenses. No tier gating. A 500 item run lands under $1 on the Apify free plan.
+First 10 items per run are free. After that you pay per extracted item. No seat licenses. No tier gating. A 500 item run lands under $1 on the Apify free plan.
 
 ---
 

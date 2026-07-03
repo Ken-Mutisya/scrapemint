@@ -3,7 +3,7 @@
 // with fingerprint injection + residential proxy to pass Cloudflare checks.
 // Parses embedded __NEXT_DATA__ and JSON-LD scripts for tour data.
 //
-// Free tier: first 50 items per run are free. Charge per item after.
+// Free tier: first 10 items per run are free. Charge per item after.
 
 import { Actor, log } from 'apify';
 import { PlaywrightCrawler } from 'crawlee';
@@ -50,6 +50,16 @@ try {
     } else {
         const proxyConfiguration = await Actor.createProxyConfiguration(proxyInput);
 
+        // Stop before the platform hard-kills the run so partial data is saved
+        // and charges drain. Derive the budget from the actual run timeout
+        // (ACTOR_TIMEOUT_AT) instead of assuming 3600s.
+        const RUN_START = Date.now();
+        const HARD_TIMEOUT_AT = Actor.getEnv().timeoutAt
+            ? new Date(Actor.getEnv().timeoutAt).getTime()
+            : RUN_START + 3600 * 1000;
+        const SOFT_DEADLINE_AT = HARD_TIMEOUT_AT
+            - Math.min(300_000, Math.max(90_000, (HARD_TIMEOUT_AT - RUN_START) * 0.1));
+
         const requests = [
             ...destList.map((url) => ({ url, userData: { type: 'destination' } })),
             ...queryList.map((q) => ({
@@ -62,7 +72,7 @@ try {
         const crawler = new PlaywrightCrawler({
             proxyConfiguration,
             maxConcurrency: 1,
-            maxRequestRetries: 6,
+            maxRequestRetries: 2,
             retryOnBlocked: true,
             useSessionPool: true,
             sessionPoolOptions: { maxPoolSize: 20 },
@@ -86,7 +96,12 @@ try {
                     });
                 },
             ],
-            requestHandler: async ({ page, request }) => {
+            requestHandler: async ({ page, request, crawler }) => {
+                if (Date.now() > SOFT_DEADLINE_AT) {
+                    log.warning('Run-time budget reached; stopping crawler.');
+                    crawler.stop();
+                    return;
+                }
                 pageFetches += 1;
                 await page.waitForLoadState('domcontentloaded', { timeout: 30_000 }).catch(() => {});
 
