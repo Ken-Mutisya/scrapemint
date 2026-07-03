@@ -1,0 +1,16 @@
+{
+    "actorSpecification": 1,
+    "name": "website-tech-stack-detector",
+    "title": "Website Technology Stack Detector (BuiltWith Alternative)",
+    "description": "Detect what any list of websites runs: CMS, ecommerce platform, analytics, marketing tools, chat widgets, frameworks, CDN, hosting and payments. One row per domain with evidence. No login, no API key. Pay only for detections.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "readme": "../README.md",
+    "categories": [
+        "LEAD_GENERATION",
+        "MARKETING",
+        "DEVELOPER_TOOLS"
+    ]
+}

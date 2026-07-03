@@ -1,0 +1,17 @@
+{
+    "name": "website-tech-stack-detector",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Detect the technology stack of any website list: CMS, ecommerce platform, analytics, marketing tools, chat widgets, frameworks, CDN, hosting and payments. One row per domain with evidence. No login, no API key. Pay only for domains with detections.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0",
+        "undici": "^6.19.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}

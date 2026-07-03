@@ -1,0 +1,36 @@
+{
+    "title": "Website Technology Stack Detector",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "websites": {
+            "title": "Websites",
+            "type": "array",
+            "description": "Domains or URLs to analyze, e.g. apify.com or https://allbirds.com. One row per site.",
+            "editor": "stringList",
+            "prefill": [
+                "apify.com",
+                "allbirds.com",
+                "gymshark.com",
+                "basecamp.com",
+                "techcrunch.com",
+                "ghost.org",
+                "zapier.com",
+                "mailchimp.com",
+                "smashingmagazine.com",
+                "buffer.com",
+                "shopify.com",
+                "stripe.com",
+                "patagonia.com",
+                "glossier.com"
+            ]
+        },
+        "proxyConfiguration": {
+            "title": "Proxy configuration",
+            "type": "object",
+            "description": "Optional. Sites are fetched directly with one polite request each, so proxy is off by default. Supply one only if your target sites block datacenter IPs.",
+            "editor": "proxy"
+        }
+    },
+    "required": ["websites"]
+}
