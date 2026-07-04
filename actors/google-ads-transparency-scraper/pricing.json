@@ -1,0 +1,15 @@
+{
+    "_note": "PUT this to /v2/acts/{actorId} as pricingInfos array entry. Per playbook: PAY_PER_EVENT only on BRONZE plan, startedAt 14+ days out. Apify auto-adds margin.",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~google-ads-transparency-scraper?token=APIFY_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "creative_row": {
+                "eventTitle": "Ad creative row",
+                "eventDescription": "One Google ad creative: advertiser, format, preview asset, first and last shown dates, transparency URL. First 2 rows per run are free so you can validate output.",
+                "eventPriceUsd": 0.004
+            }
+        }
+    },
+    "startedAt": "2026-07-18T00:00:00.000Z"
+}

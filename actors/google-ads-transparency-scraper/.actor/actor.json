@@ -1,0 +1,18 @@
+{
+    "actorSpecification": 1,
+    "name": "google-ads-transparency-scraper",
+    "title": "Google Ads Transparency Scraper (No Login)",
+    "description": "See every Google ad any brand is running. Search advertisers by name, pull their ad creatives from the Ads Transparency Center with format, preview asset, first and last shown dates, and filter by country. Search, Display, YouTube. No login, no API key. Pay per ad.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "readme": "../README.md",
+    "categories": [
+        "MARKETING",
+        "BUSINESS",
+        "ECOMMERCE"
+    ],
+    "minMemoryMbytes": 128,
+    "maxMemoryMbytes": 1024
+}

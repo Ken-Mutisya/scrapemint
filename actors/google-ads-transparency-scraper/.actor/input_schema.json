@@ -1,0 +1,60 @@
+{
+    "title": "Google Ads Transparency Scraper input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "queries": {
+            "title": "Advertiser names",
+            "type": "array",
+            "description": "Brand or company names to look up in the Ads Transparency Center, e.g. [\"Nike, Inc.\", \"Shopify\"]. The top matching verified advertisers are used for each query.",
+            "editor": "stringList",
+            "prefill": ["Nike, Inc."]
+        },
+        "advertiserIds": {
+            "title": "Advertiser IDs (optional)",
+            "type": "array",
+            "description": "Exact Ads Transparency advertiser IDs (start with AR, e.g. AR04119126533128323073). Skips name search. Find them in any adstransparency.google.com advertiser URL.",
+            "editor": "stringList"
+        },
+        "region": {
+            "title": "Region",
+            "type": "string",
+            "description": "Only return ads shown in this country (ISO code like US, GB, DE, IN), or ANYWHERE for all regions.",
+            "editor": "textfield",
+            "default": "ANYWHERE",
+            "prefill": "ANYWHERE"
+        },
+        "maxAdvertisersPerQuery": {
+            "title": "Max advertisers per query",
+            "type": "integer",
+            "description": "How many matching advertisers to include per name query (1 to 10). Keep 1 to get only the best match.",
+            "default": 1,
+            "minimum": 1,
+            "maximum": 10
+        },
+        "maxCreativesPerAdvertiser": {
+            "title": "Max ads per advertiser",
+            "type": "integer",
+            "description": "How many ad creatives to pull per advertiser.",
+            "default": 30,
+            "prefill": 30,
+            "minimum": 1,
+            "maximum": 2000
+        },
+        "maxRows": {
+            "title": "Max total rows",
+            "type": "integer",
+            "description": "Overall cap on rows pushed in one run.",
+            "default": 100,
+            "minimum": 1,
+            "maximum": 2000
+        },
+        "proxyConfiguration": {
+            "title": "Proxy (optional)",
+            "type": "object",
+            "description": "Usually not needed. Enable Apify proxy only if direct requests get blocked from your region.",
+            "editor": "proxy"
+        }
+    },
+    "required": []
+}

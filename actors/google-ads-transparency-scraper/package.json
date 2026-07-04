@@ -1,0 +1,17 @@
+{
+    "name": "google-ads-transparency-scraper",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Scrape any brand's live Google ads from the Ads Transparency Center via its keyless JSON RPC API. Advertiser search, ad creatives with previews, first and last shown dates, region filter. No login, no API key. Pay per ad.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0",
+        "undici": "^6.19.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}
