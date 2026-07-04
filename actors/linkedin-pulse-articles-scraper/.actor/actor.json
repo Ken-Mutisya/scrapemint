@@ -14,5 +14,5 @@
         "BUSINESS"
     ],
     "minMemoryMbytes": 128,
-    "maxMemoryMbytes": 256
+    "maxMemoryMbytes": 128
 }

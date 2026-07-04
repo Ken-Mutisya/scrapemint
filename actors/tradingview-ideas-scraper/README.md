@@ -162,7 +162,7 @@ curl -X POST \
 
 ## Pricing
 
-The first 25 idea rows per run are free so you can validate output before paying. After that, each idea row is charged. No surprise add on charges.
+The first 2 idea rows per run are free so you can validate output before paying. After that, each idea row is charged. No surprise add on charges.
 
 ---
 

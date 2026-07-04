@@ -13,12 +13,12 @@
 //      gplay paginates internally. Also fetch gplay.app() for metadata.
 //   4. Normalize to the same shape and pushData.
 //
-// Free tier: first 100 reviews per run are free. After that charge per review.
+// Free tier: first 2 reviews per run are free. After that charge per review.
 
 import { Actor, log } from 'apify';
 import gplay from 'google-play-scraper';
 
-const FREE_TIER_REVIEWS = 100;
+const FREE_TIER_REVIEWS = 2;
 
 await Actor.init();
 

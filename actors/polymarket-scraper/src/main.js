@@ -10,11 +10,11 @@
 //             https://clob.polymarket.com/prices-history?market=<token_id>&interval=<i>
 //   Data:     https://data-api.polymarket.com/trades?market=<conditionId>
 //
-// Free tier: first 10 items per run are free. Charge per row after.
+// Free tier: first 2 items per run are free. Charge per row after.
 
 import { Actor, log } from 'apify';
 
-const FREE_TIER_ITEMS = 10;
+const FREE_TIER_ITEMS = 2;
 const RATE_SLEEP_MS = 200;
 const PAGE_SIZE = 100;
 

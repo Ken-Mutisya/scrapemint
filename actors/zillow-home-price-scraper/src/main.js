@@ -3,12 +3,12 @@
 // injection + residential proxy. Parses embedded mapResults JSON for each
 // listing.
 //
-// Free tier: first 50 items per run are free. Charge per item after.
+// Free tier: first 2 items per run are free. Charge per item after.
 
 import { Actor, log } from 'apify';
 import { PlaywrightCrawler } from 'crawlee';
 
-const FREE_TIER_ITEMS = 10;
+const FREE_TIER_ITEMS = 2;
 
 await Actor.init();
 const __chargeJobs = [];

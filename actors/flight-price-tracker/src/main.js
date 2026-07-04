@@ -2,12 +2,12 @@
 // Scrapes Google Flights via PlaywrightCrawler with fingerprint injection
 // and residential proxy. Builds a row per fare returned for a route and date.
 //
-// Free tier: first 50 items per run are free. Charge per item after.
+// Free tier: first 2 items per run are free. Charge per item after.
 
 import { Actor, log } from 'apify';
 import { PlaywrightCrawler } from 'crawlee';
 
-const FREE_TIER_ITEMS = 10;
+const FREE_TIER_ITEMS = 2;
 
 await Actor.init();
 const __chargeJobs = [];

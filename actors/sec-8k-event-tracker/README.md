@@ -115,7 +115,7 @@ curl -X POST "https://api.apify.com/v2/acts/scrapemint~sec-8k-event-tracker/run-
 
 | | Yahoo Finance | Bloomberg Terminal | **This actor** |
 |---|---|---|---|
-| Pricing | Free, delayed | ~$25k per seat per year | Pay per item, first 10 free |
+| Pricing | Free, delayed | ~$25k per seat per year | Pay per item, first 2 free |
 | Source | Aggregated feeds | EDGAR + wires | EDGAR direct, official API |
 | Item code filter | No | Yes | Yes |
 | Webhook | No | Terminal only | Any URL |
@@ -153,7 +153,7 @@ Every field drops straight into a trading bot, Slack channel, or Notion database
 
 ## Pricing
 
-First 10 filings per run are free. After that you pay per extracted filing. A 200 filing run lands well under $1.
+First 2 filings per run are free. After that you pay per extracted filing. A 200 filing run lands well under $1.
 
 ---
 

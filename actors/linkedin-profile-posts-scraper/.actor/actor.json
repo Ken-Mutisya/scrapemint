@@ -12,5 +12,7 @@
         "SOCIAL_MEDIA",
         "MARKETING",
         "LEAD_GENERATION"
-    ]
+    ],
+    "minMemoryMbytes": 128,
+    "maxMemoryMbytes": 128
 }

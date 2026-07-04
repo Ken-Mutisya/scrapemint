@@ -13,11 +13,11 @@
 // SEC requires a descriptive User-Agent with an email.
 // Rate limit: 10 req/sec. We sleep 120ms between requests to stay polite.
 //
-// Free tier: first 30 transactions per run are free. Charge per transaction after.
+// Free tier: first 2 transactions per run are free. Charge per transaction after.
 
 import { Actor, log } from 'apify';
 
-const FREE_TIER_ITEMS = 10;
+const FREE_TIER_ITEMS = 2;
 const EDGAR_RATE_SLEEP_MS = 120;
 
 const TRANSACTION_CODE_DESCRIPTIONS = {

@@ -17,7 +17,7 @@
 import { Actor } from 'apify';
 import { PlaywrightCrawler, log } from 'crawlee';
 
-const FREE_TIER_PROPERTIES = 20;
+const FREE_TIER_PROPERTIES = 2;
 
 await Actor.init();
 

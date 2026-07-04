@@ -23,12 +23,12 @@
 //
 // Pay-per-event:
 //   event_row ($0.01) charged when an event row is pushed.
-//   First 25 event rows per run are free.
+//   First 2 event rows per run are free.
 
 import { Actor, log } from 'apify';
 import { PlaywrightCrawler } from 'crawlee';
 
-const FREE_TIER_ROWS = 25;
+const FREE_TIER_ROWS = 2;
 const BASE = 'https://www.forexfactory.com';
 const FEED_BASE = 'https://nfs.faireconomy.media';
 const MONTH_ABBR = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'];

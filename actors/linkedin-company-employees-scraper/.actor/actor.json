@@ -12,5 +12,7 @@
         "BUSINESS",
         "LEAD_GENERATION",
         "MARKETING"
-    ]
+    ],
+    "minMemoryMbytes": 128,
+    "maxMemoryMbytes": 128
 }

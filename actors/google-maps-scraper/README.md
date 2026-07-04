@@ -141,7 +141,7 @@ Contacts and emails come from a best effort scan of the linked business website 
 
 ## Pricing
 
-First 10 places per run are free. After that you pay per place row. Reviews, images, and enrichment ride along with the place at no extra charge.
+First 2 places per run are free. After that you pay per place row. Reviews, images, and enrichment ride along with the place at no extra charge.
 
 ---
 

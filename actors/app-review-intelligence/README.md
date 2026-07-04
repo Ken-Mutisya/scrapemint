@@ -71,7 +71,7 @@ flowchart LR
 
 | Feature | ASO SaaS dashboards | This actor |
 |---|---|---|
-| Pricing | $99 to $999 per month, flat | Pay per review, first 100 per run free |
+| Pricing | $99 to $999 per month, flat | Pay per review, first 2 per run free |
 | iOS coverage | Limited countries per plan tier | All 155 iOS country storefronts |
 | Android coverage | Capped by plan | Full pagination, thousands of reviews |
 | Data ownership | Vendor hosts behind a login | Raw JSON in your account |
@@ -148,7 +148,7 @@ Every row: platform (ios or android), star rating, title, full body, author, app
 
 ## Pricing
 
-First 100 reviews per run are free. After that you pay per review extracted. No seat licenses. No tier gating. 1000 reviews lands under $2 on the Apify free plan.
+First 2 reviews per run are free. After that you pay per review extracted. No seat licenses. No tier gating. 1000 reviews lands under $2 on the Apify free plan.
 
 ---
 

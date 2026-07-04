@@ -113,7 +113,7 @@ flowchart LR
 
 | Feature | Manual checking | Mention SaaS | This actor |
 |---|---|---|---|
-| Pricing | Free, costs time | $49 to $299 per month | Pay per post, first 50 per run free |
+| Pricing | Free, costs time | $49 to $299 per month | Pay per post, first 2 per run free |
 | Keyword cap | Unlimited if you click them all | 3 to 50 per tier | Unlimited |
 | Subreddit targeting | Tab hopping | Global only | Any subreddit or list |
 | Data ownership | Copy paste | Vendor hosted | Raw JSON in your Apify account |
@@ -153,7 +153,7 @@ Every field ready to drop into a CRM, a Slack channel, or a Notion database.
 
 ## Pricing
 
-First 50 posts per run are free. After that you pay per extracted post. No seat licenses. No tier gating. A 500 post run lands under $1 on the Apify free plan.
+First 2 posts per run are free. After that you pay per extracted post. No seat licenses. No tier gating. A 500 post run lands under $1 on the Apify free plan.
 
 ---
 

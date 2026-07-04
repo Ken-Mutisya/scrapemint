@@ -11,11 +11,11 @@
 // Public API, no auth required for reads. Rate limit is not published but
 // 1 req / 200ms is safe in practice.
 //
-// Free tier: first 50 items per run are free. Charge per item after.
+// Free tier: first 2 items per run are free. Charge per item after.
 
 import { Actor, log } from 'apify';
 
-const FREE_TIER_ITEMS = 10;
+const FREE_TIER_ITEMS = 2;
 const RATE_SLEEP_MS = 200;
 const PAGE_SIZE = 100;
 

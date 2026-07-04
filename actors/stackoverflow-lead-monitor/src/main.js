@@ -11,12 +11,12 @@
 // Auth: none required. 300 API calls/day anonymous. Optional free API key
 // bumps to 10,000/day (stackapps.com/apps/oauth/register).
 //
-// Free tier: first 50 questions per run are free. After that charge per
+// Free tier: first 2 questions per run are free. After that charge per
 // question.
 
 import { Actor, log } from 'apify';
 
-const FREE_TIER_QUESTIONS = 50;
+const FREE_TIER_QUESTIONS = 2;
 const BASE = 'https://api.stackexchange.com/2.3';
 const FILTER = 'withbody'; // returns body + is_answered + view_count fields
 

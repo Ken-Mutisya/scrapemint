@@ -26,12 +26,12 @@
 //
 // Pay-per-event:
 //   idea_row ($0.004) charged when an idea row is pushed.
-//   First 25 idea rows per run are free so buyers can validate output.
+//   First 2 idea rows per run are free so buyers can validate output.
 
 import { Actor, log } from 'apify';
 import { CheerioCrawler } from 'crawlee';
 
-const FREE_TIER_ROWS = 25;
+const FREE_TIER_ROWS = 2;
 const BASE = 'https://www.tradingview.com';
 
 await Actor.init();

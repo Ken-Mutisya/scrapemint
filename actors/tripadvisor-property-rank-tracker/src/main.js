@@ -215,7 +215,7 @@ async function handleProperty({ page, request }) {
 
     await Actor.pushData(row);
     pushed += 1;
-    if (pushed > 5) __chargeJobs.push(Actor.charge({ eventName: 'rank_row' }).catch((err) => log.warning(`charge failed: ${err?.message}`)));
+    if (pushed > 2) __chargeJobs.push(Actor.charge({ eventName: 'rank_row' }).catch((err) => log.warning(`charge failed: ${err?.message}`)));
     log.info(`Pushed ${propertyId} ${row.name || '(no name)'} rank=${row.rank?.position ?? '?'}/${row.rank?.totalInCategory ?? '?'} rating=${rating.overall ?? '?'} reviews=${rating.reviewCount ?? '?'} (${pushed})`);
 }
 

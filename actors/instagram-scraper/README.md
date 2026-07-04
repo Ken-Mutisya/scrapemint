@@ -267,7 +267,7 @@ curl -X POST \
 
 ## Pricing
 
-First 10 items per run are free so you can try before paying. After that you pay per result row. Engagement metrics, sponsored detection, mention rollups, and hashtag arrays are included at no extra cost. Media downloads and comment scraping add a small per unit cost when enabled.
+First 2 items per run are free so you can try before paying. After that you pay per result row. Engagement metrics, sponsored detection, mention rollups, and hashtag arrays are included at no extra cost. Media downloads and comment scraping add a small per unit cost when enabled.
 
 ---
 

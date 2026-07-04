@@ -280,7 +280,7 @@ async function handleProfile(page, request, crawler) {
     if (recentPosts.length === 0) {
         await Actor.pushData({ ...skeleton, recentPostsSample: 0 });
         itemsPushed += 1;
-        if (itemsPushed > 10) __chargeJobs.push(Actor.charge({ eventName: 'post_row' }).catch((err) => log.warning(`charge failed: ${err?.message}`)));
+        if (itemsPushed > 2) __chargeJobs.push(Actor.charge({ eventName: 'post_row' }).catch((err) => log.warning(`charge failed: ${err?.message}`)));
         seen.add(skeleton.id);
         log.info(`Pushed profile @${skeleton.username} with no post sample`);
         return;
@@ -374,7 +374,7 @@ async function pushProfileRow(agg) {
     }
     await Actor.pushData(row);
     itemsPushed += 1;
-    if (itemsPushed > 10) __chargeJobs.push(Actor.charge({ eventName: 'post_row' }).catch((err) => log.warning(`charge failed: ${err?.message}`)));
+    if (itemsPushed > 2) __chargeJobs.push(Actor.charge({ eventName: 'post_row' }).catch((err) => log.warning(`charge failed: ${err?.message}`)));
     seen.add(row.id);
     log.info(`Pushed profile @${row.username} (followers=${row.followers}, sample=${filtered.length}, er=${row.engagement?.engagementRate ?? 'n/a'})`);
 }
@@ -403,7 +403,7 @@ async function handlePost(page, request, kind) {
     await Actor.pushData(row);
     seen.add(post.id);
     itemsPushed += 1;
-    if (itemsPushed > 10) __chargeJobs.push(Actor.charge({ eventName: 'post_row' }).catch((err) => log.warning(`charge failed: ${err?.message}`)));
+    if (itemsPushed > 2) __chargeJobs.push(Actor.charge({ eventName: 'post_row' }).catch((err) => log.warning(`charge failed: ${err?.message}`)));
     log.info(`Pushed ${kind} ${post.id} by @${post.ownerUsername || '?'} (${itemsPushed}/${maxItemsTotal})`);
     await finalizeProfileAggregation(request, post);
 }
@@ -431,7 +431,7 @@ async function handleHashtagOrPlace(page, request, crawler, kind) {
     };
     await Actor.pushData(row);
     itemsPushed += 1;
-    if (itemsPushed > 10) __chargeJobs.push(Actor.charge({ eventName: 'post_row' }).catch((err) => log.warning(`charge failed: ${err?.message}`)));
+    if (itemsPushed > 2) __chargeJobs.push(Actor.charge({ eventName: 'post_row' }).catch((err) => log.warning(`charge failed: ${err?.message}`)));
     log.info(`Pushed ${kind} "${row.name}" (postsCount=${row.postsCount})`);
 
     if (data.topPosts?.length) {
@@ -442,7 +442,7 @@ async function handleHashtagOrPlace(page, request, crawler, kind) {
             await Actor.pushData(postRow);
             seen.add(postRow.id);
             itemsPushed += 1;
-            if (itemsPushed > 10) __chargeJobs.push(Actor.charge({ eventName: 'post_row' }).catch((err) => log.warning(`charge failed: ${err?.message}`)));
+            if (itemsPushed > 2) __chargeJobs.push(Actor.charge({ eventName: 'post_row' }).catch((err) => log.warning(`charge failed: ${err?.message}`)));
         }
     }
 }
@@ -480,7 +480,7 @@ async function handleUserSearch(page, request) {
             await Actor.pushData(row);
             if (row.id) seen.add(row.id);
             itemsPushed += 1;
-            if (itemsPushed > 10) __chargeJobs.push(Actor.charge({ eventName: 'post_row' }).catch((err) => log.warning(`charge failed: ${err?.message}`)));
+            if (itemsPushed > 2) __chargeJobs.push(Actor.charge({ eventName: 'post_row' }).catch((err) => log.warning(`charge failed: ${err?.message}`)));
         }
     } catch (err) {
         log.warning(`User search failed: ${err.message}`);
@@ -510,7 +510,7 @@ async function handleMentions(page, request) {
             scrapedAt: new Date().toISOString(),
         });
         itemsPushed += 1;
-        if (itemsPushed > 10) __chargeJobs.push(Actor.charge({ eventName: 'post_row' }).catch((err) => log.warning(`charge failed: ${err?.message}`)));
+        if (itemsPushed > 2) __chargeJobs.push(Actor.charge({ eventName: 'post_row' }).catch((err) => log.warning(`charge failed: ${err?.message}`)));
     }
     log.info(`Pushed ${rows.length} mention rows from ${posts.length} posts`);
 }
@@ -534,7 +534,7 @@ async function handleComments(page, request) {
             scrapedAt: new Date().toISOString(),
         });
         itemsPushed += 1;
-        if (itemsPushed > 10) __chargeJobs.push(Actor.charge({ eventName: 'post_row' }).catch((err) => log.warning(`charge failed: ${err?.message}`)));
+        if (itemsPushed > 2) __chargeJobs.push(Actor.charge({ eventName: 'post_row' }).catch((err) => log.warning(`charge failed: ${err?.message}`)));
     }
     log.info(`Pushed ${comments.length} comments from post ${post.id}`);
 }

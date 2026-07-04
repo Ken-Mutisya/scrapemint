@@ -166,7 +166,7 @@ curl -X POST \
 
 ## Pricing
 
-The first 25 event rows per run are free so you can validate output before paying. After that, each event row is charged. No surprise add on charges.
+The first 2 event rows per run are free so you can validate output before paying. After that, each event row is charged. No surprise add on charges.
 
 ---
 

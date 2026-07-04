@@ -174,7 +174,7 @@ Toggle `includeOrderbook` and every outcome ships a `bids` and `asks` array trim
 
 ## Pricing
 
-Pay per row, no subscription. First 20 rows per run are free so you can verify the schema before scaling up. After that you pay per market row delivered to the dataset, regardless of which enrichment fields are attached.
+Pay per row, no subscription. First 2 rows per run are free so you can verify the schema before scaling up. After that you pay per market row delivered to the dataset, regardless of which enrichment fields are attached.
 
 | Run shape | Free rows | Paid rows | Cost |
 |---|---|---|---|

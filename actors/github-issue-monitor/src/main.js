@@ -11,11 +11,11 @@
 // Auth is optional. Anonymous rate limits are low (60 core / 10 search per min).
 // A free personal access token raises this to 5000 core / 30 search per min.
 //
-// Free tier: first 50 items per run are free. After that charge per item.
+// Free tier: first 2 items per run are free. After that charge per item.
 
 import { Actor, log } from 'apify';
 
-const FREE_TIER_ITEMS = 10;
+const FREE_TIER_ITEMS = 2;
 const API_BASE = 'https://api.github.com';
 
 await Actor.init();

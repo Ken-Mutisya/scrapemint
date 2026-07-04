@@ -13,7 +13,7 @@
 import { Actor, log } from 'apify';
 import { PlaywrightCrawler } from 'crawlee';
 
-const FREE_TIER_PLACES = 10;
+const FREE_TIER_PLACES = 2;
 
 await Actor.init();
 

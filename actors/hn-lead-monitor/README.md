@@ -114,7 +114,7 @@ flowchart LR
 
 | Feature | Manual checking | HN alert SaaS | This actor |
 |---|---|---|---|
-| Pricing | Free, costs time | $10 to $50 per month | Pay per item, first 50 per run free |
+| Pricing | Free, costs time | $10 to $50 per month | Pay per item, first 2 per run free |
 | Keyword cap | Unlimited | 5 to 20 per tier | Unlimited |
 | Source coverage | Front page only | Search only | Search plus firehose feeds |
 | Comment body pull | Manual read | Usually no | Yes, full text and parent link |
@@ -155,7 +155,7 @@ Every field ready to drop into a CRM, a Slack channel, or a Notion database.
 
 ## Pricing
 
-First 10 items per run are free. After that you pay per extracted item. No seat licenses. No tier gating. A 500 item run lands under $1 on the Apify free plan.
+First 2 items per run are free. After that you pay per extracted item. No seat licenses. No tier gating. A 500 item run lands under $1 on the Apify free plan.
 
 ---
 

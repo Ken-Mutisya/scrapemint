@@ -113,7 +113,7 @@ flowchart LR
 
 | Feature | Manual checking | SaaS tools | This actor |
 |---|---|---|---|
-| Pricing | Free, but costs time | $99 to $499 per month | Pay per question, first 50 per run free |
+| Pricing | Free, but costs time | $99 to $499 per month | Pay per question, first 2 per run free |
 | Tag limit | Unlimited, if you click them all | 10 to 50 per tier | Unlimited |
 | Unanswered filter | Sort by no answers | Premium tier only | Built in |
 | Other Stack Exchange sites | Tab hopping | Stack Overflow only | Any site (DBA, ServerFault, Super User) |
@@ -158,7 +158,7 @@ Every field ready to drop into a CRM, a Slack channel, or a Notion database.
 
 ## Pricing
 
-First 50 questions per run are free. After that you pay per extracted question. No seat licenses, no tier gating. A 200 question run lands under $1 on the Apify free plan.
+First 2 questions per run are free. After that you pay per extracted question. No seat licenses, no tier gating. A 200 question run lands under $1 on the Apify free plan.
 
 ---
 

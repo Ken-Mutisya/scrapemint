@@ -11,12 +11,12 @@
 // RSS carries title, author, permalink, subreddit, body and timestamp, but NOT
 // vote or comment counts, so minUpvotes/minComments cannot be enforced here.
 //
-// Free tier: first 50 posts per run are free. After that charge per post.
+// Free tier: first 2 posts per run are free. After that charge per post.
 
 import { Actor, log } from 'apify';
 import { gotScraping } from 'got-scraping';
 
-const FREE_TIER_POSTS = 50;
+const FREE_TIER_POSTS = 2;
 // Reddit asks scripts to identify themselves with a descriptive UA.
 const USER_AGENT = 'reddit-lead-monitor/0.2 (by scrapemint; Apify actor)';
 const REDDIT_HOST = 'https://www.reddit.com';

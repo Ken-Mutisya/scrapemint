@@ -197,7 +197,7 @@ curl -X POST \
 
 ## Pricing
 
-First 10 jobs per run are free so you can try before paying. After that you pay per result row. Salary parsing, tech stack extraction, seniority classification, remote inference, and experience year parsing are included at no extra cost.
+First 2 jobs per run are free so you can try before paying. After that you pay per result row. Salary parsing, tech stack extraction, seniority classification, remote inference, and experience year parsing are included at no extra cost.
 
 ---
 

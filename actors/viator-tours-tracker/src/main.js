@@ -3,12 +3,12 @@
 // with fingerprint injection + residential proxy to pass Cloudflare checks.
 // Parses embedded __NEXT_DATA__ and JSON-LD scripts for tour data.
 //
-// Free tier: first 10 items per run are free. Charge per item after.
+// Free tier: first 2 items per run are free. Charge per item after.
 
 import { Actor, log } from 'apify';
 import { PlaywrightCrawler } from 'crawlee';
 
-const FREE_TIER_ITEMS = 10;
+const FREE_TIER_ITEMS = 2;
 
 await Actor.init();
 const __chargeJobs = [];

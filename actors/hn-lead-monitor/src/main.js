@@ -10,11 +10,11 @@
 //   https://hn.algolia.com/api/v1/search_by_date?query={q}     -> search
 // All three are public, no auth, no keys, no rate limits worth mentioning.
 //
-// Free tier: first 50 items per run are free. After that charge per item.
+// Free tier: first 2 items per run are free. After that charge per item.
 
 import { Actor, log } from 'apify';
 
-const FREE_TIER_ITEMS = 10;
+const FREE_TIER_ITEMS = 2;
 const FIREBASE = 'https://hacker-news.firebaseio.com/v0';
 const ALGOLIA = 'https://hn.algolia.com/api/v1';
 

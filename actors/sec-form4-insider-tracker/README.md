@@ -116,7 +116,7 @@ The full description for every code is returned in `transaction.codeDescription`
 
 | | openinsider.com | Quiver / 2iQ | **This actor** |
 |---|---|---|---|
-| Pricing | Free, HTML only | $100 to $2500 / month | Pay per item, first 10 free |
+| Pricing | Free, HTML only | $100 to $2500 / month | Pay per item, first 2 free |
 | Source | EDGAR via scrape | EDGAR + enrichment | EDGAR direct, official API |
 | Output | HTML table | Their dashboard | JSON, CSV, Excel, webhook |
 | Dedup | You build it | Vendor owned | Yours, in key value store |
@@ -159,7 +159,7 @@ Every field drops straight into a trading bot, Google Sheet, Slack channel, or N
 
 ## Pricing
 
-First 10 transactions per run are free. After that you pay per extracted transaction. A 200 item run lands well under $1 on the Apify free plan.
+First 2 transactions per run are free. After that you pay per extracted transaction. A 200 item run lands well under $1 on the Apify free plan.
 
 ---
 
