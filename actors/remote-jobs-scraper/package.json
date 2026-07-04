@@ -1,0 +1,17 @@
+{
+    "name": "remote-jobs-scraper",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Pull remote job listings from RemoteOK, Remotive, WeWorkRemotely and Himalayas in one normalized JSON feed via their keyless public APIs. Keyword filter, freshness filter, dedupe. No login, no API key. Pay per job row.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0",
+        "undici": "^6.19.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}

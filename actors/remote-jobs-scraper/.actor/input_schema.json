@@ -1,0 +1,58 @@
+{
+    "title": "Remote Jobs Scraper input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "keywords": {
+            "title": "Keywords (optional)",
+            "type": "array",
+            "description": "Only return jobs whose title, company, tags or category contain any of these words, e.g. [\"python\", \"data engineer\"]. Leave empty for the latest jobs from every board.",
+            "editor": "stringList",
+            "prefill": ["engineer"]
+        },
+        "sources": {
+            "title": "Job boards",
+            "type": "array",
+            "description": "Which boards to pull from.",
+            "editor": "select",
+            "items": {
+                "type": "string",
+                "enum": ["remoteok", "remotive", "weworkremotely", "himalayas"],
+                "enumTitles": ["RemoteOK", "Remotive", "WeWorkRemotely", "Himalayas"]
+            },
+            "default": ["remoteok", "remotive", "weworkremotely", "himalayas"]
+        },
+        "maxJobsPerSource": {
+            "title": "Max jobs per board",
+            "type": "integer",
+            "description": "Cap on rows pushed from each board.",
+            "default": 25,
+            "prefill": 25,
+            "minimum": 1,
+            "maximum": 2000
+        },
+        "maxRows": {
+            "title": "Max total rows",
+            "type": "integer",
+            "description": "Overall cap on rows pushed in one run.",
+            "default": 100,
+            "minimum": 1,
+            "maximum": 2000
+        },
+        "postedWithinDays": {
+            "title": "Posted within days (optional)",
+            "type": "integer",
+            "description": "Only return jobs posted in the last N days. 0 disables the filter.",
+            "default": 0,
+            "minimum": 0,
+            "maximum": 365
+        },
+        "proxyConfiguration": {
+            "title": "Proxy (optional)",
+            "type": "object",
+            "description": "Usually not needed. All four boards serve keyless public feeds.",
+            "editor": "proxy"
+        }
+    },
+    "required": []
+}

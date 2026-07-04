@@ -1,0 +1,18 @@
+{
+    "actorSpecification": 1,
+    "name": "remote-jobs-scraper",
+    "title": "Remote Jobs Scraper: RemoteOK, Remotive, WeWorkRemotely",
+    "description": "Pull remote job listings from RemoteOK, Remotive, WeWorkRemotely and Himalayas in one normalized JSON feed: title, company, salary, tags, location limits, posted date and apply URL. Filter by keyword and freshness. No login, no API key. Pay per job row.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "readme": "../README.md",
+    "categories": [
+        "JOBS",
+        "BUSINESS",
+        "LEAD_GENERATION"
+    ],
+    "minMemoryMbytes": 128,
+    "maxMemoryMbytes": 1024
+}
