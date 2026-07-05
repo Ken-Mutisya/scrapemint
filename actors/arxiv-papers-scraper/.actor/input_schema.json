@@ -1,0 +1,66 @@
+{
+    "title": "arXiv Papers Scraper Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "searchQueries": {
+            "title": "Search keywords",
+            "type": "array",
+            "description": "Keywords matched against title and abstract (OR-combined). Example: multi-agent, retrieval augmented generation. Leave empty to browse categories only.",
+            "editor": "stringList",
+            "prefill": [
+                "multi-agent"
+            ],
+            "default": []
+        },
+        "categories": {
+            "title": "arXiv categories",
+            "type": "array",
+            "description": "Category codes (OR-combined), e.g. cs.AI, cs.LG, cs.CL, stat.ML. Combined with keywords using AND.",
+            "editor": "stringList",
+            "prefill": [
+                "cs.AI"
+            ],
+            "default": [
+                "cs.AI"
+            ]
+        },
+        "authors": {
+            "title": "Authors (optional)",
+            "type": "array",
+            "description": "Author names to filter by (OR-combined), e.g. Yoshua Bengio.",
+            "editor": "stringList",
+            "default": []
+        },
+        "dateFrom": {
+            "title": "Only papers on/after (optional)",
+            "type": "string",
+            "description": "ISO date, e.g. 2026-07-01. Filters on the submitted date (or updated date when sorting by last update).",
+            "editor": "textfield",
+            "default": ""
+        },
+        "sortBy": {
+            "title": "Sort by",
+            "type": "string",
+            "description": "Newest submissions first is the monitoring default.",
+            "enum": ["submittedDate", "lastUpdatedDate", "relevance"],
+            "enumTitles": ["Newest submitted", "Recently updated", "Relevance"],
+            "default": "submittedDate"
+        },
+        "maxPapers": {
+            "title": "Max papers per run",
+            "type": "integer",
+            "description": "Cap on papers returned. Controls total cost.",
+            "default": 25,
+            "minimum": 1,
+            "maximum": 1000
+        },
+        "dedupe": {
+            "title": "Skip papers seen in previous runs",
+            "type": "boolean",
+            "description": "Remember returned arXiv IDs across runs and skip them. Turn on for scheduled monitoring so each run returns only new papers.",
+            "default": false
+        }
+    },
+    "required": []
+}

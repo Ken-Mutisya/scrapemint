@@ -1,0 +1,17 @@
+{
+    "name": "arxiv-papers-scraper",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Track new research papers on arXiv by keyword, category, or author. One clean JSON row per paper: title, abstract, authors, categories, dates, PDF link, and DOI. Official open API, no key, no browser. Pay per paper.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0",
+        "fast-xml-parser": "^5.9.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}

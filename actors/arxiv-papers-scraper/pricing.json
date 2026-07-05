@@ -1,0 +1,15 @@
+{
+    "_note": "PUT this to /v2/acts/{actorId} as pricingInfos array entry. PAY_PER_EVENT only on BRONZE plan, startedAt 14+ days out. Apify auto-adds 20% margin.",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~arxiv-papers-scraper?token=CLI_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "paper_row": {
+                "eventTitle": "arXiv paper row",
+                "eventDescription": "One research paper with arXiv ID, title, full abstract, authors, primary and cross-list categories, submitted and updated dates, PDF link, DOI, and journal reference. First 2 rows per run are free so you can validate output.",
+                "eventPriceUsd": 0.003
+            }
+        }
+    },
+    "startedAt": "2026-07-20T00:00:00.000Z"
+}
