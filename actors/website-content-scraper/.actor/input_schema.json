@@ -1,0 +1,77 @@
+{
+    "title": "Website Content Scraper Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "startUrls": {
+            "title": "Start URLs",
+            "type": "array",
+            "description": "Pages to start crawling from. The crawler follows same-site links from here (breadth-first) up to Max pages / Max depth.",
+            "editor": "stringList",
+            "prefill": [
+                "https://docs.apify.com/platform"
+            ],
+            "default": [
+                "https://docs.apify.com/platform"
+            ]
+        },
+        "maxPages": {
+            "title": "Max pages per run",
+            "type": "integer",
+            "description": "Hard cap on pages fetched and returned. Controls total cost.",
+            "default": 20,
+            "minimum": 1,
+            "maximum": 500
+        },
+        "maxDepth": {
+            "title": "Max crawl depth",
+            "type": "integer",
+            "description": "0 scrapes only the start URLs, 1 adds pages they link to, and so on.",
+            "default": 2,
+            "minimum": 0,
+            "maximum": 5
+        },
+        "sameDomainOnly": {
+            "title": "Stay on the same domain",
+            "type": "boolean",
+            "description": "Only follow links on the same domain as the start URL (subdomains included).",
+            "default": true
+        },
+        "includePatterns": {
+            "title": "Include URL patterns",
+            "type": "array",
+            "description": "If set, only URLs containing at least one of these substrings are crawled (start URLs are always fetched). Example: /docs/",
+            "editor": "stringList",
+            "default": []
+        },
+        "excludePatterns": {
+            "title": "Exclude URL patterns",
+            "type": "array",
+            "description": "URLs containing any of these substrings are skipped. Example: /changelog/",
+            "editor": "stringList",
+            "default": []
+        },
+        "outputFormat": {
+            "title": "Output format",
+            "type": "string",
+            "description": "Format of the extracted page content.",
+            "enum": ["markdown", "text", "html"],
+            "enumTitles": ["Markdown (for LLMs and RAG)", "Plain text", "Cleaned HTML"],
+            "default": "markdown"
+        },
+        "useSitemap": {
+            "title": "Discover pages from sitemap.xml",
+            "type": "boolean",
+            "description": "Also seed the crawl with URLs from the site's sitemap.xml (subject to the same filters and caps).",
+            "default": false
+        },
+        "proxyConfiguration": {
+            "title": "Proxy configuration",
+            "type": "object",
+            "description": "Optional. Most sites work without any proxy. Enable datacenter proxy only if your target blocks direct requests.",
+            "editor": "proxy",
+            "default": { "useApifyProxy": false }
+        }
+    },
+    "required": []
+}

@@ -1,0 +1,18 @@
+{
+    "name": "website-content-scraper",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Crawl any website and get clean markdown, text, or HTML per page, ready for RAG pipelines, chatbots, and LLM fine tuning. Plain HTTP, no browser, no API key. Pay per page.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0",
+        "cheerio": "^1.0.0",
+        "turndown": "^7.2.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}

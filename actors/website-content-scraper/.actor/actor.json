@@ -1,0 +1,15 @@
+{
+    "actorSpecification": 1,
+    "name": "website-content-scraper",
+    "title": "Website Content Scraper: Clean Markdown for AI and RAG",
+    "description": "Crawl any website and get clean markdown, text, or HTML per page, ready for RAG pipelines, chatbots, and LLM fine tuning. Plain HTTP, no browser, no API key. Pay per page.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "readme": "../README.md",
+    "categories": [
+        "AI",
+        "DEVELOPER_TOOLS"
+    ]
+}
