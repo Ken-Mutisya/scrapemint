@@ -1,0 +1,54 @@
+{
+    "title": "Shopify Store Products Scraper Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "storeUrls": {
+            "title": "Shopify store URLs or domains",
+            "type": "array",
+            "description": "Shopify storefronts to scrape, as domains or URLs. Example: gymshark.com or https://www.allbirds.com",
+            "editor": "stringList",
+            "prefill": [
+                "gymshark.com"
+            ],
+            "default": [
+                "gymshark.com"
+            ]
+        },
+        "collectionHandle": {
+            "title": "Collection handle (optional)",
+            "type": "string",
+            "description": "Scrape only one collection instead of the whole catalog, e.g. new-arrivals (the part after /collections/ in the store URL).",
+            "editor": "textfield",
+            "default": ""
+        },
+        "maxProductsPerStore": {
+            "title": "Max products per store",
+            "type": "integer",
+            "description": "Cap on products returned per store. Controls total cost.",
+            "default": 50,
+            "minimum": 1,
+            "maximum": 5000
+        },
+        "oneRowPerVariant": {
+            "title": "One row per variant",
+            "type": "boolean",
+            "description": "Return each variant (size, color) as its own row with the parent product's fields attached. Default is one row per product with variants nested.",
+            "default": false
+        },
+        "includeImages": {
+            "title": "Include image URLs",
+            "type": "boolean",
+            "description": "Attach product image URLs to each row.",
+            "default": true
+        },
+        "proxyConfiguration": {
+            "title": "Proxy configuration",
+            "type": "object",
+            "description": "Optional. Shopify's products.json endpoint works without any proxy from most environments.",
+            "editor": "proxy",
+            "default": { "useApifyProxy": false }
+        }
+    },
+    "required": []
+}

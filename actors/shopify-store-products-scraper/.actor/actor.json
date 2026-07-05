@@ -1,0 +1,15 @@
+{
+    "actorSpecification": 1,
+    "name": "shopify-store-products-scraper",
+    "title": "Shopify Store Products Scraper: Full Catalog, Prices, Stock",
+    "description": "Scrape any Shopify store's full product catalog: titles, vendors, tags, variants with price, SKU, and live availability, and image URLs. Official public JSON endpoint, no browser, no API key. Pay per product.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "readme": "../README.md",
+    "categories": [
+        "ECOMMERCE",
+        "MARKETING"
+    ]
+}

@@ -1,0 +1,16 @@
+{
+    "name": "shopify-store-products-scraper",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Scrape any Shopify store's full product catalog: titles, vendors, tags, variants with price, SKU, and live availability, and image URLs. Official public JSON endpoint, no browser, no API key. Pay per product.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}
