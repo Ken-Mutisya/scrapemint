@@ -41,7 +41,7 @@
             "title": "Max places per run",
             "type": "integer",
             "description": "Hard cap on places extracted per run. Controls total cost.",
-            "default": 50,
+            "default": 20,
             "minimum": 1,
             "maximum": 2000
         },

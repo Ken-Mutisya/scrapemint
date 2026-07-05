@@ -23,7 +23,7 @@ const {
     startUrls = [],
     language = 'en',
     maxPlacesPerQuery = 10,
-    maxPlacesTotal = 50,
+    maxPlacesTotal = 20,
     scrapeReviews = true,
     maxReviewsPerPlace = 5,
     scrapeImages = false,
@@ -81,6 +81,13 @@ const crawler = new PlaywrightCrawler({
     navigationTimeoutSecs: 60,
     requestHandlerTimeoutSecs: 300,
     maxRequestRetries: 2,
+    maxConcurrency: 2,
+    // Residential proxy bandwidth dominates run cost. Disable image loading at
+    // the Blink level instead of via page.route(): route interception turns off
+    // Chromium's HTTP cache, so the multi-MB Maps JS bundle re-downloads through
+    // the proxy on every page and eats the savings (measured: image stubbing via
+    // routes saved ~0 bytes net). scrapeImages still works -- it reads URLs from
+    // the DOM, not the bytes.
     retryOnBlocked: true,
     useSessionPool: true,
     persistCookiesPerSession: true,
@@ -100,6 +107,7 @@ const crawler = new PlaywrightCrawler({
             args: [
                 '--disable-blink-features=AutomationControlled',
                 '--disable-features=IsolateOrigins,site-per-process',
+                '--blink-settings=imagesEnabled=false',
             ],
         },
     },
