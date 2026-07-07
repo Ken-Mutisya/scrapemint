@@ -1,0 +1,16 @@
+{
+    "name": "grant-opportunity-finder",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Find live US federal grant opportunities by keyword, agency, category, and eligibility. One row per grant with deadlines, award amounts, eligibility, and agency contact email. Official grants.gov API, no key, no browser. Pay per opportunity.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}

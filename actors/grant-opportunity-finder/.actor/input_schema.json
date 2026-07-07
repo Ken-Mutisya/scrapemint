@@ -1,0 +1,65 @@
+{
+    "title": "Grant Opportunity Finder Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "keywords": {
+            "title": "Search keywords",
+            "type": "array",
+            "description": "Keywords to search for (one search per keyword, results merged and deduplicated). Example: climate, youth education, rural health.",
+            "editor": "stringList",
+            "prefill": ["climate"],
+            "default": ["climate"]
+        },
+        "oppStatuses": {
+            "title": "Opportunity statuses",
+            "type": "array",
+            "description": "posted = open now; forecasted = announced but not yet open (early intel).",
+            "editor": "stringList",
+            "prefill": ["posted"],
+            "default": ["posted"]
+        },
+        "agencyCodes": {
+            "title": "Agency codes (optional)",
+            "type": "array",
+            "description": "Restrict to agencies, e.g. NSF, HHS, USDA, DOC, ED. Empty = all agencies.",
+            "editor": "stringList",
+            "default": []
+        },
+        "fundingCategories": {
+            "title": "Funding category codes (optional)",
+            "type": "array",
+            "description": "grants.gov funding activity category codes, e.g. ED (Education), ENV (Environment), HL (Health), ST (Science).",
+            "editor": "stringList",
+            "default": []
+        },
+        "eligibilityCodes": {
+            "title": "Eligibility codes (optional)",
+            "type": "array",
+            "description": "grants.gov applicant eligibility codes, e.g. 12 (nonprofits w/ 501c3), 00 (state governments), 20 (private institutions of higher education), 22 (for-profits), 25 (others).",
+            "editor": "stringList",
+            "default": []
+        },
+        "includeDetails": {
+            "title": "Fetch full details per opportunity",
+            "type": "boolean",
+            "description": "Adds award ceiling/floor, estimated funding, applicant types, description, and agency contact email to each row (one extra request per opportunity).",
+            "default": true
+        },
+        "maxOpportunities": {
+            "title": "Max opportunities per run",
+            "type": "integer",
+            "description": "Cap on grant rows returned. Controls total cost.",
+            "default": 25,
+            "minimum": 1,
+            "maximum": 1000
+        },
+        "dedupe": {
+            "title": "Skip opportunities seen in previous runs",
+            "type": "boolean",
+            "description": "Remember returned opportunity IDs across runs and skip them. Turn on for scheduled new-grant alerts.",
+            "default": false
+        }
+    },
+    "required": []
+}
