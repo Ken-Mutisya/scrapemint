@@ -1,0 +1,63 @@
+{
+    "title": "Nonprofit Leads Scraper Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "searchTerms": {
+            "title": "Search terms",
+            "type": "array",
+            "description": "Keywords matched against organization names, e.g. food bank, animal rescue, youth education.",
+            "editor": "stringList",
+            "prefill": ["food bank"],
+            "default": ["food bank"]
+        },
+        "states": {
+            "title": "States (optional)",
+            "type": "array",
+            "description": "Two-letter US state codes to filter by, e.g. TX, CA, NY. Empty = all states.",
+            "editor": "stringList",
+            "prefill": ["TX"],
+            "default": []
+        },
+        "nteeCategories": {
+            "title": "NTEE major categories (optional)",
+            "type": "array",
+            "description": "1=Arts, 2=Education, 3=Environment, 4=Health, 5=Human Services, 6=International, 7=Public Benefit, 8=Religion, 9=Mutual Benefit, 10=Unknown.",
+            "editor": "stringList",
+            "default": []
+        },
+        "minRevenue": {
+            "title": "Min annual revenue (optional)",
+            "type": "integer",
+            "description": "Only return organizations whose latest reported total revenue is at least this (USD). Requires financials.",
+            "minimum": 0
+        },
+        "maxRevenue": {
+            "title": "Max annual revenue (optional)",
+            "type": "integer",
+            "description": "Only return organizations whose latest reported total revenue is at most this (USD).",
+            "minimum": 0
+        },
+        "includeFinancials": {
+            "title": "Fetch IRS 990 financials per organization",
+            "type": "boolean",
+            "description": "Adds latest revenue, expenses, assets, and a multi-year revenue trend (one extra request per organization). Organizations with no filing data become free rows.",
+            "default": true
+        },
+        "maxOrgs": {
+            "title": "Max organizations per run",
+            "type": "integer",
+            "description": "Cap on organization rows returned. Controls total cost.",
+            "default": 25,
+            "minimum": 1,
+            "maximum": 1000
+        },
+        "dedupe": {
+            "title": "Skip organizations seen in previous runs",
+            "type": "boolean",
+            "description": "Remember returned EINs across runs and skip them. Turn on for scheduled prospecting.",
+            "default": false
+        }
+    },
+    "required": []
+}

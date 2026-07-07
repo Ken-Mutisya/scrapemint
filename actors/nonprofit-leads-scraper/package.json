@@ -1,0 +1,16 @@
+{
+    "name": "nonprofit-leads-scraper",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Find US nonprofits by keyword, state, and category with IRS 990 financials per organization: total revenue, expenses, assets, and multi-year trend. Segment by budget for lead lists and prospecting. Keyless public API, no browser. Pay per organization.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}

@@ -1,0 +1,15 @@
+{
+    "_note": "PUT this to /v2/acts/{actorId} as pricingInfos array entry. PAY_PER_EVENT only on BRONZE plan, startedAt 14+ days out. Apify auto-adds 20% margin.",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~nonprofit-leads-scraper?token=CLI_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "org_row": {
+                "eventTitle": "Nonprofit organization row",
+                "eventDescription": "One nonprofit with EIN, name, location, NTEE category, latest IRS 990 financials (total revenue, expenses, assets), multi-year revenue trend, filing PDF link, and profile URL. Organizations with no filing data are free rows. First 2 rows per run are free.",
+                "eventPriceUsd": 0.01
+            }
+        }
+    },
+    "startedAt": "2026-07-21T00:00:00.000Z"
+}
