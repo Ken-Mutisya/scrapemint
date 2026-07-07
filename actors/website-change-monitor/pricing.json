@@ -1,0 +1,15 @@
+{
+    "_note": "PUT this to /v2/acts/{actorId} as pricingInfos array entry. PAY_PER_EVENT only on BRONZE plan, startedAt 14+ days out. Apify auto-adds 20% margin.",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~website-change-monitor?token=CLI_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "change_row": {
+                "eventTitle": "Detected page change",
+                "eventDescription": "One detected change on a monitored page: added and removed lines, previous and current text, hashes, and timestamps. Baselines, unchanged checks, and fetch errors are always free. First 2 changes per run are free.",
+                "eventPriceUsd": 0.01
+            }
+        }
+    },
+    "startedAt": "2026-07-21T00:00:00.000Z"
+}

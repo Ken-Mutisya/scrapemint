@@ -1,0 +1,46 @@
+{
+    "title": "Website Change Monitor Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "urls": {
+            "title": "URLs to monitor",
+            "type": "array",
+            "description": "Pages to watch. The first run stores a baseline for each (free); later runs report changes. Up to 500 URLs per run.",
+            "editor": "stringList",
+            "prefill": [
+                "https://news.ycombinator.com/"
+            ],
+            "default": [
+                "https://news.ycombinator.com/"
+            ]
+        },
+        "cssSelector": {
+            "title": "CSS selector (optional)",
+            "type": "string",
+            "description": "Watch only this part of each page, e.g. .pricing-table. Leave empty to watch the page's main content with navigation, footers, and scripts stripped automatically.",
+            "editor": "textfield",
+            "default": ""
+        },
+        "pushUnchangedRows": {
+            "title": "Also push rows for unchanged pages",
+            "type": "boolean",
+            "description": "Push a status row for pages that did not change (never charged). Useful for audit trails.",
+            "default": false
+        },
+        "includeFullText": {
+            "title": "Include previous and current text in change rows",
+            "type": "boolean",
+            "description": "Attach the previous and current extracted text (capped at 5000 characters each) to every change row, in addition to the added/removed lines.",
+            "default": true
+        },
+        "proxyConfiguration": {
+            "title": "Proxy configuration",
+            "type": "object",
+            "description": "Optional. Most monitored pages need no proxy.",
+            "editor": "proxy",
+            "default": { "useApifyProxy": false }
+        }
+    },
+    "required": []
+}

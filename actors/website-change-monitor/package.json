@@ -1,0 +1,17 @@
+{
+    "name": "website-change-monitor",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Monitor any list of web pages on a schedule and get a structured JSON row when a page changes: added and removed lines, previous and current text, timestamps. No browser, no CSS selector needed, no API key. Pay only for detected changes.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0",
+        "cheerio": "^1.0.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}

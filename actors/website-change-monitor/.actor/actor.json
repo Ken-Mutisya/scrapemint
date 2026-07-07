@@ -1,0 +1,15 @@
+{
+    "actorSpecification": 1,
+    "name": "website-change-monitor",
+    "title": "Website Change Monitor: Track Page Changes, Pay Per Change",
+    "description": "Monitor any list of web pages on a schedule and get a structured JSON row when a page changes: added and removed lines, previous and current text, timestamps. No browser, no CSS selector needed, no API key. Pay only for detected changes.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "readme": "../README.md",
+    "categories": [
+        "AUTOMATION",
+        "MARKETING"
+    ]
+}
