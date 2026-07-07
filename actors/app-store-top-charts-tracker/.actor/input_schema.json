@@ -1,0 +1,52 @@
+{
+    "title": "App Store Top Charts Tracker Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "countries": {
+            "title": "Countries",
+            "type": "array",
+            "description": "Two-letter App Store country codes, e.g. us, gb, de, jp, br.",
+            "editor": "stringList",
+            "prefill": ["us"],
+            "default": ["us"]
+        },
+        "chartTypes": {
+            "title": "Chart types",
+            "type": "array",
+            "description": "Which charts to pull: top-free, top-paid, top-grossing.",
+            "editor": "stringList",
+            "prefill": ["top-free"],
+            "default": ["top-free"]
+        },
+        "categoryIds": {
+            "title": "Category IDs (optional)",
+            "type": "array",
+            "description": "Apple genre IDs to scope charts to a category, e.g. 6014 (Games), 6015 (Finance), 6005 (Social). Empty = overall charts.",
+            "editor": "stringList",
+            "default": []
+        },
+        "topN": {
+            "title": "Chart depth",
+            "type": "integer",
+            "description": "How many ranks to return per chart (up to 200).",
+            "default": 50,
+            "minimum": 1,
+            "maximum": 200
+        },
+        "trackAppIds": {
+            "title": "Track only these app IDs (optional)",
+            "type": "array",
+            "description": "Apple app IDs (the number in the store URL). When set, only these apps' rank rows are pushed; apps not found in a chart produce a free rank:null row.",
+            "editor": "stringList",
+            "default": []
+        },
+        "compareWithPrevious": {
+            "title": "Compare with previous run",
+            "type": "boolean",
+            "description": "Remember each chart between runs and add previousRank, rankChange, and isNew to every row. Built for scheduled runs.",
+            "default": true
+        }
+    },
+    "required": []
+}

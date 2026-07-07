@@ -1,0 +1,15 @@
+{
+    "_note": "PUT this to /v2/acts/{actorId} as pricingInfos array entry. PAY_PER_EVENT only on BRONZE plan, startedAt 14+ days out. Apify auto-adds 20% margin.",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~app-store-top-charts-tracker?token=CLI_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "rank_row": {
+                "eventTitle": "Chart rank row",
+                "eventDescription": "One ranked app in one chart: rank, app ID, name, artist, price, category, artwork, release date, plus previousRank, rankChange, and isNew when comparing with your previous run. Tracked apps not found in a chart produce a free row. First 2 rows per run are free.",
+                "eventPriceUsd": 0.003
+            }
+        }
+    },
+    "startedAt": "2026-07-21T00:00:00.000Z"
+}

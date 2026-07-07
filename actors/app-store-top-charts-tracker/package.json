@@ -1,0 +1,16 @@
+{
+    "name": "app-store-top-charts-tracker",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Track Apple App Store top charts (free, paid, grossing) by country and category. One row per ranked app with rank movement vs your previous run. Official keyless feeds, no browser, no API key. Pay per rank row.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}

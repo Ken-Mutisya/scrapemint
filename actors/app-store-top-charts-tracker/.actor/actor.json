@@ -1,0 +1,15 @@
+{
+    "actorSpecification": 1,
+    "name": "app-store-top-charts-tracker",
+    "title": "App Store Top Charts Tracker: Ranks by Country & Category",
+    "description": "Track Apple App Store top charts (free, paid, grossing) by country and category. One row per ranked app with rank movement vs your previous run. Official keyless feeds, no browser, no API key. Pay per rank row.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "readme": "../README.md",
+    "categories": [
+        "MARKETING",
+        "BUSINESS"
+    ]
+}
