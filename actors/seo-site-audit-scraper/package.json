@@ -1,0 +1,17 @@
+{
+    "name": "seo-site-audit-scraper",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Crawl any website and get an SEO audit row per page: title and meta checks, H1s, canonical, noindex, redirect chains, broken internal links, image alt coverage, word count, and a ready-made issues list. No browser, no API key. Pay per page.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0",
+        "cheerio": "^1.0.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}

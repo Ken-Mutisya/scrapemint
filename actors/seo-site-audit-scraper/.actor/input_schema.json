@@ -1,0 +1,69 @@
+{
+    "title": "SEO Site Audit Scraper Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "startUrls": {
+            "title": "Start URLs",
+            "type": "array",
+            "description": "Pages to start crawling from. The crawler follows same-site links breadth-first up to Max pages / Max depth.",
+            "editor": "stringList",
+            "prefill": [
+                "https://books.toscrape.com/"
+            ],
+            "default": [
+                "https://books.toscrape.com/"
+            ]
+        },
+        "maxPages": {
+            "title": "Max pages per run",
+            "type": "integer",
+            "description": "Hard cap on pages audited per run. Controls total cost.",
+            "default": 20,
+            "minimum": 1,
+            "maximum": 1000
+        },
+        "maxDepth": {
+            "title": "Max crawl depth",
+            "type": "integer",
+            "description": "0 audits only the start URLs, 1 adds pages they link to, and so on.",
+            "default": 3,
+            "minimum": 0,
+            "maximum": 10
+        },
+        "includePatterns": {
+            "title": "Include URL patterns",
+            "type": "array",
+            "description": "If set, only URLs containing at least one of these substrings are crawled (start URLs are always fetched). Example: /blog/",
+            "editor": "stringList",
+            "default": []
+        },
+        "excludePatterns": {
+            "title": "Exclude URL patterns",
+            "type": "array",
+            "description": "URLs containing any of these substrings are skipped.",
+            "editor": "stringList",
+            "default": []
+        },
+        "checkBrokenLinks": {
+            "title": "Check internal links for 404s",
+            "type": "boolean",
+            "description": "HEAD-check every discovered internal link once and report broken ones per page. Adds a little time, no extra charge.",
+            "default": true
+        },
+        "useSitemap": {
+            "title": "Discover pages from sitemap.xml",
+            "type": "boolean",
+            "description": "Also seed the crawl with URLs from the site's sitemap.xml (subject to the same filters and caps).",
+            "default": false
+        },
+        "proxyConfiguration": {
+            "title": "Proxy configuration",
+            "type": "object",
+            "description": "Optional. Auditing your own or client sites needs no proxy.",
+            "editor": "proxy",
+            "default": { "useApifyProxy": false }
+        }
+    },
+    "required": []
+}

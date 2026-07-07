@@ -1,0 +1,15 @@
+{
+    "actorSpecification": 1,
+    "name": "seo-site-audit-scraper",
+    "title": "SEO Site Audit Scraper: On-Page Issues for Every Page",
+    "description": "Crawl any website and get an SEO audit row per page: title and meta checks, H1s, canonical, noindex, redirect chains, broken internal links, image alt coverage, word count, and a ready-made issues list. No browser, no API key. Pay per page.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "readme": "../README.md",
+    "categories": [
+        "SEO_TOOLS",
+        "MARKETING"
+    ]
+}

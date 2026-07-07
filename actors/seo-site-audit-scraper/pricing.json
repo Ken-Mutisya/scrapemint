@@ -1,0 +1,15 @@
+{
+    "_note": "PUT this to /v2/acts/{actorId} as pricingInfos array entry. PAY_PER_EVENT only on BRONZE plan, startedAt 14+ days out. Apify auto-adds 20% margin.",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~seo-site-audit-scraper?token=CLI_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "page_row": {
+                "eventTitle": "Audited page row",
+                "eventDescription": "One audited page with title and meta checks, H1 structure, canonical, robots directives, redirect chain, broken internal links, image alt coverage, word count, structured data presence, and a ready-made issues list. First 2 pages per run are free so you can validate output.",
+                "eventPriceUsd": 0.003
+            }
+        }
+    },
+    "startedAt": "2026-07-21T00:00:00.000Z"
+}
