@@ -1,0 +1,14 @@
+{
+    "actorSpecification": 1,
+    "name": "fda-device-manufacturer-leads",
+    "title": "FDA Medical Device Manufacturer Leads: Registered Firms",
+    "description": "Lead lists of FDA-registered medical device establishments: filter by state, product code, and establishment type, and get one row per firm with address, the official correspondent's name and phone, and the devices it makes. Keyless official FDA API, no browser. Pay per manufacturer.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "LEAD_GENERATION",
+        "BUSINESS"
+    ]
+}

@@ -1,0 +1,16 @@
+{
+    "name": "fda-device-manufacturer-leads",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Lead lists of FDA-registered medical device establishments: filter by state, product code, and establishment type, and get one row per firm with address, the official correspondent's name and phone, and the devices it makes. Keyless official FDA API, no browser. Pay per manufacturer.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}

@@ -1,0 +1,20 @@
+{
+    "_note": "PUT this to /v2/acts/{actorId} as pricingInfos array entry. PAY_PER_EVENT only on BRONZE plan, startedAt 14+ days out. Apify auto-adds 20% margin.",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~fda-device-manufacturer-leads?token=CLI_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "manufacturer_contact_row": {
+                "eventTitle": "Manufacturer lead with contact",
+                "eventDescription": "One FDA-registered device establishment with the official correspondent's name or phone, plus firm, address, establishment type, and devices made. First 2 rows per run are free.",
+                "eventPriceUsd": 0.01
+            },
+            "manufacturer_row": {
+                "eventTitle": "Manufacturer row",
+                "eventDescription": "One FDA-registered device establishment with firm, address, establishment type, and devices made, without a published correspondent contact. First 2 rows per run are free.",
+                "eventPriceUsd": 0.005
+            }
+        }
+    },
+    "startedAt": "2026-07-23T00:00:00.000Z"
+}

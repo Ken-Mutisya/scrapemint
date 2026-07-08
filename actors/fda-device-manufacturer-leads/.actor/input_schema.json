@@ -1,0 +1,55 @@
+{
+    "title": "FDA Medical Device Manufacturer Leads Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "states": {
+            "title": "States (optional)",
+            "type": "array",
+            "description": "Two-letter US state codes to filter by, e.g. CA, TX, MA. Empty = all states and countries.",
+            "editor": "stringList",
+            "prefill": ["CA"],
+            "default": []
+        },
+        "productCodes": {
+            "title": "FDA product codes (optional)",
+            "type": "array",
+            "description": "Three-letter FDA device product codes, e.g. QAS, FPA, LZG. Empty = all device types. Find codes in the FDA product classification database.",
+            "editor": "stringList",
+            "default": []
+        },
+        "establishmentType": {
+            "title": "Establishment type (optional)",
+            "type": "string",
+            "description": "Filter by registration role, e.g. Manufacture Medical Device, Contract Manufacturer, Contract Sterilizer, Specification Developer, Repackager/Relabeler. Partial phrase, matched exactly.",
+            "editor": "textfield"
+        },
+        "nameKeyword": {
+            "title": "Firm name keyword (optional)",
+            "type": "string",
+            "description": "Only establishments whose registered firm name contains this word.",
+            "editor": "textfield"
+        },
+        "usOnly": {
+            "title": "US establishments only",
+            "type": "boolean",
+            "description": "Exclude foreign establishments registered with the FDA.",
+            "default": false
+        },
+        "maxManufacturers": {
+            "title": "Max manufacturers per run",
+            "type": "integer",
+            "description": "Cap on establishment rows returned. Controls total cost.",
+            "default": 50,
+            "minimum": 1,
+            "maximum": 2000
+        },
+        "dedupe": {
+            "title": "Skip establishments seen in previous runs",
+            "type": "boolean",
+            "description": "Remember returned registration numbers across runs and skip them. Turn on for scheduled prospecting.",
+            "default": false
+        }
+    },
+    "required": []
+}
