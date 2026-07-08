@@ -1,0 +1,17 @@
+{
+    "name": "twitch-streamer-leads",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Find Twitch streamers by game, search query, or login and filter by follower band: one row per streamer with followers, business email from the bio, social links, partner status, language, and last stream. For influencer campaigns and creator outreach. Keyless, no browser. Pay per streamer.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0",
+        "undici": "^6.19.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}

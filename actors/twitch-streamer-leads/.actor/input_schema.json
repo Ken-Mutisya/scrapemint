@@ -1,0 +1,62 @@
+{
+    "title": "Twitch Streamer Leads Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "categories": {
+            "title": "Categories / games",
+            "type": "array",
+            "description": "Exact category names as shown on Twitch, e.g. Fortnite, Just Chatting, Music, Art. Returns currently live streamers in each.",
+            "editor": "stringList",
+            "prefill": ["Fortnite"],
+            "default": ["Fortnite"]
+        },
+        "searchQueries": {
+            "title": "Search queries (optional)",
+            "type": "array",
+            "description": "Free-text channel search, e.g. music producer, cooking, poker coach. Also finds offline channels.",
+            "editor": "stringList",
+            "default": []
+        },
+        "logins": {
+            "title": "Specific logins (optional)",
+            "type": "array",
+            "description": "Twitch usernames to look up directly.",
+            "editor": "stringList",
+            "default": []
+        },
+        "minFollowers": {
+            "title": "Min followers (optional)",
+            "type": "integer",
+            "description": "Only streamers with at least this many followers.",
+            "minimum": 0
+        },
+        "maxFollowers": {
+            "title": "Max followers (optional)",
+            "type": "integer",
+            "description": "Only streamers with at most this many followers. Set 5000-50000 to target micro influencers.",
+            "minimum": 0
+        },
+        "requireEmail": {
+            "title": "Only streamers with a business email",
+            "type": "boolean",
+            "description": "Skip streamers whose bio contains no email address.",
+            "default": false
+        },
+        "maxStreamers": {
+            "title": "Max streamers per run",
+            "type": "integer",
+            "description": "Cap on streamer rows returned. Controls total cost.",
+            "default": 50,
+            "minimum": 1,
+            "maximum": 1000
+        },
+        "dedupe": {
+            "title": "Skip streamers seen in previous runs",
+            "type": "boolean",
+            "description": "Remember returned streamers across runs and skip them. Turn on for scheduled prospecting.",
+            "default": false
+        }
+    },
+    "required": []
+}
