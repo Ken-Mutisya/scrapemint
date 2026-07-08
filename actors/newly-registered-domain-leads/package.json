@@ -1,0 +1,16 @@
+{
+    "name": "newly-registered-domain-leads",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Find businesses the day they register a domain. Filter the daily list of ~70,000 newly registered domains by keyword and TLD, with DNS enrichment per match: resolving, email provider, live website and title. Leads for web, hosting and SEO services, plus brand monitoring. Keyless, no browser.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}

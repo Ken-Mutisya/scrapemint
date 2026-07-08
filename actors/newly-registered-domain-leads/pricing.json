@@ -1,0 +1,20 @@
+{
+    "_note": "PUT this to /v2/acts/{actorId} as pricingInfos array entry. PAY_PER_EVENT only on BRONZE plan, startedAt 14+ days out. Apify auto-adds 20% margin.",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~newly-registered-domain-leads?token=CLI_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "enriched_domain_row": {
+                "eventTitle": "Enriched domain lead row",
+                "eventDescription": "One newly registered domain with DNS signal: resolving IP or configured email (MX) with provider, plus live-site status and page title. First 2 rows per run are free.",
+                "eventPriceUsd": 0.01
+            },
+            "domain_row": {
+                "eventTitle": "Domain row",
+                "eventDescription": "One newly registered domain matching your keywords or TLDs. Charged for unenriched rows and for enriched domains with no DNS configured yet. First 2 rows per run are free.",
+                "eventPriceUsd": 0.004
+            }
+        }
+    },
+    "startedAt": "2026-07-22T00:00:00.000Z"
+}

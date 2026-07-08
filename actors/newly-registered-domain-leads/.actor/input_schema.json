@@ -1,0 +1,51 @@
+{
+    "title": "Newly Registered Domain Leads Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "keywords": {
+            "title": "Keywords",
+            "type": "array",
+            "description": "Substrings matched against the domain name, e.g. shop, dental, law, studio, your brand name. At least one keyword or TLD is required.",
+            "editor": "stringList",
+            "prefill": ["shop"],
+            "default": ["shop"]
+        },
+        "tlds": {
+            "title": "TLDs (optional)",
+            "type": "array",
+            "description": "Only return domains under these TLDs, e.g. com, io, shop. Empty = all TLDs.",
+            "editor": "stringList",
+            "default": []
+        },
+        "daysBack": {
+            "title": "Days of lists to scan",
+            "type": "integer",
+            "description": "How many recent daily lists to scan (each day is ~70,000 new domains). Lists are published one day behind.",
+            "default": 1,
+            "minimum": 1,
+            "maximum": 7
+        },
+        "enrichWithDns": {
+            "title": "Enrich with DNS and website check",
+            "type": "boolean",
+            "description": "Per matched domain: does it resolve, is email (MX) configured and with which provider, is a website live and what is its title. Domains with no DNS yet are billed as basic rows.",
+            "default": true
+        },
+        "maxDomains": {
+            "title": "Max domains per run",
+            "type": "integer",
+            "description": "Cap on domain rows returned. Controls total cost.",
+            "default": 50,
+            "minimum": 1,
+            "maximum": 2000
+        },
+        "dedupe": {
+            "title": "Skip domains seen in previous runs",
+            "type": "boolean",
+            "description": "Remember returned domains across runs and skip them. Turn on for a scheduled daily prospect feed.",
+            "default": false
+        }
+    },
+    "required": []
+}
