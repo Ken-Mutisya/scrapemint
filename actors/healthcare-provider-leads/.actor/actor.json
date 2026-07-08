@@ -1,0 +1,14 @@
+{
+    "actorSpecification": 1,
+    "name": "healthcare-provider-leads",
+    "title": "Healthcare Provider Leads Scraper: NPI Contacts by Specialty",
+    "description": "US healthcare provider leads from the official NPI registry: search by specialty, state, city, or ZIP and get one row per provider with practice phone, address, license, and for organizations the decision maker's name, title, and phone. Keyless official API, no browser. Pay per provider.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "LEAD_GENERATION",
+        "BUSINESS"
+    ]
+}

@@ -1,0 +1,61 @@
+{
+    "title": "Healthcare Provider Leads Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "specialties": {
+            "title": "Specialties",
+            "type": "array",
+            "description": "Specialty keywords matched against NPI taxonomy descriptions, e.g. dentist, chiropractor, physical therapy, family medicine, pharmacy.",
+            "editor": "stringList",
+            "prefill": ["dentist"],
+            "default": ["dentist"]
+        },
+        "states": {
+            "title": "States (optional)",
+            "type": "array",
+            "description": "Two-letter US state codes, e.g. TX, CA, NY. Empty = all states.",
+            "editor": "stringList",
+            "prefill": ["TX"],
+            "default": []
+        },
+        "cities": {
+            "title": "Cities (optional)",
+            "type": "array",
+            "description": "City names, combined with each state if states are set.",
+            "editor": "stringList",
+            "default": []
+        },
+        "postalCodes": {
+            "title": "ZIP codes (optional)",
+            "type": "array",
+            "description": "5-digit ZIPs; a trailing * matches a prefix, e.g. 787* for all of Austin. Used instead of cities/states when set.",
+            "editor": "stringList",
+            "default": []
+        },
+        "providerType": {
+            "title": "Provider type",
+            "type": "string",
+            "description": "Individual providers (doctors, dentists), organizations (practices, clinics, pharmacies), or both.",
+            "editor": "select",
+            "enum": ["all", "individual", "organization"],
+            "enumTitles": ["Both", "Individuals only", "Organizations only"],
+            "default": "all"
+        },
+        "maxProviders": {
+            "title": "Max providers per run",
+            "type": "integer",
+            "description": "Cap on provider rows returned. Controls total cost.",
+            "default": 50,
+            "minimum": 1,
+            "maximum": 2000
+        },
+        "dedupe": {
+            "title": "Skip providers seen in previous runs",
+            "type": "boolean",
+            "description": "Remember returned NPIs across runs and skip them. Turn on for scheduled prospecting.",
+            "default": false
+        }
+    },
+    "required": []
+}
