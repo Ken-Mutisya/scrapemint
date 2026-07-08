@@ -1,0 +1,16 @@
+{
+    "name": "building-permit-leads",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Fresh building permits from official city open data, normalized across Chicago, NYC, Austin, San Francisco, Seattle, Philadelphia, and Boston: one row per permit with work description, address, valuation, and contractor. Filter by trade keyword and value. Keyless, no browser. Pay per permit.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}

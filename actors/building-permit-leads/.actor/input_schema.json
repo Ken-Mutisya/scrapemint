@@ -1,0 +1,57 @@
+{
+    "title": "Building Permit Leads Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "cities": {
+            "title": "Cities",
+            "type": "array",
+            "description": "Cities to scan. Empty = all supported cities.",
+            "editor": "select",
+            "items": {
+                "type": "string",
+                "enum": ["chicago", "nyc", "austin", "sanfrancisco", "seattle", "philadelphia", "boston"],
+                "enumTitles": ["Chicago, IL", "New York City, NY", "Austin, TX", "San Francisco, CA", "Seattle, WA", "Philadelphia, PA", "Boston, MA"]
+            },
+            "prefill": ["chicago", "austin", "seattle"],
+            "default": []
+        },
+        "keywords": {
+            "title": "Trade keywords (optional)",
+            "type": "array",
+            "description": "Matched against work description and permit type, e.g. roof, solar, hvac, pool, remodel, demolition, electrical. Empty = all permits.",
+            "editor": "stringList",
+            "prefill": ["roof"],
+            "default": []
+        },
+        "minValuation": {
+            "title": "Min project value (optional)",
+            "type": "integer",
+            "description": "Only permits with declared/estimated value of at least this (USD). Skips permits where the city publishes no value.",
+            "minimum": 0
+        },
+        "sinceDays": {
+            "title": "Issued in the last N days",
+            "type": "integer",
+            "description": "How far back to scan for issued permits.",
+            "default": 7,
+            "minimum": 1,
+            "maximum": 90
+        },
+        "maxPermits": {
+            "title": "Max permits per run",
+            "type": "integer",
+            "description": "Cap on permit rows returned, split across the selected cities. Controls total cost.",
+            "default": 50,
+            "minimum": 1,
+            "maximum": 2000
+        },
+        "dedupe": {
+            "title": "Skip permits seen in previous runs",
+            "type": "boolean",
+            "description": "Remember returned permits across runs and skip them. Turn on for a scheduled daily lead feed.",
+            "default": false
+        }
+    },
+    "required": []
+}
