@@ -32,6 +32,14 @@ const FREE_TIER_ROWS = 2;
 const BASE = 'https://www.forexfactory.com';
 const FEED_BASE = 'https://nfs.faireconomy.media';
 const MONTH_ABBR = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'];
+// Browser detail pages cost a full residential nav each; at $0.01/row anything
+// beyond this cap runs at a loss, so the detail queue is hard-capped per run.
+const DETAIL_CAP = 50;
+// Stop the crawler before the platform kills the run so flushed rows and
+// charges survive (a hard timeout costs the full compute and loses the tail).
+const timeoutAtMs = process.env.ACTOR_TIMEOUT_AT ? Date.parse(process.env.ACTOR_TIMEOUT_AT) : null;
+const deadlineMs = timeoutAtMs ? timeoutAtMs - 60000 : null;
+const pastDeadline = () => deadlineMs && Date.now() > deadlineMs;
 
 await Actor.init();
 
@@ -202,9 +210,9 @@ const crawler = new PlaywrightCrawler({
     proxyConfiguration,
     maxConcurrency: Math.max(1, Math.min(10, Number(concurrency) || 3)),
     headless: true,
-    navigationTimeoutSecs: 90,
-    requestHandlerTimeoutSecs: 180,
-    maxRequestRetries: 3,
+    navigationTimeoutSecs: 60,
+    requestHandlerTimeoutSecs: 120,
+    maxRequestRetries: 2,
     useSessionPool: true,
     persistCookiesPerSession: true,
     sessionPoolOptions: {
@@ -216,6 +224,10 @@ const crawler = new PlaywrightCrawler({
             args: [
                 '--disable-blink-features=AutomationControlled',
                 '--disable-features=IsolateOrigins,site-per-process',
+                // Images are the bulk of residential bandwidth and the parser
+                // only reads text. Blink flag, NOT page.route (route aborts
+                // kill the browser cache and cost more than they save).
+                '--blink-settings=imagesEnabled=false',
             ],
         },
     },
@@ -237,6 +249,11 @@ const crawler = new PlaywrightCrawler({
         },
     ],
     async requestHandler(ctx) {
+        if (pastDeadline()) {
+            log.warning('Approaching actor timeout; stopping crawl so pushed rows and charges survive.');
+            await ctx.crawler.stop();
+            return;
+        }
         const t = ctx.request.userData.type;
         if (t === 'calendar') return handleCalendar(ctx);
         if (t === 'event_detail') return handleEventDetail(ctx);
@@ -311,7 +328,13 @@ async function handleCalendar({ page, request, crawler: c }) {
         }
     }
 
-    for (const { row, detailUrl } of pendingDetailFetches) {
+    if (pendingDetailFetches.length > DETAIL_CAP) {
+        log.warning(`includeDetail matched ${pendingDetailFetches.length} events; fetching detail for the first ${DETAIL_CAP}, pushing the rest without detail.`);
+    }
+    for (const { row } of pendingDetailFetches.slice(DETAIL_CAP)) {
+        await flushRow(row);
+    }
+    for (const { row, detailUrl } of pendingDetailFetches.slice(0, DETAIL_CAP)) {
         await c.addRequests([{
             url: detailUrl,
             userData: { type: 'event_detail', row },

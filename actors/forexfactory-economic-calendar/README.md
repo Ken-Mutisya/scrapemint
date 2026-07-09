@@ -142,7 +142,7 @@ Pipe straight into a release surprise dashboard, a candle move attribution sheet
 | `endDate` | string | YYYY-MM-DD. Required when range is custom. Max span 30 days. |
 | `currencies` | string[] | ISO codes to include. Empty pulls every currency. |
 | `impactLevels` | string[] | high, medium, low, holiday. Default high+medium. |
-| `includeDetail` | boolean | Fetch each event's detail page for description, source, frequency. Default false. |
+| `includeDetail` | boolean | Fetch each event's detail page for description, source, frequency. Detail is fetched for the first 50 matched events per run; the rest return without detail. Default false. |
 | `maxEvents` | integer | Stop after this many event rows. Default 1000. |
 | `concurrency` | integer | Pages processed in parallel. Three is the safe default. |
 | `proxyConfiguration` | object | Apify proxy. Residential required at any meaningful volume. |

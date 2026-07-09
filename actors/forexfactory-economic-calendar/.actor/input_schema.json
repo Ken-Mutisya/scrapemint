@@ -9,8 +9,28 @@
             "type": "string",
             "description": "Preset date window. Choose 'custom' to use startDate and endDate.",
             "editor": "select",
-            "enum": ["today", "tomorrow", "yesterday", "this_week", "next_week", "last_week", "this_month", "next_month", "custom"],
-            "enumTitles": ["Today", "Tomorrow", "Yesterday", "This week", "Next week", "Last week", "This month", "Next month", "Custom range"],
+            "enum": [
+                "today",
+                "tomorrow",
+                "yesterday",
+                "this_week",
+                "next_week",
+                "last_week",
+                "this_month",
+                "next_month",
+                "custom"
+            ],
+            "enumTitles": [
+                "Today",
+                "Tomorrow",
+                "Yesterday",
+                "This week",
+                "Next week",
+                "Last week",
+                "This month",
+                "Next month",
+                "Custom range"
+            ],
             "default": "this_week"
         },
         "startDate": {
@@ -32,7 +52,12 @@
             "type": "array",
             "description": "ISO currency codes to include. Empty pulls every currency on the calendar.",
             "editor": "stringList",
-            "prefill": ["USD", "EUR", "GBP", "JPY"],
+            "prefill": [
+                "USD",
+                "EUR",
+                "GBP",
+                "JPY"
+            ],
             "default": []
         },
         "impactLevels": {
@@ -42,16 +67,29 @@
             "editor": "select",
             "items": {
                 "type": "string",
-                "enum": ["high", "medium", "low", "holiday"],
-                "enumTitles": ["High", "Medium", "Low", "Holiday or non-economic"]
+                "enum": [
+                    "high",
+                    "medium",
+                    "low",
+                    "holiday"
+                ],
+                "enumTitles": [
+                    "High",
+                    "Medium",
+                    "Low",
+                    "Holiday or non-economic"
+                ]
             },
             "uniqueItems": true,
-            "default": ["high", "medium"]
+            "default": [
+                "high",
+                "medium"
+            ]
         },
         "includeDetail": {
             "title": "Include event detail",
             "type": "boolean",
-            "description": "Fetch each event's detail page for description, source agency, frequency, and revision history. Adds one extra request per event.",
+            "description": "Fetch each event's detail page for description, source agency, frequency, and revision history. Adds one extra request per event; detail is fetched for the first 50 matched events per run, the rest are returned without detail.",
             "default": false
         },
         "maxEvents": {
@@ -78,11 +116,15 @@
             "editor": "proxy",
             "prefill": {
                 "useApifyProxy": true,
-                "apifyProxyGroups": ["RESIDENTIAL"]
+                "apifyProxyGroups": [
+                    "RESIDENTIAL"
+                ]
             },
             "default": {
                 "useApifyProxy": true,
-                "apifyProxyGroups": ["RESIDENTIAL"]
+                "apifyProxyGroups": [
+                    "RESIDENTIAL"
+                ]
             }
         }
     }
