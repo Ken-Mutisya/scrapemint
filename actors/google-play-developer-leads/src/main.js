@@ -56,7 +56,7 @@ const perQueryCap = Math.max(1, Math.min(500, Number(maxAppsPerQuery) || 60));
 const minInst = Math.max(0, Number(minInstalls) || 0);
 const qualMinInst = Math.max(0, Number(qualifiedMinInstalls) || 10000);
 
-const proxyConfiguration = await Actor.createProxyConfiguration(proxyInput);
+const proxyConfiguration = await Actor.createProxyConfiguration(sanitizeProxyInput(proxyInput));
 
 let qualifiedCharged = 0; let qualifiedFree = 0; let leadCount = 0; let listingCount = 0;
 
@@ -255,4 +255,21 @@ function clean(s) {
 async function charge(eventName) {
     try { await Actor.charge({ eventName }); }
     catch (err) { log.warning(`charge ${eventName} failed (continuing): ${err?.message}`); }
+}
+
+// Buyer-selected RESIDENTIAL or SERP proxy groups bill the developer under
+// pay-per-event pricing, and this data source works from datacenter IPs, so
+// those groups are stripped (buyer-supplied proxyUrls pass through untouched).
+function sanitizeProxyInput(p) {
+    if (!p || typeof p !== 'object') return p;
+    const out = { ...p };
+    if (Array.isArray(out.apifyProxyGroups)) {
+        const kept = out.apifyProxyGroups.filter((g) => !/RESIDENTIAL|SERP/i.test(String(g)));
+        if (kept.length !== out.apifyProxyGroups.length) {
+            log.warning('Ignoring RESIDENTIAL/SERP proxy groups: this source works from datacenter IPs and premium groups only raise run costs.');
+        }
+        if (kept.length) out.apifyProxyGroups = kept;
+        else delete out.apifyProxyGroups;
+    }
+    return out;
 }

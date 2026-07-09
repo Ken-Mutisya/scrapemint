@@ -45,7 +45,7 @@ const windows = String(priceChangeWindows || '1h,24h,7d,30d').replace(/\s+/g, ''
 
 // Optional proxy (the API is keyless and tolerant; off by default).
 let dispatcher = null;
-const proxyConfiguration = await Actor.createProxyConfiguration(proxyInput);
+const proxyConfiguration = await Actor.createProxyConfiguration(sanitizeProxyInput(proxyInput));
 if (proxyConfiguration) {
     const proxyUrl = await proxyConfiguration.newUrl();
     if (proxyUrl) {
@@ -156,3 +156,20 @@ while (totalRowsPushed < cap) {
 
 log.info(`Done. Pushed ${totalRowsPushed} coin row(s); ${Math.max(0, totalRowsPushed - FREE_TIER_ROWS)} chargeable.`);
 await Actor.exit();
+
+// Buyer-selected RESIDENTIAL or SERP proxy groups bill the developer under
+// pay-per-event pricing, and this data source works from datacenter IPs, so
+// those groups are stripped (buyer-supplied proxyUrls pass through untouched).
+function sanitizeProxyInput(p) {
+    if (!p || typeof p !== 'object') return p;
+    const out = { ...p };
+    if (Array.isArray(out.apifyProxyGroups)) {
+        const kept = out.apifyProxyGroups.filter((g) => !/RESIDENTIAL|SERP/i.test(String(g)));
+        if (kept.length !== out.apifyProxyGroups.length) {
+            log.warning('Ignoring RESIDENTIAL/SERP proxy groups: this source works from datacenter IPs and premium groups only raise run costs.');
+        }
+        if (kept.length) out.apifyProxyGroups = kept;
+        else delete out.apifyProxyGroups;
+    }
+    return out;
+}
