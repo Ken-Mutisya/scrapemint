@@ -1,0 +1,50 @@
+{
+    "title": "Chrome Extension Developer Leads Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "keywords": {
+            "title": "Search keywords",
+            "type": "array",
+            "description": "Chrome Web Store search terms, e.g. crm, screenshot, seo. Each keyword is searched separately and results are merged per developer.",
+            "editor": "stringList",
+            "prefill": ["crm"],
+            "default": []
+        },
+        "categories": {
+            "title": "Store categories (optional)",
+            "type": "array",
+            "description": "Category slugs from store URLs, e.g. productivity/workflow, productivity/communication, lifestyle/shopping, make_chrome_yours/developer. Combined with keywords.",
+            "editor": "stringList",
+            "default": []
+        },
+        "minUsers": {
+            "title": "Minimum total users per developer",
+            "type": "integer",
+            "description": "Only developers whose discovered extensions total at least this many users. Use 10000+ to target established publishers.",
+            "default": 0,
+            "minimum": 0
+        },
+        "maxDevelopers": {
+            "title": "Max developers per run",
+            "type": "integer",
+            "description": "Cap on developer lead rows returned. Controls total cost.",
+            "default": 50,
+            "minimum": 1,
+            "maximum": 500
+        },
+        "followRelated": {
+            "title": "Follow related extensions",
+            "type": "boolean",
+            "description": "Also harvest the related extensions shown on each detail page (one hop). Turns a narrow search into a wider lead list.",
+            "default": true
+        },
+        "dedupe": {
+            "title": "Skip developers seen in previous runs",
+            "type": "boolean",
+            "description": "Remember returned developers across runs and skip them. Turn on for scheduled prospecting.",
+            "default": false
+        }
+    },
+    "required": []
+}

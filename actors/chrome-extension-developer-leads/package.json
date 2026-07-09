@@ -1,0 +1,16 @@
+{
+    "name": "chrome-extension-developer-leads",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Lead lists of Chrome Web Store extension developers: search by keyword or category and get one row per developer with contact email, phone and legal entity where published, website, user counts, and their top extensions. Keyless, no browser, contacts come from the store itself. Pay per developer.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}

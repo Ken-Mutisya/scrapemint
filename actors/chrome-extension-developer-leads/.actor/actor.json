@@ -1,0 +1,14 @@
+{
+    "actorSpecification": 1,
+    "name": "chrome-extension-developer-leads",
+    "title": "Chrome Extension Developer Leads: Publisher Contacts",
+    "description": "Lead lists of Chrome Web Store extension developers: search by keyword or category and get one row per developer with contact email, phone and legal entity where published, website, user counts, and their top extensions. Keyless, no browser, contacts come from the store itself. Pay per developer.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "LEAD_GENERATION",
+        "DEVELOPER_TOOLS"
+    ]
+}
