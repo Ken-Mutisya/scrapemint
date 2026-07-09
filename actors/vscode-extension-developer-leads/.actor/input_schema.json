@@ -1,0 +1,58 @@
+{
+    "title": "VS Code Extension Developer Leads Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "keywords": {
+            "title": "Search keywords",
+            "type": "array",
+            "description": "Marketplace search terms, e.g. database, kubernetes, ai assistant. Each keyword is searched separately and results are merged per publisher.",
+            "editor": "stringList",
+            "prefill": ["database"],
+            "default": []
+        },
+        "categories": {
+            "title": "Marketplace categories (optional)",
+            "type": "array",
+            "description": "Official category names, e.g. AI, Programming Languages, Data Science, Themes, Testing, Linters. Combined with keywords.",
+            "editor": "stringList",
+            "default": []
+        },
+        "minInstalls": {
+            "title": "Minimum total installs per publisher",
+            "type": "integer",
+            "description": "Only publishers whose matched extensions total at least this many installs. Use 10000+ to target established companies.",
+            "default": 0,
+            "minimum": 0
+        },
+        "maxPublishers": {
+            "title": "Max publishers per run",
+            "type": "integer",
+            "description": "Cap on publisher lead rows returned. Controls total cost.",
+            "default": 50,
+            "minimum": 1,
+            "maximum": 500
+        },
+        "includeEmail": {
+            "title": "Scrape publisher websites for contact emails",
+            "type": "boolean",
+            "description": "Fetch each publisher's website and extract public contact emails. Turn off for a faster, cheaper directory-only run.",
+            "default": true
+        },
+        "maxEmailLookups": {
+            "title": "Max website email lookups",
+            "type": "integer",
+            "description": "Cap on publisher websites fetched for email extraction.",
+            "default": 100,
+            "minimum": 0,
+            "maximum": 500
+        },
+        "dedupe": {
+            "title": "Skip publishers seen in previous runs",
+            "type": "boolean",
+            "description": "Remember returned publishers across runs and skip them. Turn on for scheduled prospecting.",
+            "default": false
+        }
+    },
+    "required": []
+}

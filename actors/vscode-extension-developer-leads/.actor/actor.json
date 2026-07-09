@@ -1,0 +1,14 @@
+{
+    "actorSpecification": 1,
+    "name": "vscode-extension-developer-leads",
+    "title": "VS Code Extension Developer Leads: Publisher Contacts",
+    "description": "Lead lists of VS Code Marketplace extension publishers: search by keyword or category and get one row per publisher with verified domain, website, GitHub repo, scraped contact emails, install counts, and their top extensions. Keyless official Marketplace API, no browser. Pay per publisher.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "LEAD_GENERATION",
+        "DEVELOPER_TOOLS"
+    ]
+}
