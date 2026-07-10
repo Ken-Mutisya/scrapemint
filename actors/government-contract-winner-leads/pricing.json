@@ -1,0 +1,20 @@
+{
+    "_note": "PUT this to /v2/acts/{actorId} as pricingInfos array entry. PAY_PER_EVENT only on BRONZE plan, startedAt 14+ days out. Apify auto-adds 20% margin.",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~government-contract-winner-leads?token=CLI_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "lead_row": {
+                "eventTitle": "Contract winner lead row",
+                "eventDescription": "One new federal contract award with winner profile enrichment: street address, UEI, business-type flags and lifetime prime award total, plus award amount, agency, NAICS and description. First 2 rows per run are free.",
+                "eventPriceUsd": 0.015
+            },
+            "award_row": {
+                "eventTitle": "Award row",
+                "eventDescription": "One new federal contract award without winner profile enrichment (enrichment off or profile unavailable). First 2 rows per run are free.",
+                "eventPriceUsd": 0.005
+            }
+        }
+    },
+    "startedAt": "2026-07-24T00:00:00.000Z"
+}

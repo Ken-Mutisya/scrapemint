@@ -1,0 +1,65 @@
+{
+    "title": "Government Contract Winner Leads Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "keywords": {
+            "title": "Keywords",
+            "type": "array",
+            "description": "Matched against award descriptions, e.g. software, construction, security, janitorial. Empty = all new awards.",
+            "editor": "stringList",
+            "prefill": ["software"],
+            "default": ["software"]
+        },
+        "naicsCodes": {
+            "title": "NAICS codes (optional)",
+            "type": "array",
+            "description": "Only awards under these NAICS industry codes, e.g. 541519. Prefixes work (54 = all professional services).",
+            "editor": "stringList",
+            "default": []
+        },
+        "agencies": {
+            "title": "Awarding agencies (optional)",
+            "type": "array",
+            "description": "Full top-tier agency names, e.g. Department of Defense, Department of Veterans Affairs. Empty = all agencies.",
+            "editor": "stringList",
+            "default": []
+        },
+        "daysBack": {
+            "title": "Days back",
+            "type": "integer",
+            "description": "Awards signed in the last N days.",
+            "default": 7,
+            "minimum": 1,
+            "maximum": 90
+        },
+        "minAmount": {
+            "title": "Minimum award amount (USD)",
+            "type": "integer",
+            "description": "Skip awards below this value. 0 = no floor.",
+            "default": 0,
+            "minimum": 0
+        },
+        "smallBusinessOnly": {
+            "title": "Small business winners only",
+            "type": "boolean",
+            "description": "Only awards won by registered small businesses. Useful for teaming, subcontracting and SMB-focused sellers.",
+            "default": false
+        },
+        "enrichRecipient": {
+            "title": "Enrich winner profiles",
+            "type": "boolean",
+            "description": "Per winner: street address, UEI, business-type flags (small business, veteran owned, ...) and lifetime prime award total. Rows without enrichment are billed as cheaper award rows.",
+            "default": true
+        },
+        "maxAwards": {
+            "title": "Max awards per run",
+            "type": "integer",
+            "description": "Cap on award rows returned (largest first). Controls total cost.",
+            "default": 50,
+            "minimum": 1,
+            "maximum": 500
+        }
+    },
+    "required": []
+}
