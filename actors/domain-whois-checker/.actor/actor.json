@@ -1,0 +1,14 @@
+{
+    "actorSpecification": 1,
+    "name": "domain-whois-checker",
+    "title": "Domain WHOIS & Age Checker: Bulk RDAP Registration Data",
+    "description": "Check domain registration data in bulk: registrar, creation and expiry dates, age, status locks, nameservers, DNSSEC, and whether a domain is registered at all. Uses RDAP, the official registry JSON protocol, so results come straight from the source. Keyless, no browser, no rate walls.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "LEAD_GENERATION",
+        "BUSINESS"
+    ]
+}

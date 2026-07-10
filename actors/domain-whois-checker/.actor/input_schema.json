@@ -1,0 +1,24 @@
+{
+    "title": "Domain WHOIS & Age Checker Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "domains": {
+            "title": "Domains",
+            "type": "array",
+            "description": "Domains or URLs to check, one per line. Protocols, paths and www. are stripped automatically.",
+            "editor": "stringList",
+            "prefill": ["stripe.com", "shopify.com", "openai.com"],
+            "default": ["stripe.com", "shopify.com", "openai.com"]
+        },
+        "maxDomains": {
+            "title": "Max domains per run",
+            "type": "integer",
+            "description": "Cap on domains checked. Controls total cost.",
+            "default": 500,
+            "minimum": 1,
+            "maximum": 2000
+        }
+    },
+    "required": ["domains"]
+}

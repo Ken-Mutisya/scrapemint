@@ -1,0 +1,16 @@
+{
+    "name": "domain-whois-checker",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Check domain registration data in bulk: registrar, creation and expiry dates, age, status locks, nameservers, DNSSEC, and whether a domain is registered at all. Uses RDAP, the official registry JSON protocol, so results come straight from the source. Keyless, no browser, no rate walls.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}
