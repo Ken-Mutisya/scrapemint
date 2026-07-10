@@ -1,0 +1,17 @@
+{
+    "name": "google-play-reviews-scraper",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Scrape Google Play app reviews at scale: rating, full review text, date, thumbs up count, app version and developer replies. Sort by newest or relevance, filter by star rating. No login, no API key. Pay per row.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0",
+        "undici": "^6.19.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}

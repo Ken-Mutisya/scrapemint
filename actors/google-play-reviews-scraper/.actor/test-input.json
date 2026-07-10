@@ -1,0 +1,8 @@
+{
+    "apps": ["com.whatsapp"],
+    "sort": "newest",
+    "language": "en",
+    "country": "us",
+    "maxReviewsPerApp": 120,
+    "maxRows": 120
+}

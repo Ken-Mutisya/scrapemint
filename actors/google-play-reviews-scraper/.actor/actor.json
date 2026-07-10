@@ -1,0 +1,16 @@
+{
+    "actorSpecification": 1,
+    "name": "google-play-reviews-scraper",
+    "title": "Google Play Reviews Scraper",
+    "description": "Scrape Google Play app reviews at scale: rating, full review text, date, thumbs up count, app version and developer replies. Sort by newest or relevance, filter by star rating. No login, no API key. Pay per row.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "readme": "../README.md",
+    "categories": [
+        "MARKETING",
+        "BUSINESS",
+        "ECOMMERCE"
+    ]
+}

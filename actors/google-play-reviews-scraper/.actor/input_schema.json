@@ -1,0 +1,69 @@
+{
+    "title": "Google Play Reviews Scraper",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "apps": {
+            "title": "Apps",
+            "type": "array",
+            "description": "Google Play package IDs (e.g. com.whatsapp) or full store URLs (https://play.google.com/store/apps/details?id=com.whatsapp). One entry per app.",
+            "editor": "stringList",
+            "prefill": ["com.whatsapp"]
+        },
+        "sort": {
+            "title": "Sort order",
+            "type": "string",
+            "description": "Newest returns reviews in reverse chronological order (best for monitoring). Relevance mirrors the default order on the store page.",
+            "editor": "select",
+            "default": "newest",
+            "enum": ["newest", "relevance", "rating"],
+            "enumTitles": ["Newest first", "Most relevant", "By rating"]
+        },
+        "starsFilter": {
+            "title": "Star rating filter",
+            "type": "string",
+            "description": "Only return reviews with this star rating (1 to 5). Leave on all ratings for everything. 1 star rows are where the churn reasons and bug reports live.",
+            "editor": "select",
+            "default": "0",
+            "enum": ["0", "1", "2", "3", "4", "5"],
+            "enumTitles": ["All ratings", "1 star only", "2 stars only", "3 stars only", "4 stars only", "5 stars only"]
+        },
+        "language": {
+            "title": "Language",
+            "type": "string",
+            "description": "Review language code, e.g. en, es, fr, de, pt. Controls which localized reviews Play returns.",
+            "editor": "textfield",
+            "default": "en",
+            "prefill": "en"
+        },
+        "country": {
+            "title": "Country",
+            "type": "string",
+            "description": "Two letter country code, e.g. us, gb, in, br, de.",
+            "editor": "textfield",
+            "default": "us",
+            "prefill": "us"
+        },
+        "maxReviewsPerApp": {
+            "title": "Max reviews per app",
+            "type": "integer",
+            "description": "Cap on review rows per app.",
+            "editor": "number",
+            "default": 200
+        },
+        "maxRows": {
+            "title": "Max rows total",
+            "type": "integer",
+            "description": "Maximum review rows across all apps. First 2 rows per run are free.",
+            "editor": "number",
+            "default": 1000
+        },
+        "proxyConfiguration": {
+            "title": "Proxy configuration",
+            "type": "object",
+            "description": "Optional. The endpoint works from datacenter IPs and requests are paced, so proxy is off by default.",
+            "editor": "proxy"
+        }
+    },
+    "required": ["apps"]
+}
