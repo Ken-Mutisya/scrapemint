@@ -1,0 +1,17 @@
+{
+    "name": "website-history-checker",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Check any domain's Wayback Machine history in bulk: first and last snapshot, captures per year, gaps and dark periods, plus archive links to every era. Vet expired domains before buying. No login, no API key. Pay per row.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0",
+        "undici": "^6.19.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}

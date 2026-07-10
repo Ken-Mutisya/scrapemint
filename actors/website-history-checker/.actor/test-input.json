@@ -1,0 +1,7 @@
+{
+    "websites": ["shopify.com", "this-domain-was-never-archived-xk9q2.com", "stripe.com"],
+    "includeSnapshots": true,
+    "granularity": "yearly",
+    "maxSnapshotsPerSite": 30,
+    "maxRows": 100
+}

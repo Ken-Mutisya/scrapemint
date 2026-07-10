@@ -1,0 +1,20 @@
+{
+    "_note": "PUT this to /v2/acts/{actorId} as pricingInfos array entry. Per playbook: PAY_PER_EVENT only on BRONZE plan, startedAt 14+ days out. Apify auto-adds margin.",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~website-history-checker?token=APIFY_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "history_summary": {
+                "eventTitle": "Site history summary",
+                "eventDescription": "One summary row per site: first and last snapshot, total captures, captures per year, missing years and longest gap, with archive links. First 2 rows per run are free.",
+                "eventPriceUsd": 0.005
+            },
+            "snapshot_row": {
+                "eventTitle": "Snapshot row",
+                "eventDescription": "One archived snapshot with timestamp, status code, mimetype, size and a direct Wayback Machine link.",
+                "eventPriceUsd": 0.001
+            }
+        }
+    },
+    "startedAt": "2026-07-25T00:00:00.000Z"
+}

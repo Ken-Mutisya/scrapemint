@@ -1,0 +1,64 @@
+{
+    "title": "Website History Checker (Wayback Machine)",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "websites": {
+            "title": "Websites",
+            "type": "array",
+            "description": "Domains or URLs to check, e.g. shopify.com or https://example.com/pricing. One entry per site; a bare domain checks the homepage's capture history.",
+            "editor": "stringList",
+            "prefill": ["shopify.com"]
+        },
+        "includeSnapshots": {
+            "title": "Include snapshot rows",
+            "type": "boolean",
+            "description": "Besides the one summary row per site, also emit one row per archived snapshot (at the chosen granularity) with status code, mimetype, size and a direct archive link.",
+            "default": true
+        },
+        "granularity": {
+            "title": "Snapshot granularity",
+            "type": "string",
+            "description": "How densely to sample the archive. Yearly returns roughly one snapshot per year (best for vetting), monthly one per month, all returns every capture up to your caps.",
+            "editor": "select",
+            "default": "yearly",
+            "enum": ["yearly", "monthly", "all"],
+            "enumTitles": ["Yearly (one per year)", "Monthly (one per month)", "All captures"]
+        },
+        "fromYear": {
+            "title": "From year",
+            "type": "integer",
+            "description": "Only include snapshots from this year on. Leave 0 for no lower bound.",
+            "editor": "number",
+            "default": 0
+        },
+        "toYear": {
+            "title": "To year",
+            "type": "integer",
+            "description": "Only include snapshots up to this year. Leave 0 for no upper bound.",
+            "editor": "number",
+            "default": 0
+        },
+        "maxSnapshotsPerSite": {
+            "title": "Max snapshot rows per site",
+            "type": "integer",
+            "description": "Cap on snapshot rows per site (the summary row does not count against this).",
+            "editor": "number",
+            "default": 100
+        },
+        "maxRows": {
+            "title": "Max rows total",
+            "type": "integer",
+            "description": "Maximum rows across all sites, summaries plus snapshots. First 2 rows per run are free.",
+            "editor": "number",
+            "default": 500
+        },
+        "proxyConfiguration": {
+            "title": "Proxy configuration",
+            "type": "object",
+            "description": "Optional. archive.org is scraper friendly and requests are paced, so proxy is off by default.",
+            "editor": "proxy"
+        }
+    },
+    "required": ["websites"]
+}

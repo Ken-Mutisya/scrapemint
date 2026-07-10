@@ -1,0 +1,16 @@
+{
+    "actorSpecification": 1,
+    "name": "website-history-checker",
+    "title": "Website History Checker (Wayback Machine)",
+    "description": "Check any domain's Wayback Machine history in bulk: first and last snapshot, captures per year, gaps and dark periods, plus archive links to every era. Vet expired domains before buying. No login, no API key. Pay per row.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "readme": "../README.md",
+    "categories": [
+        "SEO_TOOLS",
+        "BUSINESS",
+        "OTHER"
+    ]
+}
