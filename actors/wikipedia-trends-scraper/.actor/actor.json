@@ -1,0 +1,14 @@
+{
+    "actorSpecification": 1,
+    "name": "wikipedia-trends-scraper",
+    "title": "Wikipedia Trends Scraper: Top Articles by Country",
+    "description": "What every country is looking up on Wikipedia: daily top 1000 most-viewed articles per country or language, with rank movement between runs, plus daily view timeseries for any article. Official Wikimedia API, real view counts. For SEO, content, news and market signals. Keyless.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "MARKETING",
+        "NEWS"
+    ]
+}

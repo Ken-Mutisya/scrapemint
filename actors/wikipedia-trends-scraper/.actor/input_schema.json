@@ -1,0 +1,90 @@
+{
+    "title": "Wikipedia Trends Scraper Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "mode": {
+            "title": "Mode",
+            "type": "string",
+            "description": "\"Top articles\" returns a ranked chart per country or language project for one day. \"Article timeseries\" returns daily views per article over a date range.",
+            "editor": "select",
+            "enum": ["top", "timeseries"],
+            "enumTitles": ["Top articles (daily chart)", "Article timeseries (daily views)"],
+            "prefill": "top",
+            "default": "top"
+        },
+        "countries": {
+            "title": "Countries (top mode)",
+            "type": "array",
+            "description": "ISO country codes, e.g. US, GB, DE, IN, BR, KE. One chart per country (all languages combined).",
+            "editor": "stringList",
+            "prefill": ["US", "GB"],
+            "default": ["US", "GB"]
+        },
+        "projects": {
+            "title": "Wiki projects (top mode, optional)",
+            "type": "array",
+            "description": "Language projects instead of / in addition to countries, e.g. en.wikipedia, de.wikipedia, ja.wikipedia. One chart per project (worldwide views).",
+            "editor": "stringList",
+            "default": []
+        },
+        "date": {
+            "title": "Date (top mode, optional)",
+            "type": "string",
+            "description": "YYYY-MM-DD. Empty = latest published day (stats lag about one day; the actor steps back automatically).",
+            "editor": "textfield",
+            "default": ""
+        },
+        "topN": {
+            "title": "Chart depth (top mode)",
+            "type": "integer",
+            "description": "How many ranked articles per chart (API serves up to 1000).",
+            "default": 50,
+            "minimum": 1,
+            "maximum": 1000
+        },
+        "excludeSpecialPages": {
+            "title": "Exclude non-article pages (top mode)",
+            "type": "boolean",
+            "description": "Skip Main Page, search pages and other non-article namespaces so charts contain real topics.",
+            "default": true
+        },
+        "compareWithPrevious": {
+            "title": "Compare with previous run (top mode)",
+            "type": "boolean",
+            "description": "Remember ranks between runs and report previousRank, rankChange and isNew. Turn on with a schedule for daily movement tracking.",
+            "default": true
+        },
+        "articles": {
+            "title": "Articles (timeseries mode)",
+            "type": "array",
+            "description": "Article titles exactly as on Wikipedia, e.g. Bitcoin, Taylor Swift, ChatGPT.",
+            "editor": "stringList",
+            "default": []
+        },
+        "project": {
+            "title": "Wiki project (timeseries mode)",
+            "type": "string",
+            "description": "Which language edition to read views from, e.g. en.wikipedia, es.wikipedia.",
+            "editor": "textfield",
+            "default": "en.wikipedia"
+        },
+        "daysBack": {
+            "title": "Days back (timeseries mode)",
+            "type": "integer",
+            "description": "Length of the daily view history per article (up to 365).",
+            "default": 30,
+            "minimum": 1,
+            "maximum": 365
+        },
+        "maxRows": {
+            "title": "Max rows per run",
+            "type": "integer",
+            "description": "Cap on rows returned. Controls total cost.",
+            "default": 500,
+            "minimum": 1,
+            "maximum": 5000
+        }
+    },
+    "required": []
+}

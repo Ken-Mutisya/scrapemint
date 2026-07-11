@@ -1,0 +1,16 @@
+{
+    "name": "wikipedia-trends-scraper",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "What every country is looking up on Wikipedia: daily top 1000 most-viewed articles per country or language, with rank movement between runs, plus daily view timeseries for any article. Official Wikimedia API, real view counts. For SEO, content, news and market signals. Keyless.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}
