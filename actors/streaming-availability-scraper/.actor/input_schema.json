@@ -1,0 +1,40 @@
+{
+    "title": "Streaming Availability Scraper Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "titles": {
+            "title": "Titles",
+            "type": "array",
+            "description": "Movie or show names to look up, e.g. Breaking Bad, Inception. Each is searched on JustWatch and the best match is used.",
+            "editor": "stringList",
+            "prefill": ["Breaking Bad", "Inception", "Oppenheimer"],
+            "default": ["Breaking Bad"]
+        },
+        "countries": {
+            "title": "Countries",
+            "type": "array",
+            "description": "ISO 3166-1 alpha-2 country codes to check, e.g. US, GB, DE, IN, BR, JP. One output row per title per country.",
+            "editor": "stringList",
+            "prefill": ["US", "GB", "DE", "IN", "BR"],
+            "default": ["US"]
+        },
+        "resultsPerTitle": {
+            "title": "Matches per title",
+            "type": "integer",
+            "description": "How many search matches to include per title (1 = best match only). Raise it when a name is ambiguous, e.g. remakes.",
+            "default": 1,
+            "minimum": 1,
+            "maximum": 5
+        },
+        "maxRows": {
+            "title": "Max rows per run",
+            "type": "integer",
+            "description": "Cap on title x country rows returned. Controls total cost.",
+            "default": 100,
+            "minimum": 1,
+            "maximum": 2000
+        }
+    },
+    "required": []
+}

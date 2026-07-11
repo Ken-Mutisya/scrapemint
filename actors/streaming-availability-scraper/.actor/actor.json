@@ -1,0 +1,14 @@
+{
+    "actorSpecification": 1,
+    "name": "streaming-availability-scraper",
+    "title": "Streaming Availability Scraper: Where to Watch by Country",
+    "description": "Check where any movie or show streams in 140+ countries: Netflix, Prime, Disney+ and every other service, with rent and buy prices and deep links. One row per title per country. For where-to-watch tools, VPN and affiliate content, catalog tracking. Keyless.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "VIDEOS",
+        "ECOMMERCE"
+    ]
+}

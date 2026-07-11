@@ -1,0 +1,16 @@
+{
+    "name": "streaming-availability-scraper",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Check where any movie or show streams in 140+ countries: Netflix, Prime, Disney+ and every other service, with rent and buy prices and deep links. One row per title per country. For where-to-watch tools, VPN and affiliate content, catalog tracking. Keyless.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}
