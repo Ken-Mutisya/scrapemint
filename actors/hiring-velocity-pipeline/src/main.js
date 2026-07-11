@@ -53,6 +53,13 @@ log.info(`Pulling Indeed jobs for ${cleanKeywords.length} keywords in ${country}
 // its own 1h run timeout, which was the root cause of the maintenance flag.
 const CHILD_TIMEOUT_SECS = 600; // child self-cap (belt)
 const CHILD_WAIT_SECS = 900; // parent hard deadline to regain control (suspenders)
+// The static wait must also respect the run's ACTUAL timeout (buyers set
+// custom, often shorter, timeouts): clamp so enrichment + push always fit
+// before ACTOR_TIMEOUT_AT, else short buyer runs are TIMED-OUT by design.
+const POST_CHILD_RESERVE_SECS = 240;
+const runTimeoutAtMs = process.env.ACTOR_TIMEOUT_AT ? Date.parse(process.env.ACTOR_TIMEOUT_AT) : null;
+const secsUntilTimeout = () => (runTimeoutAtMs ? Math.max(0, Math.floor((runTimeoutAtMs - Date.now()) / 1000)) : Infinity);
+const effectiveChildWait = Math.max(60, Math.min(CHILD_WAIT_SECS, secsUntilTimeout() - POST_CHILD_RESERVE_SECS));
 let indeedRun = null;
 try {
     const started = await Actor.start(
@@ -76,9 +83,9 @@ try {
         { memory: 2048, build: 'latest', timeout: CHILD_TIMEOUT_SECS },
     );
     const runClient = Actor.apifyClient.run(started.id);
-    indeedRun = await runClient.waitForFinish({ waitSecs: CHILD_WAIT_SECS });
+    indeedRun = await runClient.waitForFinish({ waitSecs: effectiveChildWait });
     if (indeedRun && (indeedRun.status === 'RUNNING' || indeedRun.status === 'READY')) {
-        log.warning(`Indeed child still ${indeedRun.status} after ${CHILD_WAIT_SECS}s; aborting and using partial dataset.`);
+        log.warning(`Indeed child still ${indeedRun.status} after ${effectiveChildWait}s; aborting and using partial dataset.`);
         try {
             indeedRun = await runClient.abort({ gracefully: true });
         } catch (e) {

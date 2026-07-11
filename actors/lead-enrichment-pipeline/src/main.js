@@ -200,6 +200,16 @@ for (const d of cleanDomains) {
     }
 }
 
+// Wall-clock budget: exit cleanly with partial results before the platform
+// hard-kills the run (TIMED-OUT = a failed buyer first-run and a maintenance
+// flag). Deadline derives from the run's ACTUAL timeout via ACTOR_TIMEOUT_AT.
+const RUN_START = Date.now();
+const HARD_TIMEOUT_AT = Actor.getEnv().timeoutAt
+    ? new Date(Actor.getEnv().timeoutAt).getTime()
+    : RUN_START + 3600 * 1000;
+const SOFT_DEADLINE_AT = HARD_TIMEOUT_AT
+    - Math.min(300_000, Math.max(90_000, (HARD_TIMEOUT_AT - RUN_START) * 0.1));
+
 const crawler = new PlaywrightCrawler({
     proxyConfiguration,
     maxConcurrency: Math.max(1, Math.min(20, Number(concurrency) || 4)),
@@ -209,6 +219,11 @@ const crawler = new PlaywrightCrawler({
     respectRobotsTxtFile: !!obeyRobotsTxt,
     launchContext: { launchOptions: { headless: true } },
     async requestHandler({ page, request }) {
+        if (Date.now() > SOFT_DEADLINE_AT) {
+            log.warning('Run-time budget reached; stopping with results so far.');
+            crawler.stop();
+            return;
+        }
         const root = request.userData.root;
         const s = state.get(root);
         if (!s) return;

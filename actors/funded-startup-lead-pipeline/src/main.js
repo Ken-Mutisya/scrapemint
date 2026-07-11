@@ -263,6 +263,13 @@ async function enrichContacts(targets) {
 
     const CHILD_TIMEOUT_SECS = 900; // child self-cap (belt)
     const CHILD_WAIT_SECS = 1200; // parent hard deadline (suspenders)
+    // The static wait must also respect the run's ACTUAL timeout (buyers set
+    // custom, often shorter, timeouts): clamp so enrichment + push always fit
+    // before ACTOR_TIMEOUT_AT, else short buyer runs are TIMED-OUT by design.
+    const POST_CHILD_RESERVE_SECS = 300;
+    const runTimeoutAtMs = process.env.ACTOR_TIMEOUT_AT ? Date.parse(process.env.ACTOR_TIMEOUT_AT) : null;
+    const secsUntilTimeout = () => (runTimeoutAtMs ? Math.max(0, Math.floor((runTimeoutAtMs - Date.now()) / 1000)) : Infinity);
+    const effectiveChildWait = Math.max(60, Math.min(CHILD_WAIT_SECS, secsUntilTimeout() - POST_CHILD_RESERVE_SECS));
     let mapsRun = null;
     try {
         const started = await Actor.start(
@@ -277,12 +284,14 @@ async function enrichContacts(targets) {
                 dedupe: true,
                 proxyConfiguration: proxyInput,
             },
-            { memory: 1024, build: 'latest', timeout: CHILD_TIMEOUT_SECS },
+            // 1024MB hangs the Maps browser child (tile rendering starves);
+            // 2048 is the verified-stable floor from the gmaps margin fix.
+            { memory: 2048, build: 'latest', timeout: CHILD_TIMEOUT_SECS },
         );
         const runClient = Actor.apifyClient.run(started.id);
-        mapsRun = await runClient.waitForFinish({ waitSecs: CHILD_WAIT_SECS });
+        mapsRun = await runClient.waitForFinish({ waitSecs: effectiveChildWait });
         if (mapsRun && (mapsRun.status === 'RUNNING' || mapsRun.status === 'READY')) {
-            log.warning(`Maps child still ${mapsRun.status} after ${CHILD_WAIT_SECS}s; aborting and using partial dataset.`);
+            log.warning(`Maps child still ${mapsRun.status} after ${effectiveChildWait}s; aborting and using partial dataset.`);
             try { mapsRun = await runClient.abort({ gracefully: true }); }
             catch (e) { log.warning(`Abort failed: ${e?.message}`); }
         }

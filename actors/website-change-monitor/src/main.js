@@ -61,17 +61,19 @@ if (!targets.length) {
 const selector = String(cssSelector || '').trim();
 
 let dispatcher = null;
-const proxyConfiguration = await Actor.createProxyConfiguration(proxyInput);
-if (proxyConfiguration) {
-    const proxyUrl = await proxyConfiguration.newUrl();
-    if (proxyUrl) {
-        try {
+// Proxy resolution must never kill the run: buyers on plans without the
+// selected proxy group would otherwise hard-fail before the first fetch.
+try {
+    const proxyConfiguration = await Actor.createProxyConfiguration(sanitizeProxyInput(proxyInput));
+    if (proxyConfiguration) {
+        const proxyUrl = await proxyConfiguration.newUrl();
+        if (proxyUrl) {
             const { ProxyAgent } = await import('undici');
             dispatcher = new ProxyAgent(proxyUrl);
-        } catch (err) {
-            log.warning(`Proxy requested but undici ProxyAgent unavailable, continuing direct: ${err?.message}`);
         }
     }
+} catch (err) {
+    log.warning(`Proxy unavailable (${err?.message}); continuing without proxy.`);
 }
 
 const state = await Actor.openKeyValueStore('website-change-monitor-state');
@@ -232,3 +234,20 @@ for (let i = 0; i < targets.length; i += CONCURRENCY) {
 
 log.info(`Done. ${changeRows} change(s) (${Math.max(0, changeRows - FREE_TIER_CHANGES)} chargeable), ${baselines} new baseline(s), ${unchanged} unchanged, ${errors} error(s).`);
 await Actor.exit();
+
+// Buyer-selected RESIDENTIAL or SERP proxy groups bill the developer under
+// pay-per-event pricing, and this data source works from datacenter IPs, so
+// those groups are stripped (buyer-supplied proxyUrls pass through untouched).
+function sanitizeProxyInput(p) {
+    if (!p || typeof p !== 'object') return p;
+    const out = { ...p };
+    if (Array.isArray(out.apifyProxyGroups)) {
+        const kept = out.apifyProxyGroups.filter((g) => !/RESIDENTIAL|SERP/i.test(String(g)));
+        if (kept.length !== out.apifyProxyGroups.length) {
+            log.warning('Ignoring RESIDENTIAL/SERP proxy groups: this source works from datacenter IPs and premium groups only raise run costs.');
+        }
+        if (kept.length) out.apifyProxyGroups = kept;
+        else delete out.apifyProxyGroups;
+    }
+    return out;
+}
