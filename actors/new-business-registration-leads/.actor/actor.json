@@ -1,0 +1,14 @@
+{
+    "actorSpecification": 1,
+    "name": "new-business-registration-leads",
+    "title": "New Business Registration Leads: Fresh LLC & Corp Filings",
+    "description": "Fresh LLC and corporation registrations from official state records (CO, CT, NY), updated daily: name, address, entity type, agent, plus email and NAICS where published. Filter by state, keyword, city. Leads for anyone selling to brand new businesses.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "LEAD_GENERATION",
+        "BUSINESS"
+    ]
+}

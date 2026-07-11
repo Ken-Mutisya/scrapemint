@@ -1,0 +1,57 @@
+{
+    "title": "New Business Registration Leads Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "states": {
+            "title": "States",
+            "type": "array",
+            "description": "Which state registries to pull from. Supported: CO (Colorado), CT (Connecticut), NY (New York).",
+            "editor": "select",
+            "items": {
+                "type": "string",
+                "enum": ["CO", "CT", "NY"],
+                "enumTitles": ["Colorado", "Connecticut", "New York"]
+            },
+            "prefill": ["CO", "CT", "NY"],
+            "default": ["CO", "CT", "NY"]
+        },
+        "keywords": {
+            "title": "Business name keywords (optional)",
+            "type": "array",
+            "description": "Only return businesses whose name contains one of these words, e.g. dental, roofing, consulting, cafe. Empty = all new registrations.",
+            "editor": "stringList",
+            "default": []
+        },
+        "cities": {
+            "title": "Cities (optional)",
+            "type": "array",
+            "description": "Only return businesses registered in these cities (exact match on the filed city). Empty = statewide.",
+            "editor": "stringList",
+            "default": []
+        },
+        "daysBack": {
+            "title": "Lookback days",
+            "type": "integer",
+            "description": "Return registrations filed in the last N days. State feeds update daily.",
+            "default": 7,
+            "minimum": 1,
+            "maximum": 30
+        },
+        "maxRows": {
+            "title": "Max rows per run",
+            "type": "integer",
+            "description": "Cap on lead rows returned, newest first. Controls total cost.",
+            "default": 100,
+            "minimum": 1,
+            "maximum": 2000
+        },
+        "dedupe": {
+            "title": "Skip businesses seen in previous runs",
+            "type": "boolean",
+            "description": "Remember returned businesses across runs and skip them. Turn on for a scheduled daily new-business feed.",
+            "default": false
+        }
+    },
+    "required": []
+}

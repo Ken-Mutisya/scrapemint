@@ -1,0 +1,16 @@
+{
+    "name": "new-business-registration-leads",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Fresh LLC and corporation registrations from official state records (CO, CT, NY), updated daily: name, address, entity type, agent, plus email and NAICS where published. Filter by state, keyword, city. Leads for anyone selling to brand new businesses.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}
