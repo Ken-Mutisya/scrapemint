@@ -1,0 +1,14 @@
+{
+    "actorSpecification": 1,
+    "name": "sitemap-change-monitor",
+    "title": "Sitemap Change Monitor: New & Removed Page Alerts",
+    "description": "Watch any website's sitemap and get one row per change: new pages, removed pages, optional lastmod updates. See competitors' new products, content clusters and landing pages the day they ship. Pay only for changes; quiet sites cost nothing. Keyless, no proxy.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "SEO_TOOLS",
+        "MARKETING"
+    ]
+}

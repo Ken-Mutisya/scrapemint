@@ -1,0 +1,15 @@
+{
+    "_note": "PUT this to /v2/acts/{actorId} as pricingInfos array entry. PAY_PER_EVENT only on BRONZE plan, startedAt 14+ days out. Apify auto-adds 20% margin.",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~sitemap-change-monitor?token=CLI_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "change_row": {
+                "eventTitle": "Page change row",
+                "eventDescription": "One detected sitemap change on a monitored site: a page added, removed, or (optionally) updated via lastmod. Baseline snapshots and unchanged sites are free. First 2 change rows per run are free.",
+                "eventPriceUsd": 0.005
+            }
+        }
+    },
+    "startedAt": "2026-07-27T00:00:00.000Z"
+}

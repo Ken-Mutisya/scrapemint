@@ -1,0 +1,50 @@
+{
+    "title": "Sitemap Change Monitor Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "sites": {
+            "title": "Sites or sitemap URLs",
+            "type": "array",
+            "description": "Domains (sitemap auto-discovered via robots.txt) or direct sitemap URLs, e.g. https://competitor.com or https://competitor.com/sitemap.xml.",
+            "editor": "stringList",
+            "prefill": ["https://www.allbirds.com"],
+            "default": []
+        },
+        "trackNewPages": {
+            "title": "Track new pages",
+            "type": "boolean",
+            "description": "Emit a row when a URL appears in the sitemap.",
+            "default": true
+        },
+        "trackRemovedPages": {
+            "title": "Track removed pages",
+            "type": "boolean",
+            "description": "Emit a row when a URL disappears from the sitemap.",
+            "default": true
+        },
+        "trackUpdatedPages": {
+            "title": "Track updated pages (lastmod)",
+            "type": "boolean",
+            "description": "Emit a row when a page's lastmod timestamp changes. Uses more snapshot space, so the per-site URL cap tightens to 20,000.",
+            "default": false
+        },
+        "maxUrlsPerSite": {
+            "title": "Max URLs per site",
+            "type": "integer",
+            "description": "Snapshot depth per site (large sitemaps are truncated to this).",
+            "default": 20000,
+            "minimum": 10,
+            "maximum": 50000
+        },
+        "maxRows": {
+            "title": "Max change rows per run",
+            "type": "integer",
+            "description": "Cap on change rows returned. Controls total cost.",
+            "default": 200,
+            "minimum": 1,
+            "maximum": 2000
+        }
+    },
+    "required": ["sites"]
+}
