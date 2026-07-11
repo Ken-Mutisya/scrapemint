@@ -1,0 +1,16 @@
+{
+    "name": "podcast-charts-tracker",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Apple Podcasts top charts for any country and genre, up to 200 ranks per chart, from Apple's official feeds. Scheduled runs add rank movement: previous rank, change, new entries, drop-offs per show. For podcasters, agencies and sponsors. Keyless.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}

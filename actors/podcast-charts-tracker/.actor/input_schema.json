@@ -1,0 +1,50 @@
+{
+    "title": "Podcast Charts Tracker Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "countries": {
+            "title": "Countries",
+            "type": "array",
+            "description": "Apple storefront country codes, e.g. us, gb, de, in, br, au. One chart per country per genre.",
+            "editor": "stringList",
+            "prefill": ["us", "gb"],
+            "default": ["us"]
+        },
+        "genres": {
+            "title": "Genres",
+            "type": "array",
+            "description": "Podcast genres to pull. \"all\" is the overall chart.",
+            "editor": "select",
+            "items": {
+                "type": "string",
+                "enum": ["all", "arts", "business", "comedy", "education", "fiction", "government", "health-fitness", "history", "kids-family", "leisure", "music", "news", "religion-spirituality", "science", "society-culture", "sports", "technology", "true-crime", "tv-film"],
+                "enumTitles": ["All (overall chart)", "Arts", "Business", "Comedy", "Education", "Fiction", "Government", "Health & Fitness", "History", "Kids & Family", "Leisure", "Music", "News", "Religion & Spirituality", "Science", "Society & Culture", "Sports", "Technology", "True Crime", "TV & Film"]
+            },
+            "prefill": ["all"],
+            "default": ["all"]
+        },
+        "topN": {
+            "title": "Chart depth",
+            "type": "integer",
+            "description": "How many ranks to pull per chart (Apple serves up to 200).",
+            "default": 50,
+            "minimum": 1,
+            "maximum": 200
+        },
+        "trackPodcastIds": {
+            "title": "Track only these podcasts (optional)",
+            "type": "array",
+            "description": "Apple podcast ids (e.g. 1200361736 or id1200361736). When set, only these shows produce rows; shows not in a chart produce a FREE rank:null row so you still get the answer.",
+            "editor": "stringList",
+            "default": []
+        },
+        "compareWithPrevious": {
+            "title": "Compare with previous run",
+            "type": "boolean",
+            "description": "Remember ranks between runs and report previousRank, rankChange, isNew and droppedOff. Turn on with a schedule for daily movement tracking.",
+            "default": true
+        }
+    },
+    "required": []
+}
