@@ -1,0 +1,14 @@
+{
+    "actorSpecification": 1,
+    "name": "shopify-price-monitor",
+    "title": "Shopify Price & Stock Monitor: Change Alerts Any Store",
+    "description": "Watch any Shopify store and get one row per change: price up or down with percent, back in stock, sold out, new and removed products, variant level. Pay only for changes; scanning an unchanged catalog costs nothing. No login, no API key, no proxy.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "ECOMMERCE",
+        "AUTOMATION"
+    ]
+}

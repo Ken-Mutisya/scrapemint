@@ -1,0 +1,16 @@
+{
+    "name": "shopify-price-monitor",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Watch any Shopify store and get one row per change: price up or down with percent, back in stock, sold out, new and removed products, variant level. Pay only for changes; scanning an unchanged catalog costs nothing. No login, no API key, no proxy.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}

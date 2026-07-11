@@ -1,0 +1,64 @@
+{
+    "title": "Shopify Price & Stock Monitor Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "storeUrls": {
+            "title": "Shopify store URLs",
+            "type": "array",
+            "description": "Storefront URLs to monitor, e.g. https://www.allbirds.com. Any store built on Shopify works.",
+            "editor": "stringList",
+            "prefill": ["https://www.allbirds.com"],
+            "default": []
+        },
+        "trackPrices": {
+            "title": "Track price changes",
+            "type": "boolean",
+            "description": "Emit a row when a variant's price moves, with old price, new price and percent change.",
+            "default": true
+        },
+        "trackAvailability": {
+            "title": "Track stock changes",
+            "type": "boolean",
+            "description": "Emit a row when a variant goes out of stock or comes back in stock.",
+            "default": true
+        },
+        "trackNewProducts": {
+            "title": "Track new products",
+            "type": "boolean",
+            "description": "Emit a row when a product appears in the catalog.",
+            "default": true
+        },
+        "trackRemovedProducts": {
+            "title": "Track removed products",
+            "type": "boolean",
+            "description": "Emit a row when a product disappears from the catalog.",
+            "default": true
+        },
+        "minPriceChangePercent": {
+            "title": "Minimum price change (%)",
+            "type": "integer",
+            "description": "Ignore price moves smaller than this percentage. 0 = report every change.",
+            "default": 0,
+            "minimum": 0,
+            "maximum": 90
+        },
+        "maxProductsPerStore": {
+            "title": "Max products per store",
+            "type": "integer",
+            "description": "Catalog scan depth per store.",
+            "default": 1000,
+            "minimum": 1,
+            "maximum": 5000
+        },
+        "maxRows": {
+            "title": "Max change rows per run",
+            "type": "integer",
+            "description": "Cap on change rows returned. Controls total cost.",
+            "default": 200,
+            "minimum": 1,
+            "maximum": 2000
+        }
+    },
+    "required": ["storeUrls"]
+}
