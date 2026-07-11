@@ -1,0 +1,15 @@
+{
+    "_note": "PUT this to /v2/acts/{actorId} as pricingInfos array entry. PAY_PER_EVENT only on BRONZE plan, startedAt 14+ days out. Apify auto-adds 20% margin.",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~brand-mention-monitor?token=CLI_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "mention_row": {
+                "eventTitle": "New mention row",
+                "eventDescription": "One newly found mention of your keyword: source, title or text snippet, link, author or community, and timestamp. With dedupe on you are only ever charged the first time a mention is seen. First 2 rows per run are free.",
+                "eventPriceUsd": 0.005
+            }
+        }
+    },
+    "startedAt": "2026-07-27T00:00:00.000Z"
+}

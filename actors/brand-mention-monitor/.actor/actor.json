@@ -1,0 +1,14 @@
+{
+    "actorSpecification": 1,
+    "name": "brand-mention-monitor",
+    "title": "Brand Mention Monitor: News, Reddit, HN & Telegram",
+    "description": "Track any brand, product or name across Google News, Reddit, Hacker News and Telegram channels in one run. Scheduled runs remember what they saw and emit only NEW mentions: a pay-per-mention alert feed. Quiet days cost nothing. No API keys, no subscription.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "MARKETING",
+        "NEWS"
+    ]
+}

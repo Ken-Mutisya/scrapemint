@@ -1,0 +1,72 @@
+{
+    "title": "Brand Mention Monitor Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "keywords": {
+            "title": "Keywords",
+            "type": "array",
+            "description": "Brand names, product names, people or phrases to watch. Each is searched as an exact phrase.",
+            "editor": "stringList",
+            "prefill": ["OpenAI"],
+            "default": []
+        },
+        "sources": {
+            "title": "Sources",
+            "type": "array",
+            "description": "Where to look. Telegram needs a channel list below (it has no public global search).",
+            "editor": "select",
+            "items": {
+                "type": "string",
+                "enum": ["google-news", "reddit", "hackernews", "telegram"],
+                "enumTitles": ["Google News", "Reddit", "Hacker News", "Telegram channels"]
+            },
+            "prefill": ["google-news", "reddit", "hackernews"],
+            "default": ["google-news", "reddit", "hackernews"]
+        },
+        "telegramChannels": {
+            "title": "Telegram channels (for the telegram source)",
+            "type": "array",
+            "description": "Public channel handles to watch for your keywords, e.g. durov or t.me/durov.",
+            "editor": "stringList",
+            "default": []
+        },
+        "newsLanguage": {
+            "title": "News language",
+            "type": "string",
+            "description": "Google News interface language, e.g. en-US, de, pt-BR.",
+            "editor": "textfield",
+            "default": "en-US"
+        },
+        "newsCountry": {
+            "title": "News country",
+            "type": "string",
+            "description": "Google News edition country code, e.g. US, GB, DE, BR, IN.",
+            "editor": "textfield",
+            "default": "US"
+        },
+        "maxPerKeywordPerSource": {
+            "title": "Max mentions per keyword per source",
+            "type": "integer",
+            "description": "Scan depth per sweep (newest first).",
+            "default": 25,
+            "minimum": 1,
+            "maximum": 100
+        },
+        "maxRows": {
+            "title": "Max rows per run",
+            "type": "integer",
+            "description": "Cap on mention rows returned. Controls total cost.",
+            "default": 200,
+            "minimum": 1,
+            "maximum": 2000
+        },
+        "dedupe": {
+            "title": "Only new mentions (alert feed)",
+            "type": "boolean",
+            "description": "Remember seen mentions across runs and emit only new ones. Keep on with a schedule; turn off for a one-time backfill sweep.",
+            "default": true
+        }
+    },
+    "required": ["keywords"]
+}
