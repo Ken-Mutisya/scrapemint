@@ -1,0 +1,14 @@
+{
+    "actorSpecification": 1,
+    "name": "music-charts-tracker",
+    "title": "Music Charts Tracker: Apple Music Ranks by Country",
+    "description": "Apple Music top songs and albums charts for any country, up to 100 ranks per chart, from Apple's official feeds. Scheduled runs add rank movement: previous rank, change, new entries, artist drop-offs. For artists, labels and playlist marketers. Keyless.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "MARKETING",
+        "BUSINESS"
+    ]
+}

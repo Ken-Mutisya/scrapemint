@@ -1,0 +1,50 @@
+{
+    "title": "Music Charts Tracker Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "countries": {
+            "title": "Countries",
+            "type": "array",
+            "description": "Apple storefront country codes, e.g. us, gb, de, br, jp, ng, ke. One chart per country per chart type.",
+            "editor": "stringList",
+            "prefill": ["us", "gb"],
+            "default": ["us"]
+        },
+        "chartTypes": {
+            "title": "Chart types",
+            "type": "array",
+            "description": "Which Apple Music charts to pull.",
+            "editor": "select",
+            "items": {
+                "type": "string",
+                "enum": ["top-songs", "top-albums"],
+                "enumTitles": ["Top Songs (most played)", "Top Albums (most played)"]
+            },
+            "prefill": ["top-songs"],
+            "default": ["top-songs"]
+        },
+        "topN": {
+            "title": "Chart depth",
+            "type": "integer",
+            "description": "How many ranks to pull per chart (Apple serves up to 100).",
+            "default": 50,
+            "minimum": 1,
+            "maximum": 100
+        },
+        "trackArtistIds": {
+            "title": "Track only these artists (optional)",
+            "type": "array",
+            "description": "Apple artist ids (the number in an Apple Music artist URL). When set, only entries by these artists produce rows; artists with no chart entry produce a FREE rank:null row so you still get the answer.",
+            "editor": "stringList",
+            "default": []
+        },
+        "compareWithPrevious": {
+            "title": "Compare with previous run",
+            "type": "boolean",
+            "description": "Remember ranks between runs and report previousRank, rankChange, isNew and droppedOff. Turn on with a schedule for daily movement tracking.",
+            "default": true
+        }
+    },
+    "required": []
+}
