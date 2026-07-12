@@ -39,16 +39,24 @@ const CACHE_STORE = 'us-college-scorecard-cache';
 const CACHE_DATA_KEY = 'institutions';
 const CACHE_META_KEY = 'source-meta';
 const CACHE_MAX_AGE_MS = 30 * 24 * 60 * 60 * 1000; // fall back to cache for 30 days if ETag is unavailable
+const SCHEMA_VERSION = 2; // bump when the output shape changes so old caches are rebuilt
 
 // Stop early on platform timeouts so pushed rows and charges are not lost.
 const timeoutAtMs = process.env.ACTOR_TIMEOUT_AT ? Date.parse(process.env.ACTOR_TIMEOUT_AT) : null;
 const deadlineMs = timeoutAtMs ? timeoutAtMs - 45000 : null;
 
-// Columns we pull out of the ~2,989-column file, by header name.
-const WANT = [
+// Columns we pull out of the ~2,989-column file, by header name. Beyond this
+// fixed set we also capture the ~190 "CIP<nn>CERT/ASSOC/BACHL" program-offering
+// columns (matched by pattern) to derive which credential levels a school
+// offers. HIGHDEG adds graduate; T4APPROVALDATE + PCTPELL/PCTFLOAN describe
+// federal-aid participation.
+const BASE_COLS = new Set([
     'UNITID', 'OPEID6', 'INSTNM', 'CITY', 'STABBR', 'ZIP', 'INSTURL', 'NPCURL',
     'CONTROL', 'ICLEVEL', 'OPENADMP', 'DISTANCEONLY', 'ADM_RATE', 'UGDS', 'ADMCON7',
-];
+    'HIGHDEG', 'T4APPROVALDATE', 'PCTPELL', 'PCTFLOAN',
+]);
+const CIP_LEVEL_RE = /^CIP\d+(CERT[124]|ASSOC|BACHL)$/;
+const isWantedCol = (name) => BASE_COLS.has(name) || CIP_LEVEL_RE.test(name);
 
 const CONTROL_LABEL = { 1: 'Public', 2: 'Private nonprofit', 3: 'Private for-profit' };
 const CONTROL_TOKEN_TO_LABEL = { 'public': 'Public', 'private-nonprofit': 'Private nonprofit', 'private-forprofit': 'Private for-profit' };
@@ -68,6 +76,8 @@ const {
     openAdmissionOnly = false,
     onlineOnly = false,
     testNotRequired = false,
+    offersCredential = [],
+    federalAidOnly = false,
     maxAdmissionRate = null,
     keyword = '',
     sortBy = 'name',
@@ -80,6 +90,7 @@ const asTokens = (v) => (Array.isArray(v) ? v : String(v || '').split(/[\n,]/))
 const stateSet = new Set(asTokens(states).map((s) => s.toUpperCase()));
 const levelLabels = new Set(asTokens(levels).map((t) => LEVEL_TOKEN_TO_LABEL[t]).filter(Boolean));
 const controlLabels = new Set(asTokens(controls).map((t) => CONTROL_TOKEN_TO_LABEL[t]).filter(Boolean));
+const credentialWanted = new Set(asTokens(offersCredential));
 const kw = String(keyword || '').trim().toLowerCase();
 const maxRate = (maxAdmissionRate === null || maxAdmissionRate === '') ? null : Number(maxAdmissionRate);
 const cap = Math.max(1, Math.min(HARD_CAP, Number(maxRows) || 200));
@@ -101,8 +112,7 @@ async function flushRow(row) {
 // Incremental, quote-aware CSV reader that only materializes the columns we
 // want, so we never build ~3,000 strings per row. Feed chunks via push(),
 // finish with end(); onRow receives a plain object keyed by WANT names.
-function makeReader(wantNames, onRow) {
-    const wantSet = new Set(wantNames);
+function makeReader(isWanted, onRow) {
     let header = null;
     let idxToName = null;
     let colIndex = 0;
@@ -125,7 +135,7 @@ function makeReader(wantNames, onRow) {
         if (!header) {
             header = headerRow;
             idxToName = new Map();
-            header.forEach((name, i) => { if (wantSet.has(name)) idxToName.set(i, name); });
+            header.forEach((name, i) => { if (isWanted(name)) idxToName.set(i, name); });
         } else if (rec && rec.INSTNM) {
             onRow(rec);
         }
@@ -173,9 +183,32 @@ function numOrNull(v) {
     return Number.isFinite(n) ? n : null;
 }
 
+// Which credential levels the school offers programs at, from the ~190
+// CIP<nn>CERT/ASSOC/BACHL columns (value 1 = offered, 2 = offered online) plus
+// HIGHDEG for graduate. Returns e.g. ["certificate","associate","bachelor"].
+function credentialLevelsOf(r) {
+    let cert = false, assoc = false, bach = false;
+    for (const k in r) {
+        const v = r[k];
+        if (v !== '1' && v !== '2') continue;
+        if (k.charCodeAt(0) !== 67) continue; // fast-skip non-"C" keys
+        if (k.endsWith('ASSOC')) assoc = true;
+        else if (k.endsWith('BACHL')) bach = true;
+        else if (/CERT[124]$/.test(k)) cert = true;
+    }
+    const levels = [];
+    if (cert) levels.push('certificate');
+    if (assoc) levels.push('associate');
+    if (bach) levels.push('bachelor');
+    if (r.HIGHDEG === '4') levels.push('graduate');
+    return levels;
+}
+
 function toRecord(r) {
     const openAdmissions = r.OPENADMP === '1' ? true : (r.OPENADMP === '2' ? false : null);
     const online = r.DISTANCEONLY === '1' ? true : (r.DISTANCEONLY === '0' ? false : null);
+    const t4 = r.T4APPROVALDATE || '';
+    const federalAid = Boolean(t4 && t4.toUpperCase() !== 'NULL' && t4.trim() !== '');
     return {
         name: r.INSTNM,
         city: r.CITY || null,
@@ -188,6 +221,10 @@ function toRecord(r) {
         admissionRate: numOrNull(r.ADM_RATE),
         testScoresRequired: TEST_LABEL[r.ADMCON7] || null,
         undergradSize: numOrNull(r.UGDS),
+        credentialLevels: credentialLevelsOf(r),
+        federalAidParticipating: federalAid,
+        pctStudentsWithPellGrant: numOrNull(r.PCTPELL),
+        pctStudentsWithFederalLoan: numOrNull(r.PCTFLOAN),
         website: normUrl(r.INSTURL),
         netPriceCalculator: normUrl(r.NPCURL),
         scorecardUrl: r.UNITID ? `https://collegescorecard.ed.gov/school/?${r.UNITID}` : null,
@@ -203,6 +240,8 @@ function passesFilters(rec) {
     if (openAdmissionOnly && rec.openAdmissions !== true) return false;
     if (onlineOnly && rec.onlineOnly !== true) return false;
     if (testNotRequired && !TEST_NOT_REQUIRED.has(rec.testScoresRequired)) return false;
+    if (federalAidOnly && !rec.federalAidParticipating) return false;
+    if (credentialWanted.size && !rec.credentialLevels.some((l) => credentialWanted.has(l))) return false;
     if (maxRate !== null && Number.isFinite(maxRate)) {
         if (rec.admissionRate === null || rec.admissionRate > maxRate) return false;
     }
@@ -250,7 +289,7 @@ async function downloadAndParse() {
     log.info(`Parsing ${csvName} (${(bytes.length / 1e6).toFixed(0)} MB uncompressed)…`);
 
     const all = [];
-    const reader = makeReader(WANT, (raw) => { all.push(toRecord(raw)); });
+    const reader = makeReader(isWantedCol, (raw) => { all.push(toRecord(raw)); });
     const decoder = new TextDecoder('utf-8');
     const CHUNK = 1 << 20; // 1 MB
     for (let off = 0; off < bytes.length; off += CHUNK) {
@@ -266,9 +305,10 @@ async function loadInstitutions() {
     const store = await Actor.openKeyValueStore(CACHE_STORE);
     const sourceTag = await fetchSourceTag();
     const meta = (await store.getValue(CACHE_META_KEY)) || {};
-    const fresh = sourceTag
+    const schemaOk = meta.schema === SCHEMA_VERSION;
+    const fresh = schemaOk && (sourceTag
         ? meta.tag === sourceTag
-        : (meta.fetchedAt && (Date.now() - meta.fetchedAt) < CACHE_MAX_AGE_MS);
+        : (meta.fetchedAt && (Date.now() - meta.fetchedAt) < CACHE_MAX_AGE_MS));
 
     if (fresh) {
         const cached = await store.getValue(CACHE_DATA_KEY);
@@ -280,7 +320,7 @@ async function loadInstitutions() {
 
     const all = await downloadAndParse();
     await store.setValue(CACHE_DATA_KEY, all);
-    await store.setValue(CACHE_META_KEY, { tag: sourceTag, fetchedAt: Date.now() });
+    await store.setValue(CACHE_META_KEY, { tag: sourceTag, fetchedAt: Date.now(), schema: SCHEMA_VERSION });
     return all;
 }
 

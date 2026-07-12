@@ -54,6 +54,24 @@
             "description": "Keep only schools that do not require SAT/ACT scores (test-optional or scores not required). Only applies to schools that report a test policy (~30% of the file); others are dropped when this is on.",
             "default": false
         },
+        "offersCredential": {
+            "title": "Offers credential level",
+            "type": "array",
+            "description": "Keep only schools that offer programs at one or more of these levels. Empty = any.",
+            "editor": "select",
+            "items": {
+                "type": "string",
+                "enum": ["certificate", "associate", "bachelor", "graduate"],
+                "enumTitles": ["Certificate / diploma", "Associate's", "Bachelor's", "Graduate (master's+)"]
+            },
+            "default": []
+        },
+        "federalAidOnly": {
+            "title": "Federal student aid participants only",
+            "type": "boolean",
+            "description": "Keep only schools approved for federal Title IV student aid (Pell grants and federal loans). Note: this is institution-level participation; whether a specific program qualifies for aid is not in the public data.",
+            "default": false
+        },
         "maxAdmissionRate": {
             "title": "Max admission rate",
             "type": "string",

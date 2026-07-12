@@ -24,6 +24,8 @@ from the department's public download bucket. No API key, no login, no proxy.
 | `openAdmissionOnly` | Keep only open-admissions schools (best proxy for "start soon, low barriers"). |
 | `onlineOnly` | Keep only schools that deliver exclusively online. |
 | `testNotRequired` | Keep only schools that do not require SAT/ACT (see coverage note). |
+| `offersCredential` | Keep schools offering programs at any of: `certificate`, `associate`, `bachelor`, `graduate`. |
+| `federalAidOnly` | Keep only schools approved for federal Title IV student aid (Pell / federal loans). |
 | `maxAdmissionRate` | Keep schools with admission rate at or below this (0-1). |
 | `keyword` | Case-insensitive match on the institution name. |
 | `sortBy` | `name` (state then name), `admissionRate`, or `size`. |
@@ -33,7 +35,16 @@ from the department's public download bucket. No API key, no login, no proxy.
 
 `name`, `city`, `state`, `zip`, `level`, `control`, `openAdmissions`,
 `onlineOnly`, `admissionRate`, `testScoresRequired`, `undergradSize`,
-`website`, `netPriceCalculator`, `scorecardUrl`, `unitId`, `opeId`.
+`credentialLevels`, `federalAidParticipating`, `pctStudentsWithPellGrant`,
+`pctStudentsWithFederalLoan`, `website`, `netPriceCalculator`, `scorecardUrl`,
+`unitId`, `opeId`.
+
+- `credentialLevels` is an array of the levels the school offers programs at,
+  e.g. `["certificate","associate","bachelor"]`.
+- `federalAidParticipating` is `true` when the school is approved for federal
+  Title IV student aid; `pctStudentsWithPellGrant` and
+  `pctStudentsWithFederalLoan` show the share of undergrads who actually
+  receive each.
 
 ## What this actor does not include (read before buying)
 
@@ -50,6 +61,15 @@ dataset**, so this actor does not guess at them:
 
 The `openAdmissions`, `onlineOnly` and `testScoresRequired` flags are the
 honest, data-backed signals for low-barrier, start-soon options.
+
+- **Aid eligibility for a specific program.** `federalAidParticipating` is an
+  institution-level flag: the school participates in federal Title IV aid.
+  Whether one particular certificate or associate program qualifies for aid is
+  program-level Title IV eligibility, which is **not** published as a clean
+  flag in any national dataset (the field-of-study loan data is
+  privacy-suppressed for ~78% of programs and reflects borrowing, not
+  eligibility). So this actor reports which levels a school offers and whether
+  the school takes federal aid, but not per-program aid eligibility.
 
 ### Coverage notes
 
