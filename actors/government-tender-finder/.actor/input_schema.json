@@ -1,0 +1,64 @@
+{
+    "title": "Government Tender Finder Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "keywords": {
+            "title": "Search keywords",
+            "type": "array",
+            "description": "What you sell, one search per keyword (results merged and deduplicated). Example: software development, medical equipment, road construction, consulting.",
+            "editor": "stringList",
+            "prefill": ["software"],
+            "default": ["software"]
+        },
+        "sources": {
+            "title": "Sources",
+            "type": "array",
+            "description": "Which procurement systems to search.",
+            "editor": "select",
+            "items": {
+                "type": "string",
+                "enum": ["ted", "uk", "worldbank"],
+                "enumTitles": ["EU TED (all EU/EEA countries)", "UK Contracts Finder", "World Bank (projects in 140+ countries)"]
+            },
+            "prefill": ["ted", "uk", "worldbank"],
+            "default": ["ted", "uk", "worldbank"]
+        },
+        "countries": {
+            "title": "Countries (optional)",
+            "type": "array",
+            "description": "Restrict results by country. Use ISO 3-letter codes for EU tenders (DEU, FRA, ESP, ITA, POL) or country names for World Bank tenders (Kenya, Brazil, India). Empty = everywhere.",
+            "editor": "stringList",
+            "default": []
+        },
+        "publishedWithinDays": {
+            "title": "Published within (days)",
+            "type": "integer",
+            "description": "Only return tenders published in the last N days.",
+            "default": 14,
+            "minimum": 1,
+            "maximum": 90
+        },
+        "activeOnly": {
+            "title": "Open tenders only",
+            "type": "boolean",
+            "description": "Drop tenders whose submission deadline has already passed.",
+            "default": true
+        },
+        "maxTenders": {
+            "title": "Max tenders per run",
+            "type": "integer",
+            "description": "Cap on tender rows returned. Controls total cost.",
+            "default": 25,
+            "minimum": 1,
+            "maximum": 1000
+        },
+        "dedupe": {
+            "title": "Skip tenders seen in previous runs",
+            "type": "boolean",
+            "description": "Remember returned tender IDs across runs and skip them. Turn on for scheduled new-tender alerts.",
+            "default": false
+        }
+    },
+    "required": []
+}

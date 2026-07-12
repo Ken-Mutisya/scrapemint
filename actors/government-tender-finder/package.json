@@ -1,0 +1,16 @@
+{
+    "name": "government-tender-finder",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Find live government tenders worldwide by keyword: EU TED, UK Contracts Finder, and World Bank projects in 140+ countries. One row per tender with buyer, deadline, value, and contact email when published. Official APIs, no key, no browser. Pay per tender.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}

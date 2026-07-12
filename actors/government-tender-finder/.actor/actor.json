@@ -1,0 +1,15 @@
+{
+    "actorSpecification": 1,
+    "name": "government-tender-finder",
+    "title": "Government Tender Finder: EU, UK & World Bank Contracts",
+    "description": "Find live government tenders worldwide by keyword: EU TED (27+ countries), UK Contracts Finder, and World Bank projects in 140+ countries. One row per tender with buyer, deadline, value, and contact email when published. Official APIs, no key, no browser. Pay per tender.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "readme": "../README.md",
+    "categories": [
+        "BUSINESS",
+        "LEAD_GENERATION"
+    ]
+}
