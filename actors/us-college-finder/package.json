@@ -1,0 +1,17 @@
+{
+    "name": "us-college-finder",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Filter every US college and university by admission barriers: open-admissions, online-only, 2-year vs 4-year, public vs private, admission rate and test-score policy, by state. Official US Dept of Education College Scorecard data, with each school's website and net-price calculator. Keyless.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0",
+        "fflate": "^0.8.2"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}

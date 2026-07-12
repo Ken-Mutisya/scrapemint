@@ -1,0 +1,90 @@
+{
+    "title": "US College Finder Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "states": {
+            "title": "States",
+            "type": "array",
+            "description": "Two-letter state codes to include, e.g. CA, TX, NY. Empty = all US states and territories.",
+            "editor": "stringList",
+            "prefill": ["TX"],
+            "default": []
+        },
+        "levels": {
+            "title": "Institution level",
+            "type": "array",
+            "description": "Which levels to include. Empty = all.",
+            "editor": "select",
+            "items": {
+                "type": "string",
+                "enum": ["4-year", "2-year", "less-than-2-year"],
+                "enumTitles": ["4-year (bachelor's+)", "2-year (associate / community college)", "Less-than-2-year (certificate)"]
+            },
+            "prefill": ["2-year"],
+            "default": []
+        },
+        "controls": {
+            "title": "Ownership",
+            "type": "array",
+            "description": "Public, private nonprofit, or private for-profit. Empty = all.",
+            "editor": "select",
+            "items": {
+                "type": "string",
+                "enum": ["public", "private-nonprofit", "private-forprofit"],
+                "enumTitles": ["Public", "Private nonprofit", "Private for-profit"]
+            },
+            "default": []
+        },
+        "openAdmissionOnly": {
+            "title": "Open-admissions only",
+            "type": "boolean",
+            "description": "Keep only schools with an open-admissions policy (accept essentially all applicants with a high-school diploma or equivalent). Best proxy for \"I can start soon with low barriers\".",
+            "default": false
+        },
+        "onlineOnly": {
+            "title": "Online-only schools",
+            "type": "boolean",
+            "description": "Keep only institutions that deliver programs exclusively via distance education.",
+            "default": false
+        },
+        "testNotRequired": {
+            "title": "Admission test not required",
+            "type": "boolean",
+            "description": "Keep only schools that do not require SAT/ACT scores (test-optional or scores not required). Only applies to schools that report a test policy (~30% of the file); others are dropped when this is on.",
+            "default": false
+        },
+        "maxAdmissionRate": {
+            "title": "Max admission rate",
+            "type": "string",
+            "description": "Keep only schools whose admission rate is at or below this value, 0-1 (e.g. 0.8 = 80%). Only schools that report an admission rate are kept. Empty = no limit.",
+            "editor": "textfield",
+            "default": ""
+        },
+        "keyword": {
+            "title": "Name contains",
+            "type": "string",
+            "description": "Case-insensitive substring match on the institution name, e.g. \"community\", \"tech\", \"state\".",
+            "editor": "textfield",
+            "default": ""
+        },
+        "sortBy": {
+            "title": "Sort by",
+            "type": "string",
+            "description": "Order of the returned rows.",
+            "editor": "select",
+            "enum": ["name", "admissionRate", "size"],
+            "enumTitles": ["State then name", "Admission rate (most open first)", "Undergrad size (largest first)"],
+            "default": "name"
+        },
+        "maxRows": {
+            "title": "Max rows per run",
+            "type": "integer",
+            "description": "Cap on institutions returned. Controls total cost. First 2 rows per run are free.",
+            "default": 200,
+            "minimum": 1,
+            "maximum": 7000
+        }
+    },
+    "required": []
+}

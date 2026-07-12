@@ -1,0 +1,13 @@
+{
+    "actorSpecification": 1,
+    "name": "us-college-finder",
+    "title": "US College Finder: Filter by Admission Barriers & State",
+    "description": "Every US college and university, filtered how students choose: open-admissions vs selective, online-only, 2-year vs 4-year, public vs private, by admission rate, test policy and state. Official Dept of Education College Scorecard data, one row per school with website and net-price links. Keyless.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "EDUCATION"
+    ]
+}

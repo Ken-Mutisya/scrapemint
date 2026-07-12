@@ -1,0 +1,15 @@
+{
+    "_note": "PUT this to /v2/acts/{actorId} as pricingInfos array entry. PAY_PER_EVENT only on BRONZE plan, startedAt 14+ days out. Apify auto-adds 20% margin. NOT applied yet — actor is private pending review. Priced at $0.008 (intel tier) — highest of the directory-style actors — as a premium niche (education vertical, no direct keyless competitor, enriched with admission policy + net-price links). NOTE: no proxy is used; the only per-run cost is the source download, and that is cached between runs so it does not recur.",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~us-college-finder?token=CLI_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "institution_row": {
+                "eventTitle": "College row",
+                "eventDescription": "One US college or university matching the filters, with level, ownership, open-admissions and online flags, admission rate, test-score policy, size, and links to the school's website and net-price calculator. First 2 rows per run are free.",
+                "eventPriceUsd": 0.008
+            }
+        }
+    },
+    "startedAt": "2026-07-27T00:00:00.000Z"
+}
