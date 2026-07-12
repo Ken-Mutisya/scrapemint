@@ -1,0 +1,14 @@
+{
+    "_note": "PUT via automation/deploy-pricing.mjs --only=world-economic-indicators-scraper. PAY_PER_EVENT only on BRONZE plan, startedAt 14+ days out. Apify auto-adds 20% margin. Keyless World Bank API, no proxy.",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "data_point": {
+                "eventTitle": "Economic data point",
+                "eventDescription": "One country-indicator-year value (e.g. Kenya GDP 2022), enriched with region and income level. First 2 rows per run are free.",
+                "eventPriceUsd": 0.004
+            }
+        }
+    },
+    "startedAt": "2026-07-27T00:00:00.000Z"
+}

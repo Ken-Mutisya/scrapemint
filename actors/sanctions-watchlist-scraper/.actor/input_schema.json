@@ -1,0 +1,76 @@
+{
+    "title": "Sanctions & Watchlist Screening Scraper Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "mode": {
+            "title": "Mode",
+            "type": "string",
+            "description": "\"List\" returns sanctioned entities (with filters). \"Screen\" checks your own names against the lists and returns matches.",
+            "editor": "select",
+            "enum": ["list", "screen"],
+            "enumTitles": ["List entities", "Screen my names"],
+            "prefill": "list",
+            "default": "list"
+        },
+        "sources": {
+            "title": "Lists to load",
+            "type": "array",
+            "description": "Which official lists to include.",
+            "editor": "select",
+            "items": {
+                "type": "string",
+                "enum": ["ofac-sdn", "ofac-consolidated", "uk-hmt"],
+                "enumTitles": ["OFAC SDN (US)", "OFAC Consolidated (US)", "UK HMT (OFSI)"]
+            },
+            "prefill": ["ofac-sdn", "ofac-consolidated"],
+            "default": ["ofac-sdn", "ofac-consolidated"]
+        },
+        "screenNames": {
+            "title": "Names to screen (screen mode)",
+            "type": "array",
+            "description": "One or more person or company names to check against the selected lists. Exact and partial (substring) matches are returned.",
+            "editor": "stringList",
+            "default": []
+        },
+        "type": {
+            "title": "Entity type (list mode)",
+            "type": "string",
+            "description": "Filter to one type.",
+            "editor": "select",
+            "enum": ["", "individual", "entity", "vessel", "aircraft"],
+            "enumTitles": ["Any", "Individual", "Entity", "Vessel", "Aircraft"],
+            "default": ""
+        },
+        "program": {
+            "title": "Program / regime contains (list mode)",
+            "type": "string",
+            "description": "Filter by sanction program or regime, e.g. IRAN, RUSSIA, SDGT, CUBA.",
+            "editor": "textfield",
+            "default": ""
+        },
+        "country": {
+            "title": "Country contains (list mode)",
+            "type": "string",
+            "description": "Filter by country in the entity's address or nationality.",
+            "editor": "textfield",
+            "default": ""
+        },
+        "keyword": {
+            "title": "Name contains (list mode)",
+            "type": "string",
+            "description": "Case-insensitive match on the entity name or any alias.",
+            "editor": "textfield",
+            "default": ""
+        },
+        "maxRows": {
+            "title": "Max rows per run",
+            "type": "integer",
+            "description": "Cap on rows returned. Controls total cost. First 2 rows per run are free.",
+            "default": 200,
+            "minimum": 1,
+            "maximum": 50000
+        }
+    },
+    "required": []
+}

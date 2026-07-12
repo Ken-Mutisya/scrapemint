@@ -1,0 +1,16 @@
+{
+    "name": "world-economic-indicators-scraper",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Pull World Bank economic indicators for any countries: GDP, GDP per capita, inflation, unemployment, population, life expectancy, trade and ~29,500 more, with decades of history. One row per country-indicator-year, enriched with region and income level. Keyless, global.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}

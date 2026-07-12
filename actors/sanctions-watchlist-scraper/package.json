@@ -1,0 +1,16 @@
+{
+    "name": "sanctions-watchlist-scraper",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Download and screen official government sanctions lists: OFAC SDN, OFAC Consolidated (US) and UK HMT. List mode returns filterable entities with aliases, addresses and programs; screen mode checks your names against every list. Keyless, fresh each run.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}

@@ -1,0 +1,13 @@
+{
+    "actorSpecification": 1,
+    "name": "sanctions-watchlist-scraper",
+    "title": "Sanctions & Watchlist Screening Scraper: OFAC + UK",
+    "description": "Download and screen official government sanctions lists: OFAC SDN and Consolidated (US Treasury) and UK HMT. List mode returns filterable entities with aliases, addresses and sanction programs; screen mode checks your names against every list. Keyless, fresh each run, no API key.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "BUSINESS"
+    ]
+}

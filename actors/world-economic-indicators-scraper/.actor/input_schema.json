@@ -1,0 +1,58 @@
+{
+    "title": "World Economic Indicators Scraper Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "countries": {
+            "title": "Countries",
+            "type": "array",
+            "description": "ISO country codes (2- or 3-letter), e.g. US, CN, IN, BR, KE. Use ALL for every economy (~265). You can also use World Bank region/income aggregate codes (e.g. WLD, EUU, LMY). Empty = all.",
+            "editor": "stringList",
+            "prefill": ["US", "CN", "IN", "BR", "KE"],
+            "default": ["US", "CN", "IN", "BR", "KE"]
+        },
+        "indicators": {
+            "title": "Indicators",
+            "type": "array",
+            "description": "World Bank indicator ids. Common ones: NY.GDP.MKTP.CD (GDP), NY.GDP.PCAP.CD (GDP per capita), NY.GDP.MKTP.KD.ZG (GDP growth %), FP.CPI.TOTL.ZG (inflation %), SL.UEM.TOTL.ZS (unemployment %), SP.POP.TOTL (population), SP.DYN.LE00.IN (life expectancy). Browse all at data.worldbank.org/indicator.",
+            "editor": "stringList",
+            "prefill": ["NY.GDP.MKTP.CD", "NY.GDP.PCAP.CD", "FP.CPI.TOTL.ZG"],
+            "default": ["NY.GDP.MKTP.CD", "NY.GDP.PCAP.CD", "FP.CPI.TOTL.ZG"]
+        },
+        "startYear": {
+            "title": "Start year",
+            "type": "integer",
+            "description": "Earliest year to include (data goes back to 1960 for many series). Empty = no lower bound.",
+            "minimum": 1960,
+            "maximum": 2100
+        },
+        "endYear": {
+            "title": "End year",
+            "type": "integer",
+            "description": "Latest year to include. Empty = up to the most recent year available.",
+            "minimum": 1960,
+            "maximum": 2100
+        },
+        "mostRecentOnly": {
+            "title": "Most recent value only",
+            "type": "boolean",
+            "description": "Return only the single latest available value per country-indicator (ignores the year range). Good for a current snapshot.",
+            "default": false
+        },
+        "skipEmpty": {
+            "title": "Skip empty values",
+            "type": "boolean",
+            "description": "Skip country-years where the value is missing (null). Turn off to keep gaps in the timeseries.",
+            "default": true
+        },
+        "maxRows": {
+            "title": "Max rows per run",
+            "type": "integer",
+            "description": "Cap on data points returned. Controls total cost. First 2 rows per run are free.",
+            "default": 200,
+            "minimum": 1,
+            "maximum": 20000
+        }
+    },
+    "required": []
+}

@@ -1,0 +1,13 @@
+{
+    "actorSpecification": 1,
+    "name": "world-economic-indicators-scraper",
+    "title": "World Economic Indicators Scraper: GDP, Inflation & More",
+    "description": "World Bank economic data for any countries: GDP, GDP per capita, inflation, unemployment, population, life expectancy, trade and ~29,500 more indicators, decades of history. One row per country-indicator-year, enriched with region and income level. Keyless, global, no API key.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "BUSINESS"
+    ]
+}
