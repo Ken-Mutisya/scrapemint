@@ -1,0 +1,14 @@
+{
+    "_note": "PUT via automation/deploy-pricing.mjs --only=us-address-checker. PAY_PER_EVENT only on BRONZE plan, startedAt 14+ days out. Apify auto-adds 20% margin. Keyless US Census geocoder, no proxy. Charge only matched addresses.",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "address_found": {
+                "eventTitle": "Address found",
+                "eventDescription": "One verified address with its cleaned official version, GPS location and area info. Addresses that cannot be found are free. First 2 rows per run are free.",
+                "eventPriceUsd": 0.001
+            }
+        }
+    },
+    "startedAt": "2026-07-28T00:00:00.000Z"
+}

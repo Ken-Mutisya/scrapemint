@@ -1,0 +1,36 @@
+{
+    "title": "US Address Checker & GPS Finder Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "addresses": {
+            "title": "US addresses",
+            "type": "array",
+            "description": "One full address per line, e.g. 1600 Pennsylvania Ave NW, Washington, DC. You can paste thousands, they are checked in bulk.",
+            "editor": "stringList",
+            "prefill": [
+                "1600 Pennsylvania Ave NW, Washington, DC",
+                "11 Wall St, New York, NY",
+                "350 5th Ave, New York, NY 10118",
+                "233 S Wacker Dr, Chicago, IL 60606",
+                "1600 Amphitheatre Pkwy, Mountain View, CA"
+            ],
+            "default": []
+        },
+        "includeAreaInfo": {
+            "title": "Include area info",
+            "type": "boolean",
+            "description": "Also return the county, official city or town, congressional district and census tract for each address.",
+            "default": true
+        },
+        "maxRows": {
+            "title": "Max rows per run",
+            "type": "integer",
+            "description": "Cap on addresses checked. Controls total cost. First 2 rows per run are free; addresses that cannot be found are always free.",
+            "default": 500,
+            "minimum": 1,
+            "maximum": 20000
+        }
+    },
+    "required": []
+}

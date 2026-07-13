@@ -1,0 +1,14 @@
+{
+    "actorSpecification": 1,
+    "name": "us-address-checker",
+    "title": "US Address Checker & GPS Finder: Verify & Geocode",
+    "description": "Check US addresses in bulk: is it a real address, the cleaned up official version, and its exact GPS location for maps. Plus county, city and district info. Paste one address or thousands. Bulk address checker and geocoder built on official US Census data. No API key needed.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "BUSINESS",
+        "LEAD_GENERATION"
+    ]
+}
