@@ -1,0 +1,14 @@
+{
+    "actorSpecification": 1,
+    "name": "car-safety-check",
+    "title": "Car Info & Safety Check: VIN Decoder & Recalls",
+    "description": "Check any car for known safety problems and get its full details: make, model, year, engine, gearbox, where it was built. Paste one car ID number (VIN) or thousands at once, or just enter make, model and year. Official US government data. No API key needed.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "BUSINESS",
+        "ECOMMERCE"
+    ]
+}

@@ -1,0 +1,16 @@
+{
+    "name": "car-safety-check",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Check any car for known safety problems and get its full details from the car ID number (VIN), or by make, model and year. Bulk VIN decoder plus official safety recall and complaint data. Keyless US government sources.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}

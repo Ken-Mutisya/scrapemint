@@ -1,0 +1,14 @@
+{
+    "_note": "PUT via automation/deploy-pricing.mjs --only=car-safety-check. PAY_PER_EVENT only on BRONZE plan, startedAt 14+ days out. Apify auto-adds 20% margin. Keyless NHTSA APIs, no proxy.",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "car_report": {
+                "eventTitle": "Car report row",
+                "eventDescription": "One checked car (details plus safety problems) or one safety problem row when searching by make, model and year. Cars whose ID number cannot be decoded are free. First 2 rows per run are free.",
+                "eventPriceUsd": 0.005
+            }
+        }
+    },
+    "startedAt": "2026-07-28T00:00:00.000Z"
+}

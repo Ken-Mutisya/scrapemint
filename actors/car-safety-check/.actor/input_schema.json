@@ -1,0 +1,49 @@
+{
+    "title": "Car Info & Safety Check Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "vins": {
+            "title": "Car ID numbers (VINs)",
+            "type": "array",
+            "description": "The 17 character car ID number, printed on the windshield corner or driver door frame. One per line. You can paste thousands, they are checked in bulk. Leave empty to search by make, model and year below instead.",
+            "editor": "stringList",
+            "prefill": ["1HGCM82633A004352", "1FTFW1ET5EKE57182", "5YJ3E1EA7HF000337", "WBA3A5C51CF256987", "2T1BURHE0FC240962"],
+            "default": []
+        },
+        "make": {
+            "title": "Make (no VIN needed)",
+            "type": "string",
+            "description": "Car brand, e.g. Toyota, Ford, Honda. Use together with Model and Year when you have no VIN. Ignored when VINs are given.",
+            "editor": "textfield"
+        },
+        "model": {
+            "title": "Model (no VIN needed)",
+            "type": "string",
+            "description": "Car model, e.g. Corolla, F-150, Civic. Use together with Make and Year.",
+            "editor": "textfield"
+        },
+        "year": {
+            "title": "Year (no VIN needed)",
+            "type": "integer",
+            "description": "Model year, e.g. 2018. Use together with Make and Model.",
+            "minimum": 1949,
+            "maximum": 2035
+        },
+        "includeComplaints": {
+            "title": "Include owner complaint counts",
+            "type": "boolean",
+            "description": "Also count official complaints other owners filed about the same make, model and year.",
+            "default": true
+        },
+        "maxRows": {
+            "title": "Max rows per run",
+            "type": "integer",
+            "description": "Cap on rows returned. Controls total cost. First 2 rows per run are free.",
+            "default": 200,
+            "minimum": 1,
+            "maximum": 5000
+        }
+    },
+    "required": []
+}
