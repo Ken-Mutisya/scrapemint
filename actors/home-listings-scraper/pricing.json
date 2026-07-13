@@ -1,0 +1,14 @@
+{
+    "_note": "PUT via automation/deploy-pricing.mjs --only=home-listings-scraper. PAY_PER_EVENT only on BRONZE plan, startedAt 14+ days out. Apify auto-adds 20% margin. Keyless Redfin stingray JSON, no proxy. GATE: only price after live DC run returns rows.",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "home_listing": {
+                "eventTitle": "Home listing",
+                "eventDescription": "One home with price, beds, baths, size, HOA, days on market, GPS location and listing link. First 2 rows per run are free.",
+                "eventPriceUsd": 0.005
+            }
+        }
+    },
+    "startedAt": "2026-07-28T00:00:00.000Z"
+}

@@ -1,0 +1,56 @@
+{
+    "title": "Home Prices & Listings Scraper Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "areas": {
+            "title": "Areas (Redfin links or zip codes)",
+            "type": "array",
+            "description": "One per line. Paste the Redfin page link for a city, zip code, neighborhood or county (e.g. https://www.redfin.com/city/30818/TX/Austin), or just a 5 digit US zip code (e.g. 78701).",
+            "editor": "stringList",
+            "prefill": ["https://www.redfin.com/city/30818/TX/Austin"],
+            "default": []
+        },
+        "minPrice": {
+            "title": "Min price ($)",
+            "type": "integer",
+            "minimum": 0,
+            "description": "Skip homes cheaper than this. Empty = no minimum."
+        },
+        "maxPrice": {
+            "title": "Max price ($)",
+            "type": "integer",
+            "minimum": 0,
+            "description": "Skip homes more expensive than this. Empty = no maximum."
+        },
+        "minBeds": {
+            "title": "Min bedrooms",
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 20,
+            "description": "Skip homes with fewer bedrooms. Empty = any."
+        },
+        "propertyTypes": {
+            "title": "Home types",
+            "type": "array",
+            "description": "Which kinds of homes to include. Empty = houses, condos, townhouses and multi family.",
+            "editor": "select",
+            "items": {
+                "type": "string",
+                "enum": ["house", "condo", "townhouse", "multi_family", "land", "other"],
+                "enumTitles": ["House", "Condo", "Townhouse", "Multi family", "Land", "Other"]
+            },
+            "prefill": ["house", "condo", "townhouse"],
+            "default": ["house", "condo", "townhouse", "multi_family"]
+        },
+        "maxRows": {
+            "title": "Max rows per run",
+            "type": "integer",
+            "description": "Cap on homes returned (up to 350 per area). Controls total cost. First 2 rows per run are free.",
+            "default": 100,
+            "minimum": 1,
+            "maximum": 3000
+        }
+    },
+    "required": []
+}

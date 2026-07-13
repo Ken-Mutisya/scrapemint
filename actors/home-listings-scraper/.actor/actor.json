@@ -1,0 +1,14 @@
+{
+    "actorSpecification": 1,
+    "name": "home-listings-scraper",
+    "title": "Home Prices & Listings Scraper: Redfin Homes by Area",
+    "description": "Get every home for sale in any US area from Redfin. Paste a Redfin link or a zip code: price, beds, baths, size, price per square foot, HOA fee, days on market, year built, GPS location and listing link for every home. Filter by price, beds and home type. No API key needed.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "REAL_ESTATE",
+        "BUSINESS"
+    ]
+}

@@ -1,0 +1,16 @@
+{
+    "name": "home-listings-scraper",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Every home for sale in any US area from Redfin: price, beds, baths, size, HOA, days on market, GPS location, listing link. Paste a Redfin area link or zip code. Keyless JSON, no browser.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}
