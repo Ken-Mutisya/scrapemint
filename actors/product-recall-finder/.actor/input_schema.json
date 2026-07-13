@@ -1,0 +1,50 @@
+{
+    "title": "Product Recall Finder Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "keyword": {
+            "title": "Keyword",
+            "type": "string",
+            "description": "Filter recalls by a word in the product name or description, e.g. battery, stroller, peanut, insulin. Leave empty for all recalls in the date range.",
+            "editor": "textfield",
+            "prefill": ""
+        },
+        "sources": {
+            "title": "What to search",
+            "type": "array",
+            "description": "Which recall databases to search. Empty = all four.",
+            "editor": "select",
+            "items": {
+                "type": "string",
+                "enum": ["consumer_products", "food", "drugs", "medical_devices"],
+                "enumTitles": ["Consumer products (CPSC)", "Food (FDA)", "Drugs (FDA)", "Medical devices (FDA)"]
+            },
+            "prefill": ["consumer_products", "food", "drugs", "medical_devices"],
+            "default": ["consumer_products", "food", "drugs", "medical_devices"]
+        },
+        "dateFrom": {
+            "title": "From date",
+            "type": "string",
+            "description": "Earliest recall date, YYYY-MM-DD. Empty = last 90 days.",
+            "editor": "textfield",
+            "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+        },
+        "dateTo": {
+            "title": "To date",
+            "type": "string",
+            "description": "Latest recall date, YYYY-MM-DD. Empty = today.",
+            "editor": "textfield",
+            "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+        },
+        "maxRows": {
+            "title": "Max rows per run",
+            "type": "integer",
+            "description": "Cap on recalls returned, newest first. Controls total cost. First 2 rows per run are free.",
+            "default": 200,
+            "minimum": 1,
+            "maximum": 5000
+        }
+    },
+    "required": []
+}

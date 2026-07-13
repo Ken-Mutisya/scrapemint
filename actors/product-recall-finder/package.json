@@ -1,0 +1,16 @@
+{
+    "name": "product-recall-finder",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Find recalled products across consumer goods (CPSC), food, drugs and medical devices (FDA) by keyword and date. One normalized row per recall: problem, risk, fix, company, units, where sold. Keyless US government APIs.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}

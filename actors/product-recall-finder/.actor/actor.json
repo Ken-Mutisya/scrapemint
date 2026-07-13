@@ -1,0 +1,14 @@
+{
+    "actorSpecification": 1,
+    "name": "product-recall-finder",
+    "title": "Product Recall Finder: Unsafe Food, Drugs, Toys & More",
+    "description": "Find products pulled from shelves for safety problems: consumer products, food, drugs and medical devices in one place. Search by keyword and date, get the problem, risk, fix, company, units and where sold. Official US government data (CPSC and FDA). No API key needed.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "BUSINESS",
+        "ECOMMERCE"
+    ]
+}
