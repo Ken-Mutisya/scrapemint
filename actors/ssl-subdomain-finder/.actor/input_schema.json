@@ -1,0 +1,30 @@
+{
+    "title": "SSL Certificate & Subdomain Finder Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "domains": {
+            "title": "Domains",
+            "type": "array",
+            "description": "One domain per line, e.g. github.com. No http:// needed. You can add several.",
+            "editor": "stringList",
+            "prefill": ["github.com"],
+            "default": []
+        },
+        "checkLiveCert": {
+            "title": "Check the live certificate",
+            "type": "boolean",
+            "description": "For each subdomain, connect over HTTPS and read its current SSL certificate (issuer, expiry, days left, whether it is valid right now). Turn off for a faster, records-only run.",
+            "default": true
+        },
+        "maxRows": {
+            "title": "Max rows per run",
+            "type": "integer",
+            "description": "Cap on subdomains returned per run. Controls total cost. First 2 rows per run are free.",
+            "default": 300,
+            "minimum": 1,
+            "maximum": 5000
+        }
+    },
+    "required": []
+}

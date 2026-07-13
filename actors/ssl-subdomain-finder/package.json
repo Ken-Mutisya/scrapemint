@@ -1,0 +1,16 @@
+{
+    "name": "ssl-subdomain-finder",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Find all subdomains of a website from public certificate transparency logs (crt.sh) and check each one's live SSL certificate: issuer, valid dates, days to expiry, valid now or not. Keyless HTTP + TLS, no browser.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}

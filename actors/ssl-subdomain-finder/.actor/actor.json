@@ -1,0 +1,14 @@
+{
+    "actorSpecification": 1,
+    "name": "ssl-subdomain-finder",
+    "title": "SSL Certificate & Subdomain Finder for Any Website",
+    "description": "Find all the subdomains of any website and check its SSL certificates. Paste a domain and get every subdomain seen in public certificate records, plus the certificate issuer, valid dates and days until expiry. Great for security checks and finding forgotten sites. No API key needed.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "DEVELOPER_TOOLS",
+        "BUSINESS"
+    ]
+}
