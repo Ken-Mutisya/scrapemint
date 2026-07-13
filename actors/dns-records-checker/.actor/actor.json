@@ -1,0 +1,14 @@
+{
+    "actorSpecification": 1,
+    "name": "dns-records-checker",
+    "title": "DNS Records Checker: Full DNS Report for Any Domain",
+    "description": "See all the DNS records for any domain in one report: the website address records, mail servers, name servers, text records like SPF and DMARC, and more. Paste one domain or many. Great for setup checks and troubleshooting. No API key needed.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "DEVELOPER_TOOLS",
+        "BUSINESS"
+    ]
+}

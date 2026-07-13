@@ -1,0 +1,37 @@
+{
+    "title": "DNS Records Checker Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "domains": {
+            "title": "Domains",
+            "type": "array",
+            "description": "One domain per line, e.g. cloudflare.com. No http:// needed. You can add several.",
+            "editor": "stringList",
+            "prefill": ["cloudflare.com", "github.com"],
+            "default": []
+        },
+        "recordTypes": {
+            "title": "Record types",
+            "type": "array",
+            "description": "Which DNS record types to fetch. Empty = the common set (A, AAAA, MX, NS, TXT, SOA, CAA and the www alias).",
+            "editor": "select",
+            "items": {
+                "type": "string",
+                "enum": ["A", "AAAA", "MX", "NS", "TXT", "SOA", "CAA", "CNAME_WWW"],
+                "enumTitles": ["A (website IPv4)", "AAAA (website IPv6)", "MX (mail servers)", "NS (name servers)", "TXT (text, SPF, DMARC)", "SOA (zone info)", "CAA (allowed cert issuers)", "www alias (CNAME)"]
+            },
+            "prefill": ["A", "AAAA", "MX", "NS", "TXT", "SOA", "CAA", "CNAME_WWW"],
+            "default": ["A", "AAAA", "MX", "NS", "TXT", "SOA", "CAA", "CNAME_WWW"]
+        },
+        "maxRows": {
+            "title": "Max rows per run",
+            "type": "integer",
+            "description": "Cap on domains reported. Controls total cost. First 2 rows per run are free.",
+            "default": 500,
+            "minimum": 1,
+            "maximum": 10000
+        }
+    },
+    "required": []
+}
