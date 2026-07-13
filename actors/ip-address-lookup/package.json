@@ -1,0 +1,16 @@
+{
+    "name": "ip-address-lookup",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Bulk IP address geolocation and ownership over the keyless ip-api batch endpoint: country, region, city, timezone, ISP, organisation, ASN, and proxy/hosting/mobile flags. Thousands per run, no browser.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}

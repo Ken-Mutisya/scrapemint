@@ -1,0 +1,14 @@
+{
+    "_note": "PUT via automation/deploy-pricing.mjs --only=ip-address-lookup. PAY_PER_EVENT only on BRONZE plan, startedAt 14+ days out. Apify auto-adds 20% margin. Keyless ip-api batch, no proxy. Charge only successful lookups.",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "ip_lookup": {
+                "eventTitle": "IP looked up",
+                "eventDescription": "One IP address with its location, owning company, ASN and proxy/hosting/mobile flags. Invalid IPs are free. First 2 rows per run are free.",
+                "eventPriceUsd": 0.001
+            }
+        }
+    },
+    "startedAt": "2026-07-28T00:00:00.000Z"
+}

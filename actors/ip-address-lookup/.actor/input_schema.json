@@ -1,0 +1,24 @@
+{
+    "title": "IP Address Lookup Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "ips": {
+            "title": "IP addresses",
+            "type": "array",
+            "description": "One IP address per line (IPv4 or IPv6). You can paste thousands, they are looked up in bulk.",
+            "editor": "stringList",
+            "prefill": ["8.8.8.8", "1.1.1.1", "140.82.112.3", "208.67.222.222"],
+            "default": []
+        },
+        "maxRows": {
+            "title": "Max rows per run",
+            "type": "integer",
+            "description": "Cap on IPs looked up. Controls total cost. First 2 rows per run are free; invalid IPs are always free.",
+            "default": 1000,
+            "minimum": 1,
+            "maximum": 50000
+        }
+    },
+    "required": []
+}

@@ -1,0 +1,14 @@
+{
+    "actorSpecification": 1,
+    "name": "ip-address-lookup",
+    "title": "IP Address Lookup: Location, Company & Proxy Check",
+    "description": "Find out where an IP address is and who owns it. For each IP: country, region, city, timezone, the internet company behind it, and flags for proxy, hosting and mobile. Paste one IP or thousands. Great for logs, fraud checks and analytics. No API key needed.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "DEVELOPER_TOOLS",
+        "BUSINESS"
+    ]
+}
