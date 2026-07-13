@@ -1,0 +1,14 @@
+{
+    "actorSpecification": 1,
+    "name": "email-list-checker",
+    "title": "Email List Checker: Valid, Disposable & Dead Emails",
+    "description": "Clean your email list in bulk. For every address: is it written correctly, does the domain exist, can it receive mail, is it a throwaway address, a free inbox or a role inbox like info@, and is the sender setup (SPF, DMARC) in place. Typo fixes included. Paste thousands at once. No API key needed.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "LEAD_GENERATION",
+        "MARKETING"
+    ]
+}

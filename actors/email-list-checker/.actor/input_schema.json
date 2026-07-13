@@ -1,0 +1,30 @@
+{
+    "title": "Email List Checker Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "emails": {
+            "title": "Emails to check",
+            "type": "array",
+            "description": "One email per line. You can paste thousands, they are checked in bulk. Bare domains (e.g. shopify.com) work too and get a domain level report.",
+            "editor": "stringList",
+            "prefill": ["sarah@shopify.com", "mike.jones@gmail.com", "test@mailinator.com", "jane@gmial.com", "bob@this-domain-does-not-exist-xk29.com", "not-an-email", "info@apify.com"],
+            "default": []
+        },
+        "checkSenderSetup": {
+            "title": "Check sender setup (SPF and DMARC)",
+            "type": "boolean",
+            "description": "Also check whether each domain has SPF and DMARC records. Useful when you want to know if a domain takes email seriously.",
+            "default": true
+        },
+        "maxRows": {
+            "title": "Max rows per run",
+            "type": "integer",
+            "description": "Cap on emails checked. Controls total cost. First 2 rows per run are free.",
+            "default": 1000,
+            "minimum": 1,
+            "maximum": 25000
+        }
+    },
+    "required": []
+}

@@ -1,0 +1,16 @@
+{
+    "name": "email-list-checker",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Clean email lists in bulk: written correctly, domain exists, can receive mail, throwaway or free inbox, role inbox, SPF and DMARC, typo fixes. DNS level checks over keyless DNS-over-HTTPS, thousands of emails per run.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}

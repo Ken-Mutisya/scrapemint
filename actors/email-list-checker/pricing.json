@@ -1,0 +1,14 @@
+{
+    "_note": "PUT via automation/deploy-pricing.mjs --only=email-list-checker. PAY_PER_EVENT only on BRONZE plan, startedAt 14+ days out. Apify auto-adds 20% margin. Keyless DNS-over-HTTPS, no proxy.",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "email_checked": {
+                "eventTitle": "Email checked",
+                "eventDescription": "One checked email or domain with its full report: verdict, mail server, throwaway/free/role flags, typo fix, SPF and DMARC. First 2 rows per run are free.",
+                "eventPriceUsd": 0.002
+            }
+        }
+    },
+    "startedAt": "2026-07-28T00:00:00.000Z"
+}
