@@ -1,0 +1,16 @@
+{
+    "name": "github-repo-stats",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Bulk public GitHub repository stats via the official API: stars, forks, watchers, open issues, language, license, topics, size, created and updated dates. Paste repo names or links. Keyless for small runs, optional token for bulk.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}

@@ -1,0 +1,14 @@
+{
+    "_note": "PUT via automation/deploy-pricing.mjs --only=github-repo-stats. PAY_PER_EVENT only on BRONZE plan, startedAt 14+ days out. Apify auto-adds 20% margin. Keyless GitHub API (buyer may supply own token), no proxy. Charge only found repos.",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "repo_stats": {
+                "eventTitle": "Repository stats",
+                "eventDescription": "One GitHub repository with its stars, forks, issues, language, license, topics and dates. Repos that are not found are free. First 2 rows per run are free.",
+                "eventPriceUsd": 0.002
+            }
+        }
+    },
+    "startedAt": "2026-07-28T00:00:00.000Z"
+}

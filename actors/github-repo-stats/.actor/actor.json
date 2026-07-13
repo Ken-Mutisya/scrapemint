@@ -1,0 +1,14 @@
+{
+    "actorSpecification": 1,
+    "name": "github-repo-stats",
+    "title": "GitHub Repo Stats: Stars, Forks, Issues & More",
+    "description": "Get the key numbers for any public GitHub project in bulk. For each repo: stars, forks, watchers, open issues, main language, license, topics, size, and the created and last updated dates. Paste repo names or links. Official GitHub API. No API key needed for small runs.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "DEVELOPER_TOOLS",
+        "BUSINESS"
+    ]
+}

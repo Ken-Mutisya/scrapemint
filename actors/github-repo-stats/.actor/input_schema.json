@@ -1,0 +1,31 @@
+{
+    "title": "GitHub Repo Stats Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "repos": {
+            "title": "Repositories",
+            "type": "array",
+            "description": "One repo per line as owner/name (e.g. facebook/react) or a full GitHub link (e.g. https://github.com/facebook/react).",
+            "editor": "stringList",
+            "prefill": ["facebook/react", "vuejs/vue", "torvalds/linux", "https://github.com/apify/crawlee"],
+            "default": []
+        },
+        "githubToken": {
+            "title": "GitHub token (optional)",
+            "type": "string",
+            "description": "Optional. Without a token you can check up to 60 repos per hour (fine for small runs). Paste your own free GitHub personal access token to raise that to 5,000 per hour for large lists. Your token, your account; it is only used to make these requests.",
+            "editor": "textfield",
+            "isSecret": true
+        },
+        "maxRows": {
+            "title": "Max rows per run",
+            "type": "integer",
+            "description": "Cap on repos returned. Controls total cost. First 2 rows per run are free; repos that are not found are always free.",
+            "default": 500,
+            "minimum": 1,
+            "maximum": 20000
+        }
+    },
+    "required": []
+}
