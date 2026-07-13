@@ -1,0 +1,14 @@
+{
+    "actorSpecification": 1,
+    "name": "wikipedia-article-data",
+    "title": "Wikipedia Article Data: Summary, Facts & Images",
+    "description": "Pull clean data from Wikipedia articles in bulk. For each article: the summary text, short description, main image, map location, categories, number of language versions, page link and last edit date. Look up by title or by keyword search. Official Wikipedia API. No API key needed.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "BUSINESS",
+        "DEVELOPER_TOOLS"
+    ]
+}

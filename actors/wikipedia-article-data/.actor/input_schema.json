@@ -1,0 +1,46 @@
+{
+    "title": "Wikipedia Article Data Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "titles": {
+            "title": "Article titles",
+            "type": "array",
+            "description": "Article names to look up, one per line, e.g. Berlin, Quantum computing. Leave empty to use keyword search below instead.",
+            "editor": "stringList",
+            "prefill": ["Berlin", "Quantum computing", "Marie Curie"],
+            "default": []
+        },
+        "search": {
+            "title": "Keyword search (no titles needed)",
+            "type": "string",
+            "description": "Find articles by keyword instead of exact titles, e.g. electric cars. Ignored when titles are given.",
+            "editor": "textfield"
+        },
+        "searchLimit": {
+            "title": "Search results",
+            "type": "integer",
+            "description": "How many articles to pull when using keyword search.",
+            "default": 20,
+            "minimum": 1,
+            "maximum": 500
+        },
+        "language": {
+            "title": "Language",
+            "type": "string",
+            "description": "Wikipedia language edition, e.g. en (English), es, de, fr, ja.",
+            "editor": "textfield",
+            "prefill": "en",
+            "default": "en"
+        },
+        "maxRows": {
+            "title": "Max rows per run",
+            "type": "integer",
+            "description": "Cap on articles returned. Controls total cost. First 2 rows per run are free; missing articles are always free.",
+            "default": 500,
+            "minimum": 1,
+            "maximum": 10000
+        }
+    },
+    "required": []
+}
