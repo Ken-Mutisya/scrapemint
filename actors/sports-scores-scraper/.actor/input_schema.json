@@ -1,0 +1,44 @@
+{
+    "title": "Sports Scores, Fixtures & Standings Scraper",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "leagues": {
+            "title": "Leagues",
+            "type": "array",
+            "description": "One league per line. Common names work: epl, laliga, seriea, bundesliga, ligue1, ucl, mls, nba, wnba, nfl, mlb, nhl. Any other ESPN league works as sport/league, e.g. soccer/ken.1 (Kenyan Premier League), soccer/bra.1, cricket/8048 (IPL), basketball/mens-college-basketball.",
+            "editor": "stringList",
+            "prefill": ["mlb", "epl", "mls", "nba", "laliga"]
+        },
+        "dataType": {
+            "title": "What to fetch",
+            "type": "string",
+            "description": "Scores and fixtures gives one row per game. Standings gives one row per team in the league table.",
+            "editor": "select",
+            "enum": ["scores", "standings"],
+            "enumTitles": ["Scores and fixtures (1 row per game)", "League standings (1 row per team)"],
+            "default": "scores"
+        },
+        "startDate": {
+            "title": "From date",
+            "type": "string",
+            "description": "First day to fetch games for, YYYY-MM-DD. Leave empty for the current slate (recent and upcoming games). Ignored for standings.",
+            "editor": "textfield"
+        },
+        "endDate": {
+            "title": "To date",
+            "type": "string",
+            "description": "Last day to fetch games for, YYYY-MM-DD. Leave empty to fetch a single day. Ranges are capped at 31 days per run. Ignored for standings.",
+            "editor": "textfield"
+        },
+        "maxRows": {
+            "title": "Max rows",
+            "type": "integer",
+            "description": "Stop after this many rows in total (protects your budget on long date ranges).",
+            "default": 500,
+            "minimum": 1,
+            "maximum": 20000
+        }
+    },
+    "required": ["leagues"]
+}

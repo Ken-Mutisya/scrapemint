@@ -1,0 +1,14 @@
+{
+    "actorSpecification": 1,
+    "name": "sports-scores-scraper",
+    "title": "Sports Scores, Fixtures & Standings Scraper",
+    "description": "Get game scores, upcoming fixtures, results and league standings as clean rows. Covers world soccer (Premier League, La Liga, Champions League and dozens more) plus NBA, NFL, MLB, NHL, college sports and cricket. One row per game or per team. No API key needed.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "NEWS",
+        "BUSINESS"
+    ]
+}

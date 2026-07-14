@@ -1,0 +1,14 @@
+{
+    "_note": "PUT via automation/deploy-pricing.mjs --only=sports-scores-scraper. PAY_PER_EVENT only on BRONZE plan, startedAt 14+ days out. Apify auto-adds 20% margin. Keyless ESPN site feeds, no proxy. Unknown leagues and empty days free.",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "game_row": {
+                "eventTitle": "Game or standings row",
+                "eventDescription": "One game (fixture, live score or final result) or one team's standings row. Unknown league ids and days with no games are free. First 2 rows per run are free.",
+                "eventPriceUsd": 0.003
+            }
+        }
+    },
+    "startedAt": "2026-07-28T00:00:00.000Z"
+}
