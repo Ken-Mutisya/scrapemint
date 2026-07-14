@@ -1,0 +1,35 @@
+{
+    "title": "YouTube Video & Channel Scraper",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "searchQueries": {
+            "title": "Search keywords",
+            "type": "array",
+            "description": "Keywords to search on YouTube, one per line. Each returns the first page of results (about 20 videos).",
+            "editor": "stringList",
+            "prefill": ["web scraping tutorial"]
+        },
+        "channels": {
+            "title": "Channels",
+            "type": "array",
+            "description": "Channel handles or URLs, one per line: @mkbhd, https://www.youtube.com/@veritasium, or a channel URL. Each returns the channel's recent videos (about 30).",
+            "editor": "stringList",
+            "prefill": ["@mkbhd"]
+        },
+        "videoUrls": {
+            "title": "Video URLs or IDs",
+            "type": "array",
+            "description": "Specific videos to get full details for: watch URLs, youtu.be links or bare video ids.",
+            "editor": "stringList"
+        },
+        "maxRows": {
+            "title": "Max rows",
+            "type": "integer",
+            "description": "Stop after this many rows in total.",
+            "default": 1000,
+            "minimum": 1,
+            "maximum": 20000
+        }
+    }
+}

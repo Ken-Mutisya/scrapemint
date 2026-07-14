@@ -1,0 +1,14 @@
+{
+    "_note": "PUT via automation/deploy-pricing.mjs --only=youtube-video-scraper. PAY_PER_EVENT only on BRONZE plan, startedAt 14+ days out. Apify auto-adds 20% margin. Keyless YouTube SSR blob (ytInitialData / ytInitialPlayerResponse), no proxy. Bad input and fetch failures free.",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "video_row": {
+                "eventTitle": "Video row",
+                "eventDescription": "One YouTube video from a search, a channel listing or a video-details lookup, with title, views, date, duration, channel and thumbnail. Bad input and videos that could not be fetched are free. First 2 rows per run are free.",
+                "eventPriceUsd": 0.002
+            }
+        }
+    },
+    "startedAt": "2026-07-28T00:00:00.000Z"
+}

@@ -1,0 +1,14 @@
+{
+    "actorSpecification": 1,
+    "name": "youtube-video-scraper",
+    "title": "YouTube Video & Channel Scraper",
+    "description": "Get YouTube data as clean rows: search results for any keyword, all recent videos from any channel, and full details for any video. Views, upload dates, durations, thumbnails, channel names and subscriber counts. No API quota, no API key needed.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "VIDEOS",
+        "MARKETING"
+    ]
+}
