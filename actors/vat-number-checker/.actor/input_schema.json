@@ -1,0 +1,29 @@
+{
+    "title": "EU VAT Number Checker",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "vatNumbers": {
+            "title": "VAT numbers",
+            "type": "array",
+            "description": "VAT numbers with their 2 letter country prefix, one per line (IE6388047V, FR40303265045...). Spaces, dots and dashes inside the number are fine. Covers the 27 EU countries plus Northern Ireland (XI). Greece can be written as EL or GR.",
+            "editor": "stringList",
+            "prefill": ["IE6388047V", "LU26375245", "NL805734958B01", "FR40303265045", "IT00743110157"]
+        },
+        "requesterVatNumber": {
+            "title": "Your own VAT number (optional)",
+            "type": "string",
+            "description": "Your EU VAT number with country prefix, e.g. IE1234567X. When given, VIES issues an official consultation number for each check, which is your legal proof of validation for tax audits.",
+            "editor": "textfield"
+        },
+        "maxRows": {
+            "title": "Max rows",
+            "type": "integer",
+            "description": "Stop after this many numbers checked (protects your budget on big lists).",
+            "default": 1000,
+            "minimum": 1,
+            "maximum": 20000
+        }
+    },
+    "required": ["vatNumbers"]
+}

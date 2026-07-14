@@ -1,0 +1,14 @@
+{
+    "actorSpecification": 1,
+    "name": "vat-number-checker",
+    "title": "EU VAT Number Checker: Validate & Get Company Details",
+    "description": "Check EU VAT numbers in bulk against VIES, the European Commission's official registry. For each number: valid or not, plus the registered company name and address where the country discloses them. Perfect for invoicing, supplier lists and B2B sales into the EU. No API key needed.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "BUSINESS",
+        "LEAD_GENERATION"
+    ]
+}

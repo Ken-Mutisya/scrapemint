@@ -1,0 +1,16 @@
+{
+    "name": "vat-number-checker",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Bulk EU VAT number validation against VIES, the European Commission's official registry: valid flag plus registered company name and address per number. Keyless, no browser.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}
