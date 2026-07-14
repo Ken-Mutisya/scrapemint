@@ -1,0 +1,14 @@
+{
+    "actorSpecification": 1,
+    "name": "startup-jobs-search",
+    "title": "Startup Jobs Search: Roles at Top Tech Companies",
+    "description": "Search live job openings across hundreds of top tech and startup job boards at once, by keyword, location and remote. One row per matching job: title, company, location, department, posted date and a direct apply link. No API key needed.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "JOBS",
+        "LEAD_GENERATION"
+    ]
+}

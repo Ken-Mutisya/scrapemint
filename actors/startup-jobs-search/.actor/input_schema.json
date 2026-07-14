@@ -1,0 +1,46 @@
+{
+    "title": "Startup Jobs Search",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "keywords": {
+            "title": "Keywords",
+            "type": "array",
+            "description": "Words to match in the job title, e.g. \"product manager\", \"react\", \"data engineer\". A job matches if its title contains any of these. Leave empty to get every open role.",
+            "editor": "stringList",
+            "prefill": ["product manager"]
+        },
+        "location": {
+            "title": "Location contains",
+            "type": "string",
+            "description": "Only keep jobs whose location contains this text, e.g. \"New York\", \"London\", \"US\". Leave empty for any location.",
+            "editor": "textfield"
+        },
+        "remoteOnly": {
+            "title": "Remote only",
+            "type": "boolean",
+            "description": "Only keep jobs marked remote.",
+            "default": false
+        },
+        "includeRemoteFeed": {
+            "title": "Include extra remote jobs feed",
+            "type": "boolean",
+            "description": "Also search a keyless public remote-jobs feed (Arbeitnow) for broader coverage beyond the curated companies.",
+            "default": true
+        },
+        "extraCompanies": {
+            "title": "Extra companies (optional)",
+            "type": "array",
+            "description": "Add your own company job boards as provider:token, one per line: greenhouse:airbnb, lever:spotify, ashby:ramp. These are searched alongside the built-in list.",
+            "editor": "stringList"
+        },
+        "maxRows": {
+            "title": "Max rows",
+            "type": "integer",
+            "description": "Stop after this many matching jobs.",
+            "default": 500,
+            "minimum": 1,
+            "maximum": 20000
+        }
+    }
+}

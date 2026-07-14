@@ -1,0 +1,16 @@
+{
+    "name": "startup-jobs-search",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Search live job openings by keyword, location and remote across hundreds of top tech and startup job boards (Greenhouse, Lever, Ashby) plus a keyless remote-jobs feed. No browser, no API key.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}

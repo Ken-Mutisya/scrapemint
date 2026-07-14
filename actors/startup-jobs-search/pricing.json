@@ -1,0 +1,14 @@
+{
+    "_note": "PUT via automation/deploy-pricing.mjs --only=startup-jobs-search. PAY_PER_EVENT only on BRONZE plan, startedAt 14+ days out. Apify auto-adds 20% margin. Keyless Greenhouse/Lever/Ashby + Arbeitnow, no proxy. Failed boards not charged.",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "job_row": {
+                "eventTitle": "Matching job",
+                "eventDescription": "One live job opening matching your search, with company, title, location, remote flag, department, posted date and a direct apply link. Boards that fail to load are free. First 2 rows per run are free.",
+                "eventPriceUsd": 0.004
+            }
+        }
+    },
+    "startedAt": "2026-07-28T00:00:00.000Z"
+}
