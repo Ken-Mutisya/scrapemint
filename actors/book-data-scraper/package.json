@@ -1,0 +1,16 @@
+{
+    "name": "book-data-scraper",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Bulk book lookups from the keyless Open Library API: paste ISBNs or titles and get author, year, pages, publisher, subjects, rating and cover image per book. No browser, no API key.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}

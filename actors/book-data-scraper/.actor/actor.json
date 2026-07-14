@@ -1,0 +1,14 @@
+{
+    "actorSpecification": 1,
+    "name": "book-data-scraper",
+    "title": "Book Data Scraper: ISBN & Title Lookup",
+    "description": "Look up books in bulk by ISBN or by title and author. For each book: title, author, first publish year, pages, publisher, subjects, languages, reader rating and cover image URL. Perfect for book sellers, store listings and reading apps. No API key needed.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "ECOMMERCE",
+        "BUSINESS"
+    ]
+}

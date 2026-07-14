@@ -1,0 +1,37 @@
+{
+    "title": "Book Data Scraper",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "isbns": {
+            "title": "ISBNs",
+            "type": "array",
+            "description": "ISBN-10 or ISBN-13, one per line. Dashes and spaces are fine. Each ISBN returns exactly the matching book.",
+            "editor": "stringList",
+            "prefill": ["9780140328721", "9780747532699", "9780062316097"]
+        },
+        "queries": {
+            "title": "Title or author searches",
+            "type": "array",
+            "description": "Free text searches like a book title, an author, or both (\"things fall apart achebe\"). Each search returns the best matches.",
+            "editor": "stringList",
+            "prefill": ["things fall apart achebe", "atomic habits"]
+        },
+        "maxResultsPerQuery": {
+            "title": "Matches per search",
+            "type": "integer",
+            "description": "How many best matches to return for each title or author search. ISBNs always return one.",
+            "default": 1,
+            "minimum": 1,
+            "maximum": 20
+        },
+        "maxRows": {
+            "title": "Max rows",
+            "type": "integer",
+            "description": "Stop after this many rows in total.",
+            "default": 1000,
+            "minimum": 1,
+            "maximum": 50000
+        }
+    }
+}
