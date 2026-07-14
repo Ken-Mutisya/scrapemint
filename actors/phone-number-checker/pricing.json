@@ -1,0 +1,14 @@
+{
+    "_note": "PUT via automation/deploy-pricing.mjs --only=phone-number-checker. PAY_PER_EVENT only on BRONZE plan, startedAt 14+ days out. Apify auto-adds 20% margin. Fully offline libphonenumber, no network, no proxy. Unparseable input free.",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "phone_checked": {
+                "eventTitle": "Phone number checked",
+                "eventDescription": "One phone number with validity, country, line type and clean formats. Text that is not a phone number is free. First 2 rows per run are free.",
+                "eventPriceUsd": 0.002
+            }
+        }
+    },
+    "startedAt": "2026-07-28T00:00:00.000Z"
+}

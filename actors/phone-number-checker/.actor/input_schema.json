@@ -1,0 +1,29 @@
+{
+    "title": "Phone Number Checker",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "phoneNumbers": {
+            "title": "Phone numbers",
+            "type": "array",
+            "description": "One number per line. International format with + works for any country. Numbers without + are interpreted using the default country below.",
+            "editor": "stringList",
+            "prefill": ["+14155552671", "+442071838750", "+254722123456", "+919876543210", "+4915123456789", "+18002752273"]
+        },
+        "defaultCountry": {
+            "title": "Default country",
+            "type": "string",
+            "description": "2 letter country code (US, GB, KE, IN...) used for numbers written without the + prefix, e.g. 0722123456. Leave empty if all your numbers start with +.",
+            "editor": "textfield"
+        },
+        "maxRows": {
+            "title": "Max rows",
+            "type": "integer",
+            "description": "Stop after this many numbers checked.",
+            "default": 10000,
+            "minimum": 1,
+            "maximum": 100000
+        }
+    },
+    "required": ["phoneNumbers"]
+}

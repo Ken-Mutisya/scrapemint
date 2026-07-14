@@ -1,0 +1,14 @@
+{
+    "actorSpecification": 1,
+    "name": "phone-number-checker",
+    "title": "Phone Number Checker: Validate, Format & Find Country",
+    "description": "Check phone numbers in bulk: valid or not, which country, mobile or landline, and the clean international format. Runs on the same rules Android phones use. Perfect for cleaning CRM lists before calling or SMS campaigns. Works for every country. No API key needed.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "LEAD_GENERATION",
+        "MARKETING"
+    ]
+}
