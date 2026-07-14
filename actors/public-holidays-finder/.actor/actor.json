@@ -1,0 +1,14 @@
+{
+    "actorSpecification": 1,
+    "name": "public-holidays-finder",
+    "title": "Public Holidays Finder: 187 Countries, Any Year",
+    "description": "Get public holidays for any country and year as clean rows: date, holiday name in English and the local language, type, and whether it applies nationwide or only in certain regions. Covers 187 countries, years ahead included. Perfect for payroll, scheduling and delivery apps. No API key needed.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "BUSINESS",
+        "DEVELOPER_TOOLS"
+    ]
+}

@@ -1,0 +1,39 @@
+{
+    "title": "Public Holidays Finder",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "countries": {
+            "title": "Countries",
+            "type": "array",
+            "description": "2 letter country codes, one per line (US, GB, DE, KE, IN...). 187 countries are covered.",
+            "editor": "stringList",
+            "prefill": ["US", "GB", "DE", "KE", "IN"]
+        },
+        "startYear": {
+            "title": "From year",
+            "type": "integer",
+            "description": "First year to fetch. Future years work: holiday dates are computed from each country's rules.",
+            "default": 2026,
+            "minimum": 1975,
+            "maximum": 2075
+        },
+        "endYear": {
+            "title": "To year",
+            "type": "integer",
+            "description": "Last year to fetch. Leave equal to From year for a single year. Ranges are capped at 11 years per run.",
+            "default": 2026,
+            "minimum": 1975,
+            "maximum": 2075
+        },
+        "maxRows": {
+            "title": "Max rows",
+            "type": "integer",
+            "description": "Stop after this many rows in total.",
+            "default": 5000,
+            "minimum": 1,
+            "maximum": 50000
+        }
+    },
+    "required": ["countries"]
+}

@@ -1,0 +1,16 @@
+{
+    "name": "public-holidays-finder",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Public holidays for 187 countries and any year as clean rows, from the keyless Nager.Date API: date, English and local name, type, and nationwide or regional scope. No browser, no API key.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}
