@@ -229,9 +229,20 @@ async function handleSearch(page, request, crawler) {
 
     log.info(`"${query}" -> ${urls.length} place URLs`);
 
+    // Cross-run dedupe must happen BEFORE the browser opens a place page:
+    // visiting first and skipping after burned ~15s of browser compute per
+    // already-seen place with zero rows and zero charges (found 2026-07-12,
+    // 1 pushed place cost $0.10 because 9/10 detail visits were then skipped).
+    let preSkipped = 0;
     for (const url of urls) {
+        const urlCid = url.match(/0x[a-f\d]+:0x[a-f\d]+/i)?.[0];
+        if (dedupe && urlCid && seen.has(urlCid)) {
+            preSkipped += 1;
+            continue;
+        }
         await crawler.addRequests([{ url, userData: { type: 'place', query } }]);
     }
+    if (preSkipped) log.info(`"${query}": skipped ${preSkipped} already-seen place(s) before visiting.`);
 }
 
 async function handlePlace(page, request) {
