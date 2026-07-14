@@ -1,0 +1,14 @@
+{
+    "actorSpecification": 1,
+    "name": "tv-schedule-scraper",
+    "title": "TV Schedule & Shows Scraper",
+    "description": "Get TV schedules as clean rows: what airs on which network and when, for any country and date. Also streaming release dates and show details with ratings, genres and status. One row per episode or show. Great for TV guides, newsletters and bots. No API key needed.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "VIDEOS",
+        "NEWS"
+    ]
+}

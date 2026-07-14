@@ -1,0 +1,14 @@
+{
+    "_note": "PUT via automation/deploy-pricing.mjs --only=tv-schedule-scraper. PAY_PER_EVENT only on BRONZE plan, startedAt 14+ days out. Apify auto-adds 20% margin. Keyless TVMaze API, no proxy. Empty days / not-found free.",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "tv_row": {
+                "eventTitle": "Episode or show row",
+                "eventDescription": "One scheduled episode, streaming release or show lookup row. Days with nothing airing and shows that match nothing are free. First 2 rows per run are free.",
+                "eventPriceUsd": 0.002
+            }
+        }
+    },
+    "startedAt": "2026-07-28T00:00:00.000Z"
+}

@@ -1,0 +1,58 @@
+{
+    "title": "TV Schedule & Shows Scraper",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "dataType": {
+            "title": "What to fetch",
+            "type": "string",
+            "description": "Broadcast schedule: one row per episode airing on TV networks. Streaming releases: one row per episode released on web and streaming services. Show lookup: one row per show matched from your searches.",
+            "editor": "select",
+            "enum": ["schedule", "streaming", "shows"],
+            "enumTitles": ["Broadcast TV schedule (1 row per episode)", "Streaming releases (1 row per episode)", "Show lookup (1 row per show)"],
+            "default": "schedule"
+        },
+        "country": {
+            "title": "Country",
+            "type": "string",
+            "description": "2 letter country code (US, GB, DE, AU...) for the schedule. Leave empty in Streaming mode to get worldwide releases. Ignored for Show lookup.",
+            "editor": "textfield",
+            "prefill": "US"
+        },
+        "startDate": {
+            "title": "From date",
+            "type": "string",
+            "description": "First day to fetch, YYYY-MM-DD. Leave empty for today. Ignored for Show lookup.",
+            "editor": "textfield"
+        },
+        "endDate": {
+            "title": "To date",
+            "type": "string",
+            "description": "Last day to fetch, YYYY-MM-DD. Leave empty for a single day. Ranges are capped at 31 days per run. Ignored for Show lookup.",
+            "editor": "textfield"
+        },
+        "queries": {
+            "title": "Show searches",
+            "type": "array",
+            "description": "For Show lookup mode: show names to search, one per line.",
+            "editor": "stringList",
+            "prefill": ["severance"]
+        },
+        "maxResultsPerQuery": {
+            "title": "Matches per search",
+            "type": "integer",
+            "description": "How many best matches to return per show search.",
+            "default": 1,
+            "minimum": 1,
+            "maximum": 10
+        },
+        "maxRows": {
+            "title": "Max rows",
+            "type": "integer",
+            "description": "Stop after this many rows in total (protects your budget on date ranges).",
+            "default": 1000,
+            "minimum": 1,
+            "maximum": 50000
+        }
+    }
+}

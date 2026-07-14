@@ -1,0 +1,16 @@
+{
+    "name": "tv-schedule-scraper",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "TV schedules, streaming release dates and show details as clean rows from the keyless TVMaze API: what airs on which network and when, per country and date. No browser, no API key.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}
