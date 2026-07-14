@@ -1,0 +1,14 @@
+{
+    "actorSpecification": 1,
+    "name": "currency-exchange-rates-scraper",
+    "title": "Currency Exchange Rates: Live & History for 160+ Currencies",
+    "description": "Get exchange rates for 160+ world currencies as clean rows: live rates for any base currency, plus daily historical rates back to 1999 for 30 major currencies. Perfect for pricing tools, invoicing, dashboards and backtesting. No API key needed.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "BUSINESS",
+        "DEVELOPER_TOOLS"
+    ]
+}

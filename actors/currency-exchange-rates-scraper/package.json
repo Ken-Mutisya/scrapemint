@@ -1,0 +1,16 @@
+{
+    "name": "currency-exchange-rates-scraper",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Live exchange rates for 160+ world currencies and daily historical rates back to 1999, as clean rows. Keyless public feeds (ECB and Open ER API), no browser, no API key.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}

@@ -1,0 +1,52 @@
+{
+    "title": "Currency Exchange Rates Scraper",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "baseCurrencies": {
+            "title": "Base currencies",
+            "type": "array",
+            "description": "Currencies to convert FROM, as 3 letter codes (USD, EUR, KES...). One row is produced per base and target pair.",
+            "editor": "stringList",
+            "prefill": ["USD", "EUR"]
+        },
+        "targetCurrencies": {
+            "title": "Target currencies",
+            "type": "array",
+            "description": "Currencies to convert TO. Leave empty to get every available currency (160+ for live rates, 30 majors for history).",
+            "editor": "stringList",
+            "prefill": ["EUR", "GBP", "JPY", "INR", "KES", "NGN", "BRL", "USD"]
+        },
+        "dataType": {
+            "title": "What to fetch",
+            "type": "string",
+            "description": "Live rates cover 160+ currencies, updated daily. Historical rates come from the European Central Bank: daily values back to 1999 for 30 major currencies.",
+            "editor": "select",
+            "enum": ["latest", "history"],
+            "enumTitles": ["Live rates (160+ currencies)", "Historical daily rates (30 majors, back to 1999)"],
+            "default": "latest"
+        },
+        "startDate": {
+            "title": "History start date",
+            "type": "string",
+            "description": "First date for historical rates, YYYY-MM-DD. Ignored for live rates.",
+            "editor": "textfield",
+            "prefill": "2026-06-01"
+        },
+        "endDate": {
+            "title": "History end date",
+            "type": "string",
+            "description": "Last date for historical rates, YYYY-MM-DD. Leave empty for today. Ignored for live rates.",
+            "editor": "textfield"
+        },
+        "maxRows": {
+            "title": "Max rows",
+            "type": "integer",
+            "description": "Stop after this many rows in total (protects your budget on long date ranges).",
+            "default": 1000,
+            "minimum": 1,
+            "maximum": 100000
+        }
+    },
+    "required": ["baseCurrencies"]
+}
