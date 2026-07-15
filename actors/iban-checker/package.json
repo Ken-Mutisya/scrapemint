@@ -1,0 +1,16 @@
+{
+    "name": "iban-checker",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Bulk IBAN validation for 85+ countries, fully offline: mod-97 checksum, country registry, bank/branch/account decoding and SEPA membership per row. No browser, no API key, no network.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}

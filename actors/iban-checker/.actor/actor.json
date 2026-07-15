@@ -1,0 +1,14 @@
+{
+    "actorSpecification": 1,
+    "name": "iban-checker",
+    "title": "IBAN Checker: Validate Bank Account Numbers in Bulk",
+    "description": "Validate IBANs for 85+ countries, fully offline. Paste account numbers and get one row each: valid or not (with the reason), country, checksum result, bank code, branch and account parts, SEPA membership and print format. For payment file hygiene, invoicing and fintech onboarding. No API key needed.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "BUSINESS",
+        "LEAD_GENERATION"
+    ]
+}
