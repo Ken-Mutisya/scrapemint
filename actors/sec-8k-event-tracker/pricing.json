@@ -1,5 +1,5 @@
 {
-    "_note": "PUT this to /v2/acts/{actorId} as pricingInfos array entry. Per playbook: PAY_PER_EVENT only on BRONZE plan, startedAt 14+ days out. Apify auto-adds 20% margin.",
+    "_note": "PUT this to /v2/acts/{actorId} as pricingInfos array entry. Per playbook: PAY_PER_EVENT only on BRONZE plan, startedAt 14+ days out. Apify auto-adds 20% margin. | Raised in the 2026-07-16 high-traffic pricing pass, effective 07-31.",
     "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~sec-8k-event-tracker?token=APIFY_TOKEN",
     "pricingModel": "PAY_PER_EVENT",
     "pricingPerEvent": {
@@ -7,9 +7,9 @@
             "filing_row": {
                 "eventTitle": "SEC 8-K filing row",
                 "eventDescription": "One SEC Form 8-K filing parsed and returned with filer, CIK, ticker, filed date, accepted date, items reported, item summaries, accession number, and EDGAR URL. First 5 per run are free so you can validate output.",
-                "eventPriceUsd": 0.02
+                "eventPriceUsd": 0.025
             }
         }
     },
-    "startedAt": "2026-06-14T00:00:00.000Z"
+    "startedAt": "2026-07-31T00:00:00.000Z"
 }

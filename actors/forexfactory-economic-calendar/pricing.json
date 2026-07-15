@@ -1,5 +1,5 @@
 {
-    "_note": "PUT this to /v2/acts/{actorId} as pricingInfos array entry. Per playbook: PAY_PER_EVENT only on BRONZE plan, startedAt 14+ days out. Apify auto-adds 20% margin.",
+    "_note": "PUT this to /v2/acts/{actorId} as pricingInfos array entry. Per playbook: PAY_PER_EVENT only on BRONZE plan, startedAt 14+ days out. Apify auto-adds 20% margin. | Raised in the 2026-07-16 high-traffic pricing pass, effective 07-31.",
     "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~forexfactory-economic-calendar?token=APIFY_TOKEN",
     "pricingModel": "PAY_PER_EVENT",
     "pricingPerEvent": {
@@ -7,9 +7,9 @@
             "event_row": {
                 "eventTitle": "Economic event row",
                 "eventDescription": "One ForexFactory economic event parsed and returned with date, time, displayTimezone, currency, impact rating, title, actual, forecast, previous, revised, unit, source agency, and detail URL. First 25 event rows per run are free so you can validate output.",
-                "eventPriceUsd": 0.01
+                "eventPriceUsd": 0.015
             }
         }
     },
-    "startedAt": "2026-06-14T00:00:00.000Z"
+    "startedAt": "2026-07-31T00:00:00.000Z"
 }
