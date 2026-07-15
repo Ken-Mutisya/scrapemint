@@ -1,0 +1,30 @@
+{
+    "title": "Postal Code Checker",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "codes": {
+            "title": "Postal codes",
+            "type": "array",
+            "description": "One per line, ideally with the 2-letter country first: \"US 90210\", \"DE 10115\", \"GB SW1A 1AA\". A bare code without a country matches every country that uses it (or the default country below).",
+            "editor": "stringList",
+            "prefill": ["US 90210", "GB SW1A 1AA", "DE 10115", "JP 100-0001", "KE 00100"]
+        },
+        "defaultCountry": {
+            "title": "Default country",
+            "type": "string",
+            "description": "Optional 2-letter country code (ISO 3166-1) applied to bare codes without a country prefix. Leave empty to match bare codes against all countries.",
+            "editor": "textfield",
+            "prefill": "",
+            "default": ""
+        },
+        "maxRows": {
+            "title": "Max rows",
+            "type": "integer",
+            "description": "Stop after this many rows in total.",
+            "default": 1000,
+            "minimum": 1,
+            "maximum": 50000
+        }
+    }
+}

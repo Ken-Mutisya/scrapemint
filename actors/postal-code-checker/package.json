@@ -1,0 +1,16 @@
+{
+    "name": "postal-code-checker",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Validate and enrich postal codes for 121 countries from a bundled open dataset: place name, region, district and GPS coordinates per code. Fully offline, no browser, no API key.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}

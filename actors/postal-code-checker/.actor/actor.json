@@ -1,0 +1,14 @@
+{
+    "actorSpecification": 1,
+    "name": "postal-code-checker",
+    "title": "Postal Code Checker: Global ZIP & Postcode Lookup",
+    "description": "Validate and enrich postal codes for 121 countries. Paste codes like \"US 90210\" or \"DE 10115\" and get place name, region, district and GPS coordinates per code, from a bundled open dataset of 1.8 million codes. For checkout validation, logistics and CRM cleaning. No API key needed.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "BUSINESS",
+        "LEAD_GENERATION"
+    ]
+}

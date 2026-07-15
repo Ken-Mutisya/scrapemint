@@ -1,0 +1,14 @@
+{
+    "_note": "PUT via automation/deploy-pricing.mjs --only=postal-code-checker. PAY_PER_EVENT only on BRONZE plan, startedAt 14+ days out. Apify auto-adds 20% margin. Fully offline bundled GeoNames dataset, no proxy, no network. Not-found free.",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "postal_code_found": {
+                "eventTitle": "Postal code matched",
+                "eventDescription": "One matched postal code with place name, region, district and GPS coordinates. Codes that match nothing are free. First 2 rows per run are free.",
+                "eventPriceUsd": 0.002
+            }
+        }
+    },
+    "startedAt": "2026-07-29T00:00:00.000Z"
+}
