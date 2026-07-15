@@ -60,6 +60,22 @@ if (!targets.length) {
 }
 const selector = String(cssSelector || '').trim();
 
+// A malformed buyer selector must not crash the run: cheerio's css-what
+// parser THROWS on selectors like `div[class=unclosed` (this failed every
+// run of one buyer's schedule before 2026-07-15). Validate once up front
+// and report it as free error rows instead.
+if (selector) {
+    try {
+        cheerio.load('<div></div>')(selector);
+    } catch (err) {
+        log.error(`cssSelector ${JSON.stringify(selector)} is not valid CSS (${err?.message}). Fix the selector and run again; nothing was charged.`);
+        for (const url of targets) {
+            await Actor.pushData({ url, status: 'error', changed: false, error: `invalid cssSelector: ${err?.message}`, checkedAt: new Date().toISOString() });
+        }
+        await Actor.exit();
+    }
+}
+
 let dispatcher = null;
 // Proxy resolution must never kill the run: buyers on plans without the
 // selected proxy group would otherwise hard-fail before the first fetch.
@@ -229,7 +245,13 @@ for (let i = 0; i < targets.length; i += CONCURRENCY) {
         log.warning('Approaching run timeout; stopping early with results so far.');
         break;
     }
-    await Promise.all(targets.slice(i, i + CONCURRENCY).map((u) => checkUrl(u)));
+    // Any single page's unexpected throw becomes a free error row, never a
+    // failed run (a monitor on a schedule must degrade, not crash).
+    await Promise.all(targets.slice(i, i + CONCURRENCY).map((u) => checkUrl(u).catch(async (err) => {
+        errors += 1;
+        log.warning(`${u}: ${err?.message}`);
+        await Actor.pushData({ url: u, status: 'error', changed: false, error: String(err?.message || err).slice(0, 300), checkedAt: new Date().toISOString() }).catch(() => {});
+    })));
 }
 
 log.info(`Done. ${changeRows} change(s) (${Math.max(0, changeRows - FREE_TIER_CHANGES)} chargeable), ${baselines} new baseline(s), ${unchanged} unchanged, ${errors} error(s).`);

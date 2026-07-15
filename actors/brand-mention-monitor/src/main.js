@@ -70,7 +70,7 @@ async function fetchText(url, headers = {}) {
     try {
         const res = await fetch(url, { signal: controller.signal, headers: { 'User-Agent': UA, ...headers } });
         if (!res.ok) { log.warning(`HTTP ${res.status}: ${url.split('?')[0]}`); return null; }
-        return await res.text();
+        return (await res.text()).slice(0, 3000000);
     } catch (err) {
         log.warning(`Fetch failed (${url.split('?')[0]}): ${err?.message}`);
         return null;
@@ -219,23 +219,31 @@ async function sweepTelegramChannel(channel, kwList) {
 
 // ---------- sweep ----------
 
+// One source's unexpected throw must not fail the whole run: an alerting
+// actor on a schedule degrades to the remaining sources, never crashes.
+const safely = (label, p) => p.catch((err) => log.warning(`${label} failed: ${err?.message}`));
+
 for (const kw of kws) {
     if (deadlineMs && Date.now() > deadlineMs) { log.warning('Approaching timeout; stopping early.'); break; }
     if (rowsPushed >= cap) break;
-    if (srcs.includes('google-news')) await sweepGoogleNews(kw);
-    if (srcs.includes('reddit')) await sweepReddit(kw);
-    if (srcs.includes('hackernews')) await sweepHackerNews(kw);
+    if (srcs.includes('google-news')) await safely(`google-news "${kw}"`, sweepGoogleNews(kw));
+    if (srcs.includes('reddit')) await safely(`reddit "${kw}"`, sweepReddit(kw));
+    if (srcs.includes('hackernews')) await safely(`hackernews "${kw}"`, sweepHackerNews(kw));
 }
 if (srcs.includes('telegram')) {
     for (const ch of channels) {
         if (deadlineMs && Date.now() > deadlineMs) break;
         if (rowsPushed >= cap) break;
-        await sweepTelegramChannel(ch, kws);
+        await safely(`telegram @${ch}`, sweepTelegramChannel(ch, kws));
     }
 }
 
 if (seenStore && rowsPushed > 0) {
-    await seenStore.setValue('seen-ids', [...seen].slice(-300000));
+    try {
+        await seenStore.setValue('seen-ids', [...seen].slice(-300000));
+    } catch (err) {
+        log.warning(`could not persist dedupe state: ${err?.message}`);
+    }
 }
 
 log.info(`Done. ${rowsPushed} new mention(s) pushed (${Math.max(0, rowsPushed - FREE_TIER_ROWS)} chargeable max).${dedupe ? ' Dedupe on: repeat runs emit only new mentions.' : ''}`);
