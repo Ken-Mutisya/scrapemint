@@ -9,7 +9,10 @@
             "type": "array",
             "description": "TradingView symbols to pull ideas for. Forex pairs, crypto pairs, equities, indices, futures all work. Examples: 'EURUSD', 'BTCUSD', 'AAPL', 'SPX', 'NQ1!'.",
             "editor": "stringList",
-            "prefill": ["EURUSD", "BTCUSD"],
+            "prefill": [
+                "EURUSD",
+                "BTCUSD"
+            ],
             "default": []
         },
         "categories": {
@@ -19,8 +22,26 @@
             "editor": "select",
             "items": {
                 "type": "string",
-                "enum": ["forex", "crypto", "stocks", "futures", "indices", "economy", "bitcoin", "education"],
-                "enumTitles": ["Forex", "Crypto", "Stocks", "Futures", "Indices", "Economy", "Bitcoin", "Education"]
+                "enum": [
+                    "forex",
+                    "crypto",
+                    "stocks",
+                    "futures",
+                    "indices",
+                    "economy",
+                    "bitcoin",
+                    "education"
+                ],
+                "enumTitles": [
+                    "Forex",
+                    "Crypto",
+                    "Stocks",
+                    "Futures",
+                    "Indices",
+                    "Economy",
+                    "Bitcoin",
+                    "Education"
+                ]
             },
             "uniqueItems": true,
             "default": []
@@ -38,8 +59,18 @@
             "type": "string",
             "description": "Filter rows by trade direction. Long and Short keep only directional ideas. Education keeps tutorial posts. All keeps everything (default).",
             "editor": "select",
-            "enum": ["all", "long", "short", "education"],
-            "enumTitles": ["All", "Long only", "Short only", "Education only"],
+            "enum": [
+                "all",
+                "long",
+                "short",
+                "education"
+            ],
+            "enumTitles": [
+                "All",
+                "Long only",
+                "Short only",
+                "Education only"
+            ],
             "default": "all"
         },
         "maxIdeasPerSource": {
@@ -68,15 +99,13 @@
         "proxyConfiguration": {
             "title": "Proxy configuration",
             "type": "object",
-            "description": "Apify proxy. Residential is required at any meaningful volume.",
+            "description": "Optional. The default (no premium groups) is all this source needs. Residential/SERP groups are ignored to keep run costs down; your own proxy URLs pass through.",
             "editor": "proxy",
             "prefill": {
-                "useApifyProxy": true,
-                "apifyProxyGroups": ["RESIDENTIAL"]
+                "useApifyProxy": true
             },
             "default": {
-                "useApifyProxy": true,
-                "apifyProxyGroups": ["RESIDENTIAL"]
+                "useApifyProxy": true
             }
         }
     }

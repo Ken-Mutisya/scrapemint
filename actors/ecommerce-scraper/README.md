@@ -19,7 +19,7 @@ Pull products across Amazon, Walmart, Target, eBay, Etsy, AliExpress, Best Buy, 
 | Hard coded selectors that break monthly | JSON-LD primary path with selector fallbacks for fields not in structured data |
 | No AI layer | Optional GPT generated pros, cons, target audience, and value rating per row |
 | Single category at a time | Mix product URLs, category URLs, and keyword search across 18 marketplace endpoints in one run |
-| No bot evasion | Apify residential proxy, Chrome fingerprinting, session pool with cookie persistence |
+| No bot evasion | Chrome fingerprinting and a session pool with cookie persistence |
 
 ---
 
@@ -41,7 +41,7 @@ flowchart LR
     J --> K[(JSON CSV API)]
 ```
 
-Detail pages render with Playwright behind rotating residential proxy and browser fingerprinting. JSON-LD `Product` blocks are the primary source for title, price, brand, SKU, GTIN, rating, and review count. DOM selectors fill in fields not in structured data (variants, specs tables, shipping, Q&A, ratings histogram). Cheerio mode is available for static storefronts (Shopify, WooCommerce, BigCommerce) when speed matters more than coverage.
+Detail pages render with fingerprinted Playwright Chrome (images disabled to keep runs fast and cheap; image URLs still come from the DOM). JSON-LD `Product` blocks are the primary source for title, price, brand, SKU, GTIN, rating, and review count. DOM selectors fill in fields not in structured data (variants, specs tables, shipping, Q&A, ratings histogram). Cheerio mode is available for static storefronts (Shopify, WooCommerce, BigCommerce) when speed matters more than coverage.
 
 ---
 
@@ -249,7 +249,7 @@ The AI summary path requires an `OPENAI_API_KEY` environment variable on the act
 | `extractShippingInfo` | boolean | Free shipping flag, delivery estimate, store pickup. |
 | `dedupe` | boolean | Skip product IDs from previous runs. |
 | `concurrency` | integer | Parallel pages. Three to five is safe. |
-| `proxyConfiguration` | object | Apify proxy. Residential is required for Amazon, Walmart, Target, AliExpress. |
+| `proxyConfiguration` | object | Optional. The default works for standard storefronts (Shopify, WooCommerce, BigCommerce). Residential/SERP groups are ignored; your own proxy URLs pass through. |
 
 ---
 
@@ -272,7 +272,7 @@ curl -X POST \
 
 ## Pricing
 
-The first few products per run are free so you can validate output before paying. After that, one charge per product row. Variants, specs, images, ratings histogram, and shipping info are all included at no extra cost. AI summary calls bill against your own OpenAI key.
+The first 2 products per run are free so you can validate output before paying. After that, one charge of $0.01 per product row. Variants, specs, images, ratings histogram, and shipping info are all included at no extra cost. AI summary calls bill against your own OpenAI key.
 
 ---
 
@@ -288,7 +288,7 @@ Most modern storefronts ship a `<script type="application/ld+json">` block with 
 
 ### Why does Amazon block scrapers?
 
-Amazon uses CAPTCHA, request rate analysis, and TLS fingerprinting. The actor uses fingerprinted Chrome with Apify residential proxy and per session cookie persistence. Most retries resolve within two attempts.
+Amazon and the other large walled marketplaces (Walmart, Target, AliExpress) actively block automated access, and results there are not guaranteed: blocked pages simply return no row and you are not charged. The reliable path is the JSON-LD storefront coverage: Shopify, WooCommerce, BigCommerce and any site with Schema.org Product data.
 
 ### Cheerio versus Playwright?
 

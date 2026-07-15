@@ -302,19 +302,10 @@
         "proxyConfiguration": {
             "title": "Proxy configuration",
             "type": "object",
-            "description": "Apify proxy. Residential is required for Amazon, Walmart, Target, AliExpress. Datacenter is fine for Shopify and most other retailers.",
+            "description": "Optional. Default (no premium groups) works for Shopify, WooCommerce and other standard storefronts. Residential/SERP groups are ignored: the walled marketplaces block automation even through premium proxies, so those groups only raise costs. Your own proxy URLs pass through.",
             "editor": "proxy",
-            "prefill": {
-                "useApifyProxy": true,
-                "apifyProxyGroups": [
-                    "RESIDENTIAL"
-                ]
-            },
             "default": {
-                "useApifyProxy": true,
-                "apifyProxyGroups": [
-                    "RESIDENTIAL"
-                ]
+                "useApifyProxy": true
             }
         }
     }

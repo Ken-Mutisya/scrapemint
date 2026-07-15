@@ -112,19 +112,13 @@
         "proxyConfiguration": {
             "title": "Proxy configuration",
             "type": "object",
-            "description": "Apify proxy. Residential is required at any meaningful volume.",
+            "description": "Optional. The default (no premium groups) is all this source needs. Residential/SERP groups are ignored to keep run costs down; your own proxy URLs pass through.",
             "editor": "proxy",
             "prefill": {
-                "useApifyProxy": true,
-                "apifyProxyGroups": [
-                    "RESIDENTIAL"
-                ]
+                "useApifyProxy": true
             },
             "default": {
-                "useApifyProxy": true,
-                "apifyProxyGroups": [
-                    "RESIDENTIAL"
-                ]
+                "useApifyProxy": true
             }
         }
     }

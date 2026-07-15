@@ -1,15 +1,14 @@
 {
-    "_note": "PUT this to /v2/acts/{actorId} as pricingInfos array entry. Per playbook: PAY_PER_EVENT only on BRONZE plan, startedAt 14+ days out. Apify auto-adds 20% margin.",
-    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~ecommerce-scraper?token=APIFY_TOKEN",
+    "_note": "PUT via automation/deploy-pricing.mjs --only=ecommerce-scraper. PAY_PER_EVENT only on BRONZE plan, startedAt 14+ days out. Apify auto-adds 20% margin. Raised 0.005 -> 0.01 and free tier 10 -> 2 on 2026-07-15 after the negative-margin email (browser compute).",
     "pricingModel": "PAY_PER_EVENT",
     "pricingPerEvent": {
         "actorChargeEvents": {
             "product_row": {
                 "eventTitle": "Ecommerce product row",
-                "eventDescription": "One product parsed from any Shopify, WooCommerce, BigCommerce, or generic ecommerce site with title, price, currency, availability, SKU, variants, images, description, and breadcrumb category. First 10 per run are free so you can validate output.",
-                "eventPriceUsd": 0.005
+                "eventDescription": "One product parsed from any Shopify, WooCommerce, BigCommerce, or generic ecommerce site with title, price, currency, availability, SKU, variants, images, description, and breadcrumb category. First 2 per run are free so you can validate output.",
+                "eventPriceUsd": 0.01
             }
         }
     },
-    "startedAt": "2026-06-14T00:00:00.000Z"
+    "startedAt": "2026-07-29T00:00:00.000Z"
 }

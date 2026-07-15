@@ -202,7 +202,24 @@ async function runFromFeed(plan) {
 // ---------- Browser fallback path ----------
 
 async function runPlaywright() {
-const proxyConfiguration = await Actor.createProxyConfiguration(proxyInput);
+// Buyer-selected RESIDENTIAL/SERP proxy groups are stripped: this source works
+// from datacenter IPs and premium groups only raise run costs (dev pays compute
+// under pay-per-event). Buyer-owned proxyUrls pass through untouched.
+function sanitizeProxyInput(p) {
+    if (!p || typeof p !== 'object') return p;
+    const out = { ...p };
+    if (Array.isArray(out.apifyProxyGroups)) {
+        const kept = out.apifyProxyGroups.filter((g) => !/RESIDENTIAL|SERP/i.test(String(g)));
+        if (kept.length !== out.apifyProxyGroups.length) {
+            log.warning('Ignoring RESIDENTIAL/SERP proxy groups: this source works from datacenter IPs and premium groups only raise run costs.');
+        }
+        if (kept.length) out.apifyProxyGroups = kept;
+        else delete out.apifyProxyGroups;
+    }
+    return out;
+}
+
+const proxyConfiguration = await Actor.createProxyConfiguration(sanitizeProxyInput(proxyInput));
 const calendarUrl = buildCalendarUrl({ range, startDate, endDate });
 log.info(`Calendar URL: ${calendarUrl}`);
 

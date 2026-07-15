@@ -89,7 +89,31 @@ const {
 
 const cap = Number(totalMaxProducts) > 0 ? Number(totalMaxProducts) : Infinity;
 
-const proxyConfiguration = await Actor.createProxyConfiguration(proxyInput);
+// Soft deadline: stop crawling before the platform kills the run so partial
+// data saves and queued charges drain.
+const timeoutAtMs = process.env.ACTOR_TIMEOUT_AT ? Date.parse(process.env.ACTOR_TIMEOUT_AT) : null;
+const deadlineMs = timeoutAtMs ? timeoutAtMs - 60000 : null;
+const pastDeadline = () => deadlineMs && Date.now() > deadlineMs;
+
+// The productive path (JSON-LD storefronts) works from datacenter IPs, and
+// the walled marketplaces block automation even through premium proxies, so
+// buyer-selected RESIDENTIAL/SERP groups only raise run costs. Buyer-owned
+// proxyUrls pass through untouched.
+function sanitizeProxyInput(p) {
+    if (!p || typeof p !== 'object') return p;
+    const out = { ...p };
+    if (Array.isArray(out.apifyProxyGroups)) {
+        const kept = out.apifyProxyGroups.filter((g) => !/RESIDENTIAL|SERP/i.test(String(g)));
+        if (kept.length !== out.apifyProxyGroups.length) {
+            log.warning('Ignoring RESIDENTIAL/SERP proxy groups: this source works from datacenter IPs and premium groups only raise run costs.');
+        }
+        if (kept.length) out.apifyProxyGroups = kept;
+        else delete out.apifyProxyGroups;
+    }
+    return out;
+}
+
+const proxyConfiguration = await Actor.createProxyConfiguration(sanitizeProxyInput(proxyInput));
 const seenStore = dedupe ? await Actor.openKeyValueStore('ecommerce-scraper-seen') : null;
 const seenProductIds = new Set(seenStore ? (await seenStore.getValue('seen-product-ids')) || [] : []);
 let pushedRows = 0;
@@ -109,7 +133,7 @@ const wantsPlaywright = scrapeMode === 'playwright' || scrapeMode === 'auto';
 const crawlerOptions = {
     proxyConfiguration,
     maxConcurrency: Math.max(1, Math.min(16, Number(concurrency) || 4)),
-    maxRequestRetries: 4,
+    maxRequestRetries: 2,
     retryOnBlocked: false,
     useSessionPool: true,
     persistCookiesPerSession: true,
@@ -135,7 +159,10 @@ const crawler = useCheerio
         requestHandlerTimeoutSecs: 240,
         launchContext: {
             launchOptions: {
-                args: ['--disable-blink-features=AutomationControlled'],
+                // imagesEnabled=false stops image downloads at the engine level
+                // (bandwidth), while img src attributes stay in the DOM so
+                // extractImages output is unaffected.
+                args: ['--disable-blink-features=AutomationControlled', '--blink-settings=imagesEnabled=false'],
             },
         },
         browserPoolOptions: {
@@ -173,6 +200,11 @@ await Actor.exit();
 // ---------- Routing ----------
 
 async function runHandler(ctx, engine) {
+    if (pastDeadline()) {
+        log.warning('Approaching run timeout; stopping crawl to save partial data.');
+        await crawler.stop();
+        return;
+    }
     const t = ctx.request.userData?.type;
     if (t === 'category') return handleCategory(ctx, engine);
     if (t === 'product') return handleProduct(ctx, engine);
@@ -186,10 +218,15 @@ function buildInitialRequests() {
         ? arr.map((v) => (typeof v === 'string' ? v : v?.url || v?.value || '')).map((v) => String(v).trim()).filter(Boolean)
         : [];
 
+    let skippedSeen = 0;
     for (const url of cleanArr(productUrls)) {
         const parsed = identifyMarketplace(url);
+        // Skip already-seen products BEFORE navigation: a repeat run must not
+        // pay full browser loads for pages it will not charge for.
+        if (dedupe && parsed.productId && seenProductIds.has(parsed.productId)) { skippedSeen += 1; continue; }
         out.push(makeProductRequest(parsed.marketplace, url, parsed.productId));
     }
+    if (skippedSeen > 0) log.info(`Skipped ${skippedSeen} already-seen product URL(s) before visiting (dedupe: false disables this).`);
     for (const url of cleanArr(categoryUrls)) {
         const parsed = identifyMarketplace(url);
         out.push({
@@ -371,7 +408,7 @@ async function handleProduct(ctx, engine) {
     await Actor.pushData(row);
     if (productId) seenProductIds.add(productId);
     pushedRows += 1;
-    if (pushedRows > 10) __chargeJobs.push(Actor.charge({ eventName: 'product_row' }).catch((err) => log.warning(`charge failed: ${err?.message}`)));
+    if (pushedRows > 2) __chargeJobs.push(Actor.charge({ eventName: 'product_row' }).catch((err) => log.warning(`charge failed: ${err?.message}`)));
     log.info(`Pushed ${request.userData.marketplace || 'generic'} ${(row.title || '').slice(0, 55)} | ${row.price?.value ?? '?'} ${row.price?.currency ?? ''} (${pushedRows})`);
 }
 
