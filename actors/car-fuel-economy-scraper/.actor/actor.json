@@ -1,0 +1,14 @@
+{
+    "actorSpecification": 1,
+    "name": "car-fuel-economy-scraper",
+    "title": "Car Fuel Economy Scraper: MPG, EV Range & CO2 by Model",
+    "description": "Look up official US EPA fuel economy for any car, 1984 to today. Paste \"year make model\" lines and get city/highway/combined MPG, fuel type, EV range, CO2 per mile, annual fuel cost and transmission per variant. For dealers, car apps and fleet buyers. No API key needed.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "BUSINESS",
+        "ECOMMERCE"
+    ]
+}

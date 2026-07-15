@@ -1,0 +1,16 @@
+{
+    "name": "car-fuel-economy-scraper",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Bulk car fuel economy lookups from the keyless US EPA fueleconomy.gov API: paste year/make/model lines and get MPG, fuel type, EV range, CO2 and annual fuel cost per variant. No browser, no API key.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}

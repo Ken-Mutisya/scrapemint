@@ -1,0 +1,14 @@
+{
+    "_note": "PUT via automation/deploy-pricing.mjs --only=car-fuel-economy-scraper. PAY_PER_EVENT only on BRONZE plan, startedAt 14+ days out. Apify auto-adds 20% margin. Keyless EPA fueleconomy.gov API, no proxy. Not-found free.",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "vehicle_row": {
+                "eventTitle": "Vehicle variant found",
+                "eventDescription": "One vehicle variant with city/highway/combined MPG, fuel type, EV range, CO2 per mile, annual fuel cost, engine and transmission. Lines that match nothing are free. First 2 rows per run are free.",
+                "eventPriceUsd": 0.003
+            }
+        }
+    },
+    "startedAt": "2026-07-29T00:00:00.000Z"
+}

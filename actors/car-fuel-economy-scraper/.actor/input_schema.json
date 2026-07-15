@@ -1,0 +1,30 @@
+{
+    "title": "Car Fuel Economy Scraper",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "vehicles": {
+            "title": "Vehicles (year make model)",
+            "type": "array",
+            "description": "One vehicle per line as \"year make model\", like \"2023 Toyota Camry\" or \"2022 Tesla Model 3\". Leave the model off (\"2023 Honda\") to get every model of that make. Trim names like \"F150 Pickup 4WD\" also work.",
+            "editor": "stringList",
+            "prefill": ["2023 Toyota Camry", "2022 Tesla Model 3", "2021 Ford F150"]
+        },
+        "maxRowsPerVehicle": {
+            "title": "Max rows per vehicle line",
+            "type": "integer",
+            "description": "A line can match several models and trim variants (engine, transmission, drive). Stop after this many rows per input line.",
+            "default": 10,
+            "minimum": 1,
+            "maximum": 50
+        },
+        "maxRows": {
+            "title": "Max rows",
+            "type": "integer",
+            "description": "Stop after this many rows in total.",
+            "default": 1000,
+            "minimum": 1,
+            "maximum": 50000
+        }
+    }
+}
