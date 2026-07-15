@@ -1,0 +1,17 @@
+{
+    "name": "stackoverflow-scraper",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Search Stack Overflow and any Stack Exchange site by keyword or tag via the keyless public API: one row per question with body, tags, score, views, author and optional top answers. No browser, no login.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0",
+        "cheerio": "^1.0.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}

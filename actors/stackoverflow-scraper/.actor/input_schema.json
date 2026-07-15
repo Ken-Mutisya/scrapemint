@@ -1,0 +1,65 @@
+{
+    "title": "Stack Overflow Scraper",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "queries": {
+            "title": "Search queries",
+            "type": "array",
+            "description": "Free text searches, one per line (\"memory leak nodejs\", \"pandas merge slow\"). Each returns the most relevant questions.",
+            "editor": "stringList",
+            "prefill": ["web scraping blocked", "playwright timeout"]
+        },
+        "tags": {
+            "title": "Tags",
+            "type": "array",
+            "description": "Tags to sweep, one per line (\"playwright\", \"apify\"). Each returns that tag's top questions by votes.",
+            "editor": "stringList",
+            "prefill": ["web-scraping"]
+        },
+        "maxPerQuery": {
+            "title": "Questions per query or tag",
+            "type": "integer",
+            "description": "How many questions to return for each search or tag (max 100).",
+            "default": 15,
+            "minimum": 1,
+            "maximum": 100
+        },
+        "includeAnswers": {
+            "title": "Include top answers",
+            "type": "boolean",
+            "description": "Attach the top answers (by votes, up to 5) to each question row. Costs one extra API call per 100 questions.",
+            "default": false
+        },
+        "site": {
+            "title": "Stack Exchange site",
+            "type": "string",
+            "description": "Which Stack Exchange site to search. Default stackoverflow; also works with superuser, serverfault, askubuntu, softwareengineering and any other site slug.",
+            "editor": "textfield",
+            "default": "stackoverflow"
+        },
+        "newerThanDays": {
+            "title": "Only questions newer than (days)",
+            "type": "integer",
+            "description": "Skip questions created more than this many days ago. 0 = no age limit.",
+            "default": 0,
+            "minimum": 0,
+            "maximum": 7300
+        },
+        "apiKey": {
+            "title": "Stack Exchange API key (optional)",
+            "type": "string",
+            "description": "Optional: your own Stack Exchange app key. Raises the shared daily quota (300 requests/day per IP) to 10,000/day. Get one free at stackapps.com.",
+            "editor": "textfield",
+            "isSecret": true
+        },
+        "maxRows": {
+            "title": "Max rows",
+            "type": "integer",
+            "description": "Stop after this many rows in total.",
+            "default": 1000,
+            "minimum": 1,
+            "maximum": 50000
+        }
+    }
+}

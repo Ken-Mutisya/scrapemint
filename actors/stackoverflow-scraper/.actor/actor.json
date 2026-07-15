@@ -1,0 +1,14 @@
+{
+    "actorSpecification": 1,
+    "name": "stackoverflow-scraper",
+    "title": "Stack Overflow Scraper: Questions, Answers & Tags",
+    "description": "Search Stack Overflow (or any Stack Exchange site) by keyword or tag and get one row per question: title, body, tags, score, views, answer count, accepted answer and author, with top answers optionally attached. For dev tool marketing, research and support teams. No API key needed.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "DEVELOPER_TOOLS",
+        "BUSINESS"
+    ]
+}
