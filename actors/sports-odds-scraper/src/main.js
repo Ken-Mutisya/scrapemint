@@ -1,86 +1,74 @@
 // Sports Odds Scraper
 //
-// Live odds from the public JSON endpoints major sportsbooks use to render
-// their own web clients. No third party API key required.
+// Strategy (rebuilt 2026-07-16)
+// ----------------------------
+// The original DraftKings and Pinnacle endpoints went dark for automated
+// access (DK 403s every client, Pinnacle blocks cloud IPs), so odds now come
+// from ESPN's public scoreboard feeds — keyless JSON, reachable from
+// datacenter IPs, no proxy — which carry a bookmaker odds block per game
+// (moneyline, spread, total; provider is typically DraftKings via ESPN's
+// partnership). One GET per sport covers today plus the look-ahead window.
 //
-// Strategy
-// --------
-// 1. Sports + leagues input maps to per book endpoint IDs (DraftKings event
-//    group IDs, Pinnacle league IDs).
-// 2. For each (book, league) combination we fetch the public JSON, parse
-//    events + markets + outcomes, and merge by (home, away, commence_time).
-// 3. Direct event URL input is parsed by the matching book handler, with a
-//    JSON-LD SportsEvent fallback for unsupported books.
-// 4. Optional best price + arbitrage compute runs once per merged event.
-// 5. One row per event with a markets[] array containing every outcome we
-//    saw across every book.
+// Input stays byte-compatible with the original schema so existing
+// scheduled runs keep working: `books` is accepted and ignored (single
+// provider now), `eventUrls` returns a free explanatory row, everything
+// else behaves as before. Output rows keep the same shape (markets[] with
+// per-book prices), so downstream buyer pipelines keep parsing.
+//
+// Pay per event
+// -------------
+//   odds_row per event row with at least one market. First 2 rows per run
+//   free. Events without odds are skipped, never charged.
 
 import { Actor, log } from 'apify';
 
-const DK_BASE = 'https://sportsbook.draftkings.com/sites/US-SB/api/v5';
-const PINNACLE_BASE = 'https://guest.api.arcadia.pinnacle.com/0.1';
-const PINNACLE_HEADERS = {
-    'X-API-Key': 'CmX2KcMrXuFmNg6YFbmTxE0y9CIrOi0R',
-    'Referer': 'https://www.pinnacle.com/',
-    'Accept': 'application/json',
-    'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
+// Old input keys -> ESPN sport/league paths, plus friendly aliases. Raw
+// "sport/league" ESPN paths pass through, so any ESPN-covered league works.
+const SPORT_PATHS = {
+    nfl: 'football/nfl',
+    ncaaf: 'football/college-football',
+    nba: 'basketball/nba',
+    wnba: 'basketball/wnba',
+    ncaab: 'basketball/mens-college-basketball',
+    mlb: 'baseball/mlb',
+    nhl: 'hockey/nhl',
+    ufc: 'mma/ufc',
+    soccer_epl: 'soccer/eng.1',
+    soccer_laliga: 'soccer/esp.1',
+    soccer_bundesliga: 'soccer/ger.1',
+    soccer_seriea: 'soccer/ita.1',
+    soccer_ligue1: 'soccer/fra.1',
+    soccer_mls: 'soccer/usa.1',
+    soccer_uefa_cl: 'soccer/uefa.champions',
+    soccer_uefa_el: 'soccer/uefa.europa',
+    epl: 'soccer/eng.1',
+    laliga: 'soccer/esp.1',
+    bundesliga: 'soccer/ger.1',
+    seriea: 'soccer/ita.1',
+    ligue1: 'soccer/fra.1',
+    mls: 'soccer/usa.1',
+    ucl: 'soccer/uefa.champions',
+    uel: 'soccer/uefa.europa',
+};
+const UNSUPPORTED_NOTE = {
+    boxing: 'boxing odds are not available from the current source',
+    golf_pga: 'golf odds are not available from the current source (matchup odds are not in the scoreboard feed)',
+    f1: 'F1 odds are not available from the current source',
+    tennis_atp: 'tennis odds are not available from the current source',
+    tennis_wta: 'tennis odds are not available from the current source',
+    esports_csgo: 'esports odds are not available from the current source',
+    esports_lol: 'esports odds are not available from the current source',
+    esports_dota2: 'esports odds are not available from the current source',
 };
 
-// DraftKings publishes a stable event group ID per league. These are the
-// stable production IDs for the US site; if a league rotates we degrade
-// silently and log a warning.
-const DK_EVENT_GROUPS = {
-    nfl: 88808,
-    ncaaf: 87637,
-    nba: 42648,
-    wnba: 94682,
-    ncaab: 92483,
-    mlb: 84240,
-    nhl: 42133,
-    ufc: 9034,
-    boxing: 9033,
-    soccer_epl: 40253,
-    soccer_laliga: 40031,
-    soccer_bundesliga: 40029,
-    soccer_seriea: 40030,
-    soccer_ligue1: 40032,
-    soccer_mls: 40828,
-    soccer_uefa_cl: 40685,
-    soccer_uefa_el: 40688,
-    tennis_atp: 39992,
-    tennis_wta: 39993,
-    golf_pga: 53353,
-    f1: 89197,
-    esports_csgo: 13396,
-    esports_lol: 14250,
-    esports_dota2: 13660,
-};
+const FETCH_TIMEOUT_MS = 30000;
+const DEFAULT_LOOKAHEAD_H = 72;
+const MAX_LOOKAHEAD_H = 14 * 24;
 
-// Pinnacle league IDs. Only the leagues with live coverage; rest fall through
-// to the DraftKings only path silently.
-const PINNACLE_LEAGUES = {
-    nfl: 889,
-    ncaaf: 880,
-    nba: 487,
-    ncaab: 493,
-    mlb: 246,
-    nhl: 1456,
-    ufc: 8676,
-    boxing: 1424,
-    soccer_epl: 1980,
-    soccer_laliga: 2196,
-    soccer_bundesliga: 1842,
-    soccer_seriea: 2436,
-    soccer_ligue1: 2036,
-    soccer_mls: 2143,
-    soccer_uefa_cl: 2627,
-    soccer_uefa_el: 2630,
-    tennis_atp: 2417,
-    tennis_wta: 2421,
-    esports_csgo: 12047,
-    esports_lol: 12010,
-    esports_dota2: 12011,
-};
+const timeoutAtMs = process.env.ACTOR_TIMEOUT_AT ? Date.parse(process.env.ACTOR_TIMEOUT_AT) : null;
+const deadlineMs = timeoutAtMs ? timeoutAtMs - 45000 : null;
+const pastDeadline = () => deadlineMs && Date.now() > deadlineMs;
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
 await Actor.init();
 const __chargeJobs = [];
@@ -89,7 +77,7 @@ const input = (await Actor.getInput()) ?? {};
 const {
     sports = [],
     eventUrls = [],
-    books = ['draftkings', 'pinnacle'],
+    books = [],
     markets = ['h2h', 'spreads', 'totals'],
     oddsFormat = 'american',
     computeBestPrice = true,
@@ -101,74 +89,197 @@ const {
     includeStartedEvents = false,
     lookAheadHours = 0,
     dedupe = true,
-    concurrency = 4,
-    proxyConfiguration: proxyInput,
 } = input;
 
-const sportList = Array.isArray(sports) ? sports.filter(Boolean) : [];
-const bookSet = new Set((Array.isArray(books) && books.length > 0 ? books : ['draftkings', 'pinnacle']).map((b) => String(b).toLowerCase()));
+const sportList = (Array.isArray(sports) ? sports : String(sports || '').split(/[\n,;]+/))
+    .map((s) => String(s || '').trim().toLowerCase()).filter(Boolean);
 const marketSet = new Set((Array.isArray(markets) && markets.length > 0 ? markets : ['h2h', 'spreads', 'totals']).map((m) => String(m).toLowerCase()));
 const cap = Number(totalMaxEvents) > 0 ? Number(totalMaxEvents) : Infinity;
 const perSportCap = Number(maxEventsPerSport) > 0 ? Number(maxEventsPerSport) : Infinity;
-const lookAheadMs = Number(lookAheadHours) > 0 ? Number(lookAheadHours) * 3600 * 1000 : 0;
+const lookAheadMs = Math.min(Math.max(Number(lookAheadHours) || 0, 0), MAX_LOOKAHEAD_H) * 3600 * 1000;
+const fetchWindowMs = Math.max(lookAheadMs, DEFAULT_LOOKAHEAD_H * 3600 * 1000);
 
-const proxyConfiguration = await Actor.createProxyConfiguration(proxyInput);
+if (Array.isArray(books) && books.length > 0 && !(books.length === 2 && books.includes('draftkings') && books.includes('pinnacle'))) {
+    log.info('The "books" input is no longer used: odds come from one bookmaker feed (typically DraftKings) via ESPN. All events are returned regardless of this setting.');
+}
+
 const seenStore = dedupe ? await Actor.openKeyValueStore('sports-odds-scraper-seen') : null;
 const seenEventKeys = new Set(seenStore ? (await seenStore.getValue('seen-event-keys')) || [] : []);
 let pushedRows = 0;
 
 if (sportList.length === 0 && (!Array.isArray(eventUrls) || eventUrls.length === 0)) {
-    log.warning('No input. Provide at least one sport (in sports[]) or one direct event URL (in eventUrls[]).');
+    log.warning('No input. Provide at least one sport in sports[], e.g. ["mlb", "nba", "soccer_epl"].');
     await Promise.allSettled(__chargeJobs);
-await Actor.exit();
+    await Actor.exit();
 }
 
-const fetcher = await buildProxiedFetch(proxyConfiguration);
+async function getJson(url) {
+    for (let attempt = 1; attempt <= 3; attempt += 1) {
+        const controller = new AbortController();
+        const timer = setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS);
+        try {
+            const res = await fetch(url, {
+                signal: controller.signal,
+                headers: { Accept: 'application/json', 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36' },
+            });
+            if (res.status === 429 || res.status >= 500) throw new Error(`HTTP ${res.status}`);
+            if (!res.ok) return { error: `HTTP ${res.status}` };
+            return await res.json();
+        } catch (err) {
+            if (attempt === 3) return { error: err?.message };
+            await sleep(attempt * 2000);
+        } finally {
+            clearTimeout(timer);
+        }
+    }
+    return { error: 'unreachable' };
+}
 
-// Aggregate events keyed by `${sport}|${homeNorm}|${awayNorm}|${commenceISO}` so
-// the same matchup at different books merges into one row.
+// ---------- ESPN odds parsing ----------
+
+const americanFromStr = (v) => {
+    if (v == null) return null;
+    const n = typeof v === 'number' ? v : parseInt(String(v).replace(/[^\d+-]/g, ''), 10);
+    return Number.isFinite(n) && n !== 0 ? n : null;
+};
+
+function americanToDecimal(american) {
+    if (!Number.isFinite(american) || american === 0) return null;
+    if (american > 0) return Number((american / 100 + 1).toFixed(4));
+    return Number((100 / Math.abs(american) + 1).toFixed(4));
+}
+
+const closeOdds = (side) => side?.close ?? side?.current ?? side?.open ?? null;
+
+function outcome(name, american, point, participant) {
+    const decimal = americanToDecimal(american);
+    return {
+        name,
+        price: convertOdds(decimal, oddsFormat),
+        priceDecimal: decimal,
+        point: point != null && Number.isFinite(Number(point)) ? Number(point) : null,
+        participant: participant ?? null,
+    };
+}
+
+function parseEspnOdds(odds, home, away) {
+    const bookMarkets = [];
+
+    if (marketSet.has('h2h')) {
+        const ml = odds.moneyline || {};
+        const outcomes = [
+            outcome(home, americanFromStr(closeOdds(ml.home)?.odds) ?? americanFromStr(odds.homeTeamOdds?.moneyLine), null, 'home'),
+            outcome(away, americanFromStr(closeOdds(ml.away)?.odds) ?? americanFromStr(odds.awayTeamOdds?.moneyLine), null, 'away'),
+        ];
+        const draw = americanFromStr(closeOdds(ml.draw)?.odds) ?? americanFromStr(odds.drawOdds?.moneyLine);
+        if (draw != null) outcomes.push(outcome('Draw', draw, null, 'draw'));
+        const priced = outcomes.filter((o) => o.priceDecimal != null);
+        if (priced.length > 0) bookMarkets.push({ key: 'h2h', label: ml.displayName || 'Moneyline', outcomes: priced });
+    }
+
+    if (marketSet.has('spreads')) {
+        const ps = odds.pointSpread || {};
+        const homeClose = closeOdds(ps.home);
+        const awayClose = closeOdds(ps.away);
+        const outcomes = [
+            outcome(home, americanFromStr(homeClose?.odds), homeClose?.line ?? (odds.spread != null ? odds.spread : null), 'home'),
+            outcome(away, americanFromStr(awayClose?.odds), awayClose?.line ?? (odds.spread != null ? -odds.spread : null), 'away'),
+        ].filter((o) => o.priceDecimal != null);
+        if (outcomes.length > 0) bookMarkets.push({ key: 'spreads', label: ps.displayName || 'Spread', outcomes });
+    }
+
+    if (marketSet.has('totals')) {
+        const t = odds.total || {};
+        const overClose = closeOdds(t.over);
+        const underClose = closeOdds(t.under);
+        const outcomes = [
+            outcome('Over', americanFromStr(overClose?.odds), overClose?.line ?? odds.overUnder, 'over'),
+            outcome('Under', americanFromStr(underClose?.odds), underClose?.line ?? odds.overUnder, 'under'),
+        ].filter((o) => o.priceDecimal != null);
+        if (outcomes.length > 0) bookMarkets.push({ key: 'totals', label: t.displayName || 'Total', outcomes });
+    }
+
+    return bookMarkets;
+}
+
+const yyyymmdd = (d) => d.toISOString().slice(0, 10).replace(/-/g, '');
+
+async function fetchEspnSport(sport, path) {
+    const from = new Date();
+    const to = new Date(Date.now() + fetchWindowMs);
+    const url = `https://site.api.espn.com/apis/site/v2/sports/${path}/scoreboard?dates=${yyyymmdd(from)}-${yyyymmdd(to)}&limit=300`;
+    const data = await getJson(url);
+    if (data?.error) {
+        log.warning(`${sport}: ${data.error}`);
+        return [];
+    }
+
+    const out = [];
+    for (const ev of data?.events || []) {
+        const comp = (ev.competitions || [])[0] || {};
+        const competitors = comp.competitors || [];
+        const home = competitors.find((c) => c.homeAway === 'home')?.team?.displayName;
+        const away = competitors.find((c) => c.homeAway === 'away')?.team?.displayName;
+        const commenceTime = ev.date || comp.date || null;
+        if (!home || !away || !commenceTime) continue;
+
+        const odds = (comp.odds || [])[0];
+        if (!odds) continue;
+        const bookMarkets = parseEspnOdds(odds, home, away);
+        if (bookMarkets.length === 0) continue;
+
+        const book = String(odds.provider?.name || 'bookmaker').toLowerCase().replace(/[^a-z0-9]+/g, '');
+        out.push({
+            sport,
+            home,
+            away,
+            commenceTime,
+            eventKey: makeEventKey(sport, home, away, commenceTime),
+            sourceUrl: (ev.links || [])[0]?.href || null,
+            book,
+            bookMarkets,
+        });
+    }
+    return out;
+}
+
+// ---------- Sweep ----------
+
 const eventBucket = new Map();
 
 for (const sport of sportList) {
     if (pushedRows >= cap) break;
+    if (pastDeadline()) { log.warning('Approaching timeout; stopping early.'); break; }
+
+    let path = SPORT_PATHS[sport];
+    if (!path) {
+        const m = sport.match(/^([a-z-]+)\/([a-z0-9.-]+)$/);
+        if (m) path = sport;
+    }
+    if (!path) {
+        const note = UNSUPPORTED_NOTE[sport] || `unknown sport "${sport}": use one of ${Object.keys(SPORT_PATHS).slice(0, 10).join(', ')}... or an ESPN sport/league path like soccer/bra.1`;
+        await Actor.pushData({ sport, found: false, note: `${note}; not charged` });
+        continue;
+    }
+
     let perSportCount = 0;
-
-    if (bookSet.has('draftkings') && DK_EVENT_GROUPS[sport]) {
-        const events = await fetchDraftKings(sport, DK_EVENT_GROUPS[sport]).catch((err) => {
-            log.warning(`DraftKings ${sport} failed: ${err?.message}`);
-            return [];
-        });
-        for (const ev of events) {
-            if (perSportCount >= perSportCap) break;
-            mergeEvent(ev);
-            perSportCount += 1;
-        }
-        log.info(`DraftKings ${sport}: ${events.length} events.`);
+    const events = await fetchEspnSport(sport, path).catch((err) => {
+        log.warning(`${sport} failed: ${err?.message}`);
+        return [];
+    });
+    for (const ev of events) {
+        if (perSportCount >= perSportCap) break;
+        mergeEvent(ev);
+        perSportCount += 1;
     }
-
-    if (bookSet.has('pinnacle') && PINNACLE_LEAGUES[sport]) {
-        const events = await fetchPinnacle(sport, PINNACLE_LEAGUES[sport]).catch((err) => {
-            log.warning(`Pinnacle ${sport} failed: ${err?.message}`);
-            return [];
-        });
-        for (const ev of events) {
-            if (perSportCount >= perSportCap) break;
-            mergeEvent(ev);
-            perSportCount += 1;
-        }
-        log.info(`Pinnacle ${sport}: ${events.length} events.`);
-    }
+    log.info(`${sport}: ${events.length} event(s) with odds.`);
+    await sleep(250);
 }
 
 if (Array.isArray(eventUrls) && eventUrls.length > 0) {
     const cleaned = eventUrls.map((u) => (typeof u === 'string' ? u : u?.url || '')).filter(Boolean);
     for (const url of cleaned) {
-        if (pushedRows >= cap) break;
-        const ev = await fetchEventByUrl(url).catch((err) => {
-            log.warning(`Event URL ${url} failed: ${err?.message}`);
-            return null;
-        });
-        if (ev) mergeEvent(ev);
+        await Actor.pushData({ url, found: false, note: 'direct event URLs are no longer supported (the sportsbook endpoints they pointed at block automated access); use sports[] instead; not charged' });
     }
 }
 
@@ -191,7 +302,6 @@ for (const ev of filtered) {
     if (dedupe && key && seenEventKeys.has(key)) continue;
 
     const row = finalizeEvent(ev);
-
     if (row.markets.length === 0) continue;
 
     if (computeBestPrice || computeArbitrage) attachEdges(row);
@@ -203,359 +313,21 @@ for (const ev of filtered) {
     if (key) seenEventKeys.add(key);
     pushedRows += 1;
     if (pushedRows > 2) __chargeJobs.push(Actor.charge({ eventName: 'odds_row' }).catch((err) => log.warning(`charge failed: ${err?.message}`)));
-    log.info(`Pushed ${row.sport} ${row.away} @ ${row.home} (${row.commenceTime || '?'}) | books=${row.books.length} markets=${row.markets.length} (${pushedRows})`);
+    log.info(`Pushed ${row.sport} ${row.away} @ ${row.home} (${row.commenceTime || '?'}) | markets=${row.markets.length} (${pushedRows})`);
 }
 
-if (seenStore && pushedRows > 0) await seenStore.setValue('seen-event-keys', [...seenEventKeys]);
+if (seenStore && pushedRows > 0) {
+    try {
+        await seenStore.setValue('seen-event-keys', [...seenEventKeys].slice(-100000));
+    } catch (err) {
+        log.warning(`could not persist dedupe state: ${err?.message}`);
+    }
+}
 log.info(`Run complete. Events pushed: ${pushedRows}.`);
 await Promise.allSettled(__chargeJobs);
 await Actor.exit();
 
-// ---------- Network ----------
-
-async function buildProxiedFetch(proxy) {
-    if (!proxy) return (url, opts) => fetch(url, opts);
-    let undiciFetch;
-    let ProxyAgent;
-    try {
-        ({ fetch: undiciFetch, ProxyAgent } = await import('undici'));
-    } catch (err) {
-        log.warning(`undici unavailable (${err?.message}); falling back to unproxied fetch`);
-        return (url, opts) => fetch(url, opts);
-    }
-    return async (url, opts = {}) => {
-        const proxyUrl = await proxy.newUrl();
-        return undiciFetch(url, { ...opts, dispatcher: new ProxyAgent(proxyUrl) });
-    };
-}
-
-async function getJson(url, headers = {}) {
-    const res = await fetcher(url, {
-        headers: {
-            'Accept': 'application/json',
-            'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
-            ...headers,
-        },
-    });
-    if (!res.ok) throw new Error(`HTTP ${res.status} ${url}`);
-    return res.json();
-}
-
-// ---------- DraftKings ----------
-
-async function fetchDraftKings(sport, eventGroupId) {
-    const url = `${DK_BASE}/eventgroups/${eventGroupId}?format=json`;
-    const data = await getJson(url);
-
-    const events = data?.eventGroup?.events || [];
-    const offerCategories = data?.eventGroup?.offerCategories || [];
-    const offerSubByEvent = new Map();
-
-    for (const cat of offerCategories) {
-        const catName = String(cat.name || '').toLowerCase();
-        const wantedMarket = catName.includes('game lines') || catName.includes('main')
-            ? 'h2h_spreads_totals'
-            : catName.includes('player props') || catName.includes('player')
-            ? 'player_props'
-            : catName.includes('team') ? 'team_totals'
-            : catName.includes('first half') ? 'first_half'
-            : null;
-        if (!wantedMarket) continue;
-
-        const descriptors = cat.offerSubcategoryDescriptors || [];
-        for (const desc of descriptors) {
-            const subOffers = desc.offerSubcategory?.offers || [];
-            for (const offerList of subOffers) {
-                for (const offer of offerList) {
-                    const eventId = offer.eventId;
-                    if (!eventId) continue;
-                    if (!offerSubByEvent.has(eventId)) offerSubByEvent.set(eventId, []);
-                    offerSubByEvent.get(eventId).push({ ...offer, _market: wantedMarket });
-                }
-            }
-        }
-    }
-
-    const out = [];
-    for (const ev of events) {
-        const home = ev.teamName1 || ev.team1 || null;
-        const away = ev.teamName2 || ev.team2 || null;
-        const commenceTime = ev.startDate || ev.eventStatusId || null;
-        if (!home || !away || !commenceTime) continue;
-
-        const eventKey = makeEventKey(sport, home, away, commenceTime);
-        const offers = offerSubByEvent.get(ev.eventId) || [];
-
-        const bookMarkets = [];
-        for (const offer of offers) {
-            const marketKey = mapDkMarketLabel(offer.label, offer._market);
-            if (!marketKey || !marketSet.has(marketKey)) continue;
-
-            const outcomes = (offer.outcomes || []).map((o) => ({
-                name: o.label || o.participant || null,
-                price: convertOdds(parseFloat(o.oddsDecimal), oddsFormat),
-                priceDecimal: Number.isFinite(parseFloat(o.oddsDecimal)) ? parseFloat(o.oddsDecimal) : null,
-                point: o.line != null ? Number(o.line) : null,
-                participant: o.participant || null,
-            })).filter((o) => o.name);
-            if (outcomes.length === 0) continue;
-
-            bookMarkets.push({
-                key: marketKey,
-                label: offer.label,
-                outcomes,
-            });
-        }
-        if (bookMarkets.length === 0) continue;
-
-        out.push({
-            sport,
-            home,
-            away,
-            commenceTime,
-            eventKey,
-            sourceUrl: ev.eventGroupName ? `https://sportsbook.draftkings.com/event/${ev.eventId}` : null,
-            book: 'draftkings',
-            bookMarkets,
-        });
-    }
-    return out;
-}
-
-function mapDkMarketLabel(label, fallback) {
-    const l = String(label || '').toLowerCase();
-    if (/moneyline|money line|match winner|winner|to win/.test(l)) return 'h2h';
-    if (/spread|run line|puck line|handicap/.test(l)) return 'spreads';
-    if (/total|over\/under|game total/.test(l)) return 'totals';
-    if (/team total/.test(l)) return 'team_totals';
-    if (/first half|1st half|h1/.test(l)) return 'first_half';
-    if (fallback === 'player_props') return 'player_props';
-    if (fallback === 'team_totals') return 'team_totals';
-    if (fallback === 'first_half') return 'first_half';
-    return null;
-}
-
-// ---------- Pinnacle ----------
-
-async function fetchPinnacle(sport, leagueId) {
-    const matchupsUrl = `${PINNACLE_BASE}/leagues/${leagueId}/matchups?brandId=0`;
-    const marketsUrl = `${PINNACLE_BASE}/leagues/${leagueId}/markets/straight?primaryOnly=false`;
-
-    const [matchups, mkts] = await Promise.all([
-        getJson(matchupsUrl, PINNACLE_HEADERS),
-        getJson(marketsUrl, PINNACLE_HEADERS),
-    ]);
-
-    const marketsByMatchup = new Map();
-    for (const m of mkts) {
-        if (!marketsByMatchup.has(m.matchupId)) marketsByMatchup.set(m.matchupId, []);
-        marketsByMatchup.get(m.matchupId).push(m);
-    }
-
-    const out = [];
-    for (const ma of matchups) {
-        if (ma.parent || ma.type === 'special') continue;
-        const home = ma.participants?.find((p) => p.alignment === 'home')?.name;
-        const away = ma.participants?.find((p) => p.alignment === 'away')?.name;
-        const commenceTime = ma.startTime;
-        if (!home || !away || !commenceTime) continue;
-
-        const eventKey = makeEventKey(sport, home, away, commenceTime);
-        const matchupMarkets = marketsByMatchup.get(ma.id) || [];
-
-        const designationToName = { home, away };
-
-        const bookMarkets = [];
-        for (const m of matchupMarkets) {
-            const marketKey = mapPinnacleMarket(m.type, m.period);
-            if (!marketKey || !marketSet.has(marketKey)) continue;
-
-            const outcomes = (m.prices || []).map((p) => {
-                const american = p.price != null ? Number(p.price) : null;
-                const decimal = americanToDecimal(american);
-                const designation = p.designation || null;
-                const name = (m.type === 'moneyline' || m.type === 'spread')
-                    ? (designationToName[designation] || designation)
-                    : designation;
-                return {
-                    name,
-                    price: convertOdds(decimal, oddsFormat),
-                    priceDecimal: decimal,
-                    point: p.points != null ? Number(p.points) : null,
-                    participant: designation,
-                };
-            }).filter((o) => o.name && o.priceDecimal != null);
-            if (outcomes.length === 0) continue;
-
-            bookMarkets.push({
-                key: marketKey,
-                label: `${m.type} (period ${m.period})`,
-                outcomes,
-            });
-        }
-        if (bookMarkets.length === 0) continue;
-
-        out.push({
-            sport,
-            home,
-            away,
-            commenceTime,
-            eventKey,
-            sourceUrl: `https://www.pinnacle.com/en/${sport}/matchup/${ma.id}`,
-            book: 'pinnacle',
-            bookMarkets,
-        });
-    }
-    return out;
-}
-
-function mapPinnacleMarket(type, period) {
-    // period semantics differ by sport. Period 0 is full match for most sports
-    // (NFL, MLB, NHL, soccer 90 min, tennis match). Period 3 is full game for
-    // NBA / WNBA. Period 1 is first half (or set 1 in tennis). Anything else
-    // is in play / quarter / set splits which we treat as first_half for
-    // simplicity, unless the input asked for player_props.
-    if (![0, 1, 3].includes(period)) return null;
-    const t = String(type || '').toLowerCase();
-    if (t === 'moneyline') return period === 1 ? 'first_half' : 'h2h';
-    if (t === 'spread') return period === 1 ? 'first_half' : 'spreads';
-    if (t === 'total') return period === 1 ? 'first_half' : 'totals';
-    if (t === 'team_total') return 'team_totals';
-    return null;
-}
-
-function americanToDecimal(american) {
-    if (!Number.isFinite(american) || american === 0) return null;
-    if (american > 0) return Number((american / 100 + 1).toFixed(4));
-    return Number((100 / Math.abs(american) + 1).toFixed(4));
-}
-
-// ---------- URL handler ----------
-
-async function fetchEventByUrl(url) {
-    let host;
-    try { host = new URL(url).hostname.toLowerCase(); } catch { return null; }
-
-    if (host.includes('sportsbook.draftkings.com')) {
-        const m = url.match(/\/event\/[^/]*?\/(\d+)/) || url.match(/\/event\/(\d+)/);
-        if (!m) return null;
-        const data = await getJson(`${DK_BASE}/event/${m[1]}?format=json`).catch(() => null);
-        if (!data?.event) return null;
-        return parseDkEvent(data);
-    }
-    if (host.includes('pinnacle.com')) {
-        const m = url.match(/matchup\/([^/?#]+)/);
-        if (!m) return null;
-        return null;
-    }
-    return await fetchEventByJsonLd(url);
-}
-
-function parseDkEvent(payload) {
-    const ev = payload.event;
-    const sport = inferSportFromName(payload?.eventGroupName || ev?.eventGroupName || '');
-    const home = ev.teamName1;
-    const away = ev.teamName2;
-    const commenceTime = ev.startDate;
-    if (!home || !away || !commenceTime) return null;
-    const eventKey = makeEventKey(sport, home, away, commenceTime);
-
-    const bookMarkets = [];
-    for (const cat of payload.eventCategories || []) {
-        for (const desc of cat.componentizedOffers || []) {
-            for (const offer of desc.offers || []) {
-                const marketKey = mapDkMarketLabel(offer.label, null);
-                if (!marketKey || !marketSet.has(marketKey)) continue;
-                const outcomes = (offer.outcomes || []).map((o) => ({
-                    name: o.label || null,
-                    price: convertOdds(parseFloat(o.oddsDecimal), oddsFormat),
-                    priceDecimal: Number.isFinite(parseFloat(o.oddsDecimal)) ? parseFloat(o.oddsDecimal) : null,
-                    point: o.line != null ? Number(o.line) : null,
-                    participant: o.participant || null,
-                })).filter((o) => o.name);
-                if (outcomes.length > 0) bookMarkets.push({ key: marketKey, label: offer.label, outcomes });
-            }
-        }
-    }
-
-    return {
-        sport,
-        home,
-        away,
-        commenceTime,
-        eventKey,
-        sourceUrl: `https://sportsbook.draftkings.com/event/${ev.eventId}`,
-        book: 'draftkings',
-        bookMarkets,
-    };
-}
-
-async function fetchEventByJsonLd(url) {
-    const { chromium } = await import('playwright');
-    const browser = await chromium.launch({
-        args: ['--disable-blink-features=AutomationControlled'],
-    });
-    try {
-        const ctx = await browser.newContext({
-            userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
-            locale: 'en-US',
-        });
-        const page = await ctx.newPage();
-        await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 60000 });
-        const data = await page.evaluate(() => {
-            const blocks = [...document.querySelectorAll('script[type="application/ld+json"]')];
-            const out = [];
-            for (const b of blocks) {
-                try { out.push(JSON.parse(b.textContent || '')); } catch {}
-            }
-            return out;
-        });
-        await browser.close();
-
-        const flatten = (b) => Array.isArray(b) ? b : (b?.['@graph'] ? b['@graph'] : [b]);
-        for (const block of data) {
-            for (const item of flatten(block)) {
-                if (!item) continue;
-                const types = Array.isArray(item['@type']) ? item['@type'] : [item['@type']];
-                if (!types.some((t) => /SportsEvent|Event/i.test(String(t)))) continue;
-                const home = item.homeTeam?.name || item.homeTeam || null;
-                const away = item.awayTeam?.name || item.awayTeam || null;
-                const commenceTime = item.startDate || item.startTime || null;
-                if (!home || !away) continue;
-                const sport = inferSportFromName(item.sport || item.name || '');
-                return {
-                    sport,
-                    home,
-                    away,
-                    commenceTime,
-                    eventKey: makeEventKey(sport, home, away, commenceTime || ''),
-                    sourceUrl: url,
-                    book: 'jsonld',
-                    bookMarkets: [],
-                };
-            }
-        }
-        return null;
-    } catch (err) {
-        try { await browser.close(); } catch {}
-        throw err;
-    }
-}
-
-function inferSportFromName(name) {
-    const n = String(name || '').toLowerCase();
-    if (/nfl|football/.test(n)) return 'nfl';
-    if (/nba|basketball/.test(n)) return 'nba';
-    if (/mlb|baseball/.test(n)) return 'mlb';
-    if (/nhl|hockey/.test(n)) return 'nhl';
-    if (/ufc|mma/.test(n)) return 'ufc';
-    if (/soccer|football|epl|premier|laliga|bundesliga|serie a|ligue 1|mls|uefa/.test(n)) return 'soccer';
-    if (/tennis/.test(n)) return 'tennis';
-    if (/golf/.test(n)) return 'golf';
-    return 'other';
-}
-
-// ---------- Bucketing ----------
+// ---------- Bucketing (unchanged row shape) ----------
 
 function makeEventKey(sport, home, away, commenceTime) {
     const norm = (s) => String(s).toLowerCase().replace(/[^a-z0-9]+/g, '');
@@ -573,9 +345,9 @@ function mergeEvent(ev) {
             commenceTime: ev.commenceTime,
             eventKey: key,
             books: [],
-            markets: [], // populated in finalizeEvent
+            markets: [],
             sources: [],
-            byBook: {}, // book -> markets[]
+            byBook: {},
         });
     }
     const bucket = eventBucket.get(key);
@@ -585,8 +357,6 @@ function mergeEvent(ev) {
 }
 
 function finalizeEvent(bucket) {
-    // Group markets across books by (key, point|null) so we end up with one
-    // entry per market line with prices indexed by book.
     const byMarketKey = new Map();
     for (const [book, marketsArr] of Object.entries(bucket.byBook)) {
         for (const m of marketsArr) {
@@ -603,11 +373,7 @@ function finalizeEvent(bucket) {
 
     const markets = [];
     for (const m of byMarketKey.values()) {
-        markets.push({
-            key: m.key,
-            label: m.label,
-            outcomes: [...m.outcomes.values()],
-        });
+        markets.push({ key: m.key, label: m.label, outcomes: [...m.outcomes.values()] });
     }
 
     return {
@@ -623,7 +389,8 @@ function finalizeEvent(bucket) {
     };
 }
 
-// ---------- Best price + arbitrage ----------
+// ---------- Best price + arbitrage (single book now: no-ops unless a second
+// provider ever appears in the feed; kept for output compatibility) ----------
 
 function attachEdges(row) {
     for (const m of row.markets) {
@@ -631,13 +398,10 @@ function attachEdges(row) {
             const decimals = Object.entries(o.prices)
                 .map(([book, p]) => ({ book, decimal: p.decimal }))
                 .filter((p) => Number.isFinite(p.decimal));
-            if (decimals.length === 0) continue;
-
             if (decimals.length < 2) continue;
             const bestEntry = decimals.reduce((a, b) => (b.decimal > a.decimal ? b : a));
             const avg = decimals.reduce((s, p) => s + p.decimal, 0) / decimals.length;
             const edgePct = avg > 0 ? ((bestEntry.decimal - avg) / avg) * 100 : 0;
-
             if (computeBestPrice && (minBestEdgePct === 0 || edgePct >= minBestEdgePct)) {
                 o.bestPrice = {
                     book: bestEntry.book,
@@ -648,7 +412,6 @@ function attachEdges(row) {
                 };
             }
         }
-
         if (computeArbitrage && (m.key === 'h2h' || m.key === 'totals' || m.key === 'spreads')) {
             const arb = detectArb(m);
             if (arb && arb.edgePct >= minArbPct) m.arbitrage = arb;
@@ -698,7 +461,7 @@ function filterArb(market, minPct) {
     return market;
 }
 
-// ---------- Odds conversion ----------
+// ---------- Odds conversion (unchanged) ----------
 
 function convertOdds(decimal, format) {
     if (!Number.isFinite(decimal) || decimal <= 1) return null;

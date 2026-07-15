@@ -7,7 +7,7 @@
         "sports": {
             "title": "Sports + leagues",
             "type": "array",
-            "description": "Pick which leagues to scrape. Each pulls every upcoming event with currently posted lines from the selected sportsbooks.",
+            "description": "Sports/leagues to sweep: nfl, ncaaf, nba, wnba, ncaab, mlb, nhl, ufc, soccer_epl, soccer_laliga, soccer_bundesliga, soccer_seriea, soccer_ligue1, soccer_mls, soccer_uefa_cl, soccer_uefa_el (or short forms like epl, mls, ucl). Any ESPN sport/league path like soccer/bra.1 also works.",
             "editor": "select",
             "items": {
                 "type": "string",
@@ -69,22 +69,22 @@
             "sectionDescription": "Pick leagues, paste event URLs, or both. Each event ships as one row with markets[].",
             "prefill": [
                 "mlb",
-                "soccer_mls",
                 "wnba",
-                "tennis_atp"
+                "nba",
+                "soccer_epl"
             ]
         },
         "eventUrls": {
             "title": "Event URLs",
             "type": "array",
-            "description": "Direct event page URLs from any supported sportsbook (DraftKings, Pinnacle, FanDuel, BetMGM, Caesars, Bet365). Mix and match. Unknown books fall back to JSON-LD extraction.",
+            "description": "No longer supported (the sportsbook pages these pointed at block automated access). Use sports[] instead; URL entries return a free explanatory row.",
             "editor": "stringList",
             "default": []
         },
         "books": {
             "title": "Sportsbooks to include",
             "type": "array",
-            "description": "Which sportsbooks to query when sports + leagues are selected. Empty means all supported books.",
+            "description": "No longer used (kept so older saved inputs keep working). Odds come from one bookmaker feed, typically DraftKings, via ESPN's public scoreboard.",
             "editor": "select",
             "items": {
                 "type": "string",
@@ -229,7 +229,7 @@
         "concurrency": {
             "title": "Concurrency",
             "type": "integer",
-            "description": "Number of book + sport combinations fetched in parallel.",
+            "description": "No longer used (one request per sport now). Kept for compatibility.",
             "default": 4,
             "minimum": 1,
             "maximum": 16
@@ -237,19 +237,10 @@
         "proxyConfiguration": {
             "title": "Proxy configuration",
             "type": "object",
-            "description": "Apify proxy. Pinnacle public API works on datacenter or unproxied. DraftKings is geo gated and Akamai protected, so US residential is required. FanDuel, BetMGM, Bet365 also need residential.",
+            "description": "Not used: the odds source works from datacenter IPs without any proxy. Kept for compatibility with older saved inputs.",
             "editor": "proxy",
-            "prefill": {
-                "useApifyProxy": true,
-                "apifyProxyGroups": [
-                    "RESIDENTIAL"
-                ]
-            },
             "default": {
-                "useApifyProxy": true,
-                "apifyProxyGroups": [
-                    "RESIDENTIAL"
-                ]
+                "useApifyProxy": false
             }
         }
     }

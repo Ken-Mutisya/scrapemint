@@ -1,8 +1,8 @@
 {
     "actorSpecification": 1,
     "name": "sports-odds-scraper",
-    "title": "Sports Odds Live Feed: DraftKings, Pinnacle, FanDuel, BetMGM",
-    "description": "Pull live sports betting odds across DraftKings, Pinnacle, FanDuel, BetMGM, Caesars, Bet365 and more. H2H, spreads, totals, props. Normalized schema, best price per outcome, arbitrage detection. No third party API key. Pay per row.",
+    "title": "Sports Odds Scraper: NFL, NBA, MLB & Soccer Lines",
+    "description": "Pregame odds for NFL, NBA, WNBA, MLB, NHL, UFC, college and top soccer leagues: moneyline, spread and total per game in one normalized schema, American or decimal format. Keyless public feed, no proxy, no browser. One row per game, pay per row.",
     "version": "0.1",
     "buildTag": "latest",
     "input": "./input_schema.json",

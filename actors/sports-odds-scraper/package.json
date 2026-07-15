@@ -2,16 +2,13 @@
     "name": "sports-odds-scraper",
     "version": "0.1.0",
     "type": "module",
-    "description": "Live sports odds across DraftKings, Pinnacle, and any sportsbook event page. Pulls h2h, spreads, totals, and props in one normalized schema. Best price per outcome and arbitrage detection. No third party API key required. Pay per row.",
+    "description": "Live pregame sports odds (moneyline, spread, total) for NFL, NBA, MLB, NHL, top soccer leagues and more, from a keyless public feed. Normalized rows with best price fields. No browser, no proxy, no API key. Pay per row.",
     "main": "src/main.js",
     "scripts": {
         "start": "node src/main.js"
     },
     "dependencies": {
-        "apify": "^3.7.0",
-        "crawlee": "^3.16.0",
-        "playwright": "1.54.1",
-        "undici": "^6.19.8"
+        "apify": "^3.7.0"
     },
     "engines": {
         "node": ">=20"
