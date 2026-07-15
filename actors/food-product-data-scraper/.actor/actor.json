@@ -1,0 +1,14 @@
+{
+    "actorSpecification": 1,
+    "name": "food-product-data-scraper",
+    "title": "Food Product Data Scraper: Barcode & Name Lookup",
+    "description": "Look up food products in bulk by barcode (EAN/UPC) or by name. For each product: name, brand, quantity, ingredients, allergens, Nutri-Score, NOVA group, nutrition per 100g and a photo URL. For grocery apps, e-commerce listings and nutrition tools. No API key needed.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "ECOMMERCE",
+        "BUSINESS"
+    ]
+}

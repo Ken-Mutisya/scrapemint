@@ -1,0 +1,14 @@
+{
+    "_note": "PUT via automation/deploy-pricing.mjs --only=food-product-data-scraper. PAY_PER_EVENT only on BRONZE plan, startedAt 14+ days out. Apify auto-adds 20% margin. Keyless Open Food Facts API, no proxy. Not-found free.",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "product_found": {
+                "eventTitle": "Product found",
+                "eventDescription": "One matched food product with name, brand, quantity, ingredients, allergens, Nutri-Score, NOVA group, nutrition per 100g and photo URL. Barcodes and searches that match nothing are free. First 2 rows per run are free.",
+                "eventPriceUsd": 0.002
+            }
+        }
+    },
+    "startedAt": "2026-07-29T00:00:00.000Z"
+}

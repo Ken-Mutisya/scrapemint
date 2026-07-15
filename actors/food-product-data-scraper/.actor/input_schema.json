@@ -1,0 +1,37 @@
+{
+    "title": "Food Product Data Scraper",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "barcodes": {
+            "title": "Barcodes (EAN / UPC)",
+            "type": "array",
+            "description": "Product barcodes, one per line: EAN-13, EAN-8 or UPC-A. Dashes and spaces are fine. Each barcode returns exactly the matching product.",
+            "editor": "stringList",
+            "prefill": ["3017624010701", "5449000000996", "8076800195057"]
+        },
+        "searches": {
+            "title": "Product name searches",
+            "type": "array",
+            "description": "Free text searches like a product name or a brand (\"oat milk\", \"lindt dark chocolate\"). Each search returns the best matches.",
+            "editor": "stringList",
+            "prefill": ["oat milk", "peanut butter"]
+        },
+        "maxResultsPerQuery": {
+            "title": "Matches per search",
+            "type": "integer",
+            "description": "How many best matches to return for each name search. Barcodes always return one.",
+            "default": 3,
+            "minimum": 1,
+            "maximum": 50
+        },
+        "maxRows": {
+            "title": "Max rows",
+            "type": "integer",
+            "description": "Stop after this many rows in total.",
+            "default": 1000,
+            "minimum": 1,
+            "maximum": 50000
+        }
+    }
+}
