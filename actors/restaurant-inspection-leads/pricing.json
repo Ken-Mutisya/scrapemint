@@ -1,0 +1,15 @@
+{
+    "_note": "PUT this to /v2/acts/{actorId} as pricingInfos array entry. PAY_PER_EVENT only on BRONZE plan, startedAt 14+ days out. Apify auto-adds 20% margin.",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~restaurant-inspection-leads?token=CLI_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "inspection_row": {
+                "eventTitle": "Restaurant inspection lead row",
+                "eventDescription": "One recent restaurant health inspection with business name, address, phone where the city publishes it, inspection date, result, score or grade, and cited violations. First 2 rows per run are free.",
+                "eventPriceUsd": 0.01
+            }
+        }
+    },
+    "startedAt": "2026-07-30T00:00:00.000Z"
+}

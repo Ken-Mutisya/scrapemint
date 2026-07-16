@@ -1,0 +1,56 @@
+{
+    "title": "Restaurant Inspection Leads Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "cities": {
+            "title": "Cities",
+            "type": "array",
+            "description": "Cities to scan. Empty = all supported cities. Note: Austin publishes with a delay of one to two months; King County data currently lags several months.",
+            "editor": "select",
+            "items": {
+                "type": "string",
+                "enum": ["nyc", "chicago", "boston", "austin", "seattle"],
+                "enumTitles": ["New York City, NY", "Chicago, IL", "Boston, MA", "Austin, TX", "Seattle / King County, WA"]
+            },
+            "prefill": ["nyc", "chicago", "boston"],
+            "default": []
+        },
+        "keywords": {
+            "title": "Violation keywords (optional)",
+            "type": "array",
+            "description": "Matched against violation text, result, and business name, e.g. vermin, mice, roach, temperature, sewage, hood. Empty = all inspections.",
+            "editor": "stringList",
+            "default": []
+        },
+        "onlyWithViolations": {
+            "title": "Only inspections with violations",
+            "type": "boolean",
+            "description": "Skip clean inspections and return only rows that cite at least one violation.",
+            "default": false
+        },
+        "sinceDays": {
+            "title": "Inspected in the last N days",
+            "type": "integer",
+            "description": "How far back to scan for inspections.",
+            "default": 14,
+            "minimum": 1,
+            "maximum": 365
+        },
+        "maxRows": {
+            "title": "Max inspections per run",
+            "type": "integer",
+            "description": "Cap on inspection rows returned, split across the selected cities. Controls total cost.",
+            "default": 25,
+            "minimum": 1,
+            "maximum": 2000
+        },
+        "dedupe": {
+            "title": "Skip inspections seen in previous runs",
+            "type": "boolean",
+            "description": "Remember returned inspections across runs and skip them. Turn on for a scheduled daily lead feed.",
+            "default": false
+        }
+    },
+    "required": []
+}

@@ -1,0 +1,16 @@
+{
+    "name": "restaurant-inspection-leads",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Fresh restaurant health inspections from official city open data, normalized across NYC, Chicago, Boston, Austin, and King County: one row per inspection with business name, address, phone where published, result, score, and violations. Filter by keyword. Keyless, no browser. Pay per row.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}

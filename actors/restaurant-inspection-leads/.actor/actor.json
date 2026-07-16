@@ -1,0 +1,14 @@
+{
+    "actorSpecification": 1,
+    "name": "restaurant-inspection-leads",
+    "title": "Restaurant Inspection Leads: Health Violations by City",
+    "description": "Fresh restaurant health inspections from official city open data, normalized across NYC, Chicago, Boston, Austin, and King County: one row per inspection with business name, address, phone where published, result, score, and violations. Filter by keyword. Keyless, no browser. Pay per row.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "LEAD_GENERATION",
+        "BUSINESS"
+    ]
+}
