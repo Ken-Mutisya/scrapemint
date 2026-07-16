@@ -1,0 +1,17 @@
+{
+    "name": "bulk-barcode-generator",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Generate hundreds of retail and logistics barcodes in one run: EAN-13, UPC-A, Code 128, ITF-14, Code 39, and ISBN as PNG or SVG with direct download links. Check digits validated before rendering, wrong numbers flagged free. Runs fully offline. Pay per barcode, first 2 free.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0",
+        "bwip-js": "^4.5.1"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}

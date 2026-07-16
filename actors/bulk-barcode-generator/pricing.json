@@ -1,0 +1,15 @@
+{
+    "_note": "PUT this to /v2/acts/{actorId} as pricingInfos array entry. PAY_PER_EVENT only on BRONZE plan, startedAt 14+ days out. Apify auto-adds 20% margin.",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~bulk-barcode-generator?token=CLI_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "barcode": {
+                "eventTitle": "Barcode generated",
+                "eventDescription": "One barcode (EAN-13, UPC-A, Code 128, ITF-14, Code 39, or ISBN) rendered as PNG or SVG with a direct download link. Invalid numbers are flagged as free rows. First 2 barcodes per run are free.",
+                "eventPriceUsd": 0.002
+            }
+        }
+    },
+    "startedAt": "2026-07-31T00:00:00.000Z"
+}

@@ -1,0 +1,14 @@
+{
+    "actorSpecification": 1,
+    "name": "bulk-barcode-generator",
+    "title": "Bulk Barcode Generator: EAN, UPC, Code 128 to PNG or SVG",
+    "description": "Generate hundreds of retail and logistics barcodes in one run: EAN-13, UPC-A, Code 128, ITF-14, Code 39, and ISBN as PNG or SVG with direct download links. Check digits validated before rendering, wrong numbers flagged free. Runs fully offline. Pay per barcode, first 2 free.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "ECOMMERCE",
+        "BUSINESS"
+    ]
+}

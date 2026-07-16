@@ -1,0 +1,57 @@
+{
+    "title": "Bulk Barcode Generator Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "items": {
+            "title": "Barcode values (one per line)",
+            "type": "array",
+            "description": "The numbers or text to encode, one barcode per line. GTIN types (EAN-13, UPC-A, ITF-14) accept the number with or without its check digit; when omitted, the check digit is computed for you.",
+            "editor": "stringList",
+            "prefill": ["5901234123457", "4006381333931", "9780306406157"]
+        },
+        "barcodeType": {
+            "title": "Barcode type",
+            "type": "string",
+            "description": "Applied to all lines in the run. EAN-13 and UPC-A for retail products, ITF-14 for shipping cartons, Code 128 for logistics and internal SKUs, Code 39 for legacy systems, ISBN for books.",
+            "editor": "select",
+            "enum": ["ean13", "upca", "code128", "itf14", "code39", "isbn"],
+            "enumTitles": ["EAN-13 (retail, worldwide)", "UPC-A (retail, North America)", "Code 128 (logistics, any text)", "ITF-14 (shipping cartons)", "Code 39 (legacy)", "ISBN (books)"],
+            "default": "ean13"
+        },
+        "format": {
+            "title": "Image format",
+            "type": "string",
+            "description": "PNG for label printers and documents, SVG for infinite-resolution vector use.",
+            "editor": "select",
+            "enum": ["png", "svg"],
+            "enumTitles": ["PNG", "SVG"],
+            "default": "png"
+        },
+        "scale": {
+            "title": "Scale",
+            "type": "integer",
+            "description": "Pixel width of the narrowest bar (PNG). 2-3 suits most label printers.",
+            "editor": "number",
+            "default": 3,
+            "minimum": 1,
+            "maximum": 8
+        },
+        "barHeight": {
+            "title": "Bar height (mm)",
+            "type": "integer",
+            "description": "Height of the bars in millimeters.",
+            "editor": "number",
+            "default": 12,
+            "minimum": 5,
+            "maximum": 40
+        },
+        "showText": {
+            "title": "Print the number under the bars",
+            "type": "boolean",
+            "description": "Include the human-readable digits below the barcode.",
+            "default": true
+        }
+    },
+    "required": ["items"]
+}
