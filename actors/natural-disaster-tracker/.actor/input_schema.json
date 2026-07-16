@@ -1,0 +1,76 @@
+{
+    "title": "Natural Disaster Tracker Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "eventTypes": {
+            "title": "Event types",
+            "type": "array",
+            "description": "Which disaster types to track. Empty = all.",
+            "editor": "select",
+            "items": {
+                "type": "string",
+                "enum": ["earthquake", "cyclone", "flood", "volcano", "drought", "wildfire"],
+                "enumTitles": ["Earthquakes (USGS)", "Tropical cyclones", "Floods", "Volcanic eruptions", "Droughts", "Wildfires"]
+            },
+            "prefill": ["earthquake", "cyclone", "flood", "volcano"],
+            "default": []
+        },
+        "minMagnitude": {
+            "title": "Min earthquake magnitude",
+            "type": "integer",
+            "description": "Earthquakes below this magnitude are skipped. 4 to 5 keeps it to quakes people feel; 6 and up is destructive.",
+            "editor": "number",
+            "default": 5,
+            "minimum": 0,
+            "maximum": 9
+        },
+        "minAlertLevel": {
+            "title": "Min alert level",
+            "type": "string",
+            "description": "GDACS and USGS PAGER alert severity floor. Green returns everything; orange and red only the serious events.",
+            "editor": "select",
+            "enum": ["green", "orange", "red"],
+            "enumTitles": ["Green (all events)", "Orange (serious)", "Red (major)"],
+            "default": "green"
+        },
+        "sinceHours": {
+            "title": "Earthquake window (hours)",
+            "type": "integer",
+            "description": "How far back to include earthquakes. Max 720 (30 days).",
+            "editor": "number",
+            "default": 48,
+            "minimum": 1,
+            "maximum": 720
+        },
+        "includeOngoing": {
+            "title": "Include ongoing disasters",
+            "type": "boolean",
+            "description": "Droughts, floods, and cyclones can run for weeks. On: all currently active events are included regardless of start date. Off: only events that started inside the window.",
+            "default": true
+        },
+        "countries": {
+            "title": "Countries (optional)",
+            "type": "array",
+            "description": "Only events whose location mentions one of these, e.g. Japan, Kenya, Philippines. Empty = worldwide.",
+            "editor": "stringList",
+            "default": []
+        },
+        "maxRows": {
+            "title": "Max events per run",
+            "type": "integer",
+            "description": "Cap on event rows returned. Controls total cost.",
+            "editor": "number",
+            "default": 50,
+            "minimum": 1,
+            "maximum": 2000
+        },
+        "dedupe": {
+            "title": "Skip events seen in previous runs",
+            "type": "boolean",
+            "description": "Remember returned events across runs and skip them. Turn on with a schedule for a live new-disasters feed.",
+            "default": false
+        }
+    },
+    "required": []
+}

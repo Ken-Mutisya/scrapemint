@@ -1,0 +1,16 @@
+{
+    "name": "natural-disaster-tracker",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Live worldwide disaster feed from official USGS and GDACS sources: earthquakes, cyclones, floods, volcanoes, droughts, and wildfires with alert levels, coordinates, and severity. Filter by magnitude, alert level, type, and country. Schedule with dedupe for a new-events feed. Pay per event.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}

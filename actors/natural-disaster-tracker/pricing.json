@@ -1,0 +1,15 @@
+{
+    "_note": "PUT this to /v2/acts/{actorId} as pricingInfos array entry. PAY_PER_EVENT only on BRONZE plan, startedAt 14+ days out. Apify auto-adds 20% margin.",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~natural-disaster-tracker?token=CLI_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "disaster_row": {
+                "eventTitle": "Disaster event row",
+                "eventDescription": "One disaster event from official USGS or GDACS feeds: type, title, alert level, magnitude or severity, country, coordinates, times, and report link. Quiet windows cost nothing. First 2 rows per run are free.",
+                "eventPriceUsd": 0.005
+            }
+        }
+    },
+    "startedAt": "2026-07-31T00:00:00.000Z"
+}
