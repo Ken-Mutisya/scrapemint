@@ -1,0 +1,17 @@
+{
+    "name": "bulk-qr-code-generator",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Generate hundreds of QR codes in one run: paste URLs, text, WiFi logins, or vCards, get a PNG or SVG per line with a direct download link. Custom size, colors, and error correction. Runs fully offline, works for any language and country. Pay per code, first 2 free.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0",
+        "qrcode": "^1.5.4"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}

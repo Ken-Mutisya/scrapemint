@@ -1,0 +1,65 @@
+{
+    "title": "Bulk QR Code Generator Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "items": {
+            "title": "Contents (one QR code per line)",
+            "type": "array",
+            "description": "URLs, plain text, WiFi strings (WIFI:S:MyNetwork;T:WPA;P:password;;), vCards, or anything else. One QR code is generated per line.",
+            "editor": "stringList",
+            "prefill": ["https://apify.com", "https://example.com/menu", "WIFI:S:GuestWifi;T:WPA;P:welcome123;;"]
+        },
+        "format": {
+            "title": "Image format",
+            "type": "string",
+            "description": "PNG for print and messaging, SVG for infinite-resolution vector use.",
+            "editor": "select",
+            "enum": ["png", "svg"],
+            "enumTitles": ["PNG", "SVG"],
+            "default": "png"
+        },
+        "size": {
+            "title": "Size in pixels (PNG)",
+            "type": "integer",
+            "description": "Width and height of PNG output. Ignored for SVG.",
+            "editor": "number",
+            "default": 512,
+            "minimum": 128,
+            "maximum": 2048
+        },
+        "errorCorrection": {
+            "title": "Error correction",
+            "type": "string",
+            "description": "Higher levels survive more damage or overlaid logos but make denser codes. M is the everyday default.",
+            "editor": "select",
+            "enum": ["L", "M", "Q", "H"],
+            "enumTitles": ["L (7%)", "M (15%)", "Q (25%)", "H (30%)"],
+            "default": "M"
+        },
+        "margin": {
+            "title": "Quiet zone (modules)",
+            "type": "integer",
+            "description": "White border around the code. Keep at least 2 for reliable scanning.",
+            "editor": "number",
+            "default": 2,
+            "minimum": 0,
+            "maximum": 20
+        },
+        "darkColor": {
+            "title": "Foreground color",
+            "type": "string",
+            "description": "Hex color of the QR modules, e.g. #000000 or #1a1a2e.",
+            "editor": "textfield",
+            "default": "#000000"
+        },
+        "lightColor": {
+            "title": "Background color",
+            "type": "string",
+            "description": "Hex background color, e.g. #ffffff.",
+            "editor": "textfield",
+            "default": "#ffffff"
+        }
+    },
+    "required": ["items"]
+}

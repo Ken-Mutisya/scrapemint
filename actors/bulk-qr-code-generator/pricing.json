@@ -1,0 +1,15 @@
+{
+    "_note": "PUT this to /v2/acts/{actorId} as pricingInfos array entry. PAY_PER_EVENT only on BRONZE plan, startedAt 14+ days out. Apify auto-adds 20% margin.",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~bulk-qr-code-generator?token=CLI_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "qr_code": {
+                "eventTitle": "QR code generated",
+                "eventDescription": "One QR code rendered as PNG or SVG with a direct download link, custom size, colors, and error correction. Lines that cannot be encoded are free. First 2 codes per run are free.",
+                "eventPriceUsd": 0.002
+            }
+        }
+    },
+    "startedAt": "2026-07-31T00:00:00.000Z"
+}
