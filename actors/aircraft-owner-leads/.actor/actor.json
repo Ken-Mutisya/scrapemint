@@ -1,0 +1,14 @@
+{
+    "actorSpecification": 1,
+    "name": "aircraft-owner-leads",
+    "title": "Aircraft Owner Leads: FAA Registration Lookup",
+    "description": "Registered aircraft owners from the official FAA registry, updated daily: owner name and mailing address, aircraft make, model, year, engine, and registration status. Look up tail numbers or pull filtered owner lists by state, manufacturer, and year. Keyless, no browser. Pay per row.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "LEAD_GENERATION",
+        "BUSINESS"
+    ]
+}

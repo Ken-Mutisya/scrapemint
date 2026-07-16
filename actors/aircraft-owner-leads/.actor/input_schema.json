@@ -1,0 +1,84 @@
+{
+    "title": "Aircraft Owner Leads Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "nNumbers": {
+            "title": "Tail numbers (optional)",
+            "type": "array",
+            "description": "Specific N-numbers to look up, with or without the leading N (N12345 or 12345). Leave empty to use the filters below instead.",
+            "editor": "stringList",
+            "default": []
+        },
+        "states": {
+            "title": "States (filter mode)",
+            "type": "array",
+            "description": "Two-letter US state codes to pull owners from, e.g. TX, FL, CA.",
+            "editor": "stringList",
+            "prefill": [
+                "TX"
+            ],
+            "default": []
+        },
+        "manufacturer": {
+            "title": "Manufacturer contains (optional)",
+            "type": "string",
+            "description": "Filter by aircraft manufacturer name, e.g. CESSNA, PIPER, BEECH, CIRRUS, BOEING.",
+            "editor": "textfield"
+        },
+        "yearMin": {
+            "title": "Built after year (optional)",
+            "type": "integer",
+            "minimum": 1900,
+            "editor": "number",
+            "description": "Only aircraft manufactured in or after this year."
+        },
+        "yearMax": {
+            "title": "Built before year (optional)",
+            "type": "integer",
+            "minimum": 1900,
+            "editor": "number",
+            "description": "Only aircraft manufactured in or before this year."
+        },
+        "registrantTypes": {
+            "title": "Registrant types (optional)",
+            "type": "array",
+            "description": "Limit to owner types.",
+            "editor": "select",
+            "items": {
+                "type": "string",
+                "enum": [
+                    "individual",
+                    "partnership",
+                    "corporation",
+                    "coOwned",
+                    "government",
+                    "llc",
+                    "nonCitizenCorporation",
+                    "nonCitizenCoOwned"
+                ],
+                "enumTitles": [
+                    "Individual",
+                    "Partnership",
+                    "Corporation",
+                    "Co-owned",
+                    "Government",
+                    "LLC",
+                    "Non-citizen corporation",
+                    "Non-citizen co-owned"
+                ]
+            },
+            "default": []
+        },
+        "maxRows": {
+            "title": "Max rows per run",
+            "type": "integer",
+            "description": "Cap on owner rows returned. Controls total cost.",
+            "default": 25,
+            "minimum": 1,
+            "maximum": 5000,
+            "editor": "number"
+        }
+    },
+    "required": []
+}
