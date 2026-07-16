@@ -1,0 +1,69 @@
+{
+    "title": "Kalshi Prediction Market Scraper Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "categories": {
+            "title": "Categories (discovery mode)",
+            "type": "array",
+            "description": "Kalshi categories to browse, e.g. Politics, Economics, Sports, Financials, Climate and Weather, Science and Technology, Culture, World, Health, Companies, Crypto. Matched loosely.",
+            "editor": "stringList",
+            "prefill": ["Economics", "Politics"],
+            "default": []
+        },
+        "keywords": {
+            "title": "Keywords (optional)",
+            "type": "array",
+            "description": "Only markets whose event title or outcome mentions one of these, e.g. Fed, inflation, Chiefs, Bitcoin.",
+            "editor": "stringList",
+            "default": []
+        },
+        "eventTickers": {
+            "title": "Event tickers (optional)",
+            "type": "array",
+            "description": "Exact Kalshi event tickers to fetch, e.g. KXNEWPOPE-70. Overrides categories and series.",
+            "editor": "stringList",
+            "default": []
+        },
+        "seriesTickers": {
+            "title": "Series tickers (optional)",
+            "type": "array",
+            "description": "Kalshi series tickers to fetch all markets from, e.g. KXFED, KXCPI.",
+            "editor": "stringList",
+            "default": []
+        },
+        "status": {
+            "title": "Market status",
+            "type": "string",
+            "description": "Open markets trade now; closed and settled are history.",
+            "editor": "select",
+            "enum": ["open", "closed", "settled"],
+            "enumTitles": ["Open (trading)", "Closed", "Settled"],
+            "default": "open"
+        },
+        "onlyPriced": {
+            "title": "Only markets with prices",
+            "type": "boolean",
+            "description": "Skip markets that have no bids and no trades yet (empty books, long-dated combos).",
+            "default": true
+        },
+        "minVolume": {
+            "title": "Min volume (contracts)",
+            "type": "integer",
+            "description": "Skip markets with lifetime volume below this.",
+            "editor": "number",
+            "default": 0,
+            "minimum": 0
+        },
+        "maxRows": {
+            "title": "Max market rows per run",
+            "type": "integer",
+            "description": "Cap on market rows returned. Controls total cost.",
+            "editor": "number",
+            "default": 100,
+            "minimum": 1,
+            "maximum": 2000
+        }
+    },
+    "required": []
+}

@@ -1,0 +1,16 @@
+{
+    "name": "kalshi-prediction-market-scraper",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Live odds from Kalshi, the regulated US event contract exchange: sports, elections, economics, weather, and culture markets with yes/no prices, implied probability, volume, and open interest. Filter by category, keyword, or ticker. Keyless, no browser. Pay per market row.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}

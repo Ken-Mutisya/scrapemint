@@ -1,0 +1,14 @@
+{
+    "actorSpecification": 1,
+    "name": "kalshi-prediction-market-scraper",
+    "title": "Kalshi Prediction Market Scraper: Live Event Odds",
+    "description": "Live odds from Kalshi, the regulated US event contract exchange: sports, elections, economics, weather, and culture markets with yes/no prices, implied probability, volume, and open interest. Filter by category, keyword, or ticker. Keyless, no browser. Pay per market row.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "BUSINESS",
+        "NEWS"
+    ]
+}
