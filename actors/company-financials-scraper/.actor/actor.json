@@ -1,0 +1,14 @@
+{
+    "actorSpecification": 1,
+    "name": "company-financials-scraper",
+    "title": "Company Financials Scraper: Revenue & Earnings from SEC",
+    "description": "Annual and quarterly fundamentals for US-listed companies straight from SEC XBRL filings: revenue, net income, EPS, operating income, cash flow, assets, liabilities, equity, shares. One row per fiscal period. Keyless, no browser, no rate-limited vendor API. Pay per row.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "BUSINESS",
+        "DEVELOPER_TOOLS"
+    ]
+}

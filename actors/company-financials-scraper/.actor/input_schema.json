@@ -1,0 +1,40 @@
+{
+    "title": "Company Financials Scraper Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "companies": {
+            "title": "Companies (tickers or CIK numbers)",
+            "type": "array",
+            "description": "Stock tickers (AAPL, MSFT) or SEC CIK numbers. US-listed companies that file with the SEC.",
+            "editor": "stringList",
+            "prefill": ["AAPL", "MSFT", "NVDA"]
+        },
+        "period": {
+            "title": "Period",
+            "type": "string",
+            "description": "Annual returns one row per fiscal year (from 10-K filings). Quarterly returns one row per quarter as filed (10-Q).",
+            "editor": "select",
+            "enum": ["annual", "quarterly"],
+            "enumTitles": ["Annual (fiscal years)", "Quarterly"],
+            "default": "annual"
+        },
+        "yearsBack": {
+            "title": "Years of history",
+            "type": "integer",
+            "description": "How many years back to include.",
+            "default": 5,
+            "minimum": 1,
+            "maximum": 25
+        },
+        "maxRows": {
+            "title": "Max rows per run",
+            "type": "integer",
+            "description": "Cap on period rows returned across all companies. Controls total cost.",
+            "default": 200,
+            "minimum": 1,
+            "maximum": 2000
+        }
+    },
+    "required": ["companies"]
+}
