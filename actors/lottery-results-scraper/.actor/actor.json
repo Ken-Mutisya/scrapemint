@@ -1,0 +1,14 @@
+{
+    "actorSpecification": 1,
+    "name": "lottery-results-scraper",
+    "title": "Lottery Results Scraper: Powerball, Mega Millions & More",
+    "description": "Official winning numbers from state open data: Powerball (with Double Play), Mega Millions, NY Lotto, Cash4Life, Take 5, and Pick 10. Parsed number arrays, special balls, and multipliers, with full history back years. Schedule with dedupe for a new-draws feed. Pay per draw.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "NEWS",
+        "OTHER"
+    ]
+}

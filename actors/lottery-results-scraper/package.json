@@ -1,0 +1,16 @@
+{
+    "name": "lottery-results-scraper",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Official winning numbers from state open data: Powerball (with Double Play), Mega Millions, NY Lotto, Cash4Life, Take 5, and Pick 10. Parsed number arrays, special balls, and multipliers, with full history back years. Schedule with dedupe for a new-draws feed. Pay per draw.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}

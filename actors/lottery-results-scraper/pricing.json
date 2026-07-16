@@ -1,0 +1,15 @@
+{
+    "_note": "PUT this to /v2/acts/{actorId} as pricingInfos array entry. PAY_PER_EVENT only on BRONZE plan, startedAt 14+ days out. Apify auto-adds 20% margin.",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~lottery-results-scraper?token=CLI_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "draw_row": {
+                "eventTitle": "Lottery draw row",
+                "eventDescription": "One official lottery draw with the game, draw date, parsed winning numbers, special ball (Powerball, Mega Ball, bonus, Cash Ball), and multiplier where the game has one. Empty windows cost nothing. First 2 rows per run are free.",
+                "eventPriceUsd": 0.002
+            }
+        }
+    },
+    "startedAt": "2026-07-31T00:00:00.000Z"
+}

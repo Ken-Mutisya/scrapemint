@@ -1,0 +1,45 @@
+{
+    "title": "Lottery Results Scraper Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "games": {
+            "title": "Games",
+            "type": "array",
+            "description": "Which games to fetch. Empty = all supported games.",
+            "editor": "select",
+            "items": {
+                "type": "string",
+                "enum": ["powerball", "megamillions", "nylotto", "cash4life", "take5", "pick10"],
+                "enumTitles": ["Powerball", "Mega Millions", "New York Lotto", "Cash4Life", "New York Take 5", "New York Pick 10"]
+            },
+            "prefill": ["powerball", "megamillions"],
+            "default": []
+        },
+        "sinceDays": {
+            "title": "Draws from the last N days",
+            "type": "integer",
+            "description": "How far back to fetch. Set large (e.g. 15000) for the full history of a game.",
+            "editor": "number",
+            "default": 30,
+            "minimum": 1,
+            "maximum": 20000
+        },
+        "maxRows": {
+            "title": "Max draws per run",
+            "type": "integer",
+            "description": "Cap on draw rows returned, split across the selected games. Controls total cost.",
+            "editor": "number",
+            "default": 50,
+            "minimum": 1,
+            "maximum": 10000
+        },
+        "dedupe": {
+            "title": "Skip draws seen in previous runs",
+            "type": "boolean",
+            "description": "Remember returned draws across runs and skip them. Turn on with a daily schedule for a hands-free new-results feed.",
+            "default": false
+        }
+    },
+    "required": []
+}
