@@ -1,0 +1,64 @@
+{
+    "title": "Lookalike Domain Finder Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "domains": {
+            "title": "Brand domains (one per line)",
+            "type": "array",
+            "description": "The domains you want to protect, e.g. stripe.com, mycompany.io. The actor generates lookalike variants of each and checks which are registered.",
+            "editor": "stringList",
+            "prefill": ["paypal.com"]
+        },
+        "includeHomoglyphs": {
+            "title": "Include homoglyph tricks",
+            "type": "boolean",
+            "description": "Also test look-alike character swaps like o->0, l->1, rn->m, vv->w. These are the sneakiest impersonations.",
+            "default": true
+        },
+        "extraTlds": {
+            "title": "Extra TLDs to test (optional)",
+            "type": "array",
+            "description": "Additional top-level domains to check the exact brand name against, e.g. shop, store, ai. A common set is always included.",
+            "editor": "stringList",
+            "default": []
+        },
+        "onlyWithMx": {
+            "title": "Only mail-capable lookalikes",
+            "type": "boolean",
+            "description": "Return only registered lookalikes that have a mail server, meaning they can send brand-spoofing email. The highest-risk subset.",
+            "default": false
+        },
+        "includeRegistrationDate": {
+            "title": "Look up registration date",
+            "type": "boolean",
+            "description": "Add each lookalike's domain registration date via RDAP so you can spot recently registered threats. Adds one lookup per lookalike found.",
+            "default": true
+        },
+        "maxVariantsPerDomain": {
+            "title": "Max variants per domain",
+            "type": "integer",
+            "description": "How many lookalike candidates to generate and check per brand domain. Higher = more thorough, more DNS lookups.",
+            "editor": "number",
+            "default": 600,
+            "minimum": 20,
+            "maximum": 2000
+        },
+        "maxRows": {
+            "title": "Max lookalikes per run",
+            "type": "integer",
+            "description": "Cap on registered lookalike rows returned. Controls total cost.",
+            "editor": "number",
+            "default": 100,
+            "minimum": 1,
+            "maximum": 2000
+        },
+        "dedupe": {
+            "title": "Skip lookalikes seen in previous runs",
+            "type": "boolean",
+            "description": "Remember returned lookalikes across runs and skip them. Turn on with a schedule to be alerted only when a NEW lookalike of your brand appears.",
+            "default": false
+        }
+    },
+    "required": ["domains"]
+}

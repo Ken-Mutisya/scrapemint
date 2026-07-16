@@ -1,0 +1,15 @@
+{
+    "_note": "PUT this to /v2/acts/{actorId} as pricingInfos array entry. PAY_PER_EVENT only on BRONZE plan, startedAt 14+ days out. Apify auto-adds 20% margin.",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~lookalike-domain-finder?token=CLI_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "lookalike_found": {
+                "eventTitle": "Registered lookalike domain",
+                "eventDescription": "One registered lookalike of a brand domain with its IP addresses, name servers, mail-server flag, risk flags, and registration date. Variants that are not registered are never charged. First 2 rows per run are free.",
+                "eventPriceUsd": 0.01
+            }
+        }
+    },
+    "startedAt": "2026-07-31T00:00:00.000Z"
+}

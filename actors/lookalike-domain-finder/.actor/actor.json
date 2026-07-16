@@ -1,0 +1,14 @@
+{
+    "actorSpecification": 1,
+    "name": "lookalike-domain-finder",
+    "title": "Lookalike Domain Finder: Typosquat & Phishing Detection",
+    "description": "Find registered lookalike domains impersonating your brand: typos, homoglyphs, hyphenations, phishing prefixes, and TLD swaps, checked live against DNS. Flags domains with a mail server (spoofing-capable) and shows registration dates. Keyless, no browser. Pay per lookalike found.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "BUSINESS",
+        "DEVELOPER_TOOLS"
+    ]
+}
