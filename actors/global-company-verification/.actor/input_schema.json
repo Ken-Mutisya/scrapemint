@@ -1,0 +1,51 @@
+{
+    "title": "Global Company Verification Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "queries": {
+            "title": "Company names or LEI codes (one per line)",
+            "type": "array",
+            "description": "Company names are searched full-text; 20-character LEI codes are fetched directly.",
+            "editor": "stringList",
+            "prefill": ["Apple Inc", "Safaricom", "Volkswagen AG"]
+        },
+        "country": {
+            "title": "Country (optional)",
+            "type": "string",
+            "description": "Two-letter code (US, DE, KE...) to limit name searches to entities legally registered in one country.",
+            "editor": "textfield"
+        },
+        "activeOnly": {
+            "title": "Active entities only",
+            "type": "boolean",
+            "description": "Skip merged, retired, and otherwise inactive entities in name searches.",
+            "default": false
+        },
+        "maxResultsPerQuery": {
+            "title": "Max matches per name search",
+            "type": "integer",
+            "description": "How many registry matches to return for each company name.",
+            "editor": "number",
+            "default": 5,
+            "minimum": 1,
+            "maximum": 50
+        },
+        "includeParents": {
+            "title": "Include parent companies",
+            "type": "boolean",
+            "description": "Look up each entity's direct and ultimate parent from the ownership relationship records. Adds two API calls per entity.",
+            "default": true
+        },
+        "maxRows": {
+            "title": "Max rows per run",
+            "type": "integer",
+            "description": "Cap on verified company rows across all queries. Controls total cost.",
+            "editor": "number",
+            "default": 100,
+            "minimum": 1,
+            "maximum": 1000
+        }
+    },
+    "required": ["queries"]
+}

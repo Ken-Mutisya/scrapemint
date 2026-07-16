@@ -1,0 +1,16 @@
+{
+    "name": "global-company-verification",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Verify legal entities in any country against the official global LEI registry: registered name, addresses, status, local registry number, and parent company ownership. Search by company name or LEI code. Keyless, no browser. Pay per verified company, no-match searches free.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}

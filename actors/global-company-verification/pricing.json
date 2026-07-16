@@ -1,0 +1,15 @@
+{
+    "_note": "PUT this to /v2/acts/{actorId} as pricingInfos array entry. PAY_PER_EVENT only on BRONZE plan, startedAt 14+ days out. Apify auto-adds 20% margin.",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~global-company-verification?token=CLI_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "company_found": {
+                "eventTitle": "Verified company row",
+                "eventDescription": "One legal entity verified against the global LEI registry: official registered name, legal and headquarters address, entity status, local registry number, and parent company ownership when requested. No-match searches are free. First 2 rows per run are free.",
+                "eventPriceUsd": 0.005
+            }
+        }
+    },
+    "startedAt": "2026-07-31T00:00:00.000Z"
+}
