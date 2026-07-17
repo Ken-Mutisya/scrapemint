@@ -1,0 +1,14 @@
+{
+    "actorSpecification": 1,
+    "name": "research-papers-scraper",
+    "title": "Research Papers Scraper: Citations, Authors & Experts",
+    "description": "Search 250M+ academic papers across every field: titles, abstracts, citation counts, journals, open-access PDF links. Find the top experts on any topic, look up researchers by name with ORCID, h-index and affiliations, or enrich DOI lists. No API key, no login.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "EDUCATION",
+        "BUSINESS"
+    ]
+}

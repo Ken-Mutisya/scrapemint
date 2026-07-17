@@ -1,0 +1,16 @@
+{
+    "name": "research-papers-scraper",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Search 250M+ academic papers via the keyless OpenAlex API: citations, abstracts, journals, open-access PDFs, top experts per topic, author profiles with ORCID and h-index, DOI enrichment. No browser, no login.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}

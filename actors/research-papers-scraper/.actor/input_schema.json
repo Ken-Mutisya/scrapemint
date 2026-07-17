@@ -1,0 +1,103 @@
+{
+    "title": "Research Papers Scraper",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "queries": {
+            "title": "Paper searches",
+            "type": "array",
+            "description": "Topics or keywords to search papers for, one per line (\"large language models\", \"mRNA vaccine stability\"). Each returns matching papers with abstracts and citation counts.",
+            "editor": "stringList",
+            "prefill": ["large language models"]
+        },
+        "maxPerQuery": {
+            "title": "Papers per search",
+            "type": "integer",
+            "description": "How many papers to return for each search.",
+            "default": 15,
+            "minimum": 1,
+            "maximum": 2000
+        },
+        "sortBy": {
+            "title": "Sort papers by",
+            "type": "string",
+            "description": "Order of paper results: best match, most cited first, or newest first.",
+            "editor": "select",
+            "default": "relevance",
+            "enum": ["relevance", "citations", "newest"],
+            "enumTitles": ["Best match", "Most cited", "Newest"]
+        },
+        "yearFrom": {
+            "title": "Published from year",
+            "type": "integer",
+            "description": "Only papers published in or after this year. 0 = no limit.",
+            "default": 0,
+            "minimum": 0,
+            "maximum": 2100
+        },
+        "yearTo": {
+            "title": "Published up to year",
+            "type": "integer",
+            "description": "Only papers published in or before this year. 0 = no limit.",
+            "default": 0,
+            "minimum": 0,
+            "maximum": 2100
+        },
+        "minCitations": {
+            "title": "Minimum citations",
+            "type": "integer",
+            "description": "Only papers cited at least this many times. 0 = no limit.",
+            "default": 0,
+            "minimum": 0,
+            "maximum": 1000000
+        },
+        "openAccessOnly": {
+            "title": "Open access only",
+            "type": "boolean",
+            "description": "Only papers with a free-to-read version (most rows then include a direct PDF link).",
+            "default": false
+        },
+        "expertQueries": {
+            "title": "Find top experts on",
+            "type": "array",
+            "description": "Topics to find the leading researchers for, one per line (\"crispr gene editing\"). Returns the most-published authors on that topic with ORCID, h-index and current institutions - an expert lead list.",
+            "editor": "stringList"
+        },
+        "maxExpertsPerQuery": {
+            "title": "Experts per topic",
+            "type": "integer",
+            "description": "How many top authors to return per expert topic.",
+            "default": 10,
+            "minimum": 1,
+            "maximum": 100
+        },
+        "authorNames": {
+            "title": "Author lookups",
+            "type": "array",
+            "description": "Researcher names to look up, one per line (\"Jennifer Doudna\"). Returns their profile: ORCID, h-index, paper and citation counts, institutions.",
+            "editor": "stringList"
+        },
+        "maxAuthorsPerName": {
+            "title": "Matches per author name",
+            "type": "integer",
+            "description": "Names can be ambiguous; return up to this many best matches per name.",
+            "default": 3,
+            "minimum": 1,
+            "maximum": 25
+        },
+        "dois": {
+            "title": "DOI lookups",
+            "type": "array",
+            "description": "DOIs to enrich, one per line (\"10.1038/s41586-021-03819-2\" or full doi.org URLs). Each returns the full paper record.",
+            "editor": "stringList"
+        },
+        "maxRows": {
+            "title": "Max rows",
+            "type": "integer",
+            "description": "Stop after this many rows in total.",
+            "default": 1000,
+            "minimum": 1,
+            "maximum": 20000
+        }
+    }
+}
