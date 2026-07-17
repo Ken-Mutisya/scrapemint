@@ -1,0 +1,14 @@
+{
+    "actorSpecification": 1,
+    "name": "us-bank-data-finder",
+    "title": "US Bank Data Finder: FDIC Banks, Branches & Failures",
+    "description": "Look up any FDIC-insured US bank: assets, deposits, ROA/ROE, branch count, charter and website from official FDIC data. Search by name, browse by state sorted by size, pull full branch lists with addresses, and track bank failures with loss estimates. No API key.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "BUSINESS",
+        "LEAD_GENERATION"
+    ]
+}

@@ -1,0 +1,14 @@
+{
+    "_note": "PUT via automation/deploy-pricing.mjs --only=us-bank-data-finder. PAY_PER_EVENT only on BRONZE plan, startedAt 14+ days out. Apify auto-adds 20% margin. Keyless official FDIC BankFind API, no proxy. Notes (no-match searches, bad states) free.",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "bank_row": {
+                "eventTitle": "Bank row",
+                "eventDescription": "One bank (financials, charter, website), branch location or failure record. No-match searches and unknown states are free. First 2 rows per run are free.",
+                "eventPriceUsd": 0.005
+            }
+        }
+    },
+    "startedAt": "2026-07-31T00:00:00.000Z"
+}

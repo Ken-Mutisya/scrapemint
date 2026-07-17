@@ -1,0 +1,80 @@
+{
+    "title": "US Bank Data Finder",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "bankNames": {
+            "title": "Bank name searches",
+            "type": "array",
+            "description": "Bank names to look up, one per line (\"JPMorgan Chase\", \"First National\"). Each returns matching FDIC-insured institutions with financials.",
+            "editor": "stringList",
+            "prefill": ["JPMorgan Chase", "Bank of America"]
+        },
+        "maxResultsPerQuery": {
+            "title": "Matches per name search",
+            "type": "integer",
+            "description": "How many matching banks to return per name search.",
+            "default": 5,
+            "minimum": 1,
+            "maximum": 100
+        },
+        "states": {
+            "title": "Browse states",
+            "type": "array",
+            "description": "Two-letter state codes to list banks for, one per line (\"CA\", \"TX\"). Returns each state's banks sorted largest-first by assets.",
+            "editor": "stringList"
+        },
+        "maxPerState": {
+            "title": "Banks per state",
+            "type": "integer",
+            "description": "How many banks to return per state (largest first).",
+            "default": 50,
+            "minimum": 1,
+            "maximum": 5000
+        },
+        "activeOnly": {
+            "title": "Active banks only",
+            "type": "boolean",
+            "description": "Only currently operating banks. Turn off to include closed and merged institutions.",
+            "default": true
+        },
+        "minAssetsMillions": {
+            "title": "Minimum assets ($ millions)",
+            "type": "integer",
+            "description": "Only banks with at least this many millions in total assets. 0 = no minimum.",
+            "default": 0,
+            "minimum": 0,
+            "maximum": 10000000
+        },
+        "includeBranches": {
+            "title": "Include branch locations",
+            "type": "boolean",
+            "description": "For every matched bank, also emit one row per branch with street address, city, county and service type.",
+            "default": false
+        },
+        "maxBranchesPerBank": {
+            "title": "Branches per bank",
+            "type": "integer",
+            "description": "Cap on branch rows per bank (large banks have thousands).",
+            "default": 100,
+            "minimum": 1,
+            "maximum": 5000
+        },
+        "failuresSinceYear": {
+            "title": "Bank failures since year",
+            "type": "integer",
+            "description": "Also list every US bank failure from this year on, with assets, deposits and estimated loss at failure. 0 = off.",
+            "default": 2023,
+            "minimum": 0,
+            "maximum": 2100
+        },
+        "maxRows": {
+            "title": "Max rows",
+            "type": "integer",
+            "description": "Stop after this many rows in total.",
+            "default": 1000,
+            "minimum": 1,
+            "maximum": 20000
+        }
+    }
+}

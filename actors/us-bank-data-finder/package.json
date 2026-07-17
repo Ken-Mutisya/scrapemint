@@ -1,0 +1,16 @@
+{
+    "name": "us-bank-data-finder",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Look up FDIC-insured US banks via the keyless official FDIC API: financials, branch locations with addresses, state browsing by size, and bank failure history with loss estimates. No browser, no login.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}
