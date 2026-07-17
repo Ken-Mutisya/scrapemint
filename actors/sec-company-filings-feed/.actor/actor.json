@@ -1,0 +1,14 @@
+{
+    "actorSpecification": 1,
+    "name": "sec-company-filings-feed",
+    "title": "SEC Company Filings Feed: Every Filing by Ticker",
+    "description": "Get every SEC filing for a company by ticker or CIK from the official EDGAR API: 10-K, 10-Q, 8-K, S-1, proxy and more, each with filing date, form type, size and direct document links. Filter by form type and date, or run monitor mode for only new filings. No API key.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "BUSINESS",
+        "DEVELOPER_TOOLS"
+    ]
+}

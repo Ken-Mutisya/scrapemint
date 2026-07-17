@@ -1,0 +1,16 @@
+{
+    "name": "sec-company-filings-feed",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Every SEC filing for a company by ticker or CIK via the keyless EDGAR submissions API: any form type with dates, sizes and direct document links, form/date filters and a new-filing monitor mode. No browser, no login.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}

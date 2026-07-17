@@ -1,0 +1,14 @@
+{
+    "_note": "PUT via automation/deploy-pricing.mjs --only=sec-company-filings-feed. PAY_PER_EVENT only on BRONZE plan, startedAt 14+ days out. Apify auto-adds 20% margin. Keyless official SEC EDGAR submissions API, no proxy. Notes (unknown tickers, no matching filings, quiet monitor runs) free.",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "filing_row": {
+                "eventTitle": "Filing row",
+                "eventDescription": "One SEC filing with company, form type, dates, size and direct document links. Unknown companies, no-match filters and quiet monitor runs are free. First 2 rows per run are free.",
+                "eventPriceUsd": 0.004
+            }
+        }
+    },
+    "startedAt": "2026-07-31T00:00:00.000Z"
+}

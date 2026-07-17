@@ -1,0 +1,51 @@
+{
+    "title": "SEC Company Filings Feed",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "companies": {
+            "title": "Companies",
+            "type": "array",
+            "description": "Companies to pull filings for, one per line. Accepts tickers (\"AAPL\", \"MSFT\"), CIK numbers (\"320193\" or \"0000320193\") or company names (\"Tesla\").",
+            "editor": "stringList",
+            "prefill": ["AAPL", "TSLA"]
+        },
+        "formTypes": {
+            "title": "Form types",
+            "type": "array",
+            "description": "Only these form types, one per line (\"10-K\", \"10-Q\", \"8-K\", \"S-1\", \"DEF 14A\", \"4\"). Prefix-matched, so \"10-K\" also catches \"10-K/A\" amendments. Leave empty for all forms.",
+            "editor": "stringList",
+            "prefill": ["10-K", "10-Q", "8-K"]
+        },
+        "sinceDays": {
+            "title": "Filed within (days)",
+            "type": "integer",
+            "description": "Only filings from the last N days. 0 = no date limit (goes back through the company's history as far as the row cap allows).",
+            "default": 365,
+            "minimum": 0,
+            "maximum": 36500
+        },
+        "maxPerCompany": {
+            "title": "Filings per company",
+            "type": "integer",
+            "description": "How many filings to return per company, newest first.",
+            "default": 40,
+            "minimum": 1,
+            "maximum": 5000
+        },
+        "newOnly": {
+            "title": "Monitor mode: new filings only",
+            "type": "boolean",
+            "description": "Remember filings already returned and emit only ones not seen before. Run on a schedule for a clean feed of new filings - quiet runs cost nothing.",
+            "default": false
+        },
+        "maxRows": {
+            "title": "Max rows",
+            "type": "integer",
+            "description": "Stop after this many rows in total.",
+            "default": 2000,
+            "minimum": 1,
+            "maximum": 50000
+        }
+    }
+}
