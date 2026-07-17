@@ -1,0 +1,14 @@
+{
+    "actorSpecification": 1,
+    "name": "federal-register-monitor",
+    "title": "Federal Register Monitor: New Rules & Notices",
+    "description": "Track new US federal rules, proposed rules, notices and presidential documents from the official Federal Register API. Filter by keyword, agency, document type and date. Monitor mode emits only documents you have not seen before - run it on a schedule for a clean regulatory feed. No API key.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "BUSINESS",
+        "NEWS"
+    ]
+}

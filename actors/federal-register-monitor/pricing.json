@@ -1,0 +1,14 @@
+{
+    "_note": "PUT via automation/deploy-pricing.mjs --only=federal-register-monitor. PAY_PER_EVENT only on BRONZE plan, startedAt 14+ days out. Apify auto-adds 20% margin. Keyless official Federal Register API, no proxy. Notes (unmatched agencies, empty searches, fetch failures) free; quiet monitor runs free.",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "document_row": {
+                "eventTitle": "Document row",
+                "eventDescription": "One Federal Register document: rule, proposed rule, notice or presidential document with abstract, agencies, dates and links. Empty searches, unmatched agencies and quiet monitor runs are free. First 2 rows per run are free.",
+                "eventPriceUsd": 0.005
+            }
+        }
+    },
+    "startedAt": "2026-07-31T00:00:00.000Z"
+}

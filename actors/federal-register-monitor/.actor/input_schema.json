@@ -1,0 +1,67 @@
+{
+    "title": "Federal Register Monitor",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "terms": {
+            "title": "Keywords",
+            "type": "array",
+            "description": "Search terms, one per line (\"artificial intelligence\", \"tariff\"). Each term is searched separately. Leave empty to get everything matching the other filters.",
+            "editor": "stringList",
+            "prefill": ["artificial intelligence"]
+        },
+        "agencies": {
+            "title": "Agencies",
+            "type": "array",
+            "description": "Limit to specific agencies, one per line. Accepts common abbreviations (\"EPA\", \"FDA\", \"SEC\"), full names (\"Environmental Protection Agency\") or Federal Register slugs. Applied to every keyword. Leave empty for all agencies.",
+            "editor": "stringList"
+        },
+        "docTypes": {
+            "title": "Document types",
+            "type": "array",
+            "description": "Which document types to include. Leave empty for all four.",
+            "editor": "select",
+            "items": {
+                "type": "string",
+                "enum": ["RULE", "PRORULE", "NOTICE", "PRESDOCU"],
+                "enumTitles": ["Final rules", "Proposed rules", "Notices", "Presidential documents"]
+            }
+        },
+        "sinceDays": {
+            "title": "Published within (days)",
+            "type": "integer",
+            "description": "Only documents published in the last N days.",
+            "default": 30,
+            "minimum": 1,
+            "maximum": 3650
+        },
+        "significantOnly": {
+            "title": "Significant documents only",
+            "type": "boolean",
+            "description": "Only documents deemed significant under Executive Order 12866 (major economic or policy impact).",
+            "default": false
+        },
+        "newOnly": {
+            "title": "Monitor mode: new documents only",
+            "type": "boolean",
+            "description": "Remember every document this actor has already returned and emit only ones it has not seen before. Run on a schedule for a clean feed of new rules and notices - quiet runs cost nothing.",
+            "default": false
+        },
+        "maxPerQuery": {
+            "title": "Documents per keyword",
+            "type": "integer",
+            "description": "How many documents to return per keyword (newest first).",
+            "default": 50,
+            "minimum": 1,
+            "maximum": 1000
+        },
+        "maxRows": {
+            "title": "Max rows",
+            "type": "integer",
+            "description": "Stop after this many rows in total.",
+            "default": 1000,
+            "minimum": 1,
+            "maximum": 10000
+        }
+    }
+}

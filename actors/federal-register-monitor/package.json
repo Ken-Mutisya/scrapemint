@@ -1,0 +1,16 @@
+{
+    "name": "federal-register-monitor",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Track new US federal rules, proposed rules, notices and presidential documents via the keyless Federal Register API, filtered by keyword, agency, type and date, with a seen-before dedupe mode for scheduled monitoring.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}
