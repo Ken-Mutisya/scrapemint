@@ -1,0 +1,14 @@
+{
+    "actorSpecification": 1,
+    "name": "sports-player-stats-scraper",
+    "title": "Sports Player Stats & Rosters Scraper",
+    "description": "Team rosters and player career stats from ESPN's public feeds: NBA, NFL, MLB, NHL, WNBA, college and world soccer rosters with position, age, height and college; season-by-season stat lines for any US-league player by name. One JSON row per player or season. No API key.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "NEWS",
+        "BUSINESS"
+    ]
+}

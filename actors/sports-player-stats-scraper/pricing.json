@@ -1,0 +1,14 @@
+{
+    "_note": "PUT via automation/deploy-pricing.mjs --only=sports-player-stats-scraper. PAY_PER_EVENT only on BRONZE plan, startedAt 14+ days out. Apify auto-adds 20% margin. Keyless ESPN public feeds, no proxy. Notes (unknown leagues/teams/players) free.",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "player_row": {
+                "eventTitle": "Player row",
+                "eventDescription": "One roster player (position, age, height, college) or one player-season stat line. Unknown leagues, teams and players are free. First 2 rows per run are free.",
+                "eventPriceUsd": 0.003
+            }
+        }
+    },
+    "startedAt": "2026-07-31T00:00:00.000Z"
+}

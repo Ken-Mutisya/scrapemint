@@ -1,0 +1,52 @@
+{
+    "title": "Sports Player Stats & Rosters Scraper",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "teams": {
+            "title": "Team rosters",
+            "type": "array",
+            "description": "Teams to pull rosters for, one per line as \"league team\" (\"nba lakers\", \"nfl chiefs\", \"epl arsenal\"). One row per player with position, jersey, age, height, weight, experience and college.",
+            "editor": "stringList",
+            "prefill": ["nba lakers"]
+        },
+        "leagues": {
+            "title": "Whole-league rosters",
+            "type": "array",
+            "description": "Leagues to pull EVERY team's roster for, one per line (\"nba\", \"nfl\", \"epl\", \"mlb\"). An NBA sweep is ~450 players, an NFL sweep ~1,700. Also accepts raw ESPN paths like \"soccer/ken.1\".",
+            "editor": "stringList"
+        },
+        "players": {
+            "title": "Player career stats",
+            "type": "array",
+            "description": "Players to look up by name, one per line (\"LeBron James\", \"Patrick Mahomes\"). Returns one row per season with the full stat line. Works for NBA, WNBA, NFL, MLB, NHL and college players.",
+            "editor": "stringList",
+            "prefill": ["LeBron James"]
+        },
+        "statType": {
+            "title": "Stat type",
+            "type": "string",
+            "description": "Per-game averages or season totals for player stat rows (leagues without averages fall back to what they have).",
+            "editor": "select",
+            "default": "averages",
+            "enum": ["averages", "totals", "both"],
+            "enumTitles": ["Per-game averages", "Season totals", "Both"]
+        },
+        "maxSeasonsPerPlayer": {
+            "title": "Seasons per player",
+            "type": "integer",
+            "description": "How many seasons to return per player, newest first.",
+            "default": 30,
+            "minimum": 1,
+            "maximum": 50
+        },
+        "maxRows": {
+            "title": "Max rows",
+            "type": "integer",
+            "description": "Stop after this many rows in total.",
+            "default": 2000,
+            "minimum": 1,
+            "maximum": 20000
+        }
+    }
+}

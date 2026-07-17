@@ -1,0 +1,16 @@
+{
+    "name": "sports-player-stats-scraper",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Team rosters and season-by-season player stats via ESPN's keyless public feeds: NBA, NFL, MLB, NHL, WNBA, college and world soccer rosters, plus career stat lines for US-league players by name. No browser, no login.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}
