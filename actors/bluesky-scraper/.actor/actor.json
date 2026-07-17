@@ -1,0 +1,14 @@
+{
+    "actorSpecification": 1,
+    "name": "bluesky-scraper",
+    "title": "Bluesky Scraper: Profiles, Posts & Followers",
+    "description": "Scrape Bluesky without an account: profiles with follower counts, posts with engagement stats, follower and following lists, people search, and post lookups with likers. One clean JSON row per item via the public API. No login, no API key, no browser.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "SOCIAL_MEDIA",
+        "MARKETING"
+    ]
+}

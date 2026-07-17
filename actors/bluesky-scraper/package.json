@@ -1,0 +1,16 @@
+{
+    "name": "bluesky-scraper",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Scrape Bluesky profiles, posts, followers, following lists, people search and post likers via the keyless public API. One JSON row per item. No login, no browser.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}

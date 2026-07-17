@@ -1,0 +1,108 @@
+{
+    "title": "Bluesky Scraper",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "handles": {
+            "title": "Accounts",
+            "type": "array",
+            "description": "Bluesky accounts to scrape, one per line. Accepts handles (\"nytimes.com\", \"@user.bsky.social\"), profile URLs (\"https://bsky.app/profile/bsky.app\") or DIDs.",
+            "editor": "stringList",
+            "prefill": ["bsky.app", "nytimes.com"]
+        },
+        "includeProfile": {
+            "title": "Include profile row",
+            "type": "boolean",
+            "description": "Emit one profile row per account: display name, bio, follower/following/post counts, join date, avatar.",
+            "default": true
+        },
+        "includePosts": {
+            "title": "Include posts",
+            "type": "boolean",
+            "description": "Emit the account's recent posts with text, timestamps, like/repost/reply/quote counts, links and hashtags.",
+            "default": true
+        },
+        "maxPostsPerHandle": {
+            "title": "Posts per account",
+            "type": "integer",
+            "description": "How many recent posts to fetch for each account (newest first).",
+            "default": 15,
+            "minimum": 1,
+            "maximum": 3000
+        },
+        "includeReposts": {
+            "title": "Include reposts",
+            "type": "boolean",
+            "description": "Also emit posts the account reposted (marked with repostedByHandle). Off = original posts only.",
+            "default": false
+        },
+        "includeReplies": {
+            "title": "Include replies",
+            "type": "boolean",
+            "description": "Also emit the account's replies to other posts. Off = top-level posts only.",
+            "default": false
+        },
+        "includeFollowers": {
+            "title": "Include followers",
+            "type": "boolean",
+            "description": "Emit one profile row per follower of each account, with full follower/post counts and bio.",
+            "default": false
+        },
+        "includeFollows": {
+            "title": "Include following",
+            "type": "boolean",
+            "description": "Emit one profile row per account each handle follows, with full counts and bio.",
+            "default": false
+        },
+        "maxFollowersPerHandle": {
+            "title": "Followers / following per account",
+            "type": "integer",
+            "description": "Cap on follower and following rows fetched per account.",
+            "default": 200,
+            "minimum": 1,
+            "maximum": 10000
+        },
+        "searchQueries": {
+            "title": "People search",
+            "type": "array",
+            "description": "Find accounts by keyword, one search per line (\"data journalist\", \"indie hacker\"). Each match becomes a full profile row - a lead list of accounts in a niche.",
+            "editor": "stringList"
+        },
+        "maxAccountsPerQuery": {
+            "title": "Accounts per search",
+            "type": "integer",
+            "description": "How many matching accounts to return for each people search.",
+            "default": 25,
+            "minimum": 1,
+            "maximum": 1000
+        },
+        "postUrls": {
+            "title": "Post URLs",
+            "type": "array",
+            "description": "Individual posts to look up, one URL per line (\"https://bsky.app/profile/bsky.app/post/3l6oveex3ii2l\"). Returns the post with its engagement counts.",
+            "editor": "stringList"
+        },
+        "includeLikers": {
+            "title": "Include post likers",
+            "type": "boolean",
+            "description": "For each post URL, also emit one profile row per account that liked it - see exactly who engages with a post.",
+            "default": false
+        },
+        "maxLikersPerPost": {
+            "title": "Likers per post",
+            "type": "integer",
+            "description": "Cap on liker rows fetched per post URL.",
+            "default": 100,
+            "minimum": 1,
+            "maximum": 5000
+        },
+        "maxRows": {
+            "title": "Max rows",
+            "type": "integer",
+            "description": "Stop after this many rows in total.",
+            "default": 2000,
+            "minimum": 1,
+            "maximum": 100000
+        }
+    }
+}

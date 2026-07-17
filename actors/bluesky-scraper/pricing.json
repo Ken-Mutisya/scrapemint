@@ -1,0 +1,14 @@
+{
+    "_note": "PUT via automation/deploy-pricing.mjs --only=bluesky-scraper. PAY_PER_EVENT only on BRONZE plan, startedAt 14+ days out. Apify auto-adds 20% margin. Keyless Bluesky public AppView, no proxy. Notes (unknown handles, bad URLs, empty searches) free.",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "bluesky_row": {
+                "eventTitle": "Bluesky row",
+                "eventDescription": "One profile, post, follower, following, people-search or liker row. Unknown handles, bad URLs and empty searches are free. First 2 rows per run are free.",
+                "eventPriceUsd": 0.002
+            }
+        }
+    },
+    "startedAt": "2026-07-31T00:00:00.000Z"
+}
