@@ -1,0 +1,66 @@
+{
+    "title": "Court Records Scraper: Case Law & Dockets",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "queries": {
+            "title": "Search queries",
+            "type": "array",
+            "description": "What to search for, one per line. Keywords (\"fair use copyright\"), a party or company name (\"Google\"), or a case name. Each runs its own search.",
+            "editor": "stringList",
+            "prefill": ["fair use copyright"]
+        },
+        "recordType": {
+            "title": "Record type",
+            "type": "string",
+            "description": "Case law = published court opinions and decisions. Dockets = court case filings (parties, judge, docket number, dates).",
+            "editor": "select",
+            "default": "opinions",
+            "enum": ["opinions", "dockets"],
+            "enumTitles": ["Case law (opinions)", "Dockets (filings)"]
+        },
+        "courts": {
+            "title": "Courts",
+            "type": "array",
+            "description": "Limit to specific courts by CourtListener court ID, one per line (\"scotus\" = Supreme Court, \"cafc\" = Federal Circuit, \"ca9\" = 9th Circuit, \"dcd\" = DC District). Leave empty for all courts.",
+            "editor": "stringList"
+        },
+        "filedAfter": {
+            "title": "Filed after",
+            "type": "string",
+            "description": "Only records filed on or after this date (YYYY-MM-DD). Leave empty for no lower bound.",
+            "editor": "textfield"
+        },
+        "filedBefore": {
+            "title": "Filed before",
+            "type": "string",
+            "description": "Only records filed on or before this date (YYYY-MM-DD). Leave empty for no upper bound.",
+            "editor": "textfield"
+        },
+        "sortBy": {
+            "title": "Sort by",
+            "type": "string",
+            "description": "Order of results. Most cited applies to case law only.",
+            "editor": "select",
+            "default": "relevance",
+            "enum": ["relevance", "newest", "oldest", "most_cited"],
+            "enumTitles": ["Best match", "Newest filed", "Oldest filed", "Most cited"]
+        },
+        "maxPerQuery": {
+            "title": "Results per query",
+            "type": "integer",
+            "description": "How many records to return per search.",
+            "default": 40,
+            "minimum": 1,
+            "maximum": 2000
+        },
+        "maxRows": {
+            "title": "Max rows",
+            "type": "integer",
+            "description": "Stop after this many rows in total.",
+            "default": 1000,
+            "minimum": 1,
+            "maximum": 20000
+        }
+    }
+}

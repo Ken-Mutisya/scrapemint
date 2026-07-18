@@ -1,0 +1,16 @@
+{
+    "name": "court-records-scraper",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Search US court case law and dockets via the keyless CourtListener API: case name, court, dates, citation, citation count, judge, docket number and links, filtered by keyword, court and date. No browser, no login.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}

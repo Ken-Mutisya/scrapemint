@@ -1,0 +1,14 @@
+{
+    "_note": "PUT via automation/deploy-pricing.mjs --only=court-records-scraper. PAY_PER_EVENT only on BRONZE plan, startedAt 14+ days out. Apify auto-adds 20% margin. Keyless CourtListener API, no proxy. Empty searches free.",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "case_row": {
+                "eventTitle": "Court record row",
+                "eventDescription": "One court opinion or docket with case name, court, dates, citation, citation count, judge, docket number and links. Searches that match nothing are free. First 2 rows per run are free.",
+                "eventPriceUsd": 0.005
+            }
+        }
+    },
+    "startedAt": "2026-08-02T00:00:00.000Z"
+}

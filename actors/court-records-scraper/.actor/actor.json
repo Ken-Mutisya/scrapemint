@@ -1,0 +1,14 @@
+{
+    "actorSpecification": 1,
+    "name": "court-records-scraper",
+    "title": "Court Records Scraper: Case Law & Dockets",
+    "description": "Search US federal and state court records from CourtListener: case law opinions and court dockets by keyword, party, court and date. Get case name, court, dates, citation, citation count, judge, docket number and links. No API key.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "BUSINESS",
+        "NEWS"
+    ]
+}
