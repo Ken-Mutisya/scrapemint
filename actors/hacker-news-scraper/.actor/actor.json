@@ -1,0 +1,14 @@
+{
+    "actorSpecification": 1,
+    "name": "hacker-news-scraper",
+    "title": "Hacker News Scraper: Stories, Comments & Search",
+    "description": "Search and scrape Hacker News: stories and comments by keyword, author, points, date or category (front page, Ask HN, Show HN). One clean row per story or comment with points, comment count, author and links. No API key.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "NEWS",
+        "DEVELOPER_TOOLS"
+    ]
+}

@@ -1,0 +1,14 @@
+{
+    "_note": "PUT via automation/deploy-pricing.mjs --only=hacker-news-scraper. PAY_PER_EVENT only on BRONZE plan, startedAt 14+ days out. Apify auto-adds 20% margin. Keyless Algolia HN Search API, no proxy. Empty searches free.",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "item_row": {
+                "eventTitle": "Item row",
+                "eventDescription": "One Hacker News story (title, url, points, comments, author) or comment (text, story context, author). Searches that match nothing are free. First 2 rows per run are free.",
+                "eventPriceUsd": 0.002
+            }
+        }
+    },
+    "startedAt": "2026-08-02T00:00:00.000Z"
+}

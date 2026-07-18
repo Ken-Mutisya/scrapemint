@@ -1,0 +1,87 @@
+{
+    "title": "Hacker News Scraper",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "queries": {
+            "title": "Search terms",
+            "type": "array",
+            "description": "Keywords to search for, one per line (\"kubernetes\", \"rust async\"). Leave empty to just browse a category (e.g. the front page) using the filters below.",
+            "editor": "stringList",
+            "prefill": ["kubernetes"]
+        },
+        "contentType": {
+            "title": "Content type",
+            "type": "string",
+            "description": "Return stories, comments, or both.",
+            "editor": "select",
+            "default": "stories",
+            "enum": ["stories", "comments", "all"],
+            "enumTitles": ["Stories", "Comments", "Both"]
+        },
+        "category": {
+            "title": "Category",
+            "type": "string",
+            "description": "Limit to a Hacker News category (stories only).",
+            "editor": "select",
+            "default": "any",
+            "enum": ["any", "front_page", "ask_hn", "show_hn", "poll"],
+            "enumTitles": ["Any", "Front page", "Ask HN", "Show HN", "Polls"]
+        },
+        "author": {
+            "title": "Author",
+            "type": "string",
+            "description": "Optional: only items by this Hacker News username (e.g. \"pg\").",
+            "editor": "textfield"
+        },
+        "minPoints": {
+            "title": "Minimum points",
+            "type": "integer",
+            "description": "Only items with at least this many points. 0 = no minimum.",
+            "default": 0,
+            "minimum": 0,
+            "maximum": 100000
+        },
+        "minComments": {
+            "title": "Minimum comments",
+            "type": "integer",
+            "description": "Stories only: at least this many comments. 0 = no minimum.",
+            "default": 0,
+            "minimum": 0,
+            "maximum": 100000
+        },
+        "sinceDays": {
+            "title": "Posted within (days)",
+            "type": "integer",
+            "description": "Only items from the last N days. 0 = no date limit.",
+            "default": 0,
+            "minimum": 0,
+            "maximum": 7300
+        },
+        "sortBy": {
+            "title": "Sort by",
+            "type": "string",
+            "description": "Best match (relevance) or newest first.",
+            "editor": "select",
+            "default": "relevance",
+            "enum": ["relevance", "newest"],
+            "enumTitles": ["Best match", "Newest"]
+        },
+        "maxPerQuery": {
+            "title": "Results per search",
+            "type": "integer",
+            "description": "How many items to return per search term (or per category browse).",
+            "default": 50,
+            "minimum": 1,
+            "maximum": 1000
+        },
+        "maxRows": {
+            "title": "Max rows",
+            "type": "integer",
+            "description": "Stop after this many rows in total.",
+            "default": 1000,
+            "minimum": 1,
+            "maximum": 20000
+        }
+    }
+}

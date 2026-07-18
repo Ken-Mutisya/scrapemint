@@ -1,0 +1,16 @@
+{
+    "name": "hacker-news-scraper",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Search and scrape Hacker News stories and comments via the keyless Algolia HN Search API: by keyword, author, points, date or category (front page, Ask HN, Show HN). No browser, no login.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}
