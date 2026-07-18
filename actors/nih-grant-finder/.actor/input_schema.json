@@ -1,0 +1,78 @@
+{
+    "title": "NIH Research Grant Finder",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "searchText": {
+            "title": "Keyword searches",
+            "type": "array",
+            "description": "Topics to search across project titles, abstracts and terms, one per line (\"crispr gene editing\", \"alzheimer biomarkers\"). Leave empty to browse by the filters below only.",
+            "editor": "stringList",
+            "prefill": ["crispr gene editing"]
+        },
+        "organizations": {
+            "title": "Institutions",
+            "type": "array",
+            "description": "Limit to specific grantee institutions, one per line (\"STANFORD UNIVERSITY\", \"MAYO CLINIC\"). Applied to every search.",
+            "editor": "stringList"
+        },
+        "principalInvestigators": {
+            "title": "Principal investigators",
+            "type": "array",
+            "description": "Limit to grants led by these researchers, one name per line (\"Doudna\", \"Jennifer Doudna\").",
+            "editor": "stringList"
+        },
+        "states": {
+            "title": "States",
+            "type": "array",
+            "description": "Limit to institutions in these US states, one two-letter code per line (\"CA\", \"MA\").",
+            "editor": "stringList"
+        },
+        "fiscalYears": {
+            "title": "Fiscal years",
+            "type": "array",
+            "description": "Limit to these fiscal years, one per line (\"2025\", \"2024\"). Leave empty for all years.",
+            "editor": "stringList",
+            "prefill": ["2025", "2024"]
+        },
+        "minAwardUsd": {
+            "title": "Minimum award ($)",
+            "type": "integer",
+            "description": "Only grants with total funding of at least this many dollars. 0 = no minimum.",
+            "default": 0,
+            "minimum": 0,
+            "maximum": 1000000000
+        },
+        "includeAbstract": {
+            "title": "Include abstract",
+            "type": "boolean",
+            "description": "Include each grant's abstract text. Turn off for smaller rows when you only need the funding facts.",
+            "default": true
+        },
+        "sortBy": {
+            "title": "Sort by",
+            "type": "string",
+            "description": "Order of results.",
+            "editor": "select",
+            "default": "award_desc",
+            "enum": ["award_desc", "award_asc", "newest"],
+            "enumTitles": ["Largest award first", "Smallest award first", "Newest first"]
+        },
+        "maxPerQuery": {
+            "title": "Grants per search",
+            "type": "integer",
+            "description": "How many grants to return per keyword search (or, if no keywords, in total for the filters).",
+            "default": 100,
+            "minimum": 1,
+            "maximum": 15000
+        },
+        "maxRows": {
+            "title": "Max rows",
+            "type": "integer",
+            "description": "Stop after this many rows in total.",
+            "default": 2000,
+            "minimum": 1,
+            "maximum": 50000
+        }
+    }
+}

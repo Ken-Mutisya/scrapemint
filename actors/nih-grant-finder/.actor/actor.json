@@ -1,0 +1,14 @@
+{
+    "actorSpecification": 1,
+    "name": "nih-grant-finder",
+    "title": "NIH Research Grant Finder: Awards & PIs",
+    "description": "Search US federal research grants awarded by the NIH from the official RePORTER database: funded project, award amount, institution, principal investigator, agency, dates and abstract. Filter by keyword, organization, PI, state and fiscal year. No API key.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "EDUCATION",
+        "BUSINESS"
+    ]
+}

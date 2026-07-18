@@ -1,0 +1,14 @@
+{
+    "_note": "PUT via automation/deploy-pricing.mjs --only=nih-grant-finder. PAY_PER_EVENT only on BRONZE plan, startedAt 14+ days out. Apify auto-adds 20% margin. Keyless NIH RePORTER API, no proxy. Empty searches free.",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "grant_row": {
+                "eventTitle": "Grant row",
+                "eventDescription": "One NIH-funded research grant: project, award amount, institution, principal investigator, agency, dates and abstract. Empty searches are free. First 2 rows per run are free.",
+                "eventPriceUsd": 0.004
+            }
+        }
+    },
+    "startedAt": "2026-08-02T00:00:00.000Z"
+}

@@ -1,0 +1,16 @@
+{
+    "name": "nih-grant-finder",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Search NIH-awarded federal research grants via the keyless RePORTER API: project, award amount, institution, principal investigator, agency, dates and abstract, filtered by keyword, organization, PI, state and fiscal year. No browser, no login.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}
