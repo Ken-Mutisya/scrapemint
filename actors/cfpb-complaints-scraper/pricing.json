@@ -1,0 +1,14 @@
+{
+    "_note": "PUT via automation/deploy-pricing.mjs --only=cfpb-complaints-scraper. PAY_PER_EVENT only on BRONZE plan, startedAt 14+ days out. Apify auto-adds 20% margin. Keyless CFPB complaint database API, no proxy. Empty searches free.",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "complaint_row": {
+                "eventTitle": "Complaint row",
+                "eventDescription": "One consumer complaint with company, product, issue, state, dates, company response and consumer narrative. Searches that match nothing are free. First 2 rows per run are free.",
+                "eventPriceUsd": 0.003
+            }
+        }
+    },
+    "startedAt": "2026-08-01T00:00:00.000Z"
+}

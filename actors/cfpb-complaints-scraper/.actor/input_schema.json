@@ -1,0 +1,75 @@
+{
+    "title": "Consumer Complaints Scraper (CFPB)",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "companies": {
+            "title": "Companies",
+            "type": "array",
+            "description": "Companies to pull complaints for, one per line, as the CFPB spells them (\"WELLS FARGO & COMPANY\", \"CAPITAL ONE FINANCIAL CORPORATION\"). Matched exactly. If a company returns nothing, try a keyword under Search terms instead.",
+            "editor": "stringList",
+            "prefill": ["WELLS FARGO & COMPANY"]
+        },
+        "searchTerms": {
+            "title": "Search terms",
+            "type": "array",
+            "description": "Free-text searches across complaints, one per line (\"zelle scam\", \"overdraft fee\"). Use these when you do not know a company's exact name or want an issue across companies.",
+            "editor": "stringList"
+        },
+        "product": {
+            "title": "Product",
+            "type": "string",
+            "description": "Limit to one product type (applied to every company and search). Leave empty for all.",
+            "editor": "select",
+            "enum": ["", "Checking or savings account", "Credit card", "Credit reporting or other personal consumer reports", "Debt collection", "Mortgage", "Money transfer, virtual currency, or money service", "Payday loan, title loan, or personal loan", "Vehicle loan or lease", "Student loan", "Prepaid card"]
+        },
+        "state": {
+            "title": "State",
+            "type": "string",
+            "description": "Limit to one US state by two-letter code (\"CA\", \"NY\"). Leave empty for nationwide.",
+            "editor": "textfield"
+        },
+        "sinceDays": {
+            "title": "Received within (days)",
+            "type": "integer",
+            "description": "Only complaints received in the last N days. 0 = no date limit (goes back through history as far as the row cap allows).",
+            "default": 90,
+            "minimum": 0,
+            "maximum": 7300
+        },
+        "withNarrativeOnly": {
+            "title": "Only complaints with a narrative",
+            "type": "boolean",
+            "description": "Only complaints where the consumer wrote a description of what happened (the most useful ones). About a third of complaints have a published narrative.",
+            "default": false
+        },
+        "includeNarrativeText": {
+            "title": "Include narrative text",
+            "type": "boolean",
+            "description": "Include the full consumer narrative in each row. Turn off for smaller rows when you only need the structured fields.",
+            "default": true
+        },
+        "newOnly": {
+            "title": "Monitor mode: new complaints only",
+            "type": "boolean",
+            "description": "Remember complaints already returned and emit only ones not seen before. Run on a schedule for a clean feed of new complaints - quiet runs cost nothing.",
+            "default": false
+        },
+        "maxPerQuery": {
+            "title": "Complaints per company or search",
+            "type": "integer",
+            "description": "How many complaints to return per company or search term, newest first.",
+            "default": 100,
+            "minimum": 1,
+            "maximum": 20000
+        },
+        "maxRows": {
+            "title": "Max rows",
+            "type": "integer",
+            "description": "Stop after this many rows in total.",
+            "default": 2000,
+            "minimum": 1,
+            "maximum": 100000
+        }
+    }
+}

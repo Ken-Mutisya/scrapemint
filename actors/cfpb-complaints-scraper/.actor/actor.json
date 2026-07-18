@@ -1,0 +1,14 @@
+{
+    "actorSpecification": 1,
+    "name": "cfpb-complaints-scraper",
+    "title": "Consumer Complaints Scraper (CFPB)",
+    "description": "Search the US government's Consumer Financial Protection Bureau complaint database: complaints against banks, lenders and fintechs by company, product, issue, state and date, with the consumer narrative and company response. Monitor mode for new complaints. No API key.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "BUSINESS",
+        "NEWS"
+    ]
+}
