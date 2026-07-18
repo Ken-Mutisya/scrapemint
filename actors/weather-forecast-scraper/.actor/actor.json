@@ -1,0 +1,14 @@
+{
+    "actorSpecification": 1,
+    "name": "weather-forecast-scraper",
+    "title": "Weather Scraper: Forecast, Current & History",
+    "description": "Get weather for any place on Earth by city name or coordinates: live conditions, a multi-day forecast, and decades of historical daily weather. Temperature, rain, wind, humidity, UV, sunrise and sunset in one clean row per location or day. No API key.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "BUSINESS",
+        "OTHER"
+    ]
+}

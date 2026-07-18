@@ -1,0 +1,69 @@
+{
+    "title": "Weather Scraper: Forecast, Current & History",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "locations": {
+            "title": "Locations",
+            "type": "array",
+            "description": "Places to get weather for, one per line. Accepts city names (\"Nairobi\", \"Paris, France\", \"Austin TX\") or coordinates (\"40.71,-74.01\").",
+            "editor": "stringList",
+            "prefill": ["Nairobi", "London", "New York"]
+        },
+        "mode": {
+            "title": "What to fetch",
+            "type": "string",
+            "description": "Current = live conditions now (one row per location). Forecast = one row per upcoming day. History = one row per past day between the dates below.",
+            "editor": "select",
+            "default": "forecast",
+            "enum": ["current", "forecast", "history"],
+            "enumTitles": ["Current conditions", "Daily forecast", "Historical daily weather"]
+        },
+        "forecastDays": {
+            "title": "Forecast days",
+            "type": "integer",
+            "description": "For forecast mode: how many days ahead (up to 16).",
+            "default": 7,
+            "minimum": 1,
+            "maximum": 16
+        },
+        "startDate": {
+            "title": "History start date",
+            "type": "string",
+            "description": "For history mode: first day (YYYY-MM-DD). Data goes back to 1940.",
+            "editor": "textfield"
+        },
+        "endDate": {
+            "title": "History end date",
+            "type": "string",
+            "description": "For history mode: last day (YYYY-MM-DD).",
+            "editor": "textfield"
+        },
+        "temperatureUnit": {
+            "title": "Temperature unit",
+            "type": "string",
+            "description": "Celsius or Fahrenheit.",
+            "editor": "select",
+            "default": "celsius",
+            "enum": ["celsius", "fahrenheit"],
+            "enumTitles": ["Celsius (°C)", "Fahrenheit (°F)"]
+        },
+        "windSpeedUnit": {
+            "title": "Wind speed unit",
+            "type": "string",
+            "description": "Units for wind speed.",
+            "editor": "select",
+            "default": "kmh",
+            "enum": ["kmh", "mph", "ms", "kn"],
+            "enumTitles": ["km/h", "mph", "m/s", "knots"]
+        },
+        "maxRows": {
+            "title": "Max rows",
+            "type": "integer",
+            "description": "Stop after this many rows in total.",
+            "default": 2000,
+            "minimum": 1,
+            "maximum": 50000
+        }
+    }
+}

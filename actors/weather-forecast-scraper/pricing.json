@@ -1,0 +1,14 @@
+{
+    "_note": "PUT via automation/deploy-pricing.mjs --only=weather-forecast-scraper. PAY_PER_EVENT only on BRONZE plan, startedAt 14+ days out. Apify auto-adds 20% margin. Keyless Open-Meteo, no proxy. Unresolvable locations and bad dates free.",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "weather_row": {
+                "eventTitle": "Weather row",
+                "eventDescription": "One location's current conditions, or one forecast/historical day: temperature, rain, wind, humidity, UV, sunrise and sunset. Unresolvable locations and bad dates are free. First 2 rows per run are free.",
+                "eventPriceUsd": 0.002
+            }
+        }
+    },
+    "startedAt": "2026-08-02T00:00:00.000Z"
+}

@@ -1,0 +1,16 @@
+{
+    "name": "weather-forecast-scraper",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Global weather via the keyless Open-Meteo API: current conditions, multi-day forecast and historical daily weather for any place by name or coordinates. No browser, no login, no key.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}
