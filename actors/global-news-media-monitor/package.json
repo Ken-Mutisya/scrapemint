@@ -1,0 +1,16 @@
+{
+    "name": "global-news-media-monitor",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Monitor worldwide news coverage of any topic across 100+ countries and languages via the keyless GDELT DOC API: matching articles with source country/language, or a coverage-volume timeline. No browser, no login.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}

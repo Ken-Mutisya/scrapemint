@@ -1,0 +1,14 @@
+{
+    "_note": "PUT via automation/deploy-pricing.mjs --only=global-news-media-monitor. PAY_PER_EVENT only on BRONZE plan, startedAt 14+ days out. Apify auto-adds 20% margin. Keyless GDELT DOC API, no proxy. Empty searches free.",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "news_row": {
+                "eventTitle": "News row",
+                "eventDescription": "One matching news article (title, url, source country, language, date) or one coverage-volume timeline point. Searches that match nothing are free. First 2 rows per run are free.",
+                "eventPriceUsd": 0.002
+            }
+        }
+    },
+    "startedAt": "2026-08-02T00:00:00.000Z"
+}

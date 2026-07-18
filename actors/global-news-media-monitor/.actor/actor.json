@@ -1,0 +1,14 @@
+{
+    "actorSpecification": 1,
+    "name": "global-news-media-monitor",
+    "title": "Global News & Media Monitor (GDELT)",
+    "description": "Monitor worldwide news coverage of any topic, brand or company across 100+ countries and languages using GDELT. Get matching articles with source country and language, or a coverage-volume timeline showing how much the media is talking about it. No API key.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "NEWS",
+        "BUSINESS"
+    ]
+}

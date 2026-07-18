@@ -1,0 +1,65 @@
+{
+    "title": "Global News & Media Monitor (GDELT)",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "queries": {
+            "title": "Search topics",
+            "type": "array",
+            "description": "Topics, brands, companies or phrases to monitor, one per line (\"supply chain\", \"Tesla recall\"). Wrap multi-word phrases in quotes for an exact match (\"\\\"electric vehicle\\\"\"). Each runs its own search.",
+            "editor": "stringList",
+            "prefill": ["\"supply chain\""]
+        },
+        "mode": {
+            "title": "What to return",
+            "type": "string",
+            "description": "Articles = a list of matching news articles. Coverage timeline = how much of world news coverage mentioned the topic over time (great for spotting spikes).",
+            "editor": "select",
+            "default": "articles",
+            "enum": ["articles", "timeline"],
+            "enumTitles": ["Matching articles", "Coverage volume timeline"]
+        },
+        "timespanDays": {
+            "title": "Look back (days)",
+            "type": "integer",
+            "description": "How many days back to search. GDELT covers a rolling window; recent days have the fullest coverage.",
+            "default": 7,
+            "minimum": 1,
+            "maximum": 365
+        },
+        "sourceCountry": {
+            "title": "Source country",
+            "type": "string",
+            "description": "Optional: limit to media from one country, using GDELT's country name with no spaces (\"UnitedStates\", \"UnitedKingdom\", \"Kenya\", \"Germany\"). Leave empty for worldwide.",
+            "editor": "textfield"
+        },
+        "language": {
+            "title": "Language",
+            "type": "string",
+            "description": "Optional: limit to one language (\"English\", \"Spanish\", \"French\", \"German\"). Leave empty for all languages.",
+            "editor": "textfield"
+        },
+        "advancedFilters": {
+            "title": "Advanced GDELT filters",
+            "type": "string",
+            "description": "Optional: extra GDELT query operators appended to every search, e.g. \"tone<-5\" (negative coverage) or \"domainis:bbc.co.uk\". For power users; see the GDELT DOC 2.0 documentation.",
+            "editor": "textfield"
+        },
+        "maxPerQuery": {
+            "title": "Articles per topic",
+            "type": "integer",
+            "description": "Articles mode only: how many articles to return per topic (GDELT returns up to 250 most recent).",
+            "default": 75,
+            "minimum": 1,
+            "maximum": 250
+        },
+        "maxRows": {
+            "title": "Max rows",
+            "type": "integer",
+            "description": "Stop after this many rows in total.",
+            "default": 1000,
+            "minimum": 1,
+            "maximum": 20000
+        }
+    }
+}
