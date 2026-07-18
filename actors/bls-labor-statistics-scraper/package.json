@@ -1,0 +1,16 @@
+{
+    "name": "bls-labor-statistics-scraper",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Fetch US Bureau of Labor Statistics time series (inflation, unemployment, wages, job openings) via the keyless BLS public API, by friendly metric preset or raw series ID, with an optional free BLS key for higher limits. No browser, no login.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}

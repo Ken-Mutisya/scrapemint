@@ -1,0 +1,14 @@
+{
+    "_note": "PUT via automation/deploy-pricing.mjs --only=bls-labor-statistics-scraper. PAY_PER_EVENT only on BRONZE plan, startedAt 14+ days out. Apify auto-adds 20% margin. Keyless BLS public API, no proxy. Unknown series and quota-limit runs free.",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "data_row": {
+                "eventTitle": "Data point row",
+                "eventDescription": "One BLS time-series data point: metric, series, period and value. Unknown series and requests blocked by the daily limit are free. First 2 rows per run are free.",
+                "eventPriceUsd": 0.002
+            }
+        }
+    },
+    "startedAt": "2026-08-02T00:00:00.000Z"
+}

@@ -1,0 +1,14 @@
+{
+    "actorSpecification": 1,
+    "name": "bls-labor-statistics-scraper",
+    "title": "Labor Statistics Scraper (BLS): Inflation, Jobs & Wages",
+    "description": "Get official US economic data from the Bureau of Labor Statistics: inflation (CPI), unemployment, wages, job openings and more. Pick a metric or paste BLS series IDs and get a clean time series. No API key needed.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "BUSINESS",
+        "EDUCATION"
+    ]
+}

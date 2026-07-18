@@ -1,0 +1,56 @@
+{
+    "title": "Labor Statistics Scraper (BLS)",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "metrics": {
+            "title": "Metrics",
+            "type": "array",
+            "description": "Pick the economic indicators you want (US national, monthly). Each becomes its own time series.",
+            "editor": "select",
+            "items": {
+                "type": "string",
+                "enum": ["cpi-inflation", "unemployment-rate", "labor-force-participation", "nonfarm-employment", "avg-hourly-earnings", "avg-weekly-hours", "producer-price-index", "job-openings", "quits-rate"],
+                "enumTitles": ["Inflation (CPI-U, all items)", "Unemployment rate", "Labor force participation rate", "Total nonfarm employment", "Average hourly earnings (private)", "Average weekly hours (private)", "Producer Price Index (final demand)", "Job openings (JOLTS)", "Quits rate (JOLTS)"]
+            },
+            "prefill": ["cpi-inflation", "unemployment-rate"]
+        },
+        "seriesIds": {
+            "title": "BLS series IDs (advanced)",
+            "type": "array",
+            "description": "For power users: paste raw BLS series IDs, one per line (e.g. \"LNS14000000\"). Find them at data.bls.gov. Combined with the metrics above.",
+            "editor": "stringList"
+        },
+        "startYear": {
+            "title": "Start year",
+            "type": "integer",
+            "description": "First year of data.",
+            "default": 2020,
+            "minimum": 1913,
+            "maximum": 2100
+        },
+        "endYear": {
+            "title": "End year",
+            "type": "integer",
+            "description": "Last year of data. Without a BLS key the range is capped at 10 years (20 with a key).",
+            "default": 2025,
+            "minimum": 1913,
+            "maximum": 2100
+        },
+        "registrationKey": {
+            "title": "BLS API key (optional)",
+            "type": "string",
+            "description": "Optional: your own free BLS registration key. Raises the shared daily limit (25 queries/day per IP) to 500/day and allows more series and a wider year range. Register free at data.bls.gov/registrationEngine.",
+            "editor": "textfield",
+            "isSecret": true
+        },
+        "maxRows": {
+            "title": "Max rows",
+            "type": "integer",
+            "description": "Stop after this many rows in total.",
+            "default": 5000,
+            "minimum": 1,
+            "maximum": 50000
+        }
+    }
+}
