@@ -1,0 +1,74 @@
+{
+    "title": "FDA Drug Adverse Events & Side Effects",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "drugs": {
+            "title": "Drugs",
+            "type": "array",
+            "description": "Drug names to look up, one per line (\"OZEMPIC\", \"LIPITOR\", \"ADDERALL\"). Brand or generic names both work. Matched against the reported medicinal product.",
+            "editor": "stringList",
+            "prefill": ["OZEMPIC"]
+        },
+        "mode": {
+            "title": "What to return",
+            "type": "string",
+            "description": "Top reactions = a ranked list of the most reported side effects for each drug (best starting point). Individual reports = one row per adverse-event report with full detail.",
+            "editor": "select",
+            "default": "reactions",
+            "enum": ["reactions", "reports"],
+            "enumTitles": ["Top reactions (summary)", "Individual reports"]
+        },
+        "seriousOnly": {
+            "title": "Serious events only",
+            "type": "boolean",
+            "description": "Only events flagged serious (death, hospitalization, disability, life-threatening or other serious outcome).",
+            "default": false
+        },
+        "country": {
+            "title": "Country",
+            "type": "string",
+            "description": "Optional: limit to events that occurred in one country, by two-letter code (\"US\", \"GB\", \"CA\"). Leave empty for worldwide.",
+            "editor": "textfield"
+        },
+        "sinceYear": {
+            "title": "Reported since year",
+            "type": "integer",
+            "description": "Only events received by the FDA in or after this year. 0 = no limit.",
+            "default": 0,
+            "minimum": 0,
+            "maximum": 2100
+        },
+        "topReactions": {
+            "title": "Top reactions to return",
+            "type": "integer",
+            "description": "Top reactions mode: how many of the most reported reactions to return per drug.",
+            "default": 25,
+            "minimum": 1,
+            "maximum": 1000
+        },
+        "maxPerDrug": {
+            "title": "Reports per drug",
+            "type": "integer",
+            "description": "Individual reports mode: how many reports to return per drug (newest first).",
+            "default": 50,
+            "minimum": 1,
+            "maximum": 5000
+        },
+        "apiKey": {
+            "title": "openFDA API key (optional)",
+            "type": "string",
+            "description": "Optional: your own free openFDA API key. Raises the shared daily limit (1,000 requests/day per IP) to 120,000/day. Get one free at open.fda.gov/apis/authentication.",
+            "editor": "textfield",
+            "isSecret": true
+        },
+        "maxRows": {
+            "title": "Max rows",
+            "type": "integer",
+            "description": "Stop after this many rows in total.",
+            "default": 2000,
+            "minimum": 1,
+            "maximum": 50000
+        }
+    }
+}

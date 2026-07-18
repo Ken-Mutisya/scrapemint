@@ -1,0 +1,14 @@
+{
+    "actorSpecification": 1,
+    "name": "fda-drug-adverse-events",
+    "title": "FDA Drug Adverse Events & Side Effects (openFDA)",
+    "description": "Look up reported side effects and adverse events for any drug from the FDA's FAERS database via openFDA. Get the top reported reactions for a drug, or individual adverse-event reports with reactions, seriousness and outcome. No API key needed.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "BUSINESS",
+        "EDUCATION"
+    ]
+}

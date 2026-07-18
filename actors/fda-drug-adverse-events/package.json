@@ -1,0 +1,16 @@
+{
+    "name": "fda-drug-adverse-events",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Query FDA FAERS drug adverse events via the keyless openFDA API: top reported reactions per drug, or individual reports with reactions, seriousness and outcome, with an optional openFDA key for higher limits. No browser, no login.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}

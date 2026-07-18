@@ -1,0 +1,14 @@
+{
+    "_note": "PUT via automation/deploy-pricing.mjs --only=fda-drug-adverse-events. PAY_PER_EVENT only on BRONZE plan, startedAt 14+ days out. Apify auto-adds 20% margin. Keyless openFDA drug/event API, no proxy. Unknown drugs and quota-limit runs free.",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "event_row": {
+                "eventTitle": "Adverse event row",
+                "eventDescription": "One reaction-summary row (a drug's reported side effect with count) or one individual adverse-event report. Unknown drugs and requests blocked by the daily limit are free. First 2 rows per run are free.",
+                "eventPriceUsd": 0.003
+            }
+        }
+    },
+    "startedAt": "2026-08-02T00:00:00.000Z"
+}
