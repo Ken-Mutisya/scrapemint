@@ -1,0 +1,58 @@
+{
+    "title": "Crime Data Scraper (US Cities)",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "cities": {
+            "title": "Cities",
+            "type": "array",
+            "description": "Which cities to pull incidents from. Each city is its police department's official open-data feed.",
+            "editor": "select",
+            "prefill": ["chicago"],
+            "items": {
+                "type": "string",
+                "enum": ["chicago", "nyc", "san_francisco", "seattle", "austin", "dallas"],
+                "enumTitles": ["Chicago, IL", "New York City, NY (updated quarterly)", "San Francisco, CA", "Seattle, WA", "Austin, TX", "Dallas, TX"]
+            }
+        },
+        "crimeType": {
+            "title": "Crime type contains",
+            "type": "string",
+            "description": "Only incidents whose offense category or description contains this text (\"ASSAULT\", \"BURGLARY\", \"THEFT\"). Case-insensitive. Leave empty for all incidents.",
+            "editor": "textfield"
+        },
+        "sinceDays": {
+            "title": "Occurred within (days)",
+            "type": "integer",
+            "description": "Only incidents that occurred in the last N days. Cities publish with a lag: Seattle/SF/Dallas run a day or two behind, Chicago and Austin about a week, and NYC refreshes quarterly (use 90+ days there).",
+            "default": 30,
+            "prefill": 14,
+            "minimum": 1,
+            "maximum": 3650
+        },
+        "newOnly": {
+            "title": "Monitor mode: new incidents only",
+            "type": "boolean",
+            "description": "Remember incidents already returned and emit only ones not seen before. Run on a schedule for a neighborhood or citywide new-incident feed - quiet runs cost nothing.",
+            "default": false
+        },
+        "maxPerCity": {
+            "title": "Incidents per city",
+            "type": "integer",
+            "description": "How many incidents to return per city, newest first.",
+            "default": 200,
+            "prefill": 50,
+            "minimum": 1,
+            "maximum": 50000
+        },
+        "maxRows": {
+            "title": "Max rows",
+            "type": "integer",
+            "description": "Stop after this many rows in total.",
+            "default": 500,
+            "minimum": 1,
+            "maximum": 100000
+        }
+    },
+    "required": ["cities"]
+}

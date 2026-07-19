@@ -1,0 +1,14 @@
+{
+    "actorSpecification": 1,
+    "name": "crime-data-scraper",
+    "title": "Crime Data Scraper (US Cities)",
+    "description": "Official police incident data from US city open-data portals - Chicago, NYC, San Francisco, Seattle, Austin, Dallas - normalized to one row shape: date, offense, address, neighborhood, coordinates, arrest flag. Filter by crime type and date. Monitor mode for new incidents. No API key.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "BUSINESS",
+        "NEWS"
+    ]
+}

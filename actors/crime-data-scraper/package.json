@@ -1,0 +1,16 @@
+{
+    "name": "crime-data-scraper",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Official police incident data from six US city open-data portals, normalized to one row shape with crime-type and date filters plus a new-incident monitor mode. No browser, no login, no API key.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}
