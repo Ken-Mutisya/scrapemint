@@ -1,0 +1,14 @@
+{
+    "_note": "PUT via automation/deploy-pricing.mjs --only=us-treasury-rates-scraper. PAY_PER_EVENT only on BRONZE plan, startedAt 14+ days out. Apify auto-adds 20% margin. Keyless treasury.gov XML + FiscalData API, no proxy. Empty pulls free.",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "rate_row": {
+                "eventTitle": "Data row",
+                "eventDescription": "One row of official US Treasury data: a trading day of yields, an auction result, or a debt figure. Pulls that match nothing are free note rows. First 2 rows per run are free.",
+                "eventPriceUsd": 0.002
+            }
+        }
+    },
+    "startedAt": "2026-08-02T00:00:00.000Z"
+}

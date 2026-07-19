@@ -1,0 +1,14 @@
+{
+    "actorSpecification": 1,
+    "name": "us-treasury-rates-scraper",
+    "title": "US Treasury Yields & Interest Rates Scraper",
+    "description": "Official US Treasury data, keyless: the daily yield curve (1-month to 30-year, with 2s10s spread and inversion flag), TIPS real yields, T-bill rates, auction results with bid-to-cover, average interest on US debt, and total public debt to the penny.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "BUSINESS",
+        "EDUCATION"
+    ]
+}

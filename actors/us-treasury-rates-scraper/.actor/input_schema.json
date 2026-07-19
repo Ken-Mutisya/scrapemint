@@ -1,0 +1,40 @@
+{
+    "title": "US Treasury Yields & Interest Rates Scraper",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "dataset": {
+            "title": "Dataset",
+            "type": "string",
+            "description": "Which official Treasury dataset to pull. Daily yield curve is the one most people want: par yields for 1-month through 30-year maturities, one row per trading day.",
+            "editor": "select",
+            "default": "yield_curve",
+            "prefill": "yield_curve",
+            "enum": ["yield_curve", "real_yield_curve", "bill_rates", "long_term_rates", "avg_interest_rates", "auctions", "debt_to_penny"],
+            "enumTitles": ["Daily yield curve (1M-30Y par yields)", "Real yield curve (TIPS, 5Y-30Y)", "T-bill rates (4-52 week)", "Long-term composite rates", "Average interest rates on US debt", "Treasury auction results", "Total public debt, daily"]
+        },
+        "sinceDays": {
+            "title": "History (days)",
+            "type": "integer",
+            "description": "How far back to go, in days. 0 = full available history (the yield curve goes back to 1990; other datasets vary). Rows come newest first, so Max rows caps long pulls at the recent end.",
+            "default": 90,
+            "prefill": 90,
+            "minimum": 0,
+            "maximum": 20000
+        },
+        "newOnly": {
+            "title": "Monitor mode: new rows only",
+            "type": "boolean",
+            "description": "Remember rows already returned and emit only ones not seen before. Run on a daily schedule for a clean feed of fresh yields, auctions or debt figures - quiet runs cost nothing.",
+            "default": false
+        },
+        "maxRows": {
+            "title": "Max rows",
+            "type": "integer",
+            "description": "Stop after this many rows, newest first.",
+            "default": 250,
+            "minimum": 1,
+            "maximum": 50000
+        }
+    }
+}

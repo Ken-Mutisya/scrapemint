@@ -1,0 +1,16 @@
+{
+    "name": "us-treasury-rates-scraper",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Official US Treasury data from keyless government feeds: daily yield curve with 2s10s spread, TIPS real yields, T-bill rates, auction results, average interest on US debt and total public debt, plus a new-row monitor mode. No browser, no login.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}
