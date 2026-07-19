@@ -1,0 +1,16 @@
+{
+    "name": "lobbying-disclosure-scraper",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Official US Senate lobbying disclosure filings by client, firm, lobbyist or issue with reported spend, issue areas and named lobbyists, plus a new-filing monitor mode. Keyless with optional buyer key for higher limits. No browser, no login.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}

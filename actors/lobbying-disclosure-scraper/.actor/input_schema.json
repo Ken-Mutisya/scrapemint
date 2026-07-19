@@ -1,0 +1,63 @@
+{
+    "title": "Lobbying Disclosure Scraper (US Senate)",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "clientName": {
+            "title": "Client name",
+            "type": "string",
+            "description": "Company or organization that hired the lobbyists (\"google\", \"pfizer\"). Partial match, case-insensitive.",
+            "editor": "textfield"
+        },
+        "registrantName": {
+            "title": "Lobbying firm name",
+            "type": "string",
+            "description": "The registrant - the lobbying firm or in-house team that filed (\"brownstein\", \"akin gump\"). Partial match.",
+            "editor": "textfield"
+        },
+        "lobbyistName": {
+            "title": "Lobbyist name",
+            "type": "string",
+            "description": "An individual lobbyist's name. Partial match.",
+            "editor": "textfield"
+        },
+        "issueText": {
+            "title": "Issue contains",
+            "type": "string",
+            "description": "Full-text search across what the filings say they lobbied on (\"artificial intelligence\", \"stablecoin\", \"tariffs\", \"drug pricing\").",
+            "editor": "textfield",
+            "prefill": "artificial intelligence"
+        },
+        "filingYear": {
+            "title": "Filing year",
+            "type": "integer",
+            "description": "Limit to one filing year. 0 = all years (filings go back to 1999).",
+            "default": 2026,
+            "prefill": 2026,
+            "minimum": 0,
+            "maximum": 2100
+        },
+        "newOnly": {
+            "title": "Monitor mode: new filings only",
+            "type": "boolean",
+            "description": "Remember filings already returned and emit only ones not seen before. Run on a schedule to get alerted when a company starts lobbying or a new filing lands on your issue - quiet runs cost nothing.",
+            "default": false
+        },
+        "maxRows": {
+            "title": "Max filings",
+            "type": "integer",
+            "description": "Stop after this many filings, newest first.",
+            "default": 100,
+            "prefill": 25,
+            "minimum": 1,
+            "maximum": 10000
+        },
+        "apiKey": {
+            "title": "LDA API key (optional)",
+            "type": "string",
+            "description": "Optional free API key from lda.senate.gov to raise the rate limit for large pulls. Without it the actor paces itself to the anonymous limit, which is fine for most runs.",
+            "editor": "textfield",
+            "isSecret": true
+        }
+    }
+}

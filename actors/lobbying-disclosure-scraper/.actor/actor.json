@@ -1,0 +1,14 @@
+{
+    "actorSpecification": 1,
+    "name": "lobbying-disclosure-scraper",
+    "title": "Lobbying Disclosure Scraper (US Senate)",
+    "description": "Who lobbies whom, on what, for how much: official US Senate lobbying disclosure filings by client, lobbying firm, lobbyist or issue, with reported income/expenses, issue areas and named lobbyists including former government positions. Monitor mode for new filings. No API key needed.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "BUSINESS",
+        "NEWS"
+    ]
+}
