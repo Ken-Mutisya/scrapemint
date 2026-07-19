@@ -1,0 +1,14 @@
+{
+    "actorSpecification": 1,
+    "name": "environmental-violations-scraper",
+    "title": "Environmental Violations Scraper (EPA ECHO)",
+    "description": "Facility-level US environmental compliance from EPA ECHO: search regulated sites by company, state or industry and get compliance status, quarters in violation, inspections, enforcement actions and penalties across Clean Air, Clean Water and waste programs. No API key.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "BUSINESS",
+        "NEWS"
+    ]
+}

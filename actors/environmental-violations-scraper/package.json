@@ -1,0 +1,16 @@
+{
+    "name": "environmental-violations-scraper",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "US facility-level environmental compliance from the keyless EPA ECHO API by company, state or industry: compliance status, quarters in violation, inspections, enforcement and penalties. No browser, no login, no API key.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}

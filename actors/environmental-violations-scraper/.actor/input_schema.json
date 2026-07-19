@@ -1,0 +1,47 @@
+{
+    "title": "Environmental Violations Scraper (EPA ECHO)",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "companyName": {
+            "title": "Company or facility name",
+            "type": "string",
+            "description": "Facility or company name to search (\"exxon\", \"tyson foods\"). Partial match. Combine with a state to narrow it.",
+            "editor": "textfield",
+            "prefill": "exxon"
+        },
+        "state": {
+            "title": "State",
+            "type": "string",
+            "description": "Two-letter state code (\"TX\", \"CA\"). Use alone to sweep a whole state's regulated facilities, or with a company name.",
+            "editor": "textfield"
+        },
+        "naicsCode": {
+            "title": "Industry (NAICS code)",
+            "type": "string",
+            "description": "Limit to an industry by NAICS code prefix (\"324\" = petroleum, \"3116\" = meat processing). Optional.",
+            "editor": "textfield"
+        },
+        "violatorsOnly": {
+            "title": "Only facilities currently in violation",
+            "type": "boolean",
+            "description": "Return only facilities whose current compliance status shows a violation or significant non-compliance. The highest-signal filter.",
+            "default": false
+        },
+        "activeOnly": {
+            "title": "Only active facilities",
+            "type": "boolean",
+            "description": "Exclude facilities EPA has flagged inactive.",
+            "default": true
+        },
+        "maxRows": {
+            "title": "Max facilities",
+            "type": "integer",
+            "description": "Stop after this many facilities.",
+            "default": 500,
+            "prefill": 50,
+            "minimum": 1,
+            "maximum": 50000
+        }
+    }
+}
