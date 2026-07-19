@@ -1,0 +1,14 @@
+{
+    "actorSpecification": 1,
+    "name": "rss-feed-scraper",
+    "title": "RSS Feed Scraper",
+    "description": "Scrape any RSS or Atom feeds into clean structured rows: title, link, date, author, summary, categories and image. Accepts plain site URLs too (finds the feed automatically). Monitor mode turns any site into a new-post alert feed. No API key.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "NEWS",
+        "AUTOMATION"
+    ]
+}

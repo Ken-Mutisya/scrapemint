@@ -1,0 +1,51 @@
+{
+    "title": "RSS Feed Scraper",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "feedUrls": {
+            "title": "Feed or site URLs",
+            "type": "array",
+            "description": "RSS/Atom feed URLs, one per line. Plain website URLs work too - the actor finds the site's feed automatically (link tag, then common paths like /feed).",
+            "editor": "stringList",
+            "prefill": ["https://feeds.bbci.co.uk/news/technology/rss.xml", "https://techcrunch.com/feed/"]
+        },
+        "maxPerFeed": {
+            "title": "Items per feed",
+            "type": "integer",
+            "description": "How many items to return per feed, in feed order (feeds put newest first).",
+            "default": 50,
+            "minimum": 1,
+            "maximum": 5000
+        },
+        "sinceDays": {
+            "title": "Published within (days)",
+            "type": "integer",
+            "description": "Only items published in the last N days. 0 = everything the feed carries. Items without a parseable date are kept.",
+            "default": 0,
+            "minimum": 0,
+            "maximum": 3650
+        },
+        "includeFullContent": {
+            "title": "Include full content HTML",
+            "type": "boolean",
+            "description": "Include the item's full HTML content when the feed carries it (content:encoded / Atom content). Rows get much bigger; the plain-text summary is always included.",
+            "default": false
+        },
+        "newOnly": {
+            "title": "Monitor mode: new items only",
+            "type": "boolean",
+            "description": "Remember items already returned and emit only ones not seen before. Run on a schedule to turn any site's feed into a new-post alert feed - quiet runs cost nothing.",
+            "default": false
+        },
+        "maxRows": {
+            "title": "Max rows",
+            "type": "integer",
+            "description": "Stop after this many rows in total across all feeds.",
+            "default": 500,
+            "minimum": 1,
+            "maximum": 25000
+        }
+    },
+    "required": ["feedUrls"]
+}

@@ -1,0 +1,16 @@
+{
+    "name": "rss-feed-scraper",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Scrape any RSS or Atom feeds into clean structured rows with feed autodiscovery from plain site URLs and a new-item monitor mode. No browser, no login, no API key.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}

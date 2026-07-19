@@ -1,0 +1,14 @@
+{
+    "_note": "PUT via automation/deploy-pricing.mjs --only=rss-feed-scraper. PAY_PER_EVENT only on BRONZE plan, startedAt 14+ days out. Apify auto-adds 20% margin. Buyer-supplied feed URLs, plain HTTP, no proxy. Dead/feedless URLs and quiet monitor runs free.",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "item_row": {
+                "eventTitle": "Feed item row",
+                "eventDescription": "One feed item with title, link, date, author, plain-text summary, categories and image. Dead URLs, sites with no discoverable feed and runs with nothing new are free note rows. First 2 rows per run are free.",
+                "eventPriceUsd": 0.001
+            }
+        }
+    },
+    "startedAt": "2026-08-02T00:00:00.000Z"
+}
