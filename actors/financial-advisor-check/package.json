@@ -1,0 +1,16 @@
+{
+    "name": "financial-advisor-check",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Verify US financial advisors, brokers and brokerage firms against FINRA BrokerCheck by name or CRD number: registration, licenses, disclosures, sanctions and bars, with pay-on-yield pricing. No browser, no login, no API key.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}

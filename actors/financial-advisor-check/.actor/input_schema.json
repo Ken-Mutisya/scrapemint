@@ -1,0 +1,46 @@
+{
+    "title": "Financial Advisor & Broker Check (FINRA)",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "queries": {
+            "title": "Names or CRD numbers",
+            "type": "array",
+            "description": "Advisors, brokers or firms to look up, one per line. A name (\"jane doe\") searches; an all-digits entry is treated as a CRD number and fetched directly.",
+            "editor": "stringList",
+            "prefill": ["jordan belfort"]
+        },
+        "searchType": {
+            "title": "Search",
+            "type": "string",
+            "description": "Look up individual advisors/brokers, or brokerage firms.",
+            "editor": "select",
+            "default": "individuals",
+            "enum": ["individuals", "firms"],
+            "enumTitles": ["Individual advisors & brokers", "Brokerage firms"]
+        },
+        "includeDetails": {
+            "title": "Include full record details",
+            "type": "boolean",
+            "description": "For individuals, also fetch each match's full BrokerCheck record: disclosures with types and dates, sanctions, exams passed, registered states and employment history. One extra request per match.",
+            "default": true
+        },
+        "maxPerQuery": {
+            "title": "Matches per query",
+            "type": "integer",
+            "description": "How many matching records to return per name searched, best matches first.",
+            "default": 10,
+            "minimum": 1,
+            "maximum": 100
+        },
+        "maxRows": {
+            "title": "Max rows",
+            "type": "integer",
+            "description": "Stop after this many rows in total.",
+            "default": 100,
+            "minimum": 1,
+            "maximum": 10000
+        }
+    },
+    "required": ["queries"]
+}

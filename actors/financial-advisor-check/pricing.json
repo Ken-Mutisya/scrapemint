@@ -1,0 +1,14 @@
+{
+    "_note": "PUT via automation/deploy-pricing.mjs --only=financial-advisor-check. PAY_PER_EVENT only on BRONZE plan, startedAt 14+ days out. Apify auto-adds 20% margin. Keyless FINRA BrokerCheck public API, no proxy. On yield: no-matches free.",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "broker_row": {
+                "eventTitle": "Record found",
+                "eventDescription": "One advisor, broker or firm record with registration status, disclosures, sanctions/bars, licenses and employment history. Queries that match nothing are free note rows. First 2 rows per run are free.",
+                "eventPriceUsd": 0.005
+            }
+        }
+    },
+    "startedAt": "2026-08-02T00:00:00.000Z"
+}

@@ -1,0 +1,14 @@
+{
+    "actorSpecification": 1,
+    "name": "financial-advisor-check",
+    "title": "Financial Advisor & Broker Check (FINRA)",
+    "description": "Verify US financial advisors, brokers and brokerage firms against FINRA BrokerCheck: registration status, licenses, employment history, disciplinary disclosures, sanctions and permanent bars, by name or CRD number. Pay only for records found. No API key.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "BUSINESS",
+        "OTHER"
+    ]
+}
