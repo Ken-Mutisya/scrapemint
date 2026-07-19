@@ -1,0 +1,53 @@
+{
+    "title": "Care Facility Ratings Scraper (CMS)",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "facilityType": {
+            "title": "Facility type",
+            "type": "string",
+            "description": "Which kind of Medicare-certified facility to look up. Nursing homes carry the fullest ratings (overall, health inspection, staffing, quality).",
+            "editor": "select",
+            "default": "nursing_homes",
+            "enum": ["nursing_homes", "hospitals", "home_health"],
+            "enumTitles": ["Nursing homes", "Hospitals", "Home health agencies"]
+        },
+        "facilityName": {
+            "title": "Facility name contains",
+            "type": "string",
+            "description": "Filter to facilities whose name contains this text. Partial, case-insensitive. Leave empty to sweep by state.",
+            "editor": "textfield"
+        },
+        "state": {
+            "title": "State",
+            "type": "string",
+            "description": "Two-letter state code (\"CA\", \"TX\"). Use alone to pull a whole state, or with a name/city.",
+            "editor": "textfield",
+            "prefill": "CA"
+        },
+        "city": {
+            "title": "City",
+            "type": "string",
+            "description": "Filter to one city (exact, case-insensitive). Optional.",
+            "editor": "textfield"
+        },
+        "minRating": {
+            "title": "Minimum overall rating",
+            "type": "string",
+            "description": "Only facilities with at least this overall star rating (1 to 5). Leave as Any for all.",
+            "editor": "select",
+            "default": "0",
+            "enum": ["0", "2", "3", "4", "5"],
+            "enumTitles": ["Any", "2+ stars", "3+ stars", "4+ stars", "5 stars only"]
+        },
+        "maxRows": {
+            "title": "Max facilities",
+            "type": "integer",
+            "description": "Stop after this many facilities.",
+            "default": 500,
+            "prefill": 50,
+            "minimum": 1,
+            "maximum": 50000
+        }
+    }
+}

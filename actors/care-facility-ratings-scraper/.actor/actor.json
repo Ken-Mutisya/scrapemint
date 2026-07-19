@@ -1,0 +1,14 @@
+{
+    "actorSpecification": 1,
+    "name": "care-facility-ratings-scraper",
+    "title": "Care Facility Ratings Scraper (CMS)",
+    "description": "Medicare Care Compare quality ratings for US care facilities: nursing homes, hospitals and home health agencies by name, state or city, with overall star rating, health-inspection, staffing and quality ratings, deficiencies, fines and ownership. No API key.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "BUSINESS",
+        "NEWS"
+    ]
+}

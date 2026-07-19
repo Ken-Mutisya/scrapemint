@@ -1,0 +1,16 @@
+{
+    "name": "care-facility-ratings-scraper",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Medicare Care Compare quality ratings for US nursing homes, hospitals and home health agencies from the keyless CMS provider-data API by name, state or city. No browser, no login, no API key.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}
