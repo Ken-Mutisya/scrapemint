@@ -1,0 +1,14 @@
+{
+    "_note": "PUT via automation/deploy-pricing.mjs --only=doctor-payments-scraper. PAY_PER_EVENT only on BRONZE plan, startedAt 14+ days out. Apify auto-adds 20% margin. Keyless CMS Open Payments DKAN API, no proxy. Empty searches free.",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "payment_row": {
+                "eventTitle": "Payment row",
+                "eventDescription": "One physician payment (payments mode) or one aggregated doctor summary (doctor totals mode) with amounts, companies and payment types. Searches that match nothing are free note rows. First 2 rows per run are free.",
+                "eventPriceUsd": 0.004
+            }
+        }
+    },
+    "startedAt": "2026-08-02T00:00:00.000Z"
+}

@@ -1,0 +1,14 @@
+{
+    "actorSpecification": 1,
+    "name": "doctor-payments-scraper",
+    "title": "Doctor Payments Scraper (CMS Open Payments)",
+    "description": "Who pays your doctor: US pharma and medical-device payments to physicians from the federal Open Payments database, by doctor name, paying company, specialty or state, with a per-doctor totals view. Consulting fees, speaking, meals, travel, royalties. No API key.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "BUSINESS",
+        "NEWS"
+    ]
+}

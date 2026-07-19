@@ -1,0 +1,58 @@
+{
+    "title": "Doctor Payments Scraper (CMS Open Payments)",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "mode": {
+            "title": "Mode",
+            "type": "string",
+            "description": "Payments returns one row per payment. Doctor totals aggregates a physician's payments into a single summary row (total received, top companies, by payment type) - the flagship view.",
+            "editor": "select",
+            "default": "payments",
+            "enum": ["payments", "doctor_totals"],
+            "enumTitles": ["Individual payments", "Doctor totals (aggregated)"]
+        },
+        "doctorLastName": {
+            "title": "Doctor last name",
+            "type": "string",
+            "description": "Physician last name (exact, case-insensitive). Combine with first name and state to pin down a specific doctor.",
+            "editor": "textfield"
+        },
+        "doctorFirstName": {
+            "title": "Doctor first name",
+            "type": "string",
+            "description": "Physician first name (exact, case-insensitive). Optional.",
+            "editor": "textfield"
+        },
+        "companyName": {
+            "title": "Paying company contains",
+            "type": "string",
+            "description": "Manufacturer or GPO making the payment (\"pfizer\", \"medtronic\"). Partial match. Use this to pull all payments a company made.",
+            "editor": "textfield"
+        },
+        "state": {
+            "title": "State",
+            "type": "string",
+            "description": "Two-letter state of the physician (\"CA\", \"TX\"). Optional filter.",
+            "editor": "textfield"
+        },
+        "year": {
+            "title": "Program year",
+            "type": "string",
+            "description": "Which year's payments to search. Data is available for 2019 through the latest published year.",
+            "editor": "select",
+            "default": "2024",
+            "prefill": "2024",
+            "enum": ["2024", "2023", "2022", "2021", "2020", "2019"]
+        },
+        "maxRows": {
+            "title": "Max rows",
+            "type": "integer",
+            "description": "In Payments mode, the max payment rows. In Doctor totals mode, the max doctors summarized.",
+            "default": 200,
+            "prefill": 50,
+            "minimum": 1,
+            "maximum": 50000
+        }
+    }
+}
