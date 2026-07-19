@@ -1,0 +1,14 @@
+{
+    "actorSpecification": 1,
+    "name": "company-logo-scraper",
+    "title": "Company Logo & Brand Asset Scraper",
+    "description": "Bulk domain-to-logo: give it company domains and get each site's logo, icon set, og image, theme color and site name, with the best logo verified as reachable. The keyless replacement for the retired Clearbit Logo API. Pay only for domains where a logo is found.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "BUSINESS",
+        "MARKETING"
+    ]
+}

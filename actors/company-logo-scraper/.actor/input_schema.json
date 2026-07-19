@@ -1,0 +1,35 @@
+{
+    "title": "Company Logo & Brand Asset Scraper",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "domains": {
+            "title": "Domains",
+            "type": "array",
+            "description": "Company domains or website URLs, one per line (\"stripe.com\", \"https://notion.so\"). Protocol and paths are stripped automatically.",
+            "editor": "stringList",
+            "prefill": ["stripe.com", "notion.so", "shopify.com"]
+        },
+        "verifyLogo": {
+            "title": "Verify the picked logo",
+            "type": "boolean",
+            "description": "Fetch each best-pick logo to confirm it actually loads, and fall back to the next candidate if it does not. Adds one small request per domain; recommended when the logos go straight into a product or CRM.",
+            "default": true
+        },
+        "includeAllIcons": {
+            "title": "Include the full icon list",
+            "type": "boolean",
+            "description": "Include every icon the site declares (all sizes) in each row, not just the best pick. Turn off for smaller rows.",
+            "default": true
+        },
+        "maxRows": {
+            "title": "Max domains",
+            "type": "integer",
+            "description": "Stop after this many domains.",
+            "default": 1000,
+            "minimum": 1,
+            "maximum": 25000
+        }
+    },
+    "required": ["domains"]
+}

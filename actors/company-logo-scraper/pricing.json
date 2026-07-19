@@ -1,0 +1,14 @@
+{
+    "_note": "PUT via automation/deploy-pricing.mjs --only=company-logo-scraper. PAY_PER_EVENT only on BRONZE plan, startedAt 14+ days out. Apify auto-adds 20% margin. Buyer-supplied domains, plain HTTP, no proxy. On yield: misses free.",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "logo_found": {
+                "eventTitle": "Logo found",
+                "eventDescription": "One domain where a logo, icon or og image was found, with the best pick verified to load. Unreachable domains and pages with no discoverable assets are free note rows. First 2 chargeable rows per run are free.",
+                "eventPriceUsd": 0.005
+            }
+        }
+    },
+    "startedAt": "2026-08-02T00:00:00.000Z"
+}

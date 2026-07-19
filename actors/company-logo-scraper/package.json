@@ -1,0 +1,16 @@
+{
+    "name": "company-logo-scraper",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Bulk domain-to-logo enrichment: logo, icon set, og image, theme color and site name for any list of company domains, with reachability verification and pay-on-yield pricing. No browser, no login, no API key.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}
