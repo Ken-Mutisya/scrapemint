@@ -1,0 +1,69 @@
+{
+    "title": "Short Selling Data Tracker (FINRA)",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "mode": {
+            "title": "Mode",
+            "type": "string",
+            "description": "Watchlist returns one row per symbol per trading day, newest first, for tracking a short volume trend. Market screen ranks every US symbol for a single day by the share of volume sold short.",
+            "editor": "select",
+            "default": "symbols",
+            "prefill": "symbols",
+            "enum": ["symbols", "screen"],
+            "enumTitles": ["Watchlist", "Market screen"]
+        },
+        "symbols": {
+            "title": "Ticker symbols",
+            "type": "array",
+            "description": "US equity tickers to track, for example TSLA, NVDA, GME. Watchlist mode only.",
+            "editor": "stringList",
+            "prefill": ["TSLA", "NVDA", "GME"],
+            "default": []
+        },
+        "days": {
+            "title": "Trading days back",
+            "type": "integer",
+            "description": "How many trading days of history to return per symbol. Weekends and holidays are skipped automatically.",
+            "default": 5,
+            "prefill": 5,
+            "minimum": 1,
+            "maximum": 30
+        },
+        "date": {
+            "title": "Date",
+            "type": "string",
+            "description": "Specific trading day as 2026-07-20. Leave empty for the most recent published day. FINRA publishes after the close, so today's file appears in the evening.",
+            "editor": "textfield"
+        },
+        "minTotalVolume": {
+            "title": "Minimum total volume",
+            "type": "integer",
+            "description": "Market screen only. Ignore symbols trading below this many shares. The default keeps roughly 500 liquid names. Drop it toward 100000 to widen the universe, but the ranking then fills with thinly traded warrants showing 100% short volume, which is a reporting artifact rather than a signal.",
+            "editor": "number",
+            "default": 2000000,
+            "prefill": 2000000,
+            "minimum": 0,
+            "maximum": 1000000000
+        },
+        "minShortPercent": {
+            "title": "Minimum short percent",
+            "type": "integer",
+            "description": "Market screen only. Only return symbols where at least this share of reported volume was sold short.",
+            "editor": "number",
+            "default": 0,
+            "prefill": 0,
+            "minimum": 0,
+            "maximum": 100
+        },
+        "maxRows": {
+            "title": "Max rows",
+            "type": "integer",
+            "description": "Maximum rows to return. In market screen mode the highest short percent comes first.",
+            "default": 200,
+            "prefill": 50,
+            "minimum": 1,
+            "maximum": 50000
+        }
+    }
+}

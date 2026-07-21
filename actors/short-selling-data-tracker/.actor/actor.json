@@ -1,0 +1,14 @@
+{
+    "actorSpecification": 1,
+    "name": "short-selling-data-tracker",
+    "title": "Short Selling Data Tracker (FINRA)",
+    "description": "How much of a stock's daily volume was sold short, from FINRA's official consolidated short sale volume files. Track a watchlist over time or screen every US ticker for the highest short volume share on any trading day. No API key.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "BUSINESS",
+        "NEWS"
+    ]
+}
