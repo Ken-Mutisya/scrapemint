@@ -1,0 +1,82 @@
+{
+    "title": "Doctor Prescribing Patterns (Medicare Part D)",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "mode": {
+            "title": "Mode",
+            "type": "string",
+            "description": "Prescribers by drug returns one row per doctor per drug, ranked - the flagship view. Provider totals returns one row per prescriber across every drug they wrote. Drug by geography returns national and per-state totals for a drug, with opioid and antibiotic flags.",
+            "editor": "select",
+            "default": "prescribers",
+            "prefill": "prescribers",
+            "enum": ["prescribers", "provider_totals", "drug_geography"],
+            "enumTitles": ["Prescribers by drug", "Provider totals", "Drug by geography"]
+        },
+        "brandName": {
+            "title": "Brand name",
+            "type": "string",
+            "description": "Brand drug name, for example Ozempic, Eliquis, Humira. Must match exactly, though capitalization does not matter. If nothing matches, the run returns free suggestions of real names.",
+            "editor": "textfield",
+            "prefill": "Ozempic"
+        },
+        "genericName": {
+            "title": "Generic name",
+            "type": "string",
+            "description": "Generic ingredient name, for example Semaglutide, Apixaban. Exact match, capitalization does not matter.",
+            "editor": "textfield"
+        },
+        "state": {
+            "title": "State",
+            "type": "string",
+            "description": "Two letter state of the prescriber, for example TX or CA. In drug by geography mode this selects that state's totals instead of national.",
+            "editor": "textfield",
+            "prefill": "TX"
+        },
+        "specialty": {
+            "title": "Specialty",
+            "type": "string",
+            "description": "Prescriber specialty exactly as CMS records it, for example Cardiology, Endocrinology, Family Practice, Internal Medicine.",
+            "editor": "textfield"
+        },
+        "npi": {
+            "title": "NPI",
+            "type": "string",
+            "description": "Ten digit National Provider Identifier, to pull one specific prescriber. Optional.",
+            "editor": "textfield"
+        },
+        "lastName": {
+            "title": "Prescriber last name",
+            "type": "string",
+            "description": "Prescriber last name or organization name. Exact match, capitalization does not matter. Combine with state to narrow common names.",
+            "editor": "textfield"
+        },
+        "year": {
+            "title": "Data year",
+            "type": "string",
+            "description": "Which program year to read. CMS publishes about 18 months behind, so the newest complete year is the default.",
+            "editor": "select",
+            "default": "2024",
+            "prefill": "2024",
+            "enum": ["2024", "2023", "2022", "2021", "2020", "2019", "2018", "2017", "2016", "2015", "2014", "2013"]
+        },
+        "sortBy": {
+            "title": "Rank by",
+            "type": "string",
+            "description": "Highest first. Total cost surfaces the biggest spenders, claims surfaces the highest volume prescribers.",
+            "editor": "select",
+            "default": "cost",
+            "enum": ["cost", "claims", "beneficiaries"],
+            "enumTitles": ["Total drug cost", "Total claims", "Beneficiaries"]
+        },
+        "maxRows": {
+            "title": "Max rows",
+            "type": "integer",
+            "description": "Maximum rows to return, highest ranked first.",
+            "default": 200,
+            "prefill": 50,
+            "minimum": 1,
+            "maximum": 50000
+        }
+    }
+}

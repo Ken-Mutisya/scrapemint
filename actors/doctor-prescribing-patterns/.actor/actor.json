@@ -1,0 +1,14 @@
+{
+    "actorSpecification": 1,
+    "name": "doctor-prescribing-patterns",
+    "title": "Doctor Prescribing Patterns (Medicare Part D)",
+    "description": "Which doctors prescribe which drugs, and what Medicare paid: official CMS Part D prescriber data by drug, specialty, state or NPI, ranked by spend or claim volume, plus per-prescriber totals and national and state drug totals. No API key.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "BUSINESS",
+        "NEWS"
+    ]
+}
