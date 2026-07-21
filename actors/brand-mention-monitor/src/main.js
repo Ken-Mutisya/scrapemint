@@ -246,5 +246,21 @@ if (seenStore && rowsPushed > 0) {
     }
 }
 
+// A run that finds nothing must say why rather than hand back an empty
+// dataset: an unreachable Telegram channel, a quiet keyword and dedupe
+// having already returned everything all look identical otherwise. Pushed
+// directly so it stays free rather than counting as a mention row.
+if (rowsPushed === 0) {
+    await Actor.pushData({
+        type: 'note',
+        input: kws.join(', '),
+        found: false,
+        note: `no ${dedupe ? 'new ' : ''}mentions found across ${srcs.join(', ')}`
+            + `${channels.length ? ` (Telegram channels: ${channels.join(', ')})` : ''}. `
+            + `${dedupe ? 'Dedupe is on, so anything earlier runs already returned is skipped. ' : ''}`
+            + 'Try another keyword, add sources, or check the channel names. Not charged.',
+    });
+}
+
 log.info(`Done. ${rowsPushed} new mention(s) pushed (${Math.max(0, rowsPushed - FREE_TIER_ROWS)} chargeable max).${dedupe ? ' Dedupe on: repeat runs emit only new mentions.' : ''}`);
 await Actor.exit();
