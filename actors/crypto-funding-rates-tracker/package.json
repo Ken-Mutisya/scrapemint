@@ -1,0 +1,16 @@
+{
+    "name": "crypto-funding-rates-tracker",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Perpetual futures funding rates and open interest across OKX, Gate.io, Bitget and KuCoin, compared per coin. Keyless, no browser, no login.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}

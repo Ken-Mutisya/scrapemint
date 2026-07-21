@@ -1,0 +1,65 @@
+{
+    "title": "Crypto Funding Rates & Open Interest Tracker",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "mode": {
+            "title": "Mode",
+            "type": "string",
+            "description": "Compare returns one row per coin with every venue's funding side by side and the spread between them - the flagship view. Screen returns one row per contract across all venues. Watchlist returns only the coins you name.",
+            "editor": "select",
+            "default": "compare",
+            "prefill": "compare",
+            "enum": ["compare", "screen", "symbols"],
+            "enumTitles": ["Compare venues", "Screen all contracts", "Watchlist"]
+        },
+        "coins": {
+            "title": "Coins",
+            "type": "array",
+            "description": "Base assets such as BTC, ETH, SOL. Required in watchlist mode. In compare and screen modes leave it empty to cover the whole market, or list coins to narrow it. KuCoin's XBT is treated as BTC.",
+            "editor": "stringList",
+            "default": []
+        },
+        "exchanges": {
+            "title": "Exchanges",
+            "type": "array",
+            "description": "Which venues to read. Binance and Bybit are not available: both block datacenter traffic, so they cannot be served from here.",
+            "editor": "select",
+            "items": {
+                "type": "string",
+                "enum": ["okx", "gate", "bitget", "kucoin"],
+                "enumTitles": ["OKX", "Gate.io", "Bitget", "KuCoin"]
+            },
+            "default": ["okx", "gate", "bitget", "kucoin"],
+            "prefill": ["okx", "gate", "bitget", "kucoin"]
+        },
+        "sortBy": {
+            "title": "Rank by",
+            "type": "string",
+            "description": "Spread ranks coins by the gap between the most and least expensive venue. Highest and lowest funding surface crowded longs and crowded shorts.",
+            "editor": "select",
+            "default": "spread",
+            "enum": ["spread", "funding_high", "funding_low", "open_interest"],
+            "enumTitles": ["Venue spread", "Highest funding", "Lowest funding", "Open interest"]
+        },
+        "minOpenInterestUsd": {
+            "title": "Minimum open interest (USD)",
+            "type": "integer",
+            "description": "Ignore contracts with less open interest than this. Filters out illiquid listings whose funding rates swing wildly and are not tradeable.",
+            "editor": "number",
+            "default": 1000000,
+            "prefill": 1000000,
+            "minimum": 0,
+            "maximum": 100000000000
+        },
+        "maxRows": {
+            "title": "Max rows",
+            "type": "integer",
+            "description": "Maximum rows to return, ranked first.",
+            "default": 200,
+            "prefill": 50,
+            "minimum": 1,
+            "maximum": 50000
+        }
+    }
+}
