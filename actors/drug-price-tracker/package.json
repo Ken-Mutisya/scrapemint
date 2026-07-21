@@ -1,0 +1,16 @@
+{
+    "name": "drug-price-tracker",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Official CMS NADAC drug acquisition costs by drug name or NDC, with week-over-week price changes and weekly price history. Keyless, no browser, no login.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}

@@ -1,0 +1,14 @@
+{
+    "actorSpecification": 1,
+    "name": "drug-price-tracker",
+    "title": "Prescription Drug Price Tracker (CMS NADAC)",
+    "description": "What pharmacies actually pay for a drug: official CMS NADAC acquisition costs for every US prescription and OTC drug, by name or NDC, plus week-over-week price changes with the reason CMS gives, and weekly price history. No API key.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "BUSINESS",
+        "ECOMMERCE"
+    ]
+}

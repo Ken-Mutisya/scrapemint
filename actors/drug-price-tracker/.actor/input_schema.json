@@ -1,0 +1,82 @@
+{
+    "title": "Prescription Drug Price Tracker (CMS NADAC)",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "mode": {
+            "title": "Mode",
+            "type": "string",
+            "description": "Current prices returns the latest NADAC per unit for each package (NDC) of a drug. Price changes returns week-over-week moves with the old price, new price, percent change and CMS's stated reason - the flagship view. Price history returns the weekly series for one year.",
+            "editor": "select",
+            "default": "prices",
+            "prefill": "prices",
+            "enum": ["prices", "changes", "history"],
+            "enumTitles": ["Current prices", "Price changes", "Price history"]
+        },
+        "drugName": {
+            "title": "Drug name contains",
+            "type": "string",
+            "description": "Brand or generic name (\"ozempic\", \"atorvastatin\", \"insulin\"). Partial match against the NADAC label, which looks like \"ATORVASTATIN 20 MG TABLET\". Add a strength to narrow it.",
+            "editor": "textfield",
+            "prefill": "atorvastatin"
+        },
+        "ndc": {
+            "title": "NDC code",
+            "type": "string",
+            "description": "Exact 11-digit National Drug Code for one specific package, if you already know it. Optional.",
+            "editor": "textfield"
+        },
+        "drugType": {
+            "title": "Generic or brand",
+            "type": "string",
+            "description": "Limit to generic or brand-name products. NADAC classifies every entry as one or the other.",
+            "editor": "select",
+            "default": "any",
+            "enum": ["any", "generic", "brand"],
+            "enumTitles": ["Any", "Generic only", "Brand only"]
+        },
+        "year": {
+            "title": "Year",
+            "type": "string",
+            "description": "Which NADAC year to read, for current prices and price history. Ignored in price-changes mode, which spans all years.",
+            "editor": "select",
+            "default": "2026",
+            "prefill": "2026",
+            "enum": ["2026", "2025", "2024", "2023", "2022", "2021", "2020"]
+        },
+        "sinceDays": {
+            "title": "Changes in the last N days",
+            "type": "integer",
+            "description": "Price-changes mode only. How far back to look for price moves. NADAC republishes weekly, so 30 days covers about four updates.",
+            "default": 30,
+            "prefill": 30,
+            "minimum": 1,
+            "maximum": 3650
+        },
+        "minPercentChange": {
+            "title": "Minimum percent change",
+            "type": "integer",
+            "description": "Price-changes mode only. Only return moves of at least this size, up or down. 0 returns every change. Use 10 or 25 to surface the ones worth acting on.",
+            "editor": "number",
+            "default": 0,
+            "prefill": 0,
+            "minimum": 0,
+            "maximum": 1000
+        },
+        "newOnly": {
+            "title": "Only new price changes",
+            "type": "boolean",
+            "description": "Price-changes mode only. Remembers what earlier runs already returned and reports only changes it has not seen before, so a scheduled run becomes a price-move alert.",
+            "default": false
+        },
+        "maxRows": {
+            "title": "Max rows",
+            "type": "integer",
+            "description": "Maximum rows to return. In price-changes mode the biggest moves are returned first.",
+            "default": 200,
+            "prefill": 50,
+            "minimum": 1,
+            "maximum": 50000
+        }
+    }
+}
