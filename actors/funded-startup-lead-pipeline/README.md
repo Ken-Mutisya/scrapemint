@@ -7,7 +7,7 @@ When a private company raises capital it files a **Form D** with the SEC. That f
 For each run it:
 
 1. **Pulls recent Form D raises from EDGAR.** Full-text search for Form D filings in your date window, then parses each filing for the company name, amount offered and sold, industry, named executives and directors, and the issuer city and state. Pooled investment funds are filtered out so you get real operating companies.
-2. **Enriches the top leads with contacts.** It looks up each company on Google Maps for a website and phone, then scrapes contact emails from the site. This stage is optional and capped so runs stay fast.
+2. **Optionally enriches the top leads with contacts.** Off by default. When you turn it on, it looks up each company on Google Maps for a website and phone, then scrapes contact emails from the site. Companies that just filed a Form D are often too new to have a Maps listing, so expect a match on only a fraction of leads, and expect the run to take several minutes longer.
 3. **Scores and tiers each lead.** A 0 to 100 score from the raise size, recency, named decision makers, and contactability, then a tier.
 
 The funding side is plain EDGAR HTTP and JSON. No browser, no API keys.
@@ -62,7 +62,7 @@ Pay per lead. The first `hot_lead` per run is free so you can validate output.
 | `qualified_lead` | A raise of 250k+ sold, or one with named decision makers and a matched website or phone | $0.07 |
 | `hot_lead` | A recent 1M+ raise with a named decision maker or matched contact info | $0.12 |
 
-**Combined cost note.** When `includeContacts` is on, this pipeline calls `google-maps-scraper`, which bills its own per-place charges to you in the same run. The Maps child runs with website enrichment off (emails are scraped cheaply in the parent), so total compute stays small. Turn `includeContacts` off for funding data only.
+**Combined cost note.** When `includeContacts` is on, this pipeline calls `google-maps-scraper`, which bills its own per-place charges to you in the same run. This is why the stage is off by default. The Maps child runs with website enrichment off (emails are scraped cheaply in the parent), so total compute stays small. Turn `includeContacts` off for funding data only.
 
 ## Input
 
@@ -73,7 +73,7 @@ Pay per lead. The first `hot_lead` per run is free so you can validate output.
 | `states` | `[]` | Two-letter state codes to include. Empty is all states. |
 | `industries` | `[]` | Form D industry terms to include, matched loosely. Empty is all. Use e.g. technology, biotechnology, pharmaceuticals, health to skew toward startups and omit real estate / insurance / banking vehicles. |
 | `includeFunds` | `false` | Keep pooled investment funds and SPVs. Off gives operating companies. |
-| `includeContacts` | `true` | Enrich top leads with website, phone, and emails. |
+| `includeContacts` | `false` | Enrich top leads with website, phone, and emails. Adds several minutes per run and matches only a fraction of newly funded companies. |
 | `maxLeads` | `100` | Cap total leads scored per run, ranked by amount raised. |
 | `maxContactLookups` | `40` | Cap how many top leads get contact enrichment. |
 | `userAgent` | generic | EDGAR asks for a descriptive User-Agent with an email. |

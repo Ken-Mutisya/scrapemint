@@ -26,6 +26,13 @@ import dns from 'node:dns/promises';
 
 const FREE_TIER_HOT = 1;
 const EDGAR_RATE_SLEEP_MS = 130;
+// Stage 1 walks up to 400 filings one at a time, each with its own retry sleeps.
+// When EDGAR throttles (it answers slow or empty rather than erroring) that walk
+// alone can eat the whole run budget, and because rows are only pushed in stage 3
+// the run then dies TIMED-OUT with zero rows and zero charges. Every stage-1 loop
+// checks this reserve and returns what it has instead.
+const STAGE1_RESERVE_WITH_CONTACTS_SECS = 700;
+const STAGE1_RESERVE_NO_CONTACTS_SECS = 200;
 const SITE_FETCH_TIMEOUT_MS = 6000;
 const EMAIL_RE = /[a-z0-9._%+\-]+@[a-z0-9._\-]+\.[a-z]{2,}/gi;
 const EMAIL_SHAPE = /^[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$/i;
@@ -40,7 +47,12 @@ const {
     states = [],
     industries = [],
     includeFunds = false,
-    includeContacts = true,
+    // Off by default. Measured 2026-07-22 on the prefill input: 37 companies
+    // queried, 14 Maps places back, 1 lead matched, 0 emails found, for 820s of
+    // the 944s run and 65% of its compute. Tiering runs off raise size, recency
+    // and the Form D executives, so the stage changed no tier. Buyers who want
+    // contacts can still turn it on.
+    includeContacts = false,
     maxLeads = 100,
     maxContactLookups = 40,
     userAgent: userAgentInput = '',
@@ -64,6 +76,14 @@ if (!/@/.test(userAgent)) {
     log.warning('SEC requires an email in the User-Agent. Your value lacks an @ which may cause 403 responses.');
 }
 const headers = { 'User-Agent': userAgent, Accept: 'application/json', 'Accept-Encoding': 'gzip, deflate' };
+
+// Wall-clock budget shared by every stage. Derived from the run's ACTUAL timeout
+// so buyer-set short timeouts are respected too (never hardcode the budget).
+const runTimeoutAtMs = process.env.ACTOR_TIMEOUT_AT ? Date.parse(process.env.ACTOR_TIMEOUT_AT) : null;
+const secsUntilTimeout = () => (runTimeoutAtMs ? Math.max(0, Math.floor((runTimeoutAtMs - Date.now()) / 1000)) : Infinity);
+const stage1Reserve = (includeContacts && Number(maxContactLookups) > 0)
+    ? STAGE1_RESERVE_WITH_CONTACTS_SECS
+    : STAGE1_RESERVE_NO_CONTACTS_SECS;
 
 const startdt = new Date(Date.now() - maxAgeMs).toISOString().slice(0, 10);
 const enddt = new Date(Date.now() + 864e5).toISOString().slice(0, 10);
@@ -158,12 +178,17 @@ async function fetchFormDLeads() {
     // Pull more raw hits than leadCap because funds get filtered out.
     const maxHits = Math.min(1000, leadCap * 4);
     for (let from = 0; from < maxHits && out.length < leadCap * 2; from += 10) {
+        if (secsUntilTimeout() < stage1Reserve) {
+            log.warning(`Stage 1 budget reached at ${out.length} leads (${secsUntilTimeout()}s left); continuing with what was parsed so far.`);
+            break;
+        }
         const url = `https://efts.sec.gov/LATEST/search-index?q=&forms=D&startdt=${startdt}&enddt=${enddt}&from=${from}`;
         const data = await fetchJsonWithRetry(url);
         const hits = data?.hits?.hits || [];
         if (hits.length === 0) break;
 
         for (const h of hits) {
+            if (secsUntilTimeout() < stage1Reserve) break;
             const id = String(h._id || '');
             const accession = id.split(':')[0];
             const doc = id.split(':')[1] || 'primary_doc.xml';
@@ -267,8 +292,6 @@ async function enrichContacts(targets) {
     // custom, often shorter, timeouts): clamp so enrichment + push always fit
     // before ACTOR_TIMEOUT_AT, else short buyer runs are TIMED-OUT by design.
     const POST_CHILD_RESERVE_SECS = 300;
-    const runTimeoutAtMs = process.env.ACTOR_TIMEOUT_AT ? Date.parse(process.env.ACTOR_TIMEOUT_AT) : null;
-    const secsUntilTimeout = () => (runTimeoutAtMs ? Math.max(0, Math.floor((runTimeoutAtMs - Date.now()) / 1000)) : Infinity);
     const effectiveChildWait = Math.max(60, Math.min(CHILD_WAIT_SECS, secsUntilTimeout() - POST_CHILD_RESERVE_SECS));
     let mapsRun = null;
     try {

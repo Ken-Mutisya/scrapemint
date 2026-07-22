@@ -31,7 +31,14 @@
             "type": "array",
             "description": "Form D industry terms to include, matched loosely (empty = all operating industries). To skew toward startups try: technology, computers, telecommunications, biotechnology, pharmaceuticals, health, manufacturing. Real estate, insurance, banking, and construction are common non-startup vehicles to omit.",
             "editor": "stringList",
-            "prefill": ["technology", "computers", "telecommunications", "biotechnology", "pharmaceuticals", "health"],
+            "prefill": [
+                "technology",
+                "computers",
+                "telecommunications",
+                "biotechnology",
+                "pharmaceuticals",
+                "health"
+            ],
             "default": []
         },
         "includeFunds": {
@@ -43,8 +50,8 @@
         "includeContacts": {
             "title": "Enrich with contacts",
             "type": "boolean",
-            "description": "Look up each top lead on Google Maps for a website and phone, then scrape contact emails from the site. Turn off for funding data only.",
-            "default": true
+            "description": "Look up each top lead on Google Maps for a website and phone, then scrape contact emails from the site. Off by default: newly funded companies are rarely listed on Maps, so this stage adds several minutes per run and typically matches only a small fraction of leads. The funding data, named executives and lead scoring do not depend on it.",
+            "default": false
         },
         "maxLeads": {
             "title": "Max leads",
