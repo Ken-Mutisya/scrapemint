@@ -1,13 +1,13 @@
 # Hiring Velocity B2B Pipeline
 
-Companies hiring senior engineers in your skill area are a high confidence buying signal for dev tools, observability, infra, and developer experience products. This pipeline pulls Indeed jobs by skill, groups by company, scores hiring velocity, verifies each company's domain, and returns one row per qualified buyer.
+Companies hiring senior engineers in your skill area are a high confidence buying signal for dev tools, observability, infra, and developer experience products. This pipeline pulls Indeed jobs by skill, groups by company, scores hiring velocity, and returns one row per company with its open roles, skill mix and seniority profile.
 
 ## What you get per row
 
 | Field | Description |
 |---|---|
 | `companyName`, `industry`, `headcountBand` | Core company identity from Indeed |
-| `companyWebsite` | Company website surfaced by Indeed |
+| `companyWebsite` | Company website when Indeed exposes one (often null while its company pages are challenge-walled) |
 | `domain` | Root domain of the website |
 | `websiteReachable` | True when HTTP HEAD returns < 500 |
 | `mxFound` | True when the domain has a valid MX record |
@@ -26,14 +26,14 @@ Companies hiring senior engineers in your skill area are a high confidence buyin
 
 A row is **qualified** when ALL of the following hold:
 - The company has at least `minPostingsPerCompany` matching postings (default 2)
-- If `requireWebsite` is on (default): website is reachable AND domain has an MX record
+- If you turn `requireWebsite` on: website is reachable AND domain has an MX record. It is off by default because Indeed serves an antibot challenge on its company pages, so no website is available to verify and leaving it on marks every company basic no matter how strongly it is hiring.
 
 Everything else that came back from Indeed is returned as **basic**.
 
 ## Pricing
 
 - `qualified_hiring_company` $0.20 each. First 3 per run are free.
-- `basic_company` $0.05 each.
+- `basic_company` $0.05 each. First 2 per run are free, so every run previews itself before it bills.
 
 Apify auto-applies 20% margin. You see net.
 

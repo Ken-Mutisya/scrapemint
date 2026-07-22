@@ -9,7 +9,10 @@
             "type": "array",
             "description": "Skills, technologies, or role keywords to search on Indeed. Examples: [\"kubernetes\", \"react\", \"go developer\", \"data platform engineer\"]. Each runs an independent search.",
             "editor": "stringList",
-            "prefill": ["kubernetes", "react"],
+            "prefill": [
+                "kubernetes",
+                "react"
+            ],
             "default": [],
             "sectionCaption": "What to search for"
         },
@@ -18,8 +21,24 @@
             "type": "string",
             "description": "Indeed regional domain.",
             "editor": "select",
-            "enum": ["US", "GB", "CA", "AU", "DE", "FR", "IN"],
-            "enumTitles": ["United States", "United Kingdom", "Canada", "Australia", "Germany", "France", "India"],
+            "enum": [
+                "US",
+                "GB",
+                "CA",
+                "AU",
+                "DE",
+                "FR",
+                "IN"
+            ],
+            "enumTitles": [
+                "United States",
+                "United Kingdom",
+                "Canada",
+                "Australia",
+                "Germany",
+                "France",
+                "India"
+            ],
             "default": "US"
         },
         "locations": {
@@ -34,8 +53,20 @@
             "type": "string",
             "description": "Filter by recency. Last 14 days catches active hiring without old stale roles.",
             "editor": "select",
-            "enum": ["any", "1", "3", "7", "14"],
-            "enumTitles": ["Any time", "Last 24 hours", "Last 3 days", "Last 7 days", "Last 14 days"],
+            "enum": [
+                "any",
+                "1",
+                "3",
+                "7",
+                "14"
+            ],
+            "enumTitles": [
+                "Any time",
+                "Last 24 hours",
+                "Last 3 days",
+                "Last 7 days",
+                "Last 14 days"
+            ],
             "default": "14"
         },
         "experienceLevel": {
@@ -43,8 +74,18 @@
             "type": "string",
             "description": "Senior level is the strongest buying signal (companies with budget for senior hires also have budget for tools).",
             "editor": "select",
-            "enum": ["any", "entry_level", "mid_level", "senior_level"],
-            "enumTitles": ["Any", "Entry level", "Mid level", "Senior level"],
+            "enum": [
+                "any",
+                "entry_level",
+                "mid_level",
+                "senior_level"
+            ],
+            "enumTitles": [
+                "Any",
+                "Entry level",
+                "Mid level",
+                "Senior level"
+            ],
             "default": "senior_level"
         },
         "maxJobsPerSearch": {
@@ -74,8 +115,8 @@
         "requireWebsite": {
             "title": "Require a working website for qualified tier",
             "type": "boolean",
-            "description": "Qualified companies must have a company website on Indeed that resolves and has a valid MX record. Recommended on for outbound use cases.",
-            "default": true
+            "description": "Only tier a company as qualified when it has a reachable website with mail records. Off by default: Indeed's company pages are behind an antibot challenge, so no website is available to check and leaving this on would mark every company basic regardless of how strongly it is hiring.",
+            "default": false
         },
         "proxyConfiguration": {
             "title": "Proxy configuration",
@@ -84,13 +125,19 @@
             "editor": "proxy",
             "prefill": {
                 "useApifyProxy": true,
-                "apifyProxyGroups": ["RESIDENTIAL"]
+                "apifyProxyGroups": [
+                    "RESIDENTIAL"
+                ]
             },
             "default": {
                 "useApifyProxy": true,
-                "apifyProxyGroups": ["RESIDENTIAL"]
+                "apifyProxyGroups": [
+                    "RESIDENTIAL"
+                ]
             }
         }
     },
-    "required": ["keywords"]
+    "required": [
+        "keywords"
+    ]
 }

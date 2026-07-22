@@ -2,11 +2,13 @@
 //
 // Stage 1: Call scrapemint/indeed-jobs-scraper with the user's skill keywords,
 //          country, location filters, experience level, and date window.
-//          We turn on scrapeCompanyDetails so each unique company gets a
-//          company row with website, industry, headcount, founded year.
-// Stage 2: Read the Indeed dataset. Two row types come back: job rows (one
-//          per posting) and company rows (one per unique employer). Join on
-//          companyName.
+//          scrapeCompanyDetails is OFF: Indeed's /cmp/ company pages answer the
+//          antibot challenge instead of the page. Measured 2026-07-22 on the
+//          prefill input, 0 of 21 company pages resolved while the child spent
+//          most of its runtime retrying them. The join below is kept intact so
+//          the flag can go back on if those pages ever serve again.
+// Stage 2: Read the Indeed dataset. Job rows (one per posting) are what we get;
+//          company rows are joined on companyName when present.
 // Stage 3: For each company with a website, run cheap inline enrichment:
 //            - root-domain extraction
 //            - HTTP HEAD reachability
@@ -14,12 +16,16 @@
 //            - email pattern inference (info@, careers@, hello@)
 // Stage 4: Compute hiring velocity (postings count, recency, senior share).
 // Stage 5: Tier each row as qualified or basic and charge the matching event.
-//          First N qualified_hiring_company per run are free.
+//          The first N of EACH event are free so a run always previews itself,
+//          including runs that yield only basic rows.
 
 import { Actor, log } from 'apify';
 import dns from 'node:dns/promises';
 
 const FREE_TIER_QUALIFIED = 3;
+// Basic rows had no free tier, so a run that produced only basic rows charged
+// the buyer from row 1 with nothing to evaluate first.
+const FREE_TIER_BASIC = 2;
 
 await Actor.init();
 
@@ -33,7 +39,11 @@ const {
     maxJobsPerSearch = 50,
     maxJobsTotal = 100,
     minPostingsPerCompany = 2,
-    requireWebsite = true,
+    // Off by default: the only website source was the blocked /cmp/ page, so
+    // leaving this on downgraded every company to basic no matter how strong its
+    // hiring signal was. Buyers who supply their own reachability bar can still
+    // turn it on.
+    requireWebsite = false,
     proxyConfiguration: proxyInput,
 } = input;
 
@@ -71,7 +81,7 @@ try {
             datePosted,
             experienceLevel,
             maxJobs: maxJobsTotal,
-            scrapeCompanyDetails: true,
+            scrapeCompanyDetails: false,
             extractSkills: true,
             classifySeniority: true,
             parseSalary: false,
@@ -255,6 +265,7 @@ const daysAgo = (ts) => Math.max(0, Math.floor((today - ts) / (1000 * 60 * 60 * 
 let qualifiedCharged = 0;
 let basicCharged = 0;
 let qualifiedFree = 0;
+let basicFree = 0;
 
 // Stage 3: enrich every company's website concurrently (bounded pool), so the
 // total enrichment time stays roughly constant regardless of company count.
@@ -334,12 +345,14 @@ for (let idx = 0; idx < companyEntries.length; idx++) {
             await Actor.charge({ eventName: 'qualified_hiring_company' });
             qualifiedCharged++;
         }
+    } else if (basicCharged + basicFree < FREE_TIER_BASIC) {
+        basicFree++;
     } else {
         await Actor.charge({ eventName: 'basic_company' });
         basicCharged++;
     }
 }
 
-log.info(`Done. qualified_charged=${qualifiedCharged} qualified_free=${qualifiedFree} basic=${basicCharged} total_rows=${byCompany.size}`);
+log.info(`Done. qualified_charged=${qualifiedCharged} qualified_free=${qualifiedFree} basic_charged=${basicCharged} basic_free=${basicFree} total_rows=${byCompany.size}`);
 
 await Actor.exit();
