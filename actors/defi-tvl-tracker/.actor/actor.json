@@ -1,0 +1,14 @@
+{
+    "actorSpecification": 1,
+    "name": "defi-tvl-tracker",
+    "title": "DeFi TVL, Yields & Stablecoin Tracker",
+    "description": "Total value locked by protocol and chain, pool yields ranked by APY, and stablecoin supply with growth, all from DefiLlama. Compare where the money is and what it earns. No API key.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "BUSINESS",
+        "NEWS"
+    ]
+}

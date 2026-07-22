@@ -1,0 +1,16 @@
+{
+    "name": "defi-tvl-tracker",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "DeFi total value locked, pool yields, chain rankings and stablecoin supply from DefiLlama. Keyless, no browser, no login.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}

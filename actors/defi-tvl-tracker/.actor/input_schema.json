@@ -1,0 +1,83 @@
+{
+    "title": "DeFi TVL, Yields & Stablecoin Tracker",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "mode": {
+            "title": "What to pull",
+            "type": "string",
+            "description": "protocols = TVL leaderboard by protocol. yields = liquidity pools ranked by APY. chains = TVL by blockchain. stablecoins = stablecoin supply and growth.",
+            "editor": "select",
+            "enum": ["protocols", "yields", "chains", "stablecoins"],
+            "enumTitles": [
+                "Protocols by TVL",
+                "Pool yields by APY",
+                "Chains by TVL",
+                "Stablecoins by supply"
+            ],
+            "default": "protocols",
+            "prefill": "protocols"
+        },
+        "chain": {
+            "title": "Chain filter",
+            "type": "string",
+            "description": "Limit to one blockchain, e.g. Ethereum, Solana, Base, Arbitrum. Leave blank for all chains. Applies to protocols and yields modes.",
+            "editor": "textfield",
+            "prefill": ""
+        },
+        "category": {
+            "title": "Category filter (protocols mode)",
+            "type": "string",
+            "description": "Limit protocols to one DefiLlama category, e.g. Lending, Dexs, Liquid Staking, Derivatives, CDP. Leave blank for all.",
+            "editor": "textfield",
+            "prefill": ""
+        },
+        "project": {
+            "title": "Project filter (yields mode)",
+            "type": "string",
+            "description": "Limit pools to one project slug, e.g. aave-v3, lido, uniswap-v3. Leave blank for all projects.",
+            "editor": "textfield",
+            "prefill": ""
+        },
+        "stablecoinPoolsOnly": {
+            "title": "Stablecoin pools only (yields mode)",
+            "type": "boolean",
+            "description": "Only return pools whose assets are stablecoins. Useful for low-risk yield screening.",
+            "editor": "checkbox",
+            "default": false
+        },
+        "minPoolTvlUsd": {
+            "title": "Minimum pool TVL, USD (yields mode)",
+            "type": "integer",
+            "description": "Drop pools below this TVL before ranking by APY. Kept high by default because the highest APYs are almost always tiny, illiquid or incentive-farmed pools rather than places you can actually park size.",
+            "editor": "number",
+            "default": 1000000,
+            "minimum": 0,
+            "prefill": 1000000
+        },
+        "includeOutlierPools": {
+            "title": "Include outlier-APY pools (yields mode)",
+            "type": "boolean",
+            "description": "DefiLlama flags pools whose APY is a statistical outlier (short-lived reward farming, e.g. 76,000%). They are dropped by default so the ranking reflects yields you could realistically hold. Turn on to see them, flagged with outlierApy.",
+            "editor": "checkbox",
+            "default": false
+        },
+        "includeCex": {
+            "title": "Include centralized exchanges (protocols mode)",
+            "type": "boolean",
+            "description": "DefiLlama lists centralized-exchange reserves (Binance, OKX) as protocols. They are excluded by default because this is a DeFi tracker and they dwarf real DeFi TVL. Turn on to include them.",
+            "editor": "checkbox",
+            "default": false
+        },
+        "maxResults": {
+            "title": "Max rows",
+            "type": "integer",
+            "description": "How many rows to return, highest first (TVL for protocols/chains/stablecoins, APY for yields).",
+            "editor": "number",
+            "default": 50,
+            "minimum": 1,
+            "maximum": 1000,
+            "prefill": 50
+        }
+    }
+}
