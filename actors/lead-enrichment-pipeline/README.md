@@ -40,9 +40,9 @@ Paste a domain list. Get one enriched lead per domain. No subscription, no month
 | Snov.io | Starter, 1,000 credits per month, $39 | $0.039 |
 | Apollo | Basic, 1,200 credits per year on free tier, paid tiers credit gated | varies |
 | Clearbit / Reveal | Custom contracts | $$$ |
-| **This actor** | Pay per result, no subscription | **$0.03** |
+| **This actor** | Pay per result, no subscription | **$0.06** |
 
-Pay only for results we return. Unreachable domains are free. Domains with no contacts found cost $0.005 (a sixth of an enriched result).
+Pay only for results we return. Unreachable domains are free, and so is the first enriched lead of every run, so you can try a domain you know before committing a list. Domains with no contacts found cost $0.01 (a sixth of an enriched result).
 
 ---
 

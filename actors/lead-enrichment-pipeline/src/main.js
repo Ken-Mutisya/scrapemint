@@ -7,14 +7,16 @@
 // per domain is written to the default dataset.
 //
 // Pay-per-event:
-//   enriched_lead ($0.03)  charged when at least one email OR two+ socials found
-//   basic_crawl   ($0.005) charged when domain crawled but no contacts found
-//   First 5 enriched leads per run are free (lets buyers test on a small list).
+//   enriched_lead ($0.06) charged when at least one email OR two+ socials found
+//   basic_crawl   ($0.01) charged when domain crawled but no contacts found
+//   The first enriched lead per run is free. It used to be 5, which is more than
+//   the example input produces, so the default run billed $0 while still costing
+//   compute: every run of 5 domains or fewer was a straight loss.
 
 import { Actor, log } from 'apify';
 import { PlaywrightCrawler } from 'crawlee';
 
-const FREE_TIER_ENRICHED_LEADS = 5;
+const FREE_TIER_ENRICHED_LEADS = 1;
 
 const PRIORITY_PATHS = [
     '/',
@@ -182,21 +184,21 @@ const extractFromPage = async (page, root) => {
         if (s.socials.github) s.company.github_org = s.socials.github;
     }
 
-    // tech signals from path
-    const path = new URL(page.url()).pathname;
-    if (path.startsWith('/blog')) s.tech_signals.has_blog = true;
-    if (path.startsWith('/careers') || path.startsWith('/jobs')) s.tech_signals.has_careers_page = true;
-    if (path.startsWith('/pricing')) s.tech_signals.has_pricing_page = true;
 };
 
-// Build start URLs: priority paths per domain
+// Build start URLs: one request per unique path. /careers appears in both lists,
+// and enqueueing it twice just gets deduped by URL, which used to drop the
+// signal copy and leave the surviving priority copy to be skipped once the page
+// cap was spent. Marking the shared path instead keeps one load doing both jobs.
 const startRequests = [];
 for (const d of cleanDomains) {
-    for (const p of PRIORITY_PATHS) {
-        startRequests.push({ url: `https://${d}${p}`, userData: { root: d, kind: 'priority' } });
-    }
+    const paths = new Map();
+    for (const p of PRIORITY_PATHS) paths.set(p, { kind: 'priority', signal: TECH_SIGNAL_PATHS.includes(p) });
     for (const p of TECH_SIGNAL_PATHS) {
-        startRequests.push({ url: `https://${d}${p}`, userData: { root: d, kind: 'tech-signal' } });
+        if (!paths.has(p)) paths.set(p, { kind: 'tech-signal', signal: true });
+    }
+    for (const [p, meta] of paths) {
+        startRequests.push({ url: `https://${d}${p}`, userData: { root: d, ...meta } });
     }
 }
 
@@ -218,7 +220,20 @@ const crawler = new PlaywrightCrawler({
     maxRequestRetries: 1,
     respectRobotsTxtFile: !!obeyRobotsTxt,
     launchContext: { launchOptions: { headless: true } },
-    async requestHandler({ page, request }) {
+    // Every priority path is queued up front, but only the first
+    // maxPagesPerDomain get extracted. Without this the crawler still NAVIGATED
+    // the rest (13 priority paths against a cap of 8), paying for page loads it
+    // then discarded. Skip the navigation once a domain has its pages.
+    preNavigationHooks: [
+        async ({ request }) => {
+            const s = state.get(request.userData.root);
+            if (s && request.userData.kind === 'priority' && !request.userData.signal
+                && s.pages_scanned >= maxPagesPerDomain) {
+                request.skipNavigation = true;
+            }
+        },
+    ],
+    async requestHandler({ page, request, response }) {
         if (Date.now() > SOFT_DEADLINE_AT) {
             log.warning('Run-time budget reached; stopping with results so far.');
             crawler.stop();
@@ -227,6 +242,22 @@ const crawler = new PlaywrightCrawler({
         const root = request.userData.root;
         const s = state.get(root);
         if (!s) return;
+        // Skipped navigations land here on a blank page; nothing to read.
+        if (request.skipNavigation) return;
+        // Record signals before the page cap: these pages used to be queued last,
+        // so the cap was always spent before they ran and the crawler loaded
+        // /blog, /pricing and /careers only to discard them.
+        // Read the REQUESTED path, not the landing one: /blog commonly redirects
+        // to /news and /careers to /jobs, which understated real sections. The
+        // status gates it so a 404 page does not count as a section.
+        if (!response || response.status() < 400) {
+            const p = new URL(request.url).pathname;
+            if (p.startsWith('/blog')) s.tech_signals.has_blog = true;
+            if (p.startsWith('/careers') || p.startsWith('/jobs')) s.tech_signals.has_careers_page = true;
+            if (p.startsWith('/pricing')) s.tech_signals.has_pricing_page = true;
+        }
+        // Signal-only pages are not worth a scan slot.
+        if (request.userData.kind === 'tech-signal') return;
         if (s.pages_scanned >= maxPagesPerDomain) return;
         try {
             await extractFromPage(page, root);
