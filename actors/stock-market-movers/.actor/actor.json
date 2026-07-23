@@ -1,0 +1,14 @@
+{
+    "actorSpecification": 1,
+    "name": "stock-market-movers",
+    "title": "US Stock Market Movers & Screener",
+    "description": "Daily US stock market movers from official NASDAQ data: top gainers, losers, and most-active stocks with price, percent change, volume, market cap, and sector. Or screen the whole market by sector, market cap, price, percent change, and volume. Keyless. Pay per stock.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "BUSINESS",
+        "NEWS"
+    ]
+}

@@ -1,0 +1,16 @@
+{
+    "name": "stock-market-movers",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Daily US stock market movers (top gainers, losers, most active) and a full-market screener from official NASDAQ data. Keyless. Pay per stock row.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}

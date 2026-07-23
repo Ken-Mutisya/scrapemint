@@ -1,0 +1,114 @@
+{
+    "title": "US Stock Market Movers & Screener Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "mode": {
+            "title": "Mode",
+            "type": "string",
+            "description": "movers = top gainers, losers, and most-active stocks. screener = filter the whole US market by your criteria.",
+            "editor": "select",
+            "enum": ["movers", "screener"],
+            "enumTitles": ["Movers (gainers / losers / most active)", "Screener (filter the market)"],
+            "default": "movers"
+        },
+        "moverType": {
+            "title": "Mover type (movers mode)",
+            "type": "string",
+            "description": "Which mover lists to return.",
+            "editor": "select",
+            "enum": ["all", "gainers", "losers", "most_active"],
+            "enumTitles": ["All three", "Gainers", "Losers", "Most active"],
+            "default": "all"
+        },
+        "count": {
+            "title": "Count per list (movers mode)",
+            "type": "integer",
+            "description": "How many stocks per mover list (gainers/losers/most-active).",
+            "editor": "number",
+            "default": 25,
+            "minimum": 1,
+            "maximum": 500
+        },
+        "minPrice": {
+            "title": "Min price (USD)",
+            "type": "integer",
+            "description": "Skip stocks priced below this. Movers default to a $1 floor so lists are real liquid stocks, not penny pumps.",
+            "editor": "number",
+            "default": 0,
+            "minimum": 0
+        },
+        "maxPrice": {
+            "title": "Max price (USD, screener)",
+            "type": "integer",
+            "description": "Skip stocks priced above this. 0 = no maximum.",
+            "editor": "number",
+            "default": 0,
+            "minimum": 0
+        },
+        "minMarketCap": {
+            "title": "Min market cap (USD, screener)",
+            "type": "integer",
+            "description": "Skip stocks below this market cap, e.g. 1000000000 for $1B+. 0 = no minimum.",
+            "editor": "number",
+            "default": 0,
+            "minimum": 0
+        },
+        "maxMarketCap": {
+            "title": "Max market cap (USD, screener)",
+            "type": "integer",
+            "description": "Skip stocks above this market cap. 0 = no maximum.",
+            "editor": "number",
+            "default": 0,
+            "minimum": 0
+        },
+        "minPctChange": {
+            "title": "Min percent change (screener)",
+            "type": "integer",
+            "description": "Keep only stocks up at least this percent today, e.g. 5 for +5% and up. 0 = no filter.",
+            "editor": "number",
+            "default": 0
+        },
+        "minVolume": {
+            "title": "Min volume",
+            "type": "integer",
+            "description": "Skip stocks with volume below this. Movers default to 50,000 for liquidity.",
+            "editor": "number",
+            "default": 0,
+            "minimum": 0
+        },
+        "sector": {
+            "title": "Sector (screener)",
+            "type": "string",
+            "description": "Keep only stocks in a sector, e.g. Technology, Health Care, Energy, Finance. Empty = all sectors.",
+            "editor": "textfield",
+            "default": ""
+        },
+        "country": {
+            "title": "Country (screener)",
+            "type": "string",
+            "description": "Keep only stocks from a country, e.g. United States, China. Empty = all.",
+            "editor": "textfield",
+            "default": ""
+        },
+        "sortBy": {
+            "title": "Sort by (screener)",
+            "type": "string",
+            "description": "How to order screener results.",
+            "editor": "select",
+            "enum": ["pct_change", "volume", "market_cap", "price"],
+            "enumTitles": ["Percent change", "Volume", "Market cap", "Price"],
+            "default": "pct_change"
+        },
+        "maxRows": {
+            "title": "Max rows (screener)",
+            "type": "integer",
+            "description": "Cap on screener rows returned. Controls total cost.",
+            "editor": "number",
+            "default": 200,
+            "minimum": 1,
+            "maximum": 5000
+        }
+    },
+    "required": []
+}
