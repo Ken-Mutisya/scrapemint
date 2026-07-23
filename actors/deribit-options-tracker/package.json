@@ -1,0 +1,16 @@
+{
+    "name": "deribit-options-tracker",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Keyless BTC/ETH crypto options data from Deribit: per-expiry put/call ratios, ATM implied volatility, open interest, the full option chain, and the DVOL volatility index. Pay per row.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}

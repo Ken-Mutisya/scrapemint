@@ -1,0 +1,15 @@
+{
+    "_note": "PUT this to /v2/acts/{actorId} as pricingInfos array entry. PAY_PER_EVENT only on BRONZE plan, startedAt 14+ days out. Apify auto-adds 20% margin.",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~deribit-options-tracker?token=CLI_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "derivatives_row": {
+                "eventTitle": "Derivatives data row",
+                "eventDescription": "One Deribit options data row: a per-expiry summary (put/call ratios, ATM implied vol, open interest), an option-chain instrument (mark price, IV, OI, volume, strike, moneyness), or a DVOL volatility-index point. First 2 rows per run are free.",
+                "eventPriceUsd": 0.003
+            }
+        }
+    },
+    "startedAt": "2026-08-07T00:00:00.000Z"
+}

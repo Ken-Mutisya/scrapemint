@@ -1,0 +1,14 @@
+{
+    "actorSpecification": 1,
+    "name": "deribit-options-tracker",
+    "title": "Deribit Crypto Options & Derivatives Tracker",
+    "description": "Keyless BTC and ETH options data from Deribit: per-expiry put/call ratios, at-the-money implied volatility, and open interest; the full option chain with mark price, IV, OI, volume, strike, and moneyness; and the DVOL crypto volatility index. Pay per row.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "BUSINESS",
+        "NEWS"
+    ]
+}

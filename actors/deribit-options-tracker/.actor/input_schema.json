@@ -1,0 +1,83 @@
+{
+    "title": "Deribit Options Tracker Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "mode": {
+            "title": "Mode",
+            "type": "string",
+            "description": "summary = per-expiry put/call ratios + ATM implied vol + open interest (the dashboard). options = the full option chain, one row per instrument. dvol = the Deribit volatility index time series.",
+            "editor": "select",
+            "enum": ["summary", "options", "dvol"],
+            "enumTitles": ["Summary (per-expiry analytics)", "Options (full chain)", "DVOL (volatility index)"],
+            "default": "summary"
+        },
+        "currencies": {
+            "title": "Currencies",
+            "type": "array",
+            "description": "Which underlyings to pull, e.g. BTC, ETH.",
+            "editor": "stringList",
+            "prefill": ["BTC", "ETH"],
+            "default": ["BTC", "ETH"]
+        },
+        "optionType": {
+            "title": "Option type (options mode)",
+            "type": "string",
+            "description": "Filter the option chain to calls, puts, or both.",
+            "editor": "select",
+            "enum": ["both", "call", "put"],
+            "default": "both"
+        },
+        "expiries": {
+            "title": "Expiries (optional)",
+            "type": "array",
+            "description": "Filter to specific expiries in Deribit format, e.g. 28AUG26, 26DEC26. Empty = all listed expiries.",
+            "editor": "stringList",
+            "default": []
+        },
+        "minOpenInterest": {
+            "title": "Min open interest (options mode)",
+            "type": "integer",
+            "description": "Skip option instruments with open interest below this (in contracts). 0 = no minimum.",
+            "editor": "number",
+            "default": 0,
+            "minimum": 0
+        },
+        "sortBy": {
+            "title": "Sort by (options mode)",
+            "type": "string",
+            "description": "Order the option chain by open interest, USD volume, or implied vol.",
+            "editor": "select",
+            "enum": ["open_interest", "volume", "mark_iv"],
+            "enumTitles": ["Open interest", "Volume (USD)", "Implied vol"],
+            "default": "open_interest"
+        },
+        "dvolHours": {
+            "title": "DVOL lookback hours (dvol mode)",
+            "type": "integer",
+            "description": "How many hours of volatility-index history to return.",
+            "editor": "number",
+            "default": 168,
+            "minimum": 1,
+            "maximum": 8760
+        },
+        "dvolResolution": {
+            "title": "DVOL resolution seconds (dvol mode)",
+            "type": "integer",
+            "description": "Candle resolution in seconds, e.g. 3600 = hourly, 86400 = daily.",
+            "editor": "number",
+            "default": 3600,
+            "minimum": 60
+        },
+        "maxRows": {
+            "title": "Max rows per run",
+            "type": "integer",
+            "description": "Cap on rows returned. Controls total cost.",
+            "editor": "number",
+            "default": 500,
+            "minimum": 1,
+            "maximum": 5000
+        }
+    },
+    "required": []
+}
