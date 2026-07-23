@@ -1,0 +1,16 @@
+{
+    "name": "cftc-cot-tracker",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Weekly CFTC Commitments of Traders positioning for every US futures market, with net position and week-over-week change per trader class. Legacy, disaggregated, and financial reports. Schedule with dedupe for a new-report alert. Pay per market row.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}

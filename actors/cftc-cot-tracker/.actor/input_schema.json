@@ -1,0 +1,55 @@
+{
+    "title": "CFTC COT Tracker Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "reportType": {
+            "title": "Report type",
+            "type": "string",
+            "description": "Which COT report. Legacy = Large Speculators / Commercials / Small Traders (the classic, covers all markets). Disaggregated = Producer-Merchant / Swap Dealers / Managed Money / Other (commodities). Financial = Dealers / Asset Managers / Leveraged Funds / Other (FX, rates, equity indices).",
+            "editor": "select",
+            "enum": ["legacy", "disaggregated", "financial"],
+            "enumTitles": ["Legacy (all markets)", "Disaggregated (commodities)", "Financial / TFF (FX, rates, indices)"],
+            "default": "legacy"
+        },
+        "markets": {
+            "title": "Markets",
+            "type": "array",
+            "description": "Filter to markets whose name contains one of these, e.g. EURO FX, GOLD, CRUDE OIL, BITCOIN, S&P 500, NASDAQ, 10-YEAR. Empty = every market in the report.",
+            "editor": "stringList",
+            "prefill": ["EURO FX", "GOLD", "CRUDE OIL", "BITCOIN", "S&P 500"],
+            "default": []
+        },
+        "latestOnly": {
+            "title": "Latest report only",
+            "type": "boolean",
+            "description": "On: only the most recent weekly report. Off: return a history going back the number of weeks below.",
+            "default": true
+        },
+        "weeksBack": {
+            "title": "Weeks of history",
+            "type": "integer",
+            "description": "When 'Latest report only' is off, how many weeks of history to include per market.",
+            "editor": "number",
+            "default": 12,
+            "minimum": 1,
+            "maximum": 520
+        },
+        "maxRows": {
+            "title": "Max rows per run",
+            "type": "integer",
+            "description": "Cap on rows returned. Controls total cost.",
+            "editor": "number",
+            "default": 200,
+            "minimum": 1,
+            "maximum": 5000
+        },
+        "dedupe": {
+            "title": "Skip report weeks seen before",
+            "type": "boolean",
+            "description": "Remember returned market+report-date rows across runs and skip them. Turn on with a weekly schedule to get alerted only when a new COT report drops.",
+            "default": false
+        }
+    },
+    "required": []
+}
