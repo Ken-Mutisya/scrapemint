@@ -1,0 +1,15 @@
+{
+    "_note": "PUT this to /v2/acts/{actorId} as pricingInfos array entry. PAY_PER_EVENT only on BRONZE plan, startedAt 14+ days out. Apify auto-adds 20% margin.",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~weather-alerts-tracker?token=CLI_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "alert_row": {
+                "eventTitle": "Weather alert row",
+                "eventDescription": "One active US weather alert from the National Weather Service: event, severity, urgency, certainty, affected area and states, headline, description, instruction, and onset/expiry times. Quiet windows cost nothing. First 2 rows per run are free.",
+                "eventPriceUsd": 0.003
+            }
+        }
+    },
+    "startedAt": "2026-08-07T00:00:00.000Z"
+}

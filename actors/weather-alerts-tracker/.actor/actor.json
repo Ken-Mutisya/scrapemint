@@ -1,0 +1,14 @@
+{
+    "actorSpecification": 1,
+    "name": "weather-alerts-tracker",
+    "title": "US Weather Alerts & Warnings Tracker",
+    "description": "Live US weather alerts from the official National Weather Service: tornado, flood, winter storm, heat, and marine warnings and advisories with severity, urgency, area, timing, and instructions. Filter by state, point, zone, event, and severity. Schedule with dedupe for a new-alerts feed.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "BUSINESS",
+        "NEWS"
+    ]
+}

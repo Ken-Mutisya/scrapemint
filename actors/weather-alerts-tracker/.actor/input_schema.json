@@ -1,0 +1,93 @@
+{
+    "title": "US Weather Alerts Tracker Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "states": {
+            "title": "States / marine codes",
+            "type": "array",
+            "description": "Two-letter state or marine-zone codes, e.g. TX, CA, FL. Empty = the whole US. Only one location filter applies per run: point beats zones beats states.",
+            "editor": "stringList",
+            "prefill": ["FL", "CA", "TX"],
+            "default": []
+        },
+        "point": {
+            "title": "Point (latitude,longitude)",
+            "type": "string",
+            "description": "Alerts covering a single location, e.g. 39.7,-104.9 for Denver. Overrides states and zones when set.",
+            "editor": "textfield",
+            "default": ""
+        },
+        "zones": {
+            "title": "NWS zone IDs",
+            "type": "array",
+            "description": "Specific NWS forecast or county zone IDs, e.g. TXZ211, COC031. Overrides states when set.",
+            "editor": "stringList",
+            "default": []
+        },
+        "events": {
+            "title": "Event names (optional)",
+            "type": "array",
+            "description": "Only these alert types, matched by exact NWS event name (case-insensitive), e.g. Tornado Warning, Flood Warning, Winter Storm Warning, Excessive Heat Warning. Empty = all events.",
+            "editor": "stringList",
+            "default": []
+        },
+        "severity": {
+            "title": "Severity",
+            "type": "array",
+            "description": "Keep only these severity levels. Empty = all.",
+            "editor": "select",
+            "items": {
+                "type": "string",
+                "enum": ["Extreme", "Severe", "Moderate", "Minor", "Unknown"]
+            },
+            "default": []
+        },
+        "urgency": {
+            "title": "Urgency",
+            "type": "array",
+            "description": "Keep only these urgency levels. Empty = all.",
+            "editor": "select",
+            "items": {
+                "type": "string",
+                "enum": ["Immediate", "Expected", "Future", "Past", "Unknown"]
+            },
+            "default": []
+        },
+        "certainty": {
+            "title": "Certainty",
+            "type": "array",
+            "description": "Keep only these certainty levels. Empty = all.",
+            "editor": "select",
+            "items": {
+                "type": "string",
+                "enum": ["Observed", "Likely", "Possible", "Unlikely", "Unknown"]
+            },
+            "default": []
+        },
+        "status": {
+            "title": "Status",
+            "type": "string",
+            "description": "Alert status. Actual is real alerts; the others are test/exercise messages.",
+            "editor": "select",
+            "enum": ["actual", "exercise", "system", "test", "draft"],
+            "default": "actual"
+        },
+        "maxRows": {
+            "title": "Max alerts per run",
+            "type": "integer",
+            "description": "Cap on alert rows returned. Controls total cost.",
+            "editor": "number",
+            "default": 50,
+            "minimum": 1,
+            "maximum": 2000
+        },
+        "dedupe": {
+            "title": "Skip alerts seen in previous runs",
+            "type": "boolean",
+            "description": "Remember returned alerts across runs and skip them. Turn on with a schedule for a live new-alerts feed.",
+            "default": false
+        }
+    },
+    "required": []
+}

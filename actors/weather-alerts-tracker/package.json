@@ -1,0 +1,16 @@
+{
+    "name": "weather-alerts-tracker",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Live US weather alerts, watches, warnings, and advisories from the official National Weather Service, with severity, urgency, affected area, timing, and instruction text. Filter by state, point, zone, event, and severity. Schedule with dedupe for a new-alerts feed. Pay per alert.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}
