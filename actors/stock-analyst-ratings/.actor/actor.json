@@ -1,0 +1,14 @@
+{
+    "actorSpecification": 1,
+    "name": "stock-analyst-ratings",
+    "title": "Stock Analyst Ratings: Price Targets, Upgrades & Downgrades",
+    "description": "Wall Street analyst data for any US stock, keyless: consensus rating (Buy/Hold/Sell), mean/high/low price target, the analyst buy-hold-sell split, the upside percent analysts imply vs the current price, and recent upgrades and downgrades with the brokerage firm. Give it your tickers. Pay per stock.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "BUSINESS",
+        "NEWS"
+    ]
+}

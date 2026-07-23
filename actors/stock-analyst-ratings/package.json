@@ -1,0 +1,16 @@
+{
+    "name": "stock-analyst-ratings",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Keyless Wall Street analyst data for US stocks: consensus rating, mean/high/low price target, buy-hold-sell split, implied upside percent, and recent upgrades/downgrades. Pay per stock row.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}

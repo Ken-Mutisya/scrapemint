@@ -1,0 +1,44 @@
+{
+    "title": "Stock Analyst Ratings Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "symbols": {
+            "title": "Tickers",
+            "type": "array",
+            "description": "US stock tickers to pull analyst data for, e.g. AAPL, NVDA, TSLA. This is your watchlist.",
+            "editor": "stringList",
+            "prefill": ["AAPL", "NVDA", "TSLA", "MSFT", "AMZN"],
+            "default": []
+        },
+        "minUpside": {
+            "title": "Min upside percent",
+            "type": "integer",
+            "description": "Keep only stocks where the mean price target is at least this percent above the current price, e.g. 20 for 20%+ implied upside. 0 = no filter.",
+            "editor": "number",
+            "default": 0
+        },
+        "onlyWithRatingChange": {
+            "title": "Only stocks with a recent upgrade/downgrade",
+            "type": "boolean",
+            "description": "Return only tickers that have a recent analyst rating change on record. Useful with a schedule to catch upgrades and downgrades.",
+            "default": false
+        },
+        "includeHistory": {
+            "title": "Include consensus history",
+            "type": "boolean",
+            "description": "Add a consensusHistory array per stock: how the buy/hold/sell split, consensus, and price moved over recent months.",
+            "default": false
+        },
+        "maxRows": {
+            "title": "Max rows per run",
+            "type": "integer",
+            "description": "Cap on ticker rows returned. Controls total cost.",
+            "editor": "number",
+            "default": 500,
+            "minimum": 1,
+            "maximum": 2000
+        }
+    },
+    "required": []
+}
