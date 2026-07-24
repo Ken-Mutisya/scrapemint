@@ -1,0 +1,15 @@
+{
+    "_note": "PUT this to /v2/acts/{actorId} as pricingInfos array entry. PAY_PER_EVENT only on BRONZE plan, startedAt 14+ days out. Apify auto-adds 20% margin.",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~crypto-fear-greed-index?token=CLI_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "crypto_row": {
+                "eventTitle": "Crypto sentiment row",
+                "eventDescription": "One row of crypto sentiment data: a Fear & Greed Index day, a market overview snapshot (market cap, dominance, volume, 24h change, current Fear & Greed), or a trending coin. First 2 rows per run are free.",
+                "eventPriceUsd": 0.002
+            }
+        }
+    },
+    "startedAt": "2026-08-08T00:00:00.000Z"
+}

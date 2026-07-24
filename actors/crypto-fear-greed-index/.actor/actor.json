@@ -1,0 +1,14 @@
+{
+    "actorSpecification": 1,
+    "name": "crypto-fear-greed-index",
+    "title": "Crypto Fear & Greed Index, Market Cap & Trending Coins",
+    "description": "The Crypto Fear & Greed Index (0-100 sentiment gauge), current and historical, plus a market overview (total market cap, BTC and ETH dominance, 24h volume and change) and the coins trending right now. Keyless, no account. Schedule it to build a sentiment history. Pay per row.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "BUSINESS",
+        "NEWS"
+    ]
+}
