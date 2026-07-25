@@ -1,0 +1,66 @@
+{
+    "title": "Prediction Market Odds Comparison Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "searchQueries": {
+            "title": "Topics / keywords (optional)",
+            "type": "array",
+            "description": "Only compare markets whose question mentions one of these, e.g. president, minister, Trump, election, Fed, mayor. Works best on named-entity event markets (elections, geopolitics, courts) where both venues list the same yes/no question. Leave empty to compare the most-traded markets on both venues.",
+            "editor": "stringList",
+            "prefill": ["president", "minister"],
+            "default": []
+        },
+        "minSpreadPct": {
+            "title": "Min YES-price gap (percentage points)",
+            "type": "integer",
+            "description": "Only return pairs where the two venues' YES prices differ by at least this many points. 0 returns every matched pair; raise it to surface only real gaps (arbitrage-style).",
+            "editor": "number",
+            "default": 0,
+            "minimum": 0,
+            "maximum": 100
+        },
+        "minMatchScore": {
+            "title": "Min match confidence (0-1)",
+            "type": "string",
+            "description": "How strict the cross-venue question match must be (token overlap). 0.5 is a good default; raise toward 0.7 for high-precision pairs, lower toward 0.4 for more (noisier) matches.",
+            "editor": "textfield",
+            "default": "0.5"
+        },
+        "minKalshiVolume": {
+            "title": "Min Kalshi volume (contracts)",
+            "type": "integer",
+            "description": "Skip Kalshi markets with lifetime volume below this before matching.",
+            "editor": "number",
+            "default": 0,
+            "minimum": 0
+        },
+        "minPolymarketVolume24h": {
+            "title": "Min Polymarket 24h volume (USD)",
+            "type": "integer",
+            "description": "Skip Polymarket markets with 24h volume below this before matching.",
+            "editor": "number",
+            "default": 0,
+            "minimum": 0
+        },
+        "poolPerVenue": {
+            "title": "Markets scanned per venue",
+            "type": "integer",
+            "description": "How many top-by-volume markets to pull from each venue before matching. Larger finds more pairs but costs more compute.",
+            "editor": "number",
+            "default": 600,
+            "minimum": 50,
+            "maximum": 2000
+        },
+        "maxPairs": {
+            "title": "Max matched pairs per run",
+            "type": "integer",
+            "description": "Cap on matched pairs returned. Controls total cost.",
+            "editor": "number",
+            "default": 100,
+            "minimum": 1,
+            "maximum": 1000
+        }
+    },
+    "required": []
+}

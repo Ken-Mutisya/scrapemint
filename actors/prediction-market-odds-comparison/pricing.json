@@ -1,0 +1,15 @@
+{
+    "_note": "PUT this to /v2/acts/{actorId} as pricingInfos array entry. PAY_PER_EVENT only on BRONZE plan, startedAt 14+ days out. Apify auto-adds 20% margin.",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~prediction-market-odds-comparison?token=CLI_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "pair_row": {
+                "eventTitle": "Matched cross-venue pair",
+                "eventDescription": "One question matched across Kalshi and Polymarket with both venues' YES prices, the price gap, the cheaper side, match confidence, volumes, and links. Runs with no matches emit a free note row. First 2 rows per run are free.",
+                "eventPriceUsd": 0.005
+            }
+        }
+    },
+    "startedAt": "2026-08-09T00:00:00.000Z"
+}
