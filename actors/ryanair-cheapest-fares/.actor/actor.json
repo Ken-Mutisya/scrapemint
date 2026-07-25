@@ -1,0 +1,14 @@
+{
+    "actorSpecification": 1,
+    "name": "ryanair-cheapest-fares",
+    "title": "Cheapest Flight Fares: Ryanair One-Way & Round-Trip Prices",
+    "description": "Live cheapest fares from Ryanair, Europe's largest low-cost airline. Explore where you can fly cheapest from any origin, price a route one-way or round-trip, or pull a month's price calendar. Route, dates, price, and booking link. Keyless, no browser. Pay per fare row.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "TRAVEL",
+        "BUSINESS"
+    ]
+}

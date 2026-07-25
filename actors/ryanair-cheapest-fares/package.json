@@ -1,0 +1,16 @@
+{
+    "name": "ryanair-cheapest-fares",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Live cheapest Ryanair fares: explore, one-way, round-trip, and month price-calendar with booking links. Keyless, no browser. Pay per fare row.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}

@@ -1,0 +1,106 @@
+{
+    "title": "Ryanair Cheapest Fares Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "mode": {
+            "title": "Mode",
+            "type": "string",
+            "description": "oneWay = cheapest one-way fares from the origin (leave destinations empty to explore everywhere). roundTrip = cheapest return fares with a trip-duration filter. cheapestPerDay = a price calendar for one route across a month.",
+            "editor": "select",
+            "enum": ["oneWay", "roundTrip", "cheapestPerDay"],
+            "enumTitles": ["One-way fares", "Round-trip fares", "Price calendar (per day)"],
+            "default": "oneWay"
+        },
+        "origin": {
+            "title": "Origin airport (IATA)",
+            "type": "string",
+            "description": "3-letter departure airport code, e.g. DUB (Dublin), STN (London Stansted), BER (Berlin).",
+            "editor": "textfield",
+            "prefill": "DUB"
+        },
+        "destinations": {
+            "title": "Destination airports (IATA, optional)",
+            "type": "array",
+            "description": "One or more 3-letter arrival codes, e.g. STN, BCN. Leave empty in oneWay/roundTrip to explore all destinations. cheapestPerDay needs exactly one.",
+            "editor": "stringList",
+            "default": []
+        },
+        "departFrom": {
+            "title": "Outbound date from (YYYY-MM-DD)",
+            "type": "string",
+            "description": "Earliest outbound date. Defaults to today.",
+            "editor": "textfield",
+            "default": ""
+        },
+        "departTo": {
+            "title": "Outbound date to (YYYY-MM-DD)",
+            "type": "string",
+            "description": "Latest outbound date. Defaults to 30 days out.",
+            "editor": "textfield",
+            "default": ""
+        },
+        "returnFrom": {
+            "title": "Return date from (round-trip)",
+            "type": "string",
+            "description": "Earliest inbound date for round-trip mode.",
+            "editor": "textfield",
+            "default": ""
+        },
+        "returnTo": {
+            "title": "Return date to (round-trip)",
+            "type": "string",
+            "description": "Latest inbound date for round-trip mode.",
+            "editor": "textfield",
+            "default": ""
+        },
+        "tripDurationFrom": {
+            "title": "Min trip length (days, round-trip)",
+            "type": "integer",
+            "description": "Shortest stay for round-trip mode.",
+            "editor": "number",
+            "default": 2,
+            "minimum": 1
+        },
+        "tripDurationTo": {
+            "title": "Max trip length (days, round-trip)",
+            "type": "integer",
+            "description": "Longest stay for round-trip mode.",
+            "editor": "number",
+            "default": 7,
+            "minimum": 1
+        },
+        "month": {
+            "title": "Month (YYYY-MM, price calendar)",
+            "type": "string",
+            "description": "The month to price for cheapestPerDay mode, e.g. 2026-08. Defaults to the outbound-from month or this month.",
+            "editor": "textfield",
+            "default": ""
+        },
+        "currency": {
+            "title": "Currency",
+            "type": "string",
+            "description": "ISO currency code, e.g. EUR, GBP, PLN.",
+            "editor": "textfield",
+            "default": "EUR"
+        },
+        "maxPrice": {
+            "title": "Max price (optional)",
+            "type": "integer",
+            "description": "Only return fares at or below this price (in the chosen currency). 0 = no cap.",
+            "editor": "number",
+            "default": 0,
+            "minimum": 0
+        },
+        "maxRows": {
+            "title": "Max fare rows per run",
+            "type": "integer",
+            "description": "Cap on fare rows returned. Controls total cost.",
+            "editor": "number",
+            "default": 100,
+            "minimum": 1,
+            "maximum": 2000
+        }
+    },
+    "required": []
+}
