@@ -15,6 +15,8 @@
   },
   "dependencies": {
     "@crawlee/basic": "^3.16.0",
-    "@sapphire/shapeshift": "^4.0.0"
+    "@sapphire/shapeshift": "^4.0.0",
+    "playwright": "^1.61.1",
+    "playwright-core": "^1.61.1"
   }
 }
