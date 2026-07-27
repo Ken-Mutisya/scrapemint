@@ -1,0 +1,74 @@
+{
+    "title": "Upcoming Insider Stock Sales Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "mode": {
+            "title": "Mode",
+            "type": "string",
+            "description": "notices = recent filings across the whole market, newest first. company = every planned sale for the tickers you name. insiders = grouped per person, with what they already sold in the last three months next to what they are now filing to sell.",
+            "editor": "select",
+            "enum": ["notices", "company", "insiders"],
+            "enumTitles": ["Notices (market wide)", "Company (your tickers)", "Insiders (grouped per person)"],
+            "default": "notices"
+        },
+        "tickers": {
+            "title": "Tickers (company mode)",
+            "type": "array",
+            "description": "Limit to these ticker symbols, e.g. NVDA, TSLA. Leave empty in notices mode to see the whole market.",
+            "editor": "stringList",
+            "default": []
+        },
+        "daysBack": {
+            "title": "Days back",
+            "type": "integer",
+            "description": "How far back to search filings. 7 covers a week of notices.",
+            "editor": "number",
+            "prefill": 7,
+            "default": 7,
+            "minimum": 1,
+            "maximum": 365
+        },
+        "minValueUsd": {
+            "title": "Min sale value (USD)",
+            "type": "integer",
+            "description": "Skip notices below this dollar value. Raise it to see only sales large enough to matter. 0 = every filing.",
+            "editor": "number",
+            "default": 0,
+            "minimum": 0
+        },
+        "maxFilings": {
+            "title": "Max filings to open",
+            "type": "integer",
+            "description": "Each filing is a separate request to fetch its detail, so this is the main cost and runtime lever.",
+            "editor": "number",
+            "default": 60,
+            "minimum": 1,
+            "maximum": 500
+        },
+        "newOnly": {
+            "title": "Only filings not seen before",
+            "type": "boolean",
+            "description": "Remember which filings previous runs returned and emit only new ones. Turn this on for a scheduled alert feed so you are not billed for the same notice twice.",
+            "editor": "checkbox",
+            "default": false
+        },
+        "userAgent": {
+            "title": "SEC User-Agent",
+            "type": "string",
+            "description": "The SEC requires a descriptive User-Agent containing a contact email, or it returns 403. Replace the default with your own name and email.",
+            "editor": "textfield",
+            "default": "Scrapemint Research (admin@scrapemint.com)"
+        },
+        "maxRows": {
+            "title": "Max rows per run",
+            "type": "integer",
+            "description": "Cap on rows returned. Controls total cost.",
+            "editor": "number",
+            "default": 200,
+            "minimum": 1,
+            "maximum": 2000
+        }
+    },
+    "required": []
+}

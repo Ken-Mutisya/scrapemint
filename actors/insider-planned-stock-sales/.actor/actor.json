@@ -1,0 +1,11 @@
+{
+    "actorSpecification": 1,
+    "name": "insider-planned-stock-sales",
+    "title": "Upcoming Insider Stock Sales: SEC Form 144 Notices",
+    "description": "Keyless SEC Form 144 data: company insiders must file a notice before selling restricted stock, so this shows who plans to sell, how many shares, what it is worth, and roughly when. Includes where the shares came from and what the same person already sold in the last three months. Pay per row.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": ["BUSINESS", "NEWS"]
+}

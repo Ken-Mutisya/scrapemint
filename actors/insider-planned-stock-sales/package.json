@@ -1,0 +1,10 @@
+{
+    "name": "insider-planned-stock-sales",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Keyless SEC Form 144 notices: planned insider stock sales before they execute, with acquisition source and the seller's recent sale history. Pay per row.",
+    "main": "src/main.js",
+    "scripts": { "start": "node src/main.js" },
+    "dependencies": { "apify": "^3.7.0" },
+    "engines": { "node": ">=20" }
+}
