@@ -1,0 +1,69 @@
+{
+    "title": "Institutional Ownership Tracker Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "mode": {
+            "title": "Mode",
+            "type": "string",
+            "description": "summary = one row per ticker with ownership percent, holders increased vs decreased, and the accumulation ratio. holders = one row per institution holding the stock. movers = only the institutions that actually changed their position, biggest buyers and biggest sellers.",
+            "editor": "select",
+            "enum": ["summary", "holders", "movers"],
+            "enumTitles": ["Summary (one row per ticker)", "Holders (every institution)", "Movers (biggest buyers and sellers)"],
+            "default": "summary"
+        },
+        "symbols": {
+            "title": "Symbols",
+            "type": "array",
+            "description": "US tickers to look up, e.g. NVDA, TSLA, AAPL. Maximum 100 per run.",
+            "editor": "stringList",
+            "prefill": ["NVDA", "TSLA", "AAPL"],
+            "default": ["NVDA", "TSLA", "AAPL"]
+        },
+        "holdersPerSymbol": {
+            "title": "Holders per symbol (holders mode)",
+            "type": "integer",
+            "description": "How many institutions to return for each ticker, taken from the top of the sort. Large caps have thousands of holders, so this is the main cost lever.",
+            "editor": "number",
+            "default": 25,
+            "minimum": 1,
+            "maximum": 500
+        },
+        "moversPerSide": {
+            "title": "Movers per side (movers mode)",
+            "type": "integer",
+            "description": "How many biggest buyers and how many biggest sellers to return per ticker. 10 returns up to 20 rows per ticker.",
+            "editor": "number",
+            "default": 10,
+            "minimum": 1,
+            "maximum": 250
+        },
+        "sortBy": {
+            "title": "Sort by (holders mode)",
+            "type": "string",
+            "description": "Order institutions by position value, share change, or shares held.",
+            "editor": "select",
+            "enum": ["marketValue", "sharesChange", "sharesHeld"],
+            "enumTitles": ["Position value", "Share change", "Shares held"],
+            "default": "marketValue"
+        },
+        "minSharesChange": {
+            "title": "Min share change",
+            "type": "integer",
+            "description": "Skip institutions whose position moved by fewer shares than this, in either direction. 0 = keep every holder.",
+            "editor": "number",
+            "default": 0,
+            "minimum": 0
+        },
+        "maxRows": {
+            "title": "Max rows per run",
+            "type": "integer",
+            "description": "Cap on rows returned across all tickers. Controls total cost.",
+            "editor": "number",
+            "default": 200,
+            "minimum": 1,
+            "maximum": 2000
+        }
+    },
+    "required": []
+}

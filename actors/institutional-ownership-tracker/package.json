@@ -1,0 +1,16 @@
+{
+    "name": "institutional-ownership-tracker",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Keyless institutional ownership data for US stocks from NASDAQ: ownership percent, accumulation ratio, and every holder's shares held, share change and position value. Pay per row.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}

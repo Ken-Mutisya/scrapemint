@@ -1,0 +1,14 @@
+{
+    "actorSpecification": 1,
+    "name": "institutional-ownership-tracker",
+    "title": "Institutional Ownership Tracker: Who Owns a Stock",
+    "description": "Keyless institutional ownership data for any US stock from NASDAQ: what percent is held by institutions, how many holders increased versus decreased their positions, new and sold-out positions, and every institution's shares held, share change and position value. Pay per row.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "BUSINESS",
+        "NEWS"
+    ]
+}
