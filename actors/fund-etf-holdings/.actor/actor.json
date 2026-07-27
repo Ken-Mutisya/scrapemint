@@ -1,0 +1,11 @@
+{
+    "actorSpecification": 1,
+    "name": "fund-etf-holdings",
+    "title": "ETF & Mutual Fund Holdings: Every Stock a Fund Owns",
+    "description": "Keyless SEC NPORT-P data: give it a fund ticker such as VOO or ARKK and get every position it holds, with share count, dollar value and percent of portfolio, plus asset category and long or short. Quarterly filings, published about 60 days in arrears. Pay per row.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": ["BUSINESS", "NEWS"]
+}

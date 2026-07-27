@@ -1,0 +1,67 @@
+{
+    "title": "ETF & Mutual Fund Holdings Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "mode": {
+            "title": "Mode",
+            "type": "string",
+            "description": "top = the largest positions by percent of portfolio. holdings = the entire portfolio, which for a total market fund is thousands of rows. summary = one row per fund with net assets, holding count, asset mix and largest position.",
+            "editor": "select",
+            "enum": ["top", "holdings", "summary"],
+            "enumTitles": ["Top positions", "Holdings (full portfolio)", "Summary (one row per fund)"],
+            "default": "top"
+        },
+        "tickers": {
+            "title": "Fund tickers",
+            "type": "array",
+            "description": "ETF or mutual fund ticker symbols, e.g. VOO, QQQ, ARKK, VTI. Maximum 25 per run. Ordinary stock tickers will not resolve, since only registered funds file this report.",
+            "editor": "stringList",
+            "prefill": ["VOO", "ARKK"],
+            "default": ["VOO", "ARKK"]
+        },
+        "topN": {
+            "title": "Positions per fund (top mode)",
+            "type": "integer",
+            "description": "How many of the largest positions to return for each fund. The main cost lever: a total market index fund reports over 3,500 holdings.",
+            "editor": "number",
+            "default": 25,
+            "minimum": 1,
+            "maximum": 2000
+        },
+        "minPercent": {
+            "title": "Min percent of portfolio",
+            "type": "number",
+            "description": "Skip positions smaller than this share of the fund, e.g. 0.5 keeps only meaningful weights. 0 = keep everything.",
+            "editor": "number",
+            "default": 0,
+            "minimum": 0
+        },
+        "assetCategory": {
+            "title": "Asset category",
+            "type": "string",
+            "description": "Filter to one kind of holding. Funds report equities, debt, short term investments and derivatives in the same portfolio.",
+            "editor": "select",
+            "enum": ["all", "EC", "DBT", "STIV", "EP", "ABS", "COMM"],
+            "enumTitles": ["All", "Common equity", "Debt", "Short term investments", "Preferred equity", "Asset backed", "Commodity"],
+            "default": "all"
+        },
+        "userAgent": {
+            "title": "SEC User-Agent",
+            "type": "string",
+            "description": "The SEC requires a descriptive User-Agent containing a contact email, or it returns 403. Replace the default with your own name and email.",
+            "editor": "textfield",
+            "default": "Scrapemint Research (admin@scrapemint.com)"
+        },
+        "maxRows": {
+            "title": "Max rows per run",
+            "type": "integer",
+            "description": "Cap on rows returned across all funds. Controls total cost.",
+            "editor": "number",
+            "default": 200,
+            "minimum": 1,
+            "maximum": 5000
+        }
+    },
+    "required": []
+}
