@@ -1,0 +1,10 @@
+{
+    "name": "stock-earnings-estimates",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Keyless US stock earnings estimates and results from NASDAQ: EPS forecast vs actual, beat rate, and analyst revision direction. Pay per row.",
+    "main": "src/main.js",
+    "scripts": { "start": "node src/main.js" },
+    "dependencies": { "apify": "^3.7.0" },
+    "engines": { "node": ">=20" }
+}

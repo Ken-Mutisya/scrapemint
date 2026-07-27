@@ -1,0 +1,57 @@
+{
+    "title": "Stock Earnings Estimates & Results Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "mode": {
+            "title": "Mode",
+            "type": "string",
+            "description": "summary = one row per ticker: what analysts expect next quarter, what the company delivered last quarter, how often it has beaten, and whether estimates are being raised or cut. surprises = one row per reported quarter. forecasts = one row per forecast period.",
+            "editor": "select",
+            "enum": ["summary", "surprises", "forecasts"],
+            "enumTitles": ["Summary (one row per ticker)", "Surprises (reported quarters)", "Forecasts (forward estimates)"],
+            "default": "summary"
+        },
+        "symbols": {
+            "title": "Symbols",
+            "type": "array",
+            "description": "US tickers to look up, e.g. NVDA, TSLA, AAPL. Maximum 200 per run.",
+            "editor": "stringList",
+            "prefill": ["NVDA", "TSLA", "AAPL", "MSFT", "AMD"],
+            "default": ["NVDA", "TSLA", "AAPL", "MSFT", "AMD"]
+        },
+        "minBeatRate": {
+            "title": "Min beat rate (%)",
+            "type": "integer",
+            "description": "Keep only companies that beat expectations in at least this share of their reported quarters. 75 returns serial beaters. 0 = no filter.",
+            "editor": "number",
+            "default": 0,
+            "minimum": 0,
+            "maximum": 100
+        },
+        "onlyRaisedEstimates": {
+            "title": "Only where estimates are rising",
+            "type": "boolean",
+            "description": "Keep only tickers where more analysts raised their forecast than cut it in the last four weeks. Estimate revision direction is the forward looking half of this data.",
+            "editor": "checkbox",
+            "default": false
+        },
+        "includeAnnual": {
+            "title": "Include annual forecasts (forecasts mode)",
+            "type": "boolean",
+            "description": "Return full year estimates alongside the quarterly ones.",
+            "editor": "checkbox",
+            "default": true
+        },
+        "maxRows": {
+            "title": "Max rows per run",
+            "type": "integer",
+            "description": "Cap on rows returned across all tickers. Controls total cost.",
+            "editor": "number",
+            "default": 200,
+            "minimum": 1,
+            "maximum": 2000
+        }
+    },
+    "required": []
+}

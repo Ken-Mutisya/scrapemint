@@ -1,0 +1,11 @@
+{
+    "actorSpecification": 1,
+    "name": "stock-earnings-estimates",
+    "title": "Stock Earnings Estimates & Results: EPS Forecast vs Actual",
+    "description": "Keyless earnings data for any US stock from NASDAQ: what analysts expect the company to earn next quarter, what it actually earned in past quarters, the percentage it beat or missed by, how often it has beaten, and whether analysts raised or cut their forecast in the last four weeks. Pay per row.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": ["BUSINESS", "NEWS"]
+}
