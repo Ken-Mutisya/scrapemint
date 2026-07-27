@@ -1,0 +1,83 @@
+{
+    "title": "Crypto Futures Basis Tracker Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "mode": {
+            "title": "Mode",
+            "type": "string",
+            "description": "curve = one row per contract with its premium over spot and annualized yield. summary = one row per coin with front, quarterly and far carry plus the curve shape. spreads = consecutive expiry pairs with the rate implied between them.",
+            "editor": "select",
+            "enum": [
+                "curve",
+                "summary",
+                "spreads"
+            ],
+            "enumTitles": [
+                "Curve (every expiry)",
+                "Summary (one row per coin)",
+                "Spreads (expiry pairs)"
+            ],
+            "default": "curve"
+        },
+        "coins": {
+            "title": "Coins",
+            "type": "array",
+            "description": "Base assets to read, e.g. BTC, ETH, SOL. XAU (gold) is also listed. Maximum 30 per run.",
+            "editor": "stringList",
+            "prefill": [
+                "BTC",
+                "ETH",
+                "SOL"
+            ],
+            "default": [
+                "BTC",
+                "ETH",
+                "SOL"
+            ]
+        },
+        "marginType": {
+            "title": "Margin type",
+            "type": "string",
+            "description": "Coin margined contracts settle in the coin itself; USD margined ones settle in dollars. Both are listed for BTC and ETH, while SOL and gold are USD margined only.",
+            "editor": "select",
+            "enum": [
+                "both",
+                "coin",
+                "usd"
+            ],
+            "enumTitles": [
+                "Both",
+                "Coin margined only",
+                "USD margined only"
+            ],
+            "default": "both"
+        },
+        "minDaysToExpiry": {
+            "title": "Min days to expiry",
+            "type": "integer",
+            "description": "Drop contracts expiring sooner than this. The default of 7 exists because annualizing a contract a few days from expiry turns rounding noise into a headline yield: a 0.6% premium 3 days out reads as 67% a year.",
+            "editor": "number",
+            "default": 7,
+            "minimum": 0,
+            "maximum": 365
+        },
+        "requireVolume": {
+            "title": "Only contracts that have actually traded",
+            "type": "boolean",
+            "description": "Skip expiries with no 24h volume. Untraded back months carry a stale last price and a spread up to 10% wide, which annualizes into yields that do not exist. Turn off only if you want the full board including dead contracts.",
+            "editor": "checkbox",
+            "default": true
+        },
+        "maxRows": {
+            "title": "Max rows per run",
+            "type": "integer",
+            "description": "Cap on rows returned. Controls total cost.",
+            "editor": "number",
+            "default": 200,
+            "minimum": 1,
+            "maximum": 2000
+        }
+    },
+    "required": []
+}

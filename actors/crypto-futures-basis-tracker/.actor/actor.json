@@ -1,0 +1,11 @@
+{
+    "actorSpecification": 1,
+    "name": "crypto-futures-basis-tracker",
+    "title": "Crypto Futures vs Spot: Premium by Expiry and Annual Yield",
+    "description": "Keyless OKX dated futures data: how far above or below the spot index each expiry trades, converted into an annual percentage yield, for BTC, ETH, SOL and gold. Includes the full term structure, a per coin summary with the curve shape, and the rate implied between consecutive expiries. Pay per row.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": ["BUSINESS", "NEWS"]
+}
