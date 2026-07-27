@@ -1,0 +1,14 @@
+{
+    "actorSpecification": 1,
+    "name": "stock-options-scraper",
+    "title": "Stock Options Scraper: Unusual Activity, IV & Open Interest",
+    "description": "Keyless US stock and index option chains from Cboe: unusual activity where today's volume dwarfs open interest, the filtered option chain with implied volatility, greeks, open interest and volume, and a per-symbol summary with put/call ratios and 30-day implied vol. Pay per row.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "BUSINESS",
+        "NEWS"
+    ]
+}

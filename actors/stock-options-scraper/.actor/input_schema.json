@@ -1,0 +1,99 @@
+{
+    "title": "Stock Options Scraper Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "mode": {
+            "title": "Mode",
+            "type": "string",
+            "description": "unusual = contracts trading far above their open interest (the daily scan). chain = the option chain filtered by expiry, moneyness, and size. summary = one row per symbol with put/call ratios, totals, and 30-day implied vol.",
+            "editor": "select",
+            "enum": ["unusual", "chain", "summary"],
+            "enumTitles": ["Unusual activity (volume vs open interest)", "Chain (filtered contracts)", "Summary (one row per symbol)"],
+            "default": "unusual"
+        },
+        "symbols": {
+            "title": "Symbols",
+            "type": "array",
+            "description": "US tickers to pull option chains for, e.g. NVDA, TSLA, SPY. Index roots work with or without the caret: SPX, ^SPX, VIX, NDX, RUT. Maximum 25 per run.",
+            "editor": "stringList",
+            "prefill": ["NVDA", "TSLA", "SPY"],
+            "default": ["NVDA", "TSLA", "SPY"]
+        },
+        "optionType": {
+            "title": "Option type",
+            "type": "string",
+            "description": "Return calls only, puts only, or both.",
+            "editor": "select",
+            "enum": ["both", "call", "put"],
+            "enumTitles": ["Both", "Calls only", "Puts only"],
+            "default": "both"
+        },
+        "minVolume": {
+            "title": "Min contract volume",
+            "type": "integer",
+            "description": "Skip contracts trading fewer than this many times today. In unusual mode this is the floor that keeps one-lot noise out of the scan.",
+            "editor": "number",
+            "default": 500,
+            "minimum": 0
+        },
+        "minVolumeOiRatio": {
+            "title": "Min volume / open interest (unusual mode)",
+            "type": "number",
+            "description": "How many times today's volume must exceed existing open interest to count as unusual. 5 means five times more contracts traded today than were open going in. Contracts with zero open interest always qualify on volume alone.",
+            "editor": "number",
+            "default": 5,
+            "minimum": 0
+        },
+        "minOpenInterest": {
+            "title": "Min open interest",
+            "type": "integer",
+            "description": "Skip contracts with open interest below this. 0 = no minimum.",
+            "editor": "number",
+            "default": 0,
+            "minimum": 0
+        },
+        "expiries": {
+            "title": "Expiries (optional)",
+            "type": "array",
+            "description": "Filter to specific expiry dates in YYYY-MM-DD form, e.g. 2026-08-21. Empty = every listed expiry.",
+            "editor": "stringList",
+            "default": []
+        },
+        "maxDaysToExpiry": {
+            "title": "Max days to expiry",
+            "type": "integer",
+            "description": "Drop contracts expiring further out than this many days. 0 = no limit. Useful for focusing on near-dated flow.",
+            "editor": "number",
+            "default": 0,
+            "minimum": 0
+        },
+        "moneynessPercent": {
+            "title": "Strike window around spot (%)",
+            "type": "integer",
+            "description": "Keep only strikes within this percentage of the underlying price, e.g. 10 = strikes within 10% either side. 0 = every strike. The main lever for cutting chain-mode row counts.",
+            "editor": "number",
+            "default": 0,
+            "minimum": 0
+        },
+        "sortBy": {
+            "title": "Sort by",
+            "type": "string",
+            "description": "Order contracts before the row cap is applied.",
+            "editor": "select",
+            "enum": ["volume", "openInterest", "volumeOiRatio", "impliedVolatility"],
+            "enumTitles": ["Volume", "Open interest", "Volume / open interest", "Implied volatility"],
+            "default": "volume"
+        },
+        "maxRows": {
+            "title": "Max rows per run",
+            "type": "integer",
+            "description": "Cap on rows returned across all symbols. Controls total cost.",
+            "editor": "number",
+            "default": 200,
+            "minimum": 1,
+            "maximum": 5000
+        }
+    },
+    "required": []
+}
