@@ -1,0 +1,98 @@
+{
+    "title": "Crypto New Listings Tracker Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "mode": {
+            "title": "Mode",
+            "type": "string",
+            "description": "new_listings = coins listed in the last N days across the selected venues. announcements = OKX listing notices, published before the listing goes live. delistings = scheduled and recent delistings (Bitget publishes the off time).",
+            "editor": "select",
+            "enum": ["new_listings", "announcements", "delistings"],
+            "enumTitles": ["New listings (live catalogue)", "Announcements (forward looking)", "Delistings"],
+            "default": "new_listings"
+        },
+        "venues": {
+            "title": "Exchanges",
+            "type": "array",
+            "description": "Which exchanges to read: okx, gate, bitget, kucoin. All four by default.",
+            "editor": "stringList",
+            "prefill": ["okx", "gate", "bitget", "kucoin"],
+            "default": ["okx", "gate", "bitget", "kucoin"]
+        },
+        "daysBack": {
+            "title": "Days back",
+            "type": "integer",
+            "description": "How far back the listing window reaches. 7 = everything listed in the last week. Raise it on a quiet week, lower it for a daily scheduled run.",
+            "editor": "number",
+            "prefill": 7,
+            "default": 7,
+            "minimum": 0,
+            "maximum": 365
+        },
+        "quoteCurrencies": {
+            "title": "Quote currencies",
+            "type": "array",
+            "description": "Keep only pairs quoted in these currencies. USDT by default, which also keeps one row per coin per venue: a single listing often creates USDT, USD and TRY pairs at once. Clear it to return every pair.",
+            "editor": "stringList",
+            "prefill": ["USDT"],
+            "default": ["USDT"]
+        },
+        "minVolumeUsd": {
+            "title": "Min 24h quote volume",
+            "type": "integer",
+            "description": "Skip pairs trading less than this in 24h. Filters out listings that never got any interest. 0 = no minimum.",
+            "editor": "number",
+            "default": 0,
+            "minimum": 0
+        },
+        "includePrices": {
+            "title": "Include live price and 24h move",
+            "type": "boolean",
+            "description": "Join each listing to the venue's live ticker so rows carry price, 24h change and 24h volume. One extra request per venue.",
+            "editor": "checkbox",
+            "default": true
+        },
+        "announcementType": {
+            "title": "Announcement type (announcements mode)",
+            "type": "string",
+            "description": "Which OKX announcement feed to read.",
+            "editor": "select",
+            "enum": [
+                "announcements-new-listings",
+                "announcements-delistings",
+                "announcements-trading-updates",
+                "announcements-jumpstart",
+                "latest-events"
+            ],
+            "enumTitles": ["New listings", "Delistings", "Trading updates", "Jumpstart", "Latest events"],
+            "default": "announcements-new-listings"
+        },
+        "announcementPages": {
+            "title": "Announcement pages (announcements mode)",
+            "type": "integer",
+            "description": "How many pages of announcements to walk back through.",
+            "editor": "number",
+            "default": 1,
+            "minimum": 1,
+            "maximum": 10
+        },
+        "newOnly": {
+            "title": "Only rows not seen before",
+            "type": "boolean",
+            "description": "Remember what previous runs returned and emit only what is new. Turn this on for a scheduled alert feed so you are not billed for the same listing every run.",
+            "editor": "checkbox",
+            "default": false
+        },
+        "maxRows": {
+            "title": "Max rows per run",
+            "type": "integer",
+            "description": "Cap on rows returned. Controls total cost.",
+            "editor": "number",
+            "default": 200,
+            "minimum": 1,
+            "maximum": 2000
+        }
+    },
+    "required": []
+}

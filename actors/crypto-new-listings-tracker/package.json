@@ -1,0 +1,16 @@
+{
+    "name": "crypto-new-listings-tracker",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Keyless new crypto listing tracker across OKX, Gate.io, Bitget and KuCoin, with listing announcements and scheduled delistings. Pay per row.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}

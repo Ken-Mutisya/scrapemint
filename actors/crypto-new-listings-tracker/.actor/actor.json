@@ -1,0 +1,14 @@
+{
+    "actorSpecification": 1,
+    "name": "crypto-new-listings-tracker",
+    "title": "Crypto New Coin Listings Tracker: OKX, Gate, Bitget, KuCoin",
+    "description": "Keyless tracker for new crypto listings across OKX, Gate.io, Bitget and KuCoin: which coins were listed in the last N days, on how many venues, with live price and 24h move; OKX listing announcements published before the listing goes live; and scheduled delistings. Pay per row.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "BUSINESS",
+        "NEWS"
+    ]
+}
