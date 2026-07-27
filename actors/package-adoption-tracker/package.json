@@ -1,0 +1,16 @@
+{
+    "name": "package-adoption-tracker",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Keyless npm and PyPI download trends: week over week growth, 30 day totals, daily series, and keyword discovery ranked by growth. Pay per row.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}

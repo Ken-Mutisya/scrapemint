@@ -1,0 +1,14 @@
+{
+    "actorSpecification": 1,
+    "name": "package-adoption-tracker",
+    "title": "Package Adoption Tracker: npm & PyPI Download Trends",
+    "description": "Keyless download data for npm and PyPI packages: last week against the week before with growth percent, the 30 day total and daily series, plus keyword search across npm ranked by growth to find what is rising in a space. Pay per row.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "DEVELOPER_TOOLS",
+        "BUSINESS"
+    ]
+}

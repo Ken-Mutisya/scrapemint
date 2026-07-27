@@ -1,0 +1,75 @@
+{
+    "title": "Package Adoption Tracker Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "mode": {
+            "title": "Mode",
+            "type": "string",
+            "description": "trends = per package downloads with week over week growth. discover = search npm by keyword and rank the results by growth, to find what is rising in a space. history = the daily download series, one row per package per day.",
+            "editor": "select",
+            "enum": ["trends", "discover", "history"],
+            "enumTitles": ["Trends (growth per package)", "Discover (search a space)", "History (daily series)"],
+            "default": "trends"
+        },
+        "registry": {
+            "title": "Registry",
+            "type": "string",
+            "description": "npm supports all three modes. PyPI supports trends only, because it publishes no keyless search and no daily series.",
+            "editor": "select",
+            "enum": ["npm", "pypi"],
+            "enumTitles": ["npm (JavaScript)", "PyPI (Python)"],
+            "default": "npm"
+        },
+        "packages": {
+            "title": "Packages",
+            "type": "array",
+            "description": "Package names to track, e.g. langchain, @langchain/core, openai. Scoped npm names starting with @ are handled. Ignored in discover mode.",
+            "editor": "stringList",
+            "prefill": ["langchain", "@langchain/core", "openai", "llamaindex", "ai"],
+            "default": ["langchain", "@langchain/core", "openai", "llamaindex", "ai"]
+        },
+        "searchQuery": {
+            "title": "Search query (discover mode)",
+            "type": "string",
+            "description": "What space to search npm for, e.g. vector database, ai agent, react charts.",
+            "editor": "textfield",
+            "prefill": "vector database",
+            "default": "vector database"
+        },
+        "searchLimit": {
+            "title": "Packages to take (discover mode)",
+            "type": "integer",
+            "description": "How many of the highest ranked search results to pull download data for.",
+            "editor": "number",
+            "default": 20,
+            "minimum": 1,
+            "maximum": 250
+        },
+        "minWeeklyDownloads": {
+            "title": "Min weekly downloads",
+            "type": "integer",
+            "description": "Drop packages below this many downloads in the last week. The main filter for cutting abandoned and toy packages out of a discover run. 0 = keep everything.",
+            "editor": "number",
+            "default": 0,
+            "minimum": 0
+        },
+        "includeMetadata": {
+            "title": "Include registry metadata (npm trends)",
+            "type": "boolean",
+            "description": "Add latest version, license, repository, version count and last publish date from the npm registry. One extra request per package, so it is off by default. Discover mode already includes this from the search result.",
+            "editor": "checkbox",
+            "default": false
+        },
+        "maxRows": {
+            "title": "Max rows per run",
+            "type": "integer",
+            "description": "Cap on rows returned. Controls total cost. History mode returns about 30 rows per package.",
+            "editor": "number",
+            "default": 200,
+            "minimum": 1,
+            "maximum": 2000
+        }
+    },
+    "required": []
+}
