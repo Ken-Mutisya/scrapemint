@@ -1,0 +1,14 @@
+{
+    "actorSpecification": 1,
+    "name": "crypto-liquidations-tracker",
+    "title": "Crypto Liquidations Tracker: Forced Long & Short Closeouts",
+    "description": "Keyless crypto liquidation data from OKX and Gate.io: how much was liquidated long versus short in USD per coin, every forced closeout with its dollar size, and the OKX long/short account ratio behind a cascade. Contract sizes converted to dollars. Pay per row.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "BUSINESS",
+        "NEWS"
+    ]
+}

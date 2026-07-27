@@ -1,0 +1,16 @@
+{
+    "name": "crypto-liquidations-tracker",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Keyless crypto liquidation feed from OKX and Gate.io: long vs short liquidated in USD, individual forced closeouts, and long/short account positioning. Pay per row.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}

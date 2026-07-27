@@ -1,0 +1,15 @@
+{
+    "_note": "PUT this to /v2/acts/{actorId} as pricingInfos array entry. PAY_PER_EVENT only on BRONZE plan, startedAt 14+ days out. Apify auto-adds 20% margin.",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~crypto-liquidations-tracker?token=CLI_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "liquidation_row": {
+                "eventTitle": "Liquidation row",
+                "eventDescription": "One liquidation row: a per-coin summary of long versus short liquidated in USD, an individual forced closeout with its dollar size and side, or a long/short account ratio reading. First 2 rows per run are free.",
+                "eventPriceUsd": 0.003
+            }
+        }
+    },
+    "startedAt": "2026-08-10T00:00:00.000Z"
+}

@@ -1,0 +1,76 @@
+{
+    "title": "Crypto Liquidations Tracker Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "mode": {
+            "title": "Mode",
+            "type": "string",
+            "description": "summary = one row per coin per venue with long vs short liquidated in USD and the ratio between them. liquidations = one row per forced closeout. positioning = the OKX long/short account ratio over time, which is the build up a cascade needs.",
+            "editor": "select",
+            "enum": ["summary", "liquidations", "positioning"],
+            "enumTitles": ["Summary (per coin, per venue)", "Liquidations (every event)", "Positioning (long/short ratio)"],
+            "default": "summary"
+        },
+        "coins": {
+            "title": "Coins",
+            "type": "array",
+            "description": "Base coins to track, e.g. BTC, ETH, SOL. USDT perpetuals are used on both venues. Maximum 30 per run.",
+            "editor": "stringList",
+            "prefill": ["BTC", "ETH", "SOL"],
+            "default": ["BTC", "ETH", "SOL"]
+        },
+        "venues": {
+            "title": "Exchanges",
+            "type": "array",
+            "description": "Which venues to read: okx, gate. OKX carries far more events; Gate is a thin second source.",
+            "editor": "stringList",
+            "prefill": ["okx", "gate"],
+            "default": ["okx", "gate"]
+        },
+        "side": {
+            "title": "Side liquidated",
+            "type": "string",
+            "description": "Return only long liquidations (forced selling into a drop), only short liquidations (a squeeze), or both.",
+            "editor": "select",
+            "enum": ["both", "long", "short"],
+            "enumTitles": ["Both", "Longs only", "Shorts only"],
+            "default": "both"
+        },
+        "minValueUsd": {
+            "title": "Min liquidation size (USD)",
+            "type": "integer",
+            "description": "Skip liquidations smaller than this. Raise it to see only the large forced closeouts that actually move price. 0 = every event.",
+            "editor": "number",
+            "default": 0,
+            "minimum": 0
+        },
+        "period": {
+            "title": "Period (positioning mode)",
+            "type": "string",
+            "description": "Candle size for the long/short account ratio series.",
+            "editor": "select",
+            "enum": ["5m", "15m", "30m", "1H", "4H", "1D"],
+            "default": "1H"
+        },
+        "positioningPoints": {
+            "title": "Points per coin (positioning mode)",
+            "type": "integer",
+            "description": "How many of the most recent ratio readings to return for each coin.",
+            "editor": "number",
+            "default": 48,
+            "minimum": 1,
+            "maximum": 1440
+        },
+        "maxRows": {
+            "title": "Max rows per run",
+            "type": "integer",
+            "description": "Cap on rows returned. Controls total cost. Busy coins can produce thousands of liquidation events per day.",
+            "editor": "number",
+            "default": 200,
+            "minimum": 1,
+            "maximum": 5000
+        }
+    },
+    "required": []
+}
