@@ -1,0 +1,14 @@
+{
+    "actorSpecification": 1,
+    "name": "premarket-after-hours-prices",
+    "title": "Premarket & After-Hours Stock Prices: Gaps Before the Open",
+    "description": "Keyless US extended session prices. Scan a universe you define for the biggest premarket or after-hours gaps, or track a watchlist. Each row carries the price, the gap from the previous close, session volume, and the session high and low with the time each printed. Pay per row.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "BUSINESS",
+        "NEWS"
+    ]
+}

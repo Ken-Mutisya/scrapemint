@@ -1,0 +1,109 @@
+{
+    "title": "Premarket & After-Hours Prices Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "mode": {
+            "title": "Mode",
+            "type": "string",
+            "description": "scan = check a universe you define and rank it by the size of the gap, the morning gapper list. watchlist = check only the symbols you name.",
+            "editor": "select",
+            "enum": ["scan", "watchlist"],
+            "enumTitles": ["Scan (biggest gaps)", "Watchlist (your symbols)"],
+            "default": "scan"
+        },
+        "session": {
+            "title": "Session",
+            "type": "string",
+            "description": "auto follows the exchange clock: premarket before the opening bell, after-hours once the market closes. Pick both to return a row for each.",
+            "editor": "select",
+            "enum": ["auto", "pre", "post", "both"],
+            "enumTitles": ["Auto (follow the clock)", "Premarket", "After-hours", "Both sessions"],
+            "default": "auto"
+        },
+        "symbols": {
+            "title": "Symbols (watchlist mode)",
+            "type": "array",
+            "description": "Tickers to check, e.g. NVDA, TSLA, SPY. Required in watchlist mode, ignored in scan mode.",
+            "editor": "stringList",
+            "default": []
+        },
+        "minPrice": {
+            "title": "Minimum price",
+            "type": "integer",
+            "description": "Scan mode. Drop stocks trading below this, which keeps sub-dollar names out of the list.",
+            "editor": "number",
+            "default": 1,
+            "prefill": 1,
+            "minimum": 0
+        },
+        "maxPrice": {
+            "title": "Maximum price",
+            "type": "integer",
+            "description": "Scan mode. 0 means no ceiling. A low ceiling focuses the scan on the small caps that gap hardest.",
+            "editor": "number",
+            "default": 50,
+            "prefill": 50,
+            "minimum": 0
+        },
+        "minVolume": {
+            "title": "Minimum regular session volume",
+            "type": "integer",
+            "description": "Scan mode. The universe is ranked by this, so it decides which stocks are worth a lookup.",
+            "editor": "number",
+            "default": 1000000,
+            "prefill": 1000000,
+            "minimum": 0
+        },
+        "minMarketCap": {
+            "title": "Minimum market cap",
+            "type": "integer",
+            "description": "Scan mode. 0 means no floor.",
+            "editor": "number",
+            "default": 0,
+            "minimum": 0
+        },
+        "sectors": {
+            "title": "Sectors (optional)",
+            "type": "array",
+            "description": "Scan mode. Keep only these sectors, e.g. Health Care, Technology. Matches on part of the name.",
+            "editor": "stringList",
+            "default": []
+        },
+        "universeSize": {
+            "title": "How many stocks to check",
+            "type": "integer",
+            "description": "Scan mode. The most active stocks matching your filters are checked, one request each, so this is the main cost and speed lever.",
+            "editor": "number",
+            "default": 40,
+            "prefill": 40,
+            "minimum": 1,
+            "maximum": 500
+        },
+        "minGapPercent": {
+            "title": "Minimum gap percent",
+            "type": "integer",
+            "description": "Keep only stocks that moved at least this far from the previous close, in either direction. 0 returns everything that traded.",
+            "editor": "number",
+            "default": 0,
+            "minimum": 0
+        },
+        "minSessionVolume": {
+            "title": "Minimum session volume",
+            "type": "integer",
+            "description": "Keep only stocks with at least this much volume in the extended session, which filters out gaps set by a handful of shares.",
+            "editor": "number",
+            "default": 0,
+            "minimum": 0
+        },
+        "maxRows": {
+            "title": "Max rows per run",
+            "type": "integer",
+            "description": "Cap on rows returned. Controls total cost.",
+            "editor": "number",
+            "default": 100,
+            "minimum": 1,
+            "maximum": 500
+        }
+    }
+}
