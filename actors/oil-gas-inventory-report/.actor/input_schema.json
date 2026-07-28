@@ -1,0 +1,46 @@
+{
+    "title": "Oil & Gas Inventory Report Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "mode": {
+            "title": "Mode",
+            "type": "string",
+            "description": "stocks = what is in storage and the weekly build or draw. supply = production, imports, exports and refinery runs. natural_gas = the gas storage report against its five year average.",
+            "editor": "select",
+            "enum": ["stocks", "supply", "natural_gas"],
+            "enumTitles": ["Stocks (storage levels)", "Supply (production and refining)", "Natural gas storage"],
+            "default": "stocks"
+        },
+        "productFilter": {
+            "title": "Product filter (optional)",
+            "type": "array",
+            "description": "Keep only rows whose name contains one of these, e.g. crude, gasoline, distillate, propane, jet. Empty returns every line of the report.",
+            "editor": "stringList",
+            "default": []
+        },
+        "onlyDraws": {
+            "title": "Only draws",
+            "type": "boolean",
+            "description": "Stocks mode. Keep only products where inventories FELL this week, which is the bullish half of the report.",
+            "editor": "checkbox",
+            "default": false
+        },
+        "onlyBuilds": {
+            "title": "Only builds",
+            "type": "boolean",
+            "description": "Stocks mode. Keep only products where inventories ROSE this week.",
+            "editor": "checkbox",
+            "default": false
+        },
+        "maxRows": {
+            "title": "Max rows per run",
+            "type": "integer",
+            "description": "Cap on rows returned. The stocks table has about 19 lines and the supply balance about 37.",
+            "editor": "number",
+            "default": 100,
+            "minimum": 1,
+            "maximum": 500
+        }
+    }
+}

@@ -1,0 +1,14 @@
+{
+    "actorSpecification": 1,
+    "name": "oil-gas-inventory-report",
+    "title": "Oil & Gas Inventory Report: Weekly Stocks and Draws",
+    "description": "Keyless weekly energy inventory data that moves oil and gas prices worldwide. Crude, gasoline and distillate stocks with the weekly build or draw and the year ago comparison, the supply balance with production, imports and refinery runs, and natural gas storage against its five year average.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "BUSINESS",
+        "NEWS"
+    ]
+}
