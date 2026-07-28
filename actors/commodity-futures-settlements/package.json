@@ -1,0 +1,10 @@
+{
+    "name": "commodity-futures-settlements",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Keyless official CME futures settlement prices: full forward curve per product with settle, change, volume and open interest. Pay per row.",
+    "main": "src/main.js",
+    "scripts": { "start": "node src/main.js" },
+    "dependencies": { "apify": "^3.7.0" },
+    "engines": { "node": ">=20" }
+}

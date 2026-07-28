@@ -1,0 +1,58 @@
+{
+    "title": "Commodity Futures Settlements Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "mode": {
+            "title": "Mode",
+            "type": "string",
+            "description": "curve = one row per contract month, the full term structure. summary = one row per product with the front month and the curve shape. products = the exchange product list, for finding a code.",
+            "editor": "select",
+            "enum": ["curve", "summary", "products"],
+            "enumTitles": ["Curve (every contract month)", "Summary (one row per product)", "Products (find a code)"],
+            "default": "curve"
+        },
+        "products": {
+            "title": "Products",
+            "type": "array",
+            "description": "Codes such as GC, SI, HG, CL, BZ, NG, RB, ZC, ZW, ZS, LE, HE, ES, NQ, YM, RTY, ZT, ZF, ZN, ZB, SR3, 6E, 6J, 6B. Plain words work too, e.g. gold, oil, wheat, nasdaq. A numeric exchange product id also works.",
+            "editor": "stringList",
+            "prefill": ["GC", "CL", "NG"],
+            "default": ["GC", "CL", "NG"]
+        },
+        "tradeDate": {
+            "title": "Trade date (optional)",
+            "type": "string",
+            "description": "YYYY-MM-DD. Leave empty for the most recent day with published settlements. Settlements appear after the close, so an empty value during the session returns the previous day.",
+            "editor": "textfield",
+            "default": ""
+        },
+        "monthsPerProduct": {
+            "title": "Contract months per product",
+            "type": "integer",
+            "description": "Curve mode. How far down the curve to return, counting from the front month. Gold lists over thirty months, most of them untraded.",
+            "editor": "number",
+            "default": 12,
+            "prefill": 12,
+            "minimum": 1,
+            "maximum": 100
+        },
+        "minOpenInterest": {
+            "title": "Minimum open interest",
+            "type": "integer",
+            "description": "Curve mode. Drop contract months nobody holds, which removes the long tail of deferred months quoted but never traded. 0 keeps everything.",
+            "editor": "number",
+            "default": 0,
+            "minimum": 0
+        },
+        "maxRows": {
+            "title": "Max rows per run",
+            "type": "integer",
+            "description": "Cap on rows returned across all products. Controls total cost.",
+            "editor": "number",
+            "default": 200,
+            "minimum": 1,
+            "maximum": 1000
+        }
+    }
+}

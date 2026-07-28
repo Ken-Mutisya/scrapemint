@@ -1,0 +1,14 @@
+{
+    "actorSpecification": 1,
+    "name": "commodity-futures-settlements",
+    "title": "Commodity Futures Prices: Gold, Oil, Grains and Rates",
+    "description": "Official daily futures settlement prices, keyless. Every contract month with open, high, low, settle, change, volume and open interest, or a one row summary per product with the front month and whether the curve is in contango or backwardation. Metals, energy, grains, index, rates and FX.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "BUSINESS",
+        "NEWS"
+    ]
+}
