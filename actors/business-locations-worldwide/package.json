@@ -1,0 +1,10 @@
+{
+    "name": "business-locations-worldwide",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Keyless worldwide business locations from OpenStreetMap: shops, restaurants, hotels and services with address, phone, website and opening hours. Pay per row.",
+    "main": "src/main.js",
+    "scripts": { "start": "node src/main.js" },
+    "dependencies": { "apify": "^3.7.0" },
+    "engines": { "node": ">=20" }
+}

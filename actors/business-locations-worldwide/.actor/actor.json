@@ -1,0 +1,14 @@
+{
+    "actorSpecification": 1,
+    "name": "business-locations-worldwide",
+    "title": "Business Locations Worldwide: Shops, Restaurants, Services",
+    "description": "Keyless business listings anywhere on earth. Name a city, or pass a bounding box or a radius around a point, and get every restaurant, hotel, pharmacy, supermarket, bank, gym or charging point mapped there, with brand, address, phone, website, email and opening hours. No browser and no proxy.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "LEAD_GENERATION",
+        "BUSINESS"
+    ]
+}

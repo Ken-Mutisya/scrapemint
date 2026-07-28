@@ -1,0 +1,98 @@
+{
+    "title": "Business Locations Worldwide Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "city": {
+            "title": "City or place",
+            "type": "string",
+            "description": "Anywhere on earth, e.g. Lisbon, Portugal or Austin, Texas. The boundary is resolved for you. Ignored if you give a bounding box or a radius.",
+            "editor": "textfield",
+            "prefill": "Lisbon, Portugal",
+            "default": "Lisbon, Portugal"
+        },
+        "categories": {
+            "title": "Categories",
+            "type": "array",
+            "description": "restaurant, cafe, bar, pub, fast_food, hotel, guest_house, hostel, supermarket, convenience, bakery, butcher, clothing, hairdresser, beauty, pharmacy, doctor, dentist, hospital, veterinary, bank, atm, fuel, ev_charging, gym, coworking, car_dealer, car_repair, electronics, furniture, hardware, florist, optician, school, kindergarten, cinema, museum.",
+            "editor": "stringList",
+            "prefill": [
+                "restaurant",
+                "cafe",
+                "hotel"
+            ],
+            "default": [
+                "restaurant",
+                "cafe",
+                "hotel"
+            ]
+        },
+        "boundingBox": {
+            "title": "Bounding box (optional)",
+            "type": "string",
+            "description": "south,west,north,east in decimal degrees. Overrides the city, and is the precise way to cover a district or a delivery zone.",
+            "editor": "textfield",
+            "default": ""
+        },
+        "latitude": {
+            "title": "Latitude (optional)",
+            "type": "string",
+            "description": "Decimal degrees, e.g. 52.52. Use with longitude and radius to search around a point instead of an area.",
+            "editor": "textfield",
+            "default": ""
+        },
+        "longitude": {
+            "title": "Longitude (optional)",
+            "type": "string",
+            "description": "Decimal degrees, e.g. 13.405. Use with latitude and radius.",
+            "editor": "textfield",
+            "default": ""
+        },
+        "radiusMeters": {
+            "title": "Radius in metres (optional)",
+            "type": "integer",
+            "description": "Search this far around the point. Up to 50000.",
+            "editor": "number",
+            "default": 0,
+            "minimum": 0,
+            "maximum": 50000
+        },
+        "brand": {
+            "title": "Brand filter (optional)",
+            "type": "string",
+            "description": "Keep only places carrying this brand, e.g. Starbucks, Lidl, Shell. Case insensitive.",
+            "editor": "textfield",
+            "default": ""
+        },
+        "requireWebsite": {
+            "title": "Only places with a website",
+            "type": "boolean",
+            "description": "Useful when the output feeds outreach rather than a map.",
+            "editor": "checkbox",
+            "default": false
+        },
+        "requirePhone": {
+            "title": "Only places with a phone number",
+            "type": "boolean",
+            "description": "Keep only listings carrying a phone number.",
+            "editor": "checkbox",
+            "default": false
+        },
+        "requireOpeningHours": {
+            "title": "Only places with opening hours",
+            "type": "boolean",
+            "description": "A rough proxy for how well maintained a listing is.",
+            "editor": "checkbox",
+            "default": false
+        },
+        "maxResults": {
+            "title": "Max places per run",
+            "type": "integer",
+            "description": "Cap on places returned. Controls total cost.",
+            "editor": "number",
+            "default": 150,
+            "minimum": 1,
+            "maximum": 3000
+        }
+    }
+}
