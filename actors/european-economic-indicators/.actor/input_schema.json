@@ -1,0 +1,71 @@
+{
+    "title": "European Economic Indicators Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "mode": {
+            "title": "Mode",
+            "type": "string",
+            "description": "latest = the most recent value each country has actually published, with the change on the period before. history = every period in the window. dataset = any Eurostat dataset code with your own filters.",
+            "editor": "select",
+            "enum": ["latest", "history", "dataset"],
+            "enumTitles": ["Latest per country", "History", "Any dataset by code"],
+            "default": "latest"
+        },
+        "indicators": {
+            "title": "Indicators",
+            "type": "array",
+            "description": "inflation, unemployment, gdp_growth, industrial_production, government_debt.",
+            "editor": "stringList",
+            "prefill": ["inflation", "unemployment", "gdp_growth"],
+            "default": ["inflation", "unemployment", "gdp_growth"]
+        },
+        "countries": {
+            "title": "Countries (optional)",
+            "type": "array",
+            "description": "Two letter codes, e.g. DE, FR, IT, ES, NL, PL. Note Greece is EL and not GR. Empty returns every reporting country.",
+            "editor": "stringList",
+            "default": []
+        },
+        "periods": {
+            "title": "Periods to look back",
+            "type": "integer",
+            "description": "How many periods to request. Countries publish on different schedules, so a small window is needed in latest mode to find each one's most recent figure.",
+            "editor": "number",
+            "default": 6,
+            "prefill": 6,
+            "minimum": 1,
+            "maximum": 120
+        },
+        "includeAggregates": {
+            "title": "Include EU and euro area aggregates",
+            "type": "boolean",
+            "description": "Off by default. The source publishes the EU and the euro area alongside the countries, so including them double counts any ranking or average you build.",
+            "editor": "checkbox",
+            "default": false
+        },
+        "datasetCode": {
+            "title": "Dataset code (dataset mode)",
+            "type": "string",
+            "description": "Any Eurostat dataset code, for example prc_hicp_manr or nrg_pc_202.",
+            "editor": "textfield",
+            "default": ""
+        },
+        "datasetParams": {
+            "title": "Dataset filters (dataset mode)",
+            "type": "string",
+            "description": "Dimension filters as a query string, e.g. coicop=CP00&unit=RCH_A. A value that does not exist returns an empty result rather than an error.",
+            "editor": "textfield",
+            "default": ""
+        },
+        "maxRows": {
+            "title": "Max rows per run",
+            "type": "integer",
+            "description": "Cap on rows returned across all indicators. Controls total cost.",
+            "editor": "number",
+            "default": 300,
+            "minimum": 1,
+            "maximum": 2000
+        }
+    }
+}

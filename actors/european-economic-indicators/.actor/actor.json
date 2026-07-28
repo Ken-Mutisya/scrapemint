@@ -1,0 +1,14 @@
+{
+    "actorSpecification": 1,
+    "name": "european-economic-indicators",
+    "title": "European Economic Indicators: Inflation, Jobs and Growth",
+    "description": "Keyless official European statistics by country. Inflation, unemployment, GDP growth, industrial production and government debt, monthly or quarterly, with the latest value each country has published and the change on the period before. Any other Eurostat dataset can be pulled by code.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "BUSINESS",
+        "NEWS"
+    ]
+}
