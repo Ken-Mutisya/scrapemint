@@ -1,0 +1,14 @@
+{
+    "actorSpecification": 1,
+    "name": "company-data-worldwide",
+    "title": "Company Data Worldwide: Industry, Owners and Listings",
+    "description": "Keyless structured company facts for any country. Search by country, industry or founding year, profile named companies, or list what a parent owns. Rows carry headquarters, industry, legal form, chief executive, parent company, stock listings with tickers, and employees with the year.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "BUSINESS",
+        "LEAD_GENERATION"
+    ]
+}

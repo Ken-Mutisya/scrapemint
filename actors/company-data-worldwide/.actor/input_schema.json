@@ -1,0 +1,80 @@
+{
+    "title": "Company Data Worldwide Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "mode": {
+            "title": "Mode",
+            "type": "string",
+            "description": "search = companies matching a country, industry or founding window. company = full profile for the names you give. subsidiaries = what a parent company owns.",
+            "editor": "select",
+            "enum": ["search", "company", "subsidiaries"],
+            "enumTitles": ["Search by country and industry", "Profile named companies", "Subsidiaries of a parent"],
+            "default": "search"
+        },
+        "country": {
+            "title": "Country",
+            "type": "string",
+            "description": "Search mode. Plain English name such as Germany, Japan or Brazil. Leave empty to search every country.",
+            "editor": "textfield",
+            "prefill": "United States",
+            "default": "United States"
+        },
+        "industry": {
+            "title": "Industry (optional)",
+            "type": "string",
+            "description": "Search mode. A plain term such as software, banking, pharmaceutical or automotive.",
+            "editor": "textfield",
+            "default": ""
+        },
+        "foundedFrom": {
+            "title": "Founded from (optional)",
+            "type": "integer",
+            "description": "Search mode. Earliest founding year, e.g. 2015 to find newer companies. 0 for no limit.",
+            "editor": "number",
+            "default": 0,
+            "minimum": 0,
+            "maximum": 2100
+        },
+        "foundedTo": {
+            "title": "Founded to (optional)",
+            "type": "integer",
+            "description": "Search mode. Latest founding year. 0 for no limit.",
+            "editor": "number",
+            "default": 0,
+            "minimum": 0,
+            "maximum": 2100
+        },
+        "listedOnly": {
+            "title": "Only listed companies",
+            "type": "boolean",
+            "description": "Search mode. Keep only companies that trade on a stock exchange.",
+            "editor": "checkbox",
+            "default": false
+        },
+        "companies": {
+            "title": "Companies (company mode)",
+            "type": "array",
+            "description": "Names or entity ids, e.g. Siemens, Toyota, Q95. Full legal names resolve more reliably than short brand names.",
+            "editor": "stringList",
+            "default": []
+        },
+        "parentCompany": {
+            "title": "Parent company (subsidiaries mode)",
+            "type": "string",
+            "description": "The group whose holdings you want, e.g. Alphabet Inc. or Nestle.",
+            "editor": "textfield",
+            "default": ""
+        },
+        "maxResults": {
+            "title": "Max companies per run",
+            "type": "integer",
+            "description": "Cap on companies returned. Large uncapped searches are also more likely to time out at the source.",
+            "editor": "number",
+            "default": 50,
+            "prefill": 50,
+            "minimum": 1,
+            "maximum": 1000
+        }
+    }
+}
