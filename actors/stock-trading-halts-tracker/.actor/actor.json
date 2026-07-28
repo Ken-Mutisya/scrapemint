@@ -1,0 +1,14 @@
+{
+    "actorSpecification": 1,
+    "name": "stock-trading-halts-tracker",
+    "title": "Stock Trading Halts: Why a Stock Is Halted and When It Resumes",
+    "description": "Live US trading halts, keyless. Every halt carries the official reason spelled out instead of a bare code, the halt and resumption times, how long it has been frozen, and the last price move that triggered it. Filter by symbol, market or reason, or monitor for new halts only.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "BUSINESS",
+        "NEWS"
+    ]
+}

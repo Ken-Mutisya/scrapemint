@@ -1,0 +1,76 @@
+{
+    "title": "Stock Trading Halts Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "mode": {
+            "title": "Mode",
+            "type": "string",
+            "description": "halts = one row per halted stock with the reason and resumption times. summary = one row per reason code showing how many names it is holding.",
+            "editor": "select",
+            "enum": ["halts", "summary"],
+            "enumTitles": ["Halts (one row per stock)", "Summary (counts by reason)"],
+            "default": "halts"
+        },
+        "todayOnly": {
+            "title": "Current trading day only",
+            "type": "boolean",
+            "description": "On by default. Turn it off to also return halts from earlier sessions that have never resumed, some of them months old, which is how you find the stocks still frozen for regulatory reasons.",
+            "editor": "checkbox",
+            "default": true,
+            "prefill": true
+        },
+        "onlyStillHalted": {
+            "title": "Only stocks still halted",
+            "type": "boolean",
+            "description": "Drop halts that have already resumed and keep only what is frozen right now or waiting on a scheduled resumption.",
+            "editor": "checkbox",
+            "default": false
+        },
+        "symbols": {
+            "title": "Symbols (optional)",
+            "type": "array",
+            "description": "Watchlist filter, e.g. AAPL, GME. Empty returns every halted stock.",
+            "editor": "stringList",
+            "default": []
+        },
+        "reasonCodes": {
+            "title": "Reason codes (optional)",
+            "type": "array",
+            "description": "Keep only these halt codes. LUDP and M are volatility pauses, T1 and T2 are news halts, T12 and H4 and H10 are regulatory. Empty returns every reason.",
+            "editor": "stringList",
+            "default": []
+        },
+        "markets": {
+            "title": "Markets (optional)",
+            "type": "array",
+            "description": "Keep only these markets, e.g. NASDAQ, AMEX, NYSE Arca, Non NASDAQ. Matches on part of the name.",
+            "editor": "stringList",
+            "default": []
+        },
+        "includeQuote": {
+            "title": "Include last price and move",
+            "type": "boolean",
+            "description": "Look up the last price, net change, percent move and volume for each returned stock, which is what tells you whether it froze on the way up or the way down. Adds one request per returned row.",
+            "editor": "checkbox",
+            "default": true,
+            "prefill": true
+        },
+        "newOnly": {
+            "title": "Only new halts since the last run",
+            "type": "boolean",
+            "description": "Monitor mode. Remembers what it has already reported, so a scheduled run returns only halts it has not seen before. The first run returns everything.",
+            "editor": "checkbox",
+            "default": false
+        },
+        "maxRows": {
+            "title": "Max rows per run",
+            "type": "integer",
+            "description": "Cap on rows returned. Controls total cost and, when price lookups are on, run time.",
+            "editor": "number",
+            "default": 200,
+            "minimum": 1,
+            "maximum": 1000
+        }
+    }
+}
