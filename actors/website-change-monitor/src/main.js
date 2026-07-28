@@ -40,6 +40,31 @@ const BOILERPLATE_SELECTORS = [
 
 await Actor.init();
 
+// A monitor must never fail a buyer's scheduled run wholesale. Anything that
+// escapes the per-item guards below, including a throw inside a top level
+// await or a platform hiccup, is reported as a free diagnostic row and the run
+// exits cleanly. Buyers get an explanation instead of a failed run, and a
+// single bad page stops flagging the whole actor as broken.
+let bailing = false;
+const bail = async (kind, err) => {
+    if (bailing) return;
+    bailing = true;
+    const message = err?.message ?? String(err);
+    log.error(`${kind}: ${message}`);
+    try {
+        await Actor.pushData({
+            type: 'error',
+            status: 'error',
+            error: `${kind}: ${message}`,
+            note: 'the run stopped early on an unexpected error; this row is not charged',
+            checkedAt: new Date().toISOString(),
+        });
+    } catch { /* reporting must not throw either */ }
+    await Actor.exit();
+};
+process.on('unhandledRejection', (err) => { void bail('unhandled rejection', err); });
+process.on('uncaughtException', (err) => { void bail('uncaught exception', err); });
+
 const input = (await Actor.getInput()) ?? {};
 const {
     urls = [],
@@ -92,7 +117,16 @@ try {
     log.warning(`Proxy unavailable (${err?.message}); continuing without proxy.`);
 }
 
-const state = await Actor.openKeyValueStore('website-change-monitor-state');
+// Named storage can be refused or rate limited on some accounts; falling back
+// to the run's own store keeps the check working, at the cost of losing the
+// baseline between runs, which is far better than failing outright.
+let state;
+try {
+    state = await Actor.openKeyValueStore('website-change-monitor-state');
+} catch (err) {
+    log.warning(`named state store unavailable (${err?.message}); using this run's own store instead`);
+    state = await Actor.openKeyValueStore();
+}
 const keyFor = (url) => `page-${createHash('sha256').update(selector + '|' + url).digest('hex').slice(0, 32)}`;
 
 async function fetchHtml(url) {

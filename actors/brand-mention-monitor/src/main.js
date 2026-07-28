@@ -32,6 +32,31 @@ const SOURCES = ['google-news', 'reddit', 'hackernews', 'telegram'];
 
 await Actor.init();
 
+// A monitor must never fail a buyer's scheduled run wholesale. Anything that
+// escapes the per-item guards below, including a throw inside a top level
+// await or a platform hiccup, is reported as a free diagnostic row and the run
+// exits cleanly. Buyers get an explanation instead of a failed run, and a
+// single bad page stops flagging the whole actor as broken.
+let bailing = false;
+const bail = async (kind, err) => {
+    if (bailing) return;
+    bailing = true;
+    const message = err?.message ?? String(err);
+    log.error(`${kind}: ${message}`);
+    try {
+        await Actor.pushData({
+            type: 'error',
+            status: 'error',
+            error: `${kind}: ${message}`,
+            note: 'the run stopped early on an unexpected error; this row is not charged',
+            checkedAt: new Date().toISOString(),
+        });
+    } catch { /* reporting must not throw either */ }
+    await Actor.exit();
+};
+process.on('unhandledRejection', (err) => { void bail('unhandled rejection', err); });
+process.on('uncaughtException', (err) => { void bail('uncaught exception', err); });
+
 const input = (await Actor.getInput()) ?? {};
 const {
     keywords = [],
@@ -60,7 +85,18 @@ if (srcs.includes('telegram') && !channels.length) {
     log.warning('telegram source selected but no telegramChannels given; skipping Telegram (it has no keyless global search).');
 }
 
-const seenStore = dedupe ? await Actor.openKeyValueStore('brand-mention-monitor-state') : null;
+// Named storage can be refused or rate limited on some accounts. Losing the
+// dedupe memory means a run may repeat mentions, which is a far smaller
+// problem than the whole run failing.
+let seenStore = null;
+if (dedupe) {
+    try {
+        seenStore = await Actor.openKeyValueStore('brand-mention-monitor-state');
+    } catch (err) {
+        log.warning(`named state store unavailable (${err?.message}); continuing without dedupe memory`);
+        seenStore = null;
+    }
+}
 const seen = new Set();
 if (seenStore) for (const k of (await seenStore.getValue('seen-ids')) || []) seen.add(String(k));
 
