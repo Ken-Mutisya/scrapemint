@@ -1,0 +1,10 @@
+{
+    "name": "money-market-rates-tracker",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Keyless daily SOFR and money market benchmark rates with volumes and percentiles, plus central bank repo operation results. Pay per row.",
+    "main": "src/main.js",
+    "scripts": { "start": "node src/main.js" },
+    "dependencies": { "apify": "^3.7.0" },
+    "engines": { "node": ">=20" }
+}

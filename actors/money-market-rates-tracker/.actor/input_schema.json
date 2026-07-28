@@ -1,0 +1,74 @@
+{
+    "title": "Money Market Rates Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "mode": {
+            "title": "Mode",
+            "type": "string",
+            "description": "rates = one row per benchmark per day with volume and percentiles. spreads = one row per day with every benchmark side by side and SOFR against the target range. operations = repo and reverse repo results.",
+            "editor": "select",
+            "enum": ["rates", "spreads", "operations"],
+            "enumTitles": ["Rates (per benchmark per day)", "Spreads (one row per day)", "Fed repo operations"],
+            "default": "rates"
+        },
+        "daysBack": {
+            "title": "Days back",
+            "type": "integer",
+            "description": "How far back to pull rates, counting from today. Rates publish on business days only.",
+            "editor": "number",
+            "default": 7,
+            "prefill": 7,
+            "minimum": 0,
+            "maximum": 3650
+        },
+        "startDate": {
+            "title": "Start date (optional)",
+            "type": "string",
+            "description": "YYYY-MM-DD. Overrides days back for a fixed window, including years of history.",
+            "editor": "textfield",
+            "default": ""
+        },
+        "endDate": {
+            "title": "End date (optional)",
+            "type": "string",
+            "description": "YYYY-MM-DD. Defaults to today.",
+            "editor": "textfield",
+            "default": ""
+        },
+        "rateTypes": {
+            "title": "Rate types (optional)",
+            "type": "array",
+            "description": "Rates mode. SOFR, SOFRAI (the averages and index), BGCR, TGCR, EFFR, OBFR. Empty returns all six.",
+            "editor": "stringList",
+            "default": []
+        },
+        "operationType": {
+            "title": "Operation type",
+            "type": "string",
+            "description": "Operations mode. Repo adds cash to the market, reverse repo drains it.",
+            "editor": "select",
+            "enum": ["all", "repo", "reverserepo"],
+            "enumTitles": ["All operations", "Repo only", "Reverse repo only"],
+            "default": "all"
+        },
+        "operationCount": {
+            "title": "How many operations",
+            "type": "integer",
+            "description": "Operations mode. How many of the most recent operations to return. Each can produce a row per collateral type.",
+            "editor": "number",
+            "default": 10,
+            "minimum": 1,
+            "maximum": 200
+        },
+        "maxRows": {
+            "title": "Max rows per run",
+            "type": "integer",
+            "description": "Cap on rows returned. Controls total cost.",
+            "editor": "number",
+            "default": 200,
+            "minimum": 1,
+            "maximum": 1000
+        }
+    }
+}

@@ -1,0 +1,14 @@
+{
+    "actorSpecification": 1,
+    "name": "money-market-rates-tracker",
+    "title": "SOFR & Money Market Rates: Benchmarks and Fed Operations",
+    "description": "Keyless daily money market data. Official secured and unsecured overnight benchmarks with the volume behind each and the percentile distribution, a daily spread view showing SOFR against the policy target range, and central bank repo and reverse repo operation results.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "BUSINESS",
+        "NEWS"
+    ]
+}
