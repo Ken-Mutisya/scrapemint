@@ -1,0 +1,10 @@
+{
+    "name": "satellite-tracking-data",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Keyless satellite orbital data: altitude, period, inclination, orbit class, constellation and launch year for objects in orbit. Pay per row.",
+    "main": "src/main.js",
+    "scripts": { "start": "node src/main.js" },
+    "dependencies": { "apify": "^3.7.0" },
+    "engines": { "node": ">=20" }
+}

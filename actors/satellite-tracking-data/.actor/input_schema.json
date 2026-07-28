@@ -1,0 +1,89 @@
+{
+    "title": "Satellite Tracking Data Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "mode": {
+            "title": "Mode",
+            "type": "string",
+            "description": "satellites = one row per object with its orbit worked out. constellations = one row per constellation with counts, typical altitude and the launch window it spans.",
+            "editor": "select",
+            "enum": ["satellites", "constellations"],
+            "enumTitles": ["Satellites", "Constellation summary"],
+            "default": "satellites"
+        },
+        "group": {
+            "title": "Group",
+            "type": "string",
+            "description": "last-30-days for recent launches, or starlink, oneweb, kuiper, geo, gps-ops, galileo, beidou, iridium-NEXT, weather, noaa, goes, science, cubesat, planet, spire, stations, active. Any other group the catalogue publishes also works.",
+            "editor": "textfield",
+            "prefill": "last-30-days",
+            "default": "last-30-days"
+        },
+        "names": {
+            "title": "Names (optional)",
+            "type": "array",
+            "description": "Match objects whose name contains these, e.g. ISS, HUBBLE, SENTINEL. Used on its own this searches the whole catalogue by name.",
+            "editor": "stringList",
+            "default": []
+        },
+        "noradIds": {
+            "title": "Catalogue numbers (optional)",
+            "type": "array",
+            "description": "Look up exact objects, e.g. 25544 for the space station. Overrides the group.",
+            "editor": "stringList",
+            "default": []
+        },
+        "orbitClass": {
+            "title": "Orbit class",
+            "type": "string",
+            "description": "leo is under 2000km, meo is between that and geostationary, geo sits at about 35786km, heo is highly elliptical.",
+            "editor": "select",
+            "enum": ["all", "leo", "meo", "geo", "heo"],
+            "enumTitles": ["All", "Low earth", "Medium earth", "Geostationary", "Highly elliptical"],
+            "default": "all"
+        },
+        "minAltitudeKm": {
+            "title": "Minimum altitude in km",
+            "type": "integer",
+            "description": "Mean altitude floor. 0 for no limit.",
+            "editor": "number",
+            "default": 0,
+            "minimum": 0
+        },
+        "maxAltitudeKm": {
+            "title": "Maximum altitude in km",
+            "type": "integer",
+            "description": "Mean altitude ceiling. 0 for no limit.",
+            "editor": "number",
+            "default": 0,
+            "minimum": 0
+        },
+        "launchedSince": {
+            "title": "Launched since (year)",
+            "type": "integer",
+            "description": "Keep only objects launched in or after this year, read from the international designator. 0 for no limit.",
+            "editor": "number",
+            "default": 0,
+            "minimum": 0,
+            "maximum": 2100
+        },
+        "maxElementAgeDays": {
+            "title": "Maximum element age in days",
+            "type": "integer",
+            "description": "Drop objects whose orbital elements are older than this. Anything over about 30 days is too stale to compute a reliable position from. 0 keeps everything.",
+            "editor": "number",
+            "default": 0,
+            "minimum": 0
+        },
+        "maxResults": {
+            "title": "Max rows per run",
+            "type": "integer",
+            "description": "Cap on rows returned. Large constellations run to thousands of objects.",
+            "editor": "number",
+            "default": 150,
+            "minimum": 1,
+            "maximum": 3000
+        }
+    }
+}

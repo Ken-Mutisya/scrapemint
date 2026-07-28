@@ -1,0 +1,14 @@
+{
+    "actorSpecification": 1,
+    "name": "satellite-tracking-data",
+    "title": "Satellite Tracking Data: Orbits, Constellations, Launches",
+    "description": "Keyless orbital data for objects in space. Pick a constellation, a catalogue number or a satellite name and get altitude at apogee and perigee, orbital period, inclination and orbit class worked out from the raw elements, plus launch year, years in orbit and how old the elements themselves are.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "DEVELOPER_TOOLS",
+        "BUSINESS"
+    ]
+}
