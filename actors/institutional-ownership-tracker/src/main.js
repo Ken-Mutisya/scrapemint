@@ -50,7 +50,7 @@ await Actor.init();
 const input = (await Actor.getInput()) ?? {};
 const {
     mode = 'summary',
-    symbols = ['NVDA', 'TSLA', 'AAPL'],
+    symbols = ['NVDA', 'TSLA', 'AAPL', 'MSFT', 'AMZN', 'GOOGL'],
     holdersPerSymbol = 25,
     moversPerSide = 10,
     sortBy = 'marketValue',

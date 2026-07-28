@@ -8,8 +8,16 @@
             "type": "string",
             "description": "summary = one row per ticker with ownership percent, holders increased vs decreased, and the accumulation ratio. holders = one row per institution holding the stock. movers = only the institutions that actually changed their position, biggest buyers and biggest sellers.",
             "editor": "select",
-            "enum": ["summary", "holders", "movers"],
-            "enumTitles": ["Summary (one row per ticker)", "Holders (every institution)", "Movers (biggest buyers and sellers)"],
+            "enum": [
+                "summary",
+                "holders",
+                "movers"
+            ],
+            "enumTitles": [
+                "Summary (one row per ticker)",
+                "Holders (every institution)",
+                "Movers (biggest buyers and sellers)"
+            ],
             "default": "summary"
         },
         "symbols": {
@@ -17,8 +25,22 @@
             "type": "array",
             "description": "US tickers to look up, e.g. NVDA, TSLA, AAPL. Maximum 100 per run.",
             "editor": "stringList",
-            "prefill": ["NVDA", "TSLA", "AAPL"],
-            "default": ["NVDA", "TSLA", "AAPL"]
+            "prefill": [
+                "NVDA",
+                "TSLA",
+                "AAPL",
+                "MSFT",
+                "AMZN",
+                "GOOGL"
+            ],
+            "default": [
+                "NVDA",
+                "TSLA",
+                "AAPL",
+                "MSFT",
+                "AMZN",
+                "GOOGL"
+            ]
         },
         "holdersPerSymbol": {
             "title": "Holders per symbol (holders mode)",
@@ -43,8 +65,16 @@
             "type": "string",
             "description": "Order institutions by position value, share change, or shares held.",
             "editor": "select",
-            "enum": ["marketValue", "sharesChange", "sharesHeld"],
-            "enumTitles": ["Position value", "Share change", "Shares held"],
+            "enum": [
+                "marketValue",
+                "sharesChange",
+                "sharesHeld"
+            ],
+            "enumTitles": [
+                "Position value",
+                "Share change",
+                "Shares held"
+            ],
             "default": "marketValue"
         },
         "minSharesChange": {

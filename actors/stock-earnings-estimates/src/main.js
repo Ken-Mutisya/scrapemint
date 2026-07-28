@@ -51,7 +51,7 @@ await Actor.init();
 const input = (await Actor.getInput()) ?? {};
 const {
     mode = 'summary',
-    symbols = ['NVDA', 'TSLA', 'AAPL', 'MSFT', 'AMD'],
+    symbols = ['NVDA', 'TSLA', 'AAPL', 'MSFT', 'AMD', 'AMZN', 'GOOGL', 'META'],
     minBeatRate = 0,
     onlyRaisedEstimates = false,
     includeAnnual = true,

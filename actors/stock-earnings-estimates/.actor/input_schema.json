@@ -8,8 +8,16 @@
             "type": "string",
             "description": "summary = one row per ticker: what analysts expect next quarter, what the company delivered last quarter, how often it has beaten, and whether estimates are being raised or cut. surprises = one row per reported quarter. forecasts = one row per forecast period.",
             "editor": "select",
-            "enum": ["summary", "surprises", "forecasts"],
-            "enumTitles": ["Summary (one row per ticker)", "Surprises (reported quarters)", "Forecasts (forward estimates)"],
+            "enum": [
+                "summary",
+                "surprises",
+                "forecasts"
+            ],
+            "enumTitles": [
+                "Summary (one row per ticker)",
+                "Surprises (reported quarters)",
+                "Forecasts (forward estimates)"
+            ],
             "default": "summary"
         },
         "symbols": {
@@ -17,8 +25,26 @@
             "type": "array",
             "description": "US tickers to look up, e.g. NVDA, TSLA, AAPL. Maximum 200 per run.",
             "editor": "stringList",
-            "prefill": ["NVDA", "TSLA", "AAPL", "MSFT", "AMD"],
-            "default": ["NVDA", "TSLA", "AAPL", "MSFT", "AMD"]
+            "prefill": [
+                "NVDA",
+                "TSLA",
+                "AAPL",
+                "MSFT",
+                "AMD",
+                "AMZN",
+                "GOOGL",
+                "META"
+            ],
+            "default": [
+                "NVDA",
+                "TSLA",
+                "AAPL",
+                "MSFT",
+                "AMD",
+                "AMZN",
+                "GOOGL",
+                "META"
+            ]
         },
         "minBeatRate": {
             "title": "Min beat rate (%)",
