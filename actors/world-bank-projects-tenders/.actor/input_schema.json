@@ -1,0 +1,78 @@
+{
+    "title": "World Bank Projects & Tenders Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "mode": {
+            "title": "Mode",
+            "type": "string",
+            "description": "notices = live procurement notices with deadlines and contacts, the actionable feed. projects = funded projects with commitments. countries = one row per country with project counts and money.",
+            "editor": "select",
+            "enum": ["notices", "projects", "countries"],
+            "enumTitles": ["Procurement notices", "Funded projects", "Country summary"],
+            "default": "notices"
+        },
+        "country": {
+            "title": "Country (optional)",
+            "type": "string",
+            "description": "Short name as the source spells it, e.g. Kenya, Vietnam, Congo, Democratic Republic of. Empty covers every country.",
+            "editor": "textfield",
+            "prefill": "Kenya",
+            "default": ""
+        },
+        "searchTerm": {
+            "title": "Search term (optional)",
+            "type": "string",
+            "description": "Free text across the record, e.g. water, solar, road, hospital, consultancy.",
+            "editor": "textfield",
+            "default": ""
+        },
+        "noticeType": {
+            "title": "Notice types (notices mode)",
+            "type": "array",
+            "description": "Keep only these, e.g. Request for Bids, Request for Expression of Interest, Contract Award. Matches on part of the name.",
+            "editor": "stringList",
+            "default": []
+        },
+        "onlyOpen": {
+            "title": "Only open notices",
+            "type": "boolean",
+            "description": "On by default. Keeps only notices whose submission deadline has not passed.",
+            "editor": "checkbox",
+            "default": true,
+            "prefill": true
+        },
+        "status": {
+            "title": "Project status (projects mode)",
+            "type": "string",
+            "description": "Active, Closed, Pipeline or Dropped. Empty covers all.",
+            "editor": "textfield",
+            "default": ""
+        },
+        "minAmountUsd": {
+            "title": "Minimum commitment in USD",
+            "type": "integer",
+            "description": "Projects mode. Drop projects committing less than this. 0 for no floor.",
+            "editor": "number",
+            "default": 0,
+            "minimum": 0
+        },
+        "approvedSince": {
+            "title": "Approved since (optional)",
+            "type": "string",
+            "description": "YYYY-MM-DD. Projects mode. Keep only projects approved on or after this date.",
+            "editor": "textfield",
+            "default": ""
+        },
+        "maxResults": {
+            "title": "Max rows per run",
+            "type": "integer",
+            "description": "Cap on rows returned. Controls total cost.",
+            "editor": "number",
+            "default": 100,
+            "prefill": 100,
+            "minimum": 1,
+            "maximum": 2000
+        }
+    }
+}

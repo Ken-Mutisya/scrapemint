@@ -1,0 +1,14 @@
+{
+    "actorSpecification": 1,
+    "name": "world-bank-projects-tenders",
+    "title": "World Bank Projects & Tenders: Funded Work by Country",
+    "description": "Keyless development finance data for every borrowing country. Live procurement notices with the submission deadline, procurement method and contact name, organisation, email and phone, plus the funded projects behind them with commitments, approval dates, borrower and implementing agency.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "BUSINESS",
+        "LEAD_GENERATION"
+    ]
+}
