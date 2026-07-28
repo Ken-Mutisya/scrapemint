@@ -1,0 +1,85 @@
+{
+    "title": "Internet Outage Alerts Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "mode": {
+            "title": "Mode",
+            "type": "string",
+            "description": "alerts = one row per outage event with the networks affected. summary = one row per country or network with an outage score for the whole window.",
+            "editor": "select",
+            "enum": ["alerts", "summary"],
+            "enumTitles": ["Outage events", "Summary by entity"],
+            "default": "alerts"
+        },
+        "hoursBack": {
+            "title": "Hours to look back",
+            "type": "integer",
+            "description": "How far back to search. A quiet day may return very little, which is the correct answer rather than a failure.",
+            "editor": "number",
+            "default": 24,
+            "prefill": 24,
+            "minimum": 1,
+            "maximum": 720
+        },
+        "entityType": {
+            "title": "Level of detail",
+            "type": "string",
+            "description": "country and region are national and subnational outages. asn is a single network operator. geoasn is one operator within one country.",
+            "editor": "select",
+            "enum": ["all", "country", "region", "asn", "geoasn"],
+            "enumTitles": ["All levels", "Countries", "Regions", "Networks", "Network within a country"],
+            "default": "all"
+        },
+        "country": {
+            "title": "Country codes (optional)",
+            "type": "array",
+            "description": "Two letter codes such as NG, IR, SD. Empty watches the whole world.",
+            "editor": "stringList",
+            "default": []
+        },
+        "onlyOutages": {
+            "title": "Only outages",
+            "type": "boolean",
+            "description": "On by default. The raw feed mixes recoveries in with outages, and recoveries are the majority. Turn this off to see connectivity returning too.",
+            "editor": "checkbox",
+            "default": true,
+            "prefill": true
+        },
+        "minDropPercent": {
+            "title": "Minimum traffic drop percent",
+            "type": "integer",
+            "description": "Keep only events where traffic fell at least this far below the network's own normal level. 0 keeps everything.",
+            "editor": "number",
+            "default": 0,
+            "minimum": 0,
+            "maximum": 100
+        },
+        "minSources": {
+            "title": "Minimum corroborating sources",
+            "type": "integer",
+            "description": "How many independent measurement systems must have seen the event. Raising this to 2 is the simplest way to filter out measurement noise.",
+            "editor": "number",
+            "default": 1,
+            "minimum": 1,
+            "maximum": 4
+        },
+        "groupEvents": {
+            "title": "Group reports of the same event",
+            "type": "boolean",
+            "description": "On by default. Each measurement system reports separately, so without grouping one outage appears as several rows.",
+            "editor": "checkbox",
+            "default": true,
+            "prefill": true
+        },
+        "maxResults": {
+            "title": "Max rows per run",
+            "type": "integer",
+            "description": "Cap on rows returned. Controls total cost.",
+            "editor": "number",
+            "default": 150,
+            "minimum": 1,
+            "maximum": 2000
+        }
+    }
+}

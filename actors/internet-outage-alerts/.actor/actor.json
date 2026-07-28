@@ -1,0 +1,14 @@
+{
+    "actorSpecification": 1,
+    "name": "internet-outage-alerts",
+    "title": "Internet Outage Alerts: Connectivity Drops by Country",
+    "description": "Keyless global internet outage detection. Alerts when a country, region or individual network loses connectivity, with the operator name, how many addresses are affected, how far traffic fell against that network's own history, and how many independent measurement systems corroborate the event.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "DEVELOPER_TOOLS",
+        "NEWS"
+    ]
+}
