@@ -1,0 +1,67 @@
+{
+    "title": "Sports Futures Odds Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "mode": {
+            "title": "Mode",
+            "type": "string",
+            "description": "futures = one row per team or player with their price and the probability it implies. markets = one row per market with the size of the field, the favourite, and how much margin the bookmaker is holding.",
+            "editor": "select",
+            "enum": ["futures", "markets"],
+            "enumTitles": ["Futures (every price)", "Markets (overview and favourite)"],
+            "default": "futures"
+        },
+        "leagues": {
+            "title": "Leagues",
+            "type": "array",
+            "description": "nfl, nba, mlb, nhl, ncaaf, ncaab, wnba. A raw ESPN path such as football/nfl also works. Soccer leagues do not publish futures.",
+            "editor": "stringList",
+            "prefill": ["nfl", "nba"],
+            "default": ["nfl", "nba"]
+        },
+        "season": {
+            "title": "Season year",
+            "type": "integer",
+            "description": "Which season's futures board to read. 0 uses the current year and falls back to the previous one if the new board is not posted yet.",
+            "editor": "number",
+            "default": 0,
+            "minimum": 0,
+            "maximum": 2100
+        },
+        "marketFilter": {
+            "title": "Market filter (optional)",
+            "type": "array",
+            "description": "Keep only markets whose name contains one of these words, e.g. super bowl, division, mvp, champion. Empty returns every market the league lists.",
+            "editor": "stringList",
+            "default": []
+        },
+        "entriesPerMarket": {
+            "title": "Entries per market",
+            "type": "integer",
+            "description": "How many of the shortest priced entries to return per market. An MVP market can list over a hundred players, so this is the main cost lever.",
+            "editor": "number",
+            "default": 10,
+            "minimum": 1,
+            "maximum": 500
+        },
+        "maxOdds": {
+            "title": "Max American odds",
+            "type": "integer",
+            "description": "Drop long shots priced above this, e.g. 2000 keeps realistic contenders only. 0 = no limit.",
+            "editor": "number",
+            "default": 0,
+            "minimum": 0
+        },
+        "maxRows": {
+            "title": "Max rows per run",
+            "type": "integer",
+            "description": "Cap on rows returned across all leagues and markets. Controls total cost.",
+            "editor": "number",
+            "default": 200,
+            "minimum": 1,
+            "maximum": 3000
+        }
+    },
+    "required": []
+}

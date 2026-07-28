@@ -1,0 +1,14 @@
+{
+    "actorSpecification": 1,
+    "name": "sports-futures-odds",
+    "title": "Sports Futures Odds: Who Is Favored to Win the Title & Awards",
+    "description": "Keyless season long betting odds for the NFL, NBA, MLB, NHL and college sports: championship, conference, division, win total and award markets, with every team or player in the field. Each price becomes an implied probability plus a fair probability with the bookmaker margin removed. Pay per row.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "NEWS",
+        "BUSINESS"
+    ]
+}

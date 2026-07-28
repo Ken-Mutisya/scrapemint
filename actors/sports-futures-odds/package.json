@@ -1,0 +1,10 @@
+{
+    "name": "sports-futures-odds",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Keyless sports futures betting odds: championship, division and award markets with implied and margin-free probabilities. Pay per row.",
+    "main": "src/main.js",
+    "scripts": { "start": "node src/main.js" },
+    "dependencies": { "apify": "^3.7.0" },
+    "engines": { "node": ">=20" }
+}
