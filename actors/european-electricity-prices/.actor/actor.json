@@ -1,0 +1,14 @@
+{
+    "actorSpecification": 1,
+    "name": "european-electricity-prices",
+    "title": "European Electricity Prices: Day-Ahead Rates and Power Mix",
+    "description": "Keyless European power market data. Day-ahead spot prices per bidding zone at quarter hour resolution, a daily summary with peak versus off peak and how long the price was negative, the generation mix by source, and physical flows between countries. Covers the zones published under an open licence.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "BUSINESS",
+        "NEWS"
+    ]
+}

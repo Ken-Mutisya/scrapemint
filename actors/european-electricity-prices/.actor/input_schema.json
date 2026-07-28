@@ -1,0 +1,62 @@
+{
+    "title": "European Electricity Prices Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "mode": {
+            "title": "Mode",
+            "type": "string",
+            "description": "prices = one row per quarter hour per zone. summary = one row per zone per day with peak, off peak and negative price hours. generation = the power mix by source. flows = electricity traded with each neighbour.",
+            "editor": "select",
+            "enum": ["prices", "summary", "generation", "flows"],
+            "enumTitles": ["Prices (quarter hourly)", "Summary (one row per zone per day)", "Generation mix", "Cross border flows"],
+            "default": "prices"
+        },
+        "zones": {
+            "title": "Bidding zones",
+            "type": "array",
+            "description": "For prices and summary. Openly licensed zones include DE-LU, FR, NL, AT, BE, CH, CZ, DK1, DK2, HU, NO2, PL, SE4, SI. Zones the publisher restricts return a free explanation instead of data.",
+            "editor": "stringList",
+            "prefill": ["DE-LU", "FR"],
+            "default": ["DE-LU", "FR"]
+        },
+        "countries": {
+            "title": "Countries",
+            "type": "array",
+            "description": "For generation and flows. Two letter codes, e.g. de, fr, nl, at, be, pl, ch, es, it.",
+            "editor": "stringList",
+            "prefill": ["de"],
+            "default": ["de"]
+        },
+        "date": {
+            "title": "Date (optional)",
+            "type": "string",
+            "description": "YYYY-MM-DD. Empty uses today, falling back to yesterday when a zone has not published yet.",
+            "editor": "textfield",
+            "default": ""
+        },
+        "endDate": {
+            "title": "End date (optional)",
+            "type": "string",
+            "description": "YYYY-MM-DD. Set this with the start date to pull a range. Each day adds 96 rows per zone in prices mode.",
+            "editor": "textfield",
+            "default": ""
+        },
+        "onlyNegativePrices": {
+            "title": "Only negative prices",
+            "type": "boolean",
+            "description": "Prices mode. Keep only the intervals where the price went below zero, which is when the market is paying consumers to take power.",
+            "editor": "checkbox",
+            "default": false
+        },
+        "maxRows": {
+            "title": "Max rows per run",
+            "type": "integer",
+            "description": "Cap on rows returned. A single zone produces 96 price rows per day.",
+            "editor": "number",
+            "default": 200,
+            "minimum": 1,
+            "maximum": 2000
+        }
+    }
+}
