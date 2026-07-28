@@ -1,0 +1,88 @@
+{
+    "title": "Sports Betting Results Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "mode": {
+            "title": "Mode",
+            "type": "string",
+            "description": "games = one row per finished game with its closing line and how each market settled. teams = one row per team with straight up and against the spread records. summary = one row per league showing how often favourites won, covered and went over.",
+            "editor": "select",
+            "enum": ["games", "teams", "summary"],
+            "enumTitles": ["Games (graded, one row each)", "Teams (records against the spread)", "Summary (one row per league)"],
+            "default": "games"
+        },
+        "leagues": {
+            "title": "Leagues",
+            "type": "array",
+            "description": "nfl, nba, mlb, nhl, ncaaf, ncaab, wnba, epl, laliga, seriea, bundesliga, ligue1, mls, ucl, uel. A raw ESPN path such as football/nfl also works.",
+            "editor": "stringList",
+            "prefill": ["mlb"],
+            "default": ["mlb"]
+        },
+        "daysBack": {
+            "title": "Days back",
+            "type": "integer",
+            "description": "How many days of finished games to grade, counting back from today. Ignored when a start date is given.",
+            "editor": "number",
+            "default": 3,
+            "prefill": 3,
+            "minimum": 0,
+            "maximum": 365
+        },
+        "dateFrom": {
+            "title": "Start date (optional)",
+            "type": "string",
+            "description": "YYYY-MM-DD. Grade a fixed range instead of the last few days, e.g. a whole season month. Past seasons work too.",
+            "editor": "textfield",
+            "default": ""
+        },
+        "dateTo": {
+            "title": "End date (optional)",
+            "type": "string",
+            "description": "YYYY-MM-DD. Defaults to the start date, so leaving it empty grades a single day.",
+            "editor": "textfield",
+            "default": ""
+        },
+        "teamFilter": {
+            "title": "Team filter (optional)",
+            "type": "array",
+            "description": "Keep only games involving these teams, by abbreviation or name, e.g. NYY, Lakers. Empty returns every game.",
+            "editor": "stringList",
+            "default": []
+        },
+        "onlyUpsets": {
+            "title": "Only upsets",
+            "type": "boolean",
+            "description": "Keep only games the underdog won outright at the closing moneyline.",
+            "editor": "checkbox",
+            "default": false
+        },
+        "minClosingSpread": {
+            "title": "Minimum closing spread",
+            "type": "integer",
+            "description": "Keep only games where the closing spread was at least this many points, e.g. 7 for clear mismatches. 0 = no limit.",
+            "editor": "number",
+            "default": 0,
+            "minimum": 0
+        },
+        "maxGames": {
+            "title": "Max games to grade",
+            "type": "integer",
+            "description": "Cap on how many finished games are looked up, newest first. Each game is one request, so this is the main speed and cost lever.",
+            "editor": "number",
+            "default": 200,
+            "minimum": 1,
+            "maximum": 2000
+        },
+        "maxRows": {
+            "title": "Max rows per run",
+            "type": "integer",
+            "description": "Cap on rows returned after grading and filtering. Controls total cost.",
+            "editor": "number",
+            "default": 500,
+            "minimum": 1,
+            "maximum": 2000
+        }
+    }
+}

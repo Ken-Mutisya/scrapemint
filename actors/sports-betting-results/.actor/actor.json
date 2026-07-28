@@ -1,0 +1,14 @@
+{
+    "actorSpecification": 1,
+    "name": "sports-betting-results",
+    "title": "Sports Betting Results: Closing Odds vs Final Scores",
+    "description": "Keyless settled results for the NFL, NBA, MLB, NHL, college and soccer: the closing spread, moneyline and total each game was played at, joined to the final score and graded. Who covered, who was upset, over or under, plus team records against the spread and profit on a flat stake. Pay per row.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "NEWS",
+        "BUSINESS"
+    ]
+}

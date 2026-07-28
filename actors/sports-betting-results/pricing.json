@@ -1,0 +1,15 @@
+{
+    "_note": "PUT this to /v2/acts/{actorId} as pricingInfos array entry. PAY_PER_EVENT only on BRONZE plan, startedAt 14+ days out. Apify auto-adds 20% margin.",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~sports-betting-results?token=CLI_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "result_row": {
+                "eventTitle": "Result row",
+                "eventDescription": "One graded row: a finished game with its closing spread, moneyline and total against the final score, a team record against the spread, or a league summary. First 2 rows per run are free. Unplayed games and games with no published line are never charged.",
+                "eventPriceUsd": 0.004
+            }
+        }
+    },
+    "startedAt": "2026-08-11T00:00:00.000Z"
+}
