@@ -1,0 +1,65 @@
+{
+    "title": "Internet Infrastructure Data Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "mode": {
+            "title": "Mode",
+            "type": "string",
+            "description": "network = holder, announced space and peer counts. prefixes = every IP range announced. peers = neighbouring networks marked upstream or downstream. country = every network registered to a country.",
+            "editor": "select",
+            "enum": ["network", "prefixes", "peers", "country"],
+            "enumTitles": ["Network overview", "Announced IP ranges", "Peering neighbours", "Networks by country"],
+            "default": "network"
+        },
+        "resources": {
+            "title": "Networks or IP addresses",
+            "type": "array",
+            "description": "Network numbers such as AS15169 or 15169, or IP addresses such as 8.8.8.8, which are resolved to the network announcing them.",
+            "editor": "stringList",
+            "prefill": ["AS15169", "8.8.8.8"],
+            "default": ["AS15169"]
+        },
+        "country": {
+            "title": "Country code (country mode)",
+            "type": "string",
+            "description": "Two letter code such as KE, DE, BR or IN.",
+            "editor": "textfield",
+            "default": ""
+        },
+        "peerType": {
+            "title": "Peer type (peers mode)",
+            "type": "string",
+            "description": "Upstream means they provide transit, downstream means they buy it. Uncertain is where the direction cannot be inferred.",
+            "editor": "select",
+            "enum": ["all", "upstream", "downstream", "uncertain"],
+            "enumTitles": ["All", "Upstream only", "Downstream only", "Uncertain only"],
+            "default": "all"
+        },
+        "onlyCurrentPrefixes": {
+            "title": "Only currently announced ranges",
+            "type": "boolean",
+            "description": "Prefixes mode. Ranges that have stopped being announced are kept out by default, and marked rather than dropped when included.",
+            "editor": "checkbox",
+            "default": true,
+            "prefill": true
+        },
+        "includeHolderNames": {
+            "title": "Look up holder names",
+            "type": "boolean",
+            "description": "Adds the organisation behind each network. Costs one extra request per network, so turning it off makes large country runs much faster.",
+            "editor": "checkbox",
+            "default": true,
+            "prefill": true
+        },
+        "maxResults": {
+            "title": "Max rows per run",
+            "type": "integer",
+            "description": "Cap on rows returned. Controls total cost and run time.",
+            "editor": "number",
+            "default": 100,
+            "minimum": 1,
+            "maximum": 2000
+        }
+    }
+}
