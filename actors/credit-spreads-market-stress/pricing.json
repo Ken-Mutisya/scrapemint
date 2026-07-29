@@ -1,0 +1,15 @@
+{
+    "_note": "PUT this to /v2/acts/{actorId} as pricingInfos array entry. PAY_PER_EVENT only on BRONZE plan, startedAt 14+ days out. Apify auto-adds 20% margin.",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~credit-spreads-market-stress?token=CLI_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "indicator_row": {
+                "eventTitle": "Indicator row",
+                "eventDescription": "One indicator's latest reading with its trailing context, one historical observation, or one catalogue entry. First 2 rows per run are free. Note rows are never charged.",
+                "eventPriceUsd": 0.004
+            }
+        }
+    },
+    "startedAt": "2026-08-12T00:00:00.000Z"
+}

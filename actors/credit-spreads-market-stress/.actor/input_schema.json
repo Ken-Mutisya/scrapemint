@@ -1,0 +1,73 @@
+{
+    "title": "Credit Spreads & Market Stress Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "mode": {
+            "title": "Mode",
+            "type": "string",
+            "description": "latest = newest value per series with the moves over a week, month, quarter and year and where the level sits in its own range. history = one row per series per date. catalogue = list every series this actor covers.",
+            "editor": "select",
+            "enum": ["latest", "history", "catalogue"],
+            "enumTitles": ["Latest with context", "History (date range)", "Catalogue of series"],
+            "default": "latest"
+        },
+        "categories": {
+            "title": "Categories",
+            "type": "array",
+            "description": "credit (corporate bond spreads), volatility (VIX and friends), rates (Treasury yields, curve spreads, inflation expectations), conditions (official financial conditions and stress indexes), dollar (trade weighted dollar). Empty returns every category.",
+            "editor": "stringList",
+            "default": ["credit", "volatility"],
+            "prefill": ["credit", "volatility"]
+        },
+        "series": {
+            "title": "Specific series (optional)",
+            "type": "array",
+            "description": "Exact series identifiers such as BAMLH0A0HYM2 or VIXCLS. Overrides categories. Run catalogue mode to see every covered identifier.",
+            "editor": "stringList",
+            "default": []
+        },
+        "lookbackDays": {
+            "title": "Context window (days)",
+            "type": "integer",
+            "description": "Latest mode. The trailing window used for the percentile rank, the high, the low and the median. 365 gives the level in the context of the past year.",
+            "editor": "number",
+            "default": 365,
+            "prefill": 365,
+            "minimum": 30,
+            "maximum": 3650
+        },
+        "daysBack": {
+            "title": "Days back",
+            "type": "integer",
+            "description": "History mode. How far back to pull, counting from the end date.",
+            "editor": "number",
+            "default": 90,
+            "minimum": 1,
+            "maximum": 3650
+        },
+        "startDate": {
+            "title": "Start date (optional)",
+            "type": "string",
+            "description": "History mode. YYYY-MM-DD. Overrides days back.",
+            "editor": "textfield",
+            "default": ""
+        },
+        "endDate": {
+            "title": "End date (optional)",
+            "type": "string",
+            "description": "History mode. YYYY-MM-DD. Defaults to today.",
+            "editor": "textfield",
+            "default": ""
+        },
+        "maxRows": {
+            "title": "Max rows per run",
+            "type": "integer",
+            "description": "Cap on rows returned. Controls total cost.",
+            "editor": "number",
+            "default": 200,
+            "minimum": 1,
+            "maximum": 5000
+        }
+    }
+}

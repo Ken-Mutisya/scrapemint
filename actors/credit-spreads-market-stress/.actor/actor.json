@@ -1,0 +1,14 @@
+{
+    "actorSpecification": 1,
+    "name": "credit-spreads-market-stress",
+    "title": "Credit Spreads, VIX & Financial Stress: Market Risk Data",
+    "description": "Keyless daily risk dashboard: corporate bond spreads for US, euro and emerging market credit, volatility indexes for equities, oil and gold, Treasury curve spreads and inflation expectations, and official financial conditions indexes. Every level ranked against its own trailing history.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "BUSINESS",
+        "NEWS"
+    ]
+}
