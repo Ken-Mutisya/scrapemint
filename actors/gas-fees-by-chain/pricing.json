@@ -1,0 +1,15 @@
+{
+    "_note": "PUT this to /v2/acts/{actorId} as pricingInfos array entry. PAY_PER_EVENT only on BRONZE plan, startedAt 14+ days out. Apify auto-adds 20% margin.",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~gas-fees-by-chain?token=CLI_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "gas_row": {
+                "eventTitle": "Gas fee row",
+                "eventDescription": "One chain's current fee levels and action costs, one chain and action combination, or one block of fee history. First 2 rows per run are free. Note rows are never charged.",
+                "eventPriceUsd": 0.004
+            }
+        }
+    },
+    "startedAt": "2026-08-12T00:00:00.000Z"
+}

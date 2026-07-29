@@ -1,0 +1,14 @@
+{
+    "actorSpecification": 1,
+    "name": "gas-fees-by-chain",
+    "title": "Ethereum & Layer 2 Gas Fees: Transaction Cost by Chain",
+    "description": "Keyless live gas fees for Ethereum, Base, Arbitrum, Optimism, Polygon and BNB Chain, converted into the dollar cost of what users actually do: send coins, send tokens, swap or mint. Includes the layer 2 data fee that a plain gas price leaves out.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "BUSINESS",
+        "DEVELOPER_TOOLS"
+    ]
+}

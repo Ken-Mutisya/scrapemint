@@ -1,0 +1,50 @@
+{
+    "title": "Gas Fees by Chain Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "mode": {
+            "title": "Mode",
+            "type": "string",
+            "description": "gas = one row per chain with fee levels, congestion and the cost of four standard actions. actions = one row per chain per action, ranked cheapest first. history = recent blocks with base fee and how full they were.",
+            "editor": "select",
+            "enum": ["gas", "actions", "history"],
+            "enumTitles": ["Gas levels and costs per chain", "Cost per action, ranked", "Recent block history"],
+            "default": "gas"
+        },
+        "chains": {
+            "title": "Chains",
+            "type": "array",
+            "description": "ethereum, base, arbitrum, optimism, polygon, bsc. Empty returns all six.",
+            "editor": "stringList",
+            "default": ["ethereum", "base", "arbitrum", "optimism", "polygon", "bsc"],
+            "prefill": ["ethereum", "base", "arbitrum", "optimism", "polygon", "bsc"]
+        },
+        "actions": {
+            "title": "Transaction types",
+            "type": "array",
+            "description": "transfer (send the native coin), token_transfer (send an ERC20), swap (trade on a DEX), nft_mint. Gas units are representative of each kind of transaction, not a quote for a specific one.",
+            "editor": "stringList",
+            "default": ["transfer", "token_transfer", "swap", "nft_mint"],
+            "prefill": ["transfer", "token_transfer", "swap", "nft_mint"]
+        },
+        "blockCount": {
+            "title": "How many blocks",
+            "type": "integer",
+            "description": "History mode. Recent blocks per chain, up to 10 per request from the node.",
+            "editor": "number",
+            "default": 10,
+            "minimum": 1,
+            "maximum": 100
+        },
+        "maxRows": {
+            "title": "Max rows per run",
+            "type": "integer",
+            "description": "Cap on rows returned. Controls total cost.",
+            "editor": "number",
+            "default": 200,
+            "minimum": 1,
+            "maximum": 3000
+        }
+    }
+}
