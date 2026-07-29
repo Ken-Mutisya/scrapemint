@@ -1,0 +1,14 @@
+{
+    "actorSpecification": 1,
+    "name": "government-bond-yields-worldwide",
+    "title": "Government Bond Yields Worldwide: Yield Curves by Country",
+    "description": "Keyless sovereign yield curves for the US, UK, euro area, Japan, Canada and Australia in one comparable table. Every maturity each debt office publishes, the move since the previous session, the 2s10s curve slope with an inversion flag, and 10 year spreads measured on the same date.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "BUSINESS",
+        "NEWS"
+    ]
+}

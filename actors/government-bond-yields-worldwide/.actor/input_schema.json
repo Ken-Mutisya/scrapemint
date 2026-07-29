@@ -1,0 +1,79 @@
+{
+    "title": "Government Bond Yields Worldwide Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "mode": {
+            "title": "Mode",
+            "type": "string",
+            "description": "latest = each country's newest published curve. history = the same rows across a date range. spreads = one row per country per date with the 2s10s slope, the inversion flag and the 10 year spread against the US and the euro area on the same date.",
+            "editor": "select",
+            "enum": ["latest", "history", "spreads"],
+            "enumTitles": ["Latest curve per country", "History (date range)", "Spreads and curve slope"],
+            "default": "latest"
+        },
+        "countries": {
+            "title": "Countries",
+            "type": "array",
+            "description": "US, GB (United Kingdom), EA (euro area), JP (Japan), CA (Canada), AU (Australia). Names work too, for example \"Japan\". Empty returns all six.",
+            "editor": "stringList",
+            "default": ["US", "GB", "EA", "JP", "CA", "AU"],
+            "prefill": ["US", "GB", "EA", "JP", "CA", "AU"]
+        },
+        "maturities": {
+            "title": "Maturities (optional)",
+            "type": "array",
+            "description": "Points on the curve, for example 2Y, 5Y, 10Y, 30Y. Empty returns every maturity each country publishes. Not every country publishes every point: the United Kingdom has no 2 year series, and only the US publishes maturities under 3 months.",
+            "editor": "stringList",
+            "default": [],
+            "prefill": ["2Y", "5Y", "10Y", "30Y"]
+        },
+        "daysBack": {
+            "title": "Days back",
+            "type": "integer",
+            "description": "How far back to pull, counting from the end date. Bond markets publish on business days, and national holidays differ by country.",
+            "editor": "number",
+            "default": 10,
+            "prefill": 10,
+            "minimum": 1,
+            "maximum": 3650
+        },
+        "startDate": {
+            "title": "Start date (optional)",
+            "type": "string",
+            "description": "YYYY-MM-DD. Overrides days back for a fixed window.",
+            "editor": "textfield",
+            "default": ""
+        },
+        "endDate": {
+            "title": "End date (optional)",
+            "type": "string",
+            "description": "YYYY-MM-DD. Defaults to today.",
+            "editor": "textfield",
+            "default": ""
+        },
+        "includePolicyRate": {
+            "title": "Include central bank policy rate",
+            "type": "boolean",
+            "description": "Adds the policy rate as a row where the source publishes it alongside the curve (Bank of England Bank Rate).",
+            "editor": "checkbox",
+            "default": false
+        },
+        "includeRealYields": {
+            "title": "Include inflation linked yields",
+            "type": "boolean",
+            "description": "Adds real return and indexed bond yields where published (Canada, Australia). They are marked kind = real and are never mixed into the nominal curve or into any spread.",
+            "editor": "checkbox",
+            "default": false
+        },
+        "maxRows": {
+            "title": "Max rows per run",
+            "type": "integer",
+            "description": "Cap on rows returned. Controls total cost.",
+            "editor": "number",
+            "default": 300,
+            "minimum": 1,
+            "maximum": 5000
+        }
+    }
+}

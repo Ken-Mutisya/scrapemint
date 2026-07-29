@@ -1,0 +1,15 @@
+{
+    "_note": "PUT this to /v2/acts/{actorId} as pricingInfos array entry. PAY_PER_EVENT only on BRONZE plan, startedAt 14+ days out. Apify auto-adds 20% margin.",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~government-bond-yields-worldwide?token=CLI_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "yield_row": {
+                "eventTitle": "Yield row",
+                "eventDescription": "One maturity of one country's yield curve on one date, or one country's daily spread and curve slope summary. First 2 rows per run are free. Note rows are never charged.",
+                "eventPriceUsd": 0.004
+            }
+        }
+    },
+    "startedAt": "2026-08-12T00:00:00.000Z"
+}
