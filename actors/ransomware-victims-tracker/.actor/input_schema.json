@@ -1,0 +1,82 @@
+{
+    "title": "Ransomware Victims Tracker Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "mode": {
+            "title": "Mode",
+            "type": "string",
+            "description": "victims = one row per claimed victim. groups = profiles of the ransomware groups themselves. summary = claim counts by group, country or sector so you can see who is most active.",
+            "editor": "select",
+            "enum": ["victims", "groups", "summary"],
+            "enumTitles": ["Claimed victims", "Ransomware groups", "Summary counts"],
+            "default": "victims"
+        },
+        "country": {
+            "title": "Country (optional)",
+            "type": "string",
+            "description": "Two letter country code such as US, GB, DE. Leave empty for all countries.",
+            "editor": "textfield",
+            "default": ""
+        },
+        "sector": {
+            "title": "Sector (optional)",
+            "type": "string",
+            "description": "Sector name as the source spells it, for example Healthcare, Manufacturing, Technology, Financial Services. Leave empty for all sectors.",
+            "editor": "textfield",
+            "default": ""
+        },
+        "group": {
+            "title": "Ransomware group (optional)",
+            "type": "string",
+            "description": "Filter to one group by name, for example lockbit or safepay. Partial names match.",
+            "editor": "textfield",
+            "default": ""
+        },
+        "year": {
+            "title": "Year (optional)",
+            "type": "integer",
+            "description": "With month, pulls the claims posted in that calendar month instead of the most recent ones.",
+            "editor": "number",
+            "default": 0
+        },
+        "month": {
+            "title": "Month (optional)",
+            "type": "integer",
+            "description": "1 to 12. Used together with year.",
+            "editor": "number",
+            "default": 0,
+            "minimum": 0,
+            "maximum": 12
+        },
+        "daysBack": {
+            "title": "Days back",
+            "type": "integer",
+            "description": "How recent a claim has to be to be returned. Records the source publishes without a date are kept rather than silently dropped.",
+            "editor": "number",
+            "default": 30,
+            "prefill": 30,
+            "minimum": 1,
+            "maximum": 3650
+        },
+        "summariseBy": {
+            "title": "Summarise by",
+            "type": "string",
+            "description": "Summary mode only.",
+            "editor": "select",
+            "enum": ["group", "country", "sector"],
+            "enumTitles": ["Ransomware group", "Country", "Sector"],
+            "default": "group"
+        },
+        "maxRows": {
+            "title": "Max rows per run",
+            "type": "integer",
+            "description": "Cap on rows returned. Controls total cost.",
+            "editor": "number",
+            "default": 100,
+            "prefill": 100,
+            "minimum": 1,
+            "maximum": 3000
+        }
+    }
+}

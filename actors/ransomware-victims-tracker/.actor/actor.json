@@ -1,0 +1,14 @@
+{
+    "actorSpecification": 1,
+    "name": "ransomware-victims-tracker",
+    "title": "Ransomware Victims Tracker: Who Got Hit, By Which Group",
+    "description": "Organisations named on ransomware leak sites, with the group claiming each one, the country, the sector and when the claim appeared. Every row is labelled as an attacker claim rather than a confirmed breach. Keyless, no account.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "NEWS",
+        "BUSINESS"
+    ]
+}
