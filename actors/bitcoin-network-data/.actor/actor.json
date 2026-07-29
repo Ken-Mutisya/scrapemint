@@ -1,0 +1,14 @@
+{
+    "actorSpecification": 1,
+    "name": "bitcoin-network-data",
+    "title": "Bitcoin Network Data: Fees, Hashrate, Mining Pools and Blocks",
+    "description": "Keyless Bitcoin network state as clean rows: recommended fee rates and what a typical transaction costs, mempool backlog, the countdown to the next difficulty adjustment, network hashrate, mining pool share of blocks, and recent blocks with fees, reward and miner.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "BUSINESS",
+        "DEVELOPER_TOOLS"
+    ]
+}

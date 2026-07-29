@@ -1,0 +1,43 @@
+{
+    "title": "Bitcoin Network Data Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "mode": {
+            "title": "Mode",
+            "type": "string",
+            "description": "network = current fees, mempool backlog, difficulty countdown, hashrate and recent block rewards. pools = who is mining the blocks. blocks = recent blocks with fees and miner. hashrate = a daily hashrate series with the difficulty in force.",
+            "editor": "select",
+            "enum": ["network", "pools", "blocks", "hashrate"],
+            "enumTitles": ["Network state (fees, mempool, difficulty)", "Mining pools", "Recent blocks", "Hashrate history"],
+            "default": "network"
+        },
+        "timespan": {
+            "title": "Window",
+            "type": "string",
+            "description": "Pools and hashrate modes. Pools accept 24h, 3d, 1w, 1m, 3m, 6m, 1y, 2y, 3y. Hashrate accepts the same except 24h. An unrecognised window is refused here, because the source answers one with all time figures instead of an error.",
+            "editor": "select",
+            "enum": ["24h", "3d", "1w", "1m", "3m", "6m", "1y", "2y", "3y"],
+            "default": "1w",
+            "prefill": "1w"
+        },
+        "blockCount": {
+            "title": "How many blocks",
+            "type": "integer",
+            "description": "Blocks mode. How many recent blocks to return, newest first. Served 15 at a time.",
+            "editor": "number",
+            "default": 15,
+            "minimum": 1,
+            "maximum": 100
+        },
+        "maxRows": {
+            "title": "Max rows per run",
+            "type": "integer",
+            "description": "Cap on rows returned. Controls total cost.",
+            "editor": "number",
+            "default": 200,
+            "minimum": 1,
+            "maximum": 3000
+        }
+    }
+}
