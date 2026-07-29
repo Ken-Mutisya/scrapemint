@@ -11,6 +11,8 @@
   },
   "scripts": {
     "check": "node --check automation/*.mjs 2>&1 || true",
+    "gate": "node tools/gate-check.mjs",
+    "gate:all": "node tools/gate-check.mjs --all --warn",
     "test": "echo \"no tests yet\" && exit 0"
   },
   "dependencies": {
