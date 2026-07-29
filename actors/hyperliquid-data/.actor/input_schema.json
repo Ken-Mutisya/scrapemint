@@ -1,0 +1,82 @@
+{
+    "title": "Hyperliquid Data Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "mode": {
+            "title": "Mode",
+            "type": "string",
+            "description": "markets = every live futures market with price, volume, open interest and funding. funding = the funding rate history for selected markets. positions = the open positions held by wallet addresses you supply. traders = recent large trades with the wallet addresses behind them, which is how you find accounts to look up.",
+            "editor": "select",
+            "enum": [
+                "markets",
+                "funding",
+                "positions",
+                "traders"
+            ],
+            "enumTitles": [
+                "Markets (prices, volume, funding)",
+                "Funding rate history",
+                "Wallet positions",
+                "Recent large trades and who made them"
+            ],
+            "default": "markets"
+        },
+        "coins": {
+            "title": "Coins (optional)",
+            "type": "array",
+            "description": "BTC, ETH, SOL and so on. Empty returns every live market in markets mode, and the five busiest in funding mode.",
+            "editor": "stringList",
+            "default": []
+        },
+        "walletAddresses": {
+            "title": "Wallet addresses",
+            "type": "array",
+            "description": "Positions mode. Positions on this exchange are public, so any address can be looked up.",
+            "editor": "stringList",
+            "default": []
+        },
+        "hoursBack": {
+            "title": "Hours of funding history",
+            "type": "integer",
+            "description": "Funding mode. Funding settles every hour here, so 24 gives 24 rows per market.",
+            "editor": "number",
+            "default": 24,
+            "minimum": 1,
+            "maximum": 720
+        },
+        "minDayVolumeUsd": {
+            "title": "Minimum 24h volume",
+            "type": "integer",
+            "description": "Markets mode. Skip markets trading less than this in the last 24 hours.",
+            "editor": "number",
+            "default": 0,
+            "minimum": 0
+        },
+        "includeDelisted": {
+            "title": "Include delisted markets",
+            "type": "boolean",
+            "description": "Off by default. Delisted markets remain in the exchange response carrying a stale price with no volume, which reads as a live market unless excluded.",
+            "editor": "checkbox",
+            "default": false
+        },
+        "maxRows": {
+            "title": "Max rows per run",
+            "type": "integer",
+            "description": "Cap on rows returned, busiest markets first. Controls total cost.",
+            "editor": "number",
+            "default": 50,
+            "prefill": 50,
+            "minimum": 1,
+            "maximum": 3000
+        },
+        "minTradeUsd": {
+            "title": "Minimum trade size",
+            "type": "integer",
+            "description": "Traders mode. Only return trades worth at least this much, largest first. The exchange publishes only the latest handful of trades per market, so a high floor often returns nothing.",
+            "editor": "number",
+            "default": 1000,
+            "minimum": 0
+        }
+    }
+}

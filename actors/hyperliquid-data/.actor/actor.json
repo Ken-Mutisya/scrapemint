@@ -1,0 +1,14 @@
+{
+    "actorSpecification": 1,
+    "name": "hyperliquid-data",
+    "title": "Hyperliquid Data: Futures Prices, Funding Rates and Positions",
+    "description": "Keyless Hyperliquid market data: every live futures market with price, 24 hour volume, open interest and funding rate, the hourly funding history, and the open positions of any wallet address, including leverage and liquidation price.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "BUSINESS",
+        "NEWS"
+    ]
+}
