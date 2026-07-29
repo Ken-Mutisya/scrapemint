@@ -1,0 +1,14 @@
+{
+    "actorSpecification": 1,
+    "name": "crypto-token-security-check",
+    "title": "Crypto Token Security Check: Honeypot, Taxes and Owner Risk",
+    "description": "Keyless contract safety checks for tokens on Ethereum, BNB Chain, Polygon, Base, Arbitrum, Optimism, Avalanche and Solana: honeypot and sell restrictions, buy and sell taxes, the powers the owner keeps, liquidity locks and holder concentration.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "BUSINESS",
+        "DEVELOPER_TOOLS"
+    ]
+}

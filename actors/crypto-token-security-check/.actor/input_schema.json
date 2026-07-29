@@ -1,0 +1,59 @@
+{
+    "title": "Crypto Token Security Check Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "mode": {
+            "title": "Mode",
+            "type": "string",
+            "description": "tokens = the security profile of each token contract. holders = the top holders and liquidity providers behind a token. address = check a wallet or contract address for reported malicious activity.",
+            "editor": "select",
+            "enum": ["tokens", "holders", "address"],
+            "enumTitles": ["Token security profile", "Holders and liquidity providers", "Address risk check"],
+            "default": "tokens"
+        },
+        "chain": {
+            "title": "Chain",
+            "type": "string",
+            "description": "Which chain the addresses are on. Solana is assessed with a different property set to the EVM chains, because the two work differently.",
+            "editor": "select",
+            "enum": ["ethereum", "bsc", "polygon", "base", "arbitrum", "optimism", "avalanche", "solana"],
+            "enumTitles": ["Ethereum", "BNB Chain", "Polygon", "Base", "Arbitrum", "Optimism", "Avalanche", "Solana"],
+            "default": "ethereum",
+            "prefill": "ethereum"
+        },
+        "tokenAddresses": {
+            "title": "Token contract addresses",
+            "type": "array",
+            "description": "Token contracts to check, on the chain selected above. Used by the tokens and holders modes.",
+            "editor": "stringList",
+            "default": ["0xdac17f958d2ee523a2206206994597c13d831ec7", "0x6b175474e89094c44da98b954eedeac495271d0f", "0x1f9840a85d5af5bf1d1762f925bdaddc4201f984"],
+            "prefill": ["0xdac17f958d2ee523a2206206994597c13d831ec7", "0x6b175474e89094c44da98b954eedeac495271d0f", "0x1f9840a85d5af5bf1d1762f925bdaddc4201f984"]
+        },
+        "walletAddresses": {
+            "title": "Wallet or contract addresses",
+            "type": "array",
+            "description": "Address mode only. Wallets or contracts to check for reported phishing, theft, laundering and similar.",
+            "editor": "stringList",
+            "default": []
+        },
+        "topHolders": {
+            "title": "How many holders",
+            "type": "integer",
+            "description": "Holders mode. How many top holders and liquidity providers to return per token.",
+            "editor": "number",
+            "default": 10,
+            "minimum": 1,
+            "maximum": 50
+        },
+        "maxRows": {
+            "title": "Max rows per run",
+            "type": "integer",
+            "description": "Cap on rows returned. Controls total cost.",
+            "editor": "number",
+            "default": 200,
+            "minimum": 1,
+            "maximum": 2000
+        }
+    }
+}

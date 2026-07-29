@@ -1,0 +1,10 @@
+{
+    "name": "crypto-token-security-check",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Check a crypto token contract for honeypot behaviour, buy and sell taxes, owner powers, liquidity locks and holder concentration across eight chains. Keyless. Pay per row.",
+    "main": "src/main.js",
+    "scripts": { "start": "node src/main.js" },
+    "dependencies": { "apify": "^3.7.0" },
+    "engines": { "node": ">=20" }
+}
