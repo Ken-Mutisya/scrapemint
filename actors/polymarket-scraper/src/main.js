@@ -323,7 +323,7 @@ async function fetchMarketByConditionId(cid) {
 
 async function buildRow(m) {
     const outcomes = parseJsonArray(m.outcomes);
-    const prices = parseJsonArray(m.outcomePrices).map((p) => Number(p));
+    const prices = parseJsonArray(m.outcomePrices).map((p) => numberOrNull(p));
     const tokenIds = parseJsonArray(m.clobTokenIds);
 
     const row = {
@@ -340,6 +340,9 @@ async function buildRow(m) {
         resolved: m.resolved == null ? null : !!m.resolved,
         outcomes,
         outcomePrices: prices,
+        // Deliberately zero, not null: a price of 0 is a false claim about
+        // probability, but a market the API reports no volume for genuinely
+        // has not traded. Keep these numeric so buyers can sort and filter.
         volume24h: numberOrZero(m.volume24hr),
         totalVolume: numberOrZero(m.volumeNum ?? m.volume),
         liquidity: numberOrZero(m.liquidityNum ?? m.liquidity),
@@ -382,10 +385,13 @@ async function fetchOrderbook(tokenId, depth) {
     const url = `${CLOB_BASE}/book?token_id=${encodeURIComponent(tokenId)}`;
     const data = await getJson(url);
     const trim = (rows) => (Array.isArray(rows) ? rows : [])
-        .map((r) => ({ price: Number(r.price), size: Number(r.size) }))
+        .map((r) => ({ price: numberOrNull(r.price), size: numberOrNull(r.size) }))
+        // A book level with no price is not a level, and it would also poison
+        // the sort below, where null - null is 0.
+        .filter((r) => r.price !== null)
         .slice(0, depth);
     return {
-        timestamp: data?.timestamp ? new Date(Number(data.timestamp)).toISOString() : null,
+        timestamp: isoFromMs(data?.timestamp),
         bids: trim(data?.bids).sort((a, b) => b.price - a.price).slice(0, depth),
         asks: trim(data?.asks).sort((a, b) => a.price - b.price).slice(0, depth),
     };
@@ -400,9 +406,9 @@ async function fetchRecentTrades(conditionId, limit, outcomes, tokenIds) {
     return list.map((t) => ({
         side: t.side || null,
         outcome: tokenToOutcome.get(String(t.asset)) || null,
-        price: Number(t.price),
-        size: Number(t.size),
-        timestamp: t.timestamp ? new Date(Number(t.timestamp) * 1000).toISOString() : null,
+        price: numberOrNull(t.price),
+        size: numberOrNull(t.size),
+        timestamp: t.timestamp ? isoFromMs(Number(t.timestamp) * 1000) : null,
         trader: t.proxyWallet || null,
         txHash: t.transactionHash || null,
     }));
@@ -412,10 +418,13 @@ async function fetchPriceHistory(tokenId, interval) {
     const url = `${CLOB_BASE}/prices-history?market=${encodeURIComponent(tokenId)}&interval=${encodeURIComponent(interval)}&fidelity=60`;
     const data = await getJson(url);
     if (!Array.isArray(data?.history)) return [];
-    return data.history.map((p) => ({
-        timestamp: new Date(Number(p.t) * 1000).toISOString(),
-        yesPrice: Number(p.p),
-    }));
+    return data.history.map((p) => {
+        const t = numberOrNull(p.t);
+        return {
+            timestamp: t === null ? null : isoFromMs(t * 1000),
+            yesPrice: numberOrNull(p.p),
+        };
+    });
 }
 
 // ---------- Helpers ----------
@@ -428,9 +437,30 @@ function parseJsonArray(v) {
     return [];
 }
 
+// Sorting only: a comparator needs a real number, and a market with no volume
+// data belongs at the bottom of the list. Never use this for a published field.
 function numberOrZero(v) {
     const n = Number(v);
     return Number.isFinite(n) ? n : 0;
+}
+
+// Every published numeric field goes through this. Number(null) is 0 and
+// Number('') is 0, so a bare cast turns "the API omitted this" into a price of
+// zero, which on a prediction market reads as "0% probability" rather than
+// "unknown". Absent and zero are different facts and buyers pay per row.
+function numberOrNull(v) {
+    if (v === null || v === undefined || v === '') return null;
+    const n = Number(v);
+    return Number.isFinite(n) ? n : null;
+}
+
+// new Date(NaN).toISOString() throws RangeError, so an absent or unparseable
+// timestamp would kill the whole run rather than drop one field.
+function isoFromMs(ms) {
+    const n = Number(ms);
+    if (!Number.isFinite(n)) return null;
+    const d = new Date(n);
+    return Number.isNaN(d.getTime()) ? null : d.toISOString();
 }
 
 function sortKey(m, key) {
