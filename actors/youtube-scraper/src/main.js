@@ -715,6 +715,9 @@ async function extractWatchData(page, opts) {
                     if (!e) continue;
                     out.push({
                         title: text(e.title),
+                        // gate-ignore zero-coercion: chapter 1 really does start
+                        // at second 0, and InnerTube omits startTimeSeconds when
+                        // it is zero. Here absent means 0, not unknown.
                         startSeconds: parseInt(e.onTap?.watchEndpoint?.startTimeSeconds || e.onTap?.innertubeCommand?.watchEndpoint?.startTimeSeconds || '0', 10),
                         thumbnail: e.thumbnail?.thumbnails?.[e.thumbnail.thumbnails.length - 1]?.url || null,
                     });
@@ -736,11 +739,21 @@ async function extractWatchData(page, opts) {
             };
             const hm = findHeatmap(data) || findHeatmap(player);
             if (hm) {
-                mostReplayed = hm.slice(0, 200).map((p) => ({
-                    startSeconds: (parseInt(p.startMillis, 10) || 0) / 1000,
-                    durationSeconds: (parseInt(p.durationMillis, 10) || 0) / 1000,
-                    intensityScore: p.intensityScoreNormalized || 0,
-                }));
+                mostReplayed = hm.slice(0, 200)
+                    .map((p) => {
+                        const startMs = numOrNull(p.startMillis);
+                        const durationMs = numOrNull(p.durationMillis);
+                        return {
+                            startSeconds: startMs === null ? null : startMs / 1000,
+                            durationSeconds: durationMs === null ? null : durationMs / 1000,
+                            // 0 is a real intensity (a cold segment), so absent
+                            // has to be null or the two are indistinguishable.
+                            intensityScore: numOrNull(p.intensityScoreNormalized),
+                        };
+                    })
+                    // A marker with no position on the timeline is not a marker;
+                    // publishing it at 0 would put it at the start of the video.
+                    .filter((m) => m.startSeconds !== null);
             }
         }
 
@@ -1191,6 +1204,12 @@ function parseTimedText(xml) {
             if (!inner) continue;
             out.push({
                 start: parseFloat(m2[1]),
+                // Deliberately 0, not null: `dur` is an optional attribute and
+                // all three transcript parsers here treat a missing duration as
+                // 0, one of them as a placeholder it backfills from the next
+                // cue's start. A cue duration is also summed downstream, so a
+                // null would poison the arithmetic.
+                // gate-ignore zero-coercion
                 duration: parseFloat(m2[2] || '0'),
                 text: decode(inner),
             });
@@ -1348,6 +1367,16 @@ function parseFlexibleNumber(text) {
     else if (suf === 'M') n *= 1000000;
     else if (suf === 'B') n *= 1000000000;
     return Math.round(n);
+}
+
+// Number or null, never 0-from-absent. Number(null) and Number('') are both 0,
+// so a bare cast on an optional field publishes a reading we never took. That
+// matters most for the heatmap, where 0 is also a legitimate value: a genuinely
+// cold segment and a missing measurement would otherwise look identical.
+function numOrNull(v) {
+    if (v === null || v === undefined || v === '') return null;
+    const n = Number(v);
+    return Number.isFinite(n) ? n : null;
 }
 
 function parseDateBound(s) {

@@ -48,6 +48,9 @@ const METRIC_WORDS = [
     'speed', 'latency', 'throughput', 'uptime', 'duration',
     'score', 'rating', 'rank', 'marketcap', 'tvl', 'volume', 'liquidity',
     'temp', 'distance', 'capacity', 'weight',
+    // A timeline position of 0 means "start of the video", which is a specific
+    // claim, not an absence. Missed the youtube-scraper heatmap without these.
+    'seconds', 'millis', 'intensity', 'offset', 'position', 'elapsed',
 ];
 
 /* Constructs that prove the author handled absence. */
@@ -81,6 +84,18 @@ function stripComment(line) {
     return i === -1 ? line : line.slice(0, i);
 }
 
+/* Deliberate exceptions are annotated in the source with `gate-ignore`, on the
+ * line or in the few lines above it. Sometimes 0 really is the right answer —
+ * chapter 1 of a video does start at second 0, and InnerTube omits the field
+ * when it is zero. A gate that fails on correct code gets switched off, so the
+ * escape hatch exists, but it costs the author a written reason. */
+function isSuppressed(lines, idx) {
+    for (let i = idx; i >= 0 && i > idx - 5; i--) {
+        if (lines[i].includes('gate-ignore')) return true;
+    }
+    return false;
+}
+
 function checkZeroCoercion(file, lines, findings) {
     lines.forEach((raw, i) => {
         const line = stripComment(raw);
@@ -90,6 +105,7 @@ function checkZeroCoercion(file, lines, findings) {
         // Only object-literal properties: these are what end up in a billed row.
         const prop = t.match(/^([A-Za-z_$][\w$]*)\s*:\s*(.+?),?$/);
         if (!prop) return;
+        if (isSuppressed(lines, i)) return;
         const [, key, value] = prop;
         if (!hasWord(key, METRIC_WORDS)) return;
 
@@ -136,6 +152,7 @@ function checkRankCollision(file, lines, findings) {
     lines.forEach((raw, i) => {
         const line = stripComment(raw);
         if (!/\brank\b/i.test(line)) return;
+        if (isSuppressed(lines, i)) return;
         if (!/=|:/.test(line)) return;
 
         // Look for the sort that feeds this rank.
@@ -164,6 +181,7 @@ function checkMissingAwait(file, lines, findings) {
         const t = line.trim();
         const m = t.match(/(?:Actor|actor)\.(pushData|charge)\s*\(|\.(charge)\s*\(/);
         if (!m) return;
+        if (isSuppressed(lines, i)) return;
         if (/\b(await|return|yield)\b/.test(t)) return;
         if (/^(const|let|var)\s|=\s*(?!=)/.test(t)) return; // assigned, likely awaited later
         if (/\.(then|catch)\s*\(/.test(t)) return;
