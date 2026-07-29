@@ -1,0 +1,13 @@
+# Keep node_modules out of the upload. Two reasons, both real:
+#   1. `apify push` uploads it and hangs on large trees (8.3M here, playwright).
+#   2. The Dockerfile runs `npm install` and *then* `COPY . ./`, so a host-built
+#      node_modules would overwrite the image's Linux deps with macOS ones.
+# The Docker build installs from package.json anyway.
+node_modules
+
+# Local run artifacts, never part of a build.
+storage
+apify_storage
+crawlee_storage
+.DS_Store
+*.log
