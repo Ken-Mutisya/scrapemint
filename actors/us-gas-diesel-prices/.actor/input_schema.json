@@ -1,0 +1,90 @@
+{
+    "title": "US Gas & Diesel Prices Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "mode": {
+            "title": "Mode",
+            "type": "string",
+            "description": "prices = the latest published week for every region, with the move on the week and year and the spread against the national average. history = one row per region per week. series = what regions and grades are published.",
+            "editor": "select",
+            "enum": ["prices", "history", "series"],
+            "enumTitles": ["Latest weekly prices", "History (date range)", "Available series"],
+            "default": "prices"
+        },
+        "product": {
+            "title": "Fuel",
+            "type": "string",
+            "description": "Petrol (gasoline) or diesel. Diesel has no formulation split.",
+            "editor": "select",
+            "enum": ["gasoline", "diesel"],
+            "enumTitles": ["Gasoline", "Diesel"],
+            "default": "gasoline",
+            "prefill": "gasoline"
+        },
+        "grade": {
+            "title": "Grade",
+            "type": "string",
+            "description": "Gasoline: regular, midgrade, premium or all. Diesel: no2, low_sulfur, ultra_low_sulfur.",
+            "editor": "textfield",
+            "default": "regular",
+            "prefill": "regular"
+        },
+        "formulation": {
+            "title": "Formulation",
+            "type": "string",
+            "description": "Gasoline only. conventional, reformulated, or all for both combined.",
+            "editor": "select",
+            "enum": ["all", "conventional", "reformulated"],
+            "enumTitles": ["All formulations", "Conventional", "Reformulated"],
+            "default": "all"
+        },
+        "regions": {
+            "title": "Regions (optional)",
+            "type": "array",
+            "description": "Filter by name, for example California, Gulf Coast, Chicago. Partial names match. Empty returns every region published.",
+            "editor": "stringList",
+            "default": []
+        },
+        "areaTypes": {
+            "title": "Area types (optional)",
+            "type": "array",
+            "description": "national, region (the refining districts), state, city. Empty returns all of them.",
+            "editor": "stringList",
+            "default": []
+        },
+        "weeksBack": {
+            "title": "Weeks of history",
+            "type": "integer",
+            "description": "History mode. How many weeks back from the latest published week.",
+            "editor": "number",
+            "default": 52,
+            "minimum": 1,
+            "maximum": 2000
+        },
+        "startDate": {
+            "title": "Start date (optional)",
+            "type": "string",
+            "description": "History mode. YYYY-MM-DD. Overrides weeks of history.",
+            "editor": "textfield",
+            "default": ""
+        },
+        "endDate": {
+            "title": "End date (optional)",
+            "type": "string",
+            "description": "History mode. YYYY-MM-DD.",
+            "editor": "textfield",
+            "default": ""
+        },
+        "maxRows": {
+            "title": "Max rows per run",
+            "type": "integer",
+            "description": "Cap on rows returned. Controls total cost.",
+            "editor": "number",
+            "default": 200,
+            "prefill": 200,
+            "minimum": 1,
+            "maximum": 5000
+        }
+    }
+}

@@ -1,0 +1,14 @@
+{
+    "actorSpecification": 1,
+    "name": "us-gas-diesel-prices",
+    "title": "US Gas & Diesel Prices: Weekly Retail by Region and Grade",
+    "description": "Official weekly US retail fuel prices as clean rows: national, the refining regions, nine states and ten cities, for every grade of gasoline and for diesel, with the move on the week and the year and the spread against the national average.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "BUSINESS",
+        "NEWS"
+    ]
+}
