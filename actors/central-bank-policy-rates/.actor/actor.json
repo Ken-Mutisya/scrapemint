@@ -1,0 +1,14 @@
+{
+    "actorSpecification": 1,
+    "name": "central-bank-policy-rates",
+    "title": "Central Bank Interest Rates: Policy Rates and Rate Changes",
+    "description": "Keyless policy interest rates for the Federal Reserve, ECB, Bank of England, Bank of Canada and Reserve Bank of Australia, plus Japan as a labelled proxy. Includes the derived decision history: every change with its date, size in basis points and direction.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "BUSINESS",
+        "NEWS"
+    ]
+}

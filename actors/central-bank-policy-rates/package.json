@@ -1,0 +1,10 @@
+{
+    "name": "central-bank-policy-rates",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Current policy interest rates for the Fed, ECB, Bank of England, Bank of Canada, RBA and Japan, plus the full history of rate decisions. Keyless. Pay per row.",
+    "main": "src/main.js",
+    "scripts": { "start": "node src/main.js" },
+    "dependencies": { "apify": "^3.7.0" },
+    "engines": { "node": ">=20" }
+}

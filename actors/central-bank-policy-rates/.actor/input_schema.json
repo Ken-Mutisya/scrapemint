@@ -1,0 +1,57 @@
+{
+    "title": "Central Bank Policy Rates Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "mode": {
+            "title": "Mode",
+            "type": "string",
+            "description": "latest = current rate per central bank with the last change and the 12 month picture. changes = one row per rate decision, newest first. history = one row per published observation.",
+            "editor": "select",
+            "enum": ["latest", "changes", "history"],
+            "enumTitles": ["Latest rate per bank", "Rate changes", "Full history"],
+            "default": "latest"
+        },
+        "banks": {
+            "title": "Central banks",
+            "type": "array",
+            "description": "fed, ecb, boe, boc, rba, boj. Country names work too, for example \"Canada\". Empty returns all six.",
+            "editor": "stringList",
+            "default": ["fed", "ecb", "boe", "boc", "rba", "boj"],
+            "prefill": ["fed", "ecb", "boe", "boc", "rba", "boj"]
+        },
+        "yearsBack": {
+            "title": "Years of history",
+            "type": "integer",
+            "description": "How far back to read. Affects the change history and the 12 month figures; 3 years covers the last full tightening and easing cycle.",
+            "editor": "number",
+            "default": 3,
+            "prefill": 3,
+            "minimum": 1,
+            "maximum": 60
+        },
+        "startDate": {
+            "title": "Start date (optional)",
+            "type": "string",
+            "description": "YYYY-MM-DD. Overrides years of history.",
+            "editor": "textfield",
+            "default": ""
+        },
+        "endDate": {
+            "title": "End date (optional)",
+            "type": "string",
+            "description": "YYYY-MM-DD. Defaults to today.",
+            "editor": "textfield",
+            "default": ""
+        },
+        "maxRows": {
+            "title": "Max rows per run",
+            "type": "integer",
+            "description": "Cap on rows returned. Controls total cost.",
+            "editor": "number",
+            "default": 300,
+            "minimum": 1,
+            "maximum": 5000
+        }
+    }
+}
