@@ -1,0 +1,14 @@
+{
+    "actorSpecification": 1,
+    "name": "ai-model-prices",
+    "title": "AI Model Prices: Cost, Speed and Uptime by Provider",
+    "description": "Keyless pricing for hundreds of large language models: cost per million tokens in and out, cache rates, the cost of a realistic request, context window and modalities, plus every company hosting each model with its measured speed, uptime and its own price.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "DEVELOPER_TOOLS",
+        "BUSINESS"
+    ]
+}

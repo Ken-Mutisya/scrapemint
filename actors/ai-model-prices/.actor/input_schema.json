@@ -1,0 +1,97 @@
+{
+    "title": "AI Model Prices Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "mode": {
+            "title": "Mode",
+            "type": "string",
+            "description": "models = price and capability per model, cheapest first. providers = every company hosting a model, with its own price, speed and uptime. compare = one row per model naming the cheapest, fastest and most reliable provider and the price spread between them.",
+            "editor": "select",
+            "enum": ["models", "providers", "compare"],
+            "enumTitles": ["Model prices", "Providers per model", "Compare providers"],
+            "default": "models"
+        },
+        "models": {
+            "title": "Models (optional)",
+            "type": "array",
+            "description": "Filter by model id or name, for example claude, gpt-4o, llama. Partial matches work. Empty returns the whole catalogue.",
+            "editor": "stringList",
+            "default": []
+        },
+        "vendors": {
+            "title": "Vendors (optional)",
+            "type": "array",
+            "description": "openai, anthropic, google, meta-llama, mistralai, qwen, deepseek and so on. Empty returns all vendors.",
+            "editor": "stringList",
+            "default": []
+        },
+        "promptTokens": {
+            "title": "Request size: input tokens",
+            "type": "integer",
+            "description": "Used to price a realistic request. Also decides which pricing tier applies, since long prompts are billed at higher rates.",
+            "editor": "number",
+            "default": 10000,
+            "prefill": 10000,
+            "minimum": 0
+        },
+        "completionTokens": {
+            "title": "Request size: output tokens",
+            "type": "integer",
+            "description": "Output tokens for the same costed request.",
+            "editor": "number",
+            "default": 1000,
+            "prefill": 1000,
+            "minimum": 0
+        },
+        "minContextLength": {
+            "title": "Minimum context window",
+            "type": "integer",
+            "description": "Only return models whose context window is at least this many tokens. 0 disables the filter.",
+            "editor": "number",
+            "default": 0,
+            "minimum": 0
+        },
+        "maxInputPricePerMillion": {
+            "title": "Maximum input price",
+            "type": "integer",
+            "description": "Only return models charging at most this much per million input tokens. 0 disables the filter.",
+            "editor": "number",
+            "default": 0,
+            "minimum": 0
+        },
+        "includeFree": {
+            "title": "Include free models",
+            "type": "boolean",
+            "description": "Models priced at zero for both input and output.",
+            "editor": "checkbox",
+            "default": true
+        },
+        "includeRetiring": {
+            "title": "Include models with a retirement date",
+            "type": "boolean",
+            "description": "Some models publish the date they will be withdrawn. Every row carries that date when there is one.",
+            "editor": "checkbox",
+            "default": true
+        },
+        "expandModels": {
+            "title": "How many models to expand",
+            "type": "integer",
+            "description": "Providers and compare modes. Provider detail costs one request per model, so the cheapest matching models are expanded first up to this many.",
+            "editor": "number",
+            "default": 15,
+            "minimum": 1,
+            "maximum": 100
+        },
+        "maxRows": {
+            "title": "Max rows per run",
+            "type": "integer",
+            "description": "Cap on rows returned. Controls total cost.",
+            "editor": "number",
+            "default": 100,
+            "prefill": 100,
+            "minimum": 1,
+            "maximum": 3000
+        }
+    }
+}
