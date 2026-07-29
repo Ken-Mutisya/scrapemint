@@ -1,0 +1,10 @@
+{
+    "name": "us-trucking-company-leads",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Newly registered US trucking companies from the FMCSA census with phone, email, officer, fleet size and address. Keyless. Pay per row.",
+    "main": "src/main.js",
+    "scripts": { "start": "node src/main.js" },
+    "dependencies": { "apify": "^3.7.0" },
+    "engines": { "node": ">=20" }
+}

@@ -1,0 +1,8 @@
+# apify push uploads whatever is here, and the Dockerfile runs npm install
+# before COPY . ./, so a host-built tree would land on the image's Linux deps.
+node_modules
+storage
+apify_storage
+crawlee_storage
+.DS_Store
+*.log

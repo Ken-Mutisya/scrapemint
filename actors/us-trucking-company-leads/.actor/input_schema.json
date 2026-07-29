@@ -1,0 +1,91 @@
+{
+    "title": "US Trucking Company Leads Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "mode": {
+            "title": "Mode",
+            "type": "string",
+            "description": "newCarriers = companies that registered recently, newest first. search = every carrier matching your filters. lookup = specific carriers by DOT number.",
+            "editor": "select",
+            "enum": ["newCarriers", "search", "lookup"],
+            "enumTitles": ["New carriers (recently registered)", "Search all carriers", "Look up by DOT number"],
+            "default": "newCarriers"
+        },
+        "daysBack": {
+            "title": "Registered within the last N days",
+            "type": "integer",
+            "description": "Only used by newCarriers mode. About 390 active carriers register per day, so 30 days is roughly 11,000 companies before filtering.",
+            "editor": "number",
+            "default": 30,
+            "prefill": 30,
+            "minimum": 1,
+            "maximum": 3650
+        },
+        "states": {
+            "title": "States",
+            "type": "array",
+            "description": "Two letter state codes, for example TX, CA, FL. Empty returns every state.",
+            "editor": "stringList",
+            "default": [],
+            "prefill": ["TX"]
+        },
+        "minPowerUnits": {
+            "title": "Minimum fleet size",
+            "type": "integer",
+            "description": "Power units (trucks and tractors). Leave empty for any size. 1 keeps owner-operators, 6 skips them.",
+            "editor": "number",
+            "minimum": 0,
+            "maximum": 100000
+        },
+        "maxPowerUnits": {
+            "title": "Maximum fleet size",
+            "type": "integer",
+            "description": "Power units. Leave empty for any size.",
+            "editor": "number",
+            "minimum": 0,
+            "maximum": 100000
+        },
+        "carrierOperation": {
+            "title": "Operation type",
+            "type": "string",
+            "description": "Interstate carriers cross state lines and are the larger buying market.",
+            "editor": "select",
+            "enum": ["any", "interstate", "intrastate hazmat", "intrastate non-hazmat"],
+            "enumTitles": ["Any", "Interstate", "Intrastate hazmat", "Intrastate non-hazmat"],
+            "default": "any"
+        },
+        "dotNumbers": {
+            "title": "DOT numbers",
+            "type": "array",
+            "description": "Only used by lookup mode. One or more USDOT numbers.",
+            "editor": "stringList",
+            "default": []
+        },
+        "requireContact": {
+            "title": "Only carriers with a phone or email",
+            "type": "boolean",
+            "description": "On by default so you are never charged for a lead you cannot contact. About 53 percent of carriers publish a phone, 18 percent an email.",
+            "editor": "checkbox",
+            "default": true
+        },
+        "includeInactive": {
+            "title": "Include inactive carriers",
+            "type": "boolean",
+            "description": "Off by default. Half the census is carriers that no longer operate; they are useful for research but not for selling.",
+            "editor": "checkbox",
+            "default": false
+        },
+        "maxItems": {
+            "title": "Maximum carriers",
+            "type": "integer",
+            "description": "Hard cap on rows pushed and billed.",
+            "editor": "number",
+            "default": 100,
+            "prefill": 100,
+            "minimum": 1,
+            "maximum": 50000
+        }
+    },
+    "required": []
+}
