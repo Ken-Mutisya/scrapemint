@@ -1,0 +1,14 @@
+{
+    "actorSpecification": 1,
+    "name": "crypto-order-book-depth",
+    "title": "Crypto Order Book Depth: Liquidity and Slippage by Exchange",
+    "description": "Live spot order books from OKX, Gate, Bitget and KuCoin turned into the numbers a desk trades on: resting depth within 0.5, 1 and 2 per cent of mid, the slippage a given order size would pay, and which venue fills that size cheapest. Keyless, no browser.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "BUSINESS",
+        "NEWS"
+    ]
+}

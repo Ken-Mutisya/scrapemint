@@ -1,0 +1,66 @@
+{
+    "title": "Crypto Order Book Depth Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "mode": {
+            "title": "Mode",
+            "type": "string",
+            "description": "depth = resting liquidity within 0.5, 1 and 2 per cent of mid on each venue. slippage = what a market order of a given size would actually pay. compare = which venue fills that size cheapest.",
+            "editor": "select",
+            "enum": ["depth", "slippage", "compare"],
+            "enumTitles": ["Depth (liquidity per venue)", "Slippage (cost of an order size)", "Compare venues for one order"],
+            "default": "depth"
+        },
+        "symbols": {
+            "title": "Coins",
+            "type": "array",
+            "description": "BTC, ETH, SOL, or a full pair such as BTC-USDT. Coins are matched against the quote asset below.",
+            "editor": "stringList",
+            "default": ["BTC", "ETH", "SOL"],
+            "prefill": ["BTC", "ETH", "SOL"]
+        },
+        "venues": {
+            "title": "Exchanges",
+            "type": "array",
+            "description": "okx, gate, bitget, kucoin. Empty returns all four. Binance and Bybit block datacentre addresses and cannot be covered.",
+            "editor": "stringList",
+            "default": ["okx", "gate", "bitget", "kucoin"],
+            "prefill": ["okx", "gate", "bitget", "kucoin"]
+        },
+        "quoteAsset": {
+            "title": "Quote asset",
+            "type": "string",
+            "description": "The asset the coin is priced in. USDT is listed on all four venues; other quotes exist on some venues only.",
+            "editor": "textfield",
+            "default": "USDT",
+            "prefill": "USDT"
+        },
+        "orderSizesUsd": {
+            "title": "Order sizes",
+            "type": "array",
+            "description": "Slippage and compare modes. Order sizes in quote currency, for example 10000, 100000, 1000000.",
+            "editor": "stringList",
+            "default": [10000, 100000, 1000000],
+            "prefill": ["10000", "100000", "1000000"]
+        },
+        "side": {
+            "title": "Side",
+            "type": "string",
+            "description": "Slippage and compare modes. Buy walks the ask side, sell walks the bid side.",
+            "editor": "select",
+            "enum": ["both", "buy", "sell"],
+            "enumTitles": ["Both sides", "Buy only", "Sell only"],
+            "default": "both"
+        },
+        "maxRows": {
+            "title": "Max rows per run",
+            "type": "integer",
+            "description": "Cap on rows returned. Controls total cost.",
+            "editor": "number",
+            "default": 200,
+            "minimum": 1,
+            "maximum": 2000
+        }
+    }
+}
