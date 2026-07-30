@@ -6,7 +6,7 @@
         "actorChargeEvents": {
             "pair_row": {
                 "eventTitle": "Matched cross-venue pair",
-                "eventDescription": "One question matched across Kalshi and Polymarket with both venues' YES prices, the price gap, the cheaper side, match confidence, volumes, and links. Runs with no matches emit a free note row. First 2 rows per run are free.",
+                "eventDescription": "One question matched across two of Kalshi, Polymarket and PredictIt with both venues' YES prices, the price gap, whether that gap clears both venues' bid/ask, the cheaper side, match confidence, volumes, and links. Runs with no matches emit a free note row. First 2 rows per run are free.",
                 "eventPriceUsd": 0.005
             }
         }

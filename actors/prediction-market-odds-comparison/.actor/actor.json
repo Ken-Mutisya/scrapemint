@@ -1,8 +1,8 @@
 {
     "actorSpecification": 1,
     "name": "prediction-market-odds-comparison",
-    "title": "Prediction Market Odds Comparison: Kalshi vs Polymarket",
-    "description": "Find the same question priced differently on Kalshi and Polymarket. Matches equivalent binary Yes/No markets across both venues and reports the YES-price gap and cheaper side. Filter by topic, min spread, and volume. Keyless, no browser. Pay per matched pair.",
+    "title": "Prediction Market Odds: Kalshi, Polymarket and PredictIt",
+    "description": "Find the same question priced differently on Kalshi, Polymarket and PredictIt. Matches equivalent binary Yes/No markets across venues and reports the YES-price gap and cheaper side. Filter by topic, min spread and volume. Keyless, no browser. Pay per matched pair.",
     "version": "0.1",
     "buildTag": "latest",
     "input": "./input_schema.json",

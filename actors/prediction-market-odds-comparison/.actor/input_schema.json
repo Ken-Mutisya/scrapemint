@@ -3,10 +3,23 @@
     "type": "object",
     "schemaVersion": 1,
     "properties": {
+        "venues": {
+            "title": "Venues to compare",
+            "type": "array",
+            "description": "Which prediction markets to pull and match against each other. Pick at least two. PredictIt is US politics only and publishes no volume figures, so volume filters do not apply to it.",
+            "editor": "select",
+            "items": {
+                "type": "string",
+                "enum": ["kalshi", "polymarket", "predictit"],
+                "enumTitles": ["Kalshi", "Polymarket", "PredictIt"]
+            },
+            "prefill": ["kalshi", "polymarket", "predictit"],
+            "default": ["kalshi", "polymarket", "predictit"]
+        },
         "searchQueries": {
             "title": "Topics / keywords (optional)",
             "type": "array",
-            "description": "Only compare markets whose question mentions one of these, e.g. president, minister, Trump, election, Fed, mayor. Works best on named-entity event markets (elections, geopolitics, courts) where both venues list the same yes/no question. Leave empty to compare the most-traded markets on both venues.",
+            "description": "Only compare markets whose question mentions one of these, e.g. president, minister, Trump, election, Fed, mayor. Works best on named-entity event markets (elections, geopolitics, courts) where the venues list the same yes/no question. Leave empty to compare the most-traded markets on every selected venue.",
             "editor": "stringList",
             "prefill": ["president", "minister"],
             "default": []

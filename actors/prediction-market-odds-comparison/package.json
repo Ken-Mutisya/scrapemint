@@ -1,8 +1,8 @@
 {
     "name": "prediction-market-odds-comparison",
-    "version": "0.1.0",
+    "version": "0.2.0",
     "type": "module",
-    "description": "Compare the same question across Kalshi and Polymarket: matched binary Yes/No markets with the cross-venue YES-price gap and cheaper side. Keyless, no browser. Pay per matched pair.",
+    "description": "Compare the same question across Kalshi, Polymarket and PredictIt: matched binary Yes/No markets with the cross-venue YES-price gap and cheaper side. Keyless, no browser. Pay per matched pair.",
     "main": "src/main.js",
     "scripts": {
         "start": "node src/main.js"
