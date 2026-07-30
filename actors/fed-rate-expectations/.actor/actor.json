@@ -1,0 +1,11 @@
+{
+    "actorSpecification": 1,
+    "name": "fed-rate-expectations",
+    "title": "Fed Rate Expectations: Meeting Odds and Rate Path",
+    "description": "What the market expects the Federal Reserve to do, priced from 30 Day Federal Funds futures: the odds of a hike, hold or cut at each upcoming FOMC meeting, the implied rate path by month, and how those expectations have moved. Keyless, no proxy.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": ["BUSINESS", "NEWS"]
+}

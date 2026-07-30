@@ -1,0 +1,56 @@
+{
+    "title": "Fed Rate Expectations Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "mode": {
+            "title": "Mode",
+            "type": "string",
+            "description": "meetings = odds of a hike, hold or cut at each upcoming FOMC meeting. path = the average fed funds rate the market is paying for in each contract month. shift = how the implied path has moved since an earlier trade date.",
+            "editor": "select",
+            "enum": [
+                "meetings",
+                "path",
+                "shift"
+            ],
+            "enumTitles": [
+                "Meetings (hike, hold or cut odds)",
+                "Path (implied rate by month)",
+                "Shift (how expectations repriced)"
+            ],
+            "default": "meetings"
+        },
+        "tradeDate": {
+            "title": "Trade date (optional)",
+            "type": "string",
+            "description": "YYYY-MM-DD. Empty uses the newest published settlement report. Settlements publish after the close, so during the session the previous day is the newest available.",
+            "editor": "textfield",
+            "default": ""
+        },
+        "compareDaysBack": {
+            "title": "Compare against days ago",
+            "type": "integer",
+            "description": "Shift mode. How many days back to compare against. The exchange keeps only about the last week of settlement reports, so beyond that there is nothing to compare with.",
+            "editor": "number",
+            "default": 5,
+            "minimum": 1,
+            "maximum": 10
+        },
+        "includeThinContracts": {
+            "title": "Include thinly traded contracts",
+            "type": "boolean",
+            "description": "Off by default. Far dated months can carry a few hundred lots against hundreds of thousands in the front months, and a rate implied by almost no trading is not a market view worth quoting as one.",
+            "editor": "checkbox",
+            "default": false
+        },
+        "maxRows": {
+            "title": "Maximum rows",
+            "type": "integer",
+            "description": "The first 2 rows of every run are free.",
+            "editor": "number",
+            "default": 50,
+            "minimum": 1,
+            "maximum": 500
+        }
+    }
+}

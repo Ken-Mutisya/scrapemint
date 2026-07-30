@@ -1,0 +1,10 @@
+{
+    "name": "fed-rate-expectations",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Market-implied Fed rate path and per-meeting hike/hold/cut odds from fed funds futures. Keyless. Pay per row.",
+    "main": "src/main.js",
+    "scripts": { "start": "node src/main.js" },
+    "dependencies": { "apify": "^3.7.0" },
+    "engines": { "node": ">=20" }
+}
