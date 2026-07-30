@@ -48,8 +48,8 @@
         "scrapeReviews": {
             "title": "Scrape reviews",
             "type": "boolean",
-            "description": "Open each place and scroll the reviews panel.",
-            "default": true
+            "description": "Open each place and scroll the reviews panel. Off by default because it roughly triples run time (38.5s vs 10.7s measured on the same query) while the actor bills per place, not per review. Turn it on when you need review text.",
+            "default": false
         },
         "maxReviewsPerPlace": {
             "title": "Max reviews per place",
@@ -82,8 +82,8 @@
         "dedupe": {
             "title": "Deduplicate across runs",
             "type": "boolean",
-            "description": "Skip place IDs pushed on previous runs. Turn off to track changes.",
-            "default": true
+            "description": "Skip place IDs returned by your previous runs. Off by default: with it on, a repeat run on the same query can return zero places (measured 0 rows vs 6 for the identical query with it off), which looks like a broken run. Turn it on when you only want places you have not seen before, and expect empty runs.",
+            "default": false
         },
         "proxyConfiguration": {
             "title": "Proxy configuration",

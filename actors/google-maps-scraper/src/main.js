@@ -13,7 +13,17 @@
 import { Actor, log } from 'apify';
 import { PlaywrightCrawler } from 'crawlee';
 
-const FREE_TIER_PLACES = 2;
+// Margin fix 2026-07-30 after a -192.99% day ($0.66 revenue / $1.92 cost).
+// This is a browser + residential actor, so EVERY run pays a large fixed cost
+// (measured $0.045-$0.10) before it can bill anything. A 2-place free tier
+// therefore gave away roughly a whole run's compute per run. Measured shapes:
+//   6 places, reviews on,  dedupe on  -> 38.5s $0.0593 for 1 row
+//   6 places, reviews off, dedupe on  -> 10.7s $0.0450 for 0 rows
+//   6 places, reviews off, dedupe off -> 87.2s $0.1002 for 6 rows
+//  20 places, reviews off, dedupe on  -> 131s  $0.0979 for 10 rows
+// Only the large run was profitable. Free tier cut to 1 so a run breaks even
+// on a realistic number of places instead of needing 4-7.
+const FREE_TIER_PLACES = 1;
 
 await Actor.init();
 
@@ -24,12 +34,20 @@ const {
     language = 'en',
     maxPlacesPerQuery = 10,
     maxPlacesTotal = 20,
-    scrapeReviews = true,
+    // Reviews cost ~3.6x the runtime of the same run without them (38.5s vs
+    // 10.7s measured) while the actor bills per PLACE, so they raise cost with
+    // no matching revenue. They work and are worth having, but as an opt-in.
+    scrapeReviews = false,
     maxReviewsPerPlace = 5,
     scrapeImages = false,
     maxImagesPerPlace = 5,
     enrichFromWebsite = false,
-    dedupe = true,
+    // Cross-run dedupe defaults OFF. With it on, a repeat run on the same query
+    // pays the full browser + residential cost and then bills NOTHING because
+    // every place was seen on a previous run: measured 0 rows for $0.045 with
+    // dedupe on vs 6 rows for the identical query with it off. Buyers who want
+    // dedupe can still switch it on and accept the empty runs that come with it.
+    dedupe = false,
     proxyConfiguration: proxyInput,
 } = input;
 
@@ -243,6 +261,17 @@ async function handleSearch(page, request, crawler) {
         await crawler.addRequests([{ url, userData: { type: 'place', query } }]);
     }
     if (preSkipped) log.info(`"${query}": skipped ${preSkipped} already-seen place(s) before visiting.`);
+
+    // A run where dedupe filtered out EVERY result looks identical to a broken
+    // run from the buyer's side: zero rows, no explanation. Say so, for free.
+    if (dedupe && urls.length > 0 && preSkipped === urls.length) {
+        await Actor.pushData({
+            note: `All ${urls.length} place(s) for "${query}" were already returned by an earlier run, so nothing new was found. Cross-run dedupe is on; set "dedupe" to false to return them again.`,
+            searchQuery: query,
+            alreadySeenCount: preSkipped,
+            scrapedAt: new Date().toISOString(),
+        });
+    }
 }
 
 async function handlePlace(page, request) {
