@@ -1,0 +1,11 @@
+{
+    "actorSpecification": 1,
+    "name": "sportsbook-player-props",
+    "title": "Player Prop Bets: Odds by Player, Stat and Line",
+    "description": "Per player betting markets from a sportsbook: strikeouts, hits, goals, assists, points and more, with the line, both prices and the implied probability. One row per player per market, filterable by player name or stat. Keyless, no proxy.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": ["BUSINESS", "NEWS"]
+}

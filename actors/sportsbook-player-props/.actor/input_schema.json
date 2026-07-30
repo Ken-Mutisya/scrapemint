@@ -1,0 +1,67 @@
+{
+    "title": "Player Prop Bets Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "mode": {
+            "title": "Mode",
+            "type": "string",
+            "description": "props = one row per player per market. players = one row per player listing every stat priced on them. markets = the non player depth on the same games, such as game props, alternate lines and correct score.",
+            "editor": "select",
+            "enum": ["props", "players", "markets"],
+            "enumTitles": [
+                "Player props (one row per player per market)",
+                "Players (what each player has priced)",
+                "Game markets (non player depth)"
+            ],
+            "default": "props"
+        },
+        "leaguePaths": {
+            "title": "League paths",
+            "type": "array",
+            "description": "Which league to open games in. Examples: baseball/mlb, football/nfl, basketball/nba, soccer/north-america/united-states/mls, tennis. Books load player markets close to game time, so a league playing today returns far more than one out of season.",
+            "editor": "stringList",
+            "prefill": ["baseball/mlb"],
+            "default": ["baseball/mlb"]
+        },
+        "players": {
+            "title": "Players (optional)",
+            "type": "array",
+            "description": "Partial names work. Empty returns every player the book prices on the games opened.",
+            "editor": "stringList",
+            "default": []
+        },
+        "statContains": {
+            "title": "Stat contains (optional)",
+            "type": "array",
+            "description": "Match on the stat name, for example strikeouts, hits, goal, assist, rebounds. Empty returns every stat.",
+            "editor": "stringList",
+            "default": []
+        },
+        "maxEvents": {
+            "title": "Games to open",
+            "type": "integer",
+            "description": "Each game costs one extra request, and the soonest games are opened first because that is where the player markets are.",
+            "editor": "number",
+            "default": 5,
+            "minimum": 1,
+            "maximum": 40
+        },
+        "includeSuspended": {
+            "title": "Include suspended markets",
+            "type": "boolean",
+            "description": "Off by default. A suspended market keeps its last price even though no bet can be taken on it.",
+            "editor": "checkbox",
+            "default": false
+        },
+        "maxRows": {
+            "title": "Maximum rows",
+            "type": "integer",
+            "description": "The first 2 rows of every run are free.",
+            "editor": "number",
+            "default": 50,
+            "minimum": 1,
+            "maximum": 2000
+        }
+    }
+}
