@@ -20,12 +20,15 @@ Two things here that a plain DEX screener does not give you:
 GeckoTerminal's free tier throttles shared datacenter IPs aggressively. Measured from an Apify datacenter IP by sweeping the gap between requests:
 
 ```
-gap 1000ms -> 200,200,200,200,200,429,429,429
-gap 3000ms -> 200,200,200,200,200,429,429,200
-gap 6000ms -> 200,200,200,200,200,429,429,429
+gap  1000ms -> 200,200,200,200,200,429,429,429
+gap  3000ms -> 200,200,200,200,200,429,429,200
+gap  6000ms -> 200,200,200,200,200,429,429,429
+gap 10000ms -> 200,200,200,200,200,200,429,200
 ```
 
-**The 6th request fails at every gap.** This is a quota of roughly five requests per window, not a rate you can outrun by waiting longer, and the quota appears to be shared with whatever else is using that datacenter IP.
+**Five requests go through at any gap, and a 10s gap buys exactly one more.** This is a quota of roughly five requests per window, not a rate you can outrun by waiting longer, and it appears to be shared with whatever else is using that datacenter IP.
+
+Recovery was measured too: after a deliberate 12-request burst that drew 7 refusals, the endpoint served normally again **45 seconds later**. The actor's backoff (15s, 30s, 45s) is sized against that.
 
 What this means in practice:
 

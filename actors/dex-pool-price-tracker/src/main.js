@@ -18,15 +18,20 @@
 // --------------------------------------
 // Measured from an Apify datacenter IP by sweeping the gap between requests:
 //
-//   gap 1000ms -> 200,200,200,200,200,429,429,429
-//   gap 3000ms -> 200,200,200,200,200,429,429,200
-//   gap 6000ms -> 200,200,200,200,200,429,429,429
+//   gap  1000ms -> 200,200,200,200,200,429,429,429
+//   gap  3000ms -> 200,200,200,200,200,429,429,200
+//   gap  6000ms -> 200,200,200,200,200,429,429,429
+//   gap 10000ms -> 200,200,200,200,200,200,429,200
 //
-// The 6th request fails at EVERY gap, so this is a hard quota of about five
-// requests per window, NOT a rate a longer gap can outrun. Spacing calls
-// further apart does not buy more of them. The 429 also arrives in ~7ms, and
-// the pattern is inconsistent between sweeps, which is what a quota shared
+// Five requests go through at any gap and a 10s gap buys exactly one more, so
+// this is a quota of ~5 per window rather than a rate a longer gap can
+// outrun. Spacing calls further apart is almost worthless. The 429 arrives in
+// ~7ms and the pattern varies between sweeps, which is what a quota shared
 // with whoever else sits on that datacenter IP looks like.
+//
+// Measured recovery: after a deliberate 12-request burst that drew 7 refusals,
+// the endpoint served 200 again 45s later. The 15/30/45s backoff below is
+// sized against that.
 //
 // Consequences, and they shape every mode below:
 //   - Prefer endpoints returning MANY rows per call. pools and networks each
