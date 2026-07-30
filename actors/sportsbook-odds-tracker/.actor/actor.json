@@ -1,0 +1,11 @@
+{
+    "actorSpecification": 1,
+    "name": "sportsbook-odds-tracker",
+    "title": "Sportsbook Odds Tracker: Moneyline, Spread and Totals",
+    "description": "Live sportsbook prices for football, soccer, basketball, tennis and more: moneyline, spread and totals in American and decimal odds, with the line, the implied probability and the book's margin on every market. Movement mode returns only what moved since your last run. Keyless, no proxy.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": ["BUSINESS", "NEWS"]
+}

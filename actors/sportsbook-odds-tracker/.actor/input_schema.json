@@ -1,0 +1,82 @@
+{
+    "title": "Sportsbook Odds Tracker Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "mode": {
+            "title": "Mode",
+            "type": "string",
+            "description": "odds = current prices for the leagues you choose. movement = only the markets whose price or line changed since your last run, which is what makes this worth scheduling. leagues = the directory of sports and competitions with live event counts, which is where the league paths come from.",
+            "editor": "select",
+            "enum": ["odds", "movement", "leagues"],
+            "enumTitles": [
+                "Odds (moneyline, spread, totals)",
+                "Movement since the last run",
+                "League directory"
+            ],
+            "default": "odds"
+        },
+        "leaguePaths": {
+            "title": "League paths",
+            "type": "array",
+            "description": "Used by odds and movement mode. Examples: football/nfl, basketball/nba, soccer/europe, tennis. A sport on its own returns every competition inside it, which can run to a thousand events, so keep the row cap in mind.",
+            "editor": "stringList",
+            "prefill": ["football/nfl"],
+            "default": ["football/nfl"]
+        },
+        "sports": {
+            "title": "Sports",
+            "type": "array",
+            "description": "Leagues mode only. Which sports to list competitions for. Examples: soccer, football, basketball, tennis, baseball, hockey, esports.",
+            "editor": "stringList",
+            "prefill": ["soccer"],
+            "default": ["soccer"]
+        },
+        "marketTypes": {
+            "title": "Market types (optional)",
+            "type": "array",
+            "description": "Empty returns every headline market. Values: moneyline, moneyline_3way (soccer and other sports that price the draw), spread, total, other.",
+            "editor": "stringList",
+            "default": []
+        },
+        "liveOnly": {
+            "title": "In-play events only",
+            "type": "boolean",
+            "description": "Return only events that have already started and are being priced live.",
+            "editor": "checkbox",
+            "default": false
+        },
+        "includeSuspended": {
+            "title": "Include suspended markets",
+            "type": "boolean",
+            "description": "Off by default. A suspended market keeps its last price in the feed even though no bet can be taken on it, so leaving these in makes a frozen price look like a live quote.",
+            "editor": "checkbox",
+            "default": false
+        },
+        "includeNonMainPeriods": {
+            "title": "Include half and period lines",
+            "type": "boolean",
+            "description": "Off by default. First half, second half and similar lines are different bets from the full game line and are easy to mistake for it.",
+            "editor": "checkbox",
+            "default": false
+        },
+        "minMovePoints": {
+            "title": "Minimum move",
+            "type": "integer",
+            "description": "Movement mode. Only return markets where implied probability moved at least this many percentage points. 0 returns every change.",
+            "editor": "number",
+            "default": 0,
+            "minimum": 0,
+            "maximum": 100
+        },
+        "maxRows": {
+            "title": "Maximum rows",
+            "type": "integer",
+            "description": "One row is one market on one event. The first 2 rows of every run are free.",
+            "editor": "number",
+            "default": 50,
+            "minimum": 1,
+            "maximum": 2000
+        }
+    }
+}
