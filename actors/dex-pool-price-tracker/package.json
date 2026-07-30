@@ -1,0 +1,16 @@
+{
+    "name": "dex-pool-price-tracker",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Track on-chain DEX liquidity pools across 100+ networks: price, liquidity, turnover, unique buyer/seller flow and OHLCV candle history. Keyless, no browser.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}

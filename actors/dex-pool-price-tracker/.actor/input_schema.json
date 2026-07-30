@@ -1,0 +1,109 @@
+{
+    "title": "DEX Pool Price Tracker Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "mode": {
+            "title": "Mode",
+            "type": "string",
+            "description": "pools = current price, liquidity and trade flow for a network's pools. history = OHLCV candles for pool addresses you name. networks = list every supported network id.",
+            "editor": "select",
+            "enum": ["pools", "history", "networks"],
+            "enumTitles": [
+                "Pools: price, liquidity and trade flow",
+                "History: OHLCV candles per pool",
+                "Networks: list supported network ids"
+            ],
+            "default": "pools",
+            "prefill": "pools"
+        },
+        "network": {
+            "title": "Network id",
+            "type": "string",
+            "description": "Which chain to read, e.g. eth, bsc, polygon_pos, base, arbitrum, solana. Run networks mode once to see every valid id.",
+            "editor": "textfield",
+            "default": "eth",
+            "prefill": "eth"
+        },
+        "poolList": {
+            "title": "Which pools (pools mode)",
+            "type": "string",
+            "description": "trending = pools with the most current activity. new = recently created pools.",
+            "editor": "select",
+            "enum": ["trending", "new"],
+            "enumTitles": ["Trending pools", "Newly created pools"],
+            "default": "trending",
+            "prefill": "trending"
+        },
+        "poolAddresses": {
+            "title": "Pool addresses (history mode)",
+            "type": "array",
+            "description": "Pool contract addresses to pull candles for. Run pools mode first and copy the poolAddress values. Capped at 5 per run: each pool costs one request and the venue allows only about five before it throttles.",
+            "editor": "stringList",
+            "default": []
+        },
+        "timeframe": {
+            "title": "Candle timeframe (history mode)",
+            "type": "string",
+            "description": "Candle size. The venue rejects any other value, so week and month are not available.",
+            "editor": "select",
+            "enum": ["minute", "hour", "day"],
+            "enumTitles": ["Minute", "Hour", "Day"],
+            "default": "hour",
+            "prefill": "hour"
+        },
+        "aggregate": {
+            "title": "Aggregate candles (history mode)",
+            "type": "integer",
+            "description": "Group candles, e.g. timeframe=minute with aggregate=15 gives 15-minute candles.",
+            "editor": "number",
+            "default": 1,
+            "minimum": 1,
+            "maximum": 60
+        },
+        "candleLimit": {
+            "title": "Candles per pool (history mode)",
+            "type": "integer",
+            "description": "How many candles to request per pool.",
+            "editor": "number",
+            "default": 100,
+            "minimum": 1,
+            "maximum": 1000
+        },
+        "minLiquidityUsd": {
+            "title": "Min liquidity (USD, pools mode)",
+            "type": "integer",
+            "description": "Skip pools holding less than this in reserves.",
+            "editor": "number",
+            "default": 0,
+            "minimum": 0
+        },
+        "minVolume24hUsd": {
+            "title": "Min 24h volume (USD, pools mode)",
+            "type": "integer",
+            "description": "Skip pools trading less than this in the last 24 hours.",
+            "editor": "number",
+            "default": 0,
+            "minimum": 0
+        },
+        "requestGapMs": {
+            "title": "Gap between requests (ms)",
+            "type": "integer",
+            "description": "How long to wait between requests. Note the venue enforces a quota of about five requests per window, so raising this does not buy more requests (measured: the 6th fails at a 1s, 3s and 6s gap alike). Pools and networks modes only make one request and are unaffected.",
+            "editor": "number",
+            "default": 3000,
+            "minimum": 1000,
+            "maximum": 15000
+        },
+        "maxRows": {
+            "title": "Max rows per run",
+            "type": "integer",
+            "description": "Cap on rows returned. Controls total cost.",
+            "editor": "number",
+            "default": 100,
+            "minimum": 1,
+            "maximum": 1000
+        }
+    },
+    "required": []
+}

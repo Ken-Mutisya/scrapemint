@@ -1,0 +1,14 @@
+{
+    "actorSpecification": 1,
+    "name": "dex-pool-price-tracker",
+    "title": "DEX Pool Prices: History, Liquidity and Trade Flow",
+    "description": "Track on-chain liquidity pools across 100+ networks. Get price, liquidity, 24h volume, turnover and unique buyer/seller flow per pool, plus OHLCV candle history for any pool you name. Keyless, no browser, no proxy. Pay per row.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "BUSINESS",
+        "NEWS"
+    ]
+}
