@@ -87,6 +87,16 @@ try {
                 sessionPoolOptions: { maxPoolSize: 15 },
                 navigationTimeoutSecs: 45,
                 requestHandlerTimeoutSecs: 90,
+                // Fares come from aria-label attributes, so no image is ever
+                // read. Turning them off at the blink level cuts the residential
+                // bandwidth this actor pays for on every page. It has to be a
+                // launch flag rather than page.route interception, which the
+                // fingerprint stack notices.
+                launchContext: {
+                    launchOptions: {
+                        args: ['--blink-settings=imagesEnabled=false'],
+                    },
+                },
                 browserPoolOptions: {
                     useFingerprints: true,
                     fingerprintOptions: {
