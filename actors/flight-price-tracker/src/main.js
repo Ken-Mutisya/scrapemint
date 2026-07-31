@@ -9,6 +9,13 @@ import { PlaywrightCrawler } from 'crawlee';
 
 const FREE_TIER_ITEMS = 2;
 
+// The seen-set has to live in a NAMED store. Actor.openKeyValueStore() with no
+// name opens the run's default store, which is created fresh every run, so the
+// set written at the end of one run was read back empty by the next and the
+// advertised "deduplicate across runs" input never actually skipped anything.
+// A named store persists per user account, which is the intended scope.
+const SEEN_STORE_NAME = 'flight-price-tracker-seen';
+
 await Actor.init();
 const __chargeJobs = [];
 
@@ -43,7 +50,7 @@ const routeList = toArray(routes).map(parseRoute).filter(Boolean);
 const prefSet = new Set(toArray(preferredAirlines).map((a) => String(a).toUpperCase()));
 const excludeSet = new Set(toArray(excludeAirlines).map((a) => String(a).toUpperCase()));
 
-const store = await Actor.openKeyValueStore();
+const store = await Actor.openKeyValueStore(SEEN_STORE_NAME);
 const seenState = (dedupe && (await store.getValue('SEEN_FARES'))) || [];
 const seen = new Set(seenState);
 const newSeen = new Set(seen);
