@@ -6,10 +6,11 @@
         "actorChargeEvents": {
             "flight_price": {
                 "eventTitle": "Flight price quote",
-                "eventDescription": "One origin and destination route quote with carrier, departure date, return date, cabin, base fare, taxes, total, stops, duration, and direct booking link. First 10 per run are free so you can validate output.",
+                "eventDescription": "One route quote with carrier, departure and return dates, cabin, total price, price per passenger, stops, duration, and the departure and arrival airports and times. First 2 rows per run are free so you can validate output.",
                 "eventPriceUsd": 0.01
             }
         }
     },
-    "startedAt": "2026-06-14T00:00:00.000Z"
+    "_supersedes": "The 2026-06-14 entry advertised base fare, taxes and a direct booking link, none of which the actor delivers, and a 10 row free tier when the code has always given 2. Existing pricing entries are immutable (the API rejects an edited one with incorrect-pricing-modifier-prefix), so the correction had to be appended as a second entry with the mandatory 14 day lead. Price is unchanged at $0.01 and the 2026-06-14 billing start is unaffected.",
+    "startedAt": "2026-08-14T00:00:00.000Z"
 }
