@@ -2,7 +2,7 @@
     "name": "short-selling-data-tracker",
     "version": "0.1.0",
     "type": "module",
-    "description": "FINRA daily short sale volume by symbol, as a watchlist history or a whole-market screen. Keyless, no browser, no login.",
+    "description": "FINRA daily short sale volume and twice monthly short interest by symbol, as a watchlist history or a whole-market screen. Keyless, no browser, no login.",
     "main": "src/main.js",
     "scripts": {
         "start": "node src/main.js"

@@ -6,17 +6,62 @@
         "mode": {
             "title": "Mode",
             "type": "string",
-            "description": "Watchlist returns one row per symbol per trading day, newest first, for tracking a short volume trend. Market screen ranks every US symbol for a single day by the share of volume sold short.",
+            "description": "Short volume is how much of a day's trading was sold short, published every session. Short interest is the settled open short position, published twice a month. Watchlist and Market screen cover short volume. Short interest watchlist and Short interest screen cover settled short interest, including the build or cover against the previous settlement and days to cover.",
             "editor": "select",
             "default": "symbols",
             "prefill": "symbols",
-            "enum": ["symbols", "screen"],
-            "enumTitles": ["Watchlist", "Market screen"]
+            "enum": ["symbols", "screen", "interest", "interest_screen"],
+            "enumTitles": ["Watchlist (short volume)", "Market screen (short volume)", "Short interest watchlist", "Short interest screen"]
+        },
+        "settlements": {
+            "title": "Settlement dates back",
+            "type": "integer",
+            "description": "Short interest watchlist only. How many settlement dates of history to return per symbol. Short interest settles twice a month, so 1 is the latest reading and 6 is roughly a quarter.",
+            "default": 1,
+            "prefill": 1,
+            "minimum": 1,
+            "maximum": 12
+        },
+        "minAvgDailyVolume": {
+            "title": "Minimum average daily volume",
+            "type": "integer",
+            "description": "Short interest screen only. Ignore symbols trading below this many shares a day. The floor matters because FINRA publishes days to cover as 999.99 when a name has no volume to cover into, and without a floor the ranking fills with untradeable shells.",
+            "editor": "number",
+            "default": 500000,
+            "prefill": 500000,
+            "minimum": 0,
+            "maximum": 1000000000
+        },
+        "minShortInterest": {
+            "title": "Minimum short interest",
+            "type": "integer",
+            "description": "Short interest screen only. Ignore symbols with an open short position below this many shares. When ranking by change percent this floor also applies to the previous settlement, because a percent change measured against a few hundred shares is arithmetic rather than a signal: a warrant going from 239 to 232,477 shares scores +97,170 per cent.",
+            "editor": "number",
+            "default": 100000,
+            "prefill": 100000,
+            "minimum": 0,
+            "maximum": 1000000000
+        },
+        "sortBy": {
+            "title": "Rank by",
+            "type": "string",
+            "description": "Short interest screen only. Short interest is the raw open position, change percent finds the biggest builds and covers, days to cover finds crowded shorts relative to liquidity.",
+            "editor": "select",
+            "default": "short_interest",
+            "prefill": "short_interest",
+            "enum": ["short_interest", "change_percent", "days_to_cover"],
+            "enumTitles": ["Short interest", "Change percent", "Days to cover"]
+        },
+        "includeOtc": {
+            "title": "Include OTC names",
+            "type": "boolean",
+            "description": "Short interest screen only. FINRA's file covers OTC as well as exchange listed securities. OTC names dominate the extremes and are mostly untradeable, so they are excluded by default.",
+            "default": false
         },
         "symbols": {
             "title": "Ticker symbols",
             "type": "array",
-            "description": "US equity tickers to track, for example TSLA, NVDA, GME. Watchlist mode only.",
+            "description": "US equity tickers to track, for example TSLA, NVDA, GME. Used by both watchlist modes. Short interest also covers NYSE and OTC symbols.",
             "editor": "stringList",
             "prefill": ["TSLA", "NVDA", "GME"],
             "default": []
@@ -33,7 +78,7 @@
         "date": {
             "title": "Date",
             "type": "string",
-            "description": "Specific trading day as 2026-07-20. Leave empty for the most recent published day. FINRA publishes after the close, so today's file appears in the evening.",
+            "description": "Start date as 2026-07-20. Leave empty for the most recent published day. In short volume modes FINRA publishes after the close, so today's file appears in the evening. In short interest modes the actor walks back from this date to the most recent settlement, which is published about eight business days after it settles.",
             "editor": "textfield"
         },
         "minTotalVolume": {
