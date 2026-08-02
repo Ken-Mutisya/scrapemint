@@ -3,13 +3,33 @@
   "type": "object",
   "schemaVersion": 1,
   "properties": {
+    "mode": {
+      "title": "Mode",
+      "type": "string",
+      "description": "tickers = one row per company, metric and period for the tickers you list (SEC company facts). screener = one row per COMPANY with every requested metric side by side, across every filer that reported in a period (SEC XBRL frames).",
+      "editor": "select",
+      "enum": [
+        "tickers",
+        "screener"
+      ],
+      "enumTitles": [
+        "Tickers: full history for specific companies",
+        "Screener: one period, every filer"
+      ],
+      "default": "tickers"
+    },
     "tickers": {
       "title": "Tickers",
       "type": "array",
       "description": "Stock symbols to fetch, e.g. [\"AAPL\", \"MSFT\"].",
       "editor": "stringList",
-      "prefill": ["AAPL"],
-      "example": ["AAPL", "MSFT"]
+      "prefill": [
+        "AAPL"
+      ],
+      "example": [
+        "AAPL",
+        "MSFT"
+      ]
     },
     "metrics": {
       "title": "Metrics (optional)",
@@ -17,7 +37,11 @@
       "description": "Limit to specific XBRL concept names (e.g. [\"Revenues\",\"NetIncomeLoss\"]). Leave empty to return the curated set of common financial-statement line items.",
       "editor": "stringList",
       "prefill": [],
-      "example": ["Revenues", "NetIncomeLoss", "EarningsPerShareDiluted"]
+      "example": [
+        "Revenues",
+        "NetIncomeLoss",
+        "EarningsPerShareDiluted"
+      ]
     },
     "includeAllConcepts": {
       "title": "Include all concepts",
@@ -30,8 +54,14 @@
       "type": "array",
       "description": "Only include data points from these filing forms.",
       "editor": "stringList",
-      "default": ["10-K", "10-Q"],
-      "example": ["10-K", "10-Q"]
+      "default": [
+        "10-K",
+        "10-Q"
+      ],
+      "example": [
+        "10-K",
+        "10-Q"
+      ]
     },
     "minYear": {
       "title": "Minimum year",
@@ -59,7 +89,72 @@
       "description": "Stop after this many rows across all tickers.",
       "default": 50000,
       "minimum": 1
+    },
+    "screenerMetrics": {
+      "title": "Screener metrics",
+      "type": "array",
+      "description": "Screener mode only. Metrics to place side by side on each company row. Choose from: revenue, netIncome, grossProfit, operatingIncome, rndExpense, operatingCashFlow, epsDiluted, assets, liabilities, equity, cash.",
+      "editor": "stringList",
+      "default": [
+        "revenue",
+        "netIncome",
+        "assets",
+        "equity"
+      ],
+      "prefill": [
+        "revenue",
+        "netIncome",
+        "assets",
+        "equity"
+      ],
+      "example": [
+        "revenue",
+        "netIncome",
+        "rndExpense"
+      ]
+    },
+    "period": {
+      "title": "Period (screener)",
+      "type": "string",
+      "description": "Screener mode only. Calendar period such as CY2025Q1 or CY2024 (full year). Leave empty to use the most recent quarter that most filers have reported. Note Q4 quarters are sparse: companies report Q4 inside the annual 10-K rather than a 10-Q, so ask for the full year (CY2024) instead.",
+      "editor": "textfield",
+      "example": "CY2025Q1"
+    },
+    "sortBy": {
+      "title": "Sort by (screener)",
+      "type": "string",
+      "description": "Screener mode only. Which metric to rank by. Defaults to the first screener metric. Companies that did not report this metric are excluded.",
+      "editor": "textfield",
+      "example": "revenue"
+    },
+    "sortOrder": {
+      "title": "Sort order (screener)",
+      "type": "string",
+      "editor": "select",
+      "enum": [
+        "desc",
+        "asc"
+      ],
+      "enumTitles": [
+        "Largest first",
+        "Smallest first"
+      ],
+      "default": "desc",
+      "description": "Screener mode only."
+    },
+    "maxCompanies": {
+      "title": "Max companies (screener)",
+      "type": "integer",
+      "description": "Screener mode only. Rows to return after sorting. Each company is one billable row.",
+      "default": 100,
+      "minimum": 1,
+      "maximum": 6000
+    },
+    "tickersOnly": {
+      "title": "Only companies with a ticker (screener)",
+      "type": "boolean",
+      "description": "Screener mode only. Drop SEC registrants that do not map to a listed ticker (funds, subsidiaries, private filers).",
+      "default": false
     }
-  },
-  "required": ["tickers"]
+  }
 }
