@@ -1,0 +1,55 @@
+{
+  "title": "UK House Prices",
+  "type": "object",
+  "schemaVersion": 1,
+  "properties": {
+    "regions": {
+      "title": "Regions",
+      "type": "array",
+      "description": "Land Registry region slugs, e.g. [\"england\",\"london\",\"manchester\"]. Countries, regions and local authorities all work. Use lowercase with hyphens, e.g. \"city-of-bristol\".",
+      "editor": "stringList",
+      "default": ["united-kingdom", "england", "london"],
+      "prefill": ["united-kingdom", "england", "london"],
+      "example": ["scotland", "wales", "manchester"]
+    },
+    "mode": {
+      "title": "Mode",
+      "type": "string",
+      "description": "latest = the newest published month per region. history = a range of months.",
+      "editor": "select",
+      "enum": ["latest", "history"],
+      "enumTitles": ["Latest published month", "History: month range"],
+      "default": "latest"
+    },
+    "monthFrom": {
+      "title": "Month from",
+      "type": "string",
+      "description": "YYYY-MM. History mode uses this as the start. Empty means the last 12 published months.",
+      "editor": "textfield",
+      "example": "2025-01"
+    },
+    "monthTo": {
+      "title": "Month to",
+      "type": "string",
+      "description": "YYYY-MM. History mode end month.",
+      "editor": "textfield",
+      "example": "2026-05"
+    },
+    "breakdowns": {
+      "title": "Breakdowns",
+      "type": "array",
+      "description": "Limit the per-segment columns. Choices: Detached, SemiDetached, Terraced, FlatMaisonette, NewBuild, ExistingProperty, FirstTimeBuyer, FormerOwnerOccupier, Cash, Mortgage. Empty returns all of them.",
+      "editor": "stringList",
+      "prefill": [],
+      "example": ["Detached", "FirstTimeBuyer"]
+    },
+    "maxRows": {
+      "title": "Max rows",
+      "type": "integer",
+      "description": "Total rows to return.",
+      "default": 200,
+      "minimum": 1,
+      "maximum": 5000
+    }
+  }
+}

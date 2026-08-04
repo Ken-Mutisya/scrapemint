@@ -1,0 +1,10 @@
+{
+    "name": "uk-house-prices",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "UK house prices by region and property type from HM Land Registry's official House Price Index. Keyless, no browser, no proxy.",
+    "main": "src/main.js",
+    "scripts": { "start": "node src/main.js" },
+    "dependencies": { "apify": "^3.7.0" },
+    "engines": { "node": ">=20" }
+}

@@ -1,0 +1,12 @@
+{
+  "actorSpecification": 1,
+  "name": "uk-house-prices",
+  "title": "UK House Prices by Region and Property Type",
+  "description": "Average sale price, index, monthly and annual change and sales volume for any UK region from HM Land Registry's official House Price Index, split by property type, first time buyer, cash or mortgage and new build. Keyless, no browser and no proxy.",
+  "version": "0.1",
+  "buildTag": "latest",
+  "input": "./input_schema.json",
+  "dockerfile": "./Dockerfile",
+  "readme": "../README.md",
+  "categories": ["REAL_ESTATE", "BUSINESS"]
+}

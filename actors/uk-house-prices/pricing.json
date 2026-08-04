@@ -1,0 +1,15 @@
+{
+    "_note": "PUT this to /v2/acts/{actorId} as pricingInfos array entry. PAY_PER_EVENT only on BRONZE plan, startedAt 14+ days out. Description deliberately WIDE: entries are immutable from creation.",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~uk-house-prices?token=APIFY_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "region_row": {
+                "eventTitle": "Region row",
+                "eventDescription": "One UK region for one month: average sale price, house price index, monthly and annual change, sales volume, and the same figures broken down by property type, buyer type and funding. First 2 rows per run are free so you can validate output.",
+                "eventPriceUsd": 0.004
+            }
+        }
+    },
+    "startedAt": "2026-08-20T00:00:00.000Z"
+}
