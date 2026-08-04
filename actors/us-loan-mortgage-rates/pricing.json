@@ -1,0 +1,15 @@
+{
+    "_note": "PUT this to /v2/acts/{actorId} as pricingInfos array entry. PAY_PER_EVENT only on BRONZE plan, startedAt 14+ days out (free preview until then). Apify auto-adds margin.",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~us-loan-mortgage-rates?token=APIFY_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "rate_row": {
+                "eventTitle": "Rate row",
+                "eventDescription": "One US borrowing rate: the current level with its observation date and unit, the change over a week, month and year, and where it sits in its own multi-year range. In history mode, one row per published observation. First 2 rows per run are free so you can validate output.",
+                "eventPriceUsd": 0.004
+            }
+        }
+    },
+    "startedAt": "2026-08-19T00:00:00.000Z"
+}

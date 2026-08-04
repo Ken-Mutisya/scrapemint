@@ -1,0 +1,69 @@
+{
+  "title": "US Loan and Mortgage Rates",
+  "type": "object",
+  "schemaVersion": 1,
+  "properties": {
+    "mode": {
+      "title": "Mode",
+      "type": "string",
+      "description": "latest = one row per rate with change and range context. history = one row per published observation.",
+      "editor": "select",
+      "enum": [
+        "latest",
+        "history"
+      ],
+      "enumTitles": [
+        "Latest: current rates with context",
+        "History: every published observation"
+      ],
+      "default": "latest"
+    },
+    "series": {
+      "title": "Rates",
+      "type": "array",
+      "description": "Which rates to return. Leave empty for all current ones. Choices: MORTGAGE30US, MORTGAGE15US, DPRIME, DFF, TERMCBCCALLNS, TERMCBAUTO48NS, RIFLPBCIANM60NM, TERMCBPER24NS, plus the discontinued MORTGAGE5US and MMNRNJ.",
+      "editor": "stringList",
+      "prefill": [],
+      "example": [
+        "MORTGAGE30US",
+        "MORTGAGE15US"
+      ]
+    },
+    "includeDiscontinued": {
+      "title": "Include discontinued rates",
+      "type": "boolean",
+      "description": "Two series are no longer published but still return their final value. They are excluded by default; when included they are always marked isStale.",
+      "default": false
+    },
+    "percentileYears": {
+      "title": "Context window (years)",
+      "type": "integer",
+      "description": "How far back to look when working out the low, high, median and percentile rank for each rate.",
+      "default": 5,
+      "minimum": 1,
+      "maximum": 50
+    },
+    "historyFrom": {
+      "title": "History from",
+      "type": "string",
+      "description": "History mode only. Earliest observation date, YYYY-MM-DD. Empty means from the start of the series.",
+      "editor": "textfield",
+      "example": "2024-01-01"
+    },
+    "historyTo": {
+      "title": "History to",
+      "type": "string",
+      "description": "History mode only. Latest observation date, YYYY-MM-DD.",
+      "editor": "textfield",
+      "example": "2026-08-01"
+    },
+    "maxRows": {
+      "title": "Max rows",
+      "type": "integer",
+      "description": "Total rows to return.",
+      "default": 500,
+      "minimum": 1,
+      "maximum": 20000
+    }
+  }
+}

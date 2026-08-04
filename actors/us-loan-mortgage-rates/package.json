@@ -1,0 +1,16 @@
+{
+    "name": "us-loan-mortgage-rates",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "US loan and mortgage rates: 30 and 15 year mortgages, prime, credit card APR, auto and personal loan rates from FRED, with change and range context. Keyless, no browser, no proxy.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}

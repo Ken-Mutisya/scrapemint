@@ -1,0 +1,15 @@
+{
+  "actorSpecification": 1,
+  "name": "us-loan-mortgage-rates",
+  "title": "US Loan and Mortgage Rates: Current and History",
+  "description": "What Americans borrow at: 30 and 15 year mortgage rates, bank prime, credit card APR, new car loans and personal loans from the Federal Reserve, with weekly, monthly and yearly changes and where each rate sits in its own range. Keyless, no browser and no proxy.",
+  "version": "0.1",
+  "buildTag": "latest",
+  "input": "./input_schema.json",
+  "dockerfile": "./Dockerfile",
+  "readme": "../README.md",
+  "categories": [
+    "BUSINESS",
+    "NEWS"
+  ]
+}
