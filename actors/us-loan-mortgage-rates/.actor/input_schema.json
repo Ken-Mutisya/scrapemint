@@ -21,12 +21,13 @@
     "series": {
       "title": "Rates",
       "type": "array",
-      "description": "Which rates to return. Leave empty for all current ones. Choices: MORTGAGE30US, MORTGAGE15US, DPRIME, DFF, TERMCBCCALLNS, TERMCBAUTO48NS, RIFLPBCIANM60NM, TERMCBPER24NS, plus the discontinued MORTGAGE5US and MMNRNJ.",
+      "description": "Which series to return. Leave empty for all current ones. Rates: MORTGAGE30US, MORTGAGE15US, DPRIME, DFF, TERMCBCCALLNS, TERMCBAUTO48NS, RIFLPBCIANM60NM, TERMCBPER24NS. House prices: CSUSHPINSA (Case-Shiller index), MSPUS (median sale price), ASPUS (average sale price). Plus the discontinued MORTGAGE5US and MMNRNJ. House prices are not percentages, so read the unit on each row.",
       "editor": "stringList",
       "prefill": [],
       "example": [
         "MORTGAGE30US",
-        "MORTGAGE15US"
+        "CSUSHPINSA",
+        "MSPUS"
       ]
     },
     "includeDiscontinued": {

@@ -33,13 +33,19 @@ const CATALOGUE = {
     TERMCBAUTO48NS: { label: '48-month new car loan', category: 'auto loan', frequency: 'quarterly', staleAfterDays: 220 },
     RIFLPBCIANM60NM: { label: '60-month new car loan', category: 'auto loan', frequency: 'quarterly', staleAfterDays: 220 },
     TERMCBPER24NS: { label: '24-month personal loan', category: 'personal loan', frequency: 'quarterly', staleAfterDays: 220 },
+    // House prices, so a run answers what a home costs alongside what it costs
+    // to borrow. These are NOT rates, so they carry their own units and must
+    // never be averaged or ranked against the percentages above.
+    CSUSHPINSA: { label: 'Case-Shiller national home price index', category: 'house price', frequency: 'monthly', staleAfterDays: 100, unit: 'index, January 2000 = 100' },
+    MSPUS: { label: 'Median sale price of houses sold', category: 'house price', frequency: 'quarterly', staleAfterDays: 220, unit: 'US dollars' },
+    ASPUS: { label: 'Average sale price of houses sold', category: 'house price', frequency: 'quarterly', staleAfterDays: 220, unit: 'US dollars' },
     // Discontinued upstream. They still answer with their final observation, so
     // they are excluded unless asked for and always carry isStale true.
     MORTGAGE5US: { label: '5/1 adjustable rate mortgage', category: 'mortgage', frequency: 'weekly', staleAfterDays: 30, discontinued: true },
     MMNRNJ: { label: 'Money market account rate', category: 'deposit', frequency: 'weekly', staleAfterDays: 30, discontinued: true },
 };
 const LIVE_IDS = Object.keys(CATALOGUE).filter((id) => !CATALOGUE[id].discontinued);
-const UNIT = 'percent per year';
+const DEFAULT_UNIT = 'percent per year';
 // Declared up here, not beside diffFrom, because the main loop runs at top level
 // before a const further down the file would be initialised.
 const MIN_WINDOW_DAYS = { daily: 1, weekly: 7, monthly: 28, quarterly: 90 };
@@ -106,7 +112,7 @@ for (const id of ids) {
                 label: meta.label,
                 category: meta.category,
                 rate: o.value,
-                unit: UNIT,
+                unit: meta.unit || DEFAULT_UNIT,
                 observationDate: o.date,
                 frequency: meta.frequency,
                 sourceUrl: seriesUrl(id),
@@ -140,7 +146,7 @@ function buildLatest(id, meta, obs) {
         label: meta.label,
         category: meta.category,
         rate: last.value,
-        unit: UNIT,
+        unit: meta.unit || DEFAULT_UNIT,
         observationDate: last.date,
         frequency: meta.frequency,
         // Every change is null when the series does not reach back that far, so

@@ -1,6 +1,6 @@
 # US Loan and Mortgage Rates
 
-What Americans actually borrow at, straight from the Federal Reserve: 30 and 15 year mortgage rates, the bank prime rate, credit card APR, new car loans and personal loans.
+What Americans actually borrow at, straight from the Federal Reserve: 30 and 15 year mortgage rates, the bank prime rate, credit card APR, new car loans and personal loans, plus national house prices so you can see borrowing costs and home values together.
 
 Every rate arrives with context rather than a bare number: how it moved over the past week, month and year, and where it sits inside its own multi year range.
 
@@ -46,6 +46,16 @@ In `history` mode you get one row per published observation instead, going back 
 | `TERMCBAUTO48NS` | 48 month new car loan | quarterly |
 | `RIFLPBCIANM60NM` | 60 month new car loan | quarterly |
 | `TERMCBPER24NS` | 24 month personal loan | quarterly |
+
+House prices, so a single run answers what a home costs as well as what it costs to borrow:
+
+| Series | Measure | Published |
+| --- | --- | --- |
+| `CSUSHPINSA` | Case-Shiller national home price index | monthly |
+| `MSPUS` | Median sale price of houses sold | quarterly |
+| `ASPUS` | Average sale price of houses sold | quarterly |
+
+These are not percentages. Case-Shiller is an index where January 2000 equals 100, and the sale prices are US dollars, so every row carries its own `unit` and values must never be averaged or ranked across different units.
 
 Two more, `MORTGAGE5US` and `MMNRNJ`, are no longer published. They still return their final value, so they are left out unless you ask for them and always come back marked `isStale`.
 
