@@ -1,0 +1,49 @@
+{
+  "title": "Europe House Prices",
+  "type": "object",
+  "schemaVersion": 1,
+  "properties": {
+    "countries": {
+      "title": "Countries",
+      "type": "array",
+      "description": "Eurostat geo codes, e.g. [\"DE\",\"FR\",\"ES\"]. Aggregates such as EU27_2020 and EA20 also work. Leave empty for all 38.",
+      "editor": "stringList",
+      "prefill": [],
+      "example": ["DE", "FR", "ES", "IT"]
+    },
+    "purchase": {
+      "title": "Dwelling type",
+      "type": "string",
+      "description": "Which homes the index covers.",
+      "editor": "select",
+      "enum": ["TOTAL", "DW_NEW", "DW_EXST"],
+      "enumTitles": ["All dwellings", "New dwellings", "Existing dwellings"],
+      "default": "TOTAL"
+    },
+    "mode": {
+      "title": "Mode",
+      "type": "string",
+      "description": "latest = the most recent quarter. history = several recent quarters per country.",
+      "editor": "select",
+      "enum": ["latest", "history"],
+      "enumTitles": ["Latest quarter", "History: recent quarters"],
+      "default": "latest"
+    },
+    "periods": {
+      "title": "Quarters of history",
+      "type": "integer",
+      "description": "History mode only. How many recent quarters to return per country.",
+      "default": 12,
+      "minimum": 1,
+      "maximum": 120
+    },
+    "maxRows": {
+      "title": "Max rows",
+      "type": "integer",
+      "description": "Total rows to return.",
+      "default": 200,
+      "minimum": 1,
+      "maximum": 10000
+    }
+  }
+}

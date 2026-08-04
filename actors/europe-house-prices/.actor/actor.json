@@ -1,0 +1,12 @@
+{
+  "actorSpecification": 1,
+  "name": "europe-house-prices",
+  "title": "Europe House Prices: Index and Change by Country",
+  "description": "Eurostat's official house price index for 38 European countries: index level, quarterly change and annual change, for all dwellings or split into new and existing homes. Keyless, no browser and no proxy.",
+  "version": "0.1",
+  "buildTag": "latest",
+  "input": "./input_schema.json",
+  "dockerfile": "./Dockerfile",
+  "readme": "../README.md",
+  "categories": ["REAL_ESTATE", "BUSINESS"]
+}

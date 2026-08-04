@@ -1,0 +1,15 @@
+{
+    "_note": "PUT to /v2/acts/{actorId} as pricingInfos entry. Description written WIDE: entries are immutable from creation.",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~europe-house-prices?token=APIFY_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "country_row": {
+                "eventTitle": "Country row",
+                "eventDescription": "One European country for one quarter: house price index level, change on the previous quarter, change on the same quarter a year earlier, and the dwelling type the figures cover. First 2 rows per run are free so you can validate output.",
+                "eventPriceUsd": 0.004
+            }
+        }
+    },
+    "startedAt": "2026-08-20T00:00:00.000Z"
+}

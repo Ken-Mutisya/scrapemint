@@ -1,0 +1,10 @@
+{
+    "name": "europe-house-prices",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Europe house prices from Eurostat: index, quarterly and annual change for 38 countries. Keyless, no browser, no proxy.",
+    "main": "src/main.js",
+    "scripts": { "start": "node src/main.js" },
+    "dependencies": { "apify": "^3.7.0" },
+    "engines": { "node": ">=20" }
+}
