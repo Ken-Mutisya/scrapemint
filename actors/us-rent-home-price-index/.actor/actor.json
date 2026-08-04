@@ -1,0 +1,15 @@
+{
+  "actorSpecification": 1,
+  "name": "us-rent-home-price-index",
+  "title": "US Rent and Home Price Index by Metro, City and Zip",
+  "description": "Typical home value and typical rent for any US state, metro, city or zip from Zillow's published research indexes, with monthly and yearly change and gross rental yield. Monthly history back to 2000. Keyless, no browser and no proxy.",
+  "version": "0.1",
+  "buildTag": "latest",
+  "input": "./input_schema.json",
+  "dockerfile": "./Dockerfile",
+  "readme": "../README.md",
+  "categories": [
+    "REAL_ESTATE",
+    "BUSINESS"
+  ]
+}

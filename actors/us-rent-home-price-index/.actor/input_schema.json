@@ -1,0 +1,89 @@
+{
+  "title": "US Rent and Home Price Index",
+  "type": "object",
+  "schemaVersion": 1,
+  "properties": {
+    "mode": {
+      "title": "Mode",
+      "type": "string",
+      "description": "latest = one row per region with current values and change. history = one row per region per month.",
+      "editor": "select",
+      "enum": [
+        "latest",
+        "history"
+      ],
+      "enumTitles": [
+        "Latest: current values with change",
+        "History: monthly back to 2000"
+      ],
+      "default": "latest"
+    },
+    "geography": {
+      "title": "Geography",
+      "type": "string",
+      "description": "Which level to return. Metro is the default and covers about 900 areas. Zillow does not publish the rent index at state level, so states return home values only. The city and zip home value files are very large and take much longer to download.",
+      "editor": "select",
+      "enum": [
+        "metro",
+        "state",
+        "county",
+        "city",
+        "zip"
+      ],
+      "enumTitles": [
+        "Metro areas",
+        "States (home value only)",
+        "Counties",
+        "Cities (large download)",
+        "Zip codes (large download)"
+      ],
+      "default": "metro"
+    },
+    "regions": {
+      "title": "Regions",
+      "type": "array",
+      "description": "Filter by name, e.g. [\"Austin\",\"TX\"]. Matches on region name and state, so a state code returns everything in that state. Leave empty for all.",
+      "editor": "stringList",
+      "prefill": [],
+      "example": [
+        "Austin",
+        "Denver"
+      ]
+    },
+    "metrics": {
+      "title": "Metrics",
+      "type": "array",
+      "description": "Which indexes to load: rent, homeValue, or both. Loading only one skips downloading the other file.",
+      "editor": "stringList",
+      "default": [
+        "rent",
+        "homeValue"
+      ],
+      "example": [
+        "homeValue"
+      ]
+    },
+    "historyFrom": {
+      "title": "History from",
+      "type": "string",
+      "description": "History mode only. Earliest month, YYYY-MM-DD. Home values start 2000-01, rent starts 2015-01.",
+      "editor": "textfield",
+      "example": "2024-01-31"
+    },
+    "historyTo": {
+      "title": "History to",
+      "type": "string",
+      "description": "History mode only. Latest month, YYYY-MM-DD.",
+      "editor": "textfield",
+      "example": "2026-06-30"
+    },
+    "maxRows": {
+      "title": "Max rows",
+      "type": "integer",
+      "description": "Total rows to return.",
+      "default": 200,
+      "minimum": 1,
+      "maximum": 20000
+    }
+  }
+}

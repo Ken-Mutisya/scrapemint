@@ -1,0 +1,16 @@
+{
+    "name": "us-rent-home-price-index",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "US rent and home price index by state, metro, city and zip from Zillow research data, with change and gross yield. Keyless, no browser, no proxy.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}

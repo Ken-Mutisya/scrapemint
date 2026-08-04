@@ -1,0 +1,15 @@
+{
+    "_note": "PUT this to /v2/acts/{actorId} as pricingInfos array entry. PAY_PER_EVENT only on BRONZE plan, startedAt 14+ days out (free preview until then). Apify auto-adds margin.",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~us-rent-home-price-index?token=APIFY_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "region_row": {
+                "eventTitle": "Region row",
+                "eventDescription": "One US region: typical home value and typical rent with the month each was published, the change over a month and a year, and gross rental yield where both are available. In history mode, one row per region per month. First 2 rows per run are free so you can validate output.",
+                "eventPriceUsd": 0.004
+            }
+        }
+    },
+    "startedAt": "2026-08-20T00:00:00.000Z"
+}
