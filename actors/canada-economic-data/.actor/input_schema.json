@@ -1,0 +1,41 @@
+{
+  "title": "Canada Economic Data",
+  "type": "object",
+  "schemaVersion": 1,
+  "properties": {
+    "datasets": {
+      "title": "Datasets",
+      "type": "array",
+      "description": "Which series to pull. Choices: cpi, housingPrices, housingStarts, employment, gdp.",
+      "editor": "stringList",
+      "default": ["cpi", "housingPrices", "housingStarts"],
+      "prefill": ["cpi", "housingPrices", "housingStarts"],
+      "example": ["cpi", "employment"]
+    },
+    "geographies": {
+      "title": "Geographies",
+      "type": "array",
+      "description": "Names to match, e.g. [\"Canada\"], [\"Ontario\",\"Quebec\"] or [\"Toronto\"]. Matching is partial, so \"Ontario\" also picks up Ontario sub regions. Leave empty for every geography the table publishes.",
+      "editor": "stringList",
+      "default": ["Canada"],
+      "prefill": ["Canada"],
+      "example": ["Ontario", "British Columbia"]
+    },
+    "periods": {
+      "title": "Periods",
+      "type": "integer",
+      "description": "How many recent reference periods to return per series and geography. These tables are monthly.",
+      "default": 1,
+      "minimum": 1,
+      "maximum": 240
+    },
+    "maxRows": {
+      "title": "Max rows",
+      "type": "integer",
+      "description": "Total rows to return.",
+      "default": 200,
+      "minimum": 1,
+      "maximum": 10000
+    }
+  }
+}

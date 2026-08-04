@@ -1,0 +1,10 @@
+{
+    "name": "canada-economic-data",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Canada economic and housing data from Statistics Canada: CPI, new housing prices, housing starts, employment and GDP. Keyless, no browser, no proxy.",
+    "main": "src/main.js",
+    "scripts": { "start": "node src/main.js" },
+    "dependencies": { "apify": "^3.7.0" },
+    "engines": { "node": ">=20" }
+}

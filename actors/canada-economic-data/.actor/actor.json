@@ -1,0 +1,12 @@
+{
+  "actorSpecification": 1,
+  "name": "canada-economic-data",
+  "title": "Canada Economic Data: Prices, Housing, Jobs and GDP",
+  "description": "Monthly Canadian statistics from Statistics Canada: consumer price index, new housing prices, housing starts, employment and GDP, for Canada or by province and city. Keyless, no browser and no proxy.",
+  "version": "0.1",
+  "buildTag": "latest",
+  "input": "./input_schema.json",
+  "dockerfile": "./Dockerfile",
+  "readme": "../README.md",
+  "categories": ["BUSINESS", "NEWS"]
+}
