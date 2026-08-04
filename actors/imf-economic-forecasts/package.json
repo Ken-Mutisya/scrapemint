@@ -1,0 +1,10 @@
+{
+    "name": "imf-economic-forecasts",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "IMF World Economic Outlook data and projections by country: GDP growth, inflation, debt, unemployment. Keyless, no browser, no proxy.",
+    "main": "src/main.js",
+    "scripts": { "start": "node src/main.js" },
+    "dependencies": { "apify": "^3.7.0" },
+    "engines": { "node": ">=20" }
+}

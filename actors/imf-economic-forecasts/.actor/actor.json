@@ -1,0 +1,12 @@
+{
+  "actorSpecification": 1,
+  "name": "imf-economic-forecasts",
+  "title": "IMF Forecasts: GDP, Inflation and Debt by Country",
+  "description": "The IMF's World Economic Outlook figures and projections for around 230 countries and blocs: GDP growth, inflation, government debt, unemployment and more, with each year marked as observed or forecast. Keyless, no browser and no proxy.",
+  "version": "0.1",
+  "buildTag": "latest",
+  "input": "./input_schema.json",
+  "dockerfile": "./Dockerfile",
+  "readme": "../README.md",
+  "categories": ["BUSINESS", "NEWS"]
+}

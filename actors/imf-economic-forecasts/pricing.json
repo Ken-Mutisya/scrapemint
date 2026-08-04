@@ -1,0 +1,15 @@
+{
+    "_note": "PUT to /v2/acts/{actorId} as pricingInfos entry. Description written WIDE: entries are immutable from creation.",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~imf-economic-forecasts?token=APIFY_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "data_row": {
+                "eventTitle": "Data row",
+                "eventDescription": "One indicator for one country or bloc for one year: the value with its unit and indicator label, whether that year is an observed figure or an IMF projection, and which World Economic Outlook release it came from. First 2 rows per run are free so you can validate output.",
+                "eventPriceUsd": 0.004
+            }
+        }
+    },
+    "startedAt": "2026-08-20T00:00:00.000Z"
+}

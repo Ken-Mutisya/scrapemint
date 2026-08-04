@@ -1,0 +1,53 @@
+{
+  "title": "IMF Economic Forecasts",
+  "type": "object",
+  "schemaVersion": 1,
+  "properties": {
+    "indicators": {
+      "title": "Indicators",
+      "type": "array",
+      "description": "IMF indicator codes. Common ones: NGDP_RPCH (real GDP growth), PCPIPCH (inflation), GGXWDG_NGDP (government gross debt, percent of GDP), LUR (unemployment rate), BCA_NGDPD (current account, percent of GDP). Over 130 exist.",
+      "editor": "stringList",
+      "default": ["NGDP_RPCH", "PCPIPCH", "GGXWDG_NGDP", "LUR"],
+      "prefill": ["NGDP_RPCH", "PCPIPCH", "GGXWDG_NGDP", "LUR"],
+      "example": ["NGDP_RPCH", "PCPIPCH"]
+    },
+    "countries": {
+      "title": "Countries",
+      "type": "array",
+      "description": "ISO3 codes such as USA, GBR, DEU, or full names. Leave empty for every country. Codes match exactly; names match partially.",
+      "editor": "stringList",
+      "default": ["USA", "GBR", "DEU", "CHN", "IND"],
+      "prefill": ["USA", "GBR", "DEU", "CHN", "IND"],
+      "example": ["USA", "Brazil"]
+    },
+    "fromYear": {
+      "title": "From year",
+      "type": "string",
+      "description": "Earliest year to return, e.g. 2020. Data starts in 1980.",
+      "editor": "textfield",
+      "example": "2024"
+    },
+    "toYear": {
+      "title": "To year",
+      "type": "string",
+      "description": "Latest year to return. Projections currently run to 2031.",
+      "editor": "textfield",
+      "example": "2031"
+    },
+    "includeAggregates": {
+      "title": "Include blocs and regions",
+      "type": "boolean",
+      "description": "The IMF publishes aggregates such as Advanced economies and Euro area alongside countries. They are excluded by default so a bloc is never mistaken for a country.",
+      "default": false
+    },
+    "maxRows": {
+      "title": "Max rows",
+      "type": "integer",
+      "description": "Total rows to return.",
+      "default": 300,
+      "minimum": 1,
+      "maximum": 20000
+    }
+  }
+}
