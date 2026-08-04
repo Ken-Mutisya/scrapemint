@@ -1,0 +1,12 @@
+{
+  "actorSpecification": 1,
+  "name": "australia-economic-data",
+  "title": "Australia House Prices, Inflation and Wage Growth",
+  "description": "Mean residential dwelling price by state, consumer price inflation and wage growth from the Australian Bureau of Statistics, quarterly with history. Keyless, no browser and no proxy.",
+  "version": "0.1",
+  "buildTag": "latest",
+  "input": "./input_schema.json",
+  "dockerfile": "./Dockerfile",
+  "readme": "../README.md",
+  "categories": ["BUSINESS", "REAL_ESTATE"]
+}

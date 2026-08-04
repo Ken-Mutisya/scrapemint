@@ -1,0 +1,47 @@
+{
+  "title": "Australia Economic Data",
+  "type": "object",
+  "schemaVersion": 1,
+  "properties": {
+    "datasets": {
+      "title": "Datasets",
+      "type": "array",
+      "description": "Which series to pull. Choices: dwellings (mean residential dwelling price and dwelling counts), inflation (consumer price index), wages (wage price index).",
+      "editor": "stringList",
+      "default": ["dwellings", "inflation", "wages"],
+      "prefill": ["dwellings", "inflation", "wages"],
+      "example": ["dwellings"]
+    },
+    "regions": {
+      "title": "Regions",
+      "type": "array",
+      "description": "Names to match, e.g. [\"Australia\"], [\"New South Wales\",\"Victoria\"]. Matching is partial. Leave empty for every region the dataset publishes.",
+      "editor": "stringList",
+      "default": ["Australia"],
+      "prefill": ["Australia"],
+      "example": ["New South Wales", "Queensland"]
+    },
+    "periods": {
+      "title": "Periods",
+      "type": "integer",
+      "description": "How many recent periods per series. These datasets are quarterly.",
+      "default": 1,
+      "minimum": 1,
+      "maximum": 200
+    },
+    "allMeasures": {
+      "title": "All measures",
+      "type": "boolean",
+      "description": "By default each dataset returns its headline measure only, for example mean dwelling price rather than total dwelling stock value. Turn this on to return every measure, which mixes very different units on the same output.",
+      "default": false
+    },
+    "maxRows": {
+      "title": "Max rows",
+      "type": "integer",
+      "description": "Total rows to return.",
+      "default": 200,
+      "minimum": 1,
+      "maximum": 10000
+    }
+  }
+}

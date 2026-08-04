@@ -1,0 +1,15 @@
+{
+    "_note": "PUT to /v2/acts/{actorId} as pricingInfos entry. Description written WIDE: entries are immutable from creation.",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~australia-economic-data?token=APIFY_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "data_row": {
+                "eventTitle": "Data row",
+                "eventDescription": "One Australian statistic for one region and one period: the value with the measure it represents, the reference period, the source dataflow and whether that series is still being updated. Covers dwelling prices, inflation, wages and any other series in the catalogue. First 2 rows per run are free so you can validate output.",
+                "eventPriceUsd": 0.004
+            }
+        }
+    },
+    "startedAt": "2026-08-20T00:00:00.000Z"
+}
