@@ -1,0 +1,16 @@
+{
+    "name": "h1b-salary-data",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "H-1B salary data: base pay US employers filed with the Department of Labor by employer, job title and work location, with median and percentile summaries. Keyless, no browser, no proxy.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}

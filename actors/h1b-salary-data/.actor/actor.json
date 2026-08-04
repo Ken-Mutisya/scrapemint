@@ -1,0 +1,15 @@
+{
+  "actorSpecification": 1,
+  "name": "h1b-salary-data",
+  "title": "H-1B Salary Data: Employer, Job Title and Base Pay",
+  "description": "Base salaries US employers filed with the Department of Labor to sponsor H-1B workers: employer, job title, base pay, work location and filing dates, plus median and percentile summaries. Keyless JSON, no browser and no proxy.",
+  "version": "0.1",
+  "buildTag": "latest",
+  "input": "./input_schema.json",
+  "dockerfile": "./Dockerfile",
+  "readme": "../README.md",
+  "categories": [
+    "JOBS",
+    "BUSINESS"
+  ]
+}

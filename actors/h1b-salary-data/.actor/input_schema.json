@@ -1,0 +1,74 @@
+{
+  "title": "H-1B Salary Data",
+  "type": "object",
+  "schemaVersion": 1,
+  "properties": {
+    "employers": {
+      "title": "Employers",
+      "type": "array",
+      "description": "Company names to look up, e.g. [\"stripe\",\"nvidia\"]. Partial names work. Leave empty to search by job title or city across all employers.",
+      "editor": "stringList",
+      "prefill": [
+        "stripe"
+      ],
+      "example": [
+        "stripe",
+        "nvidia"
+      ]
+    },
+    "jobTitle": {
+      "title": "Job title",
+      "type": "string",
+      "description": "Filter by job title, e.g. \"data scientist\". Combines with employers and city.",
+      "editor": "textfield",
+      "example": "software engineer"
+    },
+    "city": {
+      "title": "City",
+      "type": "string",
+      "description": "Filter by work location city, e.g. \"seattle\".",
+      "editor": "textfield",
+      "example": "seattle"
+    },
+    "years": {
+      "title": "Filing years",
+      "type": "array",
+      "description": "Years to pull, e.g. [2024, 2025]. Leave empty to use the most recent year that has filings. Note the site has no \"all years\" option, so each year is fetched separately.",
+      "editor": "stringList",
+      "prefill": [],
+      "example": [
+        "2024",
+        "2025"
+      ]
+    },
+    "includeSummary": {
+      "title": "Include summary row",
+      "type": "boolean",
+      "description": "Add one row with the median, 25th and 75th percentile, minimum and maximum base salary for everything matched.",
+      "default": true
+    },
+    "sortBy": {
+      "title": "Sort by",
+      "type": "string",
+      "description": "Order the salary rows.",
+      "editor": "select",
+      "enum": [
+        "salary",
+        "submitDate"
+      ],
+      "enumTitles": [
+        "Highest base salary first",
+        "Most recently filed first"
+      ],
+      "default": "salary"
+    },
+    "maxRows": {
+      "title": "Max salary rows",
+      "type": "integer",
+      "description": "Salary rows to return after sorting. The summary row does not count towards this.",
+      "default": 200,
+      "minimum": 1,
+      "maximum": 10000
+    }
+  }
+}
