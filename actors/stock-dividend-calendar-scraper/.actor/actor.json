@@ -2,7 +2,7 @@
     "actorSpecification": 1,
     "name": "stock-dividend-calendar-scraper",
     "title": "Stock Dividend Calendar Scraper",
-    "description": "Upcoming US stock dividends, keyless: ex-dividend, record, payment and announcement dates with the declared rate, indicated annual dividend and days until the ex-dividend date. Filter by ticker watchlist or minimum rate, look up to 90 days ahead, and run it on a schedule in monitor mode to get only newly announced dividends.",
+    "description": "Upcoming US stock dividends, keyless: ex-dividend, record, payment and announcement dates with the declared rate, indicated annual dividend and days until the ex-dividend date. Filter by ticker or minimum rate, look 90 days ahead, and use monitor mode for newly announced dividends only.",
     "version": "0.1",
     "buildTag": "latest",
     "input": "./input_schema.json",
