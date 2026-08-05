@@ -1,0 +1,51 @@
+{
+    "title": "Stock Dividend Calendar Scraper",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "dateFrom": {
+            "title": "From date",
+            "type": "string",
+            "description": "First ex-dividend date to include, as YYYY-MM-DD. Leave empty to start from today.",
+            "editor": "textfield",
+            "prefill": ""
+        },
+        "dateTo": {
+            "title": "To date",
+            "type": "string",
+            "description": "Last ex-dividend date to include, as YYYY-MM-DD. Leave empty for 30 days after the start date. The range is capped at 90 days.",
+            "editor": "textfield",
+            "prefill": ""
+        },
+        "tickers": {
+            "title": "Ticker watchlist",
+            "type": "array",
+            "description": "Only return these symbols. Leave empty to get every company with a dividend in the date range.",
+            "editor": "stringList",
+            "prefill": [],
+            "default": []
+        },
+        "minDividendRate": {
+            "title": "Minimum dividend rate",
+            "type": "string",
+            "description": "Skip dividends below this cash amount per share, for example 0.50. Rows where Nasdaq reports no rate are skipped when this is set. Leave empty for no filter.",
+            "editor": "textfield",
+            "prefill": ""
+        },
+        "newOnly": {
+            "title": "Monitor mode: new dividends only",
+            "type": "boolean",
+            "description": "Remember dividends already returned and emit only ones not seen before. Run this on a daily schedule for a clean feed of newly announced dividends. Quiet runs cost nothing.",
+            "default": false
+        },
+        "maxRows": {
+            "title": "Max rows",
+            "type": "integer",
+            "description": "Stop after this many rows.",
+            "default": 500,
+            "prefill": 500,
+            "minimum": 1,
+            "maximum": 20000
+        }
+    }
+}

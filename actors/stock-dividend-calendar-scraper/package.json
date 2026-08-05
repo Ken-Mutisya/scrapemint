@@ -1,0 +1,16 @@
+{
+    "name": "stock-dividend-calendar-scraper",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Upcoming US stock dividends from Nasdaq's keyless public JSON API: ex-dividend, record, payment and announcement dates, declared rate, indicated annual dividend and days until the ex-dividend date, with ticker and minimum rate filters and a new-dividend monitor mode. No browser, no login.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}
