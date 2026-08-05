@@ -1,0 +1,120 @@
+{
+    "title": "Antidumping Duty Checker",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "mode": {
+            "title": "Mode",
+            "type": "string",
+            "description": "Notices returns one row per Commerce publication, newest first. Cases resolves a whole proceeding into one row: where it stands now, which notice said so, and the full history.",
+            "editor": "select",
+            "default": "notices",
+            "prefill": "notices",
+            "enum": ["notices", "cases"],
+            "enumTitles": ["Notices (feed of what published)", "Cases (current status per case)"]
+        },
+        "searchTerms": {
+            "title": "Product or company search",
+            "type": "array",
+            "description": "What to look for, for example \"aluminum extrusions\" or \"solar cells\". Leave empty with no case numbers to sweep every AD/CVD notice in the date range.",
+            "editor": "stringList",
+            "default": [],
+            "prefill": ["aluminum extrusions"]
+        },
+        "caseNumbers": {
+            "title": "Case numbers",
+            "type": "array",
+            "description": "Commerce case numbers such as A-570-135 or C-570-946. A is antidumping, C is countervailing, and the middle three digits are the country.",
+            "editor": "stringList",
+            "default": [],
+            "prefill": []
+        },
+        "countries": {
+            "title": "Countries",
+            "type": "array",
+            "description": "Filter to goods from these countries, for example China, Vietnam, South Korea. Commerce writes country names several ways and they are normalised before matching.",
+            "editor": "stringList",
+            "default": [],
+            "prefill": []
+        },
+        "dutyType": {
+            "title": "Duty type",
+            "type": "string",
+            "description": "Antidumping targets selling below fair value. Countervailing targets foreign subsidies. Many products are subject to both at once.",
+            "editor": "select",
+            "default": "both",
+            "prefill": "both",
+            "enum": ["both", "antidumping", "countervailing"],
+            "enumTitles": ["Both", "Antidumping only", "Countervailing only"]
+        },
+        "stages": {
+            "title": "Lifecycle stages",
+            "type": "array",
+            "description": "Narrow to specific kinds of action. Leave empty for all of them. Note that reviewRescinded ends a review, not the order, while orderRevoked ends the order itself.",
+            "editor": "select",
+            "items": {
+                "type": "string",
+                "enum": [
+                    "orderIssued", "orderRevoked", "orderRevokedInPart", "orderContinued", "sunsetReview",
+                    "reviewFinalResults", "reviewPreliminaryResults", "reviewRescinded",
+                    "investigationInitiated", "preliminaryDetermination", "finalDetermination",
+                    "finalDeterminationNegative", "scopeRuling", "circumventionInquiry",
+                    "changedCircumstancesReview", "newShipperReview", "courtRemand",
+                    "postponement", "reviewOpportunity", "other"
+                ],
+                "enumTitles": [
+                    "Order issued", "Order revoked (in full)", "Order revoked in part (order survives)", "Order continued", "Sunset review",
+                    "Review final results (sets rates)", "Review preliminary results",
+                    "Review rescinded (order stays in force)",
+                    "Investigation initiated", "Preliminary determination", "Final determination",
+                    "Final determination, negative", "Scope ruling", "Circumvention inquiry",
+                    "Changed circumstances review", "New shipper review", "Court remand",
+                    "Postponement", "Opportunity to request review", "Other"
+                ]
+            },
+            "default": [],
+            "prefill": []
+        },
+        "dateFrom": {
+            "title": "From publication date",
+            "type": "string",
+            "description": "Earliest publication date as YYYY-MM-DD. In cases mode a narrow window can hide the order notice itself, which shows up as a status of activeOrderInferred.",
+            "editor": "textfield",
+            "prefill": ""
+        },
+        "dateTo": {
+            "title": "To publication date",
+            "type": "string",
+            "description": "Latest publication date as YYYY-MM-DD.",
+            "editor": "textfield",
+            "prefill": ""
+        },
+        "onlyActiveOrders": {
+            "title": "Only cases with an order in force",
+            "type": "boolean",
+            "description": "Cases mode only. Drops revoked orders, negative determinations and open investigations, leaving the cases that cost money today.",
+            "default": false
+        },
+        "includeOmnibusNotices": {
+            "title": "Include multi-case notices",
+            "type": "boolean",
+            "description": "Commerce publishes round-up notices listing dozens of unrelated cases, such as scope ruling lists and the monthly opportunity to request a review. They are part of a case history but never set its status.",
+            "default": false
+        },
+        "newOnly": {
+            "title": "Monitor mode: new documents only",
+            "type": "boolean",
+            "description": "Remember what has already been returned and emit only what is new. Run it daily to catch an order, revocation or rate change on your products the day it publishes. Quiet runs cost nothing.",
+            "default": false
+        },
+        "maxRows": {
+            "title": "Max rows",
+            "type": "integer",
+            "description": "Stop after this many rows. Case rows cost several requests each, so keep this modest in cases mode.",
+            "default": 100,
+            "prefill": 100,
+            "minimum": 1,
+            "maximum": 20000
+        }
+    }
+}

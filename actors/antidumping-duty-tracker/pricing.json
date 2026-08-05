@@ -1,0 +1,20 @@
+{
+    "_note": "PUT this to /v2/acts/{actorId} as pricingInfos array entry. PAY_PER_EVENT only on BRONZE plan, startedAt 14+ days out (free preview until then). Apify auto-adds margin.",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~antidumping-duty-tracker?token=APIFY_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "notice": {
+                "eventTitle": "AD/CVD notice",
+                "eventDescription": "One Commerce notice: title, publication and effective dates, citation, case numbers, duty type, product and countries covered, the lifecycle stage it represents, and flags for whether it establishes an order, ends one or changes rates. First 3 rows per run are free.",
+                "eventPriceUsd": 0.006
+            },
+            "case_summary": {
+                "eventTitle": "Case summary",
+                "eventDescription": "One AD/CVD case resolved across its whole paper trail: current status with the notice that set it and whether that was stated or inferred, order and revocation dates, the most recent rate action, and the full dated notice history. Built from several searches per case. First 3 rows per run are free.",
+                "eventPriceUsd": 0.02
+            }
+        }
+    },
+    "startedAt": "2026-08-20T00:00:00.000Z"
+}

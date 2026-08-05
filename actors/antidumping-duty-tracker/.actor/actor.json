@@ -1,0 +1,14 @@
+{
+    "actorSpecification": 1,
+    "name": "antidumping-duty-tracker",
+    "title": "Antidumping Duty Checker, AD/CVD Orders & Case Status",
+    "description": "Check whether a product is under a US antidumping or countervailing duty order, keyless. Search by product, country or case number, get the current status of each case with the notice that set it, and track orders, reviews, revocations and sunset determinations as they publish.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "BUSINESS",
+        "NEWS"
+    ]
+}

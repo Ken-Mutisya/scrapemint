@@ -1,0 +1,17 @@
+{
+    "name": "antidumping-duty-tracker",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "AD/CVD orders from the keyless Federal Register API: which products from which countries are under an antidumping or countervailing duty order, where each case stands, and what changed. Distinguishes rescission of a review from revocation of an order, and never lets a multi-case omnibus notice set a case status. No browser, no login, no API key.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js",
+        "test": "node test/parse.test.mjs"
+    },
+    "dependencies": {
+        "apify": "^3.7.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}
