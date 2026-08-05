@@ -97,7 +97,9 @@ function recallToProblem(r) {
 
 // The complaints database splits some models into body-style variants
 // ("F-150" is stored as "F-150 REGULAR CAB", "F-150 SUPER CREW", ...). When
-// the exact name has no complaints, sum the counts of matching variants.
+// the exact name has no complaints, the variants are queried and their
+// complaints counted by distinct ODI number -- never by adding the counts up.
+// See complaintCountFor for why.
 const complaintModelsCache = new Map();
 async function complaintModelVariants(mk, yr) {
     const key = `${mk}|${yr}`.toLowerCase();
@@ -113,20 +115,38 @@ async function complaintModelVariants(mk, yr) {
     return models;
 }
 
+/* A complaint is filed against a vehicle, not a body style, so NHTSA returns
+ * the same ODI number under every variant it applies to. Adding the per-variant
+ * counts therefore counts most complaints several times over: a 2021 F-150 sums
+ * to 5,024 across its six variants when only 1,202 are distinct, because 956 of
+ * them appear five times each. The counts are combined by distinct ODI number
+ * instead. */
 async function complaintCountFor(mk, md, yr) {
     const exact = await fetchJson(`${COMPLAINTS_URL}?make=${encodeURIComponent(mk)}&model=${encodeURIComponent(md)}&modelYear=${encodeURIComponent(yr)}`, {}, { lenient: true });
-    let count = Number(exact.count ?? exact.Count) || 0;
-    if (count > 0) return count;
+    const exactCount = Number(exact.count ?? exact.Count) || 0;
+    /* One name means one result set, so there is nothing to overlap. */
+    if (exactCount > 0) return exactCount;
+
     const mdUp = String(md).toUpperCase();
     const variants = (await complaintModelVariants(mk, yr))
         .filter((v) => v !== mdUp && v.startsWith(`${mdUp} `)).slice(0, 8);
+
+    const odiNumbers = new Set();
+    let largestVariantCount = 0;
     for (const v of variants) {
         try {
             const j = await fetchJson(`${COMPLAINTS_URL}?make=${encodeURIComponent(mk)}&model=${encodeURIComponent(v)}&modelYear=${encodeURIComponent(yr)}`, {}, { lenient: true });
-            count += Number(j.count ?? j.Count) || 0;
+            for (const c of (j.results || [])) {
+                if (c?.odiNumber !== null && c?.odiNumber !== undefined) odiNumbers.add(c.odiNumber);
+            }
+            largestVariantCount = Math.max(largestVariantCount, Number(j.count ?? j.Count) || 0);
         } catch { /* variant lookups are best effort */ }
     }
-    return count;
+    /* If a response carried a count but no rows to dedupe, the biggest single
+     * variant is used. Every complaint within one variant is distinct, so that
+     * is a floor on the real figure and can never overstate it the way a sum
+     * would. */
+    return odiNumbers.size > 0 ? odiNumbers.size : largestVariantCount;
 }
 
 // Safety data per make|model|year, cached within the run.
