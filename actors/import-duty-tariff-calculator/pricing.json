@@ -1,0 +1,20 @@
+{
+    "_note": "PUT this to /v2/acts/{actorId} as pricingInfos array entry. PAY_PER_EVENT only on BRONZE plan, startedAt 14+ days out (free preview until then). Apify auto-adds margin.",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~import-duty-tariff-calculator?token=APIFY_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "hts_row": {
+                "eventTitle": "Tariff line",
+                "eventDescription": "One US tariff line: HS code, full hierarchical description, units of quantity, the general and column 2 duty rates resolved down to the 10-digit statistical line, every trade agreement rate with its program code, which column applies to your country of origin, and an estimated duty and landed cost on your shipment value. First 3 rows per run are free so you can validate output.",
+                "eventPriceUsd": 0.005
+            },
+            "trade_flow_row": {
+                "eventDescription": "One bilateral trade flow from UN Comtrade: reporting country, partner country, HS code, direction, trade value in USD with CIF and FOB breakdown, and net weight with its estimation flag. First 3 rows per run are free.",
+                "eventTitle": "Trade flow row",
+                "eventPriceUsd": 0.004
+            }
+        }
+    },
+    "startedAt": "2026-08-20T00:00:00.000Z"
+}

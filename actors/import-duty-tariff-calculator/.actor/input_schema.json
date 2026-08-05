@@ -1,0 +1,114 @@
+{
+    "title": "Import Duty & Tariff Calculator",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "mode": {
+            "title": "Mode",
+            "type": "string",
+            "description": "Duty lookup returns tariff lines with the rate that applies. Additional tariffs returns Chapter 99 headings, where Section 301, Section 232 and IEEPA duties live. Trade flows returns who actually ships the goods, from UN Comtrade.",
+            "editor": "select",
+            "default": "duty",
+            "prefill": "duty",
+            "enum": ["duty", "additionalTariffs", "tradeFlow"],
+            "enumTitles": [
+                "Duty lookup (HS code or keyword)",
+                "Additional tariffs (Chapter 99: Section 301, 232, IEEPA)",
+                "Trade flows (UN Comtrade bilateral)"
+            ]
+        },
+        "hsCodes": {
+            "title": "HS / HTS codes",
+            "type": "array",
+            "description": "Codes to look up, with or without dots: 8541, 8541.43.00, 8541430010. A 4-digit heading returns every line under it. Required for trade flow mode, where codes are truncated to 6 digits because Comtrade is keyed at that level.",
+            "editor": "stringList",
+            "default": [],
+            "prefill": ["8541.43.00"]
+        },
+        "keyword": {
+            "title": "Product keyword",
+            "type": "string",
+            "description": "Search the tariff schedule by product description, for example \"solar panel\" or \"cotton t-shirt\". In additional tariffs mode this filters Chapter 99 by country or product text instead, for example \"Mexico\" or \"aluminum\".",
+            "editor": "textfield",
+            "prefill": ""
+        },
+        "originCountry": {
+            "title": "Country of origin",
+            "type": "string",
+            "description": "ISO2 code of where the goods are made, for example CN, MX, DE, VN. Decides which tariff column applies and flags any trade agreement the country takes part in. Leave empty to get the general rate.",
+            "editor": "textfield",
+            "prefill": ""
+        },
+        "shipmentValueUsd": {
+            "title": "Shipment value (USD)",
+            "type": "string",
+            "description": "Customs value of the shipment. Adds an estimated duty and landed cost per line. Lines charged per kilo or per pair report no estimate rather than a made-up one, because that needs a weight or piece count.",
+            "editor": "textfield",
+            "prefill": ""
+        },
+        "forceColumn": {
+            "title": "Tariff column",
+            "type": "string",
+            "description": "Auto picks column 2 for countries without normal trade relations, then the best trade agreement rate the origin country qualifies for, then the general rate. Override to compare columns directly.",
+            "editor": "select",
+            "default": "auto",
+            "prefill": "auto",
+            "enum": ["auto", "general", "special", "other"],
+            "enumTitles": [
+                "Auto (recommended)",
+                "General (normal trade relations)",
+                "Special (trade agreement rate)",
+                "Column 2 (no normal trade relations)"
+            ]
+        },
+        "includeStatisticalLines": {
+            "title": "Include 10-digit statistical lines",
+            "type": "boolean",
+            "description": "10-digit lines are what you actually declare at entry, and they inherit their duty rate from the 8-digit line above. Turn off to get only the 8-digit legal rate lines.",
+            "default": true
+        },
+        "reporterCountry": {
+            "title": "Reporting country (trade flows)",
+            "type": "string",
+            "description": "ISO2 code of the country whose customs reported the trade, for example US, DE, JP. Trade flow mode only.",
+            "editor": "textfield",
+            "default": "US",
+            "prefill": "US"
+        },
+        "partnerCountry": {
+            "title": "Partner country (trade flows)",
+            "type": "string",
+            "description": "ISO2 code of the other side of the trade. Leave empty for every partner, which also returns a World aggregate row flagged as such. Trade flow mode only.",
+            "editor": "textfield",
+            "prefill": ""
+        },
+        "year": {
+            "title": "Year (trade flows)",
+            "type": "integer",
+            "description": "Reporting year. Comtrade runs about two years behind, so leave empty to use the most recent year likely to have data.",
+            "editor": "number",
+            "prefill": 2023,
+            "minimum": 1962,
+            "maximum": 2100
+        },
+        "flow": {
+            "title": "Flow direction (trade flows)",
+            "type": "string",
+            "description": "Imports into the reporting country, or exports out of it.",
+            "editor": "select",
+            "default": "M",
+            "prefill": "M",
+            "enum": ["M", "X"],
+            "enumTitles": ["Imports", "Exports"]
+        },
+        "maxRows": {
+            "title": "Max rows",
+            "type": "integer",
+            "description": "Stop after this many rows.",
+            "default": 200,
+            "prefill": 200,
+            "minimum": 1,
+            "maximum": 20000
+        }
+    }
+}

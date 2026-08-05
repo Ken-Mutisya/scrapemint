@@ -1,0 +1,14 @@
+{
+    "actorSpecification": 1,
+    "name": "import-duty-tariff-calculator",
+    "title": "Import Duty & Tariff Calculator, HS Code Lookup",
+    "description": "Look up US import duty by HS code or product keyword, keyless. Rates resolved down to the 10-digit line, free trade agreement eligibility by origin country, duty estimate on a shipment value, Chapter 99 Section 301 and IEEPA lookups, and UN Comtrade trade flows.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "BUSINESS",
+        "ECOMMERCE"
+    ]
+}
