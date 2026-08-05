@@ -1,0 +1,88 @@
+{
+    "title": "Customs Ruling Finder",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "searchTerms": {
+            "title": "Search terms",
+            "type": "array",
+            "description": "Product names or tariff codes, for example \"integrated solar panel\" or \"6109.10.0040\". Codes are reformatted automatically: CROSS groups ten digits 4.2.4, so a code copied from the tariff schedule in 4.2.2.2 form would otherwise return nothing.",
+            "editor": "stringList",
+            "default": [],
+            "prefill": ["integrated solar panel"]
+        },
+        "rulingNumbers": {
+            "title": "Ruling numbers",
+            "type": "array",
+            "description": "Fetch specific rulings directly, for example N160415 or H305865. These always return the full ruling text, because that is the only thing the ruling endpoint serves.",
+            "editor": "stringList",
+            "default": [],
+            "prefill": []
+        },
+        "collection": {
+            "title": "Collection",
+            "type": "string",
+            "description": "New York rulings are the high-volume classification rulings. Headquarters rulings carry more weight and often decide contested questions.",
+            "editor": "select",
+            "default": "ALL",
+            "prefill": "ALL",
+            "enum": ["ALL", "ny", "hq"],
+            "enumTitles": [
+                "All rulings",
+                "New York (National Commodity Specialist Division)",
+                "Headquarters"
+            ]
+        },
+        "sortBy": {
+            "title": "Sort order",
+            "type": "string",
+            "description": "Newest first is the default because relevance order returns 1990s rulings ahead of current ones.",
+            "editor": "select",
+            "default": "DATE_DESC",
+            "prefill": "DATE_DESC",
+            "enum": ["DATE_DESC", "RELEVANCE"],
+            "enumTitles": ["Newest first", "Best match"]
+        },
+        "dateFrom": {
+            "title": "From ruling date",
+            "type": "string",
+            "description": "Earliest ruling date as YYYY-MM-DD. CBP has no server-side date filter, so this is applied after fetching and rulings with no recorded date are excluded.",
+            "editor": "textfield",
+            "prefill": ""
+        },
+        "dateTo": {
+            "title": "To ruling date",
+            "type": "string",
+            "description": "Latest ruling date as YYYY-MM-DD.",
+            "editor": "textfield",
+            "prefill": ""
+        },
+        "onlyCurrentPrecedent": {
+            "title": "Skip superseded rulings",
+            "type": "boolean",
+            "description": "Drop rulings that CROSS records as revoked or modified. CBP returns those alongside live ones with nothing to tell them apart, and citing one is a real problem at entry.",
+            "default": false
+        },
+        "includeFullText": {
+            "title": "Include full ruling text",
+            "type": "boolean",
+            "description": "Fetch the complete ruling body: the reasoning, the product description CBP worked from, and the classification it landed on. Costs one extra request per ruling and is charged at the higher rate.",
+            "default": false
+        },
+        "newOnly": {
+            "title": "Monitor mode: new rulings only",
+            "type": "boolean",
+            "description": "Remember rulings already returned and emit only ones not seen before. Pair it with newest-first sorting and a saved search to watch for new precedent on your products. Quiet runs cost nothing.",
+            "default": false
+        },
+        "maxRows": {
+            "title": "Max rows",
+            "type": "integer",
+            "description": "Stop after this many rulings.",
+            "default": 100,
+            "prefill": 100,
+            "minimum": 1,
+            "maximum": 20000
+        }
+    }
+}

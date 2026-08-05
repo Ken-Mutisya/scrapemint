@@ -1,0 +1,20 @@
+{
+    "_note": "PUT this to /v2/acts/{actorId} as pricingInfos array entry. PAY_PER_EVENT only on BRONZE plan, startedAt 14+ days out (free preview until then). Apify auto-adds margin.",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~customs-ruling-finder?token=APIFY_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "ruling": {
+                "eventTitle": "Ruling",
+                "eventDescription": "One CBP customs ruling: ruling number, subject, date, issuing office, the HTS codes Customs assigned in both CROSS and tariff-schedule notation, precedent status flagging whether it was revoked or modified and by which ruling, USMCA and NAFTA flags, and links to the ruling page and source document. First 3 rows per run are free.",
+                "eventPriceUsd": 0.006
+            },
+            "ruling_full_text": {
+                "eventTitle": "Ruling with full text",
+                "eventDescription": "Everything in a ruling row plus the complete ruling body: the product description CBP worked from, its reasoning, and the classification it reached. Costs an extra upstream request per ruling. First 3 rows per run are free.",
+                "eventPriceUsd": 0.02
+            }
+        }
+    },
+    "startedAt": "2026-08-20T00:00:00.000Z"
+}

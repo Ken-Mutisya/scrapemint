@@ -1,0 +1,14 @@
+{
+    "actorSpecification": 1,
+    "name": "customs-ruling-finder",
+    "title": "Customs Ruling Finder, HTS Classification Precedent",
+    "description": "Search CBP customs rulings by product or tariff code, keyless. See which HTS code Customs actually assigned, read the full ruling, and know whether it was revoked or modified before you cite it. Codes are reformatted automatically so tariff-schedule codes actually match.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "BUSINESS",
+        "NEWS"
+    ]
+}
