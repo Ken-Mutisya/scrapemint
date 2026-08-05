@@ -1,0 +1,20 @@
+{
+    "_note": "PUT this to /v2/acts/{actorId} as pricingInfos array entry. PAY_PER_EVENT only on BRONZE plan, startedAt 14+ days out (free preview until then). Apify auto-adds margin.",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~vehicle-defect-tracker?token=APIFY_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "complaint": {
+                "eventTitle": "Defect complaint",
+                "eventDescription": "One owner complaint: ODI number, components, crash, fire, injury and death counts, a derived severity, the date the failure happened and the date it was reported with the lag between them, the owner narrative, and whether any recall covers that component. First 3 rows per run are free.",
+                "eventPriceUsd": 0.004
+            },
+            "component_trend": {
+                "eventTitle": "Component trend",
+                "eventDescription": "One component rolled up across a model year: complaint count, crash, fire, injury and death totals, first and latest incident dates, and whether a recall covers it. Flags parts owners keep reporting with no recall against them. First 3 rows per run are free.",
+                "eventPriceUsd": 0.02
+            }
+        }
+    },
+    "startedAt": "2026-08-20T00:00:00.000Z"
+}

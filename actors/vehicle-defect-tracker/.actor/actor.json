@@ -1,0 +1,14 @@
+{
+    "actorSpecification": 1,
+    "name": "vehicle-defect-tracker",
+    "title": "Vehicle Defect Tracker, Complaints & Recall Gaps",
+    "description": "Every owner complaint filed with NHTSA for a vehicle, keyless, with crash, fire, injury and death flags and the full narrative. Roll them up by component and see which failures owners keep reporting that no recall covers. Deduped properly, so counts are real.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "BUSINESS",
+        "NEWS"
+    ]
+}

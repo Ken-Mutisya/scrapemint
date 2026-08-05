@@ -1,0 +1,108 @@
+{
+    "title": "Vehicle Defect Tracker",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "mode": {
+            "title": "Mode",
+            "type": "string",
+            "description": "Complaints returns one row per owner complaint with the full narrative. Component trends rolls them up per failing part and flags the ones no recall covers.",
+            "editor": "select",
+            "default": "complaints",
+            "prefill": "complaints",
+            "enum": ["complaints", "componentTrends"],
+            "enumTitles": ["Complaints (one row each)", "Component trends (rolled up per part)"]
+        },
+        "make": {
+            "title": "Make",
+            "type": "string",
+            "description": "Vehicle manufacturer, for example Ford, Honda, Tesla.",
+            "editor": "textfield",
+            "prefill": "Ford"
+        },
+        "model": {
+            "title": "Model",
+            "type": "string",
+            "description": "Model name, for example Explorer or F-150. NHTSA stores some models only as body-style entries such as \"F-150 SUPER CREW\", and rejects the plain name outright. Type the plain name: the variants are found and merged for you, with duplicates removed.",
+            "editor": "textfield",
+            "prefill": "Explorer"
+        },
+        "yearFrom": {
+            "title": "From model year",
+            "type": "integer",
+            "description": "Earliest model year. Set this alone to do a single year.",
+            "editor": "number",
+            "prefill": 2021,
+            "minimum": 1949,
+            "maximum": 2100
+        },
+        "yearTo": {
+            "title": "To model year",
+            "type": "integer",
+            "description": "Latest model year. Leave empty to use the same year as above. Up to 60 years per run.",
+            "editor": "number",
+            "prefill": 2021,
+            "minimum": 1949,
+            "maximum": 2100
+        },
+        "minSeverity": {
+            "title": "Minimum severity",
+            "type": "string",
+            "description": "Severity comes from what the owner reported: a death, an injury, a fire, or a crash. Most complaints report none of these, which is a real finding rather than missing data.",
+            "editor": "select",
+            "default": "all",
+            "prefill": "all",
+            "enum": ["all", "crashOrFire", "injuryOrDeath"],
+            "enumTitles": ["All complaints", "Crash or fire only", "Injury or death only"]
+        },
+        "components": {
+            "title": "Components",
+            "type": "array",
+            "description": "Filter to specific failing parts as NHTSA names them, for example POWER TRAIN, ENGINE, ELECTRICAL SYSTEM, AIR BAGS. Leave empty for all of them.",
+            "editor": "stringList",
+            "default": [],
+            "prefill": []
+        },
+        "dateFrom": {
+            "title": "From incident date",
+            "type": "string",
+            "description": "Earliest date the failure happened, as YYYY-MM-DD. Filters run on the incident date, not the filing date: owners often report months or years late, so filing dates would put old failures in recent buckets.",
+            "editor": "textfield",
+            "prefill": ""
+        },
+        "dateTo": {
+            "title": "To incident date",
+            "type": "string",
+            "description": "Latest incident date as YYYY-MM-DD.",
+            "editor": "textfield",
+            "prefill": ""
+        },
+        "includeRecallCheck": {
+            "title": "Check recalls",
+            "type": "boolean",
+            "description": "Fetch recalls for the same vehicle and mark whether any covers each complaint's component. Turning this off leaves the recall fields empty rather than false, so absence stays distinct from a real no.",
+            "default": true
+        },
+        "includeSummary": {
+            "title": "Include owner narrative",
+            "type": "boolean",
+            "description": "The owner's description of what happened. Long, and the most useful field if you are reading rather than counting.",
+            "default": true
+        },
+        "newOnly": {
+            "title": "Monitor mode: new complaints only",
+            "type": "boolean",
+            "description": "Remember complaints already returned and emit only ones filed since. Run it weekly on the models you care about. Quiet runs cost nothing.",
+            "default": false
+        },
+        "maxRows": {
+            "title": "Max rows",
+            "type": "integer",
+            "description": "Stop after this many rows.",
+            "default": 200,
+            "prefill": 200,
+            "minimum": 1,
+            "maximum": 20000
+        }
+    }
+}

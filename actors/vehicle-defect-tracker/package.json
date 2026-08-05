@@ -1,0 +1,17 @@
+{
+    "name": "vehicle-defect-tracker",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Owner-reported vehicle defect complaints from the keyless NHTSA API, joined to recalls to surface components owners keep reporting that no recall covers. Dedupes the same complaint returned under several body-style names, handles the two endpoints disagreeing about model names, and trends on incident date rather than filing date. No browser, no login, no API key.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js",
+        "test": "node test/parse.test.mjs"
+    },
+    "dependencies": {
+        "apify": "^3.7.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}
