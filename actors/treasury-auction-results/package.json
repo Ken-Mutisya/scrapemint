@@ -1,0 +1,16 @@
+{
+    "name": "treasury-auction-results",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Official US Treasury auction results from the keyless FiscalData API: bid to cover, high rate normalised across bills and coupons, offering and accepted amounts, and the primary dealer, direct and indirect bidder split, with an announced versus settled flag and a new-auction monitor mode. No browser, no login.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}

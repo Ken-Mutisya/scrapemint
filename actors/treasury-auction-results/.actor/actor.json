@@ -1,0 +1,14 @@
+{
+    "actorSpecification": 1,
+    "name": "treasury-auction-results",
+    "title": "Treasury Auction Results Scraper",
+    "description": "Official US Treasury auction results, keyless: bid to cover, high rate, offering and accepted amounts, and the primary dealer, direct and indirect bidder split for every Bill, Note, Bond, TIPS and FRN. Filter by type, date or bid to cover, and see auctions announced before they are held.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "BUSINESS",
+        "NEWS"
+    ]
+}

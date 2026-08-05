@@ -1,0 +1,66 @@
+{
+    "title": "Treasury Auction Results Scraper",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "dateFrom": {
+            "title": "From auction date",
+            "type": "string",
+            "description": "Earliest auction date, as YYYY-MM-DD. Leave empty for the last 12 months.",
+            "editor": "textfield",
+            "prefill": ""
+        },
+        "dateTo": {
+            "title": "To auction date",
+            "type": "string",
+            "description": "Latest auction date, as YYYY-MM-DD. Leave empty to include announced auctions that have not been held yet.",
+            "editor": "textfield",
+            "prefill": ""
+        },
+        "securityTypes": {
+            "title": "Security types",
+            "type": "array",
+            "description": "Which securities to include. Leave empty for all of them.",
+            "editor": "select",
+            "items": {
+                "type": "string",
+                "enum": ["Bill", "Note", "Bond", "TIPS", "FRN"],
+                "enumTitles": ["Bill (up to 1 year)", "Note (2 to 10 year)", "Bond (20 and 30 year)", "TIPS (inflation protected)", "FRN (floating rate)"]
+            },
+            "default": [],
+            "prefill": []
+        },
+        "status": {
+            "title": "Auction status",
+            "type": "string",
+            "description": "Settled auctions have results. Announced auctions are scheduled but not yet held, so their result fields are empty by definition.",
+            "editor": "select",
+            "default": "all",
+            "prefill": "all",
+            "enum": ["all", "settled", "announced"],
+            "enumTitles": ["All auctions", "Settled only (has results)", "Announced only (upcoming schedule)"]
+        },
+        "minBidToCover": {
+            "title": "Minimum bid to cover",
+            "type": "string",
+            "description": "Only return auctions at or above this bid to cover ratio, for example 2.5. Announced auctions are excluded when this is set, because an auction that has not been held has no ratio yet.",
+            "editor": "textfield",
+            "prefill": ""
+        },
+        "newOnly": {
+            "title": "Monitor mode: new auctions only",
+            "type": "boolean",
+            "description": "Remember auctions already returned and emit only ones not seen before. An auction reappears once when it moves from announced to settled, so results arrive as they publish. Quiet runs cost nothing.",
+            "default": false
+        },
+        "maxRows": {
+            "title": "Max rows",
+            "type": "integer",
+            "description": "Stop after this many rows, newest auction first.",
+            "default": 500,
+            "prefill": 500,
+            "minimum": 1,
+            "maximum": 20000
+        }
+    }
+}

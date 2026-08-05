@@ -1,0 +1,15 @@
+{
+    "_note": "PUT this to /v2/acts/{actorId} as pricingInfos array entry. PAY_PER_EVENT only on BRONZE plan, startedAt 14+ days out (free preview until then). Apify auto-adds margin.",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~treasury-auction-results?token=APIFY_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "auction_row": {
+                "eventTitle": "Auction row",
+                "eventDescription": "One US Treasury auction: CUSIP, security type and term, auction and issue dates, bid to cover ratio, high rate with the basis it was quoted on, offering and accepted amounts, and the primary dealer, direct and indirect bidder allotments in dollars and as a share of the auction. First 2 rows per run are free so you can validate output.",
+                "eventPriceUsd": 0.008
+            }
+        }
+    },
+    "startedAt": "2026-08-20T00:00:00.000Z"
+}
