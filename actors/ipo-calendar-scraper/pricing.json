@@ -1,0 +1,15 @@
+{
+    "_note": "PUT this to /v2/acts/{actorId} as pricingInfos array entry. PAY_PER_EVENT only on BRONZE plan, startedAt 14+ days out (free preview until then). Apify auto-adds margin.",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~ipo-calendar-scraper?token=APIFY_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "ipo_row": {
+                "eventTitle": "IPO row",
+                "eventDescription": "One IPO deal returned at one stage: status (priced, upcoming, filed or withdrawn), proposed ticker, company name, exchange, share price or marketed price range, shares offered, deal value in USD and the priced, expected, filed or withdrawn date. First 2 rows per run are free so you can validate output.",
+                "eventPriceUsd": 0.005
+            }
+        }
+    },
+    "startedAt": "2026-08-20T00:00:00.000Z"
+}

@@ -1,0 +1,64 @@
+{
+    "title": "IPO Calendar Scraper",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "dateFrom": {
+            "title": "From date",
+            "type": "string",
+            "description": "Earliest deal date to include, as YYYY-MM-DD. Leave empty to start from today.",
+            "editor": "textfield",
+            "prefill": ""
+        },
+        "dateTo": {
+            "title": "To date",
+            "type": "string",
+            "description": "Latest deal date to include, as YYYY-MM-DD. Leave empty for 30 days after the start date. The range is capped at 12 months.",
+            "editor": "textfield",
+            "prefill": ""
+        },
+        "statuses": {
+            "title": "Deal statuses",
+            "type": "array",
+            "description": "Which stages to return. Filed deals are the earliest signal, often months before a company prices.",
+            "editor": "select",
+            "items": {
+                "type": "string",
+                "enum": ["priced", "upcoming", "filed", "withdrawn"],
+                "enumTitles": ["Priced (deal completed)", "Upcoming (expected to price)", "Filed (registration filed)", "Withdrawn (deal pulled)"]
+            },
+            "default": ["priced", "upcoming", "filed", "withdrawn"],
+            "prefill": ["priced", "upcoming", "filed", "withdrawn"]
+        },
+        "tickers": {
+            "title": "Ticker watchlist",
+            "type": "array",
+            "description": "Only return these proposed symbols. Leave empty to get every deal in the date range.",
+            "editor": "stringList",
+            "prefill": [],
+            "default": []
+        },
+        "minDealValueUsd": {
+            "title": "Minimum deal value (USD)",
+            "type": "string",
+            "description": "Skip deals raising less than this, for example 50000000 for 50 million. Deals with no published value are skipped when this is set. Leave empty for no filter.",
+            "editor": "textfield",
+            "prefill": ""
+        },
+        "newOnly": {
+            "title": "Monitor mode: new deals only",
+            "type": "boolean",
+            "description": "Remember deals already returned and emit only ones not seen before. A deal reappears when it changes stage, so a filing that later prices is reported again. Run on a daily schedule for a clean feed. Quiet runs cost nothing.",
+            "default": false
+        },
+        "maxRows": {
+            "title": "Max rows",
+            "type": "integer",
+            "description": "Stop after this many rows.",
+            "default": 300,
+            "prefill": 300,
+            "minimum": 1,
+            "maximum": 20000
+        }
+    }
+}

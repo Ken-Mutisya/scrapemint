@@ -1,0 +1,16 @@
+{
+    "name": "ipo-calendar-scraper",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "US IPOs from Nasdaq's keyless public JSON API: upcoming, priced, newly filed and withdrawn deals with ticker, exchange, share price, shares offered and deal value, with status, ticker and minimum deal size filters and a new-deal monitor mode. No browser, no login.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}

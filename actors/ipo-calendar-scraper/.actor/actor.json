@@ -1,0 +1,14 @@
+{
+    "actorSpecification": 1,
+    "name": "ipo-calendar-scraper",
+    "title": "IPO Calendar Scraper",
+    "description": "US IPOs, keyless: upcoming, priced, newly filed and withdrawn deals with ticker, exchange, share price, shares offered and deal value. Filter by status, ticker or minimum deal size, look up to 12 months ahead, and use monitor mode for newly filed deals only.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "BUSINESS",
+        "NEWS"
+    ]
+}
