@@ -205,20 +205,36 @@ async function runPlaywright() {
 // Buyer-selected RESIDENTIAL/SERP proxy groups are stripped: this source works
 // from datacenter IPs and premium groups only raise run costs (dev pays compute
 // under pay-per-event). Buyer-owned proxyUrls pass through untouched.
+// ForexFactory answers the calendar PAGE with 403 INTERMITTENTLY from
+// datacenter IPs. Observed 2026-08-06: one custom-range run exhausted all three
+// retries and finished with zero rows, while the same input minutes later
+// returned rows on the same datacenter proxy. It is flaky, not a hard wall, so
+// datacenter stays the default. The weekly JSON feed is behind no block at all,
+// so day and week ranges are never affected.
+//
+// RESIDENTIAL is allowed when the caller asks for it explicitly, as a way
+// through a bad patch, but it is never added on their behalf: it measured 2.3x
+// the run cost for the same three rows. Defaulting a browser path to
+// residential is what put this actor at -435% and then -166% margin, so the
+// cost stays an opt-in the buyer chooses with the price in front of them.
 function sanitizeProxyInput(p) {
     if (!p || typeof p !== 'object') return p;
     const out = { ...p };
     if (Array.isArray(out.apifyProxyGroups)) {
-        const kept = out.apifyProxyGroups.filter((g) => !/RESIDENTIAL|SERP/i.test(String(g)));
-        if (kept.length !== out.apifyProxyGroups.length) {
-            log.warning('Ignoring RESIDENTIAL/SERP proxy groups: this source works from datacenter IPs and premium groups only raise run costs.');
+        const serpStripped = out.apifyProxyGroups.filter((g) => !/SERP/i.test(String(g)));
+        if (serpStripped.length !== out.apifyProxyGroups.length) {
+            log.warning('Ignoring SERP proxy group: it does nothing for this source and only raises run costs.');
         }
-        if (kept.length) out.apifyProxyGroups = kept;
+        if (serpStripped.some((g) => /RESIDENTIAL/i.test(String(g)))) {
+            log.warning('RESIDENTIAL proxy requested. It costs more per run than datacenter, and it is only needed for month, custom and detail ranges; day and week ranges read a feed that needs no proxy at all.');
+        }
+        if (serpStripped.length) out.apifyProxyGroups = serpStripped;
         else delete out.apifyProxyGroups;
     }
     return out;
 }
 
+let calendarBlocked = false;
 const proxyConfiguration = await Actor.createProxyConfiguration(sanitizeProxyInput(proxyInput));
 const calendarUrl = buildCalendarUrl({ range, startDate, endDate });
 log.info(`Calendar URL: ${calendarUrl}`);
@@ -276,7 +292,9 @@ const crawler = new PlaywrightCrawler({
         if (t === 'event_detail') return handleEventDetail(ctx);
     },
     failedRequestHandler({ request, error }) {
-        log.warning(`Failed: ${request.url} -> ${error?.message}`);
+        const msg = String(error?.message || '');
+        if (/403/.test(msg) && request.userData?.type === 'calendar') calendarBlocked = true;
+        log.warning(`Failed: ${request.url} -> ${msg}`);
     },
 });
 
@@ -286,6 +304,25 @@ await crawler.addRequests([{
     uniqueKey: `calendar:${calendarUrl}`,
 }]);
 await crawler.run();
+
+// A blocked calendar page and a genuinely empty week both end with zero rows,
+// which is indistinguishable to the caller. Say which one happened, and never
+// charge for it.
+if (calendarBlocked && totalRowsPushed === 0) {
+    const onResidential = /RESIDENTIAL/i.test(JSON.stringify(proxyInput?.apifyProxyGroups || []));
+    const advice = onResidential
+        ? 'The request was blocked even on a residential proxy. This block is intermittent, so retrying usually clears it. Day and week ranges are never affected: they read a JSON feed that sits behind no block.'
+        : 'ForexFactory blocks the calendar page from datacenter IPs intermittently, so retrying the same input often succeeds. If it keeps failing, re-run with proxyConfiguration.apifyProxyGroups set to ["RESIDENTIAL"], which costs more per run, or use a day or week range, which reads a JSON feed that needs no proxy.';
+    log.warning(`Calendar page blocked (403): ${advice}`);
+    await Actor.pushData({
+        range,
+        startDate: startDate || null,
+        endDate: endDate || null,
+        found: false,
+        blocked: true,
+        note: `calendar page returned 403; no rows returned and nothing charged. ${advice}`,
+    });
+}
 }
 
 // ---------- Handlers ----------

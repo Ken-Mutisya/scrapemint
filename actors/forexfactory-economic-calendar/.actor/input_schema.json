@@ -7,7 +7,7 @@
         "range": {
             "title": "Date range",
             "type": "string",
-            "description": "Preset date window. Choose 'custom' to use startDate and endDate.",
+            "description": "Preset date window. Choose 'custom' to use startDate and endDate. Day and week ranges read ForexFactory's fast JSON feed, which publishes forecast and previous but NOT the released actual, so `actual` is null on those ranges. Month, custom and includeDetail runs read the calendar page itself and do parse the released actual. To get actuals for a past week, pull it as a custom range.",
             "editor": "select",
             "enum": [
                 "today",
