@@ -1,8 +1,8 @@
-# Sports Odds Intelligence: Live Lines from DraftKings, FanDuel, Pinnacle, Bet365
+# Sports Odds Scraper: Live Lines from DraftKings, FanDuel, Pinnacle, Bet365
 
 Track live sports betting odds across 40+ sportsbooks. Pull moneyline (h2h), spread, and over/under lines for NFL, NBA, MLB, NHL, EPL, UFC, and more. Built in arbitrage detection and best price edge vs the consensus median. Deduped across runs. Powered by The Odds API. Pay per item.
 
-**Searches this actor ranks for:** sports odds API, betting odds intelligence, line movement tracker, sports arbitrage finder, DraftKings odds feed, FanDuel API, Pinnacle odds, sportsbook comparison, NFL odds intelligence.
+**Searches this actor ranks for:** sports odds API, betting odds scraper, line movement tracker, sports arbitrage finder, DraftKings odds feed, FanDuel API, Pinnacle odds, sportsbook comparison, NFL odds scraper.
 
 ---
 
@@ -20,7 +20,7 @@ Pick a sport. Pick regions. Get every sportsbook's line per event, the best pric
 
 ---
 
-## Who this sports odds intelligence is for
+## Who this sports odds scraper is for
 
 | You are a... | You use this to... |
 |---|---|
@@ -115,7 +115,7 @@ Full list at `the-odds-api.com/sports-odds-data/sports-apis.html`.
 
 ---
 
-## Sports odds intelligence vs the alternatives
+## Sports odds scraper vs the alternatives
 
 | | OddsPortal | Action Network Pro | **This actor** |
 |---|---|---|---|
@@ -188,7 +188,7 @@ Yes when you use The Odds API, which aggregates bookmaker data under license. Th
 - **SEC 8-K Event Tracker** for earnings, exec changes, and M&A filings
 - **GitHub Issue Monitor** for devtool category mentions and bug reports
 - **Stack Overflow Lead Monitor** for dev question tracking by tag
-- **Hacker News Intelligence** for stories and comments by keyword
+- **Hacker News Scraper** for stories and comments by keyword
 - **Reddit Lead Monitor** for subreddit and brand mention tracking
 
 Stack these to cover every public financial, prediction, and betting surface one desk touches.

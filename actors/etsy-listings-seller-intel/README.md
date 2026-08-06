@@ -1,10 +1,10 @@
-# Etsy Listings & Seller Intel Intelligence (No Login Required)
+# Etsy Listings & Seller Intel Scraper (No Login Required)
 
 Pull public Etsy listings and seller intel from any keyword search or shop URL. No cookies. No login. No Etsy seller account. Each row ships the listing ID, title, price (sale and original), favorites, rating, review count, plus shop-level intel like total sales, years on Etsy, location, and star seller status. Pay per listing.
 
 **Built for** dropshippers hunting trending products, niche makers benchmarking competitors, vintage and antique dealers tracking comps, DTC brands sourcing creative angles, and acquirers vetting shop-level seller intel.
 
-**Keywords this actor ranks for:** etsy intelligence, etsy listing intelligence, etsy product api, etsy seller intelligence, etsy shop intel, etsy bestseller tracker, etsy trend intelligence, etsy competitor research, dropshipping etsy, etsy product hunt, etsy keyword research, etsy sales estimator.
+**Keywords this actor ranks for:** etsy scraper, etsy listing scraper, etsy product api, etsy seller scraper, etsy shop intel, etsy bestseller tracker, etsy trend scraper, etsy competitor research, dropshipping etsy, etsy product hunt, etsy keyword research, etsy sales estimator.
 
 ---
 

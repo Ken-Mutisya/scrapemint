@@ -4,7 +4,7 @@ Pull Indeed jobs from keywords, search URLs, direct job IDs, or company pages. E
 
 **Built for** sales teams sourcing leads at hiring companies, recruiters benchmarking salary bands, talent acquisition tracking competitor reqs, market research firms watching hiring trends, BI teams piping job market data into a warehouse, and lead-gen platforms enriching company records with active req counts.
 
-**Keywords this actor ranks for:** indeed intelligence, indeed jobs intelligence, indeed intelligence api, indeed job listings, indeed salary intelligence, indeed company intelligence, indeed jobs to JSON, indeed lead finder, hiring intent signals, recruiting intelligence, job board intelligence, indeed pulling tool.
+**Keywords this actor ranks for:** indeed scraper, indeed jobs scraper, indeed scraper api, indeed job listings, indeed salary scraper, indeed company scraper, indeed jobs to JSON, indeed lead finder, hiring intent signals, recruiting intelligence, job board scraper, indeed scraping tool.
 
 ---
 
@@ -289,9 +289,9 @@ This actor reads HTML any anonymous web visitor can see. Respect Indeed's terms 
 
 ## Related actors
 
-- **LinkedIn Jobs Intelligence Pro & Recruiter Contacts**. Search URL, company URL, and recruiter contact extraction.
+- **LinkedIn Jobs Scraper Pro & Recruiter Contacts**. Search URL, company URL, and recruiter contact extraction.
 - **HackerNews Lead Monitor**. Alerts for hiring threads matching your skills.
 - **Upwork Opportunity Alert**. Live alerts for new freelance jobs matching your stack.
 - **Stack Overflow Lead Monitor**. Detect technical questions from buyers in your niche.
 - **Website Content Pipeline**. Companies websites to clean Markdown with token counts.
-- **Amazon Product Intelligence**. Product catalog for ecommerce ops teams.
+- **Amazon Product Scraper**. Product catalog for ecommerce ops teams.

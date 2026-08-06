@@ -4,7 +4,7 @@ Bulk pull Polymarket prediction markets at scale. Filter by category, keyword, t
 
 **Built for** quant teams modeling event probabilities, hedge funds piping prediction signals into trading models, sports analytics shops correlating Polymarket prices with sportsbook lines, political research desks tracking election odds, crypto traders watching token launch markets, content teams powering odds widgets, and AI builders training event probability models on a clean cross market dataset.
 
-**Keywords this actor ranks for:** polymarket intelligence, polymarket api, prediction market data, polymarket order book, polymarket trades, polymarket price history, prediction market dataset, polymarket json, polymarket csv, polymarket condition id, polymarket gamma api, polymarket clob api, election odds api, sports prediction markets, crypto prediction markets, event probabilities api.
+**Keywords this actor ranks for:** polymarket scraper, polymarket api, prediction market data, polymarket order book, polymarket trades, polymarket price history, prediction market dataset, polymarket json, polymarket csv, polymarket condition id, polymarket gamma api, polymarket clob api, election odds api, sports prediction markets, crypto prediction markets, event probabilities api.
 
 ---
 
@@ -211,8 +211,8 @@ Yes, set `maxItemsTotal` to 0 (unlimited) and pick one or more categories. Expec
 
 ## Related actors
 
-- **Polymarket Market Monitor** filters and alerts on price moves, volume surges, and end date approaches across the same markets. Use it for automated watchlists; use this intelligence for bulk extraction and dataset builds.
-- **Sports Odds Intelligence** pulls live odds from DraftKings, Pinnacle, FanDuel, and other sportsbooks. Pair with this intelligence to compare prediction market prices to sportsbook lines on the same event.
+- **Polymarket Market Monitor** filters and alerts on price moves, volume surges, and end date approaches across the same markets. Use it for automated watchlists; use this scraper for bulk extraction and dataset builds.
+- **Sports Odds Scraper** pulls live odds from DraftKings, Pinnacle, FanDuel, and other sportsbooks. Pair with this scraper to compare prediction market prices to sportsbook lines on the same event.
 - **Sports Odds Movement Tracker** alerts on sharp line moves across books in real time.
 - **Crypto Whale Token Launch Tracker** surfaces new token launches and large whale moves.
 - **SEC Form 4 Insider Tracker** and **SEC 8-K Event Tracker** for equity and corporate event signals that often correlate with politics and macro Polymarket markets.

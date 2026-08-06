@@ -4,7 +4,7 @@ Pull LinkedIn jobs from search URLs, keywords, or company pages without a cookie
 
 **Built for** technical recruiters, sales teams selling to tech buyers, M&A scouts watching hiring velocity, comp researchers benchmarking pay bands, and founders vetting competitor hiring pipelines.
 
-**Keywords this actor ranks for:** linkedin jobs intelligence, linkedin jobs api, pull linkedin jobs no login, linkedin jobs search url intelligence, linkedin company jobs intelligence, linkedin recruiter contact intelligence, linkedin job skills intelligence, linkedin jobs to JSON, linkedin jobs to CSV, linkedin salary intelligence, linkedin hiring tracker, linkedin jobs by company, linkedin recruiter intel, easy apply detection, linkedin jobs API alternative.
+**Keywords this actor ranks for:** linkedin jobs scraper, linkedin jobs api, scrape linkedin jobs no login, linkedin jobs search url scraper, linkedin company jobs scraper, linkedin recruiter contact scraper, linkedin job skills scraper, linkedin jobs to JSON, linkedin jobs to CSV, linkedin salary scraper, linkedin hiring tracker, linkedin jobs by company, linkedin recruiter intel, easy apply detection, linkedin jobs API alternative.
 
 ---
 
@@ -247,7 +247,7 @@ The first few rows per run are free so you can validate output. After that, each
 
 No. The actor only touches LinkedIn's public guest endpoints, the same ones Google uses to index public job listings.
 
-### What is the difference between this and a basic LinkedIn jobs intelligence?
+### What is the difference between this and a basic LinkedIn jobs scraper?
 
 This one accepts three input modes (search URLs, keywords, company URLs), splits searches by city to break past the 1000 result cap, enriches with company about page data, extracts recruiter contact info, parses salary and skills on every row, and detects Easy Apply vs external ATS jobs.
 

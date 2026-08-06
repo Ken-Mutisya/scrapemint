@@ -4,7 +4,7 @@ Pull TripAdvisor hotels, restaurants, attractions, things to do, vacation rental
 
 **Built for** travel agencies pulling supplier catalogs, OTAs benchmarking competitors, hotel revenue managers tracking comp set rates, restaurant owners watching neighborhood rankings, BI teams piping travel data into a warehouse, content teams powering travel guides with structured data, and lead-gen platforms enriching travel records with TripAdvisor authority signals.
 
-**Keywords this actor ranks for:** tripadvisor intelligence, tripadvisor api, tripadvisor data finder, tripadvisor hotel intelligence, tripadvisor restaurant intelligence, tripadvisor attraction intelligence, tripadvisor reviews api, tripadvisor pricing api, vacation rental intelligence, tripadvisor to JSON, tripadvisor to CSV, hotel competitor benchmarking, restaurant ranking tracker.
+**Keywords this actor ranks for:** tripadvisor scraper, tripadvisor api, tripadvisor data extractor, tripadvisor hotel scraper, tripadvisor restaurant scraper, tripadvisor attraction scraper, tripadvisor reviews api, tripadvisor pricing api, vacation rental scraper, tripadvisor to JSON, tripadvisor to CSV, hotel competitor benchmarking, restaurant ranking tracker.
 
 ---
 
@@ -319,4 +319,4 @@ This actor reads HTML any anonymous web visitor can see. Respect TripAdvisor's t
 - **Booking Review Intelligence**. Same shape across Booking.com hotels.
 - **Airbnb Market Intelligence**. Vacation rental market data on Airbnb.
 - **Yelp Review Intelligence**. Restaurant and local business reviews.
-- **Google Maps Intelligence**. Local business data with reviews and photos.
+- **Google Maps Scraper**. Local business data with reviews and photos.

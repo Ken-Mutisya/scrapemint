@@ -4,7 +4,7 @@ Pull Google Patents at scale. Pulls patent metadata (title, abstract, filing / p
 
 **Built for** patent attorneys and IP firms running prior art sweeps, in-house IP teams managing portfolios, R&D leads tracking competitor filings, M&A due diligence teams scoring target IP estates, IP licensing brokers finding monetizable patents, university tech transfer offices, and AI teams training models on patent corpora.
 
-**Keywords this actor ranks for:** google patents api, google patents intelligence, patent search api, USPTO intelligence, EPO patent api, prior art search tool, patent citations intelligence, patent family lookup, CPC classification search, patent claims finder, assignee patent portfolio, freedom to operate search, patent prior art tools.
+**Keywords this actor ranks for:** google patents api, google patents scraper, patent search api, USPTO scraper, EPO patent api, prior art search tool, patent citations scraper, patent family lookup, CPC classification search, patent claims extractor, assignee patent portfolio, freedom to operate search, patent prior art tools.
 
 ---
 

@@ -4,7 +4,7 @@ Pull public TradingView trade ideas from any symbol, category, or tag. No cookie
 
 **Built for** retail traders sourcing setups, prop firm analysts surveying the FX and crypto idea flow, fintech newsletter writers tracking what is being called, sentiment quants modelling crowd direction, and trader copy platforms benchmarking author pull.
 
-**Keywords this actor ranks for:** tradingview intelligence, tradingview ideas api, tradingview ideas intelligence, tradingview author intelligence, forex trade ideas api, crypto trade ideas api, retail trader sentiment, tradingview followers, copy trading research, fx setups api, btc ideas tracker.
+**Keywords this actor ranks for:** tradingview scraper, tradingview ideas api, tradingview ideas scraper, tradingview author scraper, forex trade ideas api, crypto trade ideas api, retail trader sentiment, tradingview followers, copy trading research, fx setups api, btc ideas tracker.
 
 ---
 

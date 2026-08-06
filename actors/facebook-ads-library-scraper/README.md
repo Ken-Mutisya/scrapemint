@@ -1,10 +1,10 @@
-# Facebook Ads Library Intelligence (Public, No Login)
+# Facebook Ads Library Scraper (Public, No Login)
 
 Pull live and inactive ads from Meta's public Ads Library by keyword or by advertiser page. No cookies. No login. No app review or token rotation. Each row ships the library ID, advertiser, ad copy, creative URL, started date, platforms, country, ad type, and active status. Pay per ad row.
 
 **Built for** competitive intel teams, media buyers, performance marketing agencies, brand monitoring, PR research, and political/issue analysts who need fast access to every ad an advertiser is running on Facebook, Instagram, Audience Network, and Messenger.
 
-**Keywords this actor ranks for:** facebook ads library intelligence, meta ads library api, instagram ads intelligence, ad creative intelligence, competitor ad spy, ad creative database, facebook ad copy intelligence, political ad intelligence, ad transparency api, magicbrief alternative, bigspy alternative, adespresso alternative, adsparo alternative.
+**Keywords this actor ranks for:** facebook ads library scraper, meta ads library api, instagram ads scraper, ad creative intelligence, competitor ad spy, ad creative database, facebook ad copy scraper, political ad scraper, ad transparency api, magicbrief alternative, bigspy alternative, adespresso alternative, adsparo alternative.
 
 ---
 

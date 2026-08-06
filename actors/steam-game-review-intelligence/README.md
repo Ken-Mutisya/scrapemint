@@ -6,7 +6,7 @@ Built for game producers, live ops teams, indie developers, community managers, 
 
 ---
 
-## Who uses this Steam review intelligence
+## Who uses this Steam review scraper
 
 ```mermaid
 flowchart TD
@@ -19,7 +19,7 @@ flowchart TD
     D --> H[Community triage queue]
 ```
 
-| Role | What this intelligence unlocks |
+| Role | What this scraper unlocks |
 |---|---|
 | **Game producer** | Sentiment split by patch window, so you see which update lost goodwill |
 | **Live ops** | Review velocity and thumbs ratio tracked the same day a patch ships |
@@ -29,7 +29,7 @@ flowchart TD
 
 ---
 
-## How the Steam review intelligence works
+## How the Steam review scraper works
 
 ```mermaid
 flowchart LR
@@ -52,7 +52,7 @@ Turn on the SteamSpy option to add an estimated owners band, average playtime, a
 
 ---
 
-## Games dashboards vs this intelligence
+## Games dashboards vs this scraper
 
 ```mermaid
 flowchart LR
@@ -194,7 +194,7 @@ Yes. Use the Apify Scheduler to run hourly or daily. Add a webhook to push fresh
 - **App Review Intelligence** for iOS App Store and Google Play reviews
 - **Trustpilot Brand Reputation** for DTC and ecommerce brands
 - **Amazon Review Intelligence** for product reviews and listings
-- **G2 Reviews Intelligence** for B2B software
+- **G2 Reviews Scraper** for B2B software
 - **ProductHunt Launch Tracker** for launch day signal
 
 Stack these to cover every review surface one product touches.

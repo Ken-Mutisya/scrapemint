@@ -1,10 +1,10 @@
-# ForexFactory Economic Calendar Intelligence (No Login Required)
+# ForexFactory Economic Calendar Scraper (No Login Required)
 
 Pull the public ForexFactory economic calendar by any date range. No cookies. No login. No ForexFactory account. Each row ships the event date and UTC timestamp, currency, impact rating (high, medium, low, holiday), event title, actual release, market forecast (consensus), previous reading, revised previous, unit, source agency, and the link to the event detail page. Pay per event.
 
 **Built for** FX traders pricing in NFP and CPI prints, equity desks tracking earnings season alongside macro releases, fixed income analysts modelling rate decisions, fintech newsletter writers shipping a daily macro brief, sentiment quants joining release surprises to candle moves, and crypto desks watching FOMC and SPR data for risk regime shifts.
 
-**Keywords this actor ranks for:** forex factory intelligence, economic calendar api, forex calendar api, nfp intelligence, cpi release intelligence, fomc calendar, macro events api, central bank calendar, economic data api, forecasting calendar.
+**Keywords this actor ranks for:** forex factory scraper, economic calendar api, forex calendar api, nfp scraper, cpi release scraper, fomc calendar, macro events api, central bank calendar, economic data api, forecasting calendar.
 
 ---
 

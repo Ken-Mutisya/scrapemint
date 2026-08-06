@@ -2,7 +2,7 @@
 
 Pull Viator tours and activities by destination, keyword, or product URL. Every row has price from, star rating, review count, duration, highlights, supplier, category, and free cancellation flag. Works for Paris, London, Rome, Tokyo, New York, Dubai, and every Viator city. JSON output. Pay per item.
 
-**Ranks for:** Viator intelligence, Viator API, tour price tracker, travel activity data, TripAdvisor experiences, destination tour feed, sightseeing price monitor, attraction booking data.
+**Ranks for:** Viator scraper, Viator API, tour price tracker, travel activity data, TripAdvisor experiences, destination tour feed, sightseeing price monitor, attraction booking data.
 
 ---
 
@@ -98,7 +98,7 @@ Each row has a `flags` array so pipelines filter without parsing titles.
 
 ---
 
-## Viator intelligence vs the alternatives
+## Viator scraper vs the alternatives
 
 | | Viator Partner API | Manual copy paste | **This actor** |
 |---|---|---|---|

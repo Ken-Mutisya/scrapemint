@@ -2,7 +2,7 @@
 
 Pull Zillow listings by city, zip code, or search URL. Get price, beds, baths, square feet, lot size, Zestimate, rent Zestimate, days on market, and agent name for every listing. Works on for sale, for rent, and sold pages in any US market. Pay per row.
 
-**Ranks for:** Zillow intelligence, Zillow API alternative, Zestimate intelligence, Zillow data export, pull Zillow home prices, Zillow listings JSON, Zillow sold comps, Zillow rental data, real estate intelligence.
+**Ranks for:** Zillow scraper, Zillow API alternative, Zestimate scraper, Zillow data export, scrape Zillow home prices, Zillow listings JSON, Zillow sold comps, Zillow rental data, real estate intelligence.
 
 ---
 
@@ -97,7 +97,7 @@ flowchart LR
 
 ---
 
-## Zillow intelligence vs the alternatives
+## Zillow scraper vs the alternatives
 
 |  | MLS IDX feed | Zillow public API | **This actor** |
 |---|---|---|---|
@@ -150,4 +150,4 @@ This actor reads public HTML a browser can see. Respect the site terms and rate 
 - **Flight Price Tracker** for Google Flights fares
 - **TripAdvisor Review Intelligence** for hotel and restaurant reviews
 - **Google Reviews Intelligence** for places reviews
-- **Viator Intelligence** for tours and activities
+- **Viator Scraper** for tours and activities

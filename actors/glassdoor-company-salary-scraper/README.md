@@ -1,10 +1,10 @@
-# Glassdoor Company & Salary Intelligence (No Login Required)
+# Glassdoor Company & Salary Scraper (No Login Required)
 
 Pull public Glassdoor company facts and salary intelligence from any company page. No cookies. No login. No employer subscription. Each row ships the rating, CEO approval rate, recommend rate, headquarters, size, industry, founded year, salary ranges by job title, and the most recent review snippets. Pay per company.
 
 **Built for** comp teams pricing offers, recruiters benchmarking pay, sales teams researching target accounts, and HR ops tracking employer brand over time.
 
-**Keywords this actor ranks for:** glassdoor intelligence, glassdoor api, glassdoor salary intelligence, salary benchmarking api, employer brand tracker, comp benchmarking api, recruiter intelligence, glassdoor company data, glassdoor reviews intelligence, payscale alternative, lightcast alternative, salary intelligence api.
+**Keywords this actor ranks for:** glassdoor scraper, glassdoor api, glassdoor salary scraper, salary benchmarking api, employer brand tracker, comp benchmarking api, recruiter intelligence, glassdoor company data, glassdoor reviews scraper, payscale alternative, lightcast alternative, salary intelligence api.
 
 ---
 

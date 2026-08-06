@@ -4,7 +4,7 @@ Pull structured LinkedIn Learning course data by instructor, by topic, or from a
 
 **Built for** L&D teams, course competitors, instructional designers, and analysts who need clean structured access to the LinkedIn Learning catalog for skills-gap analysis, competitive benchmarking, and content planning.
 
-**Keywords this actor ranks for:** linkedin learning intelligence, linkedin learning api, linkedin course data, linkedin learning catalog export, course curriculum intelligence, skills taxonomy intelligence, linkedin learning to json, online course benchmarking, l&d competitive intelligence, course catalog monitoring, instructor course tracker, elearning content intel.
+**Keywords this actor ranks for:** linkedin learning scraper, linkedin learning api, linkedin course data, linkedin learning catalog export, course curriculum scraper, skills taxonomy scraper, linkedin learning to json, online course benchmarking, l&d competitive intelligence, course catalog monitoring, instructor course tracker, elearning content intel.
 
 ---
 

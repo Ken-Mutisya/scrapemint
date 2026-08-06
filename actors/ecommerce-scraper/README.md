@@ -4,7 +4,7 @@ Pull products across Amazon, Walmart, Target, eBay, Etsy, AliExpress, Best Buy, 
 
 **Built for** price intelligence teams tracking competitor catalogs, dropshippers sourcing winning products, brand managers watching MAP violations across resellers, BI teams piping retail catalogs into a warehouse, content teams powering shopping guides with structured data, lead gen platforms enriching company records with retailer signals, and AI builders training product recommenders on a clean cross marketplace dataset.
 
-**Keywords this actor ranks for:** ecommerce intelligence, product intelligence, amazon intelligence, walmart intelligence, target intelligence, ebay intelligence, etsy intelligence, aliexpress intelligence, best buy intelligence, ikea intelligence, shopify intelligence, woocommerce intelligence, bigcommerce intelligence, product data api, ecommerce data finder, jsonld product intelligence, retail price tracker, MAP monitoring, product catalog to JSON, product catalog to CSV.
+**Keywords this actor ranks for:** ecommerce scraper, product scraper, amazon scraper, walmart scraper, target scraper, ebay scraper, etsy scraper, aliexpress scraper, best buy scraper, ikea scraper, shopify scraper, woocommerce scraper, bigcommerce scraper, product data api, ecommerce data extractor, jsonld product scraper, retail price tracker, MAP monitoring, product catalog to JSON, product catalog to CSV.
 
 ---
 
@@ -322,7 +322,7 @@ This actor reads HTML any anonymous web visitor can see. Respect each retailer's
 
 ## Related actors
 
-- **Amazon Product Intelligence**. Same shape, Amazon only, with deeper Amazon specific fields (BSR, A+ content, sponsored signals).
+- **Amazon Product Scraper**. Same shape, Amazon only, with deeper Amazon specific fields (BSR, A+ content, sponsored signals).
 - **Amazon Review Intelligence**. Every review with author, rating, helpful votes, verified purchase, and timestamps.
 - **Trustpilot Brand Reputation**. Cross brand reputation tracking with review intelligence.
 - **Google Reviews Intelligence**. Local business reviews with sentiment.

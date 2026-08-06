@@ -20,7 +20,7 @@ Paste a keyword or a `owner/repo` slug. Pick filters. Get a clean JSON feed of n
 
 ---
 
-## Who this GitHub intelligence is for
+## Who this GitHub scraper is for
 
 | You are a... | You use this to... |
 |---|---|
@@ -100,7 +100,7 @@ curl -X POST "https://api.apify.com/v2/acts/scrapemint~github-issue-monitor/run-
 
 ---
 
-## GitHub intelligence vs the alternatives
+## GitHub scraper vs the alternatives
 
 ```mermaid
 flowchart LR
@@ -204,7 +204,7 @@ Yes. This actor uses the official GitHub REST API v3, which is rate limited and 
 ## Related Scrapemint actors
 
 - **Stack Overflow Lead Monitor** for dev question tracking by tag
-- **Hacker News Intelligence** for stories and comments by keyword
+- **Hacker News Scraper** for stories and comments by keyword
 - **Reddit Lead Monitor** for subreddit and brand mention tracking
 - **Product Hunt Launch Tracker** for competitor launch monitoring
 - **Upwork Opportunity Alert** for freelance lead generation

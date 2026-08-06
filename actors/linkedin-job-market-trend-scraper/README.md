@@ -44,7 +44,7 @@ flowchart LR
 
 For each keyword and location pair, plus any experience, type, remote, or recency filter, the actor reads the public jobs search page and pulls the total result count LinkedIn shows in the header. It also samples the rendered role cards to add a seniority and function split. With change tracking on, it stores the count between runs, so a scheduled run reports how the segment moved since last time. That movement is the whole point.
 
-This reads only the public jobs search page LinkedIn serves without a login. It is not a per job intelligence and not a per company tracker. It is a market level index.
+This reads only the public jobs search page LinkedIn serves without a login. It is not a per job scraper and not a per company tracker. It is a market level index.
 
 ---
 
@@ -128,8 +128,8 @@ First 5 queries per run are free. After that you pay per query tracked, breakdow
 
 ## FAQ
 
-**How is this different from a LinkedIn jobs intelligence?**
-A jobs intelligence returns one row per job. This returns one row per market segment, the total count with a seniority and function split, and the change since last run. It is a labor index, not a job feed.
+**How is this different from a LinkedIn jobs scraper?**
+A jobs scraper returns one row per job. This returns one row per market segment, the total count with a seniority and function split, and the change since last run. It is a labor index, not a job feed.
 
 **Do I need a LinkedIn login or cookie?**
 No. The actor reads the public jobs search page. No session, no Sales Navigator seat.
@@ -152,8 +152,8 @@ The jobs search page is a public surface LinkedIn serves without a login. Use th
 
 - **LinkedIn Hiring Tracker and Salary Intelligence** for the individual roles behind a trend
 - **LinkedIn Company Hiring Signal Tracker** for the companies driving a trend
-- **Indeed Jobs Intelligence** to triangulate the same market on a second source
+- **Indeed Jobs Scraper** to triangulate the same market on a second source
 - **Lead Enrichment Pipeline** to act on a heating segment
-- **Glassdoor Company Salary Intelligence** to pair demand with pay
+- **Glassdoor Company Salary Scraper** to pair demand with pay
 
 Stack these to turn a market signal into a hiring or investment decision.

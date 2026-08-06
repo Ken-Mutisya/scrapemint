@@ -4,7 +4,7 @@ Pull Google Scholar at scale. Pulls paper metadata (title, authors, year, venue,
 
 **Built for** academic researchers running literature reviews, PhD students chasing prior work, patent attorneys hunting prior art, bibliometricians measuring institutional output, science journalists tracing claims, AI teams building research copilots and training corpora, librarians enriching catalogs, and grant writers finding precedent.
 
-**Keywords this actor ranks for:** google scholar api, google scholar intelligence, scholar search api, academic paper intelligence, citation count intelligence, h-index lookup, prior art search, bibliometrics api, literature review automation, paper metadata finder, BibTeX intelligence, citing papers list, scholar author profile, research paper api.
+**Keywords this actor ranks for:** google scholar api, google scholar scraper, scholar search api, academic paper scraper, citation count scraper, h-index lookup, prior art search, bibliometrics api, literature review automation, paper metadata extractor, BibTeX export, citing papers list, scholar author profile, research paper api.
 
 ---
 

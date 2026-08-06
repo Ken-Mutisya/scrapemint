@@ -1,10 +1,10 @@
-# LinkedIn Events Intelligence (No Login Required)
+# LinkedIn Events Scraper (No Login Required)
 
 Pass a list of LinkedIn event URLs, keyword queries, or organizer pages. Get back one row per public LinkedIn event with title, start time, location, virtual flag, organizer, description, image, attendee count, and registration link. No cookies. No login. No Sales Navigator seat. Pay per event.
 
 **Built for** B2B event marketers, sponsorship sales teams, sales prospecting hunting active buyers, competitive intelligence teams tracking what rivals run, community managers, recruiters watching where their target talent shows up, and content teams sourcing speakers.
 
-**Keywords this actor ranks for:** linkedin events intelligence, linkedin event tracker, linkedin webinar intelligence, linkedin summit tracker, b2b event intelligence, linkedin event discovery, linkedin organizer events, virtual event tracker linkedin.
+**Keywords this actor ranks for:** linkedin events scraper, linkedin event tracker, linkedin webinar scraper, linkedin summit tracker, b2b event intelligence, linkedin event discovery, linkedin organizer events, virtual event tracker linkedin.
 
 ---
 
@@ -192,9 +192,9 @@ The first three events per run are free so you can validate output before paying
 
 No. The actor only touches public event pages and a public search engine. Your account is never touched.
 
-### How is this different from the LinkedIn Company Profile Intelligence?
+### How is this different from the LinkedIn Company Profile Scraper?
 
-Company Profile Intelligence returns firmographics for a company. This actor returns the *events* that companies and people run. Use them together to enrich each organizer with full firmographics.
+Company Profile Scraper returns firmographics for a company. This actor returns the *events* that companies and people run. Use them together to enrich each organizer with full firmographics.
 
 ### Why are some events missing from the results?
 

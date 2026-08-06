@@ -2,11 +2,11 @@
 
 Export every review for any iOS App Store or Google Play app into a clean JSON, CSV, or Excel file. Pull star ratings, review titles, full text, app version, country storefront, developer replies, and reviewer names for your app and every competitor in one run.
 
-Built for mobile product managers, ASO specialists, QA leads, indie developers, and user research teams who need App Store and Play Store review data without building a intelligence from scratch or paying $299 per month for an ASO dashboard.
+Built for mobile product managers, ASO specialists, QA leads, indie developers, and user research teams who need App Store and Play Store review data without building a scraper from scratch or paying $299 per month for an ASO dashboard.
 
 ---
 
-## Who uses this app review intelligence
+## Who uses this app review scraper
 
 ```mermaid
 flowchart TD
@@ -19,7 +19,7 @@ flowchart TD
     D --> H[Support ticket queue]
 ```
 
-| Role | What this intelligence unlocks |
+| Role | What this scraper unlocks |
 |---|---|
 | **Mobile PM** | Review count and star trend per app version, so you see which release regressed |
 | **ASO specialist** | Full review corpus for keyword mining and sentiment tracking |
@@ -29,7 +29,7 @@ flowchart TD
 
 ---
 
-## How the app review intelligence works
+## How the app review scraper works
 
 ```mermaid
 flowchart LR
@@ -51,7 +51,7 @@ Android uses the same reviews endpoint the Play Store web UI uses. Pagination is
 
 ---
 
-## ASO dashboards vs this intelligence
+## ASO dashboards vs this scraper
 
 ```mermaid
 flowchart LR

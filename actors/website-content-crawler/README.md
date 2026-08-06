@@ -13,7 +13,7 @@ Crawl any website and ship clean Markdown, plain text, and HTML for AI, LLM, and
 | Other crawlers | **This actor** |
 |---|---|
 | Raw HTML or plain text only | Markdown, plain text, AND cleaned HTML in one row |
-| One finder, take it or leave it | Three extractors race, the highest scored wins, the winner is tagged |
+| One extractor, take it or leave it | Three extractors race, the highest scored wins, the winner is tagged |
 | Manual chunking on your side | Auto chunks at paragraph boundaries with token aware overlap |
 | No token info | Every row ships an estimated GPT and Claude token count |
 | Sitemap configuration required | Auto discovers sitemap.xml, sitemap_index.xml, and robots.txt |
@@ -36,7 +36,7 @@ flowchart LR
     G --> H[(JSON CSV API<br/>vector database)]
 ```
 
-Three extractors run on every page. Mozilla Readability, a custom main content detector, and a body fallback each return text plus a content score. The highest scoring result wins and the row is tagged with which finder produced it, so you can audit quality on a per row basis.
+Three extractors run on every page. Mozilla Readability, a custom main content detector, and a body fallback each return text plus a content score. The highest scoring result wins and the row is tagged with which extractor produced it, so you can audit quality on a per row basis.
 
 ---
 
@@ -192,7 +192,7 @@ Toggle `chunkOutput` and the same row format is split into RAG ready chunks. Eac
 | `stayOnDomain` | boolean | Stay on the registrable domain of the start URL. |
 | `stayOnSubdomain` | boolean | Stricter than stayOnDomain. Same hostname only. |
 | `removeFluff` | boolean | Strip nav, footer, ads, and modals before extracting. |
-| `finder` | enum | auto, readability, main, or body. |
+| `extractor` | enum | auto, readability, main, or body. |
 | `outputFormats` | string[] | Any of markdown, text, html. |
 | `minContentLength` | integer | Drop pages below this many characters. |
 | `chunkOutput` | boolean | Split pages into RAG chunks and push one row per chunk. |

@@ -208,9 +208,9 @@ Poll the run, read the dataset. Or use the Apify client SDK in Node, Python, or 
 
 ---
 
-## TikTok intelligence alternatives compared
+## TikTok scraper alternatives compared
 
-|  | Official TikTok Research API | Custom intelligence | **This actor** |
+|  | Official TikTok Research API | Custom scraper | **This actor** |
 |---|---|---|---|
 | Access | Gated, academic email | Self hosted maintenance | Anyone with an Apify account |
 | Setup time | Weeks of approval | Days of coding | 60 seconds |
@@ -269,7 +269,7 @@ This actor reads public HTML that any web visitor can see. Respect TikTok's term
 ## Related actors
 
 - **Reddit Brand Monitor & Lead Finder** for subreddit mentions and high intent leads
-- **Google Maps Intelligence** for local business data and reviews
+- **Google Maps Scraper** for local business data and reviews
 - **TripAdvisor Review Intelligence** for hotel and restaurant review monitoring
 - **Yelp Review Intelligence** for local service reviews
 - **Amazon Review Intelligence** for product review tracking

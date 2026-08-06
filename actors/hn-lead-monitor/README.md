@@ -1,4 +1,4 @@
-# Hacker News Intelligence: Monitor Show HN, Ask HN, and Keyword Mentions
+# Hacker News Scraper: Monitor Show HN, Ask HN, and Keyword Mentions
 
 Pull Hacker News stories and comments matching your keywords, score floor, and age window. Export item ID, title, body, author, URL, permalink, points, comment count, parent link, and timestamp to JSON, CSV, or Excel. Deduped across runs so you only see new items. No auth. No API key. Pay per item.
 
@@ -19,7 +19,7 @@ Paste a keyword. Pick a feed. Get a clean JSON feed of new matching HN stories a
 
 ---
 
-## Who this HN intelligence is for
+## Who this HN scraper is for
 
 | You are a... | You use this to... |
 |---|---|
@@ -103,7 +103,7 @@ curl -X POST "https://api.apify.com/v2/acts/scrapemint~hn-lead-monitor/run-sync-
 
 ---
 
-## This intelligence vs the alternatives
+## This scraper vs the alternatives
 
 ```mermaid
 flowchart LR
@@ -194,7 +194,7 @@ Yes. Apify Scheduler goes down to 1 minute. Pair with a webhook to push new matc
 - **Reddit Lead Monitor** for subreddit and keyword mention tracking
 - **Product Hunt Launch Tracker** for competitor launch monitoring
 - **Upwork Opportunity Alert** for freelance lead generation
-- **App Store Review Intelligence** for mobile apps on iOS and Android
+- **App Store Review Scraper** for mobile apps on iOS and Android
 - **Trustpilot Brand Reputation** for DTC and ecommerce brands
 - **Google Reviews Intelligence** for local businesses
 - **Amazon Review Intelligence** for product review mining

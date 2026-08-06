@@ -1,10 +1,10 @@
-# G2 Product Reviews Intelligence (No Login Required)
+# G2 Product Reviews Scraper (No Login Required)
 
 Pull public G2 product pages and review snippets from any product. No cookies. No login. No vendor seat. Each row ships the product, vendor, overall rating, review count, star distribution, top features mentioned, pricing tiers when listed, and the most recent review snippets. Pay per product.
 
 **Built for** B2B SaaS competitive marketers, sales enablement teams pulling battlecards, product teams tracking review velocity, and PMM teams sourcing voice-of-customer quotes.
 
-**Keywords this actor ranks for:** g2 intelligence, g2 reviews api, g2 crowd intelligence, b2b review intelligence, sales battlecard data, voice of customer api, competitor review tracker, capterra alternative, trustradius alternative, software review intelligence, b2b saas competitive intelligence, review velocity tracking.
+**Keywords this actor ranks for:** g2 scraper, g2 reviews api, g2 crowd scraper, b2b review intelligence, sales battlecard data, voice of customer api, competitor review tracker, capterra alternative, trustradius alternative, software review scraper, b2b saas competitive intelligence, review velocity tracking.
 
 ---
 
