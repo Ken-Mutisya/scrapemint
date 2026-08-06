@@ -50,9 +50,13 @@ curl -X POST "https://api.apify.com/v2/acts/scrapemint~sports-odds-scraper/run-s
 
 ## Frequently asked questions
 
-**Where do the odds come from?** ESPN's public scoreboard feeds, which carry a bookmaker's pregame lines (typically DraftKings) for each game. The feed is keyless and stable; this actor normalizes it into one schema across sports.
+**Where do the odds come from?** Two keyless public feeds. ESPN's scoreboard carries one bookmaker's pregame lines for each game (typically DraftKings), and Bovada publishes its own prices. Both are normalized into one schema across sports.
 
-**Why one bookmaker now?** Sportsbooks block direct automated access to their own endpoints (this actor used to read DraftKings and Pinnacle directly until both walls went up). The scoreboard feed is the reliable public path; cross-book best price and arbitrage fields remain in the schema and light up automatically if a second provider ever appears in the feed.
+**Which sports get two books?** MLB, NFL, NBA, NHL, WNBA, college football and college basketball. Soccer and UFC come from ESPN alone, so those events carry a single book. An event is never dropped for having one price.
+
+**How are the two books matched?** On an exact join: both team names plus the start time to the minute. Nothing fuzzy. If either side differs the event simply stays single book, because a wrong pairing would invent a price gap that is not real.
+
+**Why did you used to read DraftKings and Pinnacle directly?** Both blocked automated access to their own endpoints, so the actor moved to public feeds that are reachable without a key or a proxy.
 
 **Do you have live/in-play odds or player props?** No — pregame moneyline, spread and total. `includeStartedEvents` keeps rows for games already underway, but prices are the pregame closes.
 
