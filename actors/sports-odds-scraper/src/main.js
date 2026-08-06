@@ -155,6 +155,15 @@ function americanToDecimal(american) {
 
 const closeOdds = (side) => side?.close ?? side?.current ?? side?.open ?? null;
 
+// ESPN writes a total's line as "o7.5" / "u7.5" and a spread's as "-1.5".
+// Number("o7.5") is NaN, so a bare cast silently dropped every total's point,
+// which left totals unmergeable across books (no shared key to join on).
+const lineToNumber = (v) => {
+    if (v == null) return null;
+    const n = Number(String(v).replace(/[^0-9.+-]/g, ''));
+    return Number.isFinite(n) ? n : null;
+};
+
 function outcome(name, american, point, participant) {
     const decimal = americanToDecimal(american);
     return {
@@ -186,8 +195,8 @@ function parseEspnOdds(odds, home, away) {
         const homeClose = closeOdds(ps.home);
         const awayClose = closeOdds(ps.away);
         const outcomes = [
-            outcome(home, americanFromStr(homeClose?.odds), homeClose?.line ?? (odds.spread != null ? odds.spread : null), 'home'),
-            outcome(away, americanFromStr(awayClose?.odds), awayClose?.line ?? (odds.spread != null ? -odds.spread : null), 'away'),
+            outcome(home, americanFromStr(homeClose?.odds), lineToNumber(homeClose?.line) ?? (odds.spread != null ? odds.spread : null), 'home'),
+            outcome(away, americanFromStr(awayClose?.odds), lineToNumber(awayClose?.line) ?? (odds.spread != null ? -odds.spread : null), 'away'),
         ].filter((o) => o.priceDecimal != null);
         if (outcomes.length > 0) bookMarkets.push({ key: 'spreads', label: ps.displayName || 'Spread', outcomes });
     }
@@ -197,8 +206,8 @@ function parseEspnOdds(odds, home, away) {
         const overClose = closeOdds(t.over);
         const underClose = closeOdds(t.under);
         const outcomes = [
-            outcome('Over', americanFromStr(overClose?.odds), overClose?.line ?? odds.overUnder, 'over'),
-            outcome('Under', americanFromStr(underClose?.odds), underClose?.line ?? odds.overUnder, 'under'),
+            outcome('Over', americanFromStr(overClose?.odds), lineToNumber(overClose?.line) ?? odds.overUnder, 'over'),
+            outcome('Under', americanFromStr(underClose?.odds), lineToNumber(underClose?.line) ?? odds.overUnder, 'under'),
         ].filter((o) => o.priceDecimal != null);
         if (outcomes.length > 0) bookMarkets.push({ key: 'totals', label: t.displayName || 'Total', outcomes });
     }
@@ -563,36 +572,78 @@ function attachEdges(row) {
     }
 }
 
-function detectArb(market) {
-    const groups = new Map();
-    for (const o of market.outcomes) {
-        const k = String(o.point ?? '');
-        if (!groups.has(k)) groups.set(k, []);
-        groups.get(k).push(o);
-    }
-    let best = null;
-    for (const [point, outcomes] of groups) {
-        if (outcomes.length < 2) continue;
-        const sides = {};
-        for (const o of outcomes) {
-            for (const [book, p] of Object.entries(o.prices)) {
-                if (!Number.isFinite(p.decimal) || p.decimal <= 1) continue;
-                const cur = sides[o.name];
-                if (!cur || p.decimal > cur.decimal) sides[o.name] = { book, decimal: p.decimal, name: o.name };
+// Arbitrage is only meaningful across a COMPLEMENTARY set: outcomes of which
+// exactly one can win. Pairing anything else invents edges that do not exist.
+//
+// This bit is load bearing. On 2026-08-06 a naive "group by point value" paired
+// Mets -1.5 (DraftKings) with Guardians -1.5 (Bovada), because the two books
+// disagreed about which team was laying the runs. Both are underdog prices, so
+// they summed to 0.72 and were published as a 27.66% guaranteed profit. Nobody
+// can bet both sides of that; it is the same side twice.
+//
+// Rules: a spread pairs +X against -X on two DIFFERENT teams. h2h and totals
+// pair distinct names at the same point. The same team, or the same side,
+// quoted by two books is never an arbitrage, however far the prices diverge.
+
+function arbCandidates(market) {
+    const cands = [];
+    if (market.key === 'spreads') {
+        const byAbs = new Map();
+        for (const o of market.outcomes) {
+            const pt = Number(o.point);
+            if (!Number.isFinite(pt) || pt === 0) continue;
+            const k = Math.abs(pt).toFixed(2);
+            if (!byAbs.has(k)) byAbs.set(k, []);
+            byAbs.get(k).push(o);
+        }
+        for (const [k, outs] of byAbs) {
+            for (const plus of outs.filter((o) => Number(o.point) > 0)) {
+                for (const minus of outs.filter((o) => Number(o.point) < 0)) {
+                    if (String(plus.name).toLowerCase() === String(minus.name).toLowerCase()) continue;
+                    cands.push({ point: k, outs: [plus, minus] });
+                }
             }
         }
-        const sideKeys = Object.keys(sides);
-        if (sideKeys.length < 2) continue;
-        const inv = sideKeys.reduce((s, k) => s + 1 / sides[k].decimal, 0);
+        return cands;
+    }
+    const byPoint = new Map();
+    for (const o of market.outcomes) {
+        const k = String(o.point ?? '');
+        if (!byPoint.has(k)) byPoint.set(k, []);
+        byPoint.get(k).push(o);
+    }
+    for (const [k, outs] of byPoint) {
+        const byName = new Map();
+        for (const o of outs) {
+            const nm = String(o.name).toLowerCase();
+            if (!byName.has(nm)) byName.set(nm, o);
+        }
+        if (byName.size < 2) continue;
+        cands.push({ point: k, outs: [...byName.values()] });
+    }
+    return cands;
+}
+
+function detectArb(market) {
+    let best = null;
+    for (const cand of arbCandidates(market)) {
+        const sides = [];
+        let complete = true;
+        for (const o of cand.outs) {
+            let topBook = null;
+            let topDec = 0;
+            for (const [book, p] of Object.entries(o.prices || {})) {
+                if (!Number.isFinite(p.decimal) || p.decimal <= 1) continue;
+                if (p.decimal > topDec) { topDec = p.decimal; topBook = book; }
+            }
+            if (!topBook) { complete = false; break; }
+            sides.push({ name: o.name, point: o.point ?? null, book: topBook, decimal: topDec });
+        }
+        if (!complete || sides.length < 2) continue;
+        const inv = sides.reduce((s, x) => s + 1 / x.decimal, 0);
         if (inv >= 1) continue;
         const edgePct = Number(((1 - inv) * 100).toFixed(2));
-        if (!best || edgePct > best.edgePct) {
-            best = {
-                point: point || null,
-                edgePct,
-                sides: sideKeys.map((k) => ({ name: k, book: sides[k].book, decimal: sides[k].decimal })),
-            };
-        }
+        if (!best || edgePct > best.edgePct) best = { point: cand.point || null, edgePct, sides };
     }
     return best;
 }
