@@ -2,7 +2,7 @@
 
 Export every review for any Steam game into a clean JSON, CSV, or Excel file. Pull review text, thumbs up or down, playtime at the moment the review was written, Steam purchase flag, early access flag, helpful and funny votes, plus store metadata like developer, publisher, genres, price, release date, and Metacritic score for your game and every competitor in one run.
 
-Built for game producers, live ops teams, indie developers, community managers, and market researchers who need Steam review data without building a intelligence from scratch or paying for a games analytics seat.
+Built for game producers, live ops teams, indie developers, community managers, and market researchers who need Steam review data without building a scraper from scratch or paying for a games analytics seat.
 
 ---
 
