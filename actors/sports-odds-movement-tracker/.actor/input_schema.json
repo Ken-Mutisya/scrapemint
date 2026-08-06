@@ -1,100 +1,139 @@
 {
-  "title": "Sports Odds Movement Tracker Input",
-  "type": "object",
-  "schemaVersion": 1,
-  "properties": {
-    "apiKey": {
-      "title": "The Odds API key",
-      "type": "string",
-      "description": "Free API key from the-odds-api.com. The free tier gives 500 requests per month. This actor makes 1 request per sport per run. Required.",
-      "editor": "textfield",
-      "isSecret": true
+    "title": "Sports Odds Movement Tracker",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "leagues": {
+            "title": "Leagues",
+            "type": "array",
+            "description": "Leagues to watch for line movement. Out of season leagues return no events, which is not an error.",
+            "editor": "select",
+            "items": {
+                "type": "string",
+                "enum": [
+                    "mlb",
+                    "nfl",
+                    "ncaaf",
+                    "nba",
+                    "ncaab",
+                    "wnba",
+                    "nhl"
+                ],
+                "enumTitles": [
+                    "MLB (baseball)",
+                    "NFL (American football)",
+                    "NCAAF (college football)",
+                    "NBA (basketball)",
+                    "NCAAB (college basketball)",
+                    "WNBA (basketball)",
+                    "NHL (ice hockey)"
+                ]
+            },
+            "default": [
+                "mlb"
+            ],
+            "prefill": [
+                "mlb"
+            ]
+        },
+        "markets": {
+            "title": "Markets",
+            "type": "array",
+            "description": "Which bet types to watch. Moneyline is the pick to win, spread is the handicap line, total is the over/under.",
+            "editor": "select",
+            "items": {
+                "type": "string",
+                "enum": [
+                    "h2h",
+                    "spreads",
+                    "totals"
+                ],
+                "enumTitles": [
+                    "Moneyline",
+                    "Spread",
+                    "Total (over/under)"
+                ]
+            },
+            "default": [
+                "h2h",
+                "spreads",
+                "totals"
+            ]
+        },
+        "minMoveProbPoints": {
+            "title": "Minimum move (implied probability points)",
+            "type": "integer",
+            "description": "How far a price must move since the previous run before it counts as a move. Measured in implied probability points, not American cents: -110 to -120 and +200 to +190 are both ten cents but are nothing like the same change in belief. 1 is a normal filter, 2 catches only sharp moves, 0 returns any change at all. A line that did not move is never returned and never charged, whatever this is set to. A handicap moving (a spread going -2.5 to -1.5) counts as a move on its own, even when the price is unchanged.",
+            "default": 1,
+            "minimum": 0,
+            "maximum": 50,
+            "unit": "points"
+        },
+        "includeNewLines": {
+            "title": "Include lines seen for the first time",
+            "type": "boolean",
+            "description": "A line has no prior price on the first run that sees it, so there is no movement to report. Off by default, which means the very first run on a league returns nothing and charges nothing while it builds a baseline. Turn on to receive those opening prices too, with priorLine null.",
+            "default": false
+        },
+        "liveOnly": {
+            "title": "Live (in play) games only",
+            "type": "boolean",
+            "description": "Track only games already under way. In play prices move constantly, so pair this with a short schedule interval.",
+            "default": false,
+            "sectionCaption": "Scope"
+        },
+        "includeSuspended": {
+            "title": "Include suspended markets",
+            "type": "boolean",
+            "description": "A suspended market keeps its last price, so including it can report a frozen quote as if it were a live move. Off by default.",
+            "default": false
+        },
+        "oddsFormat": {
+            "title": "Odds format",
+            "type": "string",
+            "description": "Format for the headline price field. Both American and decimal are always included on every row regardless.",
+            "editor": "select",
+            "enum": [
+                "american",
+                "decimal"
+            ],
+            "enumTitles": [
+                "American (-110, +150)",
+                "Decimal (1.91, 2.50)"
+            ],
+            "default": "american"
+        },
+        "maxItemsPerLeague": {
+            "title": "Max rows per league",
+            "type": "integer",
+            "description": "Cap on moved lines returned per league in one run.",
+            "default": 200,
+            "minimum": 1,
+            "maximum": 5000,
+            "sectionCaption": "Limits"
+        },
+        "maxItemsTotal": {
+            "title": "Max rows total",
+            "type": "integer",
+            "description": "Cap on moved lines returned per run across all leagues.",
+            "default": 400,
+            "minimum": 1,
+            "maximum": 10000
+        },
+        "sports": {
+            "title": "Sport keys (deprecated)",
+            "type": "array",
+            "description": "Deprecated, kept so saved inputs keep working. Use the Leagues field instead. Values here are merged into it.",
+            "editor": "stringList",
+            "default": []
+        },
+        "apiKey": {
+            "title": "API key (no longer used)",
+            "type": "string",
+            "description": "No longer used and safe to leave empty. This actor reads a sportsbook's own public feed, so it needs no key, no account and no third party signup.",
+            "editor": "textfield",
+            "isSecret": true
+        }
     },
-    "sports": {
-      "title": "Sport keys",
-      "type": "array",
-      "description": "Sport keys to pull odds for. Examples: americanfootball_nfl, americanfootball_ncaaf, basketball_nba, baseball_mlb, icehockey_nhl, soccer_epl, soccer_uefa_champs_league, mma_mixed_martial_arts, boxing_boxing, tennis_atp_french_open. Full list at the-odds-api.com/sports-odds-data/sports-apis.html.",
-      "editor": "stringList",
-      "prefill": ["americanfootball_nfl"]
-    },
-    "regions": {
-      "title": "Regions",
-      "type": "array",
-      "description": "Which sportsbook regions to query. us = DraftKings, FanDuel, BetMGM, Caesars, Pinnacle. uk = Bet365, William Hill, Ladbrokes. eu = Unibet, Betway. au = Sportsbet, TAB.",
-      "editor": "stringList",
-      "default": ["us"]
-    },
-    "markets": {
-      "title": "Market types",
-      "type": "array",
-      "description": "Which markets to pull per event. h2h = moneyline, spreads = point spread, totals = over / under, outrights = futures. Each additional market consumes one request credit per sport.",
-      "editor": "stringList",
-      "default": ["h2h"]
-    },
-    "bookmakers": {
-      "title": "Bookmaker filter",
-      "type": "array",
-      "description": "Only include these bookmakers. Examples: draftkings, fanduel, betmgm, pinnacle, bet365, caesars, williamhill_us, pointsbetus, betfair_ex, betonlineag. Leave empty to include every bookmaker in the selected regions.",
-      "editor": "stringList",
-      "default": []
-    },
-    "oddsFormat": {
-      "title": "Odds format",
-      "type": "string",
-      "description": "American (+250, -150) is standard in the US. Decimal (3.50, 1.67) is standard outside the US. Arbitrage and edge math work the same either way.",
-      "default": "american",
-      "enum": ["american", "decimal"]
-    },
-    "arbOnly": {
-      "title": "Arbitrage only",
-      "type": "boolean",
-      "description": "Turn on to only return events where a risk free bet is available (sum of implied probabilities across best prices is below 1).",
-      "default": false
-    },
-    "minArbPct": {
-      "title": "Minimum arbitrage profit (%)",
-      "type": "number",
-      "description": "Only return events with an arbitrage profit percentage at or above this. Set to 0 to disable. Typical actionable arbs are 0.5% to 3%.",
-      "default": 0,
-      "minimum": 0,
-      "maximum": 50
-    },
-    "minBestEdgePct": {
-      "title": "Minimum best price edge vs median (%)",
-      "type": "number",
-      "description": "Only return events where the best price on any outcome is at least this many percent better than the median price across books. Useful for finding soft lines without requiring a full arb.",
-      "default": 0,
-      "minimum": 0,
-      "maximum": 100
-    },
-    "maxItemsPerSport": {
-      "title": "Max items per sport",
-      "type": "integer",
-      "description": "Per sport cap on event + market rows pushed. Each event can generate one row per market (h2h, spreads, totals).",
-      "default": 100,
-      "minimum": 1,
-      "maximum": 1000
-    },
-    "maxItemsTotal": {
-      "title": "Maximum items per run",
-      "type": "integer",
-      "description": "Hard cap on rows pushed to the dataset per run. Controls total cost.",
-      "default": 200,
-      "minimum": 1,
-      "maximum": 5000
-    },
-    "dedupe": {
-      "title": "Deduplicate across runs",
-      "type": "boolean",
-      "description": "Skip event + market keys pushed on previous runs. Stored in the key value store under SEEN_IDS. Turn off for line movement tracking so every snapshot lands.",
-      "default": true
-    },
-    "proxyConfiguration": {
-      "title": "Proxy configuration",
-      "type": "object",
-      "description": "Apify proxy settings. The Odds API is public and rate limited per key, not per IP, so proxy is rarely needed.",
-      "editor": "proxy"
-    }
-  },
-  "required": []
+    "required": []
 }
