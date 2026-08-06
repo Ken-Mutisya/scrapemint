@@ -118,6 +118,28 @@ for (const league of leagueList) {
 
     const events = await fetchLeague(league, path);
     log.info(`${league}: ${events.length} event(s) returned.`);
+
+    // An empty feed means either the league is out of season or the book is
+    // declining this IP, and those must not look the same. Observed
+    // 2026-08-06: the coupon feed handed empty 200s to the Apify datacenter
+    // while the identical request from a desktop returned 16 NFL events. The
+    // directory endpoint keeps answering when the coupon one does not, so it
+    // settles which case this is. Without this, a blocked run is reported as
+    // "no line moved", which is a quiet false statement.
+    if (events.length === 0) {
+        const expected = await expectedEventCount(path);
+        if (expected > 0) {
+            log.warning(`${league}: the directory says ${expected} event(s) are priced, but the feed returned none. It is declining this request rather than being out of season.`);
+            await Actor.pushData({
+                league,
+                found: false,
+                likelyBlocked: true,
+                expectedEventCount: expected,
+                note: `no events returned though the directory reports ${expected} priced; the feed is declining this request rather than being out of season. Retry later. Nothing charged.`,
+            });
+        }
+        continue;
+    }
     let perLeague = 0;
 
     for (const ev of events) {
@@ -208,6 +230,30 @@ await Promise.allSettled(__chargeJobs);
 await Actor.exit();
 
 // ---------- Bovada ----------
+
+// How many events the book says it prices for a path, read from the directory
+// rather than the coupon feed. Returns -1 when the directory cannot be read,
+// so an unknown is never reported as a zero.
+async function expectedEventCount(path) {
+    const sport = String(path).split('/')[0];
+    if (!sport) return -1;
+    const res = await getJson(`${HOST}/v2/nav/A/description/${sport}?lang=en`);
+    if (res?.error || !res) return -1;
+    const want = String(path).toLowerCase();
+    let found = -1;
+    const walk = (node) => {
+        if (!node || typeof node !== 'object') return;
+        const link = String(node.link || '').toLowerCase().replace(/^\//, '');
+        if (link && (link === want || link.endsWith(`/${want}`))) {
+            const n = Number(node.numEvents);
+            if (Number.isFinite(n)) found = Math.max(found, n);
+        }
+        for (const child of node.children || []) walk(child);
+    };
+    walk(res.current);
+    for (const c of res.children || []) walk(c);
+    return found;
+}
 
 async function fetchLeague(league, path) {
     await sleep(REQUEST_GAP_MS);

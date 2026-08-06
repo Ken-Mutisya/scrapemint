@@ -291,6 +291,30 @@ function flattenCoupon(groups, requestedPath) {
     return rows;
 }
 
+// How many events the book says it is pricing for a path, read from the
+// directory rather than the coupon feed. Returns -1 when the directory itself
+// cannot be read, so an unknown is never reported as a zero.
+async function expectedEventCount(path) {
+    const sport = String(path).split('/')[0];
+    if (!sport) return -1;
+    const res = await fetchJson(`${HOST}/v2/nav/A/description/${sport}?lang=en`, 2);
+    if (res.error || res.notFound || !res.data) return -1;
+    const want = String(path).toLowerCase();
+    let found = -1;
+    const walk = (node) => {
+        if (!node || typeof node !== 'object') return;
+        const link = String(node.link || '').toLowerCase().replace(/^\//, '');
+        if (link && (link === want || link.endsWith(`/${want}`))) {
+            const n = Number(node.numEvents);
+            if (Number.isFinite(n)) found = Math.max(found, n);
+        }
+        for (const child of node.children || []) walk(child);
+    };
+    walk(res.data.current);
+    for (const c of res.data.children || []) walk(c);
+    return found;
+}
+
 async function collectMarkets(paths) {
     const all = [];
     const seen = new Set();
@@ -310,7 +334,33 @@ async function collectMarkets(paths) {
         }
         const rows = flattenCoupon(res.data ?? [], path);
         if (!rows.length) {
-            await pushNote(`"${path}" has nothing priced right now. A league out of season answers with an empty feed rather than an error.`, { leaguePath: path });
+            // An empty coupon answer has two very different causes and they
+            // must not be reported with the same sentence. A league genuinely
+            // out of season prices nothing; but the feed also hands an empty
+            // 200 to an IP it is declining, which is what happened from the
+            // Apify datacenter on 2026-08-06 while the same request from a
+            // desktop returned 16 NFL events.
+            //
+            // The nav endpoint keeps answering when the coupon one is being
+            // declined, so it settles which case this is. Saying "out of
+            // season" about a league that is mid week would be a plain false
+            // statement, so the check is worth the one extra request it costs
+            // on an otherwise empty result.
+            const expected = await expectedEventCount(path);
+            if (expected > 0) {
+                await pushNote(
+                    `"${path}" returned no priced events, but the directory says it currently has ${expected}. `
+                    + 'The feed is declining this request rather than being out of season, which it does to some '
+                    + 'datacenter IPs. Retry later, or run from an IP the book serves. Nothing was charged.',
+                    { leaguePath: path, expectedEventCount: expected, likelyBlocked: true },
+                );
+            } else {
+                await pushNote(
+                    `"${path}" has nothing priced right now, and the directory agrees it has no events. `
+                    + 'A league out of season answers with an empty feed rather than an error.',
+                    { leaguePath: path, expectedEventCount: expected, likelyBlocked: false },
+                );
+            }
         }
         for (const r of rows) {
             // One league is reachable by several paths, so a caller asking for
