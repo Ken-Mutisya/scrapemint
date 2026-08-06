@@ -84,7 +84,7 @@
         "books": {
             "title": "Sportsbooks to include",
             "type": "array",
-            "description": "No longer used (kept so older saved inputs keep working). Odds come from one bookmaker feed, typically DraftKings, via ESPN's public scoreboard.",
+            "description": "No longer used, kept so older saved inputs keep working. Every run reads both available feeds: one bookmaker via ESPN's public scoreboard, typically DraftKings, plus Bovada's own prices. Setting this has no effect on what is returned.",
             "editor": "select",
             "items": {
                 "type": "string",
@@ -105,10 +105,7 @@
                     "Bet365 (Global)"
                 ]
             },
-            "default": [
-                "draftkings",
-                "pinnacle"
-            ]
+            "default": []
         },
         "markets": {
             "title": "Markets",
@@ -162,9 +159,10 @@
         "computeBestPrice": {
             "title": "Compute best price per outcome",
             "type": "boolean",
-            "description": "When at least two books are queried, attach a bestPrice field per outcome with the highest odds and which book offers it.",
+            "description": "Attach a bestPrice field per outcome with the highest odds and which book offers it, compared across the books that priced that outcome. Events carried by only one book are left alone.",
             "default": true,
-            "sectionCaption": "Edge detection"
+            "sectionCaption": "Edge detection",
+            "sectionDescription": "These fields compare prices for the same outcome across bookmakers. Events are matched between feeds on an exact join of both team names and the start time, so a market is only compared when it is certainly the same game."
         },
         "computeArbitrage": {
             "title": "Compute arbitrage edges",

@@ -3,15 +3,19 @@
 // Strategy (rebuilt 2026-07-16)
 // ----------------------------
 // The original DraftKings and Pinnacle endpoints went dark for automated
-// access (DK 403s every client, Pinnacle blocks cloud IPs), so odds now come
-// from ESPN's public scoreboard feeds — keyless JSON, reachable from
-// datacenter IPs, no proxy — which carry a bookmaker odds block per game
-// (moneyline, spread, total; provider is typically DraftKings via ESPN's
-// partnership). One GET per sport covers today plus the look-ahead window.
+// access (DK 403s every client, Pinnacle blocks cloud IPs), so odds come from
+// two keyless feeds that are reachable from datacenter IPs with no proxy:
+// ESPN's public scoreboard, which carries one bookmaker's block per game
+// (typically DraftKings), and Bovada's own coupon feed. One GET per sport per
+// feed covers today plus the look-ahead window.
+//
+// Bovada events are joined onto ESPN events on an EXACT key (both team names
+// plus the start time to the minute), never a fuzzy match, because a wrong
+// pairing would invent an arbitrage edge someone then stakes money on.
 //
 // Input stays byte-compatible with the original schema so existing
-// scheduled runs keep working: `books` is accepted and ignored (single
-// provider now), `eventUrls` returns a free explanatory row, everything
+// scheduled runs keep working: `books` is accepted and ignored (both feeds
+// are always read), `eventUrls` returns a free explanatory row, everything
 // else behaves as before. Output rows keep the same shape (markets[] with
 // per-book prices), so downstream buyer pipelines keep parsing.
 //
@@ -100,7 +104,7 @@ const lookAheadMs = Math.min(Math.max(Number(lookAheadHours) || 0, 0), MAX_LOOKA
 const fetchWindowMs = Math.max(lookAheadMs, DEFAULT_LOOKAHEAD_H * 3600 * 1000);
 
 if (Array.isArray(books) && books.length > 0 && !(books.length === 2 && books.includes('draftkings') && books.includes('pinnacle'))) {
-    log.info('The "books" input is no longer used: odds come from one bookmaker feed (typically DraftKings) via ESPN. All events are returned regardless of this setting.');
+    log.info('The "books" input is no longer used: every run reads both available feeds (a bookmaker via ESPN, typically DraftKings, plus Bovada). All events are returned regardless of this setting.');
 }
 
 const seenStore = dedupe ? await Actor.openKeyValueStore('sports-odds-scraper-seen') : null;
@@ -202,6 +206,127 @@ function parseEspnOdds(odds, home, away) {
     return bookMarkets;
 }
 
+// ---------- Bovada: the second bookmaker ----------
+//
+// ESPN carries ONE provider's prices, which left bestPrice and arbitrage inert
+// for months. Bovada publishes its own book keylessly and is reachable from
+// datacenter IPs, so it restores a real cross-book comparison.
+//
+// Events are matched on the SAME eventKey the ESPN path builds, which is
+// sport + normalized home + normalized away + the start time to the minute.
+// Both feeds publish identical team display names and identical start times,
+// so this is an exact join, never a fuzzy one. That matters: a mismatched pair
+// would invent an arbitrage edge that does not exist and someone would stake
+// money on it. If either side differs the event simply stays single book.
+
+// Only paths verified to return HTTP 200 from a datacenter IP. Bovada 404s on a
+// guessed league path, and its soccer paths are not derivable from the ESPN
+// league codes (they need a nav lookup), so soccer, UFC and anything else stays
+// single book rather than risking a wrong or empty join.
+const BOVADA_PATHS = {
+    mlb: 'baseball/mlb',
+    nfl: 'football/nfl',
+    ncaaf: 'football/college-football',
+    nba: 'basketball/nba',
+    ncaab: 'basketball/college-basketball',
+    wnba: 'basketball/wnba',
+    nhl: 'hockey/nhl',
+};
+
+// Bovada throttles bursts: seven rapid requests earned a 429 that outlasted a
+// four second wait. Space the calls, and let getJson's own retry handle the
+// rest. A throttled sport just stays single book.
+const BOVADA_GAP_MS = 1500;
+
+// Bovada names the same bet differently per sport, so match on shape not label.
+const BOVADA_MARKET_KEY = (desc) => {
+    const d = String(desc || '').toLowerCase();
+    if (/moneyline|match winner|to win/.test(d)) return 'h2h';
+    if (/runline|run line|point spread|spread|puck line|goal line/.test(d)) return 'spreads';
+    if (/^total|total (runs|points|goals)/.test(d)) return 'totals';
+    return null;
+};
+
+function bovadaOutcome(name, price, point) {
+    // The decimal price is always present; the American figure is a STRING and
+    // is the word "EVEN" at even money, which Number() turns into NaN. Read the
+    // decimal and derive the rest from it.
+    const decimal = Number(price?.decimal);
+    if (!Number.isFinite(decimal) || decimal <= 1) return null;
+    return {
+        name,
+        price: convertOdds(decimal, oddsFormat),
+        priceDecimal: Number(decimal.toFixed(4)),
+        point: point != null && Number.isFinite(Number(point)) ? Number(point) : null,
+        participant: null,
+    };
+}
+
+async function fetchBovadaSport(sport, path) {
+    const url = `https://www.bovada.lv/services/sports/event/coupon/events/A/description/${path}?marketFilterId=def&lang=en`;
+    const data = await getJson(url);
+    if (data?.error) {
+        log.info(`${sport}: no Bovada prices (${data.error}); event stays single book.`);
+        return [];
+    }
+
+    const out = [];
+    for (const group of Array.isArray(data) ? data : []) {
+        for (const ev of group.events || []) {
+            // "Away @ Home". Anything else is a futures or prop entry, not a game.
+            const parts = String(ev.description || '').split(' @ ');
+            if (parts.length !== 2) continue;
+            const away = parts[0].trim();
+            const home = parts[1].trim();
+            if (!ev.startTime) continue;
+            const commenceTime = new Date(Number(ev.startTime)).toISOString();
+
+            const bookMarkets = [];
+            for (const dg of ev.displayGroups || []) {
+                for (const m of dg.markets || []) {
+                    // period.main separates the game line from first half and
+                    // alternate period lines, which sit in the same array.
+                    if (m.period?.main !== true) continue;
+                    // "S" is suspended and keeps its last price, so including it
+                    // publishes a frozen quote as if it were live.
+                    if (m.status && m.status !== 'O') continue;
+                    const key = BOVADA_MARKET_KEY(m.description);
+                    if (!key || !marketSet.has(key)) continue;
+
+                    const outcomes = [];
+                    let split = false;
+                    for (const o of m.outcomes || []) {
+                        if (o.status && o.status !== 'O') continue;
+                        // A split handicap settles against two lines at once, so
+                        // publishing only the first understates the real bet.
+                        if (o.price?.handicap2 != null && String(o.price.handicap2) !== String(o.price.handicap)) {
+                            split = true;
+                            break;
+                        }
+                        const built = bovadaOutcome(o.description, o.price, key === 'h2h' ? null : o.price?.handicap);
+                        if (built) outcomes.push(built);
+                    }
+                    if (split || outcomes.length === 0) continue;
+                    bookMarkets.push({ key, label: m.description || key, outcomes });
+                }
+            }
+            if (bookMarkets.length === 0) continue;
+
+            out.push({
+                sport,
+                home,
+                away,
+                commenceTime,
+                eventKey: makeEventKey(sport, home, away, commenceTime),
+                sourceUrl: ev.link ? `https://www.bovada.lv${ev.link}` : null,
+                book: 'bovada',
+                bookMarkets,
+            });
+        }
+    }
+    return out;
+}
+
 const yyyymmdd = (d) => d.toISOString().slice(0, 10).replace(/-/g, '');
 
 async function fetchEspnSport(sport, path) {
@@ -272,6 +397,25 @@ for (const sport of sportList) {
         mergeEvent(ev);
         perSportCount += 1;
     }
+
+    // Second book. Only merges into events ESPN already returned, so a Bovada
+    // outage or an unmatched name costs nothing beyond staying single book.
+    let bovadaMatched = 0;
+    const bovadaPath = BOVADA_PATHS[sport];
+    if (bovadaPath && events.length > 0) {
+        await sleep(BOVADA_GAP_MS);
+        const bovadaEvents = await fetchBovadaSport(sport, bovadaPath).catch((err) => {
+            log.info(`${sport}: Bovada unavailable (${err?.message}); events stay single book.`);
+            return [];
+        });
+        for (const ev of bovadaEvents) {
+            if (!eventBucket.has(ev.eventKey)) continue;
+            mergeEvent(ev);
+            bovadaMatched += 1;
+        }
+        log.info(`${sport}: Bovada returned ${bovadaEvents.length} event(s), ${bovadaMatched} matched an ESPN event.`);
+    }
+
     log.info(`${sport}: ${events.length} event(s) with odds.`);
     await sleep(250);
 }
@@ -389,8 +533,8 @@ function finalizeEvent(bucket) {
     };
 }
 
-// ---------- Best price + arbitrage (single book now: no-ops unless a second
-// provider ever appears in the feed; kept for output compatibility) ----------
+// ---------- Best price + arbitrage. Live whenever two books priced the same
+// outcome; events carried by only one feed fall through untouched. ----------
 
 function attachEdges(row) {
     for (const m of row.markets) {
