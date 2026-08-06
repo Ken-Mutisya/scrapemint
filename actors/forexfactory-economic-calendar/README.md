@@ -176,6 +176,10 @@ The first 2 event rows per run are free so you can validate output before paying
 
 The `time` and `timestamp` fields use ForexFactory's display timezone, which defaults to America/New_York (Eastern Time) for unauthenticated visitors. The exact zone in effect is returned on every row as `displayTimezone`. Convert downstream with the IANA zone string and a date library if your pipeline needs UTC.
 
+### A month or custom run returned no rows. Why?
+
+ForexFactory blocks the calendar page from datacenter IPs intermittently. When that happens the run returns a single free row with `blocked: true` and an explanatory note rather than finishing silently empty, and nothing is charged. Retrying the same input usually clears it. If it keeps failing, set `proxyConfiguration.apifyProxyGroups` to `["RESIDENTIAL"]`, which measured about twice the run cost for the same rows. Day and week ranges are never affected, because they read a JSON feed that sits behind no block.
+
 ### How accurate is the actual value?
 
 For month, custom, and detail runs the browser path parses the released `actual` straight from the calendar page at pull time, so it reflects what ForexFactory shows that moment. The fast weekly JSON feed carries only forecast and previous, not the released actual, so for weekly ranges `actual` is null. If you need released actuals for a past week, pull it as a custom range covering those dates.
