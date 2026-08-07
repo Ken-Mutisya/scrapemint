@@ -238,7 +238,4 @@ Yes. Apify datasets export to JSON, CSV, Excel, RSS, and HTML. The Apify API als
 ## Related actors
 
 - **TripAdvisor Review Intelligence** — every review with rating, text, traveler origin, stay date, and owner response
-- **Booking Review Intelligence** — same idea for Booking.com properties
 - **Google Maps Scraper** — local business data, ratings, and reviews
-- **Google Reviews Intelligence** — Google review export for hotels and restaurants
-- **Yelp Review Intelligence** — Yelp review export for restaurants

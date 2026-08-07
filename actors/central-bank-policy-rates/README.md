@@ -53,8 +53,8 @@ A snapshot of all six banks is 6 rows, or **$0.024**. Three years of decisions a
 ## Related actors
 
 - **Government Bond Yields Worldwide** - the market curve these rates anchor.
-- **Credit Spreads, VIX & Financial Stress** - the risk premium on top.
-- **SOFR & Money Market Rates** - the overnight funding market in the US.
+- **Credit Spreads, VIX & Financial Stress: Market Risk Data** - the risk premium on top.
+- **SOFR & Money Market Rates: Benchmarks and Fed Operations** - the overnight funding market in the US.
 
 ## How to run it via API
 

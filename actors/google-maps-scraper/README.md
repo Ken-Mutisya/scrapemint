@@ -175,8 +175,7 @@ This actor reads public HTML a browser can see. Respect the site terms and rate 
 
 ## Related actors
 
-- **Zillow Home Price Intelligence** for listings and Zestimates
+- **Zillow Home Price Intelligence: Sale History, Rentals** for listings and Zestimates
 - **Flight Price Tracker** for Google Flights fares
 - **TripAdvisor Review Intelligence** for hotel and restaurant reviews
-- **Google Reviews Intelligence** for places reviews only
-- **Viator Scraper** for tours and activities
+- **Viator Tours Intelligence: Activities, Prices, Reviews** for tours and activities

@@ -238,7 +238,6 @@ Yes. Use the Apify scheduler for hourly, daily, or weekly runs. Turn `dedupe` on
 ## Related actors
 
 - **Instagram Influencer Analyzer & Sponsored Post Tracker** for creator engagement rate and paid partnership detection
-- **TikTok Scraper** for TikTok creator stats, reels, and music data
-- **Reddit Brand Monitor & Lead Finder** for subreddit mentions and high intent leads
+- **Reddit Lead Monitor: Subreddit and Keyword Alert Feed** for subreddit mentions and high intent leads
 - **Google Maps Scraper** for local business data and reviews
 - **Upwork Opportunity Alert** for freelance project leads

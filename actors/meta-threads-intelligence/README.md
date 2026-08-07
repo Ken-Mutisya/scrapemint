@@ -185,7 +185,5 @@ No. This is a third party Apify actor that consumes public Threads pages. Meta i
 ## Related actors
 
 - **Instagram Scraper** — public Instagram profiles, posts, and reel metrics
-- **TikTok Scraper** — TikTok video and creator stats
 - **YouTube Scraper** — YouTube video metadata and comment threads
-- **LinkedIn Profile Posts Scraper** — recent posts from any public LinkedIn profile
 - **Reddit Lead Monitor** — keyword alerts for Reddit threads and comments

@@ -288,7 +288,6 @@ This actor reads HTML any anonymous web visitor can see. Respect LinkedIn's term
 ## Related actors
 
 - **LinkedIn Hiring Tracker & Salary Intelligence** , keyword driven version with deeper salary parsing and tech stack focus
-- **LinkedIn Profile & Company Post Tracker** , public LinkedIn posts without a cookie, with reactions and comments
 - **TripAdvisor Property Rank Tracker** , daily rank, rating drift, and competitor signals for hotels and restaurants
-- **Website Content Pipeline** , websites to clean Markdown with token counts and RAG ready chunks
-- **Reddit Brand Monitor & Lead Finder** , subreddit mentions and high intent leads
+- **Website Content Scraper: Clean Markdown for AI and RAG** , websites to clean Markdown with token counts and RAG ready chunks
+- **Reddit Lead Monitor: Subreddit and Keyword Alert Feed** , subreddit mentions and high intent leads

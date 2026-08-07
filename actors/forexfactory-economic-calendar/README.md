@@ -208,8 +208,8 @@ This actor reads HTML any anonymous web visitor can see. Respect ForexFactory's 
 
 ## Related actors
 
-- **TradingView Ideas Intelligence** , pull public trade ideas with author, direction, timeframe, and engagement
-- **Polymarket Intelligence** , pull live prediction market odds, volume, and resolution metadata
-- **Sports Odds Intelligence** , pull live moneyline, spread, and total odds across sportsbooks
+- **TradingView Ideas Intelligence Feed (No Login)** , pull public trade ideas with author, direction, timeframe, and engagement
+- **Polymarket Trade Intelligence: Order Book and Prices** , pull live prediction market odds, volume, and resolution metadata
+- **Sports Odds Scraper: NFL, NBA, MLB & Soccer Lines** , pull live moneyline, spread, and total odds across sportsbooks
 - **Crypto Whale Token Launch Tracker** , pull on-chain whale wallet activity around new launches
-- **Google Patents Intelligence** , pull patent metadata, claims, and citations by query
+- **Google Patents Intelligence: Claims, Citations, Family Tree** , pull patent metadata, claims, and citations by query

@@ -58,6 +58,6 @@ One request covers a whole indicator across every country and period, so a full 
 
 ## Related actors
 
-- **World Economic Indicators** for World Bank annual series covering the whole world
+- **World Economic Indicators Scraper: GDP, Inflation & More** for World Bank annual series covering the whole world
 - **European Electricity Prices** for energy costs behind the inflation numbers
-- **US Treasury Rates** and **SOFR & Money Market Rates** for the rates side
+- **US Treasury Yields & Interest Rates Scraper** and **SOFR & Money Market Rates** for the rates side

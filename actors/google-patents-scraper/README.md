@@ -313,9 +313,9 @@ Yes. Set `language` to de, fr, es, ja, ko, or zh. The actor pulls the patent in 
 
 ## Related actors
 
-- **Google Scholar Intelligence**. Pair patents with the academic literature side of prior art. Same shape applied to papers.
+- **Google Scholar Intelligence: Papers, Citations, BibTeX**. Pair patents with the academic literature side of prior art. Same shape applied to papers.
 - **SEC 8-K Event Tracker**. Catch material patent events disclosed in 8-K filings.
-- **Website Content Pipeline**. Pipe `pdfUrl` from each patent row into the pipeline for full text extraction with OCR.
+- **Website Content Scraper: Clean Markdown for AI and RAG**. Pipe `pdfUrl` from each patent row into the pipeline for full text extraction with OCR.
 - **GitHub Issue Monitor**. Catch open source projects implementing techniques described in your patents.
 - **HN Lead Monitor**. Track Hacker News mentions of competitor patents for licensing leads.
 - **Reddit Lead Monitor**. Same applied to Reddit, useful for tracking patent enforcement chatter.

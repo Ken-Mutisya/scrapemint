@@ -182,11 +182,8 @@ iOS ships reviews per country storefront, so set `iosCountries` to match the mar
 
 ## Related actors by Scrapemint
 
-- **Trustpilot Brand Reputation** for DTC and ecommerce brands
-- **Amazon Review Intelligence** for product reviews and listings
-- **Google Reviews Intelligence** for local businesses
-- **Yelp Review Intelligence** for restaurants and service businesses
-- **TripAdvisor Review Intelligence** for hotels and attractions
-- **Indeed Company Review Intelligence** for employer branding
+- **TripAdvisor Review Intelligence and Hotel Reputation Monitor** for hotels and attractions
+- **Google Play Reviews Scraper** for Android review history on a single listing
+- **Steam Game and Review Intelligence Monitor** for PC games and player sentiment
 
 Stack these to cover every review surface one brand touches.

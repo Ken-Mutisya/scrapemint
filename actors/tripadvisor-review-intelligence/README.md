@@ -153,9 +153,10 @@ Every record includes `locationName`, `locationCity`, and `locationAggregateRati
 
 ## Related tools in the review intelligence suite
 
-* [**Booking Review Intelligence**](https://apify.com/scrapemint/booking-review-intelligence): hotel and STR reviews with sentiment, category scores, and management replies
-* [**Trustpilot Brand Reputation**](https://apify.com/scrapemint/trustpilot-brand-reputation): e-commerce review data with trust scores, country, and verification status
-* **Roadmap:** Google Reviews, Yelp, OpenTable
+* [**App Store and Play Store Review Intelligence**](https://apify.com/scrapemint/app-review-intelligence): mobile app reviews across both stores
+* [**Steam Game and Review Intelligence Monitor**](https://apify.com/scrapemint/steam-game-review-intelligence): PC game reviews and player sentiment
+* [**TripAdvisor Travel Intelligence: Hotels and More**](https://apify.com/scrapemint/tripadvisor-scraper): listings, ranks and prices alongside the reviews
+* [**Viator Tours Intelligence: Activities, Prices, Reviews**](https://apify.com/scrapemint/viator-tours-tracker): tours and activities by city
 
 ---
 

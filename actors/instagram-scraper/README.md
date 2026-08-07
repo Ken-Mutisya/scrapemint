@@ -310,9 +310,6 @@ This actor reads public HTML any web visitor can see. Respect Instagram's terms 
 
 ## Related actors
 
-- **TikTok Scraper** for TikTok creator stats, reels, and music data
-- **Reddit Brand Monitor & Lead Finder** for subreddit mentions and high intent leads
+- **Reddit Lead Monitor: Subreddit and Keyword Alert Feed** for subreddit mentions and high intent leads
 - **Google Maps Scraper** for local business data and reviews
 - **TripAdvisor Review Intelligence** for hotel and restaurant review monitoring
-- **Yelp Review Intelligence** for local service reviews
-- **Amazon Review Intelligence** for product review tracking

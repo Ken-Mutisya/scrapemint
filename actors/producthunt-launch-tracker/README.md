@@ -206,8 +206,5 @@ Yes. Set `minVotes: 50` and `postedWithin: "DAY_7"`, schedule weekly, pipe the w
 - **Reddit Lead Monitor** for subreddit and keyword mention tracking
 - **Upwork Opportunity Alert** for freelance lead generation
 - **App Store Review Scraper** for mobile apps on iOS and Android
-- **Trustpilot Brand Reputation** for DTC and ecommerce brands
-- **Google Reviews Intelligence** for local businesses
-- **Amazon Review Intelligence** for product review mining
 
 Stack these to cover every public launch and conversation surface one brand touches.

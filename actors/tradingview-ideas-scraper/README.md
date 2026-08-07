@@ -200,8 +200,8 @@ This actor reads HTML any anonymous web visitor can see. Respect TradingView's t
 
 ## Related actors
 
-- **Polymarket Intelligence** , pull live prediction market odds, volume, and resolution metadata
-- **Sports Odds Intelligence** , pull live moneyline, spread, and total odds across sportsbooks
+- **Polymarket Trade Intelligence: Order Book and Prices** , pull live prediction market odds, volume, and resolution metadata
+- **Sports Odds Scraper: NFL, NBA, MLB & Soccer Lines** , pull live moneyline, spread, and total odds across sportsbooks
 - **Crypto Whale Token Launch Tracker** , pull on-chain whale wallet activity around new launches
-- **Google Patents Intelligence** , pull patent metadata, claims, and citations by query
+- **Google Patents Intelligence: Claims, Citations, Family Tree** , pull patent metadata, claims, and citations by query
 - **PubMed Clinical Trials Intelligence** , pull clinical trials and pubmed records by condition

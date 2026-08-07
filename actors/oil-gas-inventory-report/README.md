@@ -53,6 +53,6 @@ Pay per inventory row, `$0.004`. The first 2 rows of every run are free, and not
 
 ## Related actors
 
-- **Commodity Futures Prices** for the crude and gas prices these numbers move
+- **Commodity Futures Prices: Gold, Oil, Grains and Rates** for the crude and gas prices these numbers move
 - **European Electricity Prices** for the demand side in power markets
-- **CFTC Commitments of Traders** for how traders are positioned into the release
+- **CFTC Commitments of Traders (COT) Tracker** for how traders are positioned into the release

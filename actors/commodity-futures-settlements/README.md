@@ -66,5 +66,5 @@ Each product costs one request, so a summary across ten markets is ten requests 
 ## Related actors
 
 - **CFTC Commitments of Traders (COT) Tracker** for who holds these futures positions
-- **Crypto Futures vs Spot** for the same curve idea on crypto
-- **World Economic Indicators** and **US Treasury Rates** for the macro backdrop
+- **Crypto Futures vs Spot: Premium by Expiry and Annual Yield** for the same curve idea on crypto
+- **World Economic Indicators Scraper: GDP, Inflation & More** and **US Treasury Rates** for the macro backdrop

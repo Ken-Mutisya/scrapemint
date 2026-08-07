@@ -64,6 +64,6 @@ One zone-day is one request, and the upstream API rate limits aggressively, so r
 
 ## Related actors
 
-- **Commodity Futures Prices** for the gas and coal that set the marginal price
-- **CFTC Commitments of Traders** for positioning in energy futures
-- **World Economic Indicators** for the macro backdrop
+- **Commodity Futures Prices: Gold, Oil, Grains and Rates** for the gas and coal that set the marginal price
+- **CFTC Commitments of Traders (COT) Tracker** for positioning in energy futures
+- **World Economic Indicators Scraper: GDP, Inflation & More** for the macro backdrop

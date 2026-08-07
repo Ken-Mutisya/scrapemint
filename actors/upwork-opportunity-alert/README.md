@@ -285,23 +285,16 @@ flowchart LR
     F --> G[Qualified proposal<br/>decision engine]
 ```
 
-Push Upwork jobs into the same pipeline as your existing review and reputation exports. Enrich a prospective client with their Trustpilot score or Google Maps rating before writing the proposal. One export format across every actor in the suite.
+Push Upwork jobs into the same pipeline as your existing review and reputation exports. Enrich a prospective client with their Google Maps rating or TripAdvisor standing before writing the proposal. One export format across every actor in the suite.
 
 ---
 
 ## Related tools in the Scrapemint suite
 
-* [**Google Reviews Intelligence**](https://apify.com/scrapemint/google-reviews-intelligence): Google Maps reviews with full history export
-* [**Amazon Review Intelligence**](https://apify.com/scrapemint/amazon-review-intelligence): Amazon product reviews across 10 marketplaces
-* [**Indeed Review Intelligence**](https://apify.com/scrapemint/indeed-review-intelligence): Indeed company reviews with pros, cons, employment status
-* [**Facebook Review Intelligence**](https://apify.com/scrapemint/facebook-review-intelligence): Facebook business page recommendations
-* [**Yelp Review Intelligence**](https://apify.com/scrapemint/yelp-review-intelligence): Yelp reviews with elite reviewer tracking
 * [**TripAdvisor Review Intelligence**](https://apify.com/scrapemint/tripadvisor-review-intelligence): hotel, restaurant, and attraction reviews
-* [**Booking Review Intelligence**](https://apify.com/scrapemint/booking-review-intelligence): hotel guest reviews with sentiment scores
-* [**Trustpilot Brand Reputation**](https://apify.com/scrapemint/trustpilot-brand-reputation): brand trust scores and verification status
 * [**Airbnb Market Intelligence**](https://apify.com/scrapemint/airbnb-market-intelligence): rental pricing and guest review data
 
-Ten actors covering Upwork opportunities, Google, Amazon, Indeed, Facebook, Yelp, TripAdvisor, Booking, Trustpilot, and Airbnb. Lead generation, client enrichment, and reputation intelligence in one suite.
+Lead generation, client enrichment, and reputation intelligence in one suite, with a single export format across every actor.
 
 ---
 
@@ -379,8 +372,5 @@ Yes. Apify exposes every actor as a REST endpoint and webhook source. Trigger fr
 - **Hacker News Scraper** for stories and comments matching keywords
 - **Reddit Lead Monitor** for subreddit and keyword mention tracking
 - **Product Hunt Launch Tracker** for competitor launch monitoring
-- **Trustpilot Brand Reputation** for DTC and ecommerce brands
-- **Google Reviews Intelligence** for local businesses
-- **Amazon Review Intelligence** for product review mining
 
 Stack these to cover every public developer and customer conversation surface one brand touches.

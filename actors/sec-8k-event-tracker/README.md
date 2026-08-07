@@ -191,6 +191,5 @@ Yes. EDGAR is public and explicitly permits programmatic access if you set a des
 - **Reddit Lead Monitor** for subreddit and brand mention tracking
 - **Product Hunt Launch Tracker** for competitor launch monitoring
 - **Upwork Opportunity Alert** for freelance lead generation
-- **Trustpilot Brand Reputation** for DTC and ecommerce brands
 
 Stack these to cover every public financial, developer, and customer conversation surface one portfolio touches.

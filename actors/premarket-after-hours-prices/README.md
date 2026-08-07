@@ -63,5 +63,5 @@ Pay per quote row, `$0.004`. The first 2 rows of every run are free. Symbols tha
 ## Related actors
 
 - **US Stock Market Movers & Screener** for the regular session
-- **Stock Trading Halts** for the names that froze on the way up
+- **Stock Trading Halts: Why a Stock Is Halted and When It Resumes** for the names that froze on the way up
 - **Stock Earnings Estimates** and **Stock Analyst Ratings** for the catalysts that cause the gaps

@@ -56,7 +56,7 @@ A full network snapshot is 5 rows, or **$0.02**. A week of mining pool share is 
 
 - **Crypto Order Book Depth** - liquidity and slippage across exchanges.
 - **Crypto Market Data Scraper** - prices across venues.
-- **Crypto New Coin Listings Tracker** - listing events.
+- **Crypto New Coin Listings Tracker: OKX, Gate, Bitget, KuCoin** - listing events.
 
 ## How to run it via API
 

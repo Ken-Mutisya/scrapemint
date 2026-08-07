@@ -64,6 +64,6 @@ One request covers a whole date range, so a month of history costs the same to f
 
 ## Related actors
 
-- **US Treasury Rates** for the yield curve above this overnight market
-- **Commodity Futures Prices** for the SOFR futures curve, under code SR3
-- **World Economic Indicators** for the macro backdrop
+- **US Treasury Yields & Interest Rates Scraper** for the yield curve above this overnight market
+- **Commodity Futures Prices: Gold, Oil, Grains and Rates** for the SOFR futures curve, under code SR3
+- **World Economic Indicators Scraper: GDP, Inflation & More** for the macro backdrop

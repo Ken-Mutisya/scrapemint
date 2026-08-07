@@ -195,9 +195,5 @@ The JSON endpoints are public by design, the same ones the web UI uses. Read acc
 - **Hacker News Scraper** for stories and comments matching keywords
 - **Product Hunt Launch Tracker** for competitor launch monitoring
 - **Upwork Opportunity Alert** for freelance lead generation
-- **Trustpilot Brand Reputation** for DTC and ecommerce brands
-- **Google Reviews Intelligence** for local businesses
-- **Amazon Review Intelligence** for product review mining
-- **Indeed Company Review Intelligence** for employer branding
 
 Stack these to cover every public conversation surface one brand touches.

@@ -149,5 +149,4 @@ This actor reads public HTML a browser can see. Respect the site terms and rate 
 
 - **Flight Price Tracker** for Google Flights fares
 - **TripAdvisor Review Intelligence** for hotel and restaurant reviews
-- **Google Reviews Intelligence** for places reviews
-- **Viator Scraper** for tours and activities
+- **Viator Tours Intelligence: Activities, Prices, Reviews** for tours and activities

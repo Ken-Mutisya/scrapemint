@@ -150,10 +150,9 @@ The jobs search page is a public surface LinkedIn serves without a login. Use th
 
 ## Related actors by Scrapemint
 
-- **LinkedIn Hiring Tracker and Salary Intelligence** for the individual roles behind a trend
+- **LinkedIn Hiring Tracker & Salary Intelligence** for the individual roles behind a trend
 - **LinkedIn Company Hiring Signal Tracker** for the companies driving a trend
 - **Indeed Jobs Scraper** to triangulate the same market on a second source
 - **Lead Enrichment Pipeline** to act on a heating segment
-- **Glassdoor Company Salary Scraper** to pair demand with pay
 
 Stack these to turn a market signal into a hiring or investment decision.

@@ -194,4 +194,3 @@ This actor reads HTML any anonymous web visitor can see. Respect GitHub's terms 
 - **HN Lead Monitor** , Hacker News mentions and high intent leads
 - **Stack Overflow Lead Monitor** , track buyer questions across tags
 - **ProductHunt Launch Tracker** , launches by topic with maker info parsed
-- **LinkedIn Pulse Articles Intelligence** , long form content intelligence for thought leadership tracking

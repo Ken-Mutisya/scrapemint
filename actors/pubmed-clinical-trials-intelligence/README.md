@@ -345,7 +345,7 @@ Two key value store keys: `seen-pmids` and `seen-nct-ids`. Every successful push
 
 ### Will this scrape PubMed Central full text?
 
-No. PMC full text is XML behind a separate API and the licensing varies per article. Use Website Content Crawler against the `pmcid` URL when full text is needed.
+No. PMC full text is XML behind a separate API and the licensing varies per article. Use Website Content Scraper against the `pmcid` URL when full text is needed.
 
 ---
 
@@ -355,6 +355,6 @@ No. PMC full text is XML behind a separate API and the licensing varies per arti
 - **Google Patents Scraper**. Same temporal and prior art shape applied to patent literature. Pairs naturally for IP teams covering pharma assets.
 - **SEC 8-K Event Tracker**. Catch material events from public biotech sponsors. Pair with this actor to align trial readouts to investor disclosures.
 - **SEC Form 4 Insider Tracker**. Insider trading signal around clinical milestones.
-- **Website Content Crawler**. Pipe `pmcid` URLs or trial NCT URLs into the crawler for full text and supplementary documents.
+- **Website Content Scraper: Clean Markdown for AI and RAG**. Pipe `pmcid` URLs or trial NCT URLs into the crawler for full text and supplementary documents.
 - **HN Lead Monitor**. Catch new mentions of a trial sponsor or drug name on Hacker News.
 - **Reddit Lead Monitor**. Same applied to patient and clinician subreddits, useful for KOL discovery and patient sentiment.

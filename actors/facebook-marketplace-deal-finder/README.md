@@ -185,8 +185,5 @@ Facebook session cookies last weeks to months. The actor returns a clear error i
 
 ## Related actors
 
-- **Amazon Product Scraper** — Amazon listing pricing and metadata for cross referencing flips
-- **Amazon Review Intelligence** — Amazon review analysis for product validation
 - **Ecommerce Scraper** — generic Shopify, WooCommerce, BigCommerce product extraction
 - **Zillow Home Price Scraper** — local housing comp data for market context
-- **Yelp Review Intelligence** — local business reputation data

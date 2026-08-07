@@ -58,7 +58,7 @@ A depth snapshot of 3 coins across all 4 venues is 12 rows, or **$0.048**. A ful
 
 - **Crypto Liquidations Tracker** - the forced closeouts that eat this depth.
 - **Crypto Funding Rates Tracker** and **Crypto Futures vs Spot** - positioning and carry on the same venues.
-- **Crypto New Coin Listings Tracker** - the listing event that creates a new book.
+- **Crypto New Coin Listings Tracker: OKX, Gate, Bitget, KuCoin** - the listing event that creates a new book.
 
 ## How to run it via API
 

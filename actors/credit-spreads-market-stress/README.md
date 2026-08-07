@@ -70,7 +70,7 @@ The default latest snapshot of credit and volatility is 11 rows, or **$0.044**. 
 
 - **Government Bond Yields Worldwide** - the risk free level these spreads sit on top of.
 - **US Treasury Yields & Interest Rates Scraper** - one country in depth, including auctions and bills.
-- **SOFR & Money Market Rates** - the overnight funding market.
+- **SOFR & Money Market Rates: Benchmarks and Fed Operations** - the overnight funding market.
 
 ## How to run it via API
 

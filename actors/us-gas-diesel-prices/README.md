@@ -67,7 +67,7 @@ A full national snapshot of regular gasoline is 28 rows, or **$0.11**. A year of
 ## Related actors
 
 - **Oil & Gas Inventory Report** - the weekly supply data behind these prices.
-- **Commodity Futures Prices** - crude and refined product futures.
+- **Commodity Futures Prices: Gold, Oil, Grains and Rates** - crude and refined product futures.
 
 ## How to run it via API
 

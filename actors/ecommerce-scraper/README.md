@@ -296,7 +296,7 @@ Cheerio is raw HTTP, ten times faster, but only works on server rendered pages (
 
 ### Does it pull reviews?
 
-This actor focuses on product data with summary review fields (count, stars, histogram). For full review text with author and timestamps, use the related Amazon Review Intelligence actor.
+Summary review fields only (count, stars, histogram). Full review text with author and timestamps is not offered for these marketplaces. For review text on other surfaces, see App Store and Play Store Review Intelligence, Steam Game and Review Intelligence Monitor, or TripAdvisor Review Intelligence.
 
 ### Can I get only the price field?
 
@@ -322,9 +322,5 @@ This actor reads HTML any anonymous web visitor can see. Respect each retailer's
 
 ## Related actors
 
-- **Amazon Product Scraper**. Same shape, Amazon only, with deeper Amazon specific fields (BSR, A+ content, sponsored signals).
-- **Amazon Review Intelligence**. Every review with author, rating, helpful votes, verified purchase, and timestamps.
-- **Trustpilot Brand Reputation**. Cross brand reputation tracking with review intelligence.
-- **Google Reviews Intelligence**. Local business reviews with sentiment.
-- **Zillow Home Price Intelligence**. Same shape applied to real estate listings.
-- **Website Content Pipeline**. Generic content crawl when you need raw HTML or text instead of structured product data.
+- **Zillow Home Price Intelligence: Sale History, Rentals**. Same shape applied to real estate listings.
+- **Website Content Scraper: Clean Markdown for AI and RAG**. Generic content crawl when you need raw HTML or text instead of structured product data.

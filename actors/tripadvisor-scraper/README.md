@@ -316,7 +316,5 @@ This actor reads HTML any anonymous web visitor can see. Respect TripAdvisor's t
 
 - **TripAdvisor Property Rank Tracker**. Daily rank, rating drift, and Travelers' Choice signals for one or many properties.
 - **TripAdvisor Review Intelligence**. Every review with rating, text, trip type, traveler info, and helpful votes.
-- **Booking Review Intelligence**. Same shape across Booking.com hotels.
 - **Airbnb Market Intelligence**. Vacation rental market data on Airbnb.
-- **Yelp Review Intelligence**. Restaurant and local business reviews.
 - **Google Maps Scraper**. Local business data with reviews and photos.

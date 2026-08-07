@@ -256,10 +256,8 @@ Twelve is the Substack archive page size. You can raise `maxRecentPosts` up to 1
 
 ## Related actors
 
-- **LinkedIn Creator Ranker**. Pair Substack writer data with LinkedIn creator engagement for full creator economy coverage.
-- **LinkedIn Pulse Articles Scraper**. Cross check Substack writers who also publish on LinkedIn Pulse.
 - **GitHub Trending Scraper**. Catch dev writers cross posting between Substack and GitHub.
 - **HN Lead Monitor**. Surface Hacker News mentions of Substack publications for sponsor leads.
 - **Reddit Lead Monitor**. Same applied to Reddit, useful for tracking newsletter recommendations.
-- **Website Content Crawler**. Pipe `recentPosts[].url` into the crawler for full body extraction with paid wall handling.
+- **Website Content Scraper: Clean Markdown for AI and RAG**. Pipe `recentPosts[].url` into the crawler for full body extraction with paid wall handling.
 - **Lead Enrichment Pipeline**. Pipe writer external links through the enrichment pipeline for direct outreach contact info.

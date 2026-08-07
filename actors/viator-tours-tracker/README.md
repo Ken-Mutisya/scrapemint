@@ -168,9 +168,5 @@ This actor reads the same public HTML a browser sees. Respect the site's terms o
 
 - **TripAdvisor Review Intelligence** for hotel and restaurant reviews
 - **Airbnb Market Intelligence** for short term rental data
-- **Booking Review Intelligence** for hotel reviews by city
-- **Google Reviews Intelligence** for places reviews
-- **Yelp Review Intelligence** for US local business reviews
-- **Trustpilot Brand Reputation** for brand review monitoring
 
 Stack these to cover every public travel and hospitality surface.

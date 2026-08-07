@@ -192,9 +192,9 @@ The first three events per run are free so you can validate output before paying
 
 No. The actor only touches public event pages and a public search engine. Your account is never touched.
 
-### How is this different from the LinkedIn Company Profile Scraper?
+### How is this different from the LinkedIn Company Hiring Signal Tracker?
 
-Company Profile Scraper returns firmographics for a company. This actor returns the *events* that companies and people run. Use them together to enrich each organizer with full firmographics.
+The hiring tracker returns hiring activity for a company. This actor returns the *events* that companies and people run. Use them together to see which organizers are both scaling and worth a sponsorship pitch.
 
 ### Why are some events missing from the results?
 
@@ -216,8 +216,6 @@ This actor reads HTML any anonymous web visitor can see. Respect LinkedIn's term
 
 ## Related actors
 
-- **LinkedIn Company Profile Intelligence** , firmographics for the companies organizing each event
-- **LinkedIn Company Employees Intelligence** , find who at the organizer to message about sponsoring
-- **LinkedIn Profile Post Tracker** , monitor what speakers post in the run up to their event
-- **LinkedIn Hashtag & Topic Post Tracker** , track topical conversation around your event tag
-- **LinkedIn Top Voice & Creator Engagement Ranker** , build a speaker bench from topical creators
+- **LinkedIn Hashtag & Topic Post Tracker (No Cookies)** , track topical conversation around your event tag
+- **LinkedIn Company Hiring Signal Tracker** , spot which organizers are scaling and worth a sponsorship pitch
+- **LinkedIn Hiring Tracker & Salary Intelligence** , the companies hiring around your event topic

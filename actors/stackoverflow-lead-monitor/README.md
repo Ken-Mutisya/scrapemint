@@ -204,9 +204,5 @@ This actor uses the official Stack Exchange API v2.3, which is rate limited and 
 - **Upwork Opportunity Alert** for freelance lead generation
 - **Product Hunt Launch Tracker** for competitor launch monitoring
 - **App Store Review Scraper** for mobile apps on iOS and Android
-- **Trustpilot Brand Reputation** for DTC and ecommerce brands
-- **Google Reviews Intelligence** for local businesses
-- **Indeed Company Review Intelligence** for employer branding
-- **Amazon Review Intelligence** for product review mining
 
 Stack these to cover every public developer and customer conversation surface one brand touches.

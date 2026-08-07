@@ -213,5 +213,4 @@ Yes. Use the Apify scheduler. Daily catches yesterday's full disruption picture 
 - **Flight Price Tracker** — live Google Flights fares for any route and date
 - **Airbnb Market Intelligence** — daily comp set rates and occupancy by neighborhood
 - **TripAdvisor Property Rank Tracker** — daily hotel and restaurant rank, rating, and competitor signals
-- **Booking Review Intelligence** — booking.com hotel reviews and reputation signals
 - **Viator Tours Tracker** — tour pricing and availability across regions

@@ -170,10 +170,7 @@ The company page and the jobs endpoint are public surfaces LinkedIn serves witho
 
 ## Related actors by Scrapemint
 
-- **LinkedIn Hiring Tracker and Salary Intelligence** for the individual roles behind a signal
-- **LinkedIn Company Employees Scraper** for org wide prospecting
-- **LinkedIn Company Profile Scraper** for firmographics on a flagged company
+- **LinkedIn Hiring Tracker & Salary Intelligence** for the individual roles behind a signal
 - **Lead Enrichment Pipeline** to push a ramping company into outreach
-- **LinkedIn Profile Scraper** for the hiring manager behind a role
 
 Stack these to go from a hiring spike to an enriched account plan.

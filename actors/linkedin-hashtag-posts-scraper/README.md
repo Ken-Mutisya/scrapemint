@@ -217,8 +217,6 @@ This actor reads HTML any anonymous web visitor can see. Respect LinkedIn's term
 
 ## Related actors
 
-- **LinkedIn Profile & Company Post Tracker** — pull every post for a specific author or company
-- **LinkedIn Top Voice & Creator Engagement Ranker** — rank a creator shortlist by engagement velocity
-- **LinkedIn Pulse Articles Scraper** — long form articles per author or topic
-- **LinkedIn Company Profile Scraper** — firmographics for the companies behind the loudest voices
-- **LinkedIn Hiring Tracker & Salary Intelligence** — open roles plus parsed salary per company
+- **LinkedIn Hiring Tracker & Salary Intelligence**, open roles plus parsed salary per company
+- **LinkedIn Events Discovery and Lead Feed (No Cookies)**, the events where the loudest voices are speaking
+- **LinkedIn Company Hiring Signal Tracker**, firmographics and hiring pace for the companies behind those posts

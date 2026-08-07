@@ -165,7 +165,7 @@ The output is intentionally raw. We do not score, we do not guess emails using `
 
 Pair this actor with:
 
-- **Website Content Crawler** for full text content of every page on each domain
+- **Website Content Scraper: Clean Markdown for AI and RAG** for full text content of every page on each domain
 - **GitHub Issue Monitor** to track when target accounts publish new code or issues
 - **HN Lead Monitor** to catch the moment a target account posts on Show HN
 

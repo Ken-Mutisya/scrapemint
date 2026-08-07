@@ -192,9 +192,6 @@ Yes. Use the Apify Scheduler to run hourly or daily. Add a webhook to push fresh
 ## Related actors by Scrapemint
 
 - **App Review Intelligence** for iOS App Store and Google Play reviews
-- **Trustpilot Brand Reputation** for DTC and ecommerce brands
-- **Amazon Review Intelligence** for product reviews and listings
-- **G2 Reviews Scraper** for B2B software
 - **ProductHunt Launch Tracker** for launch day signal
 
 Stack these to cover every review surface one product touches.

@@ -94,7 +94,7 @@ A latest snapshot of all six countries at the four key maturities is about 20 ro
 ## Related actors
 
 - **US Treasury Yields & Interest Rates Scraper** - one country in depth: auctions, bills, TIPS, average interest on the debt.
-- **SOFR & Money Market Rates** - the overnight funding market underneath these curves.
+- **SOFR & Money Market Rates: Benchmarks and Fed Operations** - the overnight funding market underneath these curves.
 - **European Economic Indicators** - inflation, unemployment and growth for the same economies.
 
 ## How to run it via API

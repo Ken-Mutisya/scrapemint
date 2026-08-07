@@ -71,5 +71,5 @@ Orbital data from CelesTrak.
 
 ## Related actors
 
-- **Live Weather Forecast** and **Weather Alerts** for conditions under these orbits
+- **Weather Scraper: Forecast, Current & History** and **Weather Alerts** for conditions under these orbits
 - **Internet Infrastructure Data** for the terrestrial networks satellite operators connect to

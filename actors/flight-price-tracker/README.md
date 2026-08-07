@@ -163,10 +163,8 @@ This actor reads the same public HTML a browser sees. Respect the site's terms a
 
 ## Related Scrapemint actors
 
-- **Viator Scraper** for tours and activities by city
+- **Viator Tours Intelligence: Activities, Prices, Reviews** for tours and activities by city
 - **Airbnb Market Intelligence** for short term rental data
-- **Booking Review Intelligence** for hotel reviews by city
 - **TripAdvisor Review Intelligence** for hotel and restaurant reviews
-- **Google Reviews Intelligence** for places reviews
 
 Stack these to cover every public travel surface from research to booking.

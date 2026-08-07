@@ -289,9 +289,8 @@ This actor reads HTML any anonymous web visitor can see. Respect Indeed's terms 
 
 ## Related actors
 
-- **LinkedIn Jobs Scraper Pro & Recruiter Contacts**. Search URL, company URL, and recruiter contact extraction.
-- **HackerNews Lead Monitor**. Alerts for hiring threads matching your skills.
+- **LinkedIn Hiring Tracker Pro and Recruiter Contact Finder**. Search URL, company URL, and recruiter contact extraction.
+- **Hacker News Keyword Alert Monitor and Lead Feed**. Alerts for hiring threads matching your skills.
 - **Upwork Opportunity Alert**. Live alerts for new freelance jobs matching your stack.
 - **Stack Overflow Lead Monitor**. Detect technical questions from buyers in your niche.
-- **Website Content Pipeline**. Companies websites to clean Markdown with token counts.
-- **Amazon Product Scraper**. Product catalog for ecommerce ops teams.
+- **Website Content Scraper: Clean Markdown for AI and RAG**. Companies websites to clean Markdown with token counts.

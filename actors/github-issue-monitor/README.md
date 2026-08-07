@@ -208,8 +208,5 @@ Yes. This actor uses the official GitHub REST API v3, which is rate limited and 
 - **Reddit Lead Monitor** for subreddit and brand mention tracking
 - **Product Hunt Launch Tracker** for competitor launch monitoring
 - **Upwork Opportunity Alert** for freelance lead generation
-- **Trustpilot Brand Reputation** for DTC and ecommerce brands
-- **Google Reviews Intelligence** for local businesses
-- **Amazon Review Intelligence** for product review mining
 
 Stack these to cover every public developer and customer conversation surface one brand touches.

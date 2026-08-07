@@ -311,6 +311,6 @@ The actor avoids the most common detection signals (datacenter IPs, missing user
 - **SEC 8-K Event Tracker**. Same temporal shape applied to corporate disclosures.
 - **SEC Form 4 Insider Tracker**. Daily insider trades from the same SEC EDGAR pipeline.
 - **GitHub Issue Monitor**. Triage filter applied to open source repos. Pairs with Scholar to map paper to code.
-- **Website Content Pipeline**. Pipe `pdfUrl` from each Scholar row into the pipeline for full text extraction.
+- **Website Content Scraper: Clean Markdown for AI and RAG**. Pipe `pdfUrl` from each Scholar row into the pipeline for full text extraction.
 - **HN Lead Monitor**. Catch new mentions of any paper or author on Hacker News.
 - **Reddit Lead Monitor**. Same applied to Reddit, useful for tracking social discussion of a paper.
