@@ -36,7 +36,6 @@ flowchart LR
 - [Google Maps Local Business Lead Finder, Places and Contacts](https://apify.com/scrapemint/google-maps-scraper)
 - [LinkedIn Hiring Tracker Pro and Recruiter Contact Finder](https://apify.com/scrapemint/linkedin-jobs-scraper-pro)
 - [LinkedIn Events Discovery and Lead Feed (No Cookies)](https://apify.com/scrapemint/linkedin-events-scraper)
-- [LinkedIn Company Employees Intelligence (No Cookies)](https://apify.com/scrapemint/linkedin-company-employees-scraper)
 - [LinkedIn Company Hiring Signal Tracker](https://apify.com/scrapemint/linkedin-company-hiring-tracker)
 
 ### Financial signals
@@ -62,39 +61,21 @@ flowchart LR
 - [Polymarket Trade Intelligence: Order Book and Prices](https://apify.com/scrapemint/polymarket-scraper)
 - [Sports Odds Live Feed: DraftKings, Pinnacle, FanDuel, BetMGM](https://apify.com/scrapemint/sports-odds-scraper) ([source](https://github.com/Ken-Mutisya/sports-odds-scraper))
 - [Sports Odds Movement and Arbitrage Tracker](https://apify.com/scrapemint/sports-odds-movement-tracker)
-- [Kickstarter Campaign Intelligence: Live Funding Tracker](https://apify.com/scrapemint/kickstarter-campaign-tracker)
 
 ### Reviews & reputation
 
-- [Google Reviews Export and Local Business Reputation Monitor](https://apify.com/scrapemint/google-reviews-intelligence)
-- [Yelp Review Export and Local Business Reputation Monitor](https://apify.com/scrapemint/yelp-review-intelligence)
-- [Trustpilot Brand Reputation and Sentiment Monitor](https://apify.com/scrapemint/trustpilot-brand-reputation) ([source](https://github.com/Ken-Mutisya/trustpilot-brand-reputation))
-- [G2 Product Reviews Intelligence (No Login)](https://apify.com/scrapemint/g2-reviews-scraper)
-- [Amazon Product Review Export and Sentiment Monitor](https://apify.com/scrapemint/amazon-review-intelligence)
 - [App Store and Play Store Review Intelligence](https://apify.com/scrapemint/app-review-intelligence)
-- [Hotel Review Intelligence & Competitor Sentiment Tracker](https://apify.com/scrapemint/booking-review-intelligence) ([source](https://github.com/Ken-Mutisya/booking-review-intelligence))
 - [TripAdvisor Review Intelligence and Hotel Reputation Monitor](https://apify.com/scrapemint/tripadvisor-review-intelligence)
-- [Facebook Review Export and Business Reputation Monitor](https://apify.com/scrapemint/facebook-review-intelligence)
-- [Indeed Company Review Export and Employer Reputation Monitor](https://apify.com/scrapemint/indeed-review-intelligence)
 - [Steam Game and Review Intelligence Monitor](https://apify.com/scrapemint/steam-game-review-intelligence)
-- [Glassdoor Company and Salary Intelligence (No Login)](https://apify.com/scrapemint/glassdoor-company-salary-scraper)
 
 ### Social & content
 
 - [Instagram Influencer Analyzer & Sponsored Post Tracker](https://apify.com/scrapemint/instagram-scraper)
-- [TikTok Trend Intelligence: Videos, Profiles, Hashtags, Music](https://apify.com/scrapemint/tiktok-scraper)
 - [YouTube Channel Intelligence Pro: Videos, Comments, Transcripts](https://apify.com/scrapemint/youtube-scraper)
 - [Threads Brand Mentions, Keyword Alerts & Influencer Discovery](https://apify.com/scrapemint/meta-threads-intelligence)
 - [Substack Newsletter Intelligence: Top Writer Tracker](https://apify.com/scrapemint/substack-newsletter-intelligence)
 - [Product Hunt Launch Tracker and Topic Alert Feed](https://apify.com/scrapemint/producthunt-launch-tracker)
-- [Facebook Ads Library Intelligence (Public, No Login)](https://apify.com/scrapemint/facebook-ads-library-scraper)
-- [LinkedIn Profile Intelligence (No Cookies)](https://apify.com/scrapemint/linkedin-profile-scraper)
-- [LinkedIn Company Profile Intelligence (No Cookies)](https://apify.com/scrapemint/linkedin-company-profile-scraper)
-- [LinkedIn Profile & Company Post Tracker (No Cookies)](https://apify.com/scrapemint/linkedin-profile-posts-scraper)
 - [LinkedIn Hashtag & Topic Post Tracker (No Cookies)](https://apify.com/scrapemint/linkedin-hashtag-posts-scraper)
-- [LinkedIn Pulse Articles Intelligence (No Cookies)](https://apify.com/scrapemint/linkedin-pulse-articles-scraper)
-- [LinkedIn Top Voice & Creator Engagement Ranker](https://apify.com/scrapemint/linkedin-creator-ranker)
-- [LinkedIn Learning Course Intelligence (No Login)](https://apify.com/scrapemint/linkedin-learning-course-scraper)
 
 ### Research, jobs & dev
 
@@ -116,14 +97,12 @@ flowchart LR
 - [TripAdvisor Travel Intelligence: Hotels and More](https://apify.com/scrapemint/tripadvisor-scraper)
 - [TripAdvisor Property Rank & Competitor Benchmark Tracker](https://apify.com/scrapemint/tripadvisor-property-rank-tracker)
 - [Viator Tours Intelligence: Activities, Prices, Reviews](https://apify.com/scrapemint/viator-tours-tracker)
-- [Etsy Listings and Seller Intelligence (No Login)](https://apify.com/scrapemint/etsy-listings-seller-intel)
 - [Ecommerce Intelligence Pro: Multi Marketplace Product Monitor](https://apify.com/scrapemint/ecommerce-scraper)
 - [Marketplace Arbitrage Radar, Local Resale Deal Intelligence](https://apify.com/scrapemint/facebook-marketplace-deal-finder)
 
 ### Web utilities
 
 - [Domain Intelligence: WHOIS + DNS Bulk Lookup](https://apify.com/scrapemint/domain-intelligence)
-- [Website Content Pipeline for AI: Markdown, Tokens, RAG Chunks](https://apify.com/scrapemint/website-content-crawler)
 
 ---
 
