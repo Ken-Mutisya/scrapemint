@@ -3,11 +3,19 @@
 // Strategy (rebuilt 2026-07-16)
 // ----------------------------
 // The original DraftKings and Pinnacle endpoints went dark for automated
-// access (DK 403s every client, Pinnacle blocks cloud IPs), so odds come from
-// two keyless feeds that are reachable from datacenter IPs with no proxy:
-// ESPN's public scoreboard, which carries one bookmaker's block per game
-// (typically DraftKings), and Bovada's own coupon feed. One GET per sport per
-// feed covers today plus the look-ahead window.
+// access (DK 403s every client), so odds come from keyless feeds reachable
+// from datacenter IPs with no proxy: ESPN's public scoreboard, which carries
+// one bookmaker's block per game (typically DraftKings), Bovada's own coupon
+// feed, and Pinnacle's guest API. One GET per sport per feed covers today plus
+// the look-ahead window.
+//
+// PINNACLE IS BACK, and it is the book that makes this actor's best price and
+// arbitrage worth reading. The old note here said Pinnacle blocks cloud IPs;
+// that was the original endpoint. guest.api.arcadia.pinnacle.com answered
+// HTTP 200 from an Apify datacenter run on 2026-08-10, confirmed three
+// independent ways, and needs no key or account. Pinnacle runs low margin and
+// high limits, so a price gap against it is a genuine edge, where a gap
+// between two recreational books is mostly noise.
 //
 // Bovada events are joined onto ESPN events on an EXACT key (both team names
 // plus the start time to the minute), never a fuzzy match, because a wrong
@@ -25,6 +33,20 @@
 //   free. Events without odds are skipped, never charged.
 
 import { Actor, log } from 'apify';
+import { fetchPinnacleLeague } from './pinnacle-book.js';
+
+// The actor addresses leagues by ESPN path; Pinnacle is keyed on the Bovada
+// style path, and the two disagree for college and soccer. Mapped explicitly
+// rather than transformed, because a wrong league would price the wrong games.
+const PINNACLE_PATH_BY_SPORT = {
+    nfl: 'football/nfl',
+    ncaaf: 'football/college-football',
+    nba: 'basketball/nba',
+    mlb: 'baseball/mlb',
+    nhl: 'hockey/nhl',
+    soccer_epl: 'soccer/england/premier-league',
+    soccer_mls: 'soccer/usa/mls',
+};
 
 // Old input keys -> ESPN sport/league paths, plus friendly aliases. Raw
 // "sport/league" ESPN paths pass through, so any ESPN-covered league works.
@@ -271,6 +293,83 @@ function bovadaOutcome(name, price, point) {
     };
 }
 
+/**
+ * Pinnacle as a third book, in the same merge shape as ESPN and Bovada.
+ *
+ * This is the book that makes best price and arbitrage mean something. ESPN
+ * carries one provider's block and Bovada is recreational; Pinnacle runs low
+ * margin and high limits, so a gap against it is a real edge rather than two
+ * soft books disagreeing.
+ *
+ * It joins on the SAME exact key as every other feed, sport plus both
+ * normalised team names plus the start time to the minute. Verified on a live
+ * MLB slate: 10 of 10 Pinnacle games matched ESPN exactly. A near miss stays a
+ * separate single book event rather than a fuzzy pairing, which is the failure
+ * this actor must have, since a wrong pairing invents an edge someone stakes
+ * money on.
+ */
+async function fetchPinnacleSport(sport) {
+    const path = PINNACLE_PATH_BY_SPORT[sport];
+    if (!path) return [];
+    const res = await fetchPinnacleLeague(path, {
+        fetchJson: async (u) => {
+            const d = await getJson(u);
+            return d?.error ? null : d;
+        },
+    });
+    if (res.unmapped) return [];
+    if (res.error) {
+        log.info(`${sport}: no Pinnacle prices (${res.error}); events stay on the other books.`);
+        return [];
+    }
+
+    const out = [];
+    for (const g of res.games) {
+        const home = g.competitors.find((c) => c.isHome)?.name;
+        const away = g.competitors.find((c) => !c.isHome)?.name;
+        if (!home || !away || !g.startTime) continue;
+
+        const bookMarkets = [];
+        for (const m of g.markets) {
+            if (!m.isMainPeriod || !m.isOpen) continue;
+            // Team totals are a different bet from the game total and would
+            // collide with it on the shared outcome names Over and Under.
+            if (String(m.marketName).startsWith('Team Total')) continue;
+            const key = m.marketType === 'spread' ? 'spreads'
+                : m.marketType === 'total' ? 'totals'
+                    : (m.marketType === 'moneyline' || m.marketType === 'moneyline_3way') ? 'h2h' : null;
+            if (!key || !marketSet.has(key)) continue;
+            const outcomes = [];
+            for (const o of m.outcomes) {
+                const decimal = Number(o.priceDecimal);
+                if (!Number.isFinite(decimal) || decimal <= 1) continue;
+                outcomes.push({
+                    name: o.outcome,
+                    price: convertOdds(decimal, oddsFormat),
+                    priceDecimal: Number(decimal.toFixed(4)),
+                    point: key === 'h2h' ? null : (Number.isFinite(Number(o.handicap)) ? Number(o.handicap) : null),
+                    participant: null,
+                });
+            }
+            if (!outcomes.length) continue;
+            bookMarkets.push({ key, label: m.marketName || key, outcomes });
+        }
+        if (!bookMarkets.length) continue;
+
+        out.push({
+            sport,
+            home,
+            away,
+            commenceTime: g.startTime,
+            eventKey: makeEventKey(sport, home, away, g.startTime),
+            sourceUrl: 'https://www.pinnacle.com',
+            book: 'pinnacle',
+            bookMarkets,
+        });
+    }
+    return out;
+}
+
 async function fetchBovadaSport(sport, path) {
     const url = `https://www.bovada.lv/services/sports/event/coupon/events/A/description/${path}?marketFilterId=def&lang=en`;
     const data = await getJson(url);
@@ -407,11 +506,49 @@ for (const sport of sportList) {
         perSportCount += 1;
     }
 
-    // Second book. Only merges into events ESPN already returned, so a Bovada
-    // outage or an unmatched name costs nothing beyond staying single book.
+    // Third book, and the one that makes best price and arbitrage meaningful.
+    //
+    // It also rescues the run when ESPN is the feed that fails. ESPN is the
+    // spine here: every other book merges only into events ESPN returned, so an
+    // ESPN 403, which the Apify datacenter got on 2026-08-10, emptied the whole
+    // run while Bovada and Pinnacle were both answering normally. When ESPN
+    // returns nothing for a sport, Pinnacle is allowed to seed the events
+    // instead. Those rows are honestly single book until another feed matches
+    // them, and best price and arbitrage stay inert on one book by design.
+    //
+    // Seeding is deliberately limited to the ESPN-empty case. While ESPN has
+    // events, the strict join still governs, so nothing is paired loosely.
+    let pinnacleMatched = 0;
+    let pinnacleSeeded = 0;
+    {
+        await sleep(BOVADA_GAP_MS);
+        const pinnacleEvents = await fetchPinnacleSport(sport).catch((err) => {
+            log.info(`${sport}: Pinnacle unavailable (${err?.message}); events stay on the other books.`);
+            return [];
+        });
+        const espnEmpty = events.length === 0;
+        for (const ev of pinnacleEvents) {
+            if (eventBucket.has(ev.eventKey)) {
+                mergeEvent(ev);
+                pinnacleMatched += 1;
+            } else if (espnEmpty && perSportCount < perSportCap) {
+                mergeEvent(ev);
+                pinnacleSeeded += 1;
+                perSportCount += 1;
+            }
+        }
+        if (pinnacleEvents.length) {
+            log.info(`${sport}: Pinnacle returned ${pinnacleEvents.length} event(s), ${pinnacleMatched} matched an ESPN event`
+                + `${pinnacleSeeded ? `, ${pinnacleSeeded} seeded because ESPN returned nothing` : ''}.`);
+        }
+    }
+
+    // PINNACLE RUNS BEFORE BOVADA on purpose. It is allowed to seed events when
+    // ESPN returns none, and Bovada merges only into events that already exist,
+    // so seeding first is what lets Bovada still attach during an ESPN outage.
     let bovadaMatched = 0;
     const bovadaPath = BOVADA_PATHS[sport];
-    if (bovadaPath && events.length > 0) {
+    if (bovadaPath && (events.length > 0 || pinnacleSeeded > 0)) {
         await sleep(BOVADA_GAP_MS);
         const bovadaEvents = await fetchBovadaSport(sport, bovadaPath).catch((err) => {
             log.info(`${sport}: Bovada unavailable (${err?.message}); events stay single book.`);
@@ -425,7 +562,10 @@ for (const sport of sportList) {
         log.info(`${sport}: Bovada returned ${bovadaEvents.length} event(s), ${bovadaMatched} matched an ESPN event.`);
     }
 
-    log.info(`${sport}: ${events.length} event(s) with odds.`);
+    // events.length is ESPN's count alone, which read as "0 events with odds"
+    // on a run that had in fact seeded 10 from Pinnacle.
+    log.info(`${sport}: ${events.length + pinnacleSeeded} event(s) with odds`
+        + `${pinnacleSeeded ? ` (${pinnacleSeeded} from Pinnacle because ESPN returned none)` : ''}.`);
     await sleep(250);
 }
 
