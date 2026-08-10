@@ -141,6 +141,13 @@ const SYNONYMS = {
     jun: 'june', jul: 'july', aug: 'august', sep: 'september', sept: 'september',
     oct: 'october', nov: 'november', dec: 'december', gop: 'republican',
     dems: 'democrat', democrats: 'democratic', reps: 'republican',
+    // The two venues name the same contest differently: Kalshi asks about a
+    // "primary" or who will be the "nominee", Polymarket about the
+    // "nomination". Without these the subject gate below reads a vocabulary
+    // difference as a difference of subject and drops five true pairs.
+    primary: 'nomination', primaries: 'nomination',
+    nominee: 'nomination', nominated: 'nomination',
+    midterm: 'election', midterms: 'election', elections: 'election',
 };
 
 function tokenize(text) {
@@ -190,6 +197,40 @@ function claimFamilies(text) {
     }
     return out.sort().join('+');
 }
+
+// The same failure as the claim families, on the other axis: the subject. A
+// Kalshi market names one candidate and a Polymarket grouped market names a
+// different one, but the shared template ("who will win the 2028 Democratic
+// presidential nomination") carries so many tokens that the name, one or two
+// tokens, cannot move the score below the floor. That is how MrBeast at 19.5%
+// was matched against Gavin Newsom at 0.15% and reported as a 19 point buy.
+//
+// The rule: if each side holds a strong token the other lacks, the two
+// questions are about different things and must not be paired. One side being
+// a superset of the other is the normal true match, since the venue that
+// spells out the question simply says more.
+function editDistance(a, b) {
+    if (Math.abs(a.length - b.length) > 2) return 99;
+    let prev = Array.from({ length: b.length + 1 }, (_, i) => i);
+    for (let i = 1; i <= a.length; i++) {
+        const cur = [i];
+        for (let j = 1; j <= b.length; j++) {
+            cur[j] = Math.min(prev[j] + 1, cur[j - 1] + 1, prev[j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1));
+        }
+        prev = cur;
+    }
+    return prev[b.length];
+}
+// Eisenkot and Eizenkot are one person spelled two ways, so a small edit
+// distance on a long token counts as agreement rather than a different subject.
+const spellingVariant = (x, y) => Math.min(x.length, y.length) >= 5 && editDistance(x, y) <= 2;
+function subjectsAgree(a, b) {
+    const aOnly = [...a.tokens].filter((t) => !b.tokens.has(t) && isStrong(t));
+    const bOnly = [...b.tokens].filter((t) => !a.tokens.has(t) && isStrong(t));
+    if (!aOnly.length || !bOnly.length) return true; // one side is a superset
+    return aOnly.every((x) => bOnly.some((y) => spellingVariant(x, y)))
+        && bOnly.every((y) => aOnly.some((x) => spellingVariant(y, x)));
+}
 // Jaccard must clear this floor for a pair to count. Overlap coefficient
 // alone lets near-duplicate-but-different questions through (e.g. two
 // "next PM of X" markets naming different candidates share everything but
@@ -202,6 +243,7 @@ function scorePair(a, b) {
     if (!a.tokens.size || !b.tokens.size) return 0;
     // Same question or no pair at all, whatever the token overlap says.
     if (claimFamilies(a.text) !== claimFamilies(b.text)) return 0;
+    if (!subjectsAgree(a, b)) return 0;
     let inter = 0;
     let sharedStrong = false;
     const [small, big] = a.tokens.size <= b.tokens.size ? [a.tokens, b.tokens] : [b.tokens, a.tokens];
