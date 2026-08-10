@@ -31,6 +31,7 @@
 //   odds_movement per moved line. First 10 per run are free.
 
 import { Actor, log } from 'apify';
+import { fetchPinnacleLeague } from './pinnacle-book.js';
 
 const FREE_TIER_ITEMS = 10;
 const HOST = 'https://www.bovada.lv/services/sports/event';
@@ -71,9 +72,13 @@ const {
     oddsFormat = 'american',
     maxItemsPerLeague = 200,
     maxItemsTotal = 400,
+    books = ['bovada', 'pinnacle'],
     proxyConfiguration: proxyInput,
     apiKey,
 } = input;
+
+const wantedBooks = new Set(toArray(books).map((s) => String(s).trim().toLowerCase()).filter(Boolean));
+if (!wantedBooks.size) { wantedBooks.add('bovada'); wantedBooks.add('pinnacle'); }
 
 if (apiKey) {
     log.info('The "apiKey" input is no longer used. This actor reads a public sportsbook feed directly, with no key and no third party account.');
@@ -116,8 +121,16 @@ for (const league of leagueList) {
         continue;
     }
 
-    const events = await fetchLeague(league, path);
-    log.info(`${league}: ${events.length} event(s) returned.`);
+    const bovadaEvents = wantedBooks.has('bovada') ? await fetchLeague(league, path) : [];
+    const pinnacleEvents = wantedBooks.has('pinnacle') ? await fetchPinnacleLines(league, path) : [];
+    // Sorted by kickoff rather than concatenated by book. Straight
+    // concatenation meant a row cap was spent entirely on Bovada before
+    // Pinnacle was reached, so a buyer with a modest cap never saw the second
+    // book at all. Sorting also puts the same fixture from both books next to
+    // each other, which is the comparison worth reading.
+    const events = [...bovadaEvents, ...pinnacleEvents]
+        .sort((a, b) => String(a.kickoff || '').localeCompare(String(b.kickoff || '')));
+    log.info(`${league}: ${events.length} event(s) returned (${bovadaEvents.length} Bovada, ${pinnacleEvents.length} Pinnacle).`);
 
     // An empty feed means either the league is out of season or the book is
     // declining this IP, and those must not look the same. Observed
@@ -126,8 +139,15 @@ for (const league of leagueList) {
     // directory endpoint keeps answering when the coupon one does not, so it
     // settles which case this is. Without this, a blocked run is reported as
     // "no line moved", which is a quiet false statement.
+    // A Bovada decline no longer empties the league, because Pinnacle answers
+    // separately. It is still worth saying out loud that one book is missing,
+    // so a thinner than usual result is not read as a quiet market.
+    if (wantedBooks.has('bovada') && bovadaEvents.length === 0 && pinnacleEvents.length > 0) {
+        log.warning(`${league}: Bovada returned nothing; continuing on Pinnacle alone.`);
+    }
+
     if (events.length === 0) {
-        const expected = await expectedEventCount(path);
+        const expected = wantedBooks.has('bovada') ? await expectedEventCount(path) : 0;
         if (expected > 0) {
             log.warning(`${league}: the directory says ${expected} event(s) are priced, but the feed returned none. It is declining this request rather than being out of season.`);
             await Actor.pushData({
@@ -135,7 +155,7 @@ for (const league of leagueList) {
                 found: false,
                 likelyBlocked: true,
                 expectedEventCount: expected,
-                note: `no events returned though the directory reports ${expected} priced; the feed is declining this request rather than being out of season. Retry later. Nothing charged.`,
+                note: `neither book returned events. Bovada's directory reports ${expected} priced, so it is declining this request rather than being out of season, and Pinnacle returned nothing either. Retry later. Nothing charged.`,
             });
         }
         continue;
@@ -185,7 +205,10 @@ for (const league of leagueList) {
                 market: line.market,
                 marketLabel: line.marketLabel,
                 outcome: line.outcome,
-                book: 'bovada',
+                book: line.book,
+                // Pinnacle publishes the most a client may risk; Bovada does
+                // not, so this stays null there rather than reading as zero.
+                maxRiskStake: line.maxRiskStake ?? null,
                 isNewLine: !prior,
                 priorLine: prior ? formatLine(prior.a, prior.d, prior.p) : null,
                 newLine: formatLine(line.american, line.decimal, line.point),
@@ -255,6 +278,85 @@ async function expectedEventCount(path) {
     return found;
 }
 
+/**
+ * The same event and line shape as fetchLeague, read from Pinnacle.
+ *
+ * TWO COLLISIONS TO AVOID, both of which would invent movement that never
+ * happened and bill for it:
+ *
+ * 1. The line key MUST carry the book. Bovada and Pinnacle price the same
+ *    game, market and outcome, so a shared key would make the store flip
+ *    between two books' prices every run and report each flip as a move. The
+ *    Pinnacle key is prefixed rather than the Bovada one changed, so every
+ *    Bovada line already in the store keeps its history instead of coming back
+ *    as a burst of new lines.
+ * 2. Team totals are dropped. Bovada's market matcher anchors on "^total" and
+ *    therefore already excludes them, and a team total Over would otherwise
+ *    share a key with the game total Over on the same event.
+ */
+async function fetchPinnacleLines(league, path) {
+    const res = await fetchPinnacleLeague(path, {
+        fetchJson: async (u) => {
+            const d = await getJson(u);
+            return d?.error ? null : d;
+        },
+        liveOnly,
+    });
+    if (res.unmapped) {
+        log.info(`${league}: Pinnacle does not carry this league; Bovada only.`);
+        return [];
+    }
+    if (res.error) {
+        log.warning(`${league}: Pinnacle unavailable (${res.error}); Bovada prices are unaffected.`);
+        return [];
+    }
+
+    const out = [];
+    for (const g of res.games) {
+        const home = g.competitors.find((c) => c.isHome)?.name;
+        const away = g.competitors.find((c) => !c.isHome)?.name;
+        if (!home || !away || !g.startTime) continue;
+        const lines = [];
+        for (const m of g.markets) {
+            if (!m.isMainPeriod) continue;
+            if (!includeSuspended && !m.isOpen) continue;
+            if (String(m.marketName).startsWith('Team Total')) continue; // see note 2 above
+            const market = m.marketType === 'spread' ? 'spreads'
+                : m.marketType === 'total' ? 'totals'
+                    : (m.marketType === 'moneyline' || m.marketType === 'moneyline_3way') ? 'h2h' : null;
+            if (!market || !marketSet.has(market)) continue;
+            for (const o of m.outcomes) {
+                const decimal = Number(o.priceDecimal);
+                if (!Number.isFinite(decimal) || decimal <= 1) continue;
+                const point = market === 'h2h' ? null : numOrNull(o.handicap);
+                lines.push({
+                    market,
+                    marketLabel: m.marketName || market,
+                    outcome: o.outcome,
+                    decimal: Number(decimal.toFixed(4)),
+                    american: o.priceAmerican,
+                    point,
+                    book: 'pinnacle',
+                    maxRiskStake: m.maxRiskStake,
+                    lineKey: `pinnacle|${league}|${home}|${away}|${g.startTime}|${market}|${o.outcome}`
+                        .toLowerCase().replace(/[^a-z0-9|.@:+-]/g, ''),
+                });
+            }
+        }
+        if (!lines.length) continue;
+        out.push({
+            sport: String(path).split('/')[0],
+            home,
+            away,
+            kickoff: g.startTime,
+            live: g.isLive,
+            url: 'https://www.pinnacle.com',
+            lines,
+        });
+    }
+    return out;
+}
+
 async function fetchLeague(league, path) {
     await sleep(REQUEST_GAP_MS);
     const url = `${HOST}/coupon/events/A/description/${path}`
@@ -305,6 +407,11 @@ async function fetchLeague(league, path) {
                             decimal: Number(decimal.toFixed(4)),
                             american: americanFrom(decimal),
                             point,
+                            book: 'bovada',
+                            maxRiskStake: null, // Bovada does not publish one; null, not 0.
+                            // Deliberately NOT prefixed with the book: every
+                            // Bovada line already in the store keeps its
+                            // history. Pinnacle keys carry a prefix instead.
                             lineKey: `${league}|${home}|${away}|${kickoff}|${market}|${o.description}`
                                 .toLowerCase().replace(/[^a-z0-9|.@:+-]/g, ''),
                         });

@@ -36,6 +36,31 @@
                 "mlb"
             ]
         },
+        "books": {
+            "title": "Books to watch",
+            "type": "array",
+            "description": "Which sportsbooks to track for movement. Pinnacle is the sharp book, so a Pinnacle move is the one that usually leads; Bovada is recreational and tends to follow. Each book's lines are tracked separately, so a row tells you which book moved. Pinnacle covers the major leagues only and is skipped where it does not price the league.",
+            "editor": "select",
+            "items": {
+                "type": "string",
+                "enum": [
+                    "bovada",
+                    "pinnacle"
+                ],
+                "enumTitles": [
+                    "Bovada",
+                    "Pinnacle (sharp)"
+                ]
+            },
+            "default": [
+                "bovada",
+                "pinnacle"
+            ],
+            "prefill": [
+                "bovada",
+                "pinnacle"
+            ]
+        },
         "markets": {
             "title": "Markets",
             "type": "array",
