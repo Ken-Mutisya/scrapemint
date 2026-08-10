@@ -119,7 +119,7 @@ flowchart LR
 
 | Feature | Manual checking | PH email digest | This actor |
 |---|---|---|---|
-| Pricing | Free, costs time | Free, limited | Pay per launch, first 30 per run free |
+| Pricing | Free, costs time | Free, limited | Pay per launch, first 5 per run free |
 | Keyword filter | Search the page by hand | None | Unlimited |
 | Topic targeting | Tab hopping | Top level only | Any topic slug, any combination |
 | Scheduling | You | Daily fixed time | Every 10 minutes |
@@ -166,7 +166,7 @@ Every field ready to drop into a CRM, a Slack channel, an Airtable, or a Notion 
 
 ## Pricing
 
-First 30 launches per run are free. After that you pay per extracted launch. No seat licenses. No tier gating. A 200 launch run lands under $1 on the Apify free plan.
+First 5 launches per run are free. After that you pay per extracted launch. No seat licenses. No tier gating. A 200 launch run lands under $1 on the Apify free plan.
 
 ---
 

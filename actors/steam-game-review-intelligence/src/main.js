@@ -13,11 +13,11 @@
 //   4. Optionally enrich with a SteamSpy owners band and average playtime.
 //   5. Normalize every review to one flat shape and pushData.
 //
-// Free tier: first 100 reviews per run are free. After that charge per review.
+// Free tier: first 5 reviews per run are free. After that charge per review.
 
 import { Actor, log } from 'apify';
 
-const FREE_TIER_REVIEWS = 100;
+const FREE_TIER_REVIEWS = 5;
 const STORE_BASE = 'https://store.steampowered.com';
 const UA = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36';
 

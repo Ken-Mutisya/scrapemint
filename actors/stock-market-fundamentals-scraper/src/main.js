@@ -14,11 +14,11 @@
 //            inverse (one metric, every filer), so joining a few frames calls on
 //            CIK turns the lookup into a cross-sectional screener.
 //
-// Free tier: first 15 rows per run are free, then each fundamentals row is charged.
+// Free tier: first 5 rows per run are free, then each fundamentals row is charged.
 
 import { Actor, log } from 'apify';
 
-const FREE_TIER_ROWS = 15;
+const FREE_TIER_ROWS = 5;
 const HEADERS = {
     'User-Agent': 'Scrapemint Fundamentals Scraper contact@scrapemint.com',
     Accept: 'application/json',

@@ -12,12 +12,12 @@
 // Pay per event
 // -------------
 //   article_row ($0.003) charged when an article row is pushed.
-//   First 25 rows per run are free so buyers can validate output.
+//   First 5 rows per run are free so buyers can validate output.
 
 import { Actor, log } from 'apify';
 import * as cheerio from 'cheerio';
 
-const FREE_TIER_ROWS = 25;
+const FREE_TIER_ROWS = 5;
 const HARD_CAP = 5000;
 
 await Actor.init();

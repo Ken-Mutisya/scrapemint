@@ -63,7 +63,7 @@ One row per position:
 
 ## Pricing
 
-Pay per result. The first 20 rows per run are free so you can validate output.
+Pay per result. The first 5 rows per run are free so you can validate output.
 
 | Event | Price | Applies to |
 | --- | --- | --- |

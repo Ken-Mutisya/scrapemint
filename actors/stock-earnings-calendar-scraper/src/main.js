@@ -8,11 +8,11 @@
 //   /api/calendar/splits?date=YYYY-MM-DD      -> splits from that date forward (see note)
 //   /api/ipo/calendar?date=YYYY-MM            -> priced + upcoming IPOs (monthly)
 //
-// Free tier: first 15 rows per run are free, then each row is charged.
+// Free tier: first 5 rows per run are free, then each row is charged.
 
 import { Actor, log } from 'apify';
 
-const FREE_TIER_ROWS = 15;
+const FREE_TIER_ROWS = 5;
 const NASDAQ = 'https://api.nasdaq.com/api';
 const HEADERS = {
     'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36',

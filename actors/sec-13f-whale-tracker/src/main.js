@@ -14,13 +14,13 @@
 // SEC requires a descriptive User-Agent with an email. Rate limit 10 req/sec;
 // we sleep 120ms between requests to stay polite.
 //
-// Free tier: first 20 rows per run are free. After that each row is charged by
+// Free tier: first 5 rows per run are free. After that each row is charged by
 // its change tier (key_move for new/exit, position_change for adds/trims,
 // holding for unchanged).
 
 import { Actor, log } from 'apify';
 
-const FREE_TIER_ROWS = 20;
+const FREE_TIER_ROWS = 5;
 const EDGAR_RATE_SLEEP_MS = 120;
 
 await Actor.init();
@@ -309,7 +309,7 @@ async function pushHolding(c) {
 }
 
 // Tier each row: new/exited are the high-signal key moves, material adds/trims
-// are position changes, everything else is a plain holding. First 20 rows free.
+// are position changes, everything else is a plain holding. First 5 rows free.
 function charge(changeType) {
     let event;
     if (changeType === 'new' || changeType === 'exited') { event = 'key_move'; keyMoves += 1; }

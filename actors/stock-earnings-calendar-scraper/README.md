@@ -56,4 +56,4 @@ Active and options traders planning around report dates, swing traders working e
 
 ## Pricing
 
-Pay per event row. The first 15 rows of every run are free so you can validate the output before you pay.
+Pay per event row. The first 5 rows of every run are free so you can validate the output before you pay.

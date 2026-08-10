@@ -16,11 +16,11 @@
 // Pay per event
 // -------------
 //   filing_row ($0.007) charged when a filing row is pushed.
-//   First 15 rows per run are free so buyers can validate output.
+//   First 5 rows per run are free so buyers can validate output.
 
 import { Actor, log } from 'apify';
 
-const FREE_TIER_ROWS = 15;
+const FREE_TIER_ROWS = 5;
 const HARD_CAP = 5000;
 const PAGE_SIZE = 100;
 const EDGAR_WINDOW = 10000; // EDGAR full-text search caps deep paging here

@@ -72,7 +72,7 @@ Remote engineering roles only:
 
 ## Pricing
 
-Pay per row. The first 25 job rows of every run are free so you can validate output before you scale up. Companies not found on any supported ATS are returned as free status rows, so you never pay for misses.
+Pay per row. The first 5 job rows of every run are free so you can validate output before you scale up. Companies not found on any supported ATS are returned as free status rows, so you never pay for misses.
 
 ## Notes
 

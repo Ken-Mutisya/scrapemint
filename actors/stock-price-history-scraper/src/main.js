@@ -6,11 +6,11 @@
 //   /api/quote/{SYMBOL}/historical?assetclass=stocks&fromdate=YYYY-MM-DD&todate=YYYY-MM-DD&limit=9999
 //   -> data.tradesTable.rows = [{ date:"M/D/YYYY", open:"$..", high, low, close, volume:"1,234" }]
 //
-// Free tier: first 20 rows per run are free, then each price row is charged.
+// Free tier: first 5 rows per run are free, then each price row is charged.
 
 import { Actor, log } from 'apify';
 
-const FREE_TIER_ROWS = 20;
+const FREE_TIER_ROWS = 5;
 const NASDAQ = 'https://api.nasdaq.com/api';
 const HEADERS = {
     'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36',

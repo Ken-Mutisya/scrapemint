@@ -44,4 +44,4 @@ Quants and backtesters who need clean OHLCV, charting tools and dashboards, fint
 
 ## Pricing
 
-Pay per daily price row. The first 20 rows of every run are free so you can validate the output before you pay.
+Pay per daily price row. The first 5 rows of every run are free so you can validate the output before you pay.

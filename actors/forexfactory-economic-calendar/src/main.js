@@ -38,7 +38,14 @@ const DETAIL_CAP = 50;
 // Stop the crawler before the platform kills the run so flushed rows and
 // charges survive (a hard timeout costs the full compute and loses the tail).
 const timeoutAtMs = process.env.ACTOR_TIMEOUT_AT ? Date.parse(process.env.ACTOR_TIMEOUT_AT) : null;
-const deadlineMs = timeoutAtMs ? timeoutAtMs - 60000 : null;
+// 150s of headroom, not 60s. The deadline is only tested at the START of a
+// request handler, so a handler already running when it passes still gets to
+// finish; with the old 60s margin one slow page overshot the platform timeout
+// and the run was killed as TIMED-OUT, which loses the closing summary and
+// leaves the buyer with a failed-looking run. 372 of 3193 runs in the 30 days
+// to 2026-08-10 ended that way, 11.7%, on the actor with the highest unit
+// price in the fleet.
+const deadlineMs = timeoutAtMs ? timeoutAtMs - 150000 : null;
 const pastDeadline = () => deadlineMs && Date.now() > deadlineMs;
 
 await Actor.init();
@@ -243,9 +250,13 @@ const crawler = new PlaywrightCrawler({
     proxyConfiguration,
     maxConcurrency: Math.max(1, Math.min(10, Number(concurrency) || 3)),
     headless: true,
-    navigationTimeoutSecs: 60,
-    requestHandlerTimeoutSecs: 120,
-    maxRequestRetries: 2,
+    // A single page must not be able to eat the whole run budget. At 60s
+    // navigation plus 120s per handler plus 2 retries, one bad URL could burn
+    // roughly 360s of a 600s run, which is how this actor produced an 11.7%
+    // TIMED-OUT rate. Blocked is blocked, so a second retry rarely converts.
+    navigationTimeoutSecs: 45,
+    requestHandlerTimeoutSecs: 60,
+    maxRequestRetries: 1,
     useSessionPool: true,
     persistCookiesPerSession: true,
     sessionPoolOptions: {
@@ -321,6 +332,21 @@ if (calendarBlocked && totalRowsPushed === 0) {
         found: false,
         blocked: true,
         note: `calendar page returned 403; no rows returned and nothing charged. ${advice}`,
+    });
+}
+
+// A run that stopped on its own budget used to say so only in the log, where a
+// buyer reading the dataset never sees it, and the rows it did return looked
+// like the whole answer. Free note, never charged.
+if (pastDeadline()) {
+    await Actor.pushData({
+        range,
+        startDate: startDate || null,
+        endDate: endDate || null,
+        found: totalRowsPushed > 0,
+        partial: true,
+        note: `stopped early to stay inside the run timeout, so this is a partial calendar: ${totalRowsPushed} row(s) returned and only those were charged. `
+            + 'A day or week range reads a JSON feed and finishes in seconds; month, custom and detail ranges open the calendar page and are far slower.',
     });
 }
 }

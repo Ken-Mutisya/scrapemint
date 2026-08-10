@@ -52,7 +52,7 @@ Monitor a brand in the UK over the last day:
 
 ## Pricing
 
-Pay per row. The first 25 rows of every run are free so you can validate output before you scale up. You only pay for the articles you keep.
+Pay per row. The first 5 rows of every run are free so you can validate output before you scale up. You only pay for the articles you keep.
 
 ## Notes
 

@@ -9,11 +9,11 @@
 // Endpoint: https://api.producthunt.com/v2/api/graphql
 // Docs:     https://api.producthunt.com/v2/docs
 //
-// Free tier: first 30 launches per run are free. After that charge per launch.
+// Free tier: first 5 launches per run are free. After that charge per launch.
 
 import { Actor, log } from 'apify';
 
-const FREE_TIER_LAUNCHES = 30;
+const FREE_TIER_LAUNCHES = 5;
 const GRAPHQL_URL = 'https://api.producthunt.com/v2/api/graphql';
 
 const POSTED_WITHIN_HOURS = {

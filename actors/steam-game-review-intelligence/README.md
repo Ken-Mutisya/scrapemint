@@ -72,7 +72,7 @@ flowchart LR
 
 | Feature | Games analytics SaaS | This actor |
 |---|---|---|
-| Pricing | Monthly seat fee, flat | Pay per review, first 100 per run free |
+| Pricing | Monthly seat fee, flat | Pay per review, first 5 per run free |
 | Coverage | Titles on your plan tier | Any public Steam app id |
 | Playtime context | Often summarized only | Playtime at review on every row |
 | Data ownership | Vendor hosts behind a login | Raw JSON in your account |
@@ -157,7 +157,7 @@ Every row carries the game metadata, the store wide review score, the single rev
 
 ## Pricing
 
-First 100 reviews per run are free. After that you pay per review extracted. No seat licenses. No tier gating. 1000 reviews lands under $2 on the Apify free plan.
+First 5 reviews per run are free. After that you pay per review extracted. No seat licenses. No tier gating. 1000 reviews lands under $2 on the Apify free plan.
 
 ---
 

@@ -19,11 +19,11 @@
 // Pay per event
 // -------------
 //   screener_row ($0.004) charged when a screener row is pushed.
-//   First 25 rows per run are free so buyers can validate output.
+//   First 5 rows per run are free so buyers can validate output.
 
 import { Actor, log } from 'apify';
 
-const FREE_TIER_ROWS = 25;
+const FREE_TIER_ROWS = 5;
 const PAGE_SIZE = 100;
 const HARD_CAP = 5000;
 

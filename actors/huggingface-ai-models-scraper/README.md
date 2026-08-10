@@ -89,7 +89,7 @@ The text-to-speech niche, newest first:
 
 ## Pricing
 
-Pay per row. The first 20 rows of every run are free so you can validate output before you scale up. You only pay for the rows you keep.
+Pay per row. The first 5 rows of every run are free so you can validate output before you scale up. You only pay for the rows you keep.
 
 ## Notes
 

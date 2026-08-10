@@ -55,7 +55,7 @@ Track a phrase across only one company:
 
 ## Pricing
 
-Pay per row. The first 15 rows of every run are free so you can validate output before you scale up. You only pay for the filings you keep.
+Pay per row. The first 5 rows of every run are free so you can validate output before you scale up. You only pay for the filings you keep.
 
 ## Notes
 

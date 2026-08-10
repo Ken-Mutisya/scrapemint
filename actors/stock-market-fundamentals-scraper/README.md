@@ -107,6 +107,6 @@ Analysts and quants building models, fintech apps and dashboards showing fundame
 
 ## Pricing
 
-Pay per fundamentals row. The first 15 rows of every run are free so you can validate the output before you pay.
+Pay per fundamentals row. The first 5 rows of every run are free so you can validate the output before you pay.
 
 In tickers mode a row is one metric for one period. In screener mode a row is **one company**, however many metrics you put on it, so a 100 company screen with six metrics costs 100 rows and not 600.
