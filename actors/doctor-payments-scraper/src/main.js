@@ -60,13 +60,22 @@ const stateCode = clean(state).toUpperCase().slice(0, 2);
 const progYear = clampNum(year, 2024, 2013, 2100);
 const rowCap = clampNum(maxRows, 200, 1, 50000);
 
-if (!lastName && !company) {
-    log.warning('Add a doctor last name or a paying company. The dataset is too large to browse without a filter.');
+// These two guards used to exit on a log warning alone, which the buyer never
+// sees: a state-only run finished SUCCEEDED with an empty dataset and no
+// explanation anywhere in the output. Say it in a row. The note is pushed
+// directly rather than through flushRow, which is defined further down, and a
+// bare pushData is also the guarantee that it is never charged.
+const guardNote = async (note) => {
+    log.warning(note);
+    await Actor.pushData({ type: 'note', input: [company && `company "${company}"`, stateCode].filter(Boolean).join(', ') || null, found: false, note: `${note}; not charged` });
     await Actor.exit();
+};
+
+if (!lastName && !company) {
+    await guardNote('Add a doctor last name or a paying company. Open Payments holds millions of rows per program year, so a state on its own is too broad to search. A state works well next to a name or a company, for example companyName "Pfizer" with state "CA"');
 }
 if (totalsMode && !lastName) {
-    log.warning('Doctor totals mode needs a doctor last name.');
-    await Actor.exit();
+    await guardNote('Doctor totals mode needs a doctor last name');
 }
 
 async function getJson(url) {
