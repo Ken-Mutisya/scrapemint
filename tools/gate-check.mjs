@@ -175,6 +175,34 @@ function checkRankCollision(file, lines, findings) {
     });
 }
 
+/* A call can wrap across lines, and the exemptions below (`.catch`, `.then`,
+ * assignment) are only true of the WHOLE statement. Reading one line at a time
+ * reported a false ERROR on the sanctioned drain idiom in
+ * sports-odds-movement-tracker, where the `.catch` sits on the next line:
+ *
+ *     __chargeJobs.push(Actor.charge({ eventName: 'odds_movement' })
+ *         .catch((err) => log.warning(...)));
+ *
+ * That charge is awaited through `Promise.allSettled(__chargeJobs)` before
+ * exit, so the finding was wrong, and a gate that always reports an error is a
+ * gate everyone learns to ignore. Join continuation lines until the parentheses
+ * balance, then test the statement. */
+function joinStatement(lines, i, maxLines = 6) {
+    let text = '';
+    let depth = 0;
+    for (let j = i; j < Math.min(lines.length, i + maxLines); j++) {
+        const part = stripComment(lines[j]);
+        text += (j === i ? '' : ' ') + part.trim();
+        for (const ch of part) {
+            if (ch === '(') depth += 1;
+            else if (ch === ')') depth -= 1;
+        }
+        if (j > i && depth <= 0) break;
+        if (j === i && depth <= 0) break;
+    }
+    return text;
+}
+
 function checkMissingAwait(file, lines, findings) {
     lines.forEach((raw, i) => {
         const line = stripComment(raw);
@@ -182,9 +210,27 @@ function checkMissingAwait(file, lines, findings) {
         const m = t.match(/(?:Actor|actor)\.(pushData|charge)\s*\(|\.(charge)\s*\(/);
         if (!m) return;
         if (isSuppressed(lines, i)) return;
+        const stmt = joinStatement(lines, i);
         if (/\b(await|return|yield)\b/.test(t)) return;
         if (/^(const|let|var)\s|=\s*(?!=)/.test(t)) return; // assigned, likely awaited later
-        if (/\.(then|catch)\s*\(/.test(t)) return;
+        // The documented drain idiom: collect the promise and settle the whole
+        // array before Actor.exit(). This is checked BEFORE the .catch/.then
+        // exemption below, because a charge pushed onto the array and never
+        // settled is a real revenue leak that a .catch would otherwise hide.
+        const collected = /\b__chargeJobs\s*\.push\s*\(/.test(stmt);
+        if (collected) {
+            if (/Promise\.allSettled\s*\(\s*__chargeJobs\s*\)/.test(lines.join('\n'))) return;
+            findings.push({
+                level: 'ERROR',
+                rule: 'missing-await',
+                file,
+                line: i + 1,
+                text: t.slice(0, 110),
+                why: 'charge collected into __chargeJobs but never drained with Promise.allSettled(__chargeJobs) before exit',
+            });
+            return;
+        }
+        if (/\.(then|catch)\s*\(/.test(stmt)) return;
         if (/function|=>/.test(t) && !/\(\s*\)/.test(t)) return; // a definition, not a call
 
         findings.push({
