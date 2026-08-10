@@ -1,0 +1,76 @@
+{
+    "title": "ASX Company & Announcement Tracker",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "mode": {
+            "title": "What to fetch",
+            "type": "string",
+            "description": "directory = every listed company with market cap, industry and five day move, in a single request. announcements = the latest announcements per company, each carrying the ASX price sensitive flag. keyStatistics = fundamentals, dividend and franking per company.",
+            "editor": "select",
+            "enum": ["directory", "announcements", "keyStatistics"],
+            "enumTitles": [
+                "Company directory (whole market, 1 request)",
+                "Company announcements",
+                "Key statistics, dividend and franking"
+            ],
+            "default": "directory",
+            "prefill": "announcements"
+        },
+        "symbols": {
+            "title": "ASX codes",
+            "type": "array",
+            "description": "ASX codes such as BHP, CBA, CSL. Use the plain code, not BHP.AX. Leave empty to let the filters below choose the companies for you.",
+            "editor": "stringList",
+            "prefill": ["BHP", "CBA", "CSL"]
+        },
+        "industry": {
+            "title": "Industry contains",
+            "type": "string",
+            "description": "Match part of the industry name, for example Energy, Materials, Software. Used when no codes are given.",
+            "editor": "textfield"
+        },
+        "minMarketCap": {
+            "title": "Minimum market cap (AUD)",
+            "type": "integer",
+            "description": "Drop companies below this market cap. Companies with no published cap are dropped when this is set.",
+            "editor": "number",
+            "minimum": 0
+        },
+        "minFiveDayMovePct": {
+            "title": "Minimum five day move (%)",
+            "type": "integer",
+            "description": "Keep only companies whose five day price change is at least this big in either direction. 10 means moved 10% up or down.",
+            "editor": "number"
+        },
+        "recentListingsOnly": {
+            "title": "Recent listings only",
+            "type": "boolean",
+            "description": "Keep only companies ASX flags as recently listed, for tracking new floats.",
+            "default": false
+        },
+        "priceSensitiveOnly": {
+            "title": "Price sensitive announcements only",
+            "type": "boolean",
+            "description": "Announcements mode only. ASX listing rules require companies to mark announcements expected to move the price, so this is the regulator's own flag rather than a guess. Each company exposes only its 5 most recent announcements, so turning this on can return very little on a quiet week.",
+            "default": false,
+            "prefill": false
+        },
+        "newOnly": {
+            "title": "Only announcements not seen before",
+            "type": "boolean",
+            "description": "Announcements mode only. Remembers what it has already returned across runs, so a scheduled run reports only what is new.",
+            "default": false
+        },
+        "maxRows": {
+            "title": "Maximum rows",
+            "type": "integer",
+            "description": "Stop after this many rows. Billing is per row.",
+            "editor": "number",
+            "default": 200,
+            "minimum": 1,
+            "maximum": 5000,
+            "prefill": 40
+        }
+    }
+}

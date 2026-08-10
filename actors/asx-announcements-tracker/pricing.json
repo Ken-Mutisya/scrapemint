@@ -1,0 +1,15 @@
+{
+    "_note": "PUT this to /v2/acts/{actorId} as a pricingInfos array entry. PAY_PER_EVENT only on BRONZE, startedAt 14+ days out, entries are IMMUTABLE and changeable once a month. Apify auto-adds its margin.",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~asx-announcements-tracker?token=CLI_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "asx_row": {
+                "eventTitle": "ASX row",
+                "eventDescription": "One listed company from the directory, one company announcement with its price sensitive flag, or one key statistics row with dividend and franking. First 2 rows per run are free. Note rows explaining an empty result are never charged.",
+                "eventPriceUsd": 0.005
+            }
+        }
+    },
+    "startedAt": "2026-08-25T00:00:00.000Z"
+}

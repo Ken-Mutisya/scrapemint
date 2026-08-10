@@ -1,0 +1,14 @@
+{
+    "actorSpecification": 1,
+    "name": "asx-announcements-tracker",
+    "title": "ASX Company Announcements and Data Tracker (Australia)",
+    "description": "Australian Securities Exchange data, keyless: every listed company with market cap, industry and five day move in one request, plus announcements carrying the ASX price sensitive flag, and fundamentals with dividend yield and franking. No login or proxy.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "BUSINESS",
+        "NEWS"
+    ]
+}
