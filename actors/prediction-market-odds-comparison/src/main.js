@@ -160,6 +160,36 @@ function tokenize(text) {
     return out;
 }
 const isStrong = (t) => /\d/.test(t) || t.length >= 4;
+
+// Token overlap cannot tell "qualify for the runoff" from "win", because the
+// candidate name, the office and the year carry almost all the tokens and the
+// outcome verb carries almost none. On 2026-08-09 every top "tradeable" gap was
+// this error: Le Pen 80.5% to qualify for the 2027 runoff against 30.15% to win
+// it, reported as a 50 point edge with matchScore 0.90. Qualifying is simply a
+// likelier event than winning, so the gap is not a mispricing, and the wide gap
+// is exactly why the book width check passed too.
+//
+// A claim family is the thing the question actually asks. Two questions may
+// only be paired when they ask for the same one; a higher score threshold
+// cannot separate these, since the false pairs score higher than many true
+// ones.
+const CLAIM_FAMILIES = [
+    ['runoff', [/\brun ?off\b/, /\bsecond round\b/, /\bfirst round\b/, /\bqualify\b/, /\badvance\b/]],
+    ['nomination', [/\bnominee\b/, /\bnominat/, /\bprimary\b/, /\bcaucus\b/]],
+    ['candidacy', [/\bwho will run\b/, /\brun for\b/, /\brunning for\b/, /\bannounce\b/, /\bcandidacy\b/, /\bdeclare\b/, /\bfile to run\b/]],
+    ['resign', [/\bresign\b/, /\bstep down\b/, /\bimpeach/, /\bremoved from office\b/, /\bout as\b/]],
+    ['concede', [/\bconcede\b/, /\bconcession\b/]],
+];
+// Returns the sorted family names a question triggers. The empty set is the
+// plain "will X win / will X happen" claim, which is the common case.
+function claimFamilies(text) {
+    const s = String(text || '').toLowerCase();
+    const out = [];
+    for (const [name, pats] of CLAIM_FAMILIES) {
+        if (pats.some((p) => p.test(s))) out.push(name);
+    }
+    return out.sort().join('+');
+}
 // Jaccard must clear this floor for a pair to count. Overlap coefficient
 // alone lets near-duplicate-but-different questions through (e.g. two
 // "next PM of X" markets naming different candidates share everything but
@@ -170,6 +200,8 @@ const JACCARD_FLOOR = 0.5;
 // return is gated on a shared strong token AND the Jaccard floor.
 function scorePair(a, b) {
     if (!a.tokens.size || !b.tokens.size) return 0;
+    // Same question or no pair at all, whatever the token overlap says.
+    if (claimFamilies(a.text) !== claimFamilies(b.text)) return 0;
     let inter = 0;
     let sharedStrong = false;
     const [small, big] = a.tokens.size <= b.tokens.size ? [a.tokens, b.tokens] : [b.tokens, a.tokens];
