@@ -8,7 +8,11 @@
             "type": "string",
             "description": "odds = current prices for the leagues you choose. movement = only the markets whose price or line changed since your last run, which is what makes this worth scheduling. leagues = the directory of sports and competitions with live event counts, which is where the league paths come from.",
             "editor": "select",
-            "enum": ["odds", "movement", "leagues"],
+            "enum": [
+                "odds",
+                "movement",
+                "leagues"
+            ],
             "enumTitles": [
                 "Odds (moneyline, spread, totals)",
                 "Movement since the last run",
@@ -21,16 +25,49 @@
             "type": "array",
             "description": "Used by odds and movement mode. Examples: football/nfl, basketball/nba, soccer/europe, tennis. A sport on its own returns every competition inside it, which can run to a thousand events, so keep the row cap in mind.",
             "editor": "stringList",
-            "prefill": ["football/nfl"],
-            "default": ["football/nfl"]
+            "prefill": [
+                "football/nfl"
+            ],
+            "default": [
+                "football/nfl"
+            ]
+        },
+        "books": {
+            "title": "Books to read",
+            "type": "array",
+            "description": "Which sportsbooks to price. Pinnacle is the sharp book: it runs on low margin and high limits, so its vig-free price is the closest thing to a market consensus. Bovada is the recreational book. Reading both is what makes a price difference meaningful. Pinnacle covers the major leagues only; an unmapped league path is skipped on that book rather than guessed at.",
+            "editor": "select",
+            "items": {
+                "type": "string",
+                "enum": [
+                    "bovada",
+                    "pinnacle"
+                ],
+                "enumTitles": [
+                    "Bovada",
+                    "Pinnacle (sharp)"
+                ]
+            },
+            "default": [
+                "bovada",
+                "pinnacle"
+            ],
+            "prefill": [
+                "bovada",
+                "pinnacle"
+            ]
         },
         "sports": {
             "title": "Sports",
             "type": "array",
             "description": "Leagues mode only. Which sports to list competitions for. Examples: soccer, football, basketball, tennis, baseball, hockey, esports.",
             "editor": "stringList",
-            "prefill": ["soccer"],
-            "default": ["soccer"]
+            "prefill": [
+                "soccer"
+            ],
+            "default": [
+                "soccer"
+            ]
         },
         "marketTypes": {
             "title": "Market types (optional)",

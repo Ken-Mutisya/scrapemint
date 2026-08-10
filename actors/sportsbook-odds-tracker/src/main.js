@@ -2,10 +2,22 @@
 //
 // What it does
 // ------------
-// Live prices from a sportsbook's own feed, keyless, for every league it
-// prices: American football, soccer, tennis, basketball, baseball, hockey,
+// Live prices from two sportsbooks' own feeds, keyless, for every league they
+// price: American football, soccer, tennis, basketball, baseball, hockey,
 // esports and more. Every row carries the book's price, the line it is
 // attached to, the implied probability, and the book's margin on that market.
+//
+// Two books, and the second one is the point. Bovada is a recreational book;
+// Pinnacle is the sharp one, running low margin and high limits, so its
+// vig-free price is the closest thing to a market consensus. Comparing a
+// recreational price against the sharp price is a real signal, where two soft
+// books disagreeing is mostly noise. Every row carries `book`, and Pinnacle
+// rows also carry `maxRiskStake`, the most that book will let a client risk,
+// which is a confidence reading Bovada does not publish at all.
+//
+// They also fail independently: Bovada hands an empty 200 to datacenter IPs it
+// is declining, which used to empty an entire run. Pinnacle answering means a
+// declined Bovada is now a partial result rather than nothing.
 //
 //   odds       one row per market per event: moneyline, spread, total, with
 //              every outcome priced in American and decimal odds
@@ -29,6 +41,7 @@
 
 import { Actor, log } from 'apify';
 import { num, metric } from './numeric-helpers.js';
+import { fetchPinnacleLeague, PINNACLE_LEAGUES } from './pinnacle-book.js';
 
 const FREE_TIER_ROWS = 2;
 const HARD_CAP = 2000;
@@ -57,7 +70,14 @@ const {
     liveOnly = false,
     minMovePoints = 0,
     maxRows = 50,
+    books = ['bovada', 'pinnacle'],
 } = input;
+
+const wantedBooks = new Set(asListRaw(books).map((s) => s.toLowerCase()));
+if (!wantedBooks.size) { wantedBooks.add('bovada'); wantedBooks.add('pinnacle'); }
+function asListRaw(v) {
+    return (Array.isArray(v) ? v : String(v || '').split(/[\n,]/)).map((s) => String(s || '').trim()).filter(Boolean);
+}
 
 const theMode = ['odds', 'movement', 'leagues'].includes(String(mode).toLowerCase())
     ? String(mode).toLowerCase()
@@ -276,16 +296,76 @@ function flattenCoupon(groups, requestedPath) {
                         // The book prices far more than these lines. This feed
                         // returns the headline game lines, so the difference is
                         // stated rather than left looking like missing data.
+                        // Bovada does not publish a stake limit. Null, not 0:
+                        // an unpublished limit is not a limit of zero.
+                        maxRiskStake: null,
                         marketsPricedByBook: num(event.numMarkets),
                         marketsInThisFeed: marketsInFeed,
                         includesPlayerProps: false,
                         pricesUpdatedAt: event.lastModified ? new Date(event.lastModified).toISOString() : null,
                         eventUrl: event.link ? `https://www.bovada.lv${event.link}` : null,
+                        book: 'bovada',
                         source: 'bovada.lv',
                         retrievedAt: new Date().toISOString(),
                     });
                 }
             }
+        }
+    }
+    return rows;
+}
+
+/**
+ * Pinnacle games -> the same row shape Bovada produces.
+ *
+ * The two books are kept in one schema on purpose: a row carries `book`, so a
+ * caller can compare the same market across both without reshaping anything.
+ * Pinnacle is the sharp book, and its vig-free price is the one worth treating
+ * as the market's fair estimate.
+ */
+function pinnacleRows(games, requestedPath) {
+    const rows = [];
+    for (const g of games) {
+        for (const m of g.markets) {
+            if (!includeNonMainPeriods && !m.isMainPeriod) continue;
+            if (!includeSuspended && !m.isOpen) continue;
+            if (wantedTypes.length && !wantedTypes.includes(m.marketType)) continue;
+            const outcomes = m.outcomes.map((o) => ({ ...o }));
+            const priced = priceMarket(outcomes);
+            rows.push({
+                recordType: 'market',
+                marketKey: `pinnacle:${g.eventId}:${m.marketId}`,
+                eventId: g.eventId,
+                event: g.event,
+                sport: null,
+                region: null,
+                country: null,
+                league: g.league,
+                leaguePath: requestedPath,
+                competitors: g.competitors,
+                startTime: g.startTime,
+                isLive: g.isLive,
+                marketType: m.marketType,
+                marketName: m.marketName,
+                period: m.isMainPeriod ? 'Game' : `Period ${m.period}`,
+                isMainPeriod: m.isMainPeriod,
+                marketStatus: m.marketStatus,
+                isOpen: m.isOpen,
+                outcomes,
+                ...priced,
+                // Pinnacle publishes the most a client may risk on a market.
+                // Bovada does not, so this is null on that book rather than 0:
+                // an unknown limit is not a limit of zero.
+                maxRiskStake: m.maxRiskStake,
+                marketsPricedByBook: null,
+                marketsInThisFeed: g.markets.length,
+                includesPlayerProps: false,
+                pricesUpdatedAt: null,
+                eventUrl: 'https://www.pinnacle.com',
+                book: 'pinnacle',
+                source: 'pinnacle.com',
+                retrievedAt: new Date().toISOString(),
+            });
         }
     }
     return rows;
@@ -323,6 +403,32 @@ async function collectMarkets(paths) {
             await pushNote(`Stopped at the run deadline after reading ${all.length} markets. Ask for fewer league paths or raise the timeout.`);
             break;
         }
+        // Pinnacle first, because it is the sharp book and it answers even
+        // when Bovada is declining this IP. Reading it separately means one
+        // book being unavailable no longer empties the whole run, which is
+        // what a single-book actor did.
+        if (wantedBooks.has('pinnacle')) {
+            const pin = await fetchPinnacleLeague(path, {
+                fetchJson: async (u) => {
+                    const r = await fetchJson(u);
+                    return r.error || r.notFound ? null : r.data;
+                },
+                includeNonMainPeriods,
+                liveOnly,
+            });
+            if (pin.error) {
+                await pushNote(`Pinnacle could not be read for "${path}": ${pin.error}. Bovada prices below are unaffected.`, { leaguePath: path, book: 'pinnacle' });
+            } else if (!pin.unmapped) {
+                for (const r of pinnacleRows(pin.games, path)) {
+                    if (seen.has(r.marketKey)) continue;
+                    seen.add(r.marketKey);
+                    all.push(r);
+                }
+            }
+            await sleep(SPACING_MS);
+        }
+
+        if (!wantedBooks.has('bovada')) continue;
         const res = await fetchJson(couponUrl(path));
         if (res.error) {
             await pushNote(`Could not read "${path}": ${res.error}`, { leaguePath: path });
@@ -349,16 +455,17 @@ async function collectMarkets(paths) {
             const expected = await expectedEventCount(path);
             if (expected > 0) {
                 await pushNote(
-                    `"${path}" returned no priced events, but the directory says it currently has ${expected}. `
+                    `Bovada returned no priced events for "${path}", but its directory says it currently has ${expected}. `
                     + 'The feed is declining this request rather than being out of season, which it does to some '
-                    + 'datacenter IPs. Retry later, or run from an IP the book serves. Nothing was charged.',
-                    { leaguePath: path, expectedEventCount: expected, likelyBlocked: true },
+                    + 'datacenter IPs. Retry later, or run from an IP the book serves. Any Pinnacle rows in this run '
+                    + 'are unaffected. Nothing was charged.',
+                    { leaguePath: path, book: 'bovada', expectedEventCount: expected, likelyBlocked: true },
                 );
             } else {
                 await pushNote(
-                    `"${path}" has nothing priced right now, and the directory agrees it has no events. `
+                    `Bovada has nothing priced for "${path}" right now, and its directory agrees it has no events. `
                     + 'A league out of season answers with an empty feed rather than an error.',
-                    { leaguePath: path, expectedEventCount: expected, likelyBlocked: false },
+                    { leaguePath: path, book: 'bovada', expectedEventCount: expected, likelyBlocked: false },
                 );
             }
         }
