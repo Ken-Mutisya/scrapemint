@@ -62,6 +62,7 @@ const SOFT_DEADLINE_AT = HARD_TIMEOUT_AT
 
 let pushed = 0;
 const seen = new Set();
+const emittedTypes = new Set();
 
 log.info(`Calendar ${fmt(start)} -> ${fmt(end)} | earnings=${includeEarnings} dividends=${includeDividends} ipos=${includeIPOs} splits=${includeSplits}${tickerSet.size ? ` | watchlist=${[...tickerSet].join(',')}` : ''}`);
 
@@ -189,6 +190,29 @@ if (includeIPOs && !done()) {
     }
 }
 
+// Event types are fetched in a fixed order and share one row budget, so a wide
+// range fills maxRows on earnings alone and the later sections never run. That
+// used to be silent: switching includeSplits on and getting no splits back
+// looked like "no splits scheduled" rather than "the budget ran out first".
+// The note is pushed directly rather than through pushRow, so it is free and
+// skips the ticker filter.
+if (pushed >= maxRows) {
+    const missing = [
+        includeEarnings && !emittedTypes.has('earnings') && 'earnings',
+        includeDividends && !emittedTypes.has('dividend') && 'dividends',
+        includeSplits && !emittedTypes.has('split') && !emittedTypes.has('stockDividend') && 'splits',
+        includeIPOs && !emittedTypes.has('ipo') && 'IPOs',
+    ].filter(Boolean);
+    if (missing.length) {
+        await Actor.pushData({
+            eventType: 'note',
+            note: `Stopped at the ${maxRows} row limit before reading ${missing.join(', ')}. `
+                + `Raise maxRows, shorten the date range, set a tickers watchlist, or switch off the event types you do not need. Not charged.`,
+        });
+        log.warning(`Row limit reached before ${missing.join(', ')}.`);
+    }
+}
+
 log.info(`Done. Pushed ${pushed} calendar rows.`);
 await Actor.exit();
 
@@ -213,6 +237,7 @@ async function pushRow(row) {
     }
     row.scrapedAt = new Date().toISOString();
     await Actor.pushData(row);
+    emittedTypes.add(row.eventType);
     pushed += 1;
     if (pushed > FREE_TIER_ROWS) {
         await Actor.charge({ eventName: 'calendar_row' }).catch((err) => log.warning(`charge failed: ${err?.message}`));
