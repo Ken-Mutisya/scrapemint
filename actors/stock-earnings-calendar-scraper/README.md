@@ -1,6 +1,6 @@
 # Stock Earnings Calendar Scraper
 
-Get the forward-looking stock market calendar as clean JSON: **upcoming earnings dates, EPS estimates, dividends, IPOs and stock splits** for a date range or your own ticker watchlist.
+Get the stock market calendar as clean JSON: **earnings dates, EPS estimates, dividends, IPOs and stock splits** for a date range or your own ticker watchlist.
 
 No login, no API key, no proxy. The actor reads keyless public JSON, so runs are fast and cheap.
 
@@ -11,7 +11,14 @@ One row per event. Event types:
 - **earnings** — symbol, company, report date, report time (pre-market / after-hours), EPS estimate, number of analyst estimates, last-year EPS, fiscal quarter, market cap
 - **dividend** — ex-dividend date, record date, payment date, announcement date, dividend rate, indicated annual dividend
 - **ipo** — priced and upcoming IPOs with exchange, share price, shares offered, deal value, status
-- **split** — stock splits with ratio and execution date
+- **split** — ratio, execution date, the ratio parsed into `splitFrom` and `splitTo`, and a `reverseSplit` boolean
+- **stockDividend** — Nasdaq files these on the splits endpoint with a percentage ratio such as `5%`. They are not splits, so they get their own event type
+
+### Reverse splits are the interesting rows
+
+A forward split like `4 : 1` is usually a healthy company making its shares easier to buy. A reverse split like `1 : 10` runs the other way: it concentrates shares to lift the quoted price, most often to cure an exchange listing rule breach before delisting. They are the majority of what this endpoint carries, so filter on `reverseSplit` rather than reading ratios by eye.
+
+Splits also read backwards in time, not just forward, so you can pull a past window to see which names have already done this.
 
 ## Input
 

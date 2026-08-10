@@ -2,7 +2,7 @@
   "actorSpecification": 1,
   "name": "stock-earnings-calendar-scraper",
   "title": "Stock Earnings Calendar Scraper",
-  "description": "Upcoming earnings dates, EPS estimates, dividends, IPOs and stock splits for a date range or your ticker watchlist. Returns clean JSON from keyless public APIs, no browser and no proxy.",
+  "description": "Earnings dates, EPS estimates, dividends, IPOs and stock splits for a date range or your ticker watchlist. Splits carry a reverseSplit flag, the distress marker companies use to cure a listing rule breach. Returns clean JSON from keyless public APIs, no browser and no proxy.",
   "version": "0.1",
   "buildTag": "latest",
   "input": "./input_schema.json",

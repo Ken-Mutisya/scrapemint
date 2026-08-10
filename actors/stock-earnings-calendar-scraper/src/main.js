@@ -5,7 +5,7 @@
 // Endpoints (all keyless JSON, require a normal User-Agent):
 //   /api/calendar/earnings?date=YYYY-MM-DD   -> companies reporting, EPS estimates
 //   /api/calendar/dividends?date=YYYY-MM-DD   -> ex-div / record / payment dates
-//   /api/calendar/splits                      -> upcoming stock splits (all, filtered locally)
+//   /api/calendar/splits?date=YYYY-MM-DD      -> splits from that date forward (see note)
 //   /api/ipo/calendar?date=YYYY-MM            -> priced + upcoming IPOs (monthly)
 //
 // Free tier: first 15 rows per run are free, then each row is charged.
@@ -113,19 +113,34 @@ for (const day of eachDay(start, end)) {
     await sleep(POLITE_SLEEP_MS);
 }
 
-// ---- splits: single fetch, filter to range locally ----
+// ---- splits ----
+// `date` sets the START of the window and the response runs from there to the
+// furthest scheduled split; it is NOT a single-day filter, and `asOf` in the
+// payload always reports today whatever you ask for, so it cannot be used to
+// tell which window came back. Calling this endpoint bare, as it was until
+// 2026-08-10, returns only today forward, so any range starting in the past was
+// filtered down to nothing: a June range finished SUCCEEDED with zero split
+// rows while the API held 227 for that window.
 if (includeSplits && !done()) {
-    const rows = (await fetchJson(`${NASDAQ}/calendar/splits`))?.data?.rows || [];
+    const rows = (await fetchJson(`${NASDAQ}/calendar/splits?date=${fmt(start)}`))?.data?.rows || [];
     for (const r of rows) {
         if (done()) break;
         const d = parseUsDate(r.executionDate);
         if (!d || d < start || d > end) continue;
+        const split = parseSplitRatio(r.ratio);
         await pushRow({
-            eventType: 'split',
+            // A ratio like "5%" is a stock dividend, not a split, and it used to
+            // be emitted as eventType "split" with an unparseable ratio.
+            eventType: split.kind === 'stockDividend' ? 'stockDividend' : 'split',
             symbol: r.symbol,
             companyName: r.name,
             date: fmt(d),
             ratio: r.ratio || null,
+            splitFrom: split.from,
+            splitTo: split.to,
+            // The distress signal: a reverse split concentrates shares to lift
+            // the price, most often to cure a listing rule breach.
+            reverseSplit: split.reverse,
             executionDate: usDate(r.executionDate),
         });
     }
@@ -228,6 +243,26 @@ function toNum(v) {
     if (v === null || v === undefined || v === '') return null;
     const n = Number(String(v).replace(/[^0-9.-]/g, ''));
     return Number.isFinite(n) ? n : null;
+}
+
+// Nasdaq writes a split ratio as "4 : 1" (four new shares for one old, a
+// forward split) or "1 : 10" (a reverse split). It also files stock dividends
+// on the same endpoint with a percentage in the ratio field, such as "5%",
+// which is not a split at all. Anything unrecognised returns nulls rather than
+// zeros, so a buyer can filter on reverseSplit === true instead of being told
+// a 0 : 0 split is happening.
+function parseSplitRatio(raw) {
+    const s = String(raw ?? '').trim();
+    if (!s) return { kind: 'unknown', from: null, to: null, reverse: null };
+    if (s.endsWith('%')) return { kind: 'stockDividend', from: null, to: null, reverse: false };
+    const m = s.match(/^([\d.]+)\s*:\s*([\d.]+)$/);
+    if (!m) return { kind: 'unknown', from: null, to: null, reverse: null };
+    const from = Number(m[1]);
+    const to = Number(m[2]);
+    if (!Number.isFinite(from) || !Number.isFinite(to) || from <= 0 || to <= 0) {
+        return { kind: 'unknown', from: null, to: null, reverse: null };
+    }
+    return { kind: 'split', from, to, reverse: from < to };
 }
 
 // US date "M/D/YYYY" -> normalized "YYYY-MM-DD" string
