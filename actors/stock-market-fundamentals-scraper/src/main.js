@@ -127,6 +127,18 @@ const SOFT_DEADLINE_AT = HARD_TIMEOUT_AT
     - Math.min(300_000, Math.max(90_000, (HARD_TIMEOUT_AT - RUN_START) * 0.1));
 
 let pushed = 0;
+// A company reports the same balance twice: once in the 10-K, then again in the
+// comparative column of the following 10-Q. Different accession and filed date,
+// but identical company, concept, period, unit and VALUE, so it is one fact and
+// the buyer was paying for it twice. Measured on 2026-08-10: 56 of 776 rows for
+// AAPL and NVDA, 7.2% of the bill.
+//
+// The value is deliberately part of the key. A later filing that RESTATES a
+// figure carries a different value, which is genuinely new information and must
+// still come through as its own row.
+const emittedFacts = new Set();
+let duplicateFacts = 0;
+
 const cikToTicker = new Map();
 const nameToTicker = new Map();
 // declared here, not beside fetchFrame, because the screener runs at top level
@@ -200,7 +212,8 @@ for (const symbol of symbols) {
     await sleep(SEC_SLEEP_MS);
 }
 
-log.info(`Done. Pushed ${pushed} fundamentals rows.`);
+log.info(`Done. Pushed ${pushed} fundamentals rows`
+    + `${duplicateFacts ? `, ${duplicateFacts} repeat filing(s) of an identical fact skipped and not charged` : ''}.`);
 await Actor.exit();
 
 // ---------- screener mode ----------
@@ -394,6 +407,9 @@ function latestPerConcept(points) {
 }
 
 async function pushRow(row) {
+    const factKey = JSON.stringify([row.symbol, row.taxonomy, row.concept, row.periodStart, row.periodEnd, row.unit, row.value]);
+    if (emittedFacts.has(factKey)) { duplicateFacts += 1; return; }
+    emittedFacts.add(factKey);
     row.scrapedAt = new Date().toISOString();
     await Actor.pushData(row);
     pushed += 1;
