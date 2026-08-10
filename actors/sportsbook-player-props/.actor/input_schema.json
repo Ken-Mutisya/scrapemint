@@ -8,7 +8,11 @@
             "type": "string",
             "description": "props = one row per player per market. players = one row per player listing every stat priced on them. markets = the non player depth on the same games, such as game props, alternate lines and correct score.",
             "editor": "select",
-            "enum": ["props", "players", "markets"],
+            "enum": [
+                "props",
+                "players",
+                "markets"
+            ],
             "enumTitles": [
                 "Player props (one row per player per market)",
                 "Players (what each player has priced)",
@@ -21,8 +25,37 @@
             "type": "array",
             "description": "Which league to open games in. Examples: baseball/mlb, football/nfl, basketball/nba, soccer/north-america/united-states/mls, tennis. Books load player markets close to game time, so a league playing today returns far more than one out of season.",
             "editor": "stringList",
-            "prefill": ["baseball/mlb"],
-            "default": ["baseball/mlb"]
+            "prefill": [
+                "baseball/mlb"
+            ],
+            "default": [
+                "baseball/mlb"
+            ]
+        },
+        "books": {
+            "title": "Books to read",
+            "type": "array",
+            "description": "Which sportsbooks to read props from. The two rarely price the same players: Bovada loads player markets as a game approaches, and Pinnacle files each prop as its own market, so reading both gives the wider board. Pinnacle covers the major leagues only.",
+            "editor": "select",
+            "items": {
+                "type": "string",
+                "enum": [
+                    "bovada",
+                    "pinnacle"
+                ],
+                "enumTitles": [
+                    "Bovada",
+                    "Pinnacle (sharp)"
+                ]
+            },
+            "default": [
+                "bovada",
+                "pinnacle"
+            ],
+            "prefill": [
+                "bovada",
+                "pinnacle"
+            ]
         },
         "players": {
             "title": "Players (optional)",

@@ -26,6 +26,7 @@
 
 import { Actor, log } from 'apify';
 import { num, metric } from './numeric-helpers.js';
+import { PINNACLE_LEAGUES, PINNACLE_HOST, americanToDecimal } from './pinnacle-book.js';
 
 const FREE_TIER_ROWS = 2;
 const HARD_CAP = 2000;
@@ -54,7 +55,14 @@ const {
     maxEvents = 5,
     includeSuspended = false,
     maxRows = 50,
+    books = ['bovada', 'pinnacle'],
 } = input;
+
+const wantedBooks = new Set(
+    (Array.isArray(books) ? books : String(books || '').split(/[\n,]/))
+        .map((s) => String(s || '').trim().toLowerCase()).filter(Boolean),
+);
+if (!wantedBooks.size) { wantedBooks.add('bovada'); wantedBooks.add('pinnacle'); }
 
 const theMode = ['props', 'players', 'markets'].includes(String(mode).toLowerCase())
     ? String(mode).toLowerCase()
@@ -414,6 +422,136 @@ function matchesFilters(row) {
     return true;
 }
 
+/**
+ * Player props from Pinnacle.
+ *
+ * Pinnacle files a prop as a "special" matchup rather than a market on the
+ * game, and specials work the opposite way round from fixtures:
+ *
+ *  - `/markets/related/special` per matchup answers 401, so the per game route
+ *    is closed. The league-wide straight markets feed carries them anyway,
+ *    which is two requests for a league instead of one per game.
+ *  - A special's participants DO carry ids, where a fixture's do not, so its
+ *    prices resolve through participantId. That is the reverse of the fixture
+ *    case and is why this cannot reuse the shared fixture reader.
+ *  - `special.description` is "Teoscar Hernandez Total Home Runs" and `units`
+ *    is "Home Runs", so the player is the description with the stat tail
+ *    removed rather than a guess at where the name ends.
+ *  - `parent` holds the real fixture, the only way to say which game a prop
+ *    belongs to.
+ */
+async function fetchPinnacleProps(leaguePath) {
+    const league = PINNACLE_LEAGUES[String(leaguePath || '').replace(/^\//, '')];
+    if (!league) return [];
+    const [mRes, kRes] = await Promise.all([
+        fetchJson(`${PINNACLE_HOST}/leagues/${league.id}/matchups`),
+        fetchJson(`${PINNACLE_HOST}/leagues/${league.id}/markets/straight`),
+    ]);
+    if (mRes.error || kRes.error || !Array.isArray(mRes.data) || !Array.isArray(kRes.data)) {
+        await pushNote(`Pinnacle props unavailable for "${leaguePath}". Any Bovada props in this run are unaffected.`, { leaguePath, book: 'pinnacle' });
+        return [];
+    }
+
+    const marketsByMatchup = new Map();
+    for (const k of kRes.data) {
+        if (!marketsByMatchup.has(k.matchupId)) marketsByMatchup.set(k.matchupId, []);
+        marketsByMatchup.get(k.matchupId).push(k);
+    }
+
+    const rows = [];
+    for (const s of mRes.data) {
+        if (s?.type !== 'special') continue;
+        const desc = String(s.special?.description || '').trim();
+        const units = String(s.units || '').trim();
+        if (!desc) continue;
+        // "Regular" is the placeholder on a non statistical special such as a
+        // series winner, which is not a player prop.
+        if (!units || units === 'Regular') continue;
+
+        const parent = s.parent || {};
+        const pParts = Array.isArray(parent.participants) ? parent.participants : [];
+        const home = pParts.find((p) => p.alignment === 'home')?.name || null;
+        const away = pParts.find((p) => p.alignment === 'away')?.name || null;
+
+        const byId = new Map((s.participants || []).map((p) => [p.id, p.name]));
+        for (const mk of marketsByMatchup.get(s.id) || []) {
+            if (mk.isAlternate === true) continue;
+            const prices = Array.isArray(mk.prices) ? mk.prices : [];
+            if (prices.length < 2) continue;
+
+            const selections = [];
+            for (const p of prices) {
+                const label = byId.get(p.participantId);
+                if (!label) continue; // an unresolvable side is never published unlabelled
+                const american = Number.isFinite(Number(p.price)) ? Number(p.price) : null;
+                const decimal = americanToDecimal(american);
+                selections.push({
+                    label,
+                    isOpen: true,
+                    priceAmerican: american,
+                    priceDecimal: decimal,
+                    line: p.points === undefined || p.points === null ? null : Number(p.points),
+                    lineSecondary: null,
+                    threshold: null,
+                    impliedProbabilityPercent: decimal ? metric((1 / decimal) * 100, 2) : null,
+                });
+            }
+            // A player prop in this feed is exactly Over and Under on a line.
+            // Filtering on `units` alone was not enough: outright futures come
+            // through as specials too, and "2026 World Series Champion" with
+            // thirty team selections was being published as a player prop whose
+            // player was the name of the competition. The shape is the reliable
+            // test, not the label.
+            if (selections.length !== 2) continue;
+            const sides = selections.map((o) => String(o.label).toLowerCase()).sort();
+            if (sides[0] !== 'over' || sides[1] !== 'under') continue;
+
+            const complete = selections.every((o) => o.priceDecimal);
+            const sum = selections.reduce((a, o) => a + (o.priceDecimal ? 1 / o.priceDecimal : 0), 0);
+            const player = desc
+                .replace(new RegExp(`\\s*Total\\s+${units.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\s*$`, 'i'), '')
+                .replace(/\s*\(.*\)\s*$/, '')
+                .trim() || desc;
+
+            rows.push({
+                event: home && away ? `${away} @ ${home}` : desc,
+                eventId: String(parent.id ?? s.id),
+                sport: league.name,
+                country: null,
+                league: league.name,
+                startTime: s.startTime ? new Date(s.startTime).toISOString() : null,
+                isLive: s.isLive === true,
+                marketGroup: 'Player Props',
+                marketName: desc,
+                period: 'Game',
+                isMainPeriod: true,
+                marketStatus: 'open',
+                eventUrl: 'https://www.pinnacle.com',
+                book: 'pinnacle',
+                source: 'pinnacle.com',
+                retrievedAt: new Date().toISOString(),
+                recordType: 'player_prop',
+                player,
+                // Pinnacle does not tag the player's team on a special, so this
+                // stays null rather than being inferred from the fixture: the
+                // prop can name a player on either side.
+                playerTeam: null,
+                teamMatchesEvent: null,
+                stat: units,
+                propShape: 'over_under',
+                line: selections.find((o) => o.line !== null)?.line ?? null,
+                selections,
+                outcomesMutuallyExclusive: true,
+                marketOverroundPercent: complete ? metric((sum - 1) * 100, 2) : null,
+                overroundNotPublishedReason: complete ? null : 'a side of this market is unpriced, so the overround would understate what the book charges',
+                overroundSpansOutcomes: selections.length,
+                playersInMarket: 1,
+            });
+        }
+    }
+    return rows;
+}
+
 // ---------------------------------------------------------------------------
 
 async function run() {
@@ -422,16 +560,30 @@ async function run() {
         await pushNote('No league paths given. Try baseball/mlb, football/nfl, basketball/nba or a soccer league path.');
         return;
     }
-    const events = await listEvents(paths);
-    if (!events.length) {
-        await pushNote(`Nothing scheduled on ${paths.join(', ')} right now. A league out of season returns an empty feed rather than an error.`);
-        return;
-    }
-
     const playerRows = [];
     const gameRows = [];
     let opened = 0;
     let emptyOfProps = 0;
+
+    // Pinnacle first, and crucially BEFORE Bovada's event listing. That listing
+    // used to gate the whole run: Bovada returning nothing, which it does when
+    // it declines a datacenter IP, exited with "nothing scheduled" even when
+    // Pinnacle had a full board of props. The two books also rarely price the
+    // same players, since Bovada loads player markets only as a game nears, so
+    // the union is the point rather than a fallback.
+    if (wantedBooks.has('pinnacle')) {
+        for (const path of paths) {
+            if (pastDeadline()) break;
+            playerRows.push(...await fetchPinnacleProps(path));
+            await sleep(SPACING_MS);
+        }
+    }
+
+    const events = wantedBooks.has('bovada') ? await listEvents(paths) : [];
+    if (!events.length && !playerRows.length) {
+        await pushNote(`Nothing scheduled on ${paths.join(', ')} right now. A league out of season returns an empty feed rather than an error.`);
+        return;
+    }
 
     for (const meta of events.slice(0, eventCap)) {
         if (pastDeadline()) {
