@@ -115,9 +115,26 @@ function bookingUrl(o, d, dateOut, dateIn) {
 }
 
 let rowsPushed = 0;
+// The fare finder pages with limit/offset and does not guarantee a stable order
+// between requests, so a fare served on one page can be served again on the
+// next. That shipped as duplicate rows that were pushed AND charged: a DUB one
+// way run on 2026-08-09 billed 40 rows for 19 distinct fares, with FR313 to ARN
+// appearing three times, and maxRows filled with copies instead of more fares.
+// The key is the whole row minus scrapedAt, which is the only field that
+// differs between two emissions of the same fare. Two genuinely different fares
+// always differ somewhere else (flight number, date or price), so this can only
+// drop a true repeat. Note rows are never chargeable and are never deduped.
+const emittedKeys = new Set();
+let duplicatesSkipped = 0;
 async function flushRow(row, chargeable = true) {
+    if (chargeable) {
+        const { scrapedAt, ...key } = row;
+        const k = JSON.stringify(key);
+        if (emittedKeys.has(k)) { duplicatesSkipped += 1; return false; }
+        emittedKeys.add(k);
+    }
     await Actor.pushData(row);
-    if (!chargeable) return;
+    if (!chargeable) return true;
     rowsPushed += 1;
     if (rowsPushed > FREE_TIER_ROWS) {
         try {
@@ -126,6 +143,7 @@ async function flushRow(row, chargeable = true) {
             log.warning(`charge failed: ${err?.message}`);
         }
     }
+    return true;
 }
 
 // ---- Row builders ------------------------------------------------------
@@ -224,8 +242,7 @@ async function runFares(path, rowFn, extraParams) {
             const row = rowFn(f);
             const pv = row.totalPrice ?? row.price;
             if (!priceOk(pv)) continue;
-            await flushRow(row);
-            emitted += 1;
+            if (await flushRow(row)) emitted += 1;
         }
         const size = num(d?.size) ?? fares.length;
         if (size < PAGE_LIMIT) break; // last page
@@ -253,7 +270,7 @@ async function runCheapestPerDay() {
         const pv = num(day.price?.value);
         if (day.soldOut || day.unavailable || pv == null) continue; // only real, available fares
         if (!priceOk(pv)) continue;
-        await flushRow({
+        if (await flushRow({
             type: 'cheapestPerDay',
             origin: originIata,
             destination: dest,
@@ -264,8 +281,7 @@ async function runCheapestPerDay() {
             currency: day.price?.currencyCode || cur,
             bookingUrl: bookingUrl(originIata, dest, day.day),
             scrapedAt: new Date().toISOString(),
-        });
-        emitted += 1;
+        })) emitted += 1;
     }
     return emitted;
 }
@@ -308,5 +324,6 @@ if (emitted === 0 && rowsPushed === 0) {
     }, false);
 }
 
-log.info(`Done. ${emitted} fare row(s) pushed (${Math.max(0, rowsPushed - FREE_TIER_ROWS)} chargeable).`);
+log.info(`Done. ${emitted} fare row(s) pushed (${Math.max(0, rowsPushed - FREE_TIER_ROWS)} chargeable)`
+    + `${duplicatesSkipped ? `, ${duplicatesSkipped} duplicate fare(s) from the API skipped and not charged` : ''}.`);
 await Actor.exit();

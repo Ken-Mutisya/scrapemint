@@ -151,6 +151,15 @@ function toRow(f) {
 
 let rowsPushed = 0;
 let chargeableRows = 0;
+// The API pages with `ordering=-dt_posted`, and dt_posted is not unique: a
+// quarter's filings are posted in bulk and share a timestamp. With a tie on the
+// sort key the server is free to order those rows differently on each request,
+// so the same filing can land on two consecutive pages. That shipped as byte
+// identical duplicate rows that were pushed AND charged (36% of a 25 row run on
+// 2026-08-09), and it also let maxRows fill with copies instead of filings.
+// Keyed on filing_uuid, which is unique per filing and always present.
+const emittedIds = new Set();
+let duplicatesSkipped = 0;
 async function flushRow(row, chargeable) {
     await Actor.pushData(row);
     rowsPushed += 1;
@@ -198,8 +207,10 @@ for (let page = 1; !shouldStop(); page += 1) {
     for (const f of results) {
         if (shouldStop()) break;
         const id = f.filing_uuid;
+        if (id && emittedIds.has(id)) { duplicatesSkipped += 1; continue; }
         if (newOnly && id && seen.has(id)) { skippedSeen += 1; continue; }
         if (newOnly && id) seen.add(id);
+        if (id) emittedIds.add(id);
         await flushRow(toRow(f), true);
         emitted += 1;
         newInPage += 1;
@@ -226,5 +237,6 @@ if (newOnly) {
 }
 
 log.info(`Done. ${rowsPushed} row(s) pushed (${Math.max(0, chargeableRows - FREE_TIER_ROWS)} charged; notes free)`
+    + `${duplicatesSkipped ? ` — ${duplicatesSkipped} duplicate filing(s) from the API skipped, not charged` : ''}`
     + `${rateLimited ? ' — stopped early on API rate limit' : ''}${pastDeadline() ? ' — stopped near timeout' : ''}.`);
 await Actor.exit();

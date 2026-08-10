@@ -84,6 +84,15 @@ async function apiGet(url) {
 
 let rowsPushed = 0;
 let chargeableRows = 0;
+// Two ways the same record reached the dataset twice, both of them billed: the
+// API pages by cursor and can repeat a record across pages, and a case matching
+// two of the supplied queries was emitted once per query. Keyed on the record's
+// absolute URL, which is stable and unique per opinion or docket, so the second
+// sighting is skipped whichever way it arrives.
+const emittedKeys = new Set();
+let duplicatesSkipped = 0;
+const rowKey = (row) => row.opinionUrl || row.docketUrl
+    || JSON.stringify({ ...row, query: undefined });
 async function flushRow(row, chargeable) {
     await Actor.pushData(row);
     rowsPushed += 1;
@@ -164,6 +173,7 @@ for (const q of queryList) {
     if (shouldStop()) break;
     let url = buildUrl(q);
     let emitted = 0;
+    let matched = 0; // hits from the API, before dedupe
     let total = null;
     let failed = null;
     while (url && emitted < perQuery && !shouldStop()) {
@@ -174,13 +184,22 @@ for (const q of queryList) {
         if (results.length === 0) break;
         for (const r of results) {
             if (emitted >= perQuery || shouldStop()) break;
-            await flushRow(type === 'o' ? opinionRow(r, q) : docketRow(r, q), true);
+            const row = type === 'o' ? opinionRow(r, q) : docketRow(r, q);
+            matched += 1;
+            const k = rowKey(row);
+            if (emittedKeys.has(k)) { duplicatesSkipped += 1; continue; }
+            emittedKeys.add(k);
+            await flushRow(row, true);
             emitted += 1;
         }
         url = json.next || null;
     }
     if (failed && emitted === 0) {
         await flushRow({ type: 'note', input: q, found: false, note: `search failed (${failed}); not charged, try again later` }, false);
+    } else if (emitted === 0 && matched > 0) {
+        // Every hit was already returned by an earlier query, so the search did
+        // match; saying "no records matched" here would be wrong.
+        await flushRow({ type: 'note', input: q, found: true, note: `${matched} record(s) matched but were already returned by an earlier query; not charged twice` }, false);
     } else if (emitted === 0) {
         await flushRow({ type: 'note', input: q, found: false, note: 'no court records matched this search; not charged' }, false);
     } else {
@@ -189,5 +208,6 @@ for (const q of queryList) {
 }
 
 log.info(`Done. ${rowsPushed} row(s) pushed (${Math.max(0, chargeableRows - FREE_TIER_ROWS)} charged; notes free)`
+    + `${duplicatesSkipped ? ` — ${duplicatesSkipped} duplicate record(s) skipped, not charged` : ''}`
     + `${pastDeadline() ? ' — stopped near timeout' : ''}.`);
 await Actor.exit();
