@@ -95,7 +95,18 @@ const cikList = (Array.isArray(ciks) ? ciks : [])
     .filter(Boolean);
 
 if (tickerList.length === 0 && cikList.length === 0) {
-    throw new Error('Provide at least one ticker in tickers or one CIK in ciks.');
+    // Exit with a free note rather than throwing. A thrown error ends the run
+    // as FAILED, which is counted in the public success rate shown on the store
+    // listing, so one buyer forgetting an input made the actor look broken to
+    // every future buyer. The rest of the fleet answers a missing input with an
+    // explanatory row.
+    log.warning('No tickers or CIKs given.');
+    await Actor.pushData({
+        type: 'note',
+        found: false,
+        note: 'Provide at least one ticker in "tickers" or one CIK in "ciks", for example tickers: ["AAPL","MSFT"]. Nothing was charged.',
+    });
+    await Actor.exit();
 }
 
 const itemSet = new Set(

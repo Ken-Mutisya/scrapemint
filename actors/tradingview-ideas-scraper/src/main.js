@@ -58,7 +58,12 @@ const cleanTags = (Array.isArray(tags) ? tags : [tags])
 const directionFilter = String(direction || 'all').toLowerCase();
 
 if (cleanSymbols.length === 0 && cleanCategories.length === 0 && cleanTags.length === 0) {
-    log.warning('Provide at least one symbol, category, or tag. Examples: symbols=["EURUSD"], categories=["forex"], tags=["trend-analysis"].');
+    // The warning goes to the log, which a buyer reading the dataset never
+    // sees: the run finished SUCCEEDED and empty with no explanation anywhere
+    // in the output. Say it in a free row too.
+    const msg = 'Provide at least one symbol, category, or tag. Examples: symbols=["EURUSD"], categories=["forex"], tags=["trend-analysis"].';
+    log.warning(msg);
+    await Actor.pushData({ type: 'note', found: false, note: `${msg} Nothing was charged.` });
     await Actor.exit();
 }
 
