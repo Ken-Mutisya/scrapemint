@@ -237,13 +237,24 @@ async function runFares(path, rowFn, extraParams) {
         const d = await getJson(`${API}${path}?${p.toString()}`);
         const fares = d?.fares || [];
         if (!fares.length) break;
+        let newThisPage = 0;
+        let repeatsThisPage = 0;
         for (const f of fares) {
             if (rowsPushed >= cap) break;
             const row = rowFn(f);
             const pv = row.totalPrice ?? row.price;
             if (!priceOk(pv)) continue;
-            if (await flushRow(row)) emitted += 1;
+            if (await flushRow(row)) { emitted += 1; newThisPage += 1; }
+            else repeatsThisPage += 1;
         }
+        // The fare finder ignores `offset`: it answers every page with the same
+        // first `limit` fares, and `size` stays at the page size so the last
+        // page check below never fires. A DUB one way run therefore walked all
+        // 40 pages and saw 624 repeats of the same 16 fares. A page that was
+        // entirely repeats means paging is not advancing, so stop and save the
+        // remaining requests. A page emptied by the price filter is a different
+        // thing and must not stop the walk.
+        if (newThisPage === 0 && repeatsThisPage > 0) break;
         const size = num(d?.size) ?? fares.length;
         if (size < PAGE_LIMIT) break; // last page
         offset += PAGE_LIMIT;
