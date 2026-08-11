@@ -2,7 +2,7 @@
 
 Tells you how far a technology has moved from the lab toward the market.
 
-For each topic you pass, the radar pulls recent **academic research** (Google Scholar) and recent **patent filings** (Google Patents), then scores the convergence between the two. A field where papers are accelerating *and* patents are being filed is commercializing right now. A field where research is spiking but patents are still thin is an early lead, before the IP race begins.
+For each topic you pass, the radar pulls recent **academic research** (OpenAlex) and recent **patent filings** (Google Patents), then scores the convergence between the two. A field where papers are accelerating *and* patents are being filed is commercializing right now. A field where research is spiking but patents are still thin is an early lead, before the IP race begins.
 
 Built for deep-tech and biotech investors, IP licensing and tech-transfer scouts, and competitive-intelligence teams who need to know where a technology sits on the research to revenue curve.
 
@@ -29,7 +29,7 @@ Each row carries the research side (paper count, recent papers, total citations,
 }
 ```
 
-`yearFrom` 0 means the last three years. Each topic triggers one Scholar pull and one Patents pull.
+`yearFrom` 0 means the last three years. Each topic triggers one OpenAlex lookup and one Patents pull.
 
 ## How scoring works
 
@@ -43,6 +43,8 @@ Each row carries the research side (paper count, recent papers, total citations,
 
 Pay per row: watch $0.04, emerging $0.09, commercializing $0.15. The first commercializing row per run is free so you can validate output.
 
-This is a **pipeline**. It calls two of our other actors under the hood, once per topic: `google-scholar-scraper` and `google-patents-scraper`. Those children also bill you for their own per-row usage (one paper row, one patent row). Both run on plain HTTP with a residential proxy and no browser, so the added child cost per topic is small, but it is real and on top of the per-row prices above. Budget for it when you set `papersPerTopic` and `patentsPerTopic`.
+This is a **pipeline**. It calls one other actor under the hood, once per topic: `google-patents-scraper`. That child also bills you for its own per-row usage (one patent row). It runs on plain HTTP with a residential proxy and no browser, so the added child cost per topic is small, but it is real and on top of the per-row prices above. Budget for it when you set `patentsPerTopic`.
+
+The research side costs you nothing extra: papers come from OpenAlex, a free and keyless scholarly API this Actor calls directly. It previously went through a `google-scholar-scraper` child, which billed a paper row per result on top of everything else, so a run today is cheaper than the pricing above might suggest.
 
 No API keys, no accounts. Just topics in, a commercialization read-out per topic out.

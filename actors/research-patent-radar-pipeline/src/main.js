@@ -1,22 +1,26 @@
 // Research to Patent Commercialization Radar
 //
-// For each technology topic, correlates academic research momentum (Google
-// Scholar) with patent filing activity (Google Patents). A field where papers
-// are accelerating AND patents are being filed is commercializing now; one
-// where research is spiking but patents are thin is an early lead before the
-// IP race starts.
+// For each technology topic, correlates academic research momentum (OpenAlex)
+// with patent filing activity (Google Patents). A field where papers are
+// accelerating AND patents are being filed is commercializing now; one where
+// research is spiking but patents are thin is an early lead before the IP race
+// starts.
 //
-// Stage 1: scrapemint/google-scholar-scraper  -> recent papers per topic.
+// Stage 1: OpenAlex, keyless HTTP             -> recent papers per topic.
 // Stage 2: scrapemint/google-patents-scraper  -> patent filings per topic.
 // Stage 3: Per topic, aggregate both sides, score convergence 0-100, tier
 //          commercializing / emerging / watch, push, charge.
 //
-// Both children are plain HTTP + residential proxy (no browser since the
-// patents rewrite), so compute per topic is small. Children are called once
-// per topic so every row is cleanly attributable.
+// Stage 1 used to call a google-scholar-scraper child. That child was retired
+// 2026-08-11 (intermittent CAPTCHA on datacenter AND residential), and a parent
+// cannot fix a CAPTCHA it inherits. Reading OpenAlex directly removes the
+// dependency entirely, so nothing here breaks when that actor is deleted.
 //
-// Nested billing: each child also bills the buyer for its own per-event usage
-// (one paper row, one patent row). The README documents the combined cost.
+// The one remaining child is plain HTTP + residential proxy (no browser since
+// the patents rewrite), called once per topic so every row is attributable.
+//
+// Nested billing: the patents child also bills the buyer for its own per-event
+// usage (one patent row). The README documents the combined cost.
 
 import { Actor, log } from 'apify';
 
@@ -52,9 +56,9 @@ log.info(`Scanning ${cleanTopics.length} topics from ${lowerYear} onward.`);
 let commercializingCharged = 0; let commercializingFree = 0; let emerging = 0; let watch = 0; let skipped = 0;
 
 for (const topic of cleanTopics) {
-    log.info(`Topic "${topic}": stage 1 Scholar, stage 2 Patents.`);
+    log.info(`Topic "${topic}": stage 1 papers, stage 2 patents.`);
 
-    const papers = await runScholar(topic);
+    const papers = await runPapers(topic);
     const patents = await runPatents(topic);
 
     const research = summarizeResearch(papers);
@@ -117,31 +121,43 @@ for (const topic of cleanTopics) {
 log.info(`Done. commercializing charged=${commercializingCharged} free=${commercializingFree}, emerging=${emerging}, watch=${watch}, skipped=${skipped}.`);
 await Actor.exit();
 
-// ---------- Stage 1: Scholar ----------
+// ---------- Stage 1: Papers (OpenAlex) ----------
 
-async function runScholar(topic) {
+// Stage 1 reads OpenAlex directly rather than calling a Google Scholar child.
+// Scholar was retired 2026-08-11: it CAPTCHAs intermittently on datacenter and
+// residential alike, and a parent cannot fix a CAPTCHA it inherits. It was also
+// 60% of this pipeline's cost per run ($0.022 of $0.037) for a signal OpenAlex
+// serves keyless over plain HTTP. Sorting by citations, not date, is kept from
+// the old call: date-sorted recent papers are all uncited, which zeroes out the
+// citation signal this pipeline scores on.
+const OPENALEX = 'https://api.openalex.org/works';
+
+async function runPapers(topic) {
+    const perPage = Math.max(5, Math.min(40, Number(papersPerTopic) || 15));
+    const params = new URLSearchParams({
+        filter: `default.search:${topic},from_publication_date:${lowerYear}-01-01`,
+        sort: 'cited_by_count:desc',
+        'per-page': String(perPage),
+        // OpenAlex asks callers to identify themselves; it buys the polite pool
+        // and a higher rate limit, and needs no key.
+        mailto: 'actors@scrapemint.com',
+    });
     try {
-        const run = await Actor.call(
-            'scrapemint/google-scholar-scraper',
-            {
-                queries: [topic],
-                yearFrom: lowerYear,
-                // Relevance (not date) so the pull includes the field's
-                // high-impact papers; date-sorted recent papers are all
-                // uncited, which zeroes out the citation signal.
-                sortBy: 'relevance',
-                maxPapers: Math.max(5, Math.min(40, Number(papersPerTopic) || 15)),
-                maxPagesPerQuery: 2,
-                fetchCitedBy: false,
-                proxyConfiguration: proxyInput,
-            },
-            // Cap each Google child call: residential Google can block/hang, and
-            // the child's own timeout is 3600s. On timeout we read partial.
-            { memory: 512, build: 'latest', timeout: 240 },
-        );
-        return (await readDataset(run, `Scholar "${topic}"`)).filter((r) => r && r.title && r.type !== 'citedBy');
+        const res = await fetch(`${OPENALEX}?${params}`, { headers: { Accept: 'application/json' } });
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const body = await res.json();
+        return (body.results || [])
+            .map((w) => ({
+                title: w.title || w.display_name || null,
+                year: w.publication_year ?? null,
+                citedByCount: Number(w.cited_by_count) || 0,
+                venue: w.primary_location?.source?.display_name || null,
+                url: w.doi || w.primary_location?.landing_page_url || w.id || null,
+                authors: (w.authorships || []).map((a) => a.author?.display_name).filter(Boolean),
+            }))
+            .filter((r) => r.title);
     } catch (err) {
-        log.warning(`Scholar stage failed for "${topic}" (continuing): ${err?.message}`);
+        log.warning(`Papers stage failed for "${topic}" (continuing): ${err?.message}`);
         return [];
     }
 }
@@ -262,7 +278,7 @@ function buildSignal(tier, r, p) {
 
 function yearOf(p) {
     if (Number(p.year)) return Number(p.year);
-    // Scholar sometimes leaves year null but tucks it in the authors tail.
+    // Some sources leave year null but tuck it in the authors tail.
     const fromAuthors = Array.isArray(p.authors) ? p.authors.map((a) => String(a).match(/\b(19|20)\d{2}\b/)?.[0]).find(Boolean) : null;
     return fromAuthors ? Number(fromAuthors) : null;
 }
