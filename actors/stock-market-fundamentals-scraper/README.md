@@ -4,7 +4,9 @@ Financial-statement line items for any public company, straight from official **
 
 No login, no API key, no proxy. It reads the SEC's keyless XBRL data, so the numbers are the same ones companies file, returned as clean JSON.
 
-Two ways to use it: pull **full history for companies you name**, or flip to **screener mode** and rank every filer in the market on one period.
+Two ways to use it: pull **fundamentals for companies you name**, or flip to **screener mode** and rank every filer in the market on one period.
+
+A default run returns the latest value for every metric, which is the fast, cheap way to see what the actor gives you. Set `latestOnly` to `false` for full filing history, and bound it with `minYear` unless you really want every period back to 2009.
 
 ## What you get
 
@@ -73,7 +75,7 @@ A ratio is only filled in when both of its inputs were reported. If a company di
 | `includeAllConcepts` | Return every reported concept (overrides `metrics`) |
 | `forms` | Filing forms to include (default `["10-K","10-Q"]`) |
 | `minYear` | Only periods ending in this year or later |
-| `latestOnly` | Only the most recent value per metric |
+| `latestOnly` | Only the most recent value per metric (default `true`). Set to `false` for full history, ideally with `minYear` |
 | `screenerMetrics` | Screener mode. Metrics to place side by side on each row |
 | `period` | Screener mode. e.g. `CY2025Q1` or `CY2024`. Empty picks the latest well reported quarter |
 | `sortBy` | Screener mode. Metric to rank by (default: the first one) |

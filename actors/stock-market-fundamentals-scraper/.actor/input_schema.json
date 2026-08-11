@@ -73,8 +73,8 @@
     "latestOnly": {
       "title": "Latest value only",
       "type": "boolean",
-      "description": "Return only the most recent data point for each metric instead of full history.",
-      "default": false
+      "description": "Return only the most recent data point for each metric. This is the default because a full history request for one ticker can run to thousands of rows. Set it to false to pull every historical filing, and pair that with Minimum year to bound the range.",
+      "default": true
     },
     "maxRowsPerTicker": {
       "title": "Max rows per ticker",

@@ -92,7 +92,14 @@ const {
     includeAllConcepts = false,
     forms = ['10-K', '10-Q'],
     minYear,
-    latestOnly = false,
+    // Defaults to true: an unbounded run is every concept x every fiscal year x
+    // both form types, which is ~1900 rows for a single ticker. Measured
+    // 2026-08-11 on AAPL: 1902 charged rows / $5.71 / 88s against 18 rows /
+    // $0.05 / 4.6s here, with all 23 concepts still represented either way.
+    // Row caps cannot substitute: maxRowsPerTicker truncates in concept order,
+    // so a capped run returns full history for the first concepts and nothing
+    // for the rest. Set latestOnly=false (ideally with minYear) for history.
+    latestOnly = true,
     maxRowsPerTicker = 5000,
     maxRowsTotal = 50000,
     // screener mode
