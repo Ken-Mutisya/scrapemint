@@ -71,7 +71,7 @@ flowchart LR
     R --> R10[Optional<br/>pdfUrl]
 ```
 
-Publication number is the canonical patent identifier across reissues and republications. Use it to dedupe across runs (built in via `dedupe: true`) and to fetch family members or citations on demand.
+Publication number is the canonical patent identifier across reissues and republications. Use it to fetch family members or citations on demand, or set `dedupe: true` to skip patents you have already pulled in earlier runs.
 
 ---
 
@@ -236,7 +236,7 @@ Publication number is the canonical patent identifier across reissues and republ
 | `fetchPdf` | boolean | Resolve PDF URL. On by default. |
 | `maxPatents` | integer | Hard cap on rows per run. 0 means unlimited. |
 | `maxPagesPerQuery` | integer | Pages of 10 results per query. Cap is 100. |
-| `dedupe` | boolean | Skip publication numbers from previous runs. |
+| `dedupe` | boolean | Skip publication numbers from previous runs. Off by default; turn on to poll for newly published patents only. |
 | `navigationDelayMs` | integer | Pause between page loads. 3000 to 6000 ms is the safe band. |
 | `concurrency` | integer | Parallel browser pages. Keep at 1 to 2 unless you have a residential pool. |
 | `proxyConfiguration` | object | Apify proxy. Datacenter works for low volume. Residential past a few hundred requests. |

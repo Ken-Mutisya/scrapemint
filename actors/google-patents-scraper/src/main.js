@@ -48,7 +48,15 @@ const {
     fetchPdf = true,
     maxPatents = 100,
     maxPagesPerQuery = 10,
-    dedupe = true,
+    // Defaults to false. This is a search tool, not a monitor: someone querying
+    // "perovskite solar cell" wants the patents every time they ask. Keyed on
+    // publicationNumber, which never changes, so `true` suppressed a patent
+    // permanently after its first appearance and a buyer's second run on the
+    // same query returned and billed NOTHING. Measured 2026-08-11: the same
+    // query logged "10 results, 0 new, pushed 0/10" against 10 rows / 5 charged
+    // with dedupe off. Same failure as the google-maps-scraper margin incident.
+    // Set it to true deliberately to poll for newly published patents only.
+    dedupe = false,
     concurrency = 2,
     proxyConfiguration: proxyInput,
 } = input;
