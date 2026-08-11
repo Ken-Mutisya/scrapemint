@@ -13,7 +13,9 @@
       "sectionCaption": "What to scrape",
       "sectionDescription": "Provide at least one of: subdomains, publicationUrls, or queries.",
       "prefill": [
-        "stratechery"
+        "stratechery",
+        "platformer",
+        "astralcodexten"
       ]
     },
     "publicationUrls": {
