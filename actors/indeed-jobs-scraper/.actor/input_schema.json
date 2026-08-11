@@ -1,286 +1,286 @@
 {
-    "title": "Indeed Jobs Intelligence Pro Input",
-    "type": "object",
-    "schemaVersion": 1,
-    "description": "Pull Indeed with rich enrichment. Mix keywords, search URLs, direct job IDs, and company pages. Filter by date posted, job type, experience, remote, salary, and radius. 18 countries.",
-    "properties": {
-        "keywords": {
-            "title": "Search keywords",
-            "type": "array",
-            "description": "Position or keyword strings. Each runs an independent search and combines with locations. Leave blank if you are passing searchUrls or jobIds directly.",
-            "editor": "stringList",
-            "prefill": [
-                "product manager"
-            ],
-            "default": []
-        },
-        "locations": {
-            "title": "Locations",
-            "type": "array",
-            "description": "Cities, states, postal codes, or country names. Each combines with each keyword (cartesian product). Leave blank for nationwide searches.",
-            "editor": "stringList",
-            "prefill": [
-                "San Francisco, CA"
-            ],
-            "default": []
-        },
-        "country": {
-            "title": "Country",
-            "type": "string",
-            "description": "Indeed regional domain. Affects which jobs are surfaced. 18 countries supported.",
-            "editor": "select",
-            "enum": [
-                "US",
-                "GB",
-                "CA",
-                "AU",
-                "IE",
-                "DE",
-                "FR",
-                "IT",
-                "ES",
-                "NL",
-                "BE",
-                "IN",
-                "JP",
-                "SG",
-                "BR",
-                "MX",
-                "ZA",
-                "AE"
-            ],
-            "enumTitles": [
-                "United States (indeed.com)",
-                "United Kingdom (indeed.co.uk)",
-                "Canada (indeed.ca)",
-                "Australia (au.indeed.com)",
-                "Ireland (ie.indeed.com)",
-                "Germany (de.indeed.com)",
-                "France (fr.indeed.com)",
-                "Italy (it.indeed.com)",
-                "Spain (es.indeed.com)",
-                "Netherlands (nl.indeed.com)",
-                "Belgium (be.indeed.com)",
-                "India (in.indeed.com)",
-                "Japan (jp.indeed.com)",
-                "Singapore (sg.indeed.com)",
-                "Brazil (br.indeed.com)",
-                "Mexico (mx.indeed.com)",
-                "South Africa (za.indeed.com)",
-                "United Arab Emirates (ae.indeed.com)"
-            ],
-            "default": "US"
-        },
-        "searchUrls": {
-            "title": "Direct search URLs (alternative input)",
-            "type": "array",
-            "description": "Paste any Indeed search URL. Filters and pagination are extracted automatically. Mix with keywords or use exclusively.",
-            "editor": "stringList",
-            "default": []
-        },
-        "jobIds": {
-            "title": "Direct job IDs (jk parameter)",
-            "type": "array",
-            "description": "Indeed job IDs from the jk= URL param. Skips the listing crawl entirely. Fastest input mode.",
-            "editor": "stringList",
-            "default": []
-        },
-        "companyUrls": {
-            "title": "Indeed company pages",
-            "type": "array",
-            "description": "URLs to Indeed company pages (https://www.indeed.com/cmp/...). Pulls every job posted on that company page up to maxJobs.",
-            "editor": "stringList",
-            "default": []
-        },
-        "maxJobs": {
-            "title": "Max jobs",
-            "type": "integer",
-            "description": "Hard cap on jobs returned across all queries. Indeed paginates 15 jobs per page. Set 0 for everything Indeed exposes.",
-            "default": 25,
-            "minimum": 0,
-            "maximum": 10000,
-            "sectionCaption": "Volume cap"
-        },
-        "datePosted": {
-            "title": "Date posted",
-            "type": "string",
-            "description": "Filter by recency. Maps to Indeed's fromage param.",
-            "editor": "select",
-            "enum": [
-                "any",
-                "1",
-                "3",
-                "7",
-                "14"
-            ],
-            "enumTitles": [
-                "Any time",
-                "Last 24 hours",
-                "Last 3 days",
-                "Last 7 days",
-                "Last 14 days"
-            ],
-            "default": "any",
-            "sectionCaption": "Filters"
-        },
-        "jobType": {
-            "title": "Job type",
-            "type": "string",
-            "description": "Filter by employment type.",
-            "editor": "select",
-            "enum": [
-                "any",
-                "fulltime",
-                "parttime",
-                "contract",
-                "temporary",
-                "internship"
-            ],
-            "enumTitles": [
-                "Any",
-                "Full time",
-                "Part time",
-                "Contract",
-                "Temporary",
-                "Internship"
-            ],
-            "default": "any"
-        },
-        "experienceLevel": {
-            "title": "Experience level",
-            "type": "string",
-            "description": "Filter by Indeed experience tag.",
-            "editor": "select",
-            "enum": [
-                "any",
-                "entry_level",
-                "mid_level",
-                "senior_level"
-            ],
-            "enumTitles": [
-                "Any",
-                "Entry level",
-                "Mid level",
-                "Senior level"
-            ],
-            "default": "any"
-        },
-        "remoteFilter": {
-            "title": "Remote / hybrid / on site",
-            "type": "string",
-            "description": "Filter by work location type.",
-            "editor": "select",
-            "enum": [
-                "any",
-                "remote",
-                "hybrid",
-                "onsite"
-            ],
-            "enumTitles": [
-                "Any",
-                "Remote only",
-                "Hybrid",
-                "On site"
-            ],
-            "default": "any"
-        },
-        "minSalary": {
-            "title": "Minimum salary",
-            "type": "integer",
-            "description": "Minimum salary in the local currency. Indeed often estimates salaries when the employer does not list one.",
-            "default": 0,
-            "minimum": 0,
-            "maximum": 1000000
-        },
-        "radius": {
-            "title": "Search radius (miles)",
-            "type": "integer",
-            "description": "Distance from the location in miles. 0 means exact match. 25 is Indeed's default. Common values: 5, 10, 15, 25, 50, 100.",
-            "default": 25,
-            "minimum": 0,
-            "maximum": 100
-        },
-        "splitByCity": {
-            "title": "Split nationwide search into top cities",
-            "type": "boolean",
-            "description": "When you want lots of jobs from a country, Indeed caps each search at about 1000 results. Enable this to fan the search out across the country's top metro areas.",
-            "default": false
-        },
-        "scrapeCompanyDetails": {
-            "title": "Scrape company details",
-            "type": "boolean",
-            "description": "Fetch each unique company's Indeed page and enrich rows with rating, total reviews, size band, industry, and founded year. Pushed as a separate dataset row per company.",
-            "default": false,
-            "sectionCaption": "Enrichment"
-        },
-        "extractSkills": {
-            "title": "Extract skills",
-            "type": "boolean",
-            "description": "Detect mentioned skills in the job description (200+ tech and business skills, multi language).",
-            "default": true
-        },
-        "parseSalary": {
-            "title": "Parse salary into structured fields",
-            "type": "boolean",
-            "description": "Convert salary text into min, max, period, currency, and a normalized annual estimate. Distinguishes employer listed from Indeed estimated.",
-            "default": true
-        },
-        "classifySeniority": {
-            "title": "Classify seniority tier",
-            "type": "boolean",
-            "description": "Tag each job as intern, entry, mid, senior, lead, principal, staff, manager, director, vp, or c level based on title.",
-            "default": true
-        },
-        "detectEasyApply": {
-            "title": "Detect Easy Apply",
-            "type": "boolean",
-            "description": "Flag jobs that use Indeed's one click Easy Apply (vs employer redirect).",
-            "default": true
-        },
-        "detectRemoteHybrid": {
-            "title": "Detect remote and hybrid",
-            "type": "boolean",
-            "description": "Parse the location field and description for remote, hybrid, or on site work signals. Sets a workMode field on every row.",
-            "default": true
-        },
-        "followApplyRedirect": {
-            "title": "Follow apply redirect",
-            "type": "boolean",
-            "description": "Resolve the final Apply URL by following Indeed's redirect chain. Returns the employer's external ATS URL when present. Adds latency.",
-            "default": false
-        },
-        "dedupe": {
-            "title": "Deduplicate across runs",
-            "type": "boolean",
-            "description": "Skip job IDs already pushed in previous runs. Turn off to refresh stale rows.",
-            "default": true,
-            "sectionCaption": "Run options"
-        },
-        "concurrency": {
-            "title": "Concurrency",
-            "type": "integer",
-            "description": "Number of pages processed in parallel. Three to five is safe. Higher values trigger Cloudflare challenges.",
-            "default": 3,
-            "minimum": 1,
-            "maximum": 16
-        },
-        "proxyConfiguration": {
-            "title": "Proxy configuration",
-            "type": "object",
-            "description": "Apify proxy. Residential is required for Indeed at any meaningful volume. Datacenter is blocked within minutes.",
-            "editor": "proxy",
-            "prefill": {
-                "useApifyProxy": true,
-                "apifyProxyGroups": [
-                    "RESIDENTIAL"
-                ]
-            },
-            "default": {
-                "useApifyProxy": true,
-                "apifyProxyGroups": [
-                    "RESIDENTIAL"
-                ]
-            }
-        }
+  "title": "Indeed Jobs Intelligence Pro Input",
+  "type": "object",
+  "schemaVersion": 1,
+  "description": "Pull Indeed with rich enrichment. Mix keywords, search URLs, direct job IDs, and company pages. Filter by date posted, job type, experience, remote, salary, and radius. 18 countries.",
+  "properties": {
+    "keywords": {
+      "title": "Search keywords",
+      "type": "array",
+      "description": "Position or keyword strings. Each runs an independent search and combines with locations. Leave blank if you are passing searchUrls or jobIds directly.",
+      "editor": "stringList",
+      "prefill": [
+        "product manager"
+      ],
+      "default": []
+    },
+    "locations": {
+      "title": "Locations",
+      "type": "array",
+      "description": "Cities, states, postal codes, or country names. Each combines with each keyword (cartesian product). Leave blank for nationwide searches.",
+      "editor": "stringList",
+      "prefill": [
+        "San Francisco, CA"
+      ],
+      "default": []
+    },
+    "country": {
+      "title": "Country",
+      "type": "string",
+      "description": "Indeed regional domain. Affects which jobs are surfaced. 18 countries supported.",
+      "editor": "select",
+      "enum": [
+        "US",
+        "GB",
+        "CA",
+        "AU",
+        "IE",
+        "DE",
+        "FR",
+        "IT",
+        "ES",
+        "NL",
+        "BE",
+        "IN",
+        "JP",
+        "SG",
+        "BR",
+        "MX",
+        "ZA",
+        "AE"
+      ],
+      "enumTitles": [
+        "United States (indeed.com)",
+        "United Kingdom (indeed.co.uk)",
+        "Canada (indeed.ca)",
+        "Australia (au.indeed.com)",
+        "Ireland (ie.indeed.com)",
+        "Germany (de.indeed.com)",
+        "France (fr.indeed.com)",
+        "Italy (it.indeed.com)",
+        "Spain (es.indeed.com)",
+        "Netherlands (nl.indeed.com)",
+        "Belgium (be.indeed.com)",
+        "India (in.indeed.com)",
+        "Japan (jp.indeed.com)",
+        "Singapore (sg.indeed.com)",
+        "Brazil (br.indeed.com)",
+        "Mexico (mx.indeed.com)",
+        "South Africa (za.indeed.com)",
+        "United Arab Emirates (ae.indeed.com)"
+      ],
+      "default": "US"
+    },
+    "searchUrls": {
+      "title": "Direct search URLs (alternative input)",
+      "type": "array",
+      "description": "Paste any Indeed search URL. Filters and pagination are extracted automatically. Mix with keywords or use exclusively.",
+      "editor": "stringList",
+      "default": []
+    },
+    "jobIds": {
+      "title": "Direct job IDs (jk parameter)",
+      "type": "array",
+      "description": "Indeed job IDs from the jk= URL param. Skips the listing crawl entirely. Fastest input mode.",
+      "editor": "stringList",
+      "default": []
+    },
+    "companyUrls": {
+      "title": "Indeed company pages",
+      "type": "array",
+      "description": "URLs to Indeed company pages (https://www.indeed.com/cmp/...). Pulls every job posted on that company page up to maxJobs.",
+      "editor": "stringList",
+      "default": []
+    },
+    "maxJobs": {
+      "title": "Max jobs",
+      "type": "integer",
+      "description": "Hard cap on jobs returned across all queries. Indeed paginates 15 jobs per page. Set 0 for everything Indeed exposes.",
+      "default": 25,
+      "minimum": 0,
+      "maximum": 10000,
+      "sectionCaption": "Volume cap"
+    },
+    "datePosted": {
+      "title": "Date posted",
+      "type": "string",
+      "description": "Filter by recency. Maps to Indeed's fromage param.",
+      "editor": "select",
+      "enum": [
+        "any",
+        "1",
+        "3",
+        "7",
+        "14"
+      ],
+      "enumTitles": [
+        "Any time",
+        "Last 24 hours",
+        "Last 3 days",
+        "Last 7 days",
+        "Last 14 days"
+      ],
+      "default": "any",
+      "sectionCaption": "Filters"
+    },
+    "jobType": {
+      "title": "Job type",
+      "type": "string",
+      "description": "Filter by employment type.",
+      "editor": "select",
+      "enum": [
+        "any",
+        "fulltime",
+        "parttime",
+        "contract",
+        "temporary",
+        "internship"
+      ],
+      "enumTitles": [
+        "Any",
+        "Full time",
+        "Part time",
+        "Contract",
+        "Temporary",
+        "Internship"
+      ],
+      "default": "any"
+    },
+    "experienceLevel": {
+      "title": "Experience level",
+      "type": "string",
+      "description": "Filter by Indeed experience tag.",
+      "editor": "select",
+      "enum": [
+        "any",
+        "entry_level",
+        "mid_level",
+        "senior_level"
+      ],
+      "enumTitles": [
+        "Any",
+        "Entry level",
+        "Mid level",
+        "Senior level"
+      ],
+      "default": "any"
+    },
+    "remoteFilter": {
+      "title": "Remote / hybrid / on site",
+      "type": "string",
+      "description": "Filter by work location type.",
+      "editor": "select",
+      "enum": [
+        "any",
+        "remote",
+        "hybrid",
+        "onsite"
+      ],
+      "enumTitles": [
+        "Any",
+        "Remote only",
+        "Hybrid",
+        "On site"
+      ],
+      "default": "any"
+    },
+    "minSalary": {
+      "title": "Minimum salary",
+      "type": "integer",
+      "description": "Minimum salary in the local currency. Indeed often estimates salaries when the employer does not list one.",
+      "default": 0,
+      "minimum": 0,
+      "maximum": 1000000
+    },
+    "radius": {
+      "title": "Search radius (miles)",
+      "type": "integer",
+      "description": "Distance from the location in miles. 0 means exact match. 25 is Indeed's default. Common values: 5, 10, 15, 25, 50, 100.",
+      "default": 25,
+      "minimum": 0,
+      "maximum": 100
+    },
+    "splitByCity": {
+      "title": "Split nationwide search into top cities",
+      "type": "boolean",
+      "description": "When you want lots of jobs from a country, Indeed caps each search at about 1000 results. Enable this to fan the search out across the country's top metro areas.",
+      "default": false
+    },
+    "scrapeCompanyDetails": {
+      "title": "Scrape company details",
+      "type": "boolean",
+      "description": "Fetch each unique company's Indeed page and enrich rows with rating, total reviews, size band, industry, and founded year. Pushed as a separate dataset row per company.",
+      "default": false,
+      "sectionCaption": "Enrichment"
+    },
+    "extractSkills": {
+      "title": "Extract skills",
+      "type": "boolean",
+      "description": "Detect mentioned skills in the job description (200+ tech and business skills, multi language).",
+      "default": true
+    },
+    "parseSalary": {
+      "title": "Parse salary into structured fields",
+      "type": "boolean",
+      "description": "Convert salary text into min, max, period, currency, and a normalized annual estimate. Distinguishes employer listed from Indeed estimated.",
+      "default": true
+    },
+    "classifySeniority": {
+      "title": "Classify seniority tier",
+      "type": "boolean",
+      "description": "Tag each job as intern, entry, mid, senior, lead, principal, staff, manager, director, vp, or c level based on title.",
+      "default": true
+    },
+    "detectEasyApply": {
+      "title": "Detect Easy Apply",
+      "type": "boolean",
+      "description": "Flag jobs that use Indeed's one click Easy Apply (vs employer redirect).",
+      "default": true
+    },
+    "detectRemoteHybrid": {
+      "title": "Detect remote and hybrid",
+      "type": "boolean",
+      "description": "Parse the location field and description for remote, hybrid, or on site work signals. Sets a workMode field on every row.",
+      "default": true
+    },
+    "followApplyRedirect": {
+      "title": "Follow apply redirect",
+      "type": "boolean",
+      "description": "Resolve the final Apply URL by following Indeed's redirect chain. Returns the employer's external ATS URL when present. Adds latency.",
+      "default": false
+    },
+    "dedupe": {
+      "title": "Deduplicate across runs",
+      "type": "boolean",
+      "description": "Skip job IDs already pushed in previous runs. Turn off to refresh stale rows. Off by default so a repeated query returns its full result set. Turn it on to poll for new items only.",
+      "default": false,
+      "sectionCaption": "Run options"
+    },
+    "concurrency": {
+      "title": "Concurrency",
+      "type": "integer",
+      "description": "Number of pages processed in parallel. Three to five is safe. Higher values trigger Cloudflare challenges.",
+      "default": 3,
+      "minimum": 1,
+      "maximum": 16
+    },
+    "proxyConfiguration": {
+      "title": "Proxy configuration",
+      "type": "object",
+      "description": "Apify proxy. Residential is required for Indeed at any meaningful volume. Datacenter is blocked within minutes.",
+      "editor": "proxy",
+      "prefill": {
+        "useApifyProxy": true,
+        "apifyProxyGroups": [
+          "RESIDENTIAL"
+        ]
+      },
+      "default": {
+        "useApifyProxy": true,
+        "apifyProxyGroups": [
+          "RESIDENTIAL"
+        ]
+      }
     }
+  }
 }

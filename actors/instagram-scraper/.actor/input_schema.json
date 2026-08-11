@@ -1,132 +1,138 @@
 {
-    "title": "Instagram Influencer Analyzer Input",
-    "type": "object",
-    "schemaVersion": 1,
-    "description": "Rank creators by engagement rate, flag sponsored posts, track brand mentions. Pick a content type, paste Instagram URLs or a search query, and run. Posts, reels, comments, mentions, profiles, hashtags, places, and user search in one actor.",
-    "properties": {
-        "contentType": {
-            "title": "Content to scrape",
-            "type": "string",
-            "description": "What kind of data you want. Each type expects a matching URL or search query.",
-            "editor": "select",
-            "enum": [
-                "posts",
-                "reels",
-                "comments",
-                "mentions",
-                "profile",
-                "hashtag",
-                "place",
-                "user-search"
-            ],
-            "enumTitles": [
-                "Posts (from profile, post URL, or hashtag)",
-                "Reels (from profile, reel URL, or hashtag)",
-                "Comments (from post or reel URL)",
-                "Mentions (from profile URL)",
-                "Profile info + engagement metrics (from profile URL)",
-                "Hashtag volume (from hashtag URL or search query)",
-                "Place details (from location URL or search query)",
-                "User search (from search query)"
-            ],
-            "default": "posts"
-        },
-        "urls": {
-            "title": "Instagram URLs",
-            "type": "array",
-            "description": "Instagram URLs to scrape. URLs take priority over search queries and cannot be combined. Use /p/ for posts, /reel/ for reels, /username/ for profiles, /explore/tags/ for hashtags, /explore/locations/ for places.",
-            "editor": "stringList",
-            "prefill": ["https://www.instagram.com/humansofny/"],
-            "default": []
-        },
-        "searchQueries": {
-            "title": "Search queries",
-            "type": "array",
-            "description": "Keywords to search (hashtags, users, or places depending on content type). Enter multiple terms as separate items. Ignored when URLs are provided.",
-            "editor": "stringList",
-            "default": [],
-            "sectionCaption": "Search by query instead of URLs"
-        },
-        "resultsLimit": {
-            "title": "Results limit per URL",
-            "type": "integer",
-            "description": "Cap on results returned per URL or query. Controls cost and runtime.",
-            "default": 100,
-            "minimum": 1,
-            "maximum": 5000
-        },
-        "filterByDate": {
-            "title": "Filter by date",
-            "type": "string",
-            "description": "Only return posts newer than this date. UTC, not local time. Format YYYY-MM-DD for absolute, or a relative like '7 days ago', '1 month ago'. Leave blank for no filter.",
-            "editor": "textfield",
-            "default": "",
-            "sectionCaption": "Filter by date"
-        },
-        "includeEngagementMetrics": {
-            "title": "Include engagement rate + posting cadence",
-            "type": "boolean",
-            "description": "On profile and hashtag runs, compute avg likes per post, avg comments per post, engagement rate as a percentage of followers, and posts per week. Built in. No extra cost.",
-            "default": true,
-            "sectionCaption": "Smart analytics"
-        },
-        "detectSponsoredPosts": {
-            "title": "Flag sponsored and paid partnership posts",
-            "type": "boolean",
-            "description": "Mark each post with isSponsored true or false based on #ad, #sponsored, #paidpartnership, Instagram's paid partnership label, and brand tag patterns. Built in. No extra cost.",
-            "default": true
-        },
-        "downloadMedia": {
-            "title": "Download images and videos",
-            "type": "boolean",
-            "description": "Save every image and video to the key value store and include a downloadUrl per post. Adds storage cost.",
-            "default": false,
-            "sectionCaption": "Media download"
-        },
-        "scrapeCommentsPerPost": {
-            "title": "Also scrape top comments per post",
-            "type": "integer",
-            "description": "Pull the top N comments from each post or reel in the run. 0 disables. Only runs for posts and reels content types.",
-            "default": 0,
-            "minimum": 0,
-            "maximum": 200,
-            "sectionCaption": "Extras"
-        },
-        "includeMediaMetadata": {
-            "title": "Include image dimensions, alt text, and location",
-            "type": "boolean",
-            "description": "Enrich each row with width, height, alt text (accessibility caption), and tagged location when available.",
-            "default": true
-        },
-        "dedupe": {
-            "title": "Deduplicate across runs",
-            "type": "boolean",
-            "description": "Skip post and profile IDs already pushed in previous runs. Turn off to refresh counts on the same items.",
-            "default": true,
-            "sectionCaption": "Run options"
-        },
-        "maxItemsTotal": {
-            "title": "Max items per run",
-            "type": "integer",
-            "description": "Hard cap across all URLs and queries. Controls total cost.",
-            "default": 500,
-            "minimum": 1,
-            "maximum": 50000
-        },
-        "proxyConfiguration": {
-            "title": "Proxy configuration",
-            "type": "object",
-            "description": "Apify proxy. Residential strongly recommended. Instagram blocks datacenter IPs aggressively.",
-            "editor": "proxy",
-            "prefill": {
-                "useApifyProxy": true,
-                "apifyProxyGroups": ["RESIDENTIAL"]
-            },
-            "default": {
-                "useApifyProxy": true,
-                "apifyProxyGroups": ["RESIDENTIAL"]
-            }
-        }
+  "title": "Instagram Influencer Analyzer Input",
+  "type": "object",
+  "schemaVersion": 1,
+  "description": "Rank creators by engagement rate, flag sponsored posts, track brand mentions. Pick a content type, paste Instagram URLs or a search query, and run. Posts, reels, comments, mentions, profiles, hashtags, places, and user search in one actor.",
+  "properties": {
+    "contentType": {
+      "title": "Content to scrape",
+      "type": "string",
+      "description": "What kind of data you want. Each type expects a matching URL or search query.",
+      "editor": "select",
+      "enum": [
+        "posts",
+        "reels",
+        "comments",
+        "mentions",
+        "profile",
+        "hashtag",
+        "place",
+        "user-search"
+      ],
+      "enumTitles": [
+        "Posts (from profile, post URL, or hashtag)",
+        "Reels (from profile, reel URL, or hashtag)",
+        "Comments (from post or reel URL)",
+        "Mentions (from profile URL)",
+        "Profile info + engagement metrics (from profile URL)",
+        "Hashtag volume (from hashtag URL or search query)",
+        "Place details (from location URL or search query)",
+        "User search (from search query)"
+      ],
+      "default": "posts"
     },
-    "required": []
+    "urls": {
+      "title": "Instagram URLs",
+      "type": "array",
+      "description": "Instagram URLs to scrape. URLs take priority over search queries and cannot be combined. Use /p/ for posts, /reel/ for reels, /username/ for profiles, /explore/tags/ for hashtags, /explore/locations/ for places.",
+      "editor": "stringList",
+      "prefill": [
+        "https://www.instagram.com/humansofny/"
+      ],
+      "default": []
+    },
+    "searchQueries": {
+      "title": "Search queries",
+      "type": "array",
+      "description": "Keywords to search (hashtags, users, or places depending on content type). Enter multiple terms as separate items. Ignored when URLs are provided.",
+      "editor": "stringList",
+      "default": [],
+      "sectionCaption": "Search by query instead of URLs"
+    },
+    "resultsLimit": {
+      "title": "Results limit per URL",
+      "type": "integer",
+      "description": "Cap on results returned per URL or query. Controls cost and runtime.",
+      "default": 100,
+      "minimum": 1,
+      "maximum": 5000
+    },
+    "filterByDate": {
+      "title": "Filter by date",
+      "type": "string",
+      "description": "Only return posts newer than this date. UTC, not local time. Format YYYY-MM-DD for absolute, or a relative like '7 days ago', '1 month ago'. Leave blank for no filter.",
+      "editor": "textfield",
+      "default": "",
+      "sectionCaption": "Filter by date"
+    },
+    "includeEngagementMetrics": {
+      "title": "Include engagement rate + posting cadence",
+      "type": "boolean",
+      "description": "On profile and hashtag runs, compute avg likes per post, avg comments per post, engagement rate as a percentage of followers, and posts per week. Built in. No extra cost.",
+      "default": true,
+      "sectionCaption": "Smart analytics"
+    },
+    "detectSponsoredPosts": {
+      "title": "Flag sponsored and paid partnership posts",
+      "type": "boolean",
+      "description": "Mark each post with isSponsored true or false based on #ad, #sponsored, #paidpartnership, Instagram's paid partnership label, and brand tag patterns. Built in. No extra cost.",
+      "default": true
+    },
+    "downloadMedia": {
+      "title": "Download images and videos",
+      "type": "boolean",
+      "description": "Save every image and video to the key value store and include a downloadUrl per post. Adds storage cost.",
+      "default": false,
+      "sectionCaption": "Media download"
+    },
+    "scrapeCommentsPerPost": {
+      "title": "Also scrape top comments per post",
+      "type": "integer",
+      "description": "Pull the top N comments from each post or reel in the run. 0 disables. Only runs for posts and reels content types.",
+      "default": 0,
+      "minimum": 0,
+      "maximum": 200,
+      "sectionCaption": "Extras"
+    },
+    "includeMediaMetadata": {
+      "title": "Include image dimensions, alt text, and location",
+      "type": "boolean",
+      "description": "Enrich each row with width, height, alt text (accessibility caption), and tagged location when available.",
+      "default": true
+    },
+    "dedupe": {
+      "title": "Deduplicate across runs",
+      "type": "boolean",
+      "description": "Skip post and profile IDs already pushed in previous runs. Turn off to refresh counts on the same items. Off by default so a repeated query returns its full result set. Turn it on to poll for new items only.",
+      "default": false,
+      "sectionCaption": "Run options"
+    },
+    "maxItemsTotal": {
+      "title": "Max items per run",
+      "type": "integer",
+      "description": "Hard cap across all URLs and queries. Controls total cost.",
+      "default": 500,
+      "minimum": 1,
+      "maximum": 50000
+    },
+    "proxyConfiguration": {
+      "title": "Proxy configuration",
+      "type": "object",
+      "description": "Apify proxy. Residential strongly recommended. Instagram blocks datacenter IPs aggressively.",
+      "editor": "proxy",
+      "prefill": {
+        "useApifyProxy": true,
+        "apifyProxyGroups": [
+          "RESIDENTIAL"
+        ]
+      },
+      "default": {
+        "useApifyProxy": true,
+        "apifyProxyGroups": [
+          "RESIDENTIAL"
+        ]
+      }
+    }
+  },
+  "required": []
 }

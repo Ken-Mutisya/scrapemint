@@ -107,8 +107,14 @@ const {
     detectEasyApply = true,
     detectRemoteHybrid = true,
     followApplyRedirect = false,
+    // Defaults to false. This is a search tool, not a monitor: a buyer who
+    // repeats a query wants the full result set again, and the dedupe key is an
+    // immutable id, so `true` suppressed each item permanently after its first
+    // appearance. Verified 2026-08-11 by re-running each actor on its own
+    // prefill against a warm store. Set it to true deliberately to poll for
+    // new items only, accepting that a run finding nothing new returns no rows.
 
-    dedupe = true,
+    dedupe = false,
     concurrency = 4,
     proxyConfiguration: proxyInput,
 } = input;

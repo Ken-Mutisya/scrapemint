@@ -1,126 +1,173 @@
 {
-    "title": "LinkedIn Hiring Tracker Input",
-    "type": "object",
-    "schemaVersion": 1,
-    "description": "Track LinkedIn jobs with parsed salary, tech stack, and seniority. Enter keywords, pick a location, filter by experience and date, and run.",
-    "properties": {
-        "keywords": {
-            "title": "Keywords",
-            "type": "array",
-            "description": "One or more job search queries. Each query runs as a separate search. Examples: 'software engineer', 'product manager', 'data scientist'.",
-            "editor": "stringList",
-            "prefill": ["software engineer"],
-            "default": []
-        },
-        "locations": {
-            "title": "Locations",
-            "type": "array",
-            "description": "Locations to filter. Each location combines with each keyword. Use the spelling LinkedIn accepts, e.g. 'United States', 'London, United Kingdom', 'Remote'. Leave empty for worldwide.",
-            "editor": "stringList",
-            "prefill": ["United States"],
-            "default": []
-        },
-        "experienceLevel": {
-            "title": "Experience level",
-            "type": "string",
-            "description": "Filter by seniority as LinkedIn defines it. Leave blank for any.",
-            "editor": "select",
-            "enum": ["", "internship", "entry", "associate", "mid-senior", "director", "executive"],
-            "enumTitles": [
-                "Any",
-                "Internship",
-                "Entry level",
-                "Associate",
-                "Mid-Senior level",
-                "Director",
-                "Executive"
-            ],
-            "default": ""
-        },
-        "jobType": {
-            "title": "Job type",
-            "type": "string",
-            "description": "Employment type. Leave blank for any.",
-            "editor": "select",
-            "enum": ["", "full-time", "part-time", "contract", "temporary", "volunteer", "internship", "other"],
-            "enumTitles": [
-                "Any",
-                "Full-time",
-                "Part-time",
-                "Contract",
-                "Temporary",
-                "Volunteer",
-                "Internship",
-                "Other"
-            ],
-            "default": ""
-        },
-        "remoteFilter": {
-            "title": "Remote filter",
-            "type": "string",
-            "description": "Restrict to on-site, remote, or hybrid roles.",
-            "editor": "select",
-            "enum": ["", "onsite", "remote", "hybrid"],
-            "enumTitles": ["Any", "Onsite", "Remote", "Hybrid"],
-            "default": ""
-        },
-        "postedSince": {
-            "title": "Posted since",
-            "type": "string",
-            "description": "Only include jobs posted within this window.",
-            "editor": "select",
-            "enum": ["", "1d", "1w", "1m"],
-            "enumTitles": ["Any time", "Past 24 hours", "Past week", "Past month"],
-            "default": ""
-        },
-        "maxResults": {
-            "title": "Max results",
-            "type": "integer",
-            "description": "Hard cap on jobs returned across all queries. LinkedIn exposes about 1000 results per search.",
-            "default": 100,
-            "minimum": 1,
-            "maximum": 1000
-        },
-        "parseSalary": {
-            "title": "Parse salary from description",
-            "type": "boolean",
-            "description": "Extract salary range, currency, and period (annual, hourly, monthly) from the job description text. LinkedIn does not expose a structured salary field for most jobs. Built in. No extra cost.",
-            "default": true,
-            "sectionCaption": "Smart signals"
-        },
-        "extractTechStack": {
-            "title": "Extract tech stack",
-            "type": "boolean",
-            "description": "Scan the description for 120 common languages, frameworks, cloud services, and tools. Returns a deduped lowercase array. Built in. No extra cost.",
-            "default": true
-        },
-        "classifySeniority": {
-            "title": "Classify seniority tier from title",
-            "type": "boolean",
-            "description": "Map the job title to an intern, entry, mid, senior, staff, lead, manager, director, vp, or c-suite bucket. Useful for comp benchmarking across noisy LinkedIn labels. Built in. No extra cost.",
-            "default": true
-        },
-        "dedupe": {
-            "title": "Deduplicate across runs",
-            "type": "boolean",
-            "description": "Skip job IDs already pushed in previous runs. Turn off to refresh stale rows.",
-            "default": true,
-            "sectionCaption": "Run options"
-        },
-        "proxyConfiguration": {
-            "title": "Proxy configuration",
-            "type": "object",
-            "description": "Apify proxy. Datacenter works for LinkedIn guest endpoints at low volume. Use residential for runs above a few hundred jobs.",
-            "editor": "proxy",
-            "prefill": {
-                "useApifyProxy": true,
-                "apifyProxyGroups": ["RESIDENTIAL"]
-            },
-            "default": {
-                "useApifyProxy": true,
-                "apifyProxyGroups": ["RESIDENTIAL"]
-            }
-        }
+  "title": "LinkedIn Hiring Tracker Input",
+  "type": "object",
+  "schemaVersion": 1,
+  "description": "Track LinkedIn jobs with parsed salary, tech stack, and seniority. Enter keywords, pick a location, filter by experience and date, and run.",
+  "properties": {
+    "keywords": {
+      "title": "Keywords",
+      "type": "array",
+      "description": "One or more job search queries. Each query runs as a separate search. Examples: 'software engineer', 'product manager', 'data scientist'.",
+      "editor": "stringList",
+      "prefill": [
+        "software engineer"
+      ],
+      "default": []
     },
-    "required": ["keywords"]
+    "locations": {
+      "title": "Locations",
+      "type": "array",
+      "description": "Locations to filter. Each location combines with each keyword. Use the spelling LinkedIn accepts, e.g. 'United States', 'London, United Kingdom', 'Remote'. Leave empty for worldwide.",
+      "editor": "stringList",
+      "prefill": [
+        "United States"
+      ],
+      "default": []
+    },
+    "experienceLevel": {
+      "title": "Experience level",
+      "type": "string",
+      "description": "Filter by seniority as LinkedIn defines it. Leave blank for any.",
+      "editor": "select",
+      "enum": [
+        "",
+        "internship",
+        "entry",
+        "associate",
+        "mid-senior",
+        "director",
+        "executive"
+      ],
+      "enumTitles": [
+        "Any",
+        "Internship",
+        "Entry level",
+        "Associate",
+        "Mid-Senior level",
+        "Director",
+        "Executive"
+      ],
+      "default": ""
+    },
+    "jobType": {
+      "title": "Job type",
+      "type": "string",
+      "description": "Employment type. Leave blank for any.",
+      "editor": "select",
+      "enum": [
+        "",
+        "full-time",
+        "part-time",
+        "contract",
+        "temporary",
+        "volunteer",
+        "internship",
+        "other"
+      ],
+      "enumTitles": [
+        "Any",
+        "Full-time",
+        "Part-time",
+        "Contract",
+        "Temporary",
+        "Volunteer",
+        "Internship",
+        "Other"
+      ],
+      "default": ""
+    },
+    "remoteFilter": {
+      "title": "Remote filter",
+      "type": "string",
+      "description": "Restrict to on-site, remote, or hybrid roles.",
+      "editor": "select",
+      "enum": [
+        "",
+        "onsite",
+        "remote",
+        "hybrid"
+      ],
+      "enumTitles": [
+        "Any",
+        "Onsite",
+        "Remote",
+        "Hybrid"
+      ],
+      "default": ""
+    },
+    "postedSince": {
+      "title": "Posted since",
+      "type": "string",
+      "description": "Only include jobs posted within this window.",
+      "editor": "select",
+      "enum": [
+        "",
+        "1d",
+        "1w",
+        "1m"
+      ],
+      "enumTitles": [
+        "Any time",
+        "Past 24 hours",
+        "Past week",
+        "Past month"
+      ],
+      "default": ""
+    },
+    "maxResults": {
+      "title": "Max results",
+      "type": "integer",
+      "description": "Hard cap on jobs returned across all queries. LinkedIn exposes about 1000 results per search.",
+      "default": 100,
+      "minimum": 1,
+      "maximum": 1000
+    },
+    "parseSalary": {
+      "title": "Parse salary from description",
+      "type": "boolean",
+      "description": "Extract salary range, currency, and period (annual, hourly, monthly) from the job description text. LinkedIn does not expose a structured salary field for most jobs. Built in. No extra cost.",
+      "default": true,
+      "sectionCaption": "Smart signals"
+    },
+    "extractTechStack": {
+      "title": "Extract tech stack",
+      "type": "boolean",
+      "description": "Scan the description for 120 common languages, frameworks, cloud services, and tools. Returns a deduped lowercase array. Built in. No extra cost.",
+      "default": true
+    },
+    "classifySeniority": {
+      "title": "Classify seniority tier from title",
+      "type": "boolean",
+      "description": "Map the job title to an intern, entry, mid, senior, staff, lead, manager, director, vp, or c-suite bucket. Useful for comp benchmarking across noisy LinkedIn labels. Built in. No extra cost.",
+      "default": true
+    },
+    "dedupe": {
+      "title": "Deduplicate across runs",
+      "type": "boolean",
+      "description": "Skip job IDs already pushed in previous runs. Turn off to refresh stale rows. Off by default so a repeated query returns its full result set. Turn it on to poll for new items only.",
+      "default": false,
+      "sectionCaption": "Run options"
+    },
+    "proxyConfiguration": {
+      "title": "Proxy configuration",
+      "type": "object",
+      "description": "Apify proxy. Datacenter works for LinkedIn guest endpoints at low volume. Use residential for runs above a few hundred jobs.",
+      "editor": "proxy",
+      "prefill": {
+        "useApifyProxy": true,
+        "apifyProxyGroups": [
+          "RESIDENTIAL"
+        ]
+      },
+      "default": {
+        "useApifyProxy": true,
+        "apifyProxyGroups": [
+          "RESIDENTIAL"
+        ]
+      }
+    }
+  },
+  "required": [
+    "keywords"
+  ]
 }

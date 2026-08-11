@@ -195,8 +195,8 @@
     "dedupe": {
       "title": "Deduplicate across runs",
       "type": "boolean",
-      "description": "Skip PMIDs and NCT IDs already pushed in previous runs. Use for daily incremental scrapes. Turn off to refresh stale rows.",
-      "default": true,
+      "description": "Skip PMIDs and NCT IDs already pushed in previous runs. Use for daily incremental scrapes. Turn off to refresh stale rows. Off by default so a repeated query returns its full result set. Turn it on to poll for new items only.",
+      "default": false,
       "sectionCaption": "Run options"
     },
     "navigationDelayMs": {

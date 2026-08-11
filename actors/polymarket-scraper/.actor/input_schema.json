@@ -208,8 +208,8 @@
     "dedupe": {
       "title": "Deduplicate across runs",
       "type": "boolean",
-      "description": "Skip condition IDs already pushed in previous runs. Persisted in a key value store. Turn off to refresh.",
-      "default": true,
+      "description": "Skip condition IDs already pushed in previous runs. Persisted in a key value store. Turn off to refresh. Off by default so a repeated query returns its full result set. Turn it on to poll for new items only.",
+      "default": false,
       "sectionCaption": "Run options"
     },
     "concurrency": {
