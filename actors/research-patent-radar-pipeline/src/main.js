@@ -26,6 +26,13 @@ import { Actor, log } from 'apify';
 
 const FREE_TIER_COMMERCIALIZING = 1;
 
+// Declared up here on purpose. The scoring loop below is top level and calls
+// runPapers() before this point in the file; `const` is not hoisted the way a
+// function declaration is, so declaring it down beside runPapers put it in the
+// temporal dead zone and every topic failed with "Cannot access 'OPENALEX'
+// before initialization". `node --check` does not catch that, only a real run.
+const OPENALEX = 'https://api.openalex.org/works';
+
 await Actor.init();
 
 const input = (await Actor.getInput()) ?? {};
@@ -130,7 +137,6 @@ await Actor.exit();
 // serves keyless over plain HTTP. Sorting by citations, not date, is kept from
 // the old call: date-sorted recent papers are all uncited, which zeroes out the
 // citation signal this pipeline scores on.
-const OPENALEX = 'https://api.openalex.org/works';
 
 async function runPapers(topic) {
     const perPage = Math.max(5, Math.min(40, Number(papersPerTopic) || 15));
