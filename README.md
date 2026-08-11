@@ -79,7 +79,6 @@ flowchart LR
 
 ### Research, jobs & dev
 
-- [Google Scholar Intelligence: Papers, Citations, BibTeX](https://apify.com/scrapemint/google-scholar-scraper) ([source](https://github.com/Ken-Mutisya/google-scholar-scraper))
 - [Google Patents Intelligence: Claims, Citations, Family Tree](https://apify.com/scrapemint/google-patents-scraper) ([source](https://github.com/Ken-Mutisya/google-patents-scraper))
 - [Pharma Research & Clinical Trial Monitor](https://apify.com/scrapemint/pubmed-clinical-trials-intelligence)
 - [Research to Patent Commercialization Radar](https://apify.com/scrapemint/research-patent-radar-pipeline)
