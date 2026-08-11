@@ -97,7 +97,6 @@ flowchart LR
 - [TripAdvisor Travel Intelligence: Hotels and More](https://apify.com/scrapemint/tripadvisor-scraper)
 - [TripAdvisor Property Rank & Competitor Benchmark Tracker](https://apify.com/scrapemint/tripadvisor-property-rank-tracker)
 - [Viator Tours Intelligence: Activities, Prices, Reviews](https://apify.com/scrapemint/viator-tours-tracker)
-- [Ecommerce Intelligence Pro: Multi Marketplace Product Monitor](https://apify.com/scrapemint/ecommerce-scraper)
 - [Marketplace Arbitrage Radar, Local Resale Deal Intelligence](https://apify.com/scrapemint/facebook-marketplace-deal-finder)
 
 ### Web utilities

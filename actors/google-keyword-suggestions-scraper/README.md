@@ -46,7 +46,6 @@ YouTube content research:
 - Keyword research: long tail queries that keyword tools miss or charge for
 - Content planning: the `question:` rows are ready made article and FAQ topics
 - YouTube video research with `source: youtube`
-- Pairs with the [Google Trends Scraper](https://apify.com/scrapemint/google-trends-scraper): suggestions from this Actor in, interest timelines and rising queries from Trends out
 
 ## Pricing
 

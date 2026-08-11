@@ -1,9 +1,0 @@
-{
-    "keywords": ["web scraping"],
-    "geo": "US",
-    "timeRange": "today 12-m",
-    "dataTypes": ["interestOverTime", "interestByRegion", "relatedQueries"],
-    "maxRegionsPerKeyword": 10,
-    "maxRelatedPerKeyword": 10,
-    "maxRows": 50
-}

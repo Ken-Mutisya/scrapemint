@@ -67,5 +67,4 @@ curl -X POST "https://api.apify.com/v2/acts/scrapemint~stackoverflow-scraper/run
 ## More tools from Scrapemint
 
 - [GitHub Repo Stats](https://apify.com/scrapemint/github-repo-stats): stars, forks and metadata for repos in bulk.
-- [Google Trends Scraper](https://apify.com/scrapemint/google-trends-scraper): search interest over time for any topic.
 - [Website Content Scraper](https://apify.com/scrapemint/website-content-scraper): clean text from any page.

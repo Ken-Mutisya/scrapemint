@@ -2,7 +2,7 @@
 
 Wikipedia is where the world goes to look things up, and its view counts are public, real numbers, not an index. This actor pulls the daily most-viewed articles for any country or language edition (up to 1000 ranks), and daily view histories for any list of articles. Straight from Wikimedia's official pageviews API. No login, no API key, no subscription.
 
-Google Trends tells you a topic is rising on a 0 to 100 scale. Wikipedia tells you how many people actually looked it up, per day, per country. Together they are a complete attention dataset; pair this with the [Google Trends Scraper](https://apify.com/scrapemint/google-trends-scraper) and [Google News Scraper](https://apify.com/scrapemint/google-news-scraper).
+Google Trends tells you a topic is rising on a 0 to 100 scale. Wikipedia tells you how many people actually looked it up, per day, per country. Together they are a complete attention dataset; pair this with the [Google News Scraper](https://apify.com/scrapemint/google-news-scraper).
 
 ## What you get
 
