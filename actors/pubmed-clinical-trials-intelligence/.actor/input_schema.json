@@ -1,208 +1,211 @@
 {
-    "title": "Pharma Research & Clinical Trial Monitor Input",
-    "type": "object",
-    "schemaVersion": 1,
-    "description": "Pull PubMed papers and ClinicalTrials.gov studies at scale. Mix queries, PMIDs, and NCT IDs in one run. Each record ships as a normalized row with optional citation enrichment.",
-    "properties": {
-        "pubmedQueries": {
-            "title": "PubMed search queries",
-            "type": "array",
-            "description": "Free text or PubMed Entrez queries. Supports MeSH and field tags: \"breast cancer\"[MeSH], pembrolizumab[Title], 2024[PDAT]. Example: [\"GLP-1 receptor agonist obesity\", \"CRISPR sickle cell\"].",
-            "editor": "stringList",
-            "default": [],
-            "sectionCaption": "What to scrape",
-            "sectionDescription": "Provide at least one of: pubmedQueries, clinicalTrialsQueries, pmids, or nctIds."
-        },
-        "clinicalTrialsQueries": {
-            "title": "ClinicalTrials.gov search queries",
-            "type": "array",
-            "description": "Free text queries against ClinicalTrials.gov. Matches title, conditions, interventions, and sponsor fields. Example: [\"alzheimer monoclonal antibody\", \"pediatric ADHD\"].",
-            "editor": "stringList",
-            "default": []
-        },
-        "pmids": {
-            "title": "Direct PubMed IDs",
-            "type": "array",
-            "description": "PMIDs to fetch directly. Skips search, enriches each one with full abstract, authors, MeSH terms, and references. Example: [\"38523054\", \"39122189\"].",
-            "editor": "stringList",
-            "default": []
-        },
-        "nctIds": {
-            "title": "Direct NCT IDs",
-            "type": "array",
-            "description": "ClinicalTrials.gov NCT numbers to fetch directly. Example: [\"NCT05123456\", \"NCT04999111\"].",
-            "editor": "stringList",
-            "default": []
-        },
-        "dateFrom": {
-            "title": "Published or updated from",
-            "type": "string",
-            "description": "ISO date (YYYY-MM-DD). For PubMed: publication date lower bound. For ClinicalTrials.gov: lastUpdatePostDate lower bound. Empty means no bound.",
-            "editor": "textfield",
-            "default": "",
-            "sectionCaption": "Filters",
-            "sectionDescription": "All filters apply to query searches. Direct PMID and NCT ID lookups return everything."
-        },
-        "dateTo": {
-            "title": "Published or updated until",
-            "type": "string",
-            "description": "ISO date (YYYY-MM-DD). Upper bound. Empty means no bound.",
-            "editor": "textfield",
-            "default": ""
-        },
-        "publicationTypes": {
-            "title": "PubMed publication types",
-            "type": "array",
-            "description": "Restrict PubMed to specific publication types. Common: Clinical Trial, Randomized Controlled Trial, Meta-Analysis, Systematic Review, Review.",
-            "editor": "stringList",
-            "default": []
-        },
-        "studyStatus": {
-            "title": "ClinicalTrials.gov status filter",
-            "type": "array",
-            "description": "Restrict trials to specific recruitment statuses. Empty means all statuses.",
-            "editor": "select",
-            "items": {
-                "type": "string",
-                "enum": [
-                    "RECRUITING",
-                    "NOT_YET_RECRUITING",
-                    "ACTIVE_NOT_RECRUITING",
-                    "COMPLETED",
-                    "TERMINATED",
-                    "WITHDRAWN",
-                    "SUSPENDED",
-                    "ENROLLING_BY_INVITATION"
-                ],
-                "enumTitles": [
-                    "Recruiting",
-                    "Not yet recruiting",
-                    "Active, not recruiting",
-                    "Completed",
-                    "Terminated",
-                    "Withdrawn",
-                    "Suspended",
-                    "Enrolling by invitation"
-                ]
-            },
-            "default": []
-        },
-        "phases": {
-            "title": "Trial phases",
-            "type": "array",
-            "description": "Restrict trials to specific phases. Empty means all phases.",
-            "editor": "select",
-            "items": {
-                "type": "string",
-                "enum": [
-                    "EARLY_PHASE1",
-                    "PHASE1",
-                    "PHASE2",
-                    "PHASE3",
-                    "PHASE4",
-                    "NA"
-                ],
-                "enumTitles": [
-                    "Early Phase 1",
-                    "Phase 1",
-                    "Phase 2",
-                    "Phase 3",
-                    "Phase 4",
-                    "Not applicable"
-                ]
-            },
-            "default": []
-        },
-        "studyTypes": {
-            "title": "Trial study types",
-            "type": "array",
-            "description": "Restrict trials to specific study types. Empty means all study types.",
-            "editor": "select",
-            "items": {
-                "type": "string",
-                "enum": [
-                    "INTERVENTIONAL",
-                    "OBSERVATIONAL",
-                    "EXPANDED_ACCESS"
-                ],
-                "enumTitles": [
-                    "Interventional",
-                    "Observational",
-                    "Expanded access"
-                ]
-            },
-            "default": []
-        },
-        "fetchAbstracts": {
-            "title": "Include full abstracts",
-            "type": "boolean",
-            "description": "Include the full abstract text in each PubMed row. Adds one extra efetch call per query batch. On by default since abstracts are the most valuable field.",
-            "default": true,
-            "sectionCaption": "Enrichment",
-            "sectionDescription": "Each enrichment toggle adds requests. Use with maxRecords to bound cost."
-        },
-        "fetchMeshTerms": {
-            "title": "Include MeSH terms",
-            "type": "boolean",
-            "description": "Parse Medical Subject Heading terms from the PubMed XML record. Useful for topic clustering and indexing.",
-            "default": true
-        },
-        "fetchReferences": {
-            "title": "Include references and cited by",
-            "type": "boolean",
-            "description": "For each PubMed paper, pull the reference list and citing PMIDs from NCBI ELink. Adds two extra requests per paper. Best with maxRecords <= 500.",
-            "default": false
-        },
-        "fetchTrialResults": {
-            "title": "Include trial results when available",
-            "type": "boolean",
-            "description": "Include posted results (primary outcomes, adverse events) for completed trials. Only ~30% of trials post results. Adds the resultsSection field per row.",
-            "default": true
-        },
-        "maxRecords": {
-            "title": "Max records per run",
-            "type": "integer",
-            "description": "Hard cap on total rows pushed (PubMed papers + clinical trials combined). 0 means unlimited.",
-            "default": 200,
-            "minimum": 0,
-            "maximum": 100000
-        },
-        "maxPerQuery": {
-            "title": "Max records per query",
-            "type": "integer",
-            "description": "Cap per individual query before moving to the next. Stops one broad query from eating the entire budget.",
-            "default": 100,
-            "minimum": 1,
-            "maximum": 10000
-        },
-        "ncbiApiKey": {
-            "title": "NCBI API key (optional)",
-            "type": "string",
-            "description": "Free NCBI API key from https://www.ncbi.nlm.nih.gov/account. Without a key: 3 PubMed requests per second. With a key: 10 per second. Recommended for runs over 500 records.",
-            "editor": "textfield",
-            "isSecret": true
-        },
-        "email": {
-            "title": "Contact email (optional)",
-            "type": "string",
-            "description": "NCBI requests an identifying email for E-utilities calls. Used in the User-Agent. No marketing.",
-            "editor": "textfield",
-            "default": ""
-        },
-        "dedupe": {
-            "title": "Deduplicate across runs",
-            "type": "boolean",
-            "description": "Skip PMIDs and NCT IDs already pushed in previous runs. Use for daily incremental scrapes. Turn off to refresh stale rows.",
-            "default": true,
-            "sectionCaption": "Run options"
-        },
-        "navigationDelayMs": {
-            "title": "Delay between requests (ms)",
-            "type": "integer",
-            "description": "Pause between API calls. NCBI rate limits at 3 per second without a key. Default of 350 ms keeps you well under the limit.",
-            "default": 350,
-            "minimum": 0,
-            "maximum": 10000
-        }
+  "title": "Pharma Research & Clinical Trial Monitor Input",
+  "type": "object",
+  "schemaVersion": 1,
+  "description": "Pull PubMed papers and ClinicalTrials.gov studies at scale. Mix queries, PMIDs, and NCT IDs in one run. Each record ships as a normalized row with optional citation enrichment.",
+  "properties": {
+    "pubmedQueries": {
+      "title": "PubMed search queries",
+      "type": "array",
+      "description": "Free text or PubMed Entrez queries. Supports MeSH and field tags: \"breast cancer\"[MeSH], pembrolizumab[Title], 2024[PDAT]. Example: [\"GLP-1 receptor agonist obesity\", \"CRISPR sickle cell\"].",
+      "editor": "stringList",
+      "default": [],
+      "sectionCaption": "What to scrape",
+      "sectionDescription": "Provide at least one of: pubmedQueries, clinicalTrialsQueries, pmids, or nctIds.",
+      "prefill": [
+        "semaglutide obesity"
+      ]
+    },
+    "clinicalTrialsQueries": {
+      "title": "ClinicalTrials.gov search queries",
+      "type": "array",
+      "description": "Free text queries against ClinicalTrials.gov. Matches title, conditions, interventions, and sponsor fields. Example: [\"alzheimer monoclonal antibody\", \"pediatric ADHD\"].",
+      "editor": "stringList",
+      "default": []
+    },
+    "pmids": {
+      "title": "Direct PubMed IDs",
+      "type": "array",
+      "description": "PMIDs to fetch directly. Skips search, enriches each one with full abstract, authors, MeSH terms, and references. Example: [\"38523054\", \"39122189\"].",
+      "editor": "stringList",
+      "default": []
+    },
+    "nctIds": {
+      "title": "Direct NCT IDs",
+      "type": "array",
+      "description": "ClinicalTrials.gov NCT numbers to fetch directly. Example: [\"NCT05123456\", \"NCT04999111\"].",
+      "editor": "stringList",
+      "default": []
+    },
+    "dateFrom": {
+      "title": "Published or updated from",
+      "type": "string",
+      "description": "ISO date (YYYY-MM-DD). For PubMed: publication date lower bound. For ClinicalTrials.gov: lastUpdatePostDate lower bound. Empty means no bound.",
+      "editor": "textfield",
+      "default": "",
+      "sectionCaption": "Filters",
+      "sectionDescription": "All filters apply to query searches. Direct PMID and NCT ID lookups return everything."
+    },
+    "dateTo": {
+      "title": "Published or updated until",
+      "type": "string",
+      "description": "ISO date (YYYY-MM-DD). Upper bound. Empty means no bound.",
+      "editor": "textfield",
+      "default": ""
+    },
+    "publicationTypes": {
+      "title": "PubMed publication types",
+      "type": "array",
+      "description": "Restrict PubMed to specific publication types. Common: Clinical Trial, Randomized Controlled Trial, Meta-Analysis, Systematic Review, Review.",
+      "editor": "stringList",
+      "default": []
+    },
+    "studyStatus": {
+      "title": "ClinicalTrials.gov status filter",
+      "type": "array",
+      "description": "Restrict trials to specific recruitment statuses. Empty means all statuses.",
+      "editor": "select",
+      "items": {
+        "type": "string",
+        "enum": [
+          "RECRUITING",
+          "NOT_YET_RECRUITING",
+          "ACTIVE_NOT_RECRUITING",
+          "COMPLETED",
+          "TERMINATED",
+          "WITHDRAWN",
+          "SUSPENDED",
+          "ENROLLING_BY_INVITATION"
+        ],
+        "enumTitles": [
+          "Recruiting",
+          "Not yet recruiting",
+          "Active, not recruiting",
+          "Completed",
+          "Terminated",
+          "Withdrawn",
+          "Suspended",
+          "Enrolling by invitation"
+        ]
+      },
+      "default": []
+    },
+    "phases": {
+      "title": "Trial phases",
+      "type": "array",
+      "description": "Restrict trials to specific phases. Empty means all phases.",
+      "editor": "select",
+      "items": {
+        "type": "string",
+        "enum": [
+          "EARLY_PHASE1",
+          "PHASE1",
+          "PHASE2",
+          "PHASE3",
+          "PHASE4",
+          "NA"
+        ],
+        "enumTitles": [
+          "Early Phase 1",
+          "Phase 1",
+          "Phase 2",
+          "Phase 3",
+          "Phase 4",
+          "Not applicable"
+        ]
+      },
+      "default": []
+    },
+    "studyTypes": {
+      "title": "Trial study types",
+      "type": "array",
+      "description": "Restrict trials to specific study types. Empty means all study types.",
+      "editor": "select",
+      "items": {
+        "type": "string",
+        "enum": [
+          "INTERVENTIONAL",
+          "OBSERVATIONAL",
+          "EXPANDED_ACCESS"
+        ],
+        "enumTitles": [
+          "Interventional",
+          "Observational",
+          "Expanded access"
+        ]
+      },
+      "default": []
+    },
+    "fetchAbstracts": {
+      "title": "Include full abstracts",
+      "type": "boolean",
+      "description": "Include the full abstract text in each PubMed row. Adds one extra efetch call per query batch. On by default since abstracts are the most valuable field.",
+      "default": true,
+      "sectionCaption": "Enrichment",
+      "sectionDescription": "Each enrichment toggle adds requests. Use with maxRecords to bound cost."
+    },
+    "fetchMeshTerms": {
+      "title": "Include MeSH terms",
+      "type": "boolean",
+      "description": "Parse Medical Subject Heading terms from the PubMed XML record. Useful for topic clustering and indexing.",
+      "default": true
+    },
+    "fetchReferences": {
+      "title": "Include references and cited by",
+      "type": "boolean",
+      "description": "For each PubMed paper, pull the reference list and citing PMIDs from NCBI ELink. Adds two extra requests per paper. Best with maxRecords <= 500.",
+      "default": false
+    },
+    "fetchTrialResults": {
+      "title": "Include trial results when available",
+      "type": "boolean",
+      "description": "Include posted results (primary outcomes, adverse events) for completed trials. Only ~30% of trials post results. Adds the resultsSection field per row.",
+      "default": true
+    },
+    "maxRecords": {
+      "title": "Max records per run",
+      "type": "integer",
+      "description": "Hard cap on total rows pushed (PubMed papers + clinical trials combined). 0 means unlimited.",
+      "default": 200,
+      "minimum": 0,
+      "maximum": 100000
+    },
+    "maxPerQuery": {
+      "title": "Max records per query",
+      "type": "integer",
+      "description": "Cap per individual query before moving to the next. Stops one broad query from eating the entire budget.",
+      "default": 100,
+      "minimum": 1,
+      "maximum": 10000
+    },
+    "ncbiApiKey": {
+      "title": "NCBI API key (optional)",
+      "type": "string",
+      "description": "Free NCBI API key from https://www.ncbi.nlm.nih.gov/account. Without a key: 3 PubMed requests per second. With a key: 10 per second. Recommended for runs over 500 records.",
+      "editor": "textfield",
+      "isSecret": true
+    },
+    "email": {
+      "title": "Contact email (optional)",
+      "type": "string",
+      "description": "NCBI requests an identifying email for E-utilities calls. Used in the User-Agent. No marketing.",
+      "editor": "textfield",
+      "default": ""
+    },
+    "dedupe": {
+      "title": "Deduplicate across runs",
+      "type": "boolean",
+      "description": "Skip PMIDs and NCT IDs already pushed in previous runs. Use for daily incremental scrapes. Turn off to refresh stale rows.",
+      "default": true,
+      "sectionCaption": "Run options"
+    },
+    "navigationDelayMs": {
+      "title": "Delay between requests (ms)",
+      "type": "integer",
+      "description": "Pause between API calls. NCBI rate limits at 3 per second without a key. Default of 350 ms keeps you well under the limit.",
+      "default": 350,
+      "minimum": 0,
+      "maximum": 10000
     }
+  }
 }

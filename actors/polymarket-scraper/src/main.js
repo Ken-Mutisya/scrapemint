@@ -204,16 +204,26 @@ await Actor.exit();
 
 // ---------- Network ----------
 
+// Polymarket answers fine from Apify datacenter IPs, so the default path uses a
+// plain fetch and never touches a proxy. This used to destructure
+// HttpsProxyAgent from a package that is not a dependency, so the name came back
+// undefined and `new undefined()` threw "HttpsProxyAgent is not a constructor"
+// on EVERY request. With proxy defaulted on in the schema, that meant every run
+// on default input returned zero rows (found 2026-08-11; 36 users, 140 runs/30d).
+// Native fetch also ignores `agent` outright: a proxy needs an undici dispatcher.
+// If a proxy is requested but no dispatcher can be built, warn and keep going
+// unproxied rather than failing every request.
 async function buildProxiedFetch(proxy) {
     if (!proxy) return (url, opts) => fetch(url, opts);
-    let HttpsProxyAgent;
-    try { ({ HttpsProxyAgent } = await import('https-proxy-agent')); } catch {
+    let ProxyAgent = null;
+    try { ({ ProxyAgent } = await import('undici')); } catch { /* not installed */ }
+    if (typeof ProxyAgent !== 'function') {
+        log.warning('Proxy requested but no undici ProxyAgent is available; continuing without a proxy.');
         return (url, opts) => fetch(url, opts);
     }
     return async (url, opts = {}) => {
         const proxyUrl = await proxy.newUrl();
-        const agent = new HttpsProxyAgent(proxyUrl);
-        return fetch(url, { ...opts, agent });
+        return fetch(url, { ...opts, dispatcher: new ProxyAgent(proxyUrl) });
     };
 }
 
