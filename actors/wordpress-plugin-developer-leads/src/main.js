@@ -36,7 +36,7 @@ const {
     keywords = [],
     type = 'plugins',
     browse = '',
-    maxLeads = 200,
+    maxLeads = 25,
     maxPerKeyword = 100,
     minInstalls = 0,
     qualifiedMinInstalls = 1000,

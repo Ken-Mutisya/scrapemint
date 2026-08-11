@@ -29,7 +29,7 @@ const input = (await Actor.getInput()) ?? {};
 const {
     keywords = [],
     country = 'US',
-    maxLeads = 200,
+    maxLeads = 25,
     maxPerKeyword = 100,
     minEpisodes = 0,
     activeSinceDays = 0,

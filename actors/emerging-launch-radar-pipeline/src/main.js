@@ -37,7 +37,7 @@ const {
     hnMaxAgeHours = 168,
     minStarsInPeriod = 10,
     minHnPoints = 10,
-    maxItemsPerSource = 150,
+    maxItemsPerSource = 30,
     includeDomainEnrichment = false,
     includeProductHunt = false,
     productHuntToken = '',

@@ -30,7 +30,7 @@ const {
     keywords = [],
     remoteOnly = false,
     requireEmail = false,
-    maxLeads = 500,
+    maxLeads = 25,
     concurrency = 10,
 } = input;
 

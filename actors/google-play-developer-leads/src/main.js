@@ -34,7 +34,7 @@ const {
     language = 'en',
     collection = 'TOP_FREE',
     expandSimilar = false,
-    maxApps = 200,
+    maxApps = 25,
     maxAppsPerQuery = 60,
     minInstalls = 0,
     requireEmail = false,

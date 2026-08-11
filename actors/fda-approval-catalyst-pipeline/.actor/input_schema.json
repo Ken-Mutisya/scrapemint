@@ -1,95 +1,116 @@
 {
-    "title": "FDA Approval Catalyst Pipeline Input",
-    "type": "object",
-    "schemaVersion": 1,
-    "description": "For each ticker, correlate recent FDA approvals and clearances with insider open-market buying. Pay per scored event.",
-    "properties": {
-        "tickers": {
-            "title": "Tickers",
-            "type": "array",
-            "description": "Stock tickers to scan. Each is resolved to its company name via the SEC company map, then matched against openFDA sponsor/applicant records.",
-            "editor": "stringList",
-            "prefill": ["PFE", "MRK", "MDT", "ABT", "ISRG"],
-            "default": []
-        },
-        "eventTypes": {
-            "title": "FDA event types",
-            "type": "array",
-            "description": "Which openFDA event types to include. Drug approvals (NDA/BLA), device PMA approvals, and 510(k) clearances.",
-            "editor": "select",
-            "items": {
-                "type": "string",
-                "enum": ["drug_approval", "device_pma", "device_510k"],
-                "enumTitles": ["Drug approvals (NDA/BLA)", "Device PMA approvals", "Device 510(k) clearances"]
-            },
-            "uniqueItems": true,
-            "default": ["drug_approval", "device_pma", "device_510k"]
-        },
-        "maxAgeDays": {
-            "title": "FDA lookback (days)",
-            "type": "integer",
-            "description": "How far back to pull FDA decisions. Default 120 days catches the recent catalyst window.",
-            "default": 120,
-            "minimum": 1,
-            "maximum": 1095
-        },
-        "insiderWindowDays": {
-            "title": "Insider window (days)",
-            "type": "integer",
-            "description": "Days on each side of an FDA decision date to count insider open-market buys and sells.",
-            "default": 30,
-            "minimum": 1,
-            "maximum": 180
-        },
-        "includeInsider": {
-            "title": "Include insider transactions",
-            "type": "boolean",
-            "description": "Pull SEC Form 4 open-market buys and sells and correlate them with each FDA event. Turn off to score FDA events alone.",
-            "default": true
-        },
-        "minScore": {
-            "title": "Minimum score",
-            "type": "integer",
-            "description": "Drop events scoring below this 0 to 100 convergence score. Zero returns every event in range.",
-            "default": 0,
-            "minimum": 0,
-            "maximum": 100
-        },
-        "maxEventsPerCompany": {
-            "title": "Max events per company",
-            "type": "integer",
-            "description": "Cap FDA events pulled per company before scoring.",
-            "default": 25,
-            "minimum": 1,
-            "maximum": 200
-        },
-        "maxEventsTotal": {
-            "title": "Max events total",
-            "type": "integer",
-            "description": "Cap total FDA events scored across all tickers in one run.",
-            "default": 200,
-            "minimum": 1,
-            "maximum": 1000
-        },
-        "userAgent": {
-            "title": "User-Agent (with email)",
-            "type": "string",
-            "description": "SEC EDGAR requires a User-Agent containing a contact email. Example: 'yourname research@yourdomain.com'. Leave blank to use a default.",
-            "editor": "textfield",
-            "default": ""
-        },
-        "proxyConfiguration": {
-            "title": "Proxy configuration",
-            "type": "object",
-            "description": "Apify proxy, passed through to the Form 4 child. openFDA and the EDGAR ticker map are called directly and do not need a proxy.",
-            "editor": "proxy",
-            "prefill": {
-                "useApifyProxy": true
-            },
-            "default": {
-                "useApifyProxy": true
-            }
-        }
+  "title": "FDA Approval Catalyst Pipeline Input",
+  "type": "object",
+  "schemaVersion": 1,
+  "description": "For each ticker, correlate recent FDA approvals and clearances with insider open-market buying. Pay per scored event.",
+  "properties": {
+    "tickers": {
+      "title": "Tickers",
+      "type": "array",
+      "description": "Stock tickers to scan. Each is resolved to its company name via the SEC company map, then matched against openFDA sponsor/applicant records.",
+      "editor": "stringList",
+      "prefill": [
+        "PFE",
+        "MRK",
+        "MDT",
+        "ABT",
+        "ISRG"
+      ],
+      "default": []
     },
-    "required": ["tickers"]
+    "eventTypes": {
+      "title": "FDA event types",
+      "type": "array",
+      "description": "Which openFDA event types to include. Drug approvals (NDA/BLA), device PMA approvals, and 510(k) clearances.",
+      "editor": "select",
+      "items": {
+        "type": "string",
+        "enum": [
+          "drug_approval",
+          "device_pma",
+          "device_510k"
+        ],
+        "enumTitles": [
+          "Drug approvals (NDA/BLA)",
+          "Device PMA approvals",
+          "Device 510(k) clearances"
+        ]
+      },
+      "uniqueItems": true,
+      "default": [
+        "drug_approval",
+        "device_pma",
+        "device_510k"
+      ]
+    },
+    "maxAgeDays": {
+      "title": "FDA lookback (days)",
+      "type": "integer",
+      "description": "How far back to pull FDA decisions. Default 120 days catches the recent catalyst window.",
+      "default": 120,
+      "minimum": 1,
+      "maximum": 1095
+    },
+    "insiderWindowDays": {
+      "title": "Insider window (days)",
+      "type": "integer",
+      "description": "Days on each side of an FDA decision date to count insider open-market buys and sells.",
+      "default": 30,
+      "minimum": 1,
+      "maximum": 180
+    },
+    "includeInsider": {
+      "title": "Include insider transactions",
+      "type": "boolean",
+      "description": "Pull SEC Form 4 open-market buys and sells and correlate them with each FDA event. Turn off to score FDA events alone.",
+      "default": true
+    },
+    "minScore": {
+      "title": "Minimum score",
+      "type": "integer",
+      "description": "Drop events scoring below this 0 to 100 convergence score. Zero returns every event in range.",
+      "default": 0,
+      "minimum": 0,
+      "maximum": 100
+    },
+    "maxEventsPerCompany": {
+      "title": "Max events per company",
+      "type": "integer",
+      "description": "Cap FDA events pulled per company before scoring.",
+      "default": 25,
+      "minimum": 1,
+      "maximum": 200
+    },
+    "maxEventsTotal": {
+      "title": "Max events total",
+      "type": "integer",
+      "description": "Cap total FDA events scored across all tickers in one run. Kept small by default so a first run is cheap; raise it for a full pull.",
+      "default": 40,
+      "minimum": 1,
+      "maximum": 1000,
+      "prefill": 40
+    },
+    "userAgent": {
+      "title": "User-Agent (with email)",
+      "type": "string",
+      "description": "SEC EDGAR requires a User-Agent containing a contact email. Example: 'yourname research@yourdomain.com'. Leave blank to use a default.",
+      "editor": "textfield",
+      "default": ""
+    },
+    "proxyConfiguration": {
+      "title": "Proxy configuration",
+      "type": "object",
+      "description": "Apify proxy, passed through to the Form 4 child. openFDA and the EDGAR ticker map are called directly and do not need a proxy.",
+      "editor": "proxy",
+      "prefill": {
+        "useApifyProxy": true
+      },
+      "default": {
+        "useApifyProxy": true
+      }
+    }
+  },
+  "required": [
+    "tickers"
+  ]
 }

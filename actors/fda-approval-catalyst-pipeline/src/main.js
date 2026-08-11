@@ -45,7 +45,7 @@ const {
     includeInsider = true,
     minScore = 0,
     maxEventsPerCompany = 25,
-    maxEventsTotal = 200,
+    maxEventsTotal = 40,
     userAgent: userAgentInput = '',
     proxyConfiguration: proxyInput,
 } = input;

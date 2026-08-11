@@ -1,98 +1,114 @@
 {
-    "title": "Buyer-Intent Radar Pipeline Input",
-    "type": "object",
-    "schemaVersion": 1,
-    "description": "Sweeps Reddit, Stack Overflow, and Hacker News for people actively expressing a need or buying intent on your topic, scores each lead 0-100, groups by person, and tiers them hot / warm / mention.",
-    "properties": {
-        "keywords": {
-            "title": "Keywords / topics",
-            "type": "array",
-            "description": "Product, category, or competitor terms to search across all three platforms. Examples: [\"crm\", \"project management tool\", \"salesforce alternative\"].",
-            "editor": "stringList",
-            "prefill": ["crm", "project management tool"],
-            "default": [],
-            "sectionCaption": "What to scan"
-        },
-        "subreddits": {
-            "title": "Subreddits (optional)",
-            "type": "array",
-            "description": "Specific subreddits to monitor in addition to the keyword search, without the r/ prefix. Examples: [\"smallbusiness\", \"sales\", \"marketing\"].",
-            "editor": "stringList",
-            "default": []
-        },
-        "stackTags": {
-            "title": "Stack Overflow tags (optional)",
-            "type": "array",
-            "description": "Stack Overflow tags to monitor in addition to the keyword search. Tag-based pulls surface people struggling with a specific technology. Examples: [\"salesforce\", \"hubspot-api\", \"stripe\"].",
-            "editor": "stringList",
-            "default": []
-        },
-        "hnFeeds": {
-            "title": "Hacker News feeds",
-            "type": "array",
-            "description": "Which HN feeds to pull alongside the keyword search. Valid: ask (Ask HN, the strongest intent), show, top, best, new. Default ask.",
-            "editor": "stringList",
-            "default": ["ask"]
-        },
-        "extraIntentKeywords": {
-            "title": "Extra intent phrases (optional)",
-            "type": "array",
-            "description": "Add your own high-intent phrases to the built-in lexicon (looking for, recommend, alternative to, best tool, switching from, pricing, and more). Useful for niche buying language or competitor product names.",
-            "editor": "stringList",
-            "default": [],
-            "sectionCaption": "Tuning"
-        },
-        "includeReddit": {
-            "title": "Include Reddit",
-            "type": "boolean",
-            "description": "Pull Reddit posts (RSS feeds), pre-filtered to intent-bearing language.",
-            "default": true
-        },
-        "includeStackOverflow": {
-            "title": "Include Stack Overflow",
-            "type": "boolean",
-            "description": "Pull Stack Overflow questions (an unanswered question is an active unmet need).",
-            "default": true
-        },
-        "includeHackerNews": {
-            "title": "Include Hacker News",
-            "type": "boolean",
-            "description": "Pull Hacker News Ask/Show/stories matching your keywords.",
-            "default": true
-        },
-        "maxAgeHours": {
-            "title": "Max age (hours)",
-            "type": "integer",
-            "description": "Ignore posts older than this. 168 = one week.",
-            "default": 168,
-            "minimum": 24,
-            "maximum": 2160,
-            "sectionCaption": "Window and thresholds"
-        },
-        "maxItemsPerSource": {
-            "title": "Max items per source",
-            "type": "integer",
-            "description": "Cap on raw items pulled from each platform before scoring. Higher finds more leads but raises the child per-item cost.",
-            "default": 100,
-            "minimum": 20,
-            "maximum": 300
-        },
-        "minIntentScore": {
-            "title": "Minimum intent score",
-            "type": "integer",
-            "description": "A lead scoring below this 0-100 threshold is dropped as noise and never charged. 20 keeps light topical mentions; raise to 40+ for only active buyers.",
-            "default": 20,
-            "minimum": 0,
-            "maximum": 100
-        },
-        "proxyConfiguration": {
-            "title": "Proxy configuration",
-            "type": "object",
-            "description": "Proxy passed through to the child actors. Reddit needs residential; the default is recommended.",
-            "editor": "proxy",
-            "default": { "useApifyProxy": true, "apifyProxyGroups": ["RESIDENTIAL"] },
-            "prefill": { "useApifyProxy": true, "apifyProxyGroups": ["RESIDENTIAL"] }
-        }
+  "title": "Buyer-Intent Radar Pipeline Input",
+  "type": "object",
+  "schemaVersion": 1,
+  "description": "Sweeps Reddit, Stack Overflow, and Hacker News for people actively expressing a need or buying intent on your topic, scores each lead 0-100, groups by person, and tiers them hot / warm / mention.",
+  "properties": {
+    "keywords": {
+      "title": "Keywords / topics",
+      "type": "array",
+      "description": "Product, category, or competitor terms to search across all three platforms. Examples: [\"crm\", \"project management tool\", \"salesforce alternative\"].",
+      "editor": "stringList",
+      "prefill": [
+        "crm",
+        "project management tool"
+      ],
+      "default": [],
+      "sectionCaption": "What to scan"
     },
-    "required": []
+    "subreddits": {
+      "title": "Subreddits (optional)",
+      "type": "array",
+      "description": "Specific subreddits to monitor in addition to the keyword search, without the r/ prefix. Examples: [\"smallbusiness\", \"sales\", \"marketing\"].",
+      "editor": "stringList",
+      "default": []
+    },
+    "stackTags": {
+      "title": "Stack Overflow tags (optional)",
+      "type": "array",
+      "description": "Stack Overflow tags to monitor in addition to the keyword search. Tag-based pulls surface people struggling with a specific technology. Examples: [\"salesforce\", \"hubspot-api\", \"stripe\"].",
+      "editor": "stringList",
+      "default": []
+    },
+    "hnFeeds": {
+      "title": "Hacker News feeds",
+      "type": "array",
+      "description": "Which HN feeds to pull alongside the keyword search. Valid: ask (Ask HN, the strongest intent), show, top, best, new. Default ask.",
+      "editor": "stringList",
+      "default": [
+        "ask"
+      ]
+    },
+    "extraIntentKeywords": {
+      "title": "Extra intent phrases (optional)",
+      "type": "array",
+      "description": "Add your own high-intent phrases to the built-in lexicon (looking for, recommend, alternative to, best tool, switching from, pricing, and more). Useful for niche buying language or competitor product names.",
+      "editor": "stringList",
+      "default": [],
+      "sectionCaption": "Tuning"
+    },
+    "includeReddit": {
+      "title": "Include Reddit",
+      "type": "boolean",
+      "description": "Pull Reddit posts (RSS feeds), pre-filtered to intent-bearing language.",
+      "default": true
+    },
+    "includeStackOverflow": {
+      "title": "Include Stack Overflow",
+      "type": "boolean",
+      "description": "Pull Stack Overflow questions (an unanswered question is an active unmet need).",
+      "default": true
+    },
+    "includeHackerNews": {
+      "title": "Include Hacker News",
+      "type": "boolean",
+      "description": "Pull Hacker News Ask/Show/stories matching your keywords.",
+      "default": true
+    },
+    "maxAgeHours": {
+      "title": "Max age (hours)",
+      "type": "integer",
+      "description": "Ignore posts older than this. 168 = one week.",
+      "default": 168,
+      "minimum": 24,
+      "maximum": 2160,
+      "sectionCaption": "Window and thresholds"
+    },
+    "maxItemsPerSource": {
+      "title": "Max items per source",
+      "type": "integer",
+      "description": "Cap on raw items pulled from each platform before scoring. Higher finds more leads but raises the child per-item cost. Kept small by default so a first run is cheap; raise it for a full pull.",
+      "default": 25,
+      "minimum": 20,
+      "maximum": 300,
+      "prefill": 25
+    },
+    "minIntentScore": {
+      "title": "Minimum intent score",
+      "type": "integer",
+      "description": "A lead scoring below this 0-100 threshold is dropped as noise and never charged. 20 keeps light topical mentions; raise to 40+ for only active buyers.",
+      "default": 20,
+      "minimum": 0,
+      "maximum": 100
+    },
+    "proxyConfiguration": {
+      "title": "Proxy configuration",
+      "type": "object",
+      "description": "Proxy passed through to the child actors. Reddit needs residential; the default is recommended.",
+      "editor": "proxy",
+      "default": {
+        "useApifyProxy": true,
+        "apifyProxyGroups": [
+          "RESIDENTIAL"
+        ]
+      },
+      "prefill": {
+        "useApifyProxy": true,
+        "apifyProxyGroups": [
+          "RESIDENTIAL"
+        ]
+      }
+    }
+  },
+  "required": []
 }

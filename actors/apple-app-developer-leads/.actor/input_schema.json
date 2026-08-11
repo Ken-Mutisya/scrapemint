@@ -1,75 +1,80 @@
 {
-    "title": "Apple App Store Developer Leads Input",
-    "type": "object",
-    "schemaVersion": 1,
-    "description": "Search the iOS App Store and extract developer leads. Pay per lead.",
-    "properties": {
-        "keywords": {
-            "title": "Search keywords",
-            "type": "array",
-            "description": "App topics to search for (e.g. invoice, meditation, crm, budgeting).",
-            "editor": "stringList",
-            "prefill": ["invoice", "budgeting", "habit tracker"],
-            "default": []
-        },
-        "country": {
-            "title": "Country",
-            "type": "string",
-            "description": "Two-letter store country code. Default US.",
-            "editor": "textfield",
-            "default": "US"
-        },
-        "maxLeads": {
-            "title": "Max leads",
-            "type": "integer",
-            "description": "Cap total leads scored per run.",
-            "default": 200,
-            "minimum": 1,
-            "maximum": 5000
-        },
-        "maxPerKeyword": {
-            "title": "Max per keyword",
-            "type": "integer",
-            "description": "Cap apps taken from each keyword (iTunes returns up to 200).",
-            "default": 100,
-            "minimum": 1,
-            "maximum": 200
-        },
-        "minRatings": {
-            "title": "Minimum ratings",
-            "type": "integer",
-            "description": "Drop apps with fewer ratings than this. Zero keeps everything.",
-            "default": 0,
-            "minimum": 0
-        },
-        "qualifiedMinRatings": {
-            "title": "Qualified rating bar",
-            "type": "integer",
-            "description": "Ratings at or above this, with a scraped email, tier a lead as qualified_lead.",
-            "default": 50,
-            "minimum": 0
-        },
-        "includeEmail": {
-            "title": "Scrape contact emails",
-            "type": "boolean",
-            "description": "Fetch each seller website and scrape a contact email.",
-            "default": true
-        },
-        "maxEmailLookups": {
-            "title": "Max email lookups",
-            "type": "integer",
-            "description": "Cap how many top leads get the website email scrape.",
-            "default": 80,
-            "minimum": 0,
-            "maximum": 1000
-        },
-        "concurrency": {
-            "title": "Concurrency",
-            "type": "integer",
-            "description": "Website scrapes in parallel.",
-            "default": 8,
-            "minimum": 1,
-            "maximum": 20
-        }
+  "title": "Apple App Store Developer Leads Input",
+  "type": "object",
+  "schemaVersion": 1,
+  "description": "Search the iOS App Store and extract developer leads. Pay per lead.",
+  "properties": {
+    "keywords": {
+      "title": "Search keywords",
+      "type": "array",
+      "description": "App topics to search for (e.g. invoice, meditation, crm, budgeting).",
+      "editor": "stringList",
+      "prefill": [
+        "invoice",
+        "budgeting",
+        "habit tracker"
+      ],
+      "default": []
+    },
+    "country": {
+      "title": "Country",
+      "type": "string",
+      "description": "Two-letter store country code. Default US.",
+      "editor": "textfield",
+      "default": "US"
+    },
+    "maxLeads": {
+      "title": "Max leads",
+      "type": "integer",
+      "description": "Cap total leads scored per run. Kept small by default so a first run is cheap; raise it for a full pull.",
+      "default": 25,
+      "minimum": 1,
+      "maximum": 5000,
+      "prefill": 25
+    },
+    "maxPerKeyword": {
+      "title": "Max per keyword",
+      "type": "integer",
+      "description": "Cap apps taken from each keyword (iTunes returns up to 200).",
+      "default": 100,
+      "minimum": 1,
+      "maximum": 200
+    },
+    "minRatings": {
+      "title": "Minimum ratings",
+      "type": "integer",
+      "description": "Drop apps with fewer ratings than this. Zero keeps everything.",
+      "default": 0,
+      "minimum": 0
+    },
+    "qualifiedMinRatings": {
+      "title": "Qualified rating bar",
+      "type": "integer",
+      "description": "Ratings at or above this, with a scraped email, tier a lead as qualified_lead.",
+      "default": 50,
+      "minimum": 0
+    },
+    "includeEmail": {
+      "title": "Scrape contact emails",
+      "type": "boolean",
+      "description": "Fetch each seller website and scrape a contact email.",
+      "default": true
+    },
+    "maxEmailLookups": {
+      "title": "Max email lookups",
+      "type": "integer",
+      "description": "Cap how many top leads get the website email scrape.",
+      "default": 80,
+      "minimum": 0,
+      "maximum": 1000
+    },
+    "concurrency": {
+      "title": "Concurrency",
+      "type": "integer",
+      "description": "Website scrapes in parallel.",
+      "default": 8,
+      "minimum": 1,
+      "maximum": 20
     }
+  }
 }

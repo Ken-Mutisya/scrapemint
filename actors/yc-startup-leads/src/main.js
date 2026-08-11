@@ -33,7 +33,7 @@ const {
     industries = [],
     onlyHiring = false,
     minTeamSize = 0,
-    maxLeads = 200,
+    maxLeads = 25,
     includeEmail = true,
     maxEmailLookups = 100,
     concurrency = 8,

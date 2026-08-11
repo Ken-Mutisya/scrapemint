@@ -30,7 +30,7 @@ const input = (await Actor.getInput()) ?? {};
 const {
     keywords = [],
     country = 'US',
-    maxLeads = 200,
+    maxLeads = 25,
     maxPerKeyword = 100,
     minRatings = 0,
     qualifiedMinRatings = 50,

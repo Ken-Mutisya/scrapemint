@@ -9,8 +9,12 @@
       "description": "Paste Steam store page URLs or bare numeric app IDs. Example: https://store.steampowered.com/app/570/Dota_2/  or  570",
       "editor": "requestListSources",
       "prefill": [
-        { "url": "https://store.steampowered.com/app/570/Dota_2/" },
-        { "url": "https://store.steampowered.com/app/730/CounterStrike_2/" }
+        {
+          "url": "https://store.steampowered.com/app/570/Dota_2/"
+        },
+        {
+          "url": "https://store.steampowered.com/app/730/CounterStrike_2/"
+        }
       ]
     },
     "maxReviewsPerApp": {
@@ -33,24 +37,48 @@
       "type": "string",
       "description": "Return all reviews, only positive, or only negative.",
       "default": "all",
-      "enum": ["all", "positive", "negative"],
-      "enumTitles": ["All reviews", "Positive only", "Negative only"]
+      "enum": [
+        "all",
+        "positive",
+        "negative"
+      ],
+      "enumTitles": [
+        "All reviews",
+        "Positive only",
+        "Negative only"
+      ]
     },
     "purchaseType": {
       "title": "Purchase type",
       "type": "string",
       "description": "Filter by how the reviewer got the game. 'steam' excludes activated keys and free copies.",
       "default": "all",
-      "enum": ["all", "steam", "non_steam_purchase"],
-      "enumTitles": ["All", "Steam purchases only", "Non Steam purchases only"]
+      "enum": [
+        "all",
+        "steam",
+        "non_steam_purchase"
+      ],
+      "enumTitles": [
+        "All",
+        "Steam purchases only",
+        "Non Steam purchases only"
+      ]
     },
     "sortBy": {
       "title": "Sort reviews by",
       "type": "string",
       "description": "recent sorts by date. updated sorts by last edit. all uses Steam's helpfulness ranking.",
       "default": "recent",
-      "enum": ["recent", "updated", "all"],
-      "enumTitles": ["Most recent", "Recently updated", "Most helpful"]
+      "enum": [
+        "recent",
+        "updated",
+        "all"
+      ],
+      "enumTitles": [
+        "Most recent",
+        "Recently updated",
+        "Most helpful"
+      ]
     },
     "dayRange": {
       "title": "Day range",

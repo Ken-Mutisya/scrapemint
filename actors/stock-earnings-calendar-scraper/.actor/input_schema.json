@@ -23,7 +23,11 @@
       "description": "Only return events for these stock symbols. Leave empty to return the whole market calendar.",
       "editor": "stringList",
       "prefill": [],
-      "example": ["AAPL", "MSFT", "NKE"]
+      "example": [
+        "AAPL",
+        "MSFT",
+        "NKE"
+      ]
     },
     "includeEarnings": {
       "title": "Include earnings",
@@ -52,9 +56,10 @@
     "maxRows": {
       "title": "Max rows",
       "type": "integer",
-      "description": "Stop after this many calendar rows.",
-      "default": 1000,
-      "minimum": 1
+      "description": "Stop after this many calendar rows. Kept small by default so a first run is cheap; raise it for a full pull.",
+      "default": 100,
+      "minimum": 1,
+      "prefill": 100
     },
     "dedupe": {
       "title": "Deduplicate",

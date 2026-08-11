@@ -33,7 +33,7 @@ const {
     includeDividends = true,
     includeIPOs = true,
     includeSplits = true,
-    maxRows = 1000,
+    maxRows = 100,
     dedupe = true,
 } = input;
 

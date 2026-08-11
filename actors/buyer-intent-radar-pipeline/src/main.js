@@ -71,7 +71,7 @@ const {
     includeHackerNews = true,
     extraIntentKeywords = [],
     maxAgeHours = 168,
-    maxItemsPerSource = 100,
+    maxItemsPerSource = 25,
     minIntentScore = 20,
     proxyConfiguration: proxyInput,
 } = input;

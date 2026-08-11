@@ -1,90 +1,113 @@
 {
-    "title": "WordPress Plugin & Theme Developer Leads Input",
-    "type": "object",
-    "schemaVersion": 1,
-    "description": "Query the WordPress.org directory and extract developer leads. Pay per lead.",
-    "properties": {
-        "keywords": {
-            "title": "Search keywords",
-            "type": "array",
-            "description": "Terms to search the directory for (e.g. seo, backup, woocommerce). Each is one query, paginated.",
-            "editor": "stringList",
-            "prefill": ["seo", "backup", "membership"],
-            "default": []
-        },
-        "type": {
-            "title": "What to pull",
-            "type": "string",
-            "description": "Plugins, themes, or both.",
-            "editor": "select",
-            "enum": ["plugins", "themes", "both"],
-            "enumTitles": ["Plugins", "Themes", "Both"],
-            "default": "plugins"
-        },
-        "browse": {
-            "title": "Browse mode (instead of keywords)",
-            "type": "string",
-            "description": "Pull a directory list instead of a keyword search. Leave blank to use keywords.",
-            "editor": "select",
-            "enum": ["", "popular", "new", "updated"],
-            "enumTitles": ["(use keywords)", "Popular", "Newest", "Recently updated"],
-            "default": ""
-        },
-        "maxLeads": {
-            "title": "Max leads",
-            "type": "integer",
-            "description": "Cap total leads per run, ranked by active installs.",
-            "default": 200,
-            "minimum": 1,
-            "maximum": 5000
-        },
-        "maxPerKeyword": {
-            "title": "Max per keyword",
-            "type": "integer",
-            "description": "Cap results taken from each keyword (paginated, 100 per page).",
-            "default": 100,
-            "minimum": 1,
-            "maximum": 500
-        },
-        "minInstalls": {
-            "title": "Minimum active installs",
-            "type": "integer",
-            "description": "Drop plugins below this install count. Zero keeps everything (themes have no install count).",
-            "default": 0,
-            "minimum": 0
-        },
-        "qualifiedMinInstalls": {
-            "title": "Qualified install bar",
-            "type": "integer",
-            "description": "Installs at or above this, with a scraped email, tier a lead as qualified_lead.",
-            "default": 1000,
-            "minimum": 0
-        },
-        "includeEmail": {
-            "title": "Scrape contact emails",
-            "type": "boolean",
-            "description": "Fetch each top lead's company website and scrape a contact email.",
-            "default": true
-        },
-        "maxEmailLookups": {
-            "title": "Max email lookups",
-            "type": "integer",
-            "description": "Cap how many top leads get the website email scrape, to bound run time.",
-            "default": 60,
-            "minimum": 0,
-            "maximum": 500
-        },
-        "proxyConfiguration": {
-            "title": "Proxy configuration",
-            "type": "object",
-            "description": "Optional. The WordPress.org API needs no proxy; provided for parity.",
-            "editor": "proxy",
-            "prefill": {
-                "useApifyProxy": true
-            },
-            "default": {
-                "useApifyProxy": true
-            }
-        }
+  "title": "WordPress Plugin & Theme Developer Leads Input",
+  "type": "object",
+  "schemaVersion": 1,
+  "description": "Query the WordPress.org directory and extract developer leads. Pay per lead.",
+  "properties": {
+    "keywords": {
+      "title": "Search keywords",
+      "type": "array",
+      "description": "Terms to search the directory for (e.g. seo, backup, woocommerce). Each is one query, paginated.",
+      "editor": "stringList",
+      "prefill": [
+        "seo",
+        "backup",
+        "membership"
+      ],
+      "default": []
+    },
+    "type": {
+      "title": "What to pull",
+      "type": "string",
+      "description": "Plugins, themes, or both.",
+      "editor": "select",
+      "enum": [
+        "plugins",
+        "themes",
+        "both"
+      ],
+      "enumTitles": [
+        "Plugins",
+        "Themes",
+        "Both"
+      ],
+      "default": "plugins"
+    },
+    "browse": {
+      "title": "Browse mode (instead of keywords)",
+      "type": "string",
+      "description": "Pull a directory list instead of a keyword search. Leave blank to use keywords.",
+      "editor": "select",
+      "enum": [
+        "",
+        "popular",
+        "new",
+        "updated"
+      ],
+      "enumTitles": [
+        "(use keywords)",
+        "Popular",
+        "Newest",
+        "Recently updated"
+      ],
+      "default": ""
+    },
+    "maxLeads": {
+      "title": "Max leads",
+      "type": "integer",
+      "description": "Cap total leads per run, ranked by active installs. Kept small by default so a first run is cheap; raise it for a full pull.",
+      "default": 25,
+      "minimum": 1,
+      "maximum": 5000,
+      "prefill": 25
+    },
+    "maxPerKeyword": {
+      "title": "Max per keyword",
+      "type": "integer",
+      "description": "Cap results taken from each keyword (paginated, 100 per page).",
+      "default": 100,
+      "minimum": 1,
+      "maximum": 500
+    },
+    "minInstalls": {
+      "title": "Minimum active installs",
+      "type": "integer",
+      "description": "Drop plugins below this install count. Zero keeps everything (themes have no install count).",
+      "default": 0,
+      "minimum": 0
+    },
+    "qualifiedMinInstalls": {
+      "title": "Qualified install bar",
+      "type": "integer",
+      "description": "Installs at or above this, with a scraped email, tier a lead as qualified_lead.",
+      "default": 1000,
+      "minimum": 0
+    },
+    "includeEmail": {
+      "title": "Scrape contact emails",
+      "type": "boolean",
+      "description": "Fetch each top lead's company website and scrape a contact email.",
+      "default": true
+    },
+    "maxEmailLookups": {
+      "title": "Max email lookups",
+      "type": "integer",
+      "description": "Cap how many top leads get the website email scrape, to bound run time.",
+      "default": 60,
+      "minimum": 0,
+      "maximum": 500
+    },
+    "proxyConfiguration": {
+      "title": "Proxy configuration",
+      "type": "object",
+      "description": "Optional. The WordPress.org API needs no proxy; provided for parity.",
+      "editor": "proxy",
+      "prefill": {
+        "useApifyProxy": true
+      },
+      "default": {
+        "useApifyProxy": true
+      }
     }
+  }
 }

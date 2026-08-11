@@ -1,69 +1,82 @@
 {
-    "title": "Open Source Maintainer Leads Input",
-    "type": "object",
-    "schemaVersion": 1,
-    "description": "Search npm and PyPI and extract maintainer leads. Pay per lead.",
-    "properties": {
-        "keywords": {
-            "title": "Search keywords",
-            "type": "array",
-            "description": "Terms to find packages for (e.g. testing, stripe, django, kubernetes).",
-            "editor": "stringList",
-            "prefill": ["testing", "payments", "logging"],
-            "default": []
-        },
-        "registries": {
-            "title": "Registries",
-            "type": "string",
-            "description": "Which registries to pull from.",
-            "editor": "select",
-            "enum": ["both", "npm", "pypi"],
-            "enumTitles": ["npm + PyPI", "npm only", "PyPI only"],
-            "default": "both"
-        },
-        "maxLeads": {
-            "title": "Max leads",
-            "type": "integer",
-            "description": "Cap total leads scored per run.",
-            "default": 200,
-            "minimum": 1,
-            "maximum": 5000
-        },
-        "maxPerKeyword": {
-            "title": "Max per keyword",
-            "type": "integer",
-            "description": "Cap candidate packages taken from each keyword per registry.",
-            "default": 80,
-            "minimum": 1,
-            "maximum": 250
-        },
-        "minMonthlyDownloads": {
-            "title": "Minimum monthly downloads",
-            "type": "integer",
-            "description": "Drop packages below this monthly download count. Zero keeps everything.",
-            "default": 0,
-            "minimum": 0
-        },
-        "qualifiedMinDownloads": {
-            "title": "Qualified download bar",
-            "type": "integer",
-            "description": "Monthly downloads at or above this, with a public email, tier a lead as qualified_lead.",
-            "default": 1000,
-            "minimum": 0
-        },
-        "requireEmail": {
-            "title": "Only packages with a public email",
-            "type": "boolean",
-            "description": "Skip packages whose maintainer email is not public.",
-            "default": false
-        },
-        "concurrency": {
-            "title": "Concurrency",
-            "type": "integer",
-            "description": "Package lookups in parallel.",
-            "default": 8,
-            "minimum": 1,
-            "maximum": 20
-        }
+  "title": "Open Source Maintainer Leads Input",
+  "type": "object",
+  "schemaVersion": 1,
+  "description": "Search npm and PyPI and extract maintainer leads. Pay per lead.",
+  "properties": {
+    "keywords": {
+      "title": "Search keywords",
+      "type": "array",
+      "description": "Terms to find packages for (e.g. testing, stripe, django, kubernetes).",
+      "editor": "stringList",
+      "prefill": [
+        "testing",
+        "payments",
+        "logging"
+      ],
+      "default": []
+    },
+    "registries": {
+      "title": "Registries",
+      "type": "string",
+      "description": "Which registries to pull from.",
+      "editor": "select",
+      "enum": [
+        "both",
+        "npm",
+        "pypi"
+      ],
+      "enumTitles": [
+        "npm + PyPI",
+        "npm only",
+        "PyPI only"
+      ],
+      "default": "both"
+    },
+    "maxLeads": {
+      "title": "Max leads",
+      "type": "integer",
+      "description": "Cap total leads scored per run. Kept small by default so a first run is cheap; raise it for a full pull.",
+      "default": 25,
+      "minimum": 1,
+      "maximum": 5000,
+      "prefill": 25
+    },
+    "maxPerKeyword": {
+      "title": "Max per keyword",
+      "type": "integer",
+      "description": "Cap candidate packages taken from each keyword per registry.",
+      "default": 80,
+      "minimum": 1,
+      "maximum": 250
+    },
+    "minMonthlyDownloads": {
+      "title": "Minimum monthly downloads",
+      "type": "integer",
+      "description": "Drop packages below this monthly download count. Zero keeps everything.",
+      "default": 0,
+      "minimum": 0
+    },
+    "qualifiedMinDownloads": {
+      "title": "Qualified download bar",
+      "type": "integer",
+      "description": "Monthly downloads at or above this, with a public email, tier a lead as qualified_lead.",
+      "default": 1000,
+      "minimum": 0
+    },
+    "requireEmail": {
+      "title": "Only packages with a public email",
+      "type": "boolean",
+      "description": "Skip packages whose maintainer email is not public.",
+      "default": false
+    },
+    "concurrency": {
+      "title": "Concurrency",
+      "type": "integer",
+      "description": "Package lookups in parallel.",
+      "default": 8,
+      "minimum": 1,
+      "maximum": 20
     }
+  }
 }

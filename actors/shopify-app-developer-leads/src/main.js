@@ -27,7 +27,7 @@ await Actor.init();
 const input = (await Actor.getInput()) ?? {};
 const {
     keywords = [],
-    maxLeads = 200,
+    maxLeads = 25,
     maxPerKeyword = 80,
     minReviews = 0,
     qualifiedMinReviews = 10,

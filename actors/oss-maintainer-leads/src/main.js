@@ -29,7 +29,7 @@ const input = (await Actor.getInput()) ?? {};
 const {
     keywords = [],
     registries = 'both',
-    maxLeads = 200,
+    maxLeads = 25,
     maxPerKeyword = 80,
     minMonthlyDownloads = 0,
     qualifiedMinDownloads = 1000,
