@@ -1,0 +1,14 @@
+{
+    "actorOutputSchemaVersion": 1,
+    "title": "Dividend rows",
+    "description": "One row per upcoming US stock dividend matching the requested filters.",
+    "type": "object",
+    "properties": {
+        "rows": {
+            "type": "string",
+            "title": "Dividend rows",
+            "description": "Ticker, company name, ex-dividend, record, payment and announcement dates, the declared cash rate per share and the indicated annual dividend.",
+            "template": "{{links.apiDefaultDatasetUrl}}/items"
+        }
+    }
+}

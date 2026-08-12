@@ -1,0 +1,14 @@
+{
+    "actorOutputSchemaVersion": 1,
+    "title": "IPO rows",
+    "description": "One row per US IPO deal at one stage, for the statuses and filters requested.",
+    "type": "object",
+    "properties": {
+        "rows": {
+            "type": "string",
+            "title": "IPO rows",
+            "description": "Status (priced, upcoming, filed or withdrawn), proposed ticker, company name, exchange, share price or marketed range, shares offered and deal value.",
+            "template": "{{links.apiDefaultDatasetUrl}}/items"
+        }
+    }
+}

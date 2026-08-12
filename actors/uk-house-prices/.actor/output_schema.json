@@ -1,0 +1,14 @@
+{
+    "actorOutputSchemaVersion": 1,
+    "title": "UK house price rows",
+    "description": "One row per region per month from the HM Land Registry House Price Index, plus the requested property type, buyer type and funding breakdowns.",
+    "type": "object",
+    "properties": {
+        "rows": {
+            "type": "string",
+            "title": "Region rows",
+            "description": "Average sale price, index, monthly and annual change and sales volume for each requested UK region and month.",
+            "template": "{{links.apiDefaultDatasetUrl}}/items"
+        }
+    }
+}

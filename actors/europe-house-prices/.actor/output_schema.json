@@ -1,0 +1,14 @@
+{
+    "actorOutputSchemaVersion": 1,
+    "title": "European house price rows",
+    "description": "One row per country per quarter from the Eurostat house price index, for the dwelling types requested.",
+    "type": "object",
+    "properties": {
+        "rows": {
+            "type": "string",
+            "title": "Country rows",
+            "description": "House price index level, change on the previous quarter and change on the same quarter a year earlier for each European country.",
+            "template": "{{links.apiDefaultDatasetUrl}}/items"
+        }
+    }
+}

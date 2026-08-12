@@ -1,0 +1,14 @@
+{
+    "actorOutputSchemaVersion": 1,
+    "title": "Treasury auction rows",
+    "description": "One row per US Treasury auction matching the requested security types and date range.",
+    "type": "object",
+    "properties": {
+        "rows": {
+            "type": "string",
+            "title": "Auction rows",
+            "description": "CUSIP, security type and term, auction and issue dates, bid to cover ratio, high rate, offering and accepted amounts, and the primary dealer, direct and indirect bidder split.",
+            "template": "{{links.apiDefaultDatasetUrl}}/items"
+        }
+    }
+}
