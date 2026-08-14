@@ -1,0 +1,14 @@
+{
+    "actorOutputSchemaVersion": 1,
+    "title": "Canadian statistics rows",
+    "description": "One row per dataset per geography per reference period from Statistics Canada.",
+    "type": "object",
+    "properties": {
+        "rows": {
+            "type": "string",
+            "title": "Dataset rows",
+            "description": "Consumer price index, new housing prices, housing starts, employment and GDP by geography and month, each with its unit, product and vector id and a link back to the Statistics Canada table.",
+            "template": "{{links.apiDefaultDatasetUrl}}/items"
+        }
+    }
+}

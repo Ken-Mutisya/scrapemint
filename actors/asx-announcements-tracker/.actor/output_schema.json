@@ -1,0 +1,14 @@
+{
+    "actorOutputSchemaVersion": 1,
+    "title": "ASX company rows",
+    "description": "One row per listed company, announcement or key statistics record, tagged by rowType.",
+    "type": "object",
+    "properties": {
+        "rows": {
+            "type": "string",
+            "title": "Company, announcement and fundamentals rows",
+            "description": "Listed companies with market cap, industry and five day move; announcements carrying the ASX price sensitive flag; and key statistics with dividend yield and franking.",
+            "template": "{{links.apiDefaultDatasetUrl}}/items"
+        }
+    }
+}

@@ -1,0 +1,14 @@
+{
+    "actorOutputSchemaVersion": 1,
+    "title": "IMF indicator rows",
+    "description": "One row per indicator per country or bloc per year from the IMF World Economic Outlook.",
+    "type": "object",
+    "properties": {
+        "rows": {
+            "type": "string",
+            "title": "Indicator rows",
+            "description": "GDP growth, inflation, government debt, unemployment and more by country and year, each marked as observed or projected and tagged with its WEO vintage.",
+            "template": "{{links.apiDefaultDatasetUrl}}/items"
+        }
+    }
+}

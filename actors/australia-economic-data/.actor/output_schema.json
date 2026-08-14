@@ -1,0 +1,14 @@
+{
+    "actorOutputSchemaVersion": 1,
+    "title": "Australian statistics rows",
+    "description": "One row per dataset per measure per region per quarter from the Australian Bureau of Statistics.",
+    "type": "object",
+    "properties": {
+        "rows": {
+            "type": "string",
+            "title": "Dataset rows",
+            "description": "Mean residential dwelling price, consumer price inflation and wage growth by region and quarter, with the raw observation alongside the scaled value.",
+            "template": "{{links.apiDefaultDatasetUrl}}/items"
+        }
+    }
+}
