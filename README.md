@@ -19,7 +19,7 @@ flowchart LR
 
 <!-- CATALOG:START -->
 
-There are **245** actors live right now, and a new one ships every few days.
+There are **243** actors live right now, and a new one ships every few days.
 
 ### Lead generation
 
@@ -46,7 +46,6 @@ There are **245** actors live right now, and a new one ships every few days.
 - [Freelance Lead Radar: Upwork Job and Client Filter Engine](https://apify.com/scrapemint/upwork-opportunity-alert)
 - [Google Maps Local Business Lead Finder, Places and Contacts](https://apify.com/scrapemint/google-maps-scraper)
 - [LinkedIn Hiring Tracker Pro and Recruiter Contact Finder](https://apify.com/scrapemint/linkedin-jobs-scraper-pro)
-- [LinkedIn Events Discovery and Lead Feed (No Cookies)](https://apify.com/scrapemint/linkedin-events-scraper)
 - [LinkedIn Company Hiring Signal Tracker](https://apify.com/scrapemint/linkedin-company-hiring-tracker)
 - [ATS Hiring-Signal Tracker (Greenhouse + Lever)](https://apify.com/scrapemint/ats-hiring-signal-tracker)
 - [Website Contact Scraper: Emails, Phones & Social Profiles](https://apify.com/scrapemint/website-contact-scraper)
@@ -192,7 +191,6 @@ There are **245** actors live right now, and a new one ships every few days.
 - [Bluesky Scraper: Profiles, Posts & Followers](https://apify.com/scrapemint/bluesky-scraper)
 - [Threads Brand Mentions, Keyword Alerts & Influencer Discovery](https://apify.com/scrapemint/meta-threads-intelligence)
 - [Telegram Channel Scraper (No Login)](https://apify.com/scrapemint/telegram-channel-scraper)
-- [LinkedIn Hashtag & Topic Post Tracker (No Cookies)](https://apify.com/scrapemint/linkedin-hashtag-posts-scraper)
 - [Substack Newsletter Intelligence: Top Writer Tracker](https://apify.com/scrapemint/substack-newsletter-intelligence)
 - [Product Hunt Launch Tracker and Topic Alert Feed](https://apify.com/scrapemint/producthunt-launch-tracker)
 - [Hacker News Scraper: Stories, Comments & Search](https://apify.com/scrapemint/hacker-news-scraper)

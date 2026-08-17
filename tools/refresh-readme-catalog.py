@@ -30,7 +30,7 @@ SECTIONS = [
         "local-lead-pipeline", "lead-enrichment-pipeline", "hiring-velocity-pipeline",
         "buyer-intent-radar-pipeline", "reddit-lead-monitor", "hn-lead-monitor",
         "stackoverflow-lead-monitor", "upwork-opportunity-alert", "google-maps-scraper",
-        "linkedin-jobs-scraper-pro", "linkedin-events-scraper", "linkedin-company-hiring-tracker",
+        "linkedin-jobs-scraper-pro", "linkedin-company-hiring-tracker",
         "ats-hiring-signal-tracker", "website-contact-scraper", "aircraft-owner-leads",
         "building-permit-leads", "healthcare-provider-leads", "fda-device-manufacturer-leads",
         "restaurant-inspection-leads", "nonprofit-leads-scraper", "new-business-registration-leads",
@@ -92,7 +92,7 @@ SECTIONS = [
     ]),
     ("Social, news & content", [
         "instagram-scraper", "youtube-scraper", "youtube-video-scraper", "bluesky-scraper",
-        "meta-threads-intelligence", "telegram-channel-scraper", "linkedin-hashtag-posts-scraper",
+        "meta-threads-intelligence", "telegram-channel-scraper",
         "substack-newsletter-intelligence", "producthunt-launch-tracker", "hacker-news-scraper",
         "google-news-scraper", "global-news-media-monitor", "rss-feed-scraper",
         "wikipedia-trends-scraper", "wikipedia-article-data", "music-charts-tracker",
