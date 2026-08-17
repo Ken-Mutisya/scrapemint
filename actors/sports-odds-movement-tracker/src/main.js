@@ -28,12 +28,12 @@
 //
 // Pay per event
 // -------------
-//   odds_movement per moved line. First 10 per run are free.
+//   odds_movement per moved line. First 1 per run is free.
 
 import { Actor, log } from 'apify';
 import { fetchPinnacleLeague } from './pinnacle-book.js';
 
-const FREE_TIER_ITEMS = 10;
+const FREE_TIER_ITEMS = 1;
 const HOST = 'https://www.bovada.lv/services/sports/event';
 const REQUEST_GAP_MS = 1500; // Bovada 429s on bursts; a throttled league is skipped, not fatal.
 const FETCH_TIMEOUT_MS = 30000;

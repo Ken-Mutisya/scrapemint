@@ -21,7 +21,7 @@ import { Actor, log } from 'apify';
 import { CheerioCrawler } from 'crawlee';
 import gplay from 'google-play-scraper';
 
-const FREE_TIER_QUALIFIED = 10;
+const FREE_TIER_QUALIFIED = 1;
 const BASE = 'https://play.google.com';
 
 await Actor.init();

@@ -19,7 +19,7 @@
 
 import { Actor, log } from 'apify';
 
-const FREE_TIER_QUALIFIED = 10;
+const FREE_TIER_QUALIFIED = 1;
 const EMAIL_RE = /[a-z0-9._%+\-]+@[a-z0-9._\-]+\.[a-z]{2,}/gi;
 const EMAIL_SHAPE = /^[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$/i;
 

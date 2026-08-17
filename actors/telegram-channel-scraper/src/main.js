@@ -14,13 +14,13 @@
 // Pay per event
 // -------------
 //   message_row ($0.002) charged when a message row is pushed.
-//   channel_info rows are free. First 10 message rows per run are free so
+//   channel_info rows are free. First 1 message row per run is free so
 //   buyers can validate output.
 
 import { Actor, log } from 'apify';
 import * as cheerio from 'cheerio';
 
-const FREE_TIER_ROWS = 10;
+const FREE_TIER_ROWS = 1;
 const HARD_CAP = 10000;
 const REQUEST_DELAY_MS = 400;
 const UA = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36';

@@ -493,7 +493,7 @@ async function handleWatch({ page, request, crawler: c }) {
     await Actor.pushData(row);
     seenVideoIds.add(videoId);
     pushedRows += 1;
-    if (pushedRows > 10) __chargeJobs.push(Actor.charge({ eventName: 'video_row' }).catch((err) => log.warning(`charge failed: ${err?.message}`)));
+    if (pushedRows > 1) __chargeJobs.push(Actor.charge({ eventName: 'video_row' }).catch((err) => log.warning(`charge failed: ${err?.message}`)));
     log.info(`Pushed ${videoId} ${(row.title || '').slice(0, 60)} | ${row.engagement.viewCount ?? '?'} views (${pushedRows})`);
 }
 

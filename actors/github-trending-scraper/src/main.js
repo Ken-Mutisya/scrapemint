@@ -16,12 +16,12 @@
 //
 // Pay-per-event:
 //   repo_row ($0.005) charged when a repo row is pushed.
-//   First 5 repos per run are free so buyers can validate output.
+//   First 1 repo per run is free so buyers can validate output.
 
 import { Actor, log } from 'apify';
 import { CheerioCrawler } from 'crawlee';
 
-const FREE_TIER_REPOS = 5;
+const FREE_TIER_REPOS = 1;
 
 await Actor.init();
 

@@ -14,12 +14,12 @@
 // -------------
 //   contact_row ($0.01) charged only when a site yields at least one email,
 //   phone, or social profile. Unreachable or empty sites are free.
-//   First 10 contact rows per run are free so buyers can validate output.
+//   First 1 contact row per run is free so buyers can validate output.
 
 import { Actor, log } from 'apify';
 import * as cheerio from 'cheerio';
 
-const FREE_TIER_ROWS = 10;
+const FREE_TIER_ROWS = 1;
 const HARD_CAP_SITES = 2000;
 const FETCH_TIMEOUT_MS = 8000;
 const MAX_HTML_BYTES = 400000;

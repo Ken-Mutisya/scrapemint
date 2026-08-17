@@ -11,11 +11,11 @@
 // SEC requires a descriptive User-Agent with an email.
 // Rate limit: 10 req/sec. We sleep 120ms between requests to stay polite.
 //
-// Free tier: first 2 filings per run are free. Charge per filing after.
+// Free tier: no free allowance; every filing is charged.
 
 import { Actor, log } from 'apify';
 
-const FREE_TIER_ITEMS = 2;
+const FREE_TIER_ITEMS = 0;
 const EDGAR_RATE_SLEEP_MS = 120;
 
 const ITEM_DESCRIPTIONS = {

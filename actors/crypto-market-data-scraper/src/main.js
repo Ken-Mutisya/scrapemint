@@ -14,11 +14,11 @@
 // Pay per event
 // -------------
 //   coin_row ($0.004) charged when a coin row is pushed.
-//   First 5 rows per run are free so buyers can validate output.
+//   First 1 row per run is free so buyers can validate output.
 
 import { Actor, log } from 'apify';
 
-const FREE_TIER_ROWS = 5;
+const FREE_TIER_ROWS = 1;
 const PAGE_SIZE = 250;
 const HARD_CAP = 5000;
 const BASE = 'https://api.coingecko.com/api/v3';

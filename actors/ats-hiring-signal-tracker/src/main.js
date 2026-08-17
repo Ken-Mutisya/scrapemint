@@ -20,7 +20,7 @@
 
 import { Actor, log } from 'apify';
 
-const FREE_TIER_HOT = 5;
+const FREE_TIER_HOT = 1;
 const SENIOR_RE = /\b(senior|sr\.?|staff|principal|lead|director|vp|vice president|head of|chief|c[teo]o|cfo|cmo|cro)\b/i;
 
 await Actor.init();

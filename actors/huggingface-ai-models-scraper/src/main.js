@@ -13,11 +13,11 @@
 // Pay per event
 // -------------
 //   item_row ($0.004) charged when a model/dataset/space row is pushed.
-//   First 5 rows per run are free so buyers can validate output.
+//   First 1 row per run is free so buyers can validate output.
 
 import { Actor, log } from 'apify';
 
-const FREE_TIER_ROWS = 5;
+const FREE_TIER_ROWS = 1;
 const HARD_CAP = 5000;
 const PAGE_SIZE = 100;
 const RATE_SLEEP_MS = 200;

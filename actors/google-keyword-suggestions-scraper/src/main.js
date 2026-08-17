@@ -14,11 +14,11 @@
 // Pay per event
 // -------------
 //   suggestion_row ($0.001) charged when a suggestion row is pushed.
-//   First 10 rows per run are free so buyers can validate output.
+//   First 1 row per run is free so buyers can validate output.
 
 import { Actor, log } from 'apify';
 
-const FREE_TIER_ROWS = 10;
+const FREE_TIER_ROWS = 1;
 const HARD_CAP = 20000;
 const REQUEST_DELAY_MS = 120;
 const LETTERS = 'abcdefghijklmnopqrstuvwxyz'.split('');

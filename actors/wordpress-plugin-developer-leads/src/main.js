@@ -21,7 +21,7 @@
 import { Actor, log } from 'apify';
 import dns from 'node:dns/promises';
 
-const FREE_TIER_QUALIFIED = 10;
+const FREE_TIER_QUALIFIED = 1;
 const WP_PLUGINS = 'https://api.wordpress.org/plugins/info/1.2/';
 const WP_THEMES = 'https://api.wordpress.org/themes/info/1.2/';
 const SITE_FETCH_TIMEOUT_MS = 6000;

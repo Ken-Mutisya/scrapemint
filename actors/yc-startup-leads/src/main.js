@@ -17,7 +17,7 @@
 import { Actor, log } from 'apify';
 import dns from 'node:dns/promises';
 
-const FREE_TIER_QUALIFIED = 10;
+const FREE_TIER_QUALIFIED = 1;
 const DATA_URL = 'https://yc-oss.github.io/api/companies/all.json';
 const SITE_FETCH_TIMEOUT_MS = 6000;
 const EMAIL_RE = /[a-z0-9._%+\-]+@[a-z0-9._\-]+\.[a-z]{2,}/gi;

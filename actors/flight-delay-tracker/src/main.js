@@ -15,12 +15,12 @@
 // Turnstile, so this actor does not support airport input. Use flight numbers
 // or routes instead.
 //
-// Free tier: first 20 items per run are free. Charge per item after.
+// Free tier: first 1 item per run is free. Charge per item after.
 
 import { Actor, log } from 'apify';
 import { PlaywrightCrawler } from 'crawlee';
 
-const FREE_TIER_ITEMS = 10;
+const FREE_TIER_ITEMS = 1;
 
 // FlightAware uses ICAO airline codes (3-letter) for flight idents. Most users
 // know IATA (2-char) codes, so we translate the common carriers transparently.

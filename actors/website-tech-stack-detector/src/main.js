@@ -14,12 +14,12 @@
 // -------------
 //   tech_row ($0.01) charged only when a site yields at least one detected
 //   technology. Unreachable or zero-detection sites are free.
-//   First 10 tech rows per run are free so buyers can validate output.
+//   First 1 tech row per run is free so buyers can validate output.
 
 import { Actor, log } from 'apify';
 import { SIGNATURES } from './signatures.js';
 
-const FREE_TIER_ROWS = 10;
+const FREE_TIER_ROWS = 1;
 const HARD_CAP_SITES = 5000;
 const FETCH_TIMEOUT_MS = 8000;
 const MAX_HTML_BYTES = 600000;

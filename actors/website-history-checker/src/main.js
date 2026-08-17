@@ -18,11 +18,11 @@
 // -------------
 //   history_summary ($0.005) one per site: first/last capture, totals, gaps.
 //   snapshot_row    ($0.001) one per archived snapshot row.
-//   First 2 rows per run are free so buyers can validate output.
+//   Every row is charged; there is no per-run free allowance.
 
 import { Actor, log } from 'apify';
 
-const FREE_TIER_ROWS = 2;
+const FREE_TIER_ROWS = 0;
 const HARD_CAP = 50000;
 const REQUEST_DELAY_MS = 300;
 const GRANULARITY_COLLAPSE = { yearly: 'timestamp:4', monthly: 'timestamp:6', all: null };

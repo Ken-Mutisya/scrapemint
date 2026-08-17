@@ -303,7 +303,7 @@ for (const [idx, route] of routes.entries()) {
         await Actor.pushData(job);
         newSeen.add(raw.uid);
         pushed += 1;
-        if (pushed > 5) __chargeJobs.push(Actor.charge({ eventName: 'opportunity_match' }).catch((err) => log.warning(`charge failed: ${err?.message}`)));
+        if (pushed > 1) __chargeJobs.push(Actor.charge({ eventName: 'opportunity_match' }).catch((err) => log.warning(`charge failed: ${err?.message}`)));
     }
 }
 

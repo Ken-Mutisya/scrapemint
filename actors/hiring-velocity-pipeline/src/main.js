@@ -22,10 +22,10 @@
 import { Actor, log } from 'apify';
 import dns from 'node:dns/promises';
 
-const FREE_TIER_QUALIFIED = 3;
+const FREE_TIER_QUALIFIED = 1;
 // Basic rows had no free tier, so a run that produced only basic rows charged
 // the buyer from row 1 with nothing to evaluate first.
-const FREE_TIER_BASIC = 2;
+const FREE_TIER_BASIC = 1;
 
 await Actor.init();
 

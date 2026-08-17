@@ -17,7 +17,7 @@
 import { Actor, log } from 'apify';
 import { CheerioCrawler } from 'crawlee';
 
-const FREE_TIER_QUALIFIED = 10;
+const FREE_TIER_QUALIFIED = 1;
 const BASE = 'https://apps.shopify.com';
 const SITEMAP = 'https://apps.shopify.com/sitemap_apps_en.xml';
 const EMAIL_SHAPE = /^[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$/i;

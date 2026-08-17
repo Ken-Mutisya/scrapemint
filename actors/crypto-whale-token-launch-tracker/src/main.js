@@ -10,11 +10,11 @@
 //      of wallet addresses across every supported EVM chain with a single key.
 //        https://api.etherscan.io/v2/api?chainid={id}&module=account&action=tokentx&address={w}
 //
-// Free tier: first 50 items per run are free. Charge per item after.
+// Free tier: first 1 item per run is free. Charge per item after.
 
 import { Actor, log } from 'apify';
 
-const FREE_TIER_ITEMS = 10;
+const FREE_TIER_ITEMS = 1;
 const DEX_SLEEP_MS = 250;
 const ETHERSCAN_SLEEP_MS = 220;
 

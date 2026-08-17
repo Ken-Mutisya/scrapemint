@@ -19,7 +19,7 @@ const PUBMED_BASE = 'https://eutils.ncbi.nlm.nih.gov/entrez/eutils';
 const ICITE_BASE = 'https://icite.od.nih.gov/api/pubs';
 const CT_BASE = 'https://clinicaltrials.gov/api/v2/studies';
 
-const FREE_TIER_ITEMS = 10;
+const FREE_TIER_ITEMS = 1;
 
 await Actor.init();
 const __chargeJobs = [];

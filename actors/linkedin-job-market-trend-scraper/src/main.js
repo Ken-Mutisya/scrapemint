@@ -11,12 +11,12 @@
 //   prior count per query is kept in a key value store, so a scheduled run
 //   reports the change versus last run. The trend is the whole product.
 //
-// Free tier: first 5 queries per run are free. After that charge per query.
+// Free tier: first 1 query per run is free. After that charge per query.
 
 import { Actor, log } from 'apify';
 import { CheerioCrawler } from 'crawlee';
 
-const FREE_TIER_QUERIES = 5;
+const FREE_TIER_QUERIES = 1;
 const HISTORY_STORE = 'linkedin-jobmarket-history';
 
 const FUNCTION_RULES = [

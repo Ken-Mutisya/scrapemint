@@ -18,11 +18,11 @@
 // -------------
 //   job_row ($0.003) charged when a job row is pushed.
 //   Companies not found on any ATS produce one free status row.
-//   First 5 job rows per run are free so buyers can validate output.
+//   First 1 job row per run is free so buyers can validate output.
 
 import { Actor, log } from 'apify';
 
-const FREE_TIER_ROWS = 5;
+const FREE_TIER_ROWS = 1;
 const HARD_CAP_COMPANIES = 500;
 const CONCURRENCY = 5;
 const FETCH_TIMEOUT_MS = 20000;

@@ -23,7 +23,7 @@
 
 import { Actor, log } from 'apify';
 
-const FREE_TIER_HOT = 3;
+const FREE_TIER_HOT = 1;
 
 // Intent lexicon. HIGH = active evaluation / purchase / switching language.
 // MEDIUM = problem / help language (a softer but real signal).

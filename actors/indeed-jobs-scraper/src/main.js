@@ -590,7 +590,7 @@ async function handleJob({ page, request, crawler: c }) {
     await Actor.pushData(row);
     seenJobIds.add(jk);
     pushedRows += 1;
-    if (pushedRows > 10) __chargeJobs.push(Actor.charge({ eventName: 'job_row' }).catch((err) => log.warning(`charge failed: ${err?.message}`)));
+    if (pushedRows > 1) __chargeJobs.push(Actor.charge({ eventName: 'job_row' }).catch((err) => log.warning(`charge failed: ${err?.message}`)));
 
     if (scrapeCompanyDetails && row.company.slug && !seenCompanies.has(row.company.slug)) {
         seenCompanies.add(row.company.slug);
