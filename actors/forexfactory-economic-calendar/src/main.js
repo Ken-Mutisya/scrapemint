@@ -493,6 +493,21 @@ async function extractCalendarEvents(page) {
     return page.evaluate(() => {
         const text = (el) => (el?.textContent || '').replace(/\s+/g, ' ').trim();
         const out = [];
+
+        // Day-breaker rows carry no year ("Mon May 10"), so the year has to come
+        // from the page we asked for, not from the clock. Anchoring on today made
+        // every historical pull stamp the current year: values correct, dates
+        // wrong. Reported 2026-08-18 against a 2024 range.
+        //
+        // Every URL this actor builds carries the year already:
+        //   ?month=aug.2026  ?week=aug18.2026  ?range=aug18.2026-sep2.2026
+        const ANCHOR = (() => {
+            const M = { jan: 0, feb: 1, mar: 2, apr: 3, may: 4, jun: 5, jul: 6, aug: 7, sep: 8, oct: 9, nov: 10, dec: 11 };
+            const m = (location.search || '')
+                .match(/(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]*\d{0,2}\.(\d{4})/i);
+            // A bare /calendar means "today", where the clock is the right anchor.
+            return m ? { month: M[m[1].toLowerCase()], year: parseInt(m[2], 10) } : null;
+        })();
         let currentDate = null;
         let currentDateStr = null;
 
@@ -601,11 +616,15 @@ async function extractCalendarEvents(page) {
             if (!m) return null;
             const month = monthMap[m[1]];
             const day = parseInt(m[2], 10);
-            // Year is implicit. Use current calendar year, advance Dec-Jan boundary if needed.
+            // Year is implicit in the row, so take it from the requested page and
+            // fall back to the clock only for a bare /calendar (which means today).
             const now = new Date();
-            let year = now.getUTCFullYear();
-            if (month < now.getUTCMonth() - 6) year += 1; // forward
-            if (month > now.getUTCMonth() + 6) year -= 1; // backward
+            const base = ANCHOR || { month: now.getUTCMonth(), year: now.getUTCFullYear() };
+            let year = base.year;
+            // A single calendar page can straddle a Dec-Jan boundary, so roll the
+            // year relative to the anchor month rather than to today.
+            if (month < base.month - 6) year += 1; // forward
+            if (month > base.month + 6) year -= 1; // backward
             return new Date(Date.UTC(year, month, day));
         }
         function isoDate(d) {
