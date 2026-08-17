@@ -1,5 +1,5 @@
 {
-    "_note": "PUT this to /v2/acts/{actorId} as a pricingInfos array entry. PAY_PER_EVENT only on BRONZE. startedAt must be 14+ days out. Apify auto-adds 20% margin. iTunes Search is keyless and RSS feeds are fetched with a Range header (only the channel header), so compute per lead is tiny. High volume, low prices. First 10 qualified_lead per run are free for validation.",
+    "_note": "PUT this to /v2/acts/{actorId} as a pricingInfos array entry. PAY_PER_EVENT only on BRONZE. startedAt must be 14+ days out. Apify auto-adds 20% margin. iTunes Search is keyless and RSS feeds are fetched with a Range header (only the channel header), so compute per lead is tiny. High volume, low prices. First 10 qualified_lead per run are free for validation. | 2026-08-17 pass: per-run free allowance cut to 1 (0 where average output is under ~2 rows/run). It is charged per run, not per user, so on low-yield actors it was zeroing out revenue. Descriptions corrected to match src/main.js. Effective 09-01.",
     "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~podcast-host-leads?token=APIFY_TOKEN",
     "pricingModel": "PAY_PER_EVENT",
     "pricingPerEvent": {
@@ -16,10 +16,10 @@
             },
             "qualified_lead": {
                 "eventTitle": "Qualified podcast lead",
-                "eventDescription": "An active show (recent episode) with a public host email and at least 10 episodes. A reachable, established host. The first 10 qualified_lead per run are free so you can validate output.",
+                "eventDescription": "An active show (recent episode) with a public host email and at least 10 episodes. A reachable, established host. The first qualified lead per run is free so you can validate output.",
                 "eventPriceUsd": 0.05
             }
         }
     },
-    "startedAt": "2026-07-11T00:00:00.000Z"
+    "startedAt": "2026-09-01T00:00:00.000Z"
 }

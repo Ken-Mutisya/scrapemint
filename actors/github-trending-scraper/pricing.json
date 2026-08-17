@@ -1,15 +1,15 @@
 {
-    "_note": "PUT this to /v2/acts/{actorId} as pricingInfos array entry. Per playbook: PAY_PER_EVENT only on BRONZE plan, startedAt 14+ days out. Apify auto-adds 20% margin.",
+    "_note": "PUT this to /v2/acts/{actorId} as pricingInfos array entry. Per playbook: PAY_PER_EVENT only on BRONZE plan, startedAt 14+ days out. Apify auto-adds 20% margin. | 2026-08-17 pass: per-run free allowance cut to 1 (0 where average output is under ~2 rows/run). It is charged per run, not per user, so on low-yield actors it was zeroing out revenue. Descriptions corrected to match src/main.js. Effective 09-01.",
     "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~github-trending-scraper?token=APIFY_TOKEN",
     "pricingModel": "PAY_PER_EVENT",
     "pricingPerEvent": {
         "actorChargeEvents": {
             "repo_row": {
                 "eventTitle": "Trending repo row",
-                "eventDescription": "One trending GitHub repo row with owner, name, description, total stars, stars added in period, forks, language, and top contributors. First 5 per run are free so you can validate output.",
+                "eventDescription": "One trending GitHub repo row with owner, name, description, total stars, stars added in period, forks, language, and top contributors. The first result per run is free so you can validate output.",
                 "eventPriceUsd": 0.01
             }
         }
     },
-    "startedAt": "2026-06-14T00:00:00.000Z"
+    "startedAt": "2026-09-01T00:00:00.000Z"
 }

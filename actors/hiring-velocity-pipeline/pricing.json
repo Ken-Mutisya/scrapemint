@@ -1,20 +1,20 @@
 {
-    "_note": "PUT this to /v2/acts/{actorId} as pricingInfos array entry. Per playbook: PAY_PER_EVENT only on BRONZE plan, startedAt 14+ days out. Apify auto-adds 20% margin.",
+    "_note": "PUT this to /v2/acts/{actorId} as pricingInfos array entry. Per playbook: PAY_PER_EVENT only on BRONZE plan, startedAt 14+ days out. Apify auto-adds 20% margin. | 2026-08-17 pass: per-run free allowance cut to 1 (0 where average output is under ~2 rows/run). It is charged per run, not per user, so on low-yield actors it was zeroing out revenue. Descriptions corrected to match src/main.js. Effective 09-01.",
     "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~hiring-velocity-pipeline?token=APIFY_TOKEN",
     "pricingModel": "PAY_PER_EVENT",
     "pricingPerEvent": {
         "actorChargeEvents": {
             "basic_company": {
                 "eventTitle": "Basic hiring company",
-                "eventDescription": "One company found hiring matching your skill keywords, with company name, role count, and posting dates. Does not meet the qualified tier rules (no working website with MX, or below the minimum postings bar).",
+                "eventDescription": "One company found hiring matching your skill keywords, with company name, role count, and posting dates. Does not meet the qualified tier rules (no working website with MX, or below the minimum postings bar). The first result per run is free so you can validate output.",
                 "eventPriceUsd": 0.05
             },
             "qualified_hiring_company": {
                 "eventTitle": "Qualified hiring company",
-                "eventDescription": "One company that passed all qualification rules: at least the configured minimum number of matching senior level postings, working website that resolves, and valid MX record on the company domain. Includes velocity score, role mix, top skills, and likely contact email patterns. First 3 qualified rows per run are free so you can validate output.",
-                "eventPriceUsd": 0.20
+                "eventDescription": "One company that passed all qualification rules: at least the configured minimum number of matching senior level postings, working website that resolves, and valid MX record on the company domain. Includes velocity score, role mix, top skills, and likely contact email patterns. The first qualified row per run is free so you can validate output.",
+                "eventPriceUsd": 0.2
             }
         }
     },
-    "startedAt": "2026-06-15T00:00:00.000Z"
+    "startedAt": "2026-09-01T00:00:00.000Z"
 }

@@ -1,5 +1,5 @@
 {
-    "_note": "PUT this to /v2/acts/{actorId} as a pricingInfos array entry. PAY_PER_EVENT only on BRONZE. startedAt must be 14+ days out. Apify auto-adds 20% margin. Greenhouse + Lever public APIs are keyless (no browser, no proxy), so compute per company is tiny. Premium account-intelligence pricing. Companies not found on any ATS are returned but never charged. First 5 hot_account per run are free for validation.",
+    "_note": "PUT this to /v2/acts/{actorId} as a pricingInfos array entry. PAY_PER_EVENT only on BRONZE. startedAt must be 14+ days out. Apify auto-adds 20% margin. Greenhouse + Lever public APIs are keyless (no browser, no proxy), so compute per company is tiny. Premium account-intelligence pricing. Companies not found on any ATS are returned but never charged. First 5 hot_account per run are free for validation. | 2026-08-17 pass: per-run free allowance cut to 1 (0 where average output is under ~2 rows/run). It is charged per run, not per user, so on low-yield actors it was zeroing out revenue. Descriptions corrected to match src/main.js. Effective 09-01.",
     "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~ats-hiring-signal-tracker?token=APIFY_TOKEN",
     "pricingModel": "PAY_PER_EVENT",
     "pricingPerEvent": {
@@ -16,10 +16,10 @@
             },
             "hot_account": {
                 "eventTitle": "Hot account",
-                "eventDescription": "A company scaling fast: at or above the hot threshold of open roles, with the full department and location breakdown. A strong buying trigger. The first 5 hot_account per run are free so you can validate output.",
+                "eventDescription": "A company scaling fast: at or above the hot threshold of open roles, with the full department and location breakdown. A strong buying trigger. The first hot account per run is free so you can validate output.",
                 "eventPriceUsd": 0.15
             }
         }
     },
-    "startedAt": "2026-07-12T00:00:00.000Z"
+    "startedAt": "2026-09-01T00:00:00.000Z"
 }

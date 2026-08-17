@@ -12,14 +12,14 @@
             "accumulation": {
                 "eventTitle": "Accumulation signal",
                 "eventDescription": "A buyback announcement with insider open-market buying in the window. Includes the filing detail plus the insider buy/sell counts and dollar values.",
-                "eventPriceUsd": 0.10
+                "eventPriceUsd": 0.1
             },
             "conviction_buyback": {
                 "eventTitle": "Conviction buyback catalyst",
-                "eventDescription": "A buyback announcement with a net insider buying cluster (two or more insiders) in the window and a conviction score of 55 or higher. The company and its insiders backing the stock at the same time. Includes full filing and insider buy detail. The first conviction_buyback per run is free so you can validate output.",
+                "eventDescription": "A buyback announcement with a net insider buying cluster (two or more insiders) in the window and a conviction score of 55 or higher. The company and its insiders backing the stock at the same time. Includes full filing and insider buy detail. The first conviction buyback per run is free so you can validate output.",
                 "eventPriceUsd": 0.18
             }
         }
     },
-    "startedAt": "2026-07-11T00:00:00.000Z"
+    "startedAt": "2026-09-01T00:00:00.000Z"
 }

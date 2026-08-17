@@ -1,15 +1,15 @@
 {
-    "_note": "PUT this to /v2/acts/{actorId} as pricingInfos array entry. Per playbook: PAY_PER_EVENT only on BRONZE plan, startedAt 14+ days out. Apify auto-adds 20% margin. | Raised in the 2026-07-16 high-traffic pricing pass, effective 07-31.",
+    "_note": "PUT this to /v2/acts/{actorId} as pricingInfos array entry. Per playbook: PAY_PER_EVENT only on BRONZE plan, startedAt 14+ days out. Apify auto-adds 20% margin. | Raised in the 2026-07-16 high-traffic pricing pass, effective 07-31. | 2026-08-17 repricing pass: 0.004 -> 0.012 effective 09-01, matching polymarket-market-monitor which earns 6x more from a third of the users. Free-tier wording corrected to match src/main.js (charges after 2 rows, not 50).",
     "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~sports-odds-scraper?token=APIFY_TOKEN",
     "pricingModel": "PAY_PER_EVENT",
     "pricingPerEvent": {
         "actorChargeEvents": {
             "odds_row": {
                 "eventTitle": "Sports odds row",
-                "eventDescription": "One sports market line returned with sport, league, home, away, kickoff, market type, sportsbook, odds, line, and captured timestamp. First 50 per run are free so you can validate output.",
-                "eventPriceUsd": 0.004
+                "eventDescription": "One sports market line returned with sport, league, home, away, kickoff, market type, sportsbook, odds, line, and captured timestamp. First 2 per run are free so you can validate output. Events without odds are skipped and never charged.",
+                "eventPriceUsd": 0.012
             }
         }
     },
-    "startedAt": "2026-07-31T00:00:00.000Z"
+    "startedAt": "2026-09-01T00:00:00.000Z"
 }

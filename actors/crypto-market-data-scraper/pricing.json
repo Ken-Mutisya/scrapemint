@@ -1,15 +1,15 @@
 {
-    "_note": "PUT this to /v2/acts/{actorId} as pricingInfos array entry. Per playbook: PAY_PER_EVENT only on BRONZE plan, startedAt 14+ days out. Apify auto-adds margin.",
+    "_note": "PUT this to /v2/acts/{actorId} as pricingInfos array entry. Per playbook: PAY_PER_EVENT only on BRONZE plan, startedAt 14+ days out. Apify auto-adds margin. | 2026-08-17 pass: per-run free allowance cut to 1 (0 where average output is under ~2 rows/run). It is charged per run, not per user, so on low-yield actors it was zeroing out revenue. Descriptions corrected to match src/main.js. Effective 09-01.",
     "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~crypto-market-data-scraper?token=APIFY_TOKEN",
     "pricingModel": "PAY_PER_EVENT",
     "pricingPerEvent": {
         "actorChargeEvents": {
             "coin_row": {
                 "eventTitle": "Coin row",
-                "eventDescription": "One coin returned with price, market cap and rank, volume, fully diluted valuation, circulating/total/max supply, all-time high and low, and 1h/24h/7d/30d price change. First 25 rows per run are free so you can validate output.",
+                "eventDescription": "One coin returned with price, market cap and rank, volume, fully diluted valuation, circulating/total/max supply, all-time high and low, and 1h/24h/7d/30d price change. The first row per run is free so you can validate output.",
                 "eventPriceUsd": 0.004
             }
         }
     },
-    "startedAt": "2026-07-16T00:00:00.000Z"
+    "startedAt": "2026-09-01T00:00:00.000Z"
 }

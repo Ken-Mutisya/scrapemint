@@ -16,10 +16,10 @@
             },
             "hot_lead": {
                 "eventTitle": "Hot lead",
-                "eventDescription": "A recent raise of at least 1M sold with a named decision maker or matched contact info. Fresh capital, clear decision makers, and a way to reach them. The first hot_lead per run is free so you can validate output.",
+                "eventDescription": "A recent raise of at least 1M sold with a named decision maker or matched contact info. Fresh capital, clear decision makers, and a way to reach them. The first hot lead per run is free so you can validate output.",
                 "eventPriceUsd": 0.12
             }
         }
     },
-    "startedAt": "2026-07-11T00:00:00.000Z"
+    "startedAt": "2026-09-01T00:00:00.000Z"
 }

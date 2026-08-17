@@ -1,15 +1,15 @@
 {
-    "_note": "PUT this to /v2/acts/{actorId} as pricingInfos array entry. Per playbook: PAY_PER_EVENT only on BRONZE plan, startedAt 14+ days out. Apify auto-adds 20% margin.",
+    "_note": "PUT this to /v2/acts/{actorId} as pricingInfos array entry. Per playbook: PAY_PER_EVENT only on BRONZE plan, startedAt 14+ days out. Apify auto-adds 20% margin. | 2026-08-17 pass: per-run free allowance cut to 1 (0 where average output is under ~2 rows/run). It is charged per run, not per user, so on low-yield actors it was zeroing out revenue. Descriptions corrected to match src/main.js. Effective 09-01.",
     "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~linkedin-jobs-scraper-pro?token=APIFY_TOKEN",
     "pricingModel": "PAY_PER_EVENT",
     "pricingPerEvent": {
         "actorChargeEvents": {
             "job_row": {
                 "eventTitle": "LinkedIn job row (Pro)",
-                "eventDescription": "One enriched LinkedIn job posting with title, company, location, remote type, parsed salary, seniority, function, tech stack, applicant volume, hiring manager when visible, posted date, applicants, description, and apply URL. First 5 per run are free so you can validate output.",
+                "eventDescription": "One enriched LinkedIn job posting with title, company, location, remote type, parsed salary, seniority, function, tech stack, applicant volume, hiring manager when visible, posted date, applicants, description, and apply URL. The first result per run is free so you can validate output.",
                 "eventPriceUsd": 0.015
             }
         }
     },
-    "startedAt": "2026-06-14T00:00:00.000Z"
+    "startedAt": "2026-09-01T00:00:00.000Z"
 }

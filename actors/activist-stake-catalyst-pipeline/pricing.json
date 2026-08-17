@@ -12,14 +12,14 @@
             "accumulation": {
                 "eventTitle": "Accumulation signal",
                 "eventDescription": "A 13D activist filing, or any large-holder filing with insider open-market buying in the window. Includes filer, intent, filing detail, and the insider buy/sell counts and dollar values.",
-                "eventPriceUsd": 0.10
+                "eventPriceUsd": 0.1
             },
             "activist_confirmed": {
                 "eventTitle": "Activist confirmed catalyst",
-                "eventDescription": "A recent Schedule 13D (intent to influence), optionally with net insider open-market buying in the window. An activist taking a stake while insiders also buy. Includes full filing and insider buy detail. The first activist_confirmed per run is free so you can validate output.",
+                "eventDescription": "A recent Schedule 13D (intent to influence), optionally with net insider open-market buying in the window. An activist taking a stake while insiders also buy. Includes full filing and insider buy detail. The first activist confirmed per run is free so you can validate output.",
                 "eventPriceUsd": 0.18
             }
         }
     },
-    "startedAt": "2026-07-11T00:00:00.000Z"
+    "startedAt": "2026-09-01T00:00:00.000Z"
 }

@@ -12,14 +12,14 @@
             "accumulation": {
                 "eventTitle": "Accumulation signal",
                 "eventDescription": "A major FDA approval (drug NDA/BLA or device PMA), or any FDA event with insider open-market buying in the window. Includes product, event detail, and the insider buy/sell counts and dollar values.",
-                "eventPriceUsd": 0.10
+                "eventPriceUsd": 0.1
             },
             "approval_confirmed": {
                 "eventTitle": "Approval confirmed catalyst",
-                "eventDescription": "A recent major FDA approval (drug NDA/BLA or device PMA), optionally with net insider open-market buying in the window. An approval landing while insiders also buy. Includes full event and insider buy detail. The first approval_confirmed per run is free so you can validate output.",
+                "eventDescription": "A recent major FDA approval (drug NDA/BLA or device PMA), optionally with net insider open-market buying in the window. An approval landing while insiders also buy. Includes full event and insider buy detail. The first approval confirmed per run is free so you can validate output.",
                 "eventPriceUsd": 0.18
             }
         }
     },
-    "startedAt": "2026-07-11T00:00:00.000Z"
+    "startedAt": "2026-09-01T00:00:00.000Z"
 }
