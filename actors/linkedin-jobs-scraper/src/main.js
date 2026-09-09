@@ -51,6 +51,23 @@ const TECH_STACK_TERMS = [
 await Actor.init();
 const __chargeJobs = [];
 
+// Wall-clock budget: exit cleanly with partial results before the platform
+// hard-kills the run (TIMED-OUT = a failed buyer run and a maintenance flag).
+// Deadline derives from the run's ACTUAL timeout via ACTOR_TIMEOUT_AT, so a
+// buyer who shortens the timeout is respected too.
+//
+// This actor had no budget at all, which is why it timed out: at maxConcurrency
+// 2, sameDomainDelaySecs 1.5 and up to 6 retries per request, the work scales
+// with keywords x locations x maxResults while the run timeout does not. The
+// default 600 s covers roughly one keyword/location pair at maxResults 100;
+// anything wider ran until the platform killed it and the buyer lost the rows.
+const RUN_START = Date.now();
+const HARD_TIMEOUT_AT = Actor.getEnv().timeoutAt
+    ? new Date(Actor.getEnv().timeoutAt).getTime()
+    : RUN_START + 3600 * 1000;
+const SOFT_DEADLINE_AT = HARD_TIMEOUT_AT
+    - Math.min(300_000, Math.max(90_000, (HARD_TIMEOUT_AT - RUN_START) * 0.1));
+
 const input = (await Actor.getInput()) ?? {};
 const {
     keywords = [],
@@ -142,6 +159,11 @@ const crawler = new CheerioCrawler({
         },
     ],
     async requestHandler({ $, request, crawler: c }) {
+        if (Date.now() > SOFT_DEADLINE_AT) {
+            log.warning(`Run-time budget reached; stopping with the ${itemsPushed} job(s) collected so far.`);
+            c.stop();
+            return;
+        }
         if (itemsPushed >= maxResults) return;
         if (request.userData.type === 'listing') {
             await handleListing($, request, c);

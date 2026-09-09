@@ -27,9 +27,37 @@ const CONCURRENCY = 8;
 const STATE_TEXT_CAP = 60000;
 const ROW_TEXT_CAP = 5000;
 const DIFF_LINES_CAP = 200;
+// A state read or write that stalls must not eat the whole timeout margin.
+// apify-client retries a failing storage call 8 times with exponential backoff
+// (~128 s of sleeps before it gives up), and this actor makes two state calls
+// per URL, up to 500 URLs, 8 at a time. One rate-limited store was therefore
+// enough to hold a batch open for minutes. State is best-effort by design:
+// losing a read costs a fresh baseline, losing a write costs one run's
+// baseline update, and neither is worth a killed run.
+const STORAGE_TIMEOUT_MS = 30000;
+
 // Stop early on platform timeouts so pushed rows and charges are not lost.
+// The margin scales with the run's own timeout instead of a flat 60 s: the
+// deadline can only be tested between units of work, so it has to cover the
+// slowest single unit still in flight when it trips.
 const timeoutAtMs = process.env.ACTOR_TIMEOUT_AT ? Date.parse(process.env.ACTOR_TIMEOUT_AT) : null;
-const deadlineMs = timeoutAtMs ? timeoutAtMs - 60000 : null;
+const deadlineMs = timeoutAtMs
+    ? timeoutAtMs - Math.min(300000, Math.max(90000, (timeoutAtMs - Date.now()) * 0.1))
+    : null;
+
+// Resolves to `fallback` instead of hanging. Never used for pushData or
+// charge: dropping a billed row to save time is the wrong trade.
+async function withTimeout(promise, ms, fallback) {
+    let timer;
+    try {
+        return await Promise.race([
+            promise,
+            new Promise((resolve) => { timer = setTimeout(() => resolve(fallback), ms); }),
+        ]);
+    } finally {
+        clearTimeout(timer);
+    }
+}
 
 const BOILERPLATE_SELECTORS = [
     'script', 'style', 'noscript', 'iframe', 'svg', 'canvas', 'template',
@@ -129,6 +157,28 @@ try {
 }
 const keyFor = (url) => `page-${createHash('sha256').update(selector + '|' + url).digest('hex').slice(0, 32)}`;
 
+// A read that stalls or throws reports "no baseline", so the page is re-based
+// and its row is a free baseline rather than a charged change. Failing towards
+// a free row keeps a storage hiccup from billing anyone for a false diff.
+const readState = (key) => withTimeout(
+    state.getValue(key).catch((err) => {
+        log.warning(`state read failed for ${key} (${err?.message}); treating as a new baseline`);
+        return null;
+    }),
+    STORAGE_TIMEOUT_MS,
+    null,
+);
+
+// A write that stalls costs this run's baseline update and nothing else: the
+// next run sees the older baseline and still reports the change.
+const writeState = (key, value) => withTimeout(
+    state.setValue(key, value).catch((err) => {
+        log.warning(`state write failed for ${key} (${err?.message}); baseline not updated this run`);
+    }),
+    STORAGE_TIMEOUT_MS,
+    undefined,
+);
+
 async function fetchHtml(url) {
     const controller = new AbortController();
     const timer = setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS);
@@ -217,7 +267,7 @@ async function pushChange(row) {
 async function checkUrl(url) {
     const key = keyFor(url);
     const now = new Date().toISOString();
-    const prev = await state.getValue(key);
+    const prev = await readState(key);
     const res = await fetchHtml(url);
     if (!res.ok) {
         errors += 1;
@@ -234,13 +284,13 @@ async function checkUrl(url) {
 
     if (!prev) {
         baselines += 1;
-        await state.setValue(key, { url, hash, text, title, firstSeenAt: now, lastChangedAt: null, lastCheckedAt: now });
+        await writeState(key, { url, hash, text, title, firstSeenAt: now, lastChangedAt: null, lastCheckedAt: now });
         await Actor.pushData({ url, status: 'baseline', changed: false, title, httpStatus: res.status, textHash: hash, firstSeenAt: now, checkedAt: now });
         return;
     }
     if (prev.hash === hash) {
         unchanged += 1;
-        await state.setValue(key, { ...prev, lastCheckedAt: now });
+        await writeState(key, { ...prev, lastCheckedAt: now });
         if (pushUnchangedRows) {
             await Actor.pushData({ url, status: 'unchanged', changed: false, title, httpStatus: res.status, textHash: hash, firstSeenAt: prev.firstSeenAt, lastChangedAt: prev.lastChangedAt, checkedAt: now });
         }
@@ -268,7 +318,7 @@ async function checkUrl(url) {
         row.previousText = (prev.text || '').slice(0, ROW_TEXT_CAP);
         row.currentText = text.slice(0, ROW_TEXT_CAP);
     }
-    await state.setValue(key, { url, hash, text, title, firstSeenAt: prev.firstSeenAt, lastChangedAt: now, lastCheckedAt: now });
+    await writeState(key, { url, hash, text, title, firstSeenAt: prev.firstSeenAt, lastChangedAt: now, lastCheckedAt: now });
     await pushChange(row);
 }
 

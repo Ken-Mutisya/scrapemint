@@ -56,6 +56,26 @@ const FEATURE_PARAM = {
 await Actor.init();
 const __chargeJobs = [];
 
+// A watch page costs ~7 s of browser time, so the work scales with the video
+// count while the run timeout does not: at the default 1200 s a buyer raising
+// maxVideosPerSearch, adding search terms, or turning on transcripts/comments
+// runs past the end and the platform hard-kills the run. TIMED-OUT loses the
+// buyer the rows and flags the actor UNDER_MAINTENANCE, so stop early instead
+// and exit cleanly with what was collected.
+//
+// The margin has to clear one in-flight request handler, otherwise a handler
+// that starts just before the deadline still overruns the hard timeout.
+const REQUEST_HANDLER_TIMEOUT_SECS = 150;
+const RUN_START = Date.now();
+const HARD_TIMEOUT_AT = Actor.getEnv().timeoutAt
+    ? new Date(Actor.getEnv().timeoutAt).getTime()
+    : RUN_START + 3600 * 1000;
+const SOFT_DEADLINE_AT = HARD_TIMEOUT_AT
+    - Math.min(300_000, Math.max(
+        (REQUEST_HANDLER_TIMEOUT_SECS + 30) * 1000,
+        (HARD_TIMEOUT_AT - RUN_START) * 0.1,
+    ));
+
 const input = (await Actor.getInput()) ?? {};
 const {
     searchTerms = [],
@@ -126,7 +146,7 @@ const crawler = new PlaywrightCrawler({
     maxConcurrency: Math.max(1, Math.min(16, Number(concurrency) || 3)),
     headless: true,
     navigationTimeoutSecs: 45,
-    requestHandlerTimeoutSecs: 150,
+    requestHandlerTimeoutSecs: REQUEST_HANDLER_TIMEOUT_SECS,
     maxRequestRetries: 4,
     retryOnBlocked: true,
     useSessionPool: true,
@@ -170,6 +190,11 @@ const crawler = new PlaywrightCrawler({
         },
     ],
     async requestHandler(ctx) {
+        if (Date.now() > SOFT_DEADLINE_AT) {
+            log.warning(`Run-time budget reached; stopping with the ${pushedRows} video(s) collected so far.`);
+            ctx.crawler.stop();
+            return;
+        }
         const t = ctx.request.userData?.type;
         if (t === 'search') return handleSearch(ctx);
         if (t === 'channel') return handleChannel(ctx);
