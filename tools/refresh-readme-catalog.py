@@ -92,14 +92,14 @@ SECTIONS = [
     ]),
     ("Social, news & content", [
         "instagram-scraper", "youtube-scraper", "youtube-video-scraper", "bluesky-scraper",
-        "meta-threads-intelligence", "telegram-channel-scraper",
+        "telegram-channel-scraper",
         "substack-newsletter-intelligence", "producthunt-launch-tracker", "hacker-news-scraper",
         "google-news-scraper", "global-news-media-monitor", "rss-feed-scraper",
         "wikipedia-trends-scraper", "wikipedia-article-data", "music-charts-tracker",
         "podcast-charts-tracker", "streaming-availability-scraper", "tv-schedule-scraper",
     ]),
     ("Research, science & patents", [
-        "google-patents-scraper", "google-scholar-scraper", "arxiv-papers-scraper",
+        "google-patents-scraper", "arxiv-papers-scraper",
         "research-papers-scraper", "pubmed-clinical-trials-intelligence",
         "research-patent-radar-pipeline", "nih-grant-finder", "grant-opportunity-finder",
         "us-college-finder", "satellite-tracking-data", "book-data-scraper",
@@ -126,7 +126,7 @@ SECTIONS = [
     ]),
     ("Ecommerce & retail", [
         "ecommerce-scraper", "shopify-store-products-scraper", "shopify-price-monitor",
-        "facebook-marketplace-deal-finder", "app-store-top-charts-tracker", "car-fuel-economy-scraper",
+        "app-store-top-charts-tracker", "car-fuel-economy-scraper",
     ]),
     ("Developer & security tools", [
         "github-repo-stats", "github-issue-monitor", "github-trending-scraper",
@@ -135,7 +135,7 @@ SECTIONS = [
         "ransomware-victims-tracker", "internet-infrastructure-data", "internet-outage-alerts",
     ]),
     ("SEO & marketing", [
-        "google-trends-scraper", "google-keyword-suggestions-scraper",
+        "google-keyword-suggestions-scraper",
         "google-ads-transparency-scraper", "seo-site-audit-scraper", "sitemap-change-monitor",
         "website-change-monitor", "website-tech-stack-detector", "company-logo-scraper",
     ]),

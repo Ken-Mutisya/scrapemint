@@ -19,7 +19,7 @@ flowchart LR
 
 <!-- CATALOG:START -->
 
-There are **243** actors live right now, and a new one ships every few days.
+There are **239** actors live right now, and a new one ships every few days.
 
 ### Lead generation
 
@@ -189,7 +189,6 @@ There are **243** actors live right now, and a new one ships every few days.
 - [YouTube Channel Intelligence Pro: Videos, Comments, Transcripts](https://apify.com/scrapemint/youtube-scraper)
 - [YouTube Video & Channel Scraper](https://apify.com/scrapemint/youtube-video-scraper)
 - [Bluesky Scraper: Profiles, Posts & Followers](https://apify.com/scrapemint/bluesky-scraper)
-- [Threads Brand Mentions, Keyword Alerts & Influencer Discovery](https://apify.com/scrapemint/meta-threads-intelligence)
 - [Telegram Channel Scraper (No Login)](https://apify.com/scrapemint/telegram-channel-scraper)
 - [Substack Newsletter Intelligence: Top Writer Tracker](https://apify.com/scrapemint/substack-newsletter-intelligence)
 - [Product Hunt Launch Tracker and Topic Alert Feed](https://apify.com/scrapemint/producthunt-launch-tracker)
@@ -207,7 +206,6 @@ There are **243** actors live right now, and a new one ships every few days.
 ### Research, science & patents
 
 - [Google Patents Intelligence: Claims, Citations, Family Tree](https://apify.com/scrapemint/google-patents-scraper)
-- [Google Scholar Intelligence: Papers, Citations, BibTeX](https://apify.com/scrapemint/google-scholar-scraper)
 - [arXiv Papers Scraper: AI & Science Research Tracker](https://apify.com/scrapemint/arxiv-papers-scraper)
 - [Research Papers Scraper: Citations, Authors & Experts](https://apify.com/scrapemint/research-papers-scraper)
 - [Pharma Research & Clinical Trial Monitor](https://apify.com/scrapemint/pubmed-clinical-trials-intelligence)
@@ -269,7 +267,6 @@ There are **243** actors live right now, and a new one ships every few days.
 - [Ecommerce Intelligence Pro: Multi Marketplace Product Monitor](https://apify.com/scrapemint/ecommerce-scraper)
 - [Shopify Store Products Scraper: Full Catalog, Prices, Stock](https://apify.com/scrapemint/shopify-store-products-scraper)
 - [Shopify Price & Stock Monitor: Change Alerts Any Store](https://apify.com/scrapemint/shopify-price-monitor)
-- [Marketplace Arbitrage Radar, Local Resale Deal Intelligence](https://apify.com/scrapemint/facebook-marketplace-deal-finder)
 - [App Store Top Charts Tracker: Ranks by Country & Category](https://apify.com/scrapemint/app-store-top-charts-tracker)
 - [Car Fuel Economy Scraper: MPG, EV Range & CO2 by Model](https://apify.com/scrapemint/car-fuel-economy-scraper)
 
@@ -290,7 +287,6 @@ There are **243** actors live right now, and a new one ships every few days.
 
 ### SEO & marketing
 
-- [Google Trends Scraper (No Login)](https://apify.com/scrapemint/google-trends-scraper)
 - [Google Keyword Suggestions Scraper (Autocomplete)](https://apify.com/scrapemint/google-keyword-suggestions-scraper)
 - [Google Ads Transparency Scraper (No Login)](https://apify.com/scrapemint/google-ads-transparency-scraper)
 - [SEO Site Audit Scraper: On-Page Issues for Every Page](https://apify.com/scrapemint/seo-site-audit-scraper)
