@@ -1,6 +1,7 @@
 // Flight Price Tracker
-// Scrapes Google Flights via PlaywrightCrawler with fingerprint injection
-// and residential proxy. Builds a row per fare returned for a route and date.
+// Scrapes Google Flights via PlaywrightCrawler with fingerprint injection.
+// Builds a row per fare returned for a route and date. Runs from datacenter
+// proxy: residential was ~48% of run cost and returned the same fares.
 //
 // Free tier: first 2 items per run are free. Charge per item after.
 
@@ -18,6 +19,25 @@ const SEEN_STORE_NAME = 'flight-price-tracker-seen';
 
 await Actor.init();
 const __chargeJobs = [];
+
+// Wall-clock budget: one request per route/date pair at maxConcurrency 1, so
+// the work grows with routes x dates while the run timeout stays at 1200 s.
+// Nothing stopped it, and 9 of the last 67 buyer runs were TIMED-OUT, which
+// loses the buyer every fare already found and flags the actor. Stop early and
+// exit with the fares collected so far instead.
+//
+// The margin has to clear one in-flight request handler, or a handler starting
+// just before the deadline still overruns the hard timeout.
+const REQUEST_HANDLER_TIMEOUT_SECS = 90;
+const RUN_START = Date.now();
+const HARD_TIMEOUT_AT = Actor.getEnv().timeoutAt
+    ? new Date(Actor.getEnv().timeoutAt).getTime()
+    : RUN_START + 3600 * 1000;
+const SOFT_DEADLINE_AT = HARD_TIMEOUT_AT
+    - Math.min(300_000, Math.max(
+        (REQUEST_HANDLER_TIMEOUT_SECS + 30) * 1000,
+        (HARD_TIMEOUT_AT - RUN_START) * 0.1,
+    ));
 
 let totalPushed = 0;
 let totalSeen = 0;
@@ -63,7 +83,7 @@ try {
         if (dateSet.length === 0) {
             log.error('No departure dates built. Set departureDates or use departDaysAhead + dateWindowDays.');
         } else {
-            const proxyConfiguration = await Actor.createProxyConfiguration(proxyInput);
+            const proxyConfiguration = await Actor.createProxyConfiguration(sanitizeProxyInput(proxyInput));
 
             const requests = [];
             for (const r of routeList) {
@@ -86,7 +106,7 @@ try {
                 useSessionPool: true,
                 sessionPoolOptions: { maxPoolSize: 15 },
                 navigationTimeoutSecs: 45,
-                requestHandlerTimeoutSecs: 90,
+                requestHandlerTimeoutSecs: REQUEST_HANDLER_TIMEOUT_SECS,
                 // Fares come from aria-label attributes, so no image is ever
                 // read. Turning them off at the blink level cuts the residential
                 // bandwidth this actor pays for on every page. It has to be a
@@ -113,7 +133,12 @@ try {
                         await page.setExtraHTTPHeaders({ 'accept-language': 'en-US,en;q=0.9' });
                     },
                 ],
-                requestHandler: async ({ page, request, session }) => {
+                requestHandler: async ({ page, request, session, crawler: c }) => {
+                    if (Date.now() > SOFT_DEADLINE_AT) {
+                        log.warning(`Run-time budget reached; stopping with the ${totalPushed} fare(s) collected so far.`);
+                        c.stop();
+                        return;
+                    }
                     pageFetches += 1;
                     await page.waitForLoadState('domcontentloaded', { timeout: 25_000 }).catch(() => {});
 
@@ -421,4 +446,23 @@ function maybeCharge() {
             log.warning(`charge failed (continuing): ${err?.message}`);
         }));
     }
+}
+
+// Buyer-selected RESIDENTIAL or SERP proxy groups bill the developer under
+// pay-per-event pricing, and this source was verified to work from datacenter
+// IPs on 2026-09-10, so those groups are stripped (buyer-supplied proxyUrls
+// pass through untouched). Residential was 81-92% of this Actor's run cost and
+// bought nothing: the same query returns the same rows from datacenter.
+function sanitizeProxyInput(p) {
+    if (!p || typeof p !== 'object') return p;
+    const out = { ...p };
+    if (Array.isArray(out.apifyProxyGroups)) {
+        const kept = out.apifyProxyGroups.filter((g) => !/RESIDENTIAL|SERP/i.test(String(g)));
+        if (kept.length !== out.apifyProxyGroups.length) {
+            log.warning('Ignoring RESIDENTIAL/SERP proxy groups: this source works from datacenter IPs and premium groups only raise run costs.');
+        }
+        if (kept.length) out.apifyProxyGroups = kept;
+        else delete out.apifyProxyGroups;
+    }
+    return out;
 }

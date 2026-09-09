@@ -37,10 +37,37 @@
             "editor": "select",
             "items": {
                 "type": "string",
-                "enum": ["scheduled", "on-time", "delayed", "cancelled", "diverted", "landed", "en-route", "unknown"],
-                "enumTitles": ["Scheduled", "On time", "Delayed", "Cancelled", "Diverted", "Landed", "En route", "Unknown"]
+                "enum": [
+                    "scheduled",
+                    "on-time",
+                    "delayed",
+                    "cancelled",
+                    "diverted",
+                    "landed",
+                    "en-route",
+                    "unknown"
+                ],
+                "enumTitles": [
+                    "Scheduled",
+                    "On time",
+                    "Delayed",
+                    "Cancelled",
+                    "Diverted",
+                    "Landed",
+                    "En route",
+                    "Unknown"
+                ]
             },
-            "default": ["scheduled", "on-time", "delayed", "cancelled", "diverted", "landed", "en-route", "unknown"]
+            "default": [
+                "scheduled",
+                "on-time",
+                "delayed",
+                "cancelled",
+                "diverted",
+                "landed",
+                "en-route",
+                "unknown"
+            ]
         },
         "cancelledOnly": {
             "title": "Cancellations and diversions only",
@@ -77,12 +104,10 @@
             "description": "Apify proxy. FlightAware blocks datacenter IPs aggressively. Residential is strongly recommended.",
             "editor": "proxy",
             "prefill": {
-                "useApifyProxy": true,
-                "apifyProxyGroups": ["RESIDENTIAL"]
+                "useApifyProxy": true
             },
             "default": {
-                "useApifyProxy": true,
-                "apifyProxyGroups": ["RESIDENTIAL"]
+                "useApifyProxy": true
             }
         }
     },

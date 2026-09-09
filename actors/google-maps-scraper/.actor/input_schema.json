@@ -91,16 +91,10 @@
             "description": "Apify proxy. Residential strongly recommended. Google blocks datacenter IPs.",
             "editor": "proxy",
             "prefill": {
-                "useApifyProxy": true,
-                "apifyProxyGroups": [
-                    "RESIDENTIAL"
-                ]
+                "useApifyProxy": true
             },
             "default": {
-                "useApifyProxy": true,
-                "apifyProxyGroups": [
-                    "RESIDENTIAL"
-                ]
+                "useApifyProxy": true
             }
         }
     },
