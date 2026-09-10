@@ -66,7 +66,7 @@ const {
 
 const cap = Number(maxResults) > 0 ? Number(maxResults) : Infinity;
 
-const proxyConfiguration = await Actor.createProxyConfiguration(proxyInput);
+const proxyConfiguration = await Actor.createProxyConfiguration(sanitizeProxyInput(proxyInput));
 const seenStore = dedupe ? await Actor.openKeyValueStore('tripadvisor-seen') : null;
 const seenLocationIds = new Set(seenStore ? (await seenStore.getValue('seen-location-ids')) || [] : []);
 const perSourceCount = new Map();
@@ -894,4 +894,23 @@ async function passCloudflareIfPresent(page) {
             if (!stillChallenge) return;
         }
     } catch {}
+}
+
+// Buyer-selected RESIDENTIAL or SERP proxy groups bill the developer under
+// pay-per-event pricing, and this source was verified to work from datacenter
+// IPs on 2026-09-10, so those groups are stripped (buyer-supplied proxyUrls
+// pass through untouched). Measured on the same input, residential cost $0.1282
+// per run against $0.0010 from datacenter and returned identical rows.
+function sanitizeProxyInput(p) {
+    if (!p || typeof p !== 'object') return p;
+    const out = { ...p };
+    if (Array.isArray(out.apifyProxyGroups)) {
+        const kept = out.apifyProxyGroups.filter((g) => !/RESIDENTIAL|SERP/i.test(String(g)));
+        if (kept.length !== out.apifyProxyGroups.length) {
+            log.warning('Ignoring RESIDENTIAL/SERP proxy groups: this source works from datacenter IPs and premium groups only raise run costs.');
+        }
+        if (kept.length) out.apifyProxyGroups = kept;
+        else delete out.apifyProxyGroups;
+    }
+    return out;
 }

@@ -54,7 +54,7 @@ try {
     if (searchRoots.length === 0) {
         log.error('Provide at least one searchUrls entry or a location.');
     } else {
-        const proxyConfiguration = await Actor.createProxyConfiguration(proxyInput);
+        const proxyConfiguration = await Actor.createProxyConfiguration(sanitizeProxyInput(proxyInput));
 
         const requests = [];
         for (const root of searchRoots) {
@@ -349,4 +349,23 @@ function maybeCharge() {
             log.warning(`charge failed (continuing): ${err?.message}`);
         }));
     }
+}
+
+// Buyer-selected RESIDENTIAL or SERP proxy groups bill the developer under
+// pay-per-event pricing, and this source was verified to work from datacenter
+// IPs on 2026-09-10, so those groups are stripped (buyer-supplied proxyUrls
+// pass through untouched). Measured on the same input, residential cost $0.1651
+// per run against $0.0239 from datacenter and found the same 41 listings.
+function sanitizeProxyInput(p) {
+    if (!p || typeof p !== 'object') return p;
+    const out = { ...p };
+    if (Array.isArray(out.apifyProxyGroups)) {
+        const kept = out.apifyProxyGroups.filter((g) => !/RESIDENTIAL|SERP/i.test(String(g)));
+        if (kept.length !== out.apifyProxyGroups.length) {
+            log.warning('Ignoring RESIDENTIAL/SERP proxy groups: this source works from datacenter IPs and premium groups only raise run costs.');
+        }
+        if (kept.length) out.apifyProxyGroups = kept;
+        else delete out.apifyProxyGroups;
+    }
+    return out;
 }
