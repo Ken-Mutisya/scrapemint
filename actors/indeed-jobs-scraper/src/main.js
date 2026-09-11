@@ -144,10 +144,29 @@ if (initial.length === 0) {
 await Actor.exit();
 }
 
-// Wall-clock budget: exit cleanly with partial results before the 3600s platform
+// Indeed challenges most /viewjob detail pages even from residential exits. The
+// listing card already carries title/company/location/salary/snippet, so a
+// blocked detail page degrades to a card-only row rather than dropping the job:
+// before this, a run could log "42 cards" and still push 0 rows.
+const JOB_MAX_RETRIES = 1;
+
+// Wall-clock budget: exit cleanly with partial results before the platform
 // timeout (anti-bot throttling can otherwise run a big query set to a TIMED-OUT).
+// Read the real deadline off the run -- this was hardcoded to 3300s against an
+// assumed 3600s timeout, but the actor's default run timeout is 1200s, so the
+// guard below could never fire and a throttled run was hard-killed instead.
 const RUN_START = Date.now();
-const MAX_RUN_MS = 3300 * 1000;
+const HARD_TIMEOUT_AT = Actor.getEnv().timeoutAt
+    ? new Date(Actor.getEnv().timeoutAt).getTime()
+    : RUN_START + 1200 * 1000;
+// Margin must cover the slowest single unit still in flight; navigation and the
+// request handler are both capped at 45s here, so 90s is the floor.
+// The margin is also capped at half the budget: on a short run (a buyer setting
+// timeout=180) a flat 90s floor would otherwise put the soft deadline in the
+// past and stop the crawler a second after it started.
+const BUDGET_MS = HARD_TIMEOUT_AT - RUN_START;
+const SOFT_DEADLINE_AT = HARD_TIMEOUT_AT
+    - Math.min(300_000, Math.max(90_000, BUDGET_MS * 0.1), BUDGET_MS * 0.5);
 
 const crawler = new PlaywrightCrawler({
     proxyConfiguration,
@@ -158,7 +177,7 @@ const crawler = new PlaywrightCrawler({
     // let each blocked request burn up to ~10 min and stall dependent pipelines).
     navigationTimeoutSecs: 45,
     requestHandlerTimeoutSecs: 45,
-    maxRequestRetries: 1,
+    maxRequestRetries: JOB_MAX_RETRIES,
     retryOnBlocked: false,
     useSessionPool: true,
     persistCookiesPerSession: true,
@@ -226,19 +245,58 @@ const crawler = new PlaywrightCrawler({
         },
     ],
     async requestHandler(ctx) {
-        if (Date.now() - RUN_START > MAX_RUN_MS) { log.warning('Run-time budget reached; finishing with partial results.'); return; }
+        if (Date.now() > SOFT_DEADLINE_AT) {
+            log.warning('Run-time budget reached; finishing with partial results.');
+            crawler.stop();
+            return;
+        }
         const t = ctx.request.userData?.type;
         if (t === 'listing') return handleListing(ctx);
         if (t === 'job') return handleJob(ctx);
         if (t === 'company') return handleCompany(ctx);
     },
-    failedRequestHandler({ request, error }) {
+    async failedRequestHandler({ request, error }) {
         log.warning(`Failed: ${request.url} -> ${error?.message}`);
+        // A job request still carries its listing card; emit that rather than
+        // losing the row to a navigation failure.
+        if (request.userData?.type === 'job' && request.userData.card?.title) {
+            await pushJobRow({}, request, crawler, { partial: 'detail-failed' });
+        }
     },
 });
 
 await crawler.addRequests(initial);
+
+// The in-handler deadline check only fires between units of work, so a request
+// whose navigation hangs never reaches it -- the run then burns its whole budget
+// without loading a single page and the platform hard-kills it as TIMED-OUT.
+// That is also what buyers are killing when they ABORT: a run sitting idle for
+// ten minutes with no output. Verified 2026-09-11: a 600s run died this way
+// without ever logging a card. This timer enforces the deadline from outside
+// the request pipeline.
+const watchdog = setTimeout(() => {
+    log.warning(`Soft deadline reached with requests still in flight; stopping with ${pushedRows} job(s).`);
+    try { crawler.stop(); } catch (err) { log.warning(`crawler.stop() failed: ${err?.message}`); }
+}, Math.max(1000, SOFT_DEADLINE_AT - Date.now()));
+watchdog.unref?.();
+
+// crawler.stop() waits for in-flight requests, so it cannot rescue a navigation
+// that is hung rather than slow. This backstop ends the run cleanly just before
+// the platform would kill it, turning a TIMED-OUT into a SUCCEEDED with whatever
+// was collected -- TIMED-OUT is what flags the Actor UNDER_MAINTENANCE.
+const hardStop = setTimeout(() => {
+    (async () => {
+        log.warning(`Crawler did not stop after the soft deadline; exiting with ${pushedRows} job(s).`);
+        try { if (seenStore && pushedRows > 0) await seenStore.setValue('seen-job-ids', [...seenJobIds]); } catch {}
+        try { await Promise.allSettled(__chargeJobs); } catch {}
+        await Actor.exit();
+    })();
+}, Math.max(2000, HARD_TIMEOUT_AT - 30_000 - Date.now()));
+hardStop.unref?.();
+
 await crawler.run();
+clearTimeout(watchdog);
+clearTimeout(hardStop);
 
 if (seenStore && pushedRows > 0) await seenStore.setValue('seen-job-ids', [...seenJobIds]);
 
@@ -408,7 +466,18 @@ async function handleListing({ page, request, crawler: c }) {
             const jk = a.getAttribute('data-jk');
             if (!jk || out.has(jk)) return;
             const card = a.closest('div.job_seen_beacon, li[data-testid="result"], div[data-testid="slider_item"]') || a;
-            const title = text(card.querySelector('h2 a span, h2 a, [data-testid="jobTitle"]'));
+            // Indeed moved the card title from <h2> to <h3 class="jobTitle"> --
+            // the old h2-only selector silently returned '' for every card, so a
+            // listing could report 43 cards and yield no usable rows. Fall back
+            // to the anchor's own aria-label/text, which carry the title too.
+            let title = text(card.querySelector([
+                'h2 a span[title]', 'h2 a span', 'h2 a',
+                'h3.jobTitle a span[title]', 'h3.jobTitle a span', 'h3.jobTitle a',
+                'h3 a span[title]', 'h3 a span',
+                '[data-testid="jobTitle"]', 'span[id^="jobTitle-"]',
+            ].join(', ')));
+            if (!title) title = (a.getAttribute('aria-label') || '').replace(/^\s*full details of\s*/i, '').trim();
+            if (!title) title = text(a);
             const company = text(card.querySelector('[data-testid="company-name"], span.companyName'));
             const location = text(card.querySelector('[data-testid="text-location"], div.companyLocation'));
             const salaryEstimate = text(card.querySelector('div.metadata.salary-snippet-container, [class*="salary-snippet"]'));
@@ -422,6 +491,7 @@ async function handleListing({ page, request, crawler: c }) {
     }).catch(() => []);
 
     log.info(`Listing ${request.userData.keyword || request.url} @ ${request.userData.location || ''}: ${jobsOnPage.length} cards.`);
+
 
     const remaining = cap - pushedRows;
     const toQueue = [];
@@ -472,10 +542,18 @@ async function handleJob({ page, request, crawler: c }) {
     await dismissModals(page);
     await passCloudflareIfPresent(page);
 
+    const lastAttempt = (request.retryCount || 0) >= JOB_MAX_RETRIES;
+
     if (await looksLikeChallenge(page)) {
-        log.warning(`Challenge on viewjob ${jk}, rotating.`);
         request.session?.markBad();
-        throw new Error('Indeed challenge');
+        // Retry once on a fresh session; if that is also challenged, keep the
+        // card data rather than losing the job entirely.
+        if (!lastAttempt) {
+            log.warning(`Challenge on viewjob ${jk}, rotating.`);
+            throw new Error('Indeed challenge');
+        }
+        log.warning(`Challenge on viewjob ${jk} after retry; emitting card-only row.`);
+        return pushJobRow({}, request, c, { partial: 'challenged' });
     }
 
     try { await page.waitForSelector('h1[data-testid="jobsearch-JobInfoHeader-title"], h1.jobsearch-JobInfoHeader-title, [data-testid="jobTitle"]', { timeout: 12000 }); } catch {}
@@ -526,21 +604,40 @@ async function handleJob({ page, request, crawler: c }) {
         };
     });
 
-    if (!job.title) {
-        log.warning(`No title on ${request.url}, skipping.`);
+    return pushJobRow(job, request, c, { page });
+}
+
+// Builds and pushes one row. `job` is the detail-page scrape, or {} when that
+// page was blocked -- in that case the listing card supplies the row.
+async function pushJobRow(job, request, c, { page = null, partial: partialIn = null } = {}) {
+    let partial = partialIn;
+    const jk = request.userData.jk;
+    // Re-checked here because failedRequestHandler reaches this without going
+    // through handleJob's guards.
+    if (pushedRows >= cap) return;
+    if (seenJobIds.has(jk)) return;
+    const card = request.userData.card || {};
+    const title = job.title || card.title;
+    if (!title) {
+        log.warning(`No title on ${request.url} and no card title, skipping.`);
         return;
     }
+    // Mark any row the detail page did not contribute to, so a buyer can tell a
+    // full row from one assembled out of the listing card alone.
+    if (!job.title) {
+        log.warning(`No detail title on ${request.url}; using card data.`);
+        partial = partial || 'card-only';
+    }
 
-    const card = request.userData.card || {};
     const salary = parseSalary ? parseSalaryText(job.salaryText || card.salaryEstimate || '', request.userData.host) : null;
     const skills = extractSkills ? detectSkills(job.description) : [];
-    const seniority = classifySeniority ? classifySeniorityLabel(job.title) : null;
+    const seniority = classifySeniority ? classifySeniorityLabel(title) : null;
     const workMode = detectRemoteHybrid ? detectWorkMode(job.location, job.description) : null;
     const postedDate = parseRelativeDate(job.postedDateText || card.postedAgo || '');
     const employmentType = parseEmploymentType(job.employmentTypeText || job.salaryText || card.snippet || '');
 
     let resolvedApplyUrl = null;
-    if (followApplyRedirect && job.externalApplyUrl) {
+    if (page && followApplyRedirect && job.externalApplyUrl) {
         resolvedApplyUrl = await resolveApplyRedirect(page, job.externalApplyUrl);
     }
 
@@ -548,7 +645,7 @@ async function handleJob({ page, request, crawler: c }) {
         jobId: jk,
         url: `https://${request.userData.host}/viewjob?jk=${jk}`,
         country: HOST_TO_COUNTRY[request.userData.host] || country,
-        title: job.title,
+        title,
         company: {
             name: job.company || card.company || null,
             indeedUrl: job.companyHref ? new URL(job.companyHref, `https://${request.userData.host}`).toString() : null,
@@ -585,6 +682,7 @@ async function handleJob({ page, request, crawler: c }) {
             location: request.userData.location || null,
         },
         scrapedAt: new Date().toISOString(),
+        partial,
     };
 
     await Actor.pushData(row);
@@ -597,7 +695,7 @@ async function handleJob({ page, request, crawler: c }) {
         await c.addRequests([makeCompanyRequest(row.company.slug, request.userData.host, row.company.indeedUrl)]);
     }
 
-    log.info(`Pushed ${jk} ${row.title.slice(0, 55)} @ ${row.company.name || '?'} (${pushedRows})`);
+    log.info(`Pushed ${jk}${partial ? ` [${partial}]` : ''} ${row.title.slice(0, 55)} @ ${row.company.name || '?'} (${pushedRows})`);
 }
 
 // ---------- Company handler ----------
