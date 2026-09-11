@@ -70,11 +70,16 @@ const RUN_START = Date.now();
 const HARD_TIMEOUT_AT = Actor.getEnv().timeoutAt
     ? new Date(Actor.getEnv().timeoutAt).getTime()
     : RUN_START + 3600 * 1000;
+// The margin is also capped at half the budget: on a short run (a buyer setting
+// timeout=180) the requestHandler-derived floor would otherwise exceed the whole
+// budget, putting the soft deadline in the past and stopping the crawler a
+// second after it started.
+const BUDGET_MS = HARD_TIMEOUT_AT - RUN_START;
 const SOFT_DEADLINE_AT = HARD_TIMEOUT_AT
     - Math.min(300_000, Math.max(
         (REQUEST_HANDLER_TIMEOUT_SECS + 30) * 1000,
-        (HARD_TIMEOUT_AT - RUN_START) * 0.1,
-    ));
+        BUDGET_MS * 0.1,
+    ), BUDGET_MS * 0.5);
 
 const input = (await Actor.getInput()) ?? {};
 const {
@@ -209,7 +214,36 @@ const crawler = new PlaywrightCrawler({
 });
 
 await crawler.addRequests(initial);
+
+// The in-handler deadline check only fires between units of work, so a request
+// whose navigation hangs never reaches it -- the run then burns its whole budget
+// on one URL and the platform hard-kills it as TIMED-OUT, which is what flags
+// the Actor UNDER_MAINTENANCE. This timer enforces the same deadline from
+// outside the request pipeline. Verified 2026-09-11: a run on the guarded build
+// still TIMED-OUT after 900s because YouTube stopped responding on the first page.
+const watchdog = setTimeout(() => {
+    log.warning(`Soft deadline reached with requests still in flight; stopping with ${pushedRows} video(s).`);
+    try { crawler.stop(); } catch (err) { log.warning(`crawler.stop() failed: ${err?.message}`); }
+}, Math.max(1000, SOFT_DEADLINE_AT - Date.now()));
+watchdog.unref?.();
+
+// crawler.stop() waits for in-flight requests, so it cannot rescue a navigation
+// that is hung rather than slow. This backstop ends the run cleanly just before
+// the platform would kill it, turning a TIMED-OUT into a SUCCEEDED with whatever
+// was collected -- TIMED-OUT is what flags the Actor UNDER_MAINTENANCE.
+const hardStop = setTimeout(() => {
+    (async () => {
+        log.warning(`Crawler did not stop after the soft deadline; exiting with ${pushedRows} video(s).`);
+        try { if (seenStore && pushedRows > 0) await seenStore.setValue('seen-video-ids', [...seenVideoIds]); } catch {}
+        try { await Promise.allSettled(__chargeJobs); } catch {}
+        await Actor.exit();
+    })();
+}, Math.max(2000, HARD_TIMEOUT_AT - 30_000 - Date.now()));
+hardStop.unref?.();
+
 await crawler.run();
+clearTimeout(watchdog);
+clearTimeout(hardStop);
 
 if (seenStore && pushedRows > 0) await seenStore.setValue('seen-video-ids', [...seenVideoIds]);
 
