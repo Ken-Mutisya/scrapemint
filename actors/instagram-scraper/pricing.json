@@ -1,5 +1,5 @@
 {
-    "_note": "PUT this to /v2/acts/{actorId} as pricingInfos array entry. Per playbook: PAY_PER_EVENT only on BRONZE plan, startedAt 14+ days out. Apify auto-adds 20% margin. | 2026-08-17 pass: per-run free allowance cut to 1 (0 where average output is under ~2 rows/run). It is charged per run, not per user, so on low-yield actors it was zeroing out revenue. Descriptions corrected to match src/main.js. Effective 09-01.",
+    "_note": "2026-09-14 margin pass: under pay-per-event the developer pays proxy and compute, and both of these billed more per row than they charged. Measured 1-14 Sep. Effective 10-01, the 14-day notice from 09-14. No code change; price only. | Ran at a loss: $0.48 cost against $0.07 revenue, $0.0102 per row against a $0.005 price. The residential guard shipped 09-11, so what remains is the PlaywrightCrawler compute floor spread across small runs. $0.005 -> $0.02 clears it.",
     "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~instagram-scraper?token=APIFY_TOKEN",
     "pricingModel": "PAY_PER_EVENT",
     "pricingPerEvent": {
@@ -7,9 +7,10 @@
             "post_row": {
                 "eventTitle": "Instagram post row",
                 "eventDescription": "One Instagram post or reel parsed and returned with caption, media type, media URL, likes, comments, posted date, author username, author follower count, location, and hashtags. First 2 per run are free so you can validate output.",
-                "eventPriceUsd": 0.005
+                "eventPriceUsd": 0.02
             }
         }
     },
-    "startedAt": "2026-09-01T00:00:00.000Z"
+    "startedAt": "2026-10-01T00:00:00.000Z",
+    "_supersedes": "Supersedes the 2026-09-01 entry at $0.005. Existing entries are immutable, so this is appended with the 14-day lead."
 }
