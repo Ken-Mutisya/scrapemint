@@ -1,16 +1,16 @@
 {
-    "_note": "PUT this to /v2/acts/{actorId} as pricingInfos array entry. Per playbook: PAY_PER_EVENT only on BRONZE plan, startedAt 14+ days out. Apify auto-adds 20% margin.",
+    "_note": "PUT this to /v2/acts/{actorId} as pricingInfos array entry. Per playbook: PAY_PER_EVENT only on BRONZE plan, startedAt 14+ days out. Apify auto-adds 20% margin. | 2026-09-14 poller pass: these actors are monitors and feeds whose buyers re-run on a schedule, so the per-run free allowance reset on every poll and most polls billed nothing (sports-odds-scraper charged on 14% of its rows while serving 32 paying users). Allowance cut to 0; a run that returns no rows is still free. Price unchanged. Effective 10-01, the mandatory 14-day notice from 09-14. Code change (FREE_TIER_* -> 0) must NOT ship before 10-01: see automation/OCT-1-RUNBOOK.md.",
     "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~flight-price-tracker?token=APIFY_TOKEN",
     "pricingModel": "PAY_PER_EVENT",
     "pricingPerEvent": {
         "actorChargeEvents": {
             "flight_price": {
                 "eventTitle": "Flight price quote",
-                "eventDescription": "One route quote with carrier, departure and return dates, cabin, total price, price per passenger, stops, duration, and the departure and arrival airports and times. First 2 rows per run are free so you can validate output.",
+                "eventDescription": "One route quote with carrier, departure and return dates, cabin, total price, price per passenger, stops, duration, and the departure and arrival airports and times. Every row returned is charged; a run that returns no rows is free.",
                 "eventPriceUsd": 0.01
             }
         }
     },
-    "_supersedes": "The 2026-06-14 entry advertised base fare, taxes and a direct booking link, none of which the actor delivers, and a 10 row free tier when the code has always given 2. Existing pricing entries are immutable (the API rejects an edited one with incorrect-pricing-modifier-prefix), so the correction had to be appended as a second entry with the mandatory 14 day lead. Price is unchanged at $0.01 and the 2026-06-14 billing start is unaffected.",
-    "startedAt": "2026-08-14T00:00:00.000Z"
+    "_supersedes": "Supersedes the 2026-08-14 entry, which promised a per-run free allowance. Existing entries are immutable, so this is appended as a new entry with the 14-day lead.",
+    "startedAt": "2026-10-01T00:00:00.000Z"
 }

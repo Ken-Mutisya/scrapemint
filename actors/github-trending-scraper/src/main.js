@@ -21,7 +21,7 @@
 import { Actor, log } from 'apify';
 import { CheerioCrawler } from 'crawlee';
 
-const FREE_TIER_REPOS = 1;
+const FREE_TIER_REPOS = 0;
 
 await Actor.init();
 

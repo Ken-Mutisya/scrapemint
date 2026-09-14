@@ -28,7 +28,7 @@ import { Actor, log } from 'apify';
 import { num, metric } from './numeric-helpers.js';
 import { PINNACLE_LEAGUES, PINNACLE_HOST, americanToDecimal } from './pinnacle-book.js';
 
-const FREE_TIER_ROWS = 2;
+const FREE_TIER_ROWS = 0;
 const HARD_CAP = 2000;
 const FETCH_TIMEOUT_MS = 25000;
 const SPACING_MS = 350;

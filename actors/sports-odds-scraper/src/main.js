@@ -87,6 +87,9 @@ const UNSUPPORTED_NOTE = {
     esports_dota2: 'esports odds are not available from the current source',
 };
 
+// Rows given away per run. 0 since 2026-10-01: buyers poll this actor all day,
+// so an allowance that resets each run billed almost nothing (14% of rows).
+const FREE_TIER_ROWS = 0;
 const FETCH_TIMEOUT_MS = 30000;
 const DEFAULT_LOOKAHEAD_H = 72;
 const MAX_LOOKAHEAD_H = 14 * 24;
@@ -605,7 +608,7 @@ for (const ev of filtered) {
     await Actor.pushData(row);
     if (key) seenEventKeys.add(key);
     pushedRows += 1;
-    if (pushedRows > 2) __chargeJobs.push(Actor.charge({ eventName: 'odds_row' }).catch((err) => log.warning(`charge failed: ${err?.message}`)));
+    if (pushedRows > FREE_TIER_ROWS) __chargeJobs.push(Actor.charge({ eventName: 'odds_row' }).catch((err) => log.warning(`charge failed: ${err?.message}`)));
     log.info(`Pushed ${row.sport} ${row.away} @ ${row.home} (${row.commenceTime || '?'}) | markets=${row.markets.length} (${pushedRows})`);
 }
 

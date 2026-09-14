@@ -15,7 +15,7 @@
 
 import { Actor, log } from 'apify';
 
-const FREE_TIER_ITEMS = 2;
+const FREE_TIER_ITEMS = 0;
 const RATE_SLEEP_MS = 200;
 const PAGE_SIZE = 100;
 

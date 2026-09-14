@@ -8,7 +8,7 @@
 import { Actor, log } from 'apify';
 import { PlaywrightCrawler } from 'crawlee';
 
-const FREE_TIER_ITEMS = 2;
+const FREE_TIER_ITEMS = 0;
 
 // The seen-set has to live in a NAMED store. Actor.openKeyValueStore() with no
 // name opens the run's default store, which is created fresh every run, so the

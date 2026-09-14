@@ -43,7 +43,7 @@
 
 import { Actor, log } from 'apify';
 
-const FREE_TIER_ROWS = 2;
+const FREE_TIER_ROWS = 0;
 const HARD_CAP = 5000;
 const FETCH_TIMEOUT_MS = 45000;
 const MAX_COINS = 30;

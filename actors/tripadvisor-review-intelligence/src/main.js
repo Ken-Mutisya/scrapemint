@@ -25,7 +25,7 @@
 import { Actor, log } from 'apify';
 import { PlaywrightCrawler } from 'crawlee';
 
-const FREE_TIER_REVIEWS = 2;
+const FREE_TIER_REVIEWS = 0;
 const REVIEWS_PER_PAGE = 10;
 
 await Actor.init();

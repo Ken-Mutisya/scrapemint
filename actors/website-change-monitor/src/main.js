@@ -19,7 +19,7 @@ import { createHash } from 'node:crypto';
 import { Actor, log } from 'apify';
 import * as cheerio from 'cheerio';
 
-const FREE_TIER_CHANGES = 2;
+const FREE_TIER_CHANGES = 0;
 const HARD_CAP_URLS = 500;
 const FETCH_TIMEOUT_MS = 15000;
 const MAX_HTML_BYTES = 1500000;
