@@ -138,6 +138,7 @@ const channelStatsCache = new Map();
 const channelStatsPending = new Set();
 const sourceCounts = new Map();
 let pushedRows = 0;
+let partialRows = 0;
 
 const initial = buildInitialRequests();
 if (initial.length === 0) {
@@ -247,7 +248,11 @@ clearTimeout(hardStop);
 
 if (seenStore && pushedRows > 0) await seenStore.setValue('seen-video-ids', [...seenVideoIds]);
 
-log.info(`Run complete. Videos pushed: ${pushedRows}.`);
+log.info(`Run complete. Videos pushed: ${pushedRows}${partialRows ? `, plus ${partialRows} card-only row(s) (free) where the watch page returned no player data` : ''}.`);
+    if (partialRows > 0 && pushedRows === 0) {
+        log.warning('Every video fell back to its listing card: YouTube served no player data on any watch page. '
+            + 'Rows are marked partial="card-only" and nothing was charged.');
+    }
 await Promise.allSettled(__chargeJobs);
 await Actor.exit();
 
@@ -313,7 +318,7 @@ function buildSearchSpFilter() {
     return null;
 }
 
-function makeWatchRequest(videoId, originatingUrl) {
+function makeWatchRequest(videoId, originatingUrl, card = null) {
     return {
         url: `${YT_HOST}/watch?v=${videoId}&hl=${language}&gl=${region}`,
         userData: {
@@ -321,6 +326,22 @@ function makeWatchRequest(videoId, originatingUrl) {
             videoId,
             originatingStartUrl: originatingUrl || null,
             sourceKey: `watch:${videoId}`,
+            // The listing card already carries title, channel, views and duration.
+            // Kept so a watch page that returns no player data degrades to a
+            // card-only row instead of throwing the video away entirely.
+            card: card ? {
+                title: card.title || null,
+                channelName: card.channelName || null,
+                channelId: card.channelId || null,
+                channelHandle: card.channelHandle || null,
+                publishedTimeText: card.publishedTimeText || null,
+                viewCountText: card.viewCountText || null,
+                lengthText: card.lengthText || null,
+                descriptionSnippet: card.descriptionSnippet || null,
+                thumbnail: card.thumbnail || null,
+                isShort: !!card.isShort,
+                isLive: !!card.isLive,
+            } : null,
         },
         uniqueKey: `watch:${videoId}`,
     };
@@ -468,7 +489,7 @@ async function queueVideos(c, items, sourceKey, sourceType) {
             if (!it.isShort && !it.isLive && (sourceCounts.get(`${sourceKey}:video`) || 0) >= (maxVideosPerSearch || 0)) continue;
         }
         if (dedupe && seenVideoIds.has(it.videoId)) continue;
-        toQueue.push(makeWatchRequest(it.videoId, sourceKey));
+        toQueue.push(makeWatchRequest(it.videoId, sourceKey, it));
         if (it.isShort) sourceCounts.set(`${sourceKey}:short`, (sourceCounts.get(`${sourceKey}:short`) || 0) + 1);
         else if (it.isLive) sourceCounts.set(`${sourceKey}:live`, (sourceCounts.get(`${sourceKey}:live`) || 0) + 1);
         else sourceCounts.set(`${sourceKey}:video`, (sourceCounts.get(`${sourceKey}:video`) || 0) + 1);
@@ -525,7 +546,20 @@ async function handleWatch({ page, request, crawler: c }) {
             request.session?.markBad();
             throw new Error('YouTube bot challenge');
         }
-        log.warning(`No watch data for ${videoId}. Possibly age gated, removed, or region locked.`);
+        // The watch page gave us nothing, but the listing card that queued this
+        // video did. Returning that beats returning nothing: a run that finds 16
+        // videos and pushes 0 rows reports SUCCEEDED and looks healthy while
+        // being useless to the buyer. Marked partial and never charged, because
+        // it is not the row the pricing description promises.
+        const card = request.userData.card;
+        if (card && card.title) {
+            await Actor.pushData(assembleCardOnlyRow(videoId, card));
+            seenVideoIds.add(videoId);
+            partialRows += 1;
+            log.warning(`Watch page returned no player data for ${videoId}; returning card-only row (free, partial="card-only").`);
+            return;
+        }
+        log.warning(`No watch data for ${videoId} and no listing card to fall back on. Possibly age gated, removed, or region locked.`);
         return;
     }
 
@@ -1342,6 +1376,64 @@ async function collectComments(page, max, withReplies) {
 
 // ---------- Row assembly + parsers ----------
 
+// A row built from the listing card alone, for when the watch page yields no
+// player data. Same shape as a full row so buyers can read one schema; the
+// fields only the watch page carries are null, and `partial` says why.
+function assembleCardOnlyRow(videoId, card) {
+    const viewCount = parseCountText(card.viewCountText);
+    const durationSeconds = parseDurationText(card.lengthText);
+    return {
+        videoId,
+        url: `https://www.youtube.com/watch?v=${videoId}`,
+        shortsUrl: card.isShort ? `https://www.youtube.com/shorts/${videoId}` : null,
+        embedUrl: `https://www.youtube.com/embed/${videoId}`,
+        type: card.isShort ? 'short' : (card.isLive ? 'live' : 'video'),
+        title: card.title || null,
+        description: card.descriptionSnippet || null,
+        durationSeconds,
+        durationText: card.lengthText || secondsToHHMMSS(durationSeconds),
+        publishDate: null,
+        uploadDate: null,
+        publishedTimeText: card.publishedTimeText || null,
+        category: null,
+        keywords: [],
+        channel: {
+            channelId: card.channelId || null,
+            name: card.channelName || null,
+            handle: card.channelHandle || null,
+        },
+        engagement: { viewCount, likeCount: null, commentCount: null },
+        thumbnail: card.thumbnail || null,
+        transcript: null,
+        comments: null,
+        partial: 'card-only',
+        partialReason: 'The watch page returned no player data, so this row comes from the listing card. Title, channel, duration and view count are present; likes, comments, description, keywords and transcript are not. This row was not charged.',
+        scrapedAt: new Date().toISOString(),
+    };
+}
+
+// "1.2M views" / "19,123,456 views" -> a number. Null when it cannot be read,
+// never 0: a confident zero is indistinguishable from a real one to a buyer.
+function parseCountText(t) {
+    if (!t) return null;
+    const m = String(t).replace(/,/g, '').match(/([\d.]+)\s*([KMB])?/i);
+    if (!m) return null;
+    const n = parseFloat(m[1]);
+    if (!Number.isFinite(n)) return null;
+    const mult = { K: 1e3, M: 1e6, B: 1e9 }[(m[2] || '').toUpperCase()] || 1;
+    return Math.round(n * mult);
+}
+
+// "12:34" or "1:02:03" -> seconds. Null when absent (live streams have no length).
+function parseDurationText(t) {
+    if (!t) return null;
+    const parts = String(t).trim().split(':').map((x) => parseInt(x, 10));
+    if (parts.some((x) => !Number.isFinite(x))) return null;
+    if (parts.length === 3) return parts[0] * 3600 + parts[1] * 60 + parts[2];
+    if (parts.length === 2) return parts[0] * 60 + parts[1];
+    return null;
+}
+
 function assembleVideoRow(raw, transcript, comments, channelStats) {
     const lengthSeconds = raw.lengthSeconds || null;
     const isShort = raw.isShort || (lengthSeconds != null && lengthSeconds <= 60 && lengthSeconds > 0);
@@ -1358,6 +1450,7 @@ function assembleVideoRow(raw, transcript, comments, channelStats) {
     };
 
     return {
+        partial: null,
         videoId: raw.videoId,
         url: `https://www.youtube.com/watch?v=${raw.videoId}`,
         shortsUrl: isShort ? `https://www.youtube.com/shorts/${raw.videoId}` : null,
