@@ -1,0 +1,16 @@
+{
+    "actorSpecification": 1,
+    "name": "sports-injury-tracker",
+    "title": "Sports Injury Report: Who Is Out and What Just Changed",
+    "description": "NFL, MLB, NBA, NHL, WNBA and college football injury reports with player, position, status and the analyst note. Remembers the last run, so you get the status changes, not just the list. Keyless, no login, no browser. Pay per player.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "output": "./output_schema.json",
+    "readme": "../README.md",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "BUSINESS",
+        "NEWS"
+    ]
+}

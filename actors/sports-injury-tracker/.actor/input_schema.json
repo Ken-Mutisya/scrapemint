@@ -1,0 +1,76 @@
+{
+    "title": "Sports Injury Report: Who Is Out and What Just Changed",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "leagues": {
+            "title": "Leagues",
+            "type": "array",
+            "description": "Which injury reports to read. NFL carries the most entries by far; college basketball and soccer are not published by this source.",
+            "editor": "select",
+            "items": {
+                "type": "string",
+                "enum": ["nfl", "ncaaf", "nba", "wnba", "mlb", "nhl"],
+                "enumTitles": ["NFL", "College Football", "NBA", "WNBA", "MLB", "NHL"]
+            },
+            "prefill": ["nfl"],
+            "default": ["nfl"]
+        },
+        "onlyChanges": {
+            "title": "Only players whose status changed",
+            "type": "boolean",
+            "description": "Return only players whose status moved since your last run, or who were not on the report before. Players you skip are never charged. The very first run has nothing to compare against, so it returns everyone and records a baseline.",
+            "default": false
+        },
+        "includeActive": {
+            "title": "Include players listed as Active",
+            "type": "boolean",
+            "description": "Injury reports list cleared players as Active, which is most of the NFL report. Off by default so you get actual absences and are not charged for players who are fine.",
+            "default": false
+        },
+        "statuses": {
+            "title": "Only these statuses",
+            "type": "array",
+            "description": "Leave empty for all. Matching ignores case and hyphens, so \"day to day\" also matches \"Day-To-Day\".",
+            "editor": "stringList",
+            "items": { "type": "string" },
+            "prefill": []
+        },
+        "teams": {
+            "title": "Only these teams",
+            "type": "array",
+            "description": "Team name or abbreviation, for example \"Chiefs\" or \"KC\". Leave empty for every team.",
+            "editor": "stringList",
+            "items": { "type": "string" },
+            "prefill": []
+        },
+        "players": {
+            "title": "Only these players",
+            "type": "array",
+            "description": "Partial names work. Useful for watching a fantasy roster or the players you have bets on.",
+            "editor": "stringList",
+            "items": { "type": "string" },
+            "prefill": []
+        },
+        "includeCommentary": {
+            "title": "Include the analyst note",
+            "type": "boolean",
+            "description": "The short and long commentary explaining the injury and expected return. Turn off for a smaller payload.",
+            "default": true
+        },
+        "trackChanges": {
+            "title": "Remember statuses between runs",
+            "type": "boolean",
+            "description": "Stores each player's status so the next run can report what moved. Turn off to treat every run as a fresh snapshot with no change detection, which also means nothing bills at the higher change rate.",
+            "default": true
+        },
+        "maxRows": {
+            "title": "Maximum players",
+            "type": "integer",
+            "description": "Cap on players returned across all selected leagues. You are charged per player returned.",
+            "default": 500,
+            "minimum": 1,
+            "maximum": 3000
+        }
+    }
+}

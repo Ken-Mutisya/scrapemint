@@ -77,6 +77,7 @@ SECTIONS = [
     ("Prediction markets, sports & betting", [
         "polymarket-market-monitor", "polymarket-scraper", "kalshi-prediction-market-scraper",
         "prediction-market-odds-comparison", "sports-odds-scraper", "draftkings-odds-tracker",
+        "sports-injury-tracker",
         "sports-odds-movement-tracker",
         "sportsbook-odds-tracker", "sportsbook-player-props", "sports-futures-odds",
         "sports-betting-results", "sports-scores-scraper", "sports-player-stats-scraper",

@@ -1,0 +1,20 @@
+{
+    "_note": "New actor, first pricing entry. PAY_PER_EVENT on BRONZE. Tiered from day one: a name on the injury report is cheap, a status that MOVED is the alert and carries the premium. Same shape as podcast-host-leads ($0.267/run on three tiers) and draftkings-odds-tracker's line_move_row. The first run on a fresh store is a baseline and charges everything at the lower rate, because nothing has changed when there is nothing to compare against. No per-run free allowance: this is a polling actor, and an allowance that resets each run is what left sports-odds-scraper charging on 14% of its rows.",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~sports-injury-tracker?token=APIFY_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "player_row": {
+                "eventTitle": "Player on the injury report",
+                "eventDescription": "One player currently listed, with team, position, jersey, status, the status type, the date it was reported and the analyst note explaining the injury and expected return. Players filtered out by your league, team, player or status settings are never charged. Every row returned is charged; a run that returns no rows is free.",
+                "eventPriceUsd": 0.003
+            },
+            "status_change_row": {
+                "eventTitle": "Player whose status changed",
+                "eventDescription": "One player whose status moved since your previous run, or who was not on the report before, carrying the previous status and when it was last seen. This is the alert worth acting on. The first run on a fresh store records a baseline and charges nothing at this rate. A player is charged once, never under both events.",
+                "eventPriceUsd": 0.012
+            }
+        }
+    },
+    "startedAt": "2026-09-15T00:00:00.000Z"
+}

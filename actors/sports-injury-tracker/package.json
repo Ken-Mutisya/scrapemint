@@ -1,0 +1,10 @@
+{
+    "name": "sports-injury-tracker",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "NFL, MLB, NBA, NHL, WNBA and college football injury reports with status-change detection between runs. Keyless, no browser.",
+    "main": "src/main.js",
+    "scripts": { "start": "node src/main.js" },
+    "dependencies": { "apify": "^3.7.0" },
+    "engines": { "node": ">=20" }
+}

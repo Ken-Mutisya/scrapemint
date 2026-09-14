@@ -1,0 +1,14 @@
+{
+    "actorOutputSchemaVersion": 1,
+    "title": "Injury report rows",
+    "description": "One row per listed player, carrying status, the analyst note, and what that status was on your previous run.",
+    "type": "object",
+    "properties": {
+        "rows": {
+            "type": "string",
+            "title": "Players with status and change history",
+            "description": "Player, team, position, current status and reported date, plus a change block naming the previous status and whether it moved since your last run.",
+            "template": "{{links.apiDefaultDatasetUrl}}/items"
+        }
+    }
+}
