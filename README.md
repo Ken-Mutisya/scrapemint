@@ -193,7 +193,7 @@ There are **241** actors live right now, and a new one ships every few days.
 - [Bluesky Scraper: Profiles, Posts & Followers](https://apify.com/scrapemint/bluesky-scraper)
 - [Telegram Channel Scraper (No Login)](https://apify.com/scrapemint/telegram-channel-scraper)
 - [Substack Newsletter Intelligence: Top Writer Tracker](https://apify.com/scrapemint/substack-newsletter-intelligence)
-- [Product Hunt Launch Tracker and Topic Alert Feed](https://apify.com/scrapemint/producthunt-launch-tracker)
+- [Product Hunt Launch Tracker: New Launches and Topic Alerts](https://apify.com/scrapemint/producthunt-launch-tracker)
 - [Hacker News Scraper: Stories, Comments & Search](https://apify.com/scrapemint/hacker-news-scraper)
 - [Google News Scraper (No Login)](https://apify.com/scrapemint/google-news-scraper)
 - [Global News & Media Monitor (GDELT)](https://apify.com/scrapemint/global-news-media-monitor)

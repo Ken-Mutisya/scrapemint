@@ -1,15 +1,21 @@
 {
-    "_note": "PUT this to /v2/acts/{actorId} as pricingInfos array entry. Per playbook: PAY_PER_EVENT only on BRONZE plan, startedAt 14+ days out. Apify auto-adds 20% margin. | 2026-08-17 pass: per-run free allowance cut to 1 (0 where average output is under ~2 rows/run). It is charged per run, not per user, so on low-yield actors it was zeroing out revenue. Descriptions corrected to match src/main.js. Effective 09-01.",
+    "_note": "2026-09-15: the token was mandatory, which is why this actor had one user in four months. It now reads the public Atom feed when no token is given. A feed row carries no votes, comments or topics, so it gets its own cheaper event rather than being billed as a full API row. Effective 10-01, the 14-day notice from 09-15. The code ships before then on purpose: until 10-01 launch_row_basic is not in the live schedule, the charge fails, and feed rows are simply free. Free can never misrepresent.",
     "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~producthunt-launch-tracker?token=APIFY_TOKEN",
     "pricingModel": "PAY_PER_EVENT",
     "pricingPerEvent": {
         "actorChargeEvents": {
             "launch_row": {
                 "eventTitle": "Product Hunt launch row",
-                "eventDescription": "One Product Hunt launch parsed and returned with name, tagline, upvotes, comments, maker handles, topics, launch date, daily rank, website, and pricing model. The first result per run is free so you can validate output.",
+                "eventDescription": "One launch from the official Product Hunt API with name, tagline, description, vote count, comment count, review count, topics, makers, thumbnail and links. Requires your free developer token. The first launch per run is free so you can validate output.",
                 "eventPriceUsd": 0.008
+            },
+            "launch_row_basic": {
+                "eventTitle": "Launch from the public feed",
+                "eventDescription": "One launch from Product Hunt\u2019s public feed, needing no token: name, tagline, product link, outbound link, hunter and timestamps. Vote count, comment count, topics and makers are null because the feed does not publish them, and the row is marked partial=\"feed-only\". Priced well below a full API row because it is less data. The first launch per run is free.",
+                "eventPriceUsd": 0.003
             }
         }
     },
-    "startedAt": "2026-09-01T00:00:00.000Z"
+    "startedAt": "2026-10-01T00:00:00.000Z",
+    "_supersedes": "Supersedes the 2026-09-01 entry, which had only launch_row at $0.008. That price is unchanged."
 }

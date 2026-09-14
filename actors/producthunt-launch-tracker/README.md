@@ -1,8 +1,27 @@
-# Product Hunt Scraper: Monitor Daily Launches by Topic and Keyword
+# Product Hunt Launch Tracker: New Launches and Topic Alerts
 
-Scrape Product Hunt for new launches that match your topics, keywords, vote floor, and age window. Export launch ID, name, tagline, full description, maker profiles, vote count, comment count, topics, and timestamps to JSON, CSV, or Excel. Deduped across runs so you only see new launches. Uses the official PH GraphQL API. Pay per launch.
+Track new Product Hunt launches and get a clean alert feed of what shipped: name, tagline, product link, outbound link and who hunted it.
+
+**No signup required.** Run it and it works. Supply a free Product Hunt developer token and it switches to the official API, adding vote counts, comment counts, topics, makers and thumbnails.
 
 **Keywords this actor is built for:** Product Hunt scraper, PH launch tracker, Product Hunt API, competitor launch monitor, Product Hunt GraphQL, scrape Product Hunt launches, PH daily launch export, Product Hunt topic feed.
+
+## Two modes
+
+| | no token (default) | with a free token |
+|---|---|---|
+| launch id, name, tagline | yes | yes |
+| product link, outbound link | yes | yes |
+| hunter, published / updated | yes | yes |
+| **vote count, comment count** | — | yes |
+| **topics, makers, thumbnail, description** | — | yes |
+| filter by keyword, age, dedupe | yes | yes |
+| **filter by topic, min votes, min comments** | — | yes |
+| price per launch | **$0.003** | $0.008 |
+
+Rows from the public feed are marked `partial: "feed-only"` and carry `null` — not zero — for the counts the feed does not publish, so you can never mistake "not available" for "no votes".
+
+Tokens are free and never expire: [producthunt.com/v2/oauth/applications](https://www.producthunt.com/v2/oauth/applications).
 
 ---
 

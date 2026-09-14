@@ -32,8 +32,8 @@ const {
     keywords = [],
     sortBy = 'NEWEST',
     postedWithin = 'DAY_7',
-    minVotes = 0,
-    minComments = 0,
+    minVotes: minVotesIn = 0,
+    minComments: minCommentsIn = 0,
     featuredOnly = false,
     maxLaunchesPerTopic = 100,
     maxLaunchesTotal = 200,
@@ -41,8 +41,19 @@ const {
     proxyConfiguration: proxyInput,
 } = input;
 
-if (!developerToken || String(developerToken).trim() === '') {
-    throw new Error('developerToken is required. Create one at https://www.producthunt.com/v2/oauth/applications');
+// The token used to be mandatory, and that is why this actor had one user in
+// four months: nobody registers an OAuth app to trial a scraper. Without a
+// token it now reads Product Hunt's public Atom feed, which answers from
+// Apify's network (verified 2026-09-15: feed 200, homepage and leaderboard
+// both 403). The feed carries the launch, its tagline, the product link and
+// the hunter, but no vote count, comment count or topics -- those exist only
+// behind the API, so they come back null rather than zero and the row is
+// billed at a lower rate.
+let minVotes = minVotesIn;
+let minComments = minCommentsIn;
+const hasToken = !!developerToken && String(developerToken).trim() !== '';
+if (!hasToken) {
+    log.info('No developerToken: reading the public Atom feed. Vote counts, comment counts and topics need a free token from https://www.producthunt.com/v2/oauth/applications');
 }
 
 const topicSlugs = (Array.isArray(topics) ? topics : [])
@@ -105,9 +116,13 @@ const POST_QUERY = `
 // Iterate one or many topics. If no topics given, do one global pass.
 const sources = topicSlugs.length > 0 ? topicSlugs : [null];
 
-for (const slug of sources) {
-    if (totalPushed >= maxLaunchesTotal) break;
-    await harvestTopic(slug);
+if (hasToken) {
+    for (const slug of sources) {
+        if (totalPushed >= maxLaunchesTotal) break;
+        await harvestTopic(slug);
+    }
+} else {
+    await harvestFeed();
 }
 
 if (dedupe) {
@@ -117,6 +132,128 @@ if (dedupe) {
 
 log.info(`Run complete. Pushed ${totalPushed}. seen=${totalSeen} filteredOut=${filteredOut} deduped=${deduped}`);
 await Actor.exit();
+
+
+// ---- public feed mode (no token) ----
+
+// Product Hunt's Atom feed, which is the only launch source that answers
+// without credentials. Parsed with regex rather than an XML dependency: the
+// feed is small, its shape is stable, and the actor otherwise ships with only
+// the Apify SDK.
+async function harvestFeed() {
+    const FEED_URL = 'https://www.producthunt.com/feed';
+    const UA = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36';
+    let xml;
+    try {
+        const res = await fetch(FEED_URL, { headers: { 'user-agent': UA, accept: 'application/atom+xml,application/xml,text/xml' } });
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        xml = await res.text();
+    } catch (err) {
+        await Actor.pushData({
+            rowType: 'note',
+            note: `Could not read the public Product Hunt feed (${err?.message}). Nothing charged. `
+                + 'Supplying a developerToken switches to the official API, which also returns vote counts, comment counts and topics.',
+            scrapedAt: new Date().toISOString(),
+        });
+        log.warning(`feed unavailable: ${err?.message}`);
+        return;
+    }
+
+    const entries = xml.match(/<entry>[\s\S]*?<\/entry>/g) ?? [];
+    log.info(`Public feed: ${entries.length} launch(es)`);
+    if (entries.length === 0) {
+        await Actor.pushData({
+            rowType: 'note',
+            note: 'The Product Hunt feed returned no entries. Nothing charged.',
+            scrapedAt: new Date().toISOString(),
+        });
+        return;
+    }
+
+    for (const entry of entries) {
+        if (totalPushed >= maxLaunchesTotal) break;
+        totalSeen += 1;
+
+        const launchId = (tag(entry, 'id').match(/Post\/(\d+)/) ?? [])[1] ?? null;
+        if (!launchId) continue;
+        if (dedupe && seen.has(launchId)) { deduped += 1; continue; }
+
+        const createdAt = tag(entry, 'published') || null;
+        if (postedAfter && createdAt && new Date(createdAt) < new Date(postedAfter)) { filteredOut += 1; continue; }
+
+        const name = decode(tag(entry, 'title'));
+        const content = decode(tag(entry, 'content'));
+        // The tagline is the feed's first paragraph; the rest is boilerplate
+        // links back to Product Hunt.
+        const tagline = decode(strip((content.match(/<p>([\s\S]*?)<\/p>/) ?? [])[1] ?? '')).trim();
+        const url = (entry.match(/<link[^>]*href="([^"]+)"/) ?? [])[1] ?? null;
+        const website = (content.match(/href="(https:\/\/www\.producthunt\.com\/r\/p\/[^"]+)"/) ?? [])[1] ?? null;
+        const hunter = decode(strip((entry.match(/<author>[\s\S]*?<name>([\s\S]*?)<\/name>/) ?? [])[1] ?? '')).trim() || null;
+
+        let matchedKeywords = [];
+        if (kwList.length > 0) {
+            const hay = `${name}\n${tagline}`.toLowerCase();
+            matchedKeywords = kwList.filter((kw) => hay.includes(kw));
+            if (matchedKeywords.length === 0) { filteredOut += 1; continue; }
+        }
+        // minVotes/minComments cannot be honoured without the API. Filtering on
+        // a number the feed never supplies would silently drop everything.
+        if (minVotes > 0 || minComments > 0) {
+            log.warning('minVotes/minComments need a developerToken; the public feed does not carry vote or comment counts. Ignoring them for this run.');
+            minVotes = 0; minComments = 0;
+        }
+
+        await Actor.pushData({
+            launchId,
+            name,
+            tagline,
+            description: null,
+            slug: url ? (url.split('/').pop() ?? null) : null,
+            url,
+            website,
+            thumbnailUrl: null,
+            // Null, not zero: the feed does not publish these, and a confident
+            // zero is indistinguishable from a launch with no votes.
+            votesCount: null,
+            commentsCount: null,
+            reviewsCount: null,
+            createdAt,
+            updatedAt: tag(entry, 'updated') || null,
+            featuredAt: null,
+            topics: [],
+            makers: [],
+            hunter,
+            matchedKeywords,
+            sourceTopic: null,
+            source: 'public-feed',
+            partial: 'feed-only',
+            partialReason: 'From the public Atom feed. Vote count, comment count, topics, makers and thumbnail need a free developerToken, which switches this actor to the official API. Billed at the lower feed rate.',
+            scrapedAt: new Date().toISOString(),
+        });
+
+        newSeen.add(launchId);
+        totalPushed += 1;
+        if (totalPushed > FREE_TIER_LAUNCHES) {
+            await Actor.charge({ eventName: 'launch_row_basic' }).catch((err) => {
+                log.warning(`charge failed (continuing): ${err?.message}`);
+            });
+        }
+        log.info(`Pushed ${launchId} ${name.slice(0, 55)} (${totalPushed})`);
+    }
+}
+
+function tag(xmlChunk, name) {
+    const m = xmlChunk.match(new RegExp(`<${name}[^>]*>([\\s\\S]*?)<\\/${name}>`));
+    return m ? m[1] : '';
+}
+function strip(html) { return String(html).replace(/<[^>]*>/g, ' '); }
+function decode(t) {
+    return String(t)
+        .replace(/&lt;/g, '<').replace(/&gt;/g, '>')
+        .replace(/&quot;/g, '"').replace(/&#39;|&apos;/g, "'")
+        .replace(/&amp;/g, '&')
+        .replace(/\s+/g, ' ');
+}
 
 // ---- helpers ----
 
