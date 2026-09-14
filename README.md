@@ -155,7 +155,7 @@ There are **239** actors live right now, and a new one ships every few days.
 - [Polymarket Trade Intelligence: Order Book and Prices](https://apify.com/scrapemint/polymarket-scraper)
 - [Kalshi Prediction Market Scraper: Live Event Odds](https://apify.com/scrapemint/kalshi-prediction-market-scraper)
 - [Prediction Market Odds: Kalshi, Polymarket and PredictIt](https://apify.com/scrapemint/prediction-market-odds-comparison)
-- [Sports Odds Scraper: NFL, NBA, MLB & Soccer Lines](https://apify.com/scrapemint/sports-odds-scraper)
+- [Betting Odds Comparison: Best Price & Arbitrage Finder](https://apify.com/scrapemint/sports-odds-scraper)
 - [Sports Odds Movement and Arbitrage Tracker](https://apify.com/scrapemint/sports-odds-movement-tracker)
 - [Sportsbook Odds Tracker: Moneyline, Spread and Totals](https://apify.com/scrapemint/sportsbook-odds-tracker)
 - [Player Prop Bets: Odds by Player, Stat and Line](https://apify.com/scrapemint/sportsbook-player-props)
