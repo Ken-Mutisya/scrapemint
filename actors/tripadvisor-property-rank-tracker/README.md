@@ -74,7 +74,7 @@ Every snapshot ships clean numeric fields buyers can chart immediately. No strin
 ```json
 {
   "targetUrls": [
-    "https://www.tripadvisor.com/Hotel_Review-g60763-d93589-Reviews-The_Pierre_A_Taj_Hotel.html",
+    "https://www.tripadvisor.com/Hotel_Review-g60763-d93589-Reviews-The_Michelangelo_New_York-New_York_City_New_York.html",
     "https://www.tripadvisor.com/Hotel_Review-g60763-d99352-Reviews-The_Plaza_Hotel.html",
     "https://www.tripadvisor.com/Hotel_Review-g60763-d99355-Reviews-The_Carlyle_A_Rosewood_Hotel.html"
   ],
@@ -113,7 +113,7 @@ Every snapshot ships clean numeric fields buyers can chart immediately. No strin
 ```json
 {
   "id": "d93589",
-  "url": "https://www.tripadvisor.com/Hotel_Review-g60763-d93589-Reviews-The_Pierre_A_Taj_Hotel.html",
+  "url": "https://www.tripadvisor.com/Hotel_Review-g60763-d93589-Reviews-The_Michelangelo_New_York-New_York_City_New_York.html",
   "type": "hotel",
   "name": "The Pierre, A Taj Hotel",
   "address": {

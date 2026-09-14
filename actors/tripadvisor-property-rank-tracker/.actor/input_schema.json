@@ -7,10 +7,10 @@
         "targetUrls": {
             "title": "Property URLs",
             "type": "array",
-            "description": "TripAdvisor property URLs. Hotel_Review, Restaurant_Review, or Attraction_Review pages. Each is snapshotted as one dataset row. Example: 'https://www.tripadvisor.com/Hotel_Review-g60763-d93589-Reviews-The_Pierre_A_Taj_Hotel.html'.",
+            "description": "TripAdvisor property URLs. Hotel_Review, Restaurant_Review, or Attraction_Review pages. Each is snapshotted as one dataset row. Example: 'https://www.tripadvisor.com/Hotel_Review-g60763-d93589-Reviews-The_Michelangelo_New_York-New_York_City_New_York.html'.",
             "editor": "stringList",
             "prefill": [
-                "https://www.tripadvisor.com/Hotel_Review-g60763-d93589-Reviews-The_Pierre_A_Taj_Hotel.html"
+                "https://www.tripadvisor.com/Hotel_Review-g60763-d93589-Reviews-The_Michelangelo_New_York-New_York_City_New_York.html"
             ],
             "default": []
         },
