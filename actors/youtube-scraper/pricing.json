@@ -1,15 +1,21 @@
 {
-    "_note": "PUT this to /v2/acts/{actorId} as pricingInfos array entry. Per playbook: PAY_PER_EVENT only on BRONZE plan, startedAt 14+ days out. Apify auto-adds 20% margin. | 2026-08-17 pass: per-run free allowance cut to 1 (0 where average output is under ~2 rows/run). It is charged per run, not per user, so on low-yield actors it was zeroing out revenue. Descriptions corrected to match src/main.js. Effective 09-01.",
+    "_note": "2026-09-15 partial-row pass: YouTube serves Apify exits a watch page with no player data, so every video was being dropped and the actor returned 0 rows on a SUCCEEDED run. It now degrades to the listing card. A card-only row is real data but not the row video_row describes, so it gets its own cheaper event rather than being billed as a full row or given away. Full-row price unchanged at $0.025. Effective 10-01, the 14-day notice from 09-15.",
     "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~youtube-scraper?token=APIFY_TOKEN",
     "pricingModel": "PAY_PER_EVENT",
     "pricingPerEvent": {
         "actorChargeEvents": {
             "video_row": {
                 "eventTitle": "YouTube video row",
-                "eventDescription": "One YouTube video parsed and returned with title, channel, channel subscribers, posted date, duration, views, likes, comment count, description, tags, and video URL. The first result per run is free so you can validate output.",
+                "eventDescription": "One YouTube video parsed from its watch page and returned with title, channel, channel subscribers, posted date, duration, views, likes, comment count, description, tags, and video URL. The first result per run is free so you can validate output.",
                 "eventPriceUsd": 0.025
+            },
+            "video_row_partial": {
+                "eventTitle": "Video row from the listing card only",
+                "eventDescription": "One video returned from its listing card because the watch page served no player data. Carries title, channel, view count, duration, published date, description snippet and thumbnail; likes, comment count, full description, tags and transcript are null. Marked partial=\"card-only\" in the output so you can filter or discard it. Priced well below a full row because it is less data.",
+                "eventPriceUsd": 0.008
             }
         }
     },
-    "startedAt": "2026-09-01T00:00:00.000Z"
+    "startedAt": "2026-10-01T00:00:00.000Z",
+    "_supersedes": "Supersedes the 2026-09-01 entry, which had only video_row at $0.025. That price is unchanged."
 }

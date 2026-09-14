@@ -248,7 +248,7 @@ clearTimeout(hardStop);
 
 if (seenStore && pushedRows > 0) await seenStore.setValue('seen-video-ids', [...seenVideoIds]);
 
-log.info(`Run complete. Videos pushed: ${pushedRows}${partialRows ? `, plus ${partialRows} card-only row(s) (free) where the watch page returned no player data` : ''}.`);
+log.info(`Run complete. Videos pushed: ${pushedRows}${partialRows ? `, plus ${partialRows} card-only row(s) where the watch page returned no player data` : ''}.`);
     if (partialRows > 0 && pushedRows === 0) {
         log.warning('Every video fell back to its listing card: YouTube served no player data on any watch page. '
             + 'Rows are marked partial="card-only" and nothing was charged.');
@@ -556,7 +556,15 @@ async function handleWatch({ page, request, crawler: c }) {
             await Actor.pushData(assembleCardOnlyRow(videoId, card));
             seenVideoIds.add(videoId);
             partialRows += 1;
-            log.warning(`Watch page returned no player data for ${videoId}; returning card-only row (free, partial="card-only").`);
+            // Billed as video_row_partial, not video_row: it is real data the
+            // buyer asked for, but not the row video_row describes. The free
+            // allowance is shared with full rows so a card-only run gets one
+            // free sample, not a second allowance.
+            if (pushedRows + partialRows > 1) {
+                __chargeJobs.push(Actor.charge({ eventName: 'video_row_partial' })
+                    .catch((err) => log.warning(`charge failed: ${err?.message}`)));
+            }
+            log.warning(`Watch page returned no player data for ${videoId}; returning card-only row (partial="card-only").`);
             return;
         }
         log.warning(`No watch data for ${videoId} and no listing card to fall back on. Possibly age gated, removed, or region locked.`);
@@ -586,7 +594,7 @@ async function handleWatch({ page, request, crawler: c }) {
     await Actor.pushData(row);
     seenVideoIds.add(videoId);
     pushedRows += 1;
-    if (pushedRows > 1) __chargeJobs.push(Actor.charge({ eventName: 'video_row' }).catch((err) => log.warning(`charge failed: ${err?.message}`)));
+    if (pushedRows + partialRows > 1) __chargeJobs.push(Actor.charge({ eventName: 'video_row' }).catch((err) => log.warning(`charge failed: ${err?.message}`)));
     log.info(`Pushed ${videoId} ${(row.title || '').slice(0, 60)} | ${row.engagement.viewCount ?? '?'} views (${pushedRows})`);
 }
 
@@ -1407,7 +1415,7 @@ function assembleCardOnlyRow(videoId, card) {
         transcript: null,
         comments: null,
         partial: 'card-only',
-        partialReason: 'The watch page returned no player data, so this row comes from the listing card. Title, channel, duration and view count are present; likes, comments, description, keywords and transcript are not. This row was not charged.',
+        partialReason: 'The watch page returned no player data, so this row comes from the listing card. Title, channel, duration and view count are present; likes, comments, description, keywords and transcript are not. This row is billed at the lower partial rate, not the full row price.',
         scrapedAt: new Date().toISOString(),
     };
 }
