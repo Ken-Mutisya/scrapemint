@@ -1,8 +1,8 @@
 {
     "actorSpecification": 1,
     "name": "sports-odds-scraper",
-    "title": "Sports Odds Scraper: NFL, NBA, MLB & Soccer Lines",
-    "description": "Pregame odds for NFL, NBA, WNBA, MLB, NHL, UFC, college and top soccer leagues: moneyline, spread and total per game in one normalized schema, American or decimal format. Keyless public feed, no proxy, no browser. One row per game, pay per row.",
+    "title": "Betting Odds Comparison: Best Price & Arbitrage Finder",
+    "description": "Compare betting odds across Bovada and Pinnacle on one line, take the best price per outcome and spot arbitrage. Moneyline, spread and totals for NFL, NBA, WNBA, MLB, NHL, UFC, college and soccer. American or decimal. Keyless feed, no login, no browser. One row per game, pay per row.",
     "version": "0.1",
     "buildTag": "latest",
     "input": "./input_schema.json",
