@@ -1,0 +1,14 @@
+{
+    "actorOutputSchemaVersion": 1,
+    "title": "DraftKings game rows",
+    "description": "One row per game carrying the DraftKings spread, total and moneyline, each with its opening value and the move since.",
+    "type": "object",
+    "properties": {
+        "rows": {
+            "type": "string",
+            "title": "Game rows with line movement",
+            "description": "DraftKings spread, total, moneyline and the opening line beside the current one, plus a movement block flagging games that moved past your threshold.",
+            "template": "{{links.apiDefaultDatasetUrl}}/items"
+        }
+    }
+}

@@ -1,0 +1,20 @@
+{
+    "_note": "New actor, first pricing entry. PAY_PER_EVENT on BRONZE. Tiered from day one on the 2026-09-14 finding that podcast-host-leads earns $0.267 per buyer run on a three-tier schedule while flat-priced sports-odds-scraper earns $0.006. A raw line is cheap; a line that has moved from its open is the bettable signal and carries the premium. The buyer sets the threshold, so they control which rows bill at which rate. No per-run free allowance: this is a polling actor and an allowance that resets each run is what left sports-odds-scraper charging on 14% of its rows.",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~draftkings-odds-tracker?token=APIFY_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "line_row": {
+                "eventTitle": "Game with a DraftKings line",
+                "eventDescription": "One game with the current DraftKings spread, total and moneyline, the opening line where ESPN carries it, team names, start time and the favourite. Games DraftKings has not priced are skipped and never charged. Every row returned is charged; a run that returns no rows is free.",
+                "eventPriceUsd": 0.004
+            },
+            "line_move_row": {
+                "eventTitle": "Game whose line has moved",
+                "eventDescription": "One game whose spread has moved from its open by at least your threshold, or whose moneyline has swung 20 cents or more, with the size of the move on each. This is the row that tells you where the money went. Raise the threshold to make fewer games qualify and pay less. A game is charged once, never under both events.",
+                "eventPriceUsd": 0.012
+            }
+        }
+    },
+    "startedAt": "2026-09-15T00:00:00.000Z"
+}

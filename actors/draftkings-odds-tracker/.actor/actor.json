@@ -1,0 +1,16 @@
+{
+    "actorSpecification": 1,
+    "name": "draftkings-odds-tracker",
+    "title": "DraftKings Odds: Line Movement, Spreads and Totals",
+    "description": "DraftKings spreads, totals and moneylines for NFL, college football, MLB, WNBA and top soccer, with the opening line beside the current one so you can see where the line moved. Filter to games that actually moved. Keyless, no login, no browser, no proxy. Pay per game.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "output": "./output_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "BUSINESS",
+        "NEWS"
+    ],
+    "readme": "../README.md"
+}

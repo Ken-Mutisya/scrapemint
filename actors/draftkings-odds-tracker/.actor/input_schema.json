@@ -1,0 +1,104 @@
+{
+    "title": "DraftKings Odds: Line Movement, Spreads and Totals",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "sports": {
+            "title": "Leagues",
+            "type": "array",
+            "description": "Which leagues to pull DraftKings odds for. DraftKings prices NFL, college football, MLB, WNBA and top soccer on this feed; NBA, NHL and college basketball carry odds only in season.",
+            "editor": "select",
+            "items": {
+                "type": "string",
+                "enum": [
+                    "nfl",
+                    "ncaaf",
+                    "mlb",
+                    "nba",
+                    "wnba",
+                    "ncaab",
+                    "nhl",
+                    "epl",
+                    "laliga",
+                    "bundesliga",
+                    "seriea",
+                    "ligue1",
+                    "mls",
+                    "ucl"
+                ],
+                "enumTitles": [
+                    "NFL",
+                    "College Football",
+                    "MLB",
+                    "NBA",
+                    "WNBA",
+                    "College Basketball",
+                    "NHL",
+                    "Premier League",
+                    "La Liga",
+                    "Bundesliga",
+                    "Serie A",
+                    "Ligue 1",
+                    "MLS",
+                    "Champions League"
+                ]
+            },
+            "prefill": [
+                "nfl"
+            ],
+            "default": [
+                "nfl"
+            ]
+        },
+        "onlyMoved": {
+            "title": "Only games whose line moved",
+            "type": "boolean",
+            "description": "Return only games where the line has moved from its open by at least the threshold below. Games you skip are never charged.",
+            "default": false
+        },
+        "minLineMove": {
+            "title": "Minimum line move (points)",
+            "type": "integer",
+            "description": "How far the spread must move from its open to count as moved. A moneyline swing of 20 cents or more also counts. Moved games bill at the higher rate, so raising this makes a run cheaper and more selective; lowering it catches smaller moves.",
+            "default": 2,
+            "minimum": 0,
+            "maximum": 20,
+            "unit": "points"
+        },
+        "oddsFormat": {
+            "title": "Odds format",
+            "type": "string",
+            "description": "American prices keep their sign (+130, -155). Decimal converts them.",
+            "editor": "select",
+            "enum": [
+                "american",
+                "decimal"
+            ],
+            "enumTitles": [
+                "American (+130 / -155)",
+                "Decimal (2.30 / 1.65)"
+            ],
+            "default": "american"
+        },
+        "maxEvents": {
+            "title": "Maximum games",
+            "type": "integer",
+            "description": "Cap on games returned across all selected leagues. You are charged per game returned.",
+            "default": 50,
+            "minimum": 1,
+            "maximum": 500
+        },
+        "includeStartedEvents": {
+            "title": "Include games already under way",
+            "type": "boolean",
+            "description": "Off by default so you get pregame numbers only.",
+            "default": false
+        },
+        "dedupe": {
+            "title": "Skip games seen in previous runs",
+            "type": "boolean",
+            "description": "Remembers game ids between runs, so a scheduled run returns only what is new. Leave off if you are tracking movement on the same games over time.",
+            "default": false
+        }
+    }
+}

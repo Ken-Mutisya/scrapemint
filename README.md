@@ -19,7 +19,7 @@ flowchart LR
 
 <!-- CATALOG:START -->
 
-There are **239** actors live right now, and a new one ships every few days.
+There are **240** actors live right now, and a new one ships every few days.
 
 ### Lead generation
 
@@ -156,6 +156,7 @@ There are **239** actors live right now, and a new one ships every few days.
 - [Kalshi Prediction Market Scraper: Live Event Odds](https://apify.com/scrapemint/kalshi-prediction-market-scraper)
 - [Prediction Market Odds: Kalshi, Polymarket and PredictIt](https://apify.com/scrapemint/prediction-market-odds-comparison)
 - [Betting Odds Comparison: Best Price & Arbitrage Finder](https://apify.com/scrapemint/sports-odds-scraper)
+- [DraftKings Odds: Line Movement, Spreads and Totals](https://apify.com/scrapemint/draftkings-odds-tracker)
 - [Sports Odds Movement and Arbitrage Tracker](https://apify.com/scrapemint/sports-odds-movement-tracker)
 - [Sportsbook Odds Tracker: Moneyline, Spread and Totals](https://apify.com/scrapemint/sportsbook-odds-tracker)
 - [Player Prop Bets: Odds by Player, Stat and Line](https://apify.com/scrapemint/sportsbook-player-props)
