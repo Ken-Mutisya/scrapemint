@@ -148,8 +148,15 @@ async function flushRow(row, chargeable = true) {
     if (!chargeable) return;
     rowsPushed += 1;
     if (rowsPushed > FREE_TIER_ROWS) {
+        // Tiered since 2026-10-01. Kalshi auto-generates a large tail of
+        // multivariate combo markets that never trade: sampling 10,000 open
+        // markets on 2026-09-14 found almost none carrying a two-sided quote.
+        // A market somebody has actually traded is the one worth paying for, so
+        // the premium needs real activity, not merely a live quote. The base
+        // `market_row` price is unchanged, so this can only ever add revenue.
+        const traded = (row.volume ?? 0) > 0 || (row.volume24h ?? 0) > 0 || (row.openInterest ?? 0) > 0;
         try {
-            await Actor.charge({ eventName: 'market_row' });
+            await Actor.charge({ eventName: traded ? 'liquid_market_row' : 'market_row' });
         } catch (err) {
             log.warning(`charge failed: ${err?.message}`);
         }

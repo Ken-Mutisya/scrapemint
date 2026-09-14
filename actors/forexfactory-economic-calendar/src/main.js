@@ -744,8 +744,15 @@ async function flushRow(row) {
     await Actor.pushData(row);
     totalRowsPushed += 1;
     if (totalRowsPushed > FREE_TIER_ROWS) {
+        // Tiered since 2026-10-01. Traders act on high-impact releases; a bank
+        // holiday row is filler. Pricing follows that instead of charging one
+        // flat rate for both. `event_row` stays in the published schedule as a
+        // legacy name so a build pushed after 10-01 but before this code lands
+        // still bills, rather than failing on an event the schedule knows
+        // nothing about.
+        const tier = row.impact === 'high' ? 'high' : row.impact === 'medium' ? 'medium' : 'low';
         try {
-            await Actor.charge({ eventName: 'event_row' });
+            await Actor.charge({ eventName: `event_row_${tier}` });
         } catch (err) {
             log.warning(`charge failed: ${err?.message}`);
         }

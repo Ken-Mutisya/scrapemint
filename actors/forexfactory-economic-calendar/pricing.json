@@ -1,15 +1,31 @@
 {
-    "_note": "PUT this to /v2/acts/{actorId} as pricingInfos array entry. Per playbook: PAY_PER_EVENT only on BRONZE plan, startedAt 14+ days out. Apify auto-adds 20% margin. | Raised in the 2026-07-16 high-traffic pricing pass, effective 07-31. | 2026-08-17 pass: per-run free allowance cut to 1 (0 where average output is under ~2 rows/run). It is charged per run, not per user, so on low-yield actors it was zeroing out revenue. Descriptions corrected to match src/main.js. Effective 09-01.",
+    "_note": "PUT this to /v2/acts/{actorId} as pricingInfos array entry. PAY_PER_EVENT only on BRONZE plan, startedAt 14+ days out. | 2026-09-14 tiering pass: flat $0.015 earned $0.0046 per row returned while podcast-host-leads earns $0.0240 on a three-tier schedule. Traders act on high-impact releases, so those carry the premium and low/holiday rows cost a fraction. Medium is held at the old flat price so the default input (impactLevels high+medium) cannot get cheaper. Effective 10-01, the 14-day notice from 09-14.",
+    "_legacy_event": "event_row is retained at the old flat price ON PURPOSE. On 10-01 the schedule flips before the new build is pushed; without this name the deployed build would charge an event the schedule does not know and bill nothing on the top-earning actor. Remove it only once verify-oct-1.mjs shows the tiered build live.",
     "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~forexfactory-economic-calendar?token=APIFY_TOKEN",
     "pricingModel": "PAY_PER_EVENT",
     "pricingPerEvent": {
         "actorChargeEvents": {
+            "event_row_high": {
+                "eventTitle": "High-impact economic event",
+                "eventDescription": "One high-impact ForexFactory economic event \u2014 the releases that move rates and currencies \u2014 with date, time, displayTimezone, currency, impact rating, title, actual, forecast, previous, revised, unit, source agency, and detail URL. First 2 rows per run are free so you can validate output.",
+                "eventPriceUsd": 0.035
+            },
+            "event_row_medium": {
+                "eventTitle": "Medium-impact economic event",
+                "eventDescription": "One medium-impact ForexFactory economic event with the same fields as a high-impact row. Priced at the previous flat rate, so a default run (high and medium) never costs more per medium row than before. First 2 rows per run are free so you can validate output.",
+                "eventPriceUsd": 0.015
+            },
+            "event_row_low": {
+                "eventTitle": "Low-impact or holiday event",
+                "eventDescription": "One low-impact, holiday, or non-economic ForexFactory row with the same fields. These are excluded by default and priced at a fraction of a high-impact release. First 2 rows per run are free so you can validate output.",
+                "eventPriceUsd": 0.005
+            },
             "event_row": {
-                "eventTitle": "Economic event row",
-                "eventDescription": "One ForexFactory economic event parsed and returned with date, time, displayTimezone, currency, impact rating, title, actual, forecast, previous, revised, unit, source agency, and detail URL. First 2 event rows per run are free so you can validate output.",
+                "eventTitle": "Economic event row (legacy flat rate)",
+                "eventDescription": "Legacy flat-rate event row, retained so runs started from an older build continue to bill correctly during the changeover. New runs bill under the impact-rated events above. First 2 rows per run are free so you can validate output.",
                 "eventPriceUsd": 0.015
             }
         }
     },
-    "startedAt": "2026-09-01T00:00:00.000Z"
+    "startedAt": "2026-10-01T00:00:00.000Z"
 }

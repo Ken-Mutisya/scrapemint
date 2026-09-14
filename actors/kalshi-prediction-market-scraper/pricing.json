@@ -1,15 +1,20 @@
 {
-    "_note": "PUT this to /v2/acts/{actorId} as pricingInfos array entry. PAY_PER_EVENT only on BRONZE plan, startedAt 14+ days out. Apify auto-adds 20% margin.",
-    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~kalshi-prediction-market-scraper?token=CLI_TOKEN",
+    "_note": "PUT this to /v2/acts/{actorId} as pricingInfos array entry. PAY_PER_EVENT only on BRONZE plan, startedAt 14+ days out. | 2026-09-14 tiering pass: Kalshi auto-generates a large tail of multivariate combo markets that never trade (sampling 10,000 open markets on 09-14 found almost none with a two-sided quote). A market somebody has actually traded is worth more than one that exists on paper. The base market_row price is UNCHANGED at $0.004, so this schedule can only add revenue, never reduce it. Effective 10-01, the 14-day notice from 09-14.",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~kalshi-prediction-market-scraper?token=APIFY_TOKEN",
     "pricingModel": "PAY_PER_EVENT",
     "pricingPerEvent": {
         "actorChargeEvents": {
+            "liquid_market_row": {
+                "eventTitle": "Traded Kalshi market",
+                "eventDescription": "One Kalshi event contract that has actually traded \u2014 non-zero volume or open interest \u2014 with yes/no bid and ask, last price, implied probability, volume, 24h volume, open interest, liquidity, close time, and resolution rules. Empty searches and unknown tickers are free. First 2 rows per run are free.",
+                "eventPriceUsd": 0.01
+            },
             "market_row": {
                 "eventTitle": "Kalshi market row",
-                "eventDescription": "One Kalshi event contract market with yes/no bid and ask, last price, implied probability, volume, open interest, close time, and resolution rules. Empty searches and unknown tickers are free. First 2 rows per run are free.",
+                "eventDescription": "One Kalshi event contract market with no trading activity yet \u2014 zero volume and zero open interest \u2014 with the same fields as a traded market. Priced unchanged at the previous flat rate. Empty searches and unknown tickers are free. First 2 rows per run are free.",
                 "eventPriceUsd": 0.004
             }
         }
     },
-    "startedAt": "2026-07-31T00:00:00.000Z"
+    "startedAt": "2026-10-01T00:00:00.000Z"
 }
