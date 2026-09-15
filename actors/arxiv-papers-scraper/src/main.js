@@ -20,6 +20,10 @@ const HARD_CAP_PAPERS = 1000;
 const PAGE_SIZE = 100;
 const FETCH_TIMEOUT_MS = 30000;
 const PAGE_DELAY_MS = 3100; // arXiv API politeness guidance
+const MAX_ATTEMPTS = 4;
+const BACKOFF_BASE_MS = 4000;
+let lastFetchError = null;
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 // Stop early on platform timeouts so pushed rows and charges are not lost.
 const timeoutAtMs = process.env.ACTOR_TIMEOUT_AT ? Date.parse(process.env.ACTOR_TIMEOUT_AT) : null;
 const deadlineMs = timeoutAtMs ? timeoutAtMs - 60000 : null;
@@ -72,21 +76,45 @@ async function fetchPage(start) {
     const url = `https://export.arxiv.org/api/query?search_query=${encodeURIComponent(searchQuery)}`
         + `&start=${start}&max_results=${Math.min(PAGE_SIZE, paperCap)}`
         + `&sortBy=${sort}&sortOrder=descending`;
-    const controller = new AbortController();
-    const timer = setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS);
-    try {
-        const res = await fetch(url, {
-            signal: controller.signal,
-            headers: { 'User-Agent': 'ArxivPapersScraper/1.0 (+https://apify.com/scrapemint/arxiv-papers-scraper)' },
-        });
-        if (!res.ok) { log.warning(`arXiv API HTTP ${res.status}`); return null; }
-        return parser.parse(await res.text());
-    } catch (err) {
-        log.warning(`arXiv API fetch failed: ${err?.message}`);
-        return null;
-    } finally {
-        clearTimeout(timer);
+    // arXiv rate-limits bursts with 429 and occasionally 503s under load. This
+    // used to warn once and return null, so a single 429 on the FIRST page
+    // ended the run with zero rows and a SUCCEEDED status -- the buyer got an
+    // empty dataset and no reason. Found 2026-09-15 by the health check.
+    for (let attempt = 0; attempt < MAX_ATTEMPTS; attempt += 1) {
+        const controller = new AbortController();
+        const timer = setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS);
+        try {
+            const res = await fetch(url, {
+                signal: controller.signal,
+                headers: { 'User-Agent': 'ArxivPapersScraper/1.0 (+https://apify.com/scrapemint/arxiv-papers-scraper)' },
+            });
+            if (res.ok) return parser.parse(await res.text());
+
+            const retryable = res.status === 429 || res.status >= 500;
+            lastFetchError = `HTTP ${res.status}`;
+            if (!retryable || attempt === MAX_ATTEMPTS - 1) {
+                log.warning(`arXiv API HTTP ${res.status}${retryable ? ' after retries' : ''}`);
+                return null;
+            }
+            // Honour Retry-After when arXiv sends it, otherwise back off.
+            const hinted = Number(res.headers.get('retry-after'));
+            const waitMs = Number.isFinite(hinted) && hinted > 0
+                ? Math.min(hinted * 1000, 30000)
+                : BACKOFF_BASE_MS * (2 ** attempt);
+            log.warning(`arXiv API HTTP ${res.status}; waiting ${Math.round(waitMs / 1000)}s then retrying (attempt ${attempt + 1}/${MAX_ATTEMPTS})`);
+            await sleep(waitMs);
+        } catch (err) {
+            lastFetchError = err?.message ?? String(err);
+            if (attempt === MAX_ATTEMPTS - 1) {
+                log.warning(`arXiv API fetch failed after ${MAX_ATTEMPTS} attempts: ${lastFetchError}`);
+                return null;
+            }
+            await sleep(BACKOFF_BASE_MS * (2 ** attempt));
+        } finally {
+            clearTimeout(timer);
+        }
     }
+    return null;
 }
 
 const one = (v) => (Array.isArray(v) ? v : v == null ? [] : [v]);
@@ -164,6 +192,20 @@ while (rowsPushed < paperCap && !dateFloorHit) {
 
 if (seenStore && rowsPushed > 0) {
     await seenStore.setValue('seen-ids', [...seen].slice(-50000));
+}
+
+// A run that returns nothing must say why. Returning a bare empty dataset is
+// indistinguishable from a broken actor, which is exactly how this one looked
+// when arXiv rate-limited it. Note rows are never charged.
+if (rowsPushed === 0) {
+    await Actor.pushData({
+        rowType: 'note',
+        note: lastFetchError
+            ? `arXiv did not answer (${lastFetchError}) after ${MAX_ATTEMPTS} attempts with backoff, so no papers could be read. This is arXiv rate-limiting or refusing the request, not an empty search. Nothing was charged; try again shortly.`
+            : `No papers matched this search. Nothing was charged. Query: ${searchQuery}`,
+        query: searchQuery,
+        scrapedAt: new Date().toISOString(),
+    });
 }
 
 log.info(`Done. ${rowsPushed} paper row(s) pushed (${Math.max(0, rowsPushed - FREE_TIER_ROWS)} chargeable).`);

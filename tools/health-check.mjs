@@ -54,7 +54,22 @@ const TOKEN = (() => {
 })();
 if (!TOKEN) { console.error('No token: write it to ~/.apify/cli-token (chmod 600)'); process.exit(1); }
 
-const api = async (p, init) => fetch(`https://api.apify.com/v2${p}${p.includes('?') ? '&' : '?'}token=${TOKEN}`, init);
+// Retries transient failures. A sweep makes thousands of calls over an hour;
+// one connect timeout used to throw out of a worker and kill the whole run.
+async function api(p, init, attempts = 3) {
+  const url = `https://api.apify.com/v2${p}${p.includes('?') ? '&' : '?'}token=${TOKEN}`;
+  let lastErr;
+  for (let i = 0; i < attempts; i += 1) {
+    try {
+      const res = await fetch(url, { ...init, signal: AbortSignal.timeout(45000) });
+      // 5xx and 429 are worth another go; 4xx is the answer.
+      if (res.status >= 500 || res.status === 429) { lastErr = new Error(`HTTP ${res.status}`); }
+      else return res;
+    } catch (err) { lastErr = err; }
+    if (i < attempts - 1) await sleep(2000 * (i + 1));
+  }
+  throw lastErr ?? new Error('request failed');
+}
 
 /** Build the input a buyer gets when they press Start: prefill, else default. */
 function prefillFor(slug) {
@@ -65,13 +80,20 @@ function prefillFor(slug) {
   const out = {};
   for (const [key, def] of Object.entries(schema.properties ?? {})) {
     if (def.editor === 'hidden') continue;
-    const v = def.prefill !== undefined ? def.prefill : def.default;
+    let v = def.prefill !== undefined ? def.prefill : def.default;
+    // Dedupe suppresses anything seen on a previous run, so the SECOND sweep of
+    // a deduping actor returns nothing and looks broken. It is not: it is doing
+    // exactly what it was asked. The check wants "does this return data", not
+    // "is there anything new since last time", so these are forced off.
+    if (DEDUPE_KEYS.has(key) && typeof v === 'boolean') v = false;
     if (v === undefined || v === null || v === '') continue;
     if (Array.isArray(v) && v.length === 0) continue;
     out[key] = v;
   }
   return out;
 }
+
+const DEDUPE_KEYS = new Set(['dedupe', 'deduplicate', 'onlyNew', 'skipSeen', 'onlyChanges', 'onlyMoved', 'newOnly']);
 
 async function checkOne(slug) {
   const started = Date.now();
@@ -94,9 +116,10 @@ async function checkOne(slug) {
   const hardStop = Date.now() + (TIMEOUT_S + 90) * 1000;
   while (Date.now() < hardStop) {
     await sleep(5000);
-    const r = await api(`/actor-runs/${run.id}`);
+    let r;
+    try { r = await api(`/actor-runs/${run.id}`); } catch { continue; }
     if (!r.ok) continue;
-    run = (await r.json()).data;
+    try { run = (await r.json()).data; } catch { continue; }
     if (run.status !== 'RUNNING' && run.status !== 'READY') break;
   }
 
@@ -135,6 +158,17 @@ async function checkOne(slug) {
     }
     if (upstream) {
       return { ...base, verdict: 'BROKEN', detail: `upstream refused: ${upstream[0]} — buyers get nothing` };
+    }
+    const dedupedAll = /deduped=(\d+)/i.exec(log);
+    if (dedupedAll && Number(dedupedAll[1]) > 0) {
+      return { ...base, verdict: 'ok',
+        detail: `0 new rows, but ${dedupedAll[1]} were suppressed as already seen — working, not broken` };
+    }
+    // An actor whose own prefill produces no input cannot demo itself: a buyer
+    // pressing Start gets nothing. That is a product fault, not a scraper fault.
+    if (/no input\b|provide at least one|is required/i.test(log)) {
+      return { ...base, verdict: 'NO-PREFILL',
+        detail: 'its own prefill is not a runnable input — a buyer pressing Start gets nothing' };
     }
     if (saysEmpty) {
       return { ...base, verdict: notes > 0 ? 'ok' : 'SILENT-EMPTY',
@@ -179,12 +213,23 @@ async function main() {
   await Promise.all(Array.from({ length: CONCURRENCY }, async () => {
     while (queue.length) {
       const slug = queue.shift();
-      const r = await checkOne(slug);
+      let r;
+      try {
+        r = await checkOne(slug);
+      } catch (err) {
+        r = { slug, verdict: 'ERROR', detail: `check itself failed: ${String(err?.message).slice(0, 120)}`, checkedAt: new Date().toISOString() };
+      }
       const was = history[slug];
       if (r.verdict === 'BROKEN' && was?.rows > 0) { r.verdict = 'REGRESSED'; r.detail += ` — returned ${was.rows} row(s) on ${was.checkedAt?.slice(0, 10)}`; }
       results.push(r);
       history[slug] = r;
-      const mark = { BROKEN: '!!', REGRESSED: '!!', 'SILENT-EMPTY': ' ?', INCONCLUSIVE: ' ?', SLOW: ' ~', ok: ' ok', SKIP: '  -' }[r.verdict] ?? '  ';
+      // Written per actor, not at the end: an hour-long sweep that dies at
+      // minute 55 should still have recorded the first 54 minutes.
+      try {
+        fs.mkdirSync(path.dirname(LOG_PATH), { recursive: true });
+        fs.writeFileSync(LOG_PATH, JSON.stringify(history, null, 1));
+      } catch { /* a failed save must not stop the sweep */ }
+      const mark = { BROKEN: '!!', REGRESSED: '!!', ERROR: '!!', 'NO-PREFILL': ' ?', 'SILENT-EMPTY': ' ?', INCONCLUSIVE: ' ?', SLOW: ' ~', ok: ' ok', SKIP: '  -' }[r.verdict] ?? '  ';
       console.log(`${mark} ${slug.padEnd(38)} ${r.detail}`);
     }
   }));
@@ -192,8 +237,8 @@ async function main() {
   fs.mkdirSync(path.dirname(LOG_PATH), { recursive: true });
   fs.writeFileSync(LOG_PATH, JSON.stringify(history, null, 1));
 
-  const rank = { REGRESSED: 0, BROKEN: 1, 'SILENT-EMPTY': 2, SLOW: 3, INCONCLUSIVE: 4, SKIP: 5, ok: 6 };
-  const ATTENTION = ['BROKEN', 'REGRESSED', 'SILENT-EMPTY', 'SLOW', 'INCONCLUSIVE'];
+  const rank = { REGRESSED: 0, BROKEN: 1, ERROR: 2, 'NO-PREFILL': 3, 'SILENT-EMPTY': 4, SLOW: 5, INCONCLUSIVE: 6, SKIP: 7, ok: 8 };
+  const ATTENTION = ['BROKEN', 'REGRESSED', 'ERROR', 'NO-PREFILL', 'SILENT-EMPTY', 'SLOW', 'INCONCLUSIVE'];
   const bad = results.filter((r) => ATTENTION.includes(r.verdict))
     .sort((a, b) => rank[a.verdict] - rank[b.verdict]);
   const spend = results.reduce((a, r) => a + (r.usd ?? 0), 0);
@@ -205,7 +250,7 @@ async function main() {
     for (const r of bad) console.log(`  [${r.verdict}] ${r.slug}\n      ${r.detail}`);
   }
   const n = (v) => results.filter((r) => r.verdict === v).length;
-  console.log(`\nok=${n('ok')} broken=${n('BROKEN')} regressed=${n('REGRESSED')} silent-empty=${n('SILENT-EMPTY')}`
+  console.log(`\nok=${n('ok')} broken=${n('BROKEN')} regressed=${n('REGRESSED')} silent-empty=${n('SILENT-EMPTY')} no-prefill=${n('NO-PREFILL')}`
     + ` slow=${n('SLOW')} inconclusive=${n('INCONCLUSIVE')} skipped=${n('SKIP')}`
     + ` | spent $${spend.toFixed(4)} | history: ${LOG_PATH}`);
   process.exit(bad.some((r) => r.verdict === 'BROKEN' || r.verdict === 'REGRESSED') ? 1 : 0);
