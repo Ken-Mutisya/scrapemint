@@ -1,0 +1,964 @@
+{
+ "activist-stake-catalyst-pipeline": {
+  "seoDescription": "Recent Schedule 13D and 13G activist stakes from SEC EDGAR, matched to insider open-market buys and scored 0-100 for conviction. Keyless.",
+  "seoTitle": "Schedule 13D/13G Filings + Insider Buy Tracker"
+ },
+ "ai-model-prices": {
+  "seoDescription": "Compare price per million tokens in and out for hundreds of LLMs, plus cache rates, context window, speed and uptime by host. No API key.",
+  "seoTitle": "LLM API Pricing: Cost per Token by Provider"
+ },
+ "airbnb-market-intelligence": {
+  "_note": "trim of existing over-length SEO",
+  "seoDescription": "Live Airbnb market data for short term rental investors: nightly rates, ratings, occupancy signals and amenities by market. No login.",
+  "seoTitle": "Airbnb Market Data API: Rental Revenue Estimator"
+ },
+ "aircraft-owner-leads": {
+  "seoDescription": "Registered aircraft owners from the official FAA registry, updated daily: name, mailing address, make, model, year and registration status.",
+  "seoTitle": "FAA Aircraft Owner Lookup: N-Number Registry"
+ },
+ "antidumping-duty-tracker": {
+  "seoDescription": "Check if a product is under a US antidumping or countervailing duty order. Search by product, country or case number for live status. Keyless.",
+  "seoTitle": "AD/CVD Antidumping Duty Lookup by Product"
+ },
+ "app-review-intelligence": {
+  "seoDescription": "Every review for any iOS or Android app: rating, title, body, reviewer, date, version, country and developer replies. Track release sentiment.",
+  "seoTitle": "App Store & Google Play Review Scraper API"
+ },
+ "app-store-top-charts-tracker": {
+  "seoDescription": "Apple App Store top free, paid and grossing charts by country and category, with rank movement against your last run. Official feeds, no key.",
+  "seoTitle": "App Store Top Charts API: Ranks by Country"
+ },
+ "apple-app-developer-leads": {
+  "seoDescription": "Search the iOS App Store by keyword and get B2B leads: seller, developer site, contact email, category, rating, reviews and price per app.",
+  "seoTitle": "iOS App Developer Leads: App Store Contacts"
+ },
+ "arxiv-papers-scraper": {
+  "seoDescription": "Track new arXiv research papers by keyword, category or author. One JSON row per paper: title, abstract, authors, dates, PDF link and DOI.",
+  "seoTitle": "arXiv API Scraper: Papers by Keyword or Author"
+ },
+ "asx-announcements-tracker": {
+  "seoDescription": "Australian Securities Exchange data: every listed company with market cap and 5-day move, plus announcements carrying the price sensitive flag.",
+  "seoTitle": "ASX Announcements API: Price Sensitive Filings"
+ },
+ "ats-hiring-signal-tracker": {
+  "seoDescription": "Resolve target companies on Greenhouse and Lever for live hiring signals: open roles, departments, locations and senior postings per company.",
+  "seoTitle": "Greenhouse & Lever Job Board API: Hiring Data"
+ },
+ "australia-economic-data": {
+  "seoDescription": "Mean dwelling price by state, consumer price inflation and wage growth from the Australian Bureau of Statistics, quarterly with full history.",
+  "seoTitle": "Australia Economic Data: House Prices, CPI"
+ },
+ "bitcoin-network-data": {
+  "seoDescription": "Live Bitcoin network state: recommended fee rates, what a typical transaction costs, mempool backlog, hashrate, mining pools and blocks. Keyless.",
+  "seoTitle": "Bitcoin Network API: Fees, Hashrate, Mempool"
+ },
+ "bls-labor-statistics-scraper": {
+  "seoDescription": "Official Bureau of Labor Statistics data: CPI inflation, unemployment, wages and job openings. Pick a metric or paste BLS series IDs.",
+  "seoTitle": "BLS API: US Inflation, Jobs and Wage Data"
+ },
+ "bluesky-scraper": {
+  "seoDescription": "Scrape Bluesky without an account: profiles with follower counts, posts with engagement, follower lists, people search and post likers.",
+  "seoTitle": "Bluesky API Scraper: Profiles, Posts, Followers"
+ },
+ "book-data-scraper": {
+  "seoDescription": "Look up books in bulk by ISBN or title and author: author, publish year, pages, publisher, subjects, languages, rating and cover image URL.",
+  "seoTitle": "ISBN Lookup API: Bulk Book Data by Title"
+ },
+ "brand-mention-monitor": {
+  "seoDescription": "Track any brand or product across Google News, Reddit, Hacker News and Telegram. Scheduled runs emit only new mentions, deduped across runs.",
+  "seoTitle": "Brand Mention Monitoring: News, Reddit, HN"
+ },
+ "building-permit-leads": {
+  "seoDescription": "Fresh building permits from official city open data across 7 US cities: work description, address, valuation, contractor and owner per permit.",
+  "seoTitle": "Building Permit Data API: New Permits by City"
+ },
+ "bulk-barcode-generator": {
+  "seoDescription": "Generate hundreds of EAN-13, UPC-A, Code 128, ITF-14, Code 39 and ISBN barcodes as PNG or SVG with download links. Check digits validated.",
+  "seoTitle": "Bulk Barcode Generator API: EAN, UPC, Code 128"
+ },
+ "bulk-qr-code-generator": {
+  "seoDescription": "Generate hundreds of QR codes in one run from URLs, text, WiFi logins or vCards. PNG or SVG per line with custom size, colors and download.",
+  "seoTitle": "Bulk QR Code Generator API: URLs to PNG or SVG"
+ },
+ "business-locations-worldwide": {
+  "seoDescription": "Keyless business listings anywhere on earth. Name a city, bounding box or radius and get restaurants, hotels, pharmacies, banks, gyms and more.",
+  "seoTitle": "Business Listings API: Shops and Services by City"
+ },
+ "buyback-insider-conviction-pipeline": {
+  "seoDescription": "8-K share repurchase announcements matched to insider open-market buying around the filing, scored 0-100 for conviction, per ticker. Keyless.",
+  "seoTitle": "Stock Buyback Tracker + Insider Buying Signal"
+ },
+ "buyer-intent-radar-pipeline": {
+  "seoDescription": "Find people voicing buying intent for your topic now. Chains Reddit, Stack Overflow and Hacker News, scoring intent 0-100 from their language.",
+  "seoTitle": "B2B Buyer Intent Data: Reddit, Stack Overflow"
+ },
+ "canada-economic-data": {
+  "seoDescription": "Monthly Statistics Canada figures: consumer price index, new housing prices, housing starts, employment and GDP, national or by province.",
+  "seoTitle": "Canada Economic Data API: CPI, Housing, Jobs"
+ },
+ "car-fuel-economy-scraper": {
+  "seoDescription": "Official US EPA fuel economy for any car, 1984 to today. Paste year make model and get city, highway and combined MPG, EV range, CO2 and cost.",
+  "seoTitle": "EPA Fuel Economy API: MPG and EV Range by Model"
+ },
+ "car-safety-check": {
+  "seoDescription": "Decode any VIN for make, model, year, engine, gearbox and build plant, and check it against known safety recalls. Paste one VIN or thousands.",
+  "seoTitle": "VIN Decoder API: Car Recalls and Specs Lookup"
+ },
+ "care-facility-ratings-scraper": {
+  "seoDescription": "Medicare quality ratings for US nursing homes, hospitals and home health agencies by name, state or city, with health and staffing scores.",
+  "seoTitle": "CMS Care Compare API: Nursing Home Star Ratings"
+ },
+ "central-bank-policy-rates": {
+  "seoDescription": "Policy rates for the Fed, ECB, Bank of England, Bank of Canada and RBA, plus Japan, with the derived decision history. Keyless, no browser.",
+  "seoTitle": "Central Bank Interest Rates API: Policy Rates"
+ },
+ "cfpb-complaints-scraper": {
+  "seoDescription": "Search the US Consumer Financial Protection Bureau database: complaints against banks, lenders and fintechs by company, product, issue, state.",
+  "seoTitle": "CFPB Complaint Database API: Banks and Fintechs"
+ },
+ "cftc-cot-tracker": {
+  "seoDescription": "Weekly CFTC positioning for every US futures market: how commercials, large specs, managed money and leveraged funds sit long or short.",
+  "seoTitle": "CFTC COT Report API: Commitments of Traders"
+ },
+ "chrome-extension-developer-leads": {
+  "seoDescription": "Search the Chrome Web Store by keyword or category for developer leads: contact email, phone, legal entity, website, user count and rating.",
+  "seoTitle": "Chrome Web Store Developer Leads and Contacts"
+ },
+ "clinical-catalyst-pipeline": {
+  "seoDescription": "Correlates ClinicalTrials.gov pipeline progress and PubMed momentum with SEC Form 4 insider buying, scored 0-100 per biotech company.",
+  "seoTitle": "Biotech Catalyst Tracker: Trials + Insider Buys"
+ },
+ "commodity-futures-settlements": {
+  "seoDescription": "Official daily futures settlements: every contract month with open, high, low, settle, change, volume and open interest. Keyless, no browser.",
+  "seoTitle": "Commodity Futures Prices API: Gold, Oil, Grains"
+ },
+ "company-data-worldwide": {
+  "seoDescription": "Keyless structured company facts for any country. Search by country, industry or founding year, profile named firms, or list what a parent owns.",
+  "seoTitle": "Company Data API: Industry, Owners, Listings"
+ },
+ "company-job-openings-scraper": {
+  "seoDescription": "Every open job at any list of companies from their public Greenhouse, Lever, Ashby and SmartRecruiters boards: title, department, location.",
+  "seoTitle": "Company Careers Page API: Greenhouse, Lever, Ashby"
+ },
+ "company-logo-scraper": {
+  "seoDescription": "Bulk domain-to-logo: each site's logo, icon set, og image, theme color and site name, with the best logo verified reachable. Keyless.",
+  "seoTitle": "Company Logo API: Domain to Logo and Brand Assets"
+ },
+ "corporate-catalyst-pipeline": {
+  "seoDescription": "Material 8-K events matched to insider open-market buying in the days around them, scored 0-100 and tiered per ticker. Keyless EDGAR data.",
+  "seoTitle": "SEC 8-K Catalyst Tracker + Insider Buying"
+ },
+ "court-records-scraper": {
+  "seoDescription": "Search US federal and state court records: opinions and dockets by keyword, party, court and date, with citation, judge and citation count.",
+  "seoTitle": "CourtListener API: US Case Law and Docket Search"
+ },
+ "credit-spreads-market-stress": {
+  "seoDescription": "Daily risk dashboard: US, euro and EM corporate bond spreads, equity, oil and gold volatility indexes, Treasury curve spreads. Keyless.",
+  "seoTitle": "Credit Spreads and VIX API: Market Risk Data"
+ },
+ "crime-data-scraper": {
+  "seoDescription": "Official police incident data from six US city open-data portals, normalized to one row shape: date, offense, address, neighborhood, coords.",
+  "seoTitle": "US Crime Data API: Police Incidents by City"
+ },
+ "crypto-fear-greed-index": {
+  "seoDescription": "The 0-100 crypto sentiment gauge, current and historical, plus total market cap, BTC and ETH dominance, 24h volume and trending coins.",
+  "seoTitle": "Crypto Fear and Greed Index API: Live and History"
+ },
+ "crypto-funding-rates-tracker": {
+  "seoDescription": "Perpetual futures funding rates and open interest across OKX, Gate.io, Bitget and KuCoin, lined up per coin to show the cheapest venue.",
+  "seoTitle": "Crypto Funding Rates API: Perps Open Interest"
+ },
+ "crypto-futures-basis-tracker": {
+  "seoDescription": "How far above or below spot each OKX dated expiry trades, converted to an annual percentage yield, for BTC, ETH, SOL and gold. Keyless.",
+  "seoTitle": "Crypto Futures Basis API: Premium and Annual Yield"
+ },
+ "crypto-liquidations-tracker": {
+  "seoDescription": "How much was liquidated long versus short in USD per coin on OKX and Gate.io, every forced closeout with its dollar size. Keyless.",
+  "seoTitle": "Crypto Liquidations API: Long and Short Closeouts"
+ },
+ "crypto-market-data-scraper": {
+  "seoDescription": "One row per coin with price, market cap, rank, volume, fully diluted valuation, supply, all-time high and low, and 1h to 1y change.",
+  "seoTitle": "CoinGecko API Scraper: Crypto Prices and Market Cap"
+ },
+ "crypto-new-listings-tracker": {
+  "seoDescription": "Which coins were listed in the last N days, on how many venues, with live price and 24h move, plus OKX listing announcements. Keyless.",
+  "seoTitle": "New Crypto Listings API: OKX, Gate, Bitget, KuCoin"
+ },
+ "crypto-order-book-depth": {
+  "seoDescription": "Live spot books from OKX, Gate, Bitget and KuCoin as desk numbers: resting depth within 0.5, 1 and 2 percent of mid, and slippage by size.",
+  "seoTitle": "Crypto Order Book API: Depth and Slippage by Venue"
+ },
+ "crypto-token-security-check": {
+  "seoDescription": "Contract safety checks on 8 chains: honeypot and sell restrictions, buy and sell taxes, and the powers the owner still holds. Keyless.",
+  "seoTitle": "Token Honeypot Checker API: Taxes and Owner Risk"
+ },
+ "crypto-whale-token-launch-tracker": {
+  "seoDescription": "New token launches on Uniswap, PancakeSwap, Raydium and Aerodrome via DexScreener, plus whale wallet moves on 5 chains via Etherscan.",
+  "seoTitle": "DEX New Token Launch and Whale Wallet Tracker"
+ },
+ "currency-exchange-rates-scraper": {
+  "seoDescription": "Live rates for any base currency plus daily history back to 1999 for 30 majors, as clean rows. For pricing tools, invoicing and analytics.",
+  "seoTitle": "Currency Exchange Rates API: 160+ Currencies"
+ },
+ "customs-ruling-finder": {
+  "seoDescription": "Search CBP rulings by product or tariff code to see which HTS code Customs actually assigned, and whether it was revoked before you cite it.",
+  "seoTitle": "CBP Customs Ruling Search: HTS Classification"
+ },
+ "cve-vulnerability-tracker": {
+  "seoDescription": "Track software vulnerabilities from the US government NVD: search by keyword, vendor, product and severity with CVSS, CISA KEV and EPSS.",
+  "seoTitle": "CVE API: NVD Vulnerability Search by Vendor"
+ },
+ "defi-tvl-tracker": {
+  "seoDescription": "Total value locked by protocol and chain, pool yields ranked by APY, and stablecoin supply with growth. Compare where money is and what it earns.",
+  "seoTitle": "DefiLlama API: TVL, Yields and Stablecoin Data"
+ },
+ "dependency-vulnerability-scanner": {
+  "seoDescription": "Scan dependencies against OSV.dev. Pass ecosystem:name@version and get one row per known vulnerability with OSV/GHSA id, CVSS and fix version.",
+  "seoTitle": "OSV Dependency Scanner API: npm, PyPI, Go, Maven"
+ },
+ "deribit-options-tracker": {
+  "seoDescription": "Per-expiry put/call ratios, at-the-money implied volatility and open interest, plus the full option chain with mark price, greeks and volume.",
+  "seoTitle": "Deribit Options API: BTC and ETH IV, Open Interest"
+ },
+ "dex-pool-price-tracker": {
+  "seoDescription": "Track on-chain pools across 100+ networks: price, liquidity, 24h volume, turnover, unique buyer and seller flow, plus OHLCV candle history.",
+  "seoTitle": "DEX Liquidity Pool API: Prices and Trade Flow"
+ },
+ "dns-records-checker": {
+  "seoDescription": "All DNS records for any domain in one report: A, MX, NS, TXT including SPF and DMARC, and more. Paste one domain or thousands. Bulk and keyless.",
+  "seoTitle": "DNS Lookup API: Full DNS Record Report by Domain"
+ },
+ "doctor-payments-scraper": {
+  "seoDescription": "US pharma and device payments to physicians from the federal Open Payments database, by doctor, company, specialty or state, with totals.",
+  "seoTitle": "CMS Open Payments API: Pharma Payments to Doctors"
+ },
+ "doctor-prescribing-patterns": {
+  "seoDescription": "Which doctors prescribe which drugs and what Medicare paid: official CMS Part D prescriber data by drug, specialty, state or NPI, ranked.",
+  "seoTitle": "Medicare Part D API: Doctor Prescribing Data"
+ },
+ "domain-intelligence": {
+  "seoDescription": "Pass a list of domains and get WHOIS data, DNS records and inferred signals: email provider, DNS provider and SPF/DMARC presence.",
+  "seoTitle": "Bulk WHOIS and DNS Lookup API for Domain Lists"
+ },
+ "domain-whois-checker": {
+  "seoDescription": "Check domain registration in bulk: registrar, creation and expiry dates, age, status locks, nameservers, DNSSEC and availability. Official RDAP.",
+  "seoTitle": "Bulk WHOIS API: Domain Age and Expiry via RDAP"
+ },
+ "draftkings-odds-tracker": {
+  "_note": "trim of existing over-length SEO",
+  "seoDescription": "DraftKings spreads, totals and moneylines with the opening line beside the current one, so you see which way the number moved and by how much.",
+  "seoTitle": "DraftKings Odds API: Line Movement and Spreads"
+ },
+ "drug-price-tracker": {
+  "seoDescription": "Official CMS NADAC acquisition costs for every US prescription and OTC drug, by name or NDC, with week-over-week changes and the CMS reason.",
+  "seoTitle": "NADAC Drug Price API: What Pharmacies Pay"
+ },
+ "ecommerce-scraper": {
+  "seoDescription": "Pull products from 14+ marketplaces with pricing, stock, variants, images and ratings. Auto-detects the marketplace from any product URL.",
+  "seoTitle": "Ecommerce Product API: Amazon, Walmart, eBay, Etsy"
+ },
+ "email-list-checker": {
+  "seoDescription": "Clean your list in bulk: syntax, domain exists, can receive mail, and flags for throwaway, free and role inboxes like info@. One row per address.",
+  "seoTitle": "Bulk Email Verification API: Valid and Disposable"
+ },
+ "emerging-launch-radar-pipeline": {
+  "seoDescription": "Find software gaining real traction now. Joins GitHub trending velocity with Hacker News attention per project and scores momentum 0-100.",
+  "seoTitle": "GitHub Trending + Hacker News Momentum Tracker"
+ },
+ "environmental-violations-scraper": {
+  "seoDescription": "US environmental compliance by facility: search sites by company, state or industry for compliance status, quarters in violation, inspections.",
+  "seoTitle": "EPA ECHO API: Facility Violations and Enforcement"
+ },
+ "europe-house-prices": {
+  "seoDescription": "Eurostat's official house price index for 38 countries: index level, quarterly and annual change, for all dwellings or new and existing split.",
+  "seoTitle": "Europe House Price Index API by Country"
+ },
+ "european-economic-indicators": {
+  "seoDescription": "Official European statistics by country: inflation, unemployment, GDP growth, industrial production and government debt. Keyless, no browser.",
+  "seoTitle": "Europe Economic Data API: Inflation, Jobs, GDP"
+ },
+ "european-electricity-prices": {
+  "seoDescription": "Day-ahead electricity prices per bidding zone at quarter-hour resolution, with a daily peak versus off-peak summary and the generation mix.",
+  "seoTitle": "European Power Price API: Day-Ahead Spot Rates"
+ },
+ "event-buzz-radar-pipeline": {
+  "seoDescription": "Pairs material 8-K filings with Reddit and Hacker News chatter on the same company, scored 0-100 and tiered hot, elevated or watch.",
+  "seoTitle": "SEC 8-K Events + Reddit and Hacker News Buzz"
+ },
+ "fda-approval-catalyst-pipeline": {
+  "seoDescription": "Correlates openFDA drug approvals, device PMA and 510(k) clearances with insider open-market buying around the decision date, scored 0-100.",
+  "seoTitle": "FDA Approval Tracker + Insider Buying Signal"
+ },
+ "fda-device-manufacturer-leads": {
+  "seoDescription": "FDA-registered device establishments by state, product code and type: one row per firm with address and the official correspondent's name.",
+  "seoTitle": "FDA Medical Device Manufacturer Leads and Contacts"
+ },
+ "fda-drug-adverse-events": {
+  "seoDescription": "Reported side effects for any drug from the FDA FAERS database: top reactions per drug, or individual reports with reaction and outcome.",
+  "seoTitle": "openFDA API: Drug Side Effects and Adverse Events"
+ },
+ "fed-rate-expectations": {
+  "seoDescription": "What the market expects the Fed to do, priced from 30-day Fed Funds futures: hike, hold or cut odds per FOMC meeting and the implied path.",
+  "seoTitle": "Fed Rate Cut Odds API: FOMC Meeting Probabilities"
+ },
+ "federal-contract-momentum-pipeline": {
+  "seoDescription": "Joins accelerating USAspending federal awards with SEC Form 4 insider buying, scored 0-100 and tiered converging or single-signal.",
+  "seoTitle": "Federal Contract Awards + Insider Buying Tracker"
+ },
+ "federal-register-monitor": {
+  "seoDescription": "Track new federal rules, proposed rules, notices and presidential documents by keyword, agency, type and date. Monitor mode emits only new.",
+  "seoTitle": "Federal Register API: New US Rules and Notices"
+ },
+ "financial-advisor-check": {
+  "seoDescription": "Verify US advisors, brokers and brokerage firms: registration status, licenses, employment history, disclosures, sanctions and permanent bars.",
+  "seoTitle": "FINRA BrokerCheck API: Advisor and Firm Lookup"
+ },
+ "flight-delay-tracker": {
+  "seoDescription": "Track delays, cancellations and diversions by flight number, airport or route: scheduled versus actual times, delay minutes and cancel reason.",
+  "seoTitle": "Flight Delay API: Cancellations and Diversions"
+ },
+ "flight-price-tracker": {
+  "seoDescription": "Airline, stops, duration, price and cabin for every option on a route. Filter by max stops, max price, preferred airlines or nonstop only.",
+  "seoTitle": "Google Flights API: Track Fares by Route and Date"
+ },
+ "food-product-data-scraper": {
+  "seoDescription": "Look up food in bulk by barcode or name: brand, quantity, ingredients, allergens, Nutri-Score, NOVA group, nutrition per 100g and a photo.",
+  "seoTitle": "Food Barcode API: Nutrition and Ingredient Lookup"
+ },
+ "fund-etf-holdings": {
+  "seoDescription": "Keyless SEC NPORT-P data: pass a ticker like VOO or ARKK and get every position with share count, dollar value and percent of portfolio.",
+  "seoTitle": "ETF Holdings API: Every Stock a Fund Owns"
+ },
+ "funded-startup-lead-pipeline": {
+  "seoDescription": "Turns recent Form D private fundraises into B2B leads: company, amount raised, industry, named executives and location, funds filtered out.",
+  "seoTitle": "SEC Form D Leads: Newly Funded Startup Contacts"
+ },
+ "gas-fees-by-chain": {
+  "seoDescription": "Live gas for Ethereum, Base, Arbitrum, Optimism, Polygon and BNB Chain, converted to the dollar cost to send, swap or mint. Keyless.",
+  "seoTitle": "Gas Fee API: Ethereum and L2 Transaction Costs"
+ },
+ "github-issue-monitor": {
+  "seoDescription": "Track GitHub issues and pull requests by keyword, repo, label, state and star floor via the official REST API. Deduped across runs.",
+  "seoTitle": "GitHub Issue and PR Alert API by Keyword"
+ },
+ "github-repo-stats": {
+  "seoDescription": "Key numbers for any public repo in bulk: stars, forks, watchers, open issues, language, license, topics, size and created or updated dates.",
+  "seoTitle": "GitHub Repo Stats API: Stars, Forks, Issues in Bulk"
+ },
+ "github-trending-scraper": {
+  "seoDescription": "The GitHub trending list for any timeframe or language: owner, name, description, total stars, stars added in period, forks and language.",
+  "seoTitle": "GitHub Trending API: Repos by Language and Period"
+ },
+ "global-company-verification": {
+  "seoDescription": "Verify legal entities in any country against the official LEI registry: registered name, addresses, status, registry number and parent owner.",
+  "seoTitle": "LEI Lookup API: Global Company Registry Search"
+ },
+ "global-news-media-monitor": {
+  "seoDescription": "Monitor worldwide coverage of any topic, brand or company across 100+ countries and languages, with source country, language and volume.",
+  "seoTitle": "GDELT API: Global News Monitoring in 100+ Countries"
+ },
+ "google-ads-transparency-scraper": {
+  "seoDescription": "See every Google ad a brand runs. Search advertisers by name and pull creatives with format, preview asset and first and last shown dates.",
+  "seoTitle": "Google Ads Transparency API: Competitor Ad Search"
+ },
+ "google-keyword-suggestions-scraper": {
+  "seoDescription": "Expand any seed keyword into hundreds of real Google or YouTube autocomplete suggestions: a-z suffixes, questions and prepositions, deduped.",
+  "seoTitle": "Google Autocomplete API: Keyword Suggestion Tool"
+ },
+ "google-maps-scraper": {
+  "seoDescription": "Pull Google Maps by query or URL: name, address, phone, website, rating, reviews, images and hours, with optional email and social enrichment.",
+  "seoTitle": "Google Maps API Scraper: Local Business Leads"
+ },
+ "google-news-scraper": {
+  "seoDescription": "Scrape Google News for any topic: one row per article with headline, source, link and publish date. Filter by language, country and recency.",
+  "seoTitle": "Google News API Scraper: Articles by Topic"
+ },
+ "google-patents-scraper": {
+  "seoDescription": "Search Google Patents at scale: metadata, inventors, assignees, full claims, patent and non-patent citations, family members and legal status.",
+  "seoTitle": "Google Patents API: Claims, Citations and Family"
+ },
+ "google-play-developer-leads": {
+  "seoDescription": "Search Google Play by keyword or category for B2B leads: developer contact email, website, name, category, install band, rating and pricing.",
+  "seoTitle": "Google Play Developer Leads: Publisher Contacts"
+ },
+ "google-play-reviews-scraper": {
+  "seoDescription": "Scrape Play Store reviews at scale: rating, full text, date, thumbs up, app version and developer replies. Sort by newest or filter by stars.",
+  "seoTitle": "Google Play Reviews API: Scrape App Reviews"
+ },
+ "government-bond-yields-worldwide": {
+  "seoDescription": "Sovereign yield curves for the US, UK, euro area, Japan, Canada and Australia in one comparable table, with the move since the prior session.",
+  "seoTitle": "Government Bond Yield API: Curves by Country"
+ },
+ "government-contract-winner-leads": {
+  "seoDescription": "Companies that just won federal contracts as sales leads. Filter awards by keyword, NAICS, agency and amount, enriched with address and UEI.",
+  "seoTitle": "Federal Contract Award Leads: New Winners"
+ },
+ "government-tender-finder": {
+  "seoDescription": "Public procurement notices worldwide: live tenders across EU TED in 27+ countries, UK Contracts Finder and World Bank in 140+ countries.",
+  "seoTitle": "Government Tender API: EU TED, UK, World Bank"
+ },
+ "grant-opportunity-finder": {
+  "seoDescription": "Find live federal grant opportunities by keyword, agency, category and eligibility: deadlines, award amounts and agency contact email.",
+  "seoTitle": "US Federal Grants API: Live Grants.gov Search"
+ },
+ "h1b-salary-data": {
+  "seoDescription": "Base salaries US employers filed with the Department of Labor to sponsor H-1B workers: employer, title, pay, location and filing dates.",
+  "seoTitle": "H-1B Salary Database API: Pay by Employer and Title"
+ },
+ "hacker-news-scraper": {
+  "seoDescription": "Search Hacker News by keyword, author, points, date or category including Ask HN and Show HN. One row per story or comment with metrics.",
+  "seoTitle": "Hacker News API Scraper: Stories and Comments"
+ },
+ "healthcare-provider-leads": {
+  "seoDescription": "US provider leads from the official NPI registry by specialty, state, city or ZIP: practice phone, address, license and organization contacts.",
+  "seoTitle": "NPI Registry API: Healthcare Provider Leads"
+ },
+ "hiring-velocity-pipeline": {
+  "seoDescription": "Companies hiring senior engineers in your skill area, scored by hiring velocity and enriched with a verified domain and likely contact emails.",
+  "seoTitle": "Hiring Velocity B2B Leads: Indeed + Verified Email"
+ },
+ "hn-hiring-company-leads": {
+  "seoDescription": "Parse the monthly Who Is Hiring thread into B2B leads: company, role, location, remote flag, salary, apply email, apply URL and website.",
+  "seoTitle": "Hacker News Who Is Hiring API: Company Leads"
+ },
+ "hn-lead-monitor": {
+  "seoDescription": "Watches HN new, top, Ask HN, Show HN and jobs plus Algolia search for your keywords, score floor and age window. Deduped across runs.",
+  "seoTitle": "Hacker News Keyword Alert API and Lead Feed"
+ },
+ "home-listings-scraper": {
+  "seoDescription": "Every home for sale in any US area: price, beds, baths, size, price per square foot, HOA, days on market, year built and GPS location.",
+  "seoTitle": "Redfin API Scraper: Homes for Sale by Zip Code"
+ },
+ "huggingface-ai-models-scraper": {
+  "seoDescription": "Track trending AI models, datasets and Spaces: one row per item with downloads, likes, trending score, tags, pipeline type and license.",
+  "seoTitle": "Hugging Face API: Trending Models and Datasets"
+ },
+ "hyperliquid-data": {
+  "seoDescription": "Every live Hyperliquid futures market with price, 24h volume, open interest and funding rate, plus funding history and any wallet's positions.",
+  "seoTitle": "Hyperliquid API: Futures Prices and Funding Rates"
+ },
+ "iban-checker": {
+  "seoDescription": "Validate IBANs for 85+ countries fully offline: valid or not with the reason, country, checksum, bank code, branch and account parts.",
+  "seoTitle": "IBAN Validator API: Check Bank Accounts in Bulk"
+ },
+ "imf-economic-forecasts": {
+  "seoDescription": "IMF figures and projections for ~230 countries: GDP growth, inflation, government debt and unemployment, each year marked observed or forecast.",
+  "seoTitle": "IMF World Economic Outlook API: GDP Forecasts"
+ },
+ "import-duty-tariff-calculator": {
+  "seoDescription": "Look up US import duty by HS code or product keyword, resolved to the 10-digit line, with free trade agreement eligibility by origin country.",
+  "seoTitle": "US Import Duty Calculator API: HS Code Lookup"
+ },
+ "indeed-jobs-scraper": {
+  "seoDescription": "Pull Indeed jobs from keywords, search URLs, job IDs or company pages. Each row carries parsed salary, skills, seniority tier and remote signal.",
+  "seoTitle": "Indeed API Scraper: Jobs with Parsed Salary Data"
+ },
+ "insider-planned-stock-sales": {
+  "seoDescription": "Insiders must file before selling restricted stock, so this shows who plans to sell, how many shares, what it is worth and roughly when.",
+  "seoTitle": "SEC Form 144 API: Upcoming Insider Stock Sales"
+ },
+ "instagram-scraper": {
+  "seoDescription": "Rank creators by real engagement rate, flag sponsored posts and paid partnerships, and track brand mentions across posts, reels and comments.",
+  "seoTitle": "Instagram API Scraper: Engagement Rate and Sponsors"
+ },
+ "institutional-ownership-tracker": {
+  "seoDescription": "Percent of any US stock held by institutions, how many holders increased versus decreased, and new and sold-out positions. Keyless NASDAQ data.",
+  "seoTitle": "Institutional Ownership API: Who Owns a Stock"
+ },
+ "internet-infrastructure-data": {
+  "seoDescription": "Global routing data: pass an ASN, IP or country code and get the holder, every announced IP range with its size, and upstream or downstream peers.",
+  "seoTitle": "BGP and IP Range API: Networks and Peering Data"
+ },
+ "internet-outage-alerts": {
+  "seoDescription": "Global outage detection: alerts when a country, region or network loses connectivity, with operator name, addresses affected and traffic drop.",
+  "seoTitle": "Internet Outage API: Connectivity Drops by Country"
+ },
+ "ip-address-lookup": {
+  "seoDescription": "Where an IP is and who owns it: country, region, city, timezone and the internet company behind it, with proxy, hosting and mobile flags.",
+  "seoTitle": "IP Geolocation API: Location, ISP and Proxy Check"
+ },
+ "ipo-calendar-scraper": {
+  "seoDescription": "US IPOs: upcoming, priced, newly filed and withdrawn deals with ticker, exchange, share price, shares offered and deal value. Keyless.",
+  "seoTitle": "IPO Calendar API: Upcoming and Priced US Deals"
+ },
+ "kalshi-prediction-market-scraper": {
+  "seoDescription": "Live odds from the regulated US event exchange: sports, elections, economics and weather markets with yes/no prices, probability and volume.",
+  "seoTitle": "Kalshi API: Live Event Contract Odds and Volume"
+ },
+ "lead-enrichment-pipeline": {
+  "seoDescription": "Turn a list of domains into enriched leads: emails, phones, social profiles across 7 networks, and company signals. Built for sales teams.",
+  "seoTitle": "Lead Enrichment API: Domain to Email and Phone"
+ },
+ "linkedin-company-hiring-tracker": {
+  "seoDescription": "One row per company per run: open roles on LinkedIn by seniority, function and location, plus the change since your last run.",
+  "seoTitle": "LinkedIn Company Hiring Signal API by Company"
+ },
+ "linkedin-job-market-trend-scraper": {
+  "seoDescription": "One row per query per run: total open LinkedIn roles for a keyword, location and filter set, with seniority and function breakdown and change.",
+  "seoTitle": "LinkedIn Job Market Data API: Hiring Trends"
+ },
+ "linkedin-jobs-scraper": {
+  "seoDescription": "Track LinkedIn hiring in real time. Every row carries parsed salary range, tech stack, seniority tier and remote type. Filter by keyword.",
+  "seoTitle": "LinkedIn Jobs API Scraper: Salary and Tech Stack"
+ },
+ "linkedin-jobs-scraper-pro": {
+  "seoDescription": "Pull LinkedIn jobs from search URLs, keywords or company pages with parsed salary, skills, seniority tier, Easy Apply flag and recruiter contact.",
+  "seoTitle": "LinkedIn Jobs API Pro: Recruiter Contact Finder"
+ },
+ "lobbying-disclosure-scraper": {
+  "seoDescription": "Who lobbies whom, on what and for how much: official Senate filings by client, firm, lobbyist or issue, with income and named lobbyists.",
+  "seoTitle": "US Lobbying Disclosure API: Clients and Spend"
+ },
+ "local-lead-pipeline": {
+  "seoDescription": "City and category in, ranked lead list out. Chains Google Maps, website enrichment and an MX check per qualified lead with verified contacts.",
+  "seoTitle": "Local Business Lead API: Maps + Email Enrichment"
+ },
+ "lookalike-domain-finder": {
+  "seoDescription": "Find registered lookalike domains impersonating your brand: typos, homoglyphs, hyphenations and TLD swaps, checked live against DNS.",
+  "seoTitle": "Typosquat Domain Finder API: Phishing Detection"
+ },
+ "lottery-results-scraper": {
+  "seoDescription": "Official winning numbers from state open data: Powerball with Double Play, Mega Millions, NY Lotto, Cash4Life, Take 5 and Pick 10.",
+  "seoTitle": "Lottery Results API: Powerball and Mega Millions"
+ },
+ "macro-event-edge-pipeline": {
+  "seoDescription": "For each high-impact economic event, see how traders are positioned and what prediction markets imply, chained into one scored row.",
+  "seoTitle": "Economic Calendar + Trader Sentiment and Odds"
+ },
+ "money-market-rates-tracker": {
+  "seoDescription": "Daily secured and unsecured overnight benchmarks with the volume behind each, the percentile distribution and SOFR spread views. Keyless.",
+  "seoTitle": "SOFR API: Money Market Rates and Fed Operations"
+ },
+ "music-charts-tracker": {
+  "seoDescription": "Apple Music top songs and albums for any country, up to 100 ranks, with rank movement, previous rank, new entries and artist per row.",
+  "seoTitle": "Apple Music Charts API: Top Songs by Country"
+ },
+ "natural-disaster-tracker": {
+  "seoDescription": "Live worldwide feed: earthquakes, cyclones, floods, volcanoes, droughts and wildfires with alert levels, coordinates and severity.",
+  "seoTitle": "Earthquake and Disaster API: USGS and GDACS Feed"
+ },
+ "new-business-registration-leads": {
+  "seoDescription": "Fresh LLC and corporation registrations from official state records in CO, CT and NY, updated daily: name, address, entity type and agent.",
+  "seoTitle": "New LLC Registration Leads: Fresh State Filings"
+ },
+ "newly-registered-domain-leads": {
+  "_note": "trim of existing over-length SEO",
+  "seoDescription": "Daily newly registered domains matched to your keywords, with registrar and registration date. Reach founders the week they start building.",
+  "seoTitle": "New Domain Registration Leads by Keyword"
+ },
+ "nih-grant-finder": {
+  "seoDescription": "Search federal research grants awarded by the NIH: funded project, award amount, institution, principal investigator, dates and abstract.",
+  "seoTitle": "NIH RePORTER API: Research Grant and PI Search"
+ },
+ "nonprofit-leads-scraper": {
+  "seoDescription": "Find US nonprofits by keyword, state and category with 990 financials: revenue, expenses, assets and multi-year trend. Segment by budget.",
+  "seoTitle": "IRS 990 API: Nonprofit Financials and Contacts"
+ },
+ "oil-gas-inventory-report": {
+  "seoDescription": "Weekly crude, gasoline and distillate stocks with the build or draw and the year-ago comparison, plus the supply balance. Keyless.",
+  "seoTitle": "EIA Oil Inventory API: Weekly Crude Stocks Report"
+ },
+ "oss-maintainer-leads": {
+  "seoDescription": "Search npm and PyPI by keyword for B2B leads: the maintainer's public email, repository, homepage, monthly downloads and last publish date.",
+  "seoTitle": "npm and PyPI Maintainer Leads: Package Contacts"
+ },
+ "package-adoption-tracker": {
+  "seoDescription": "Download data for npm and PyPI packages: last week against the week before with growth percent, the 30-day total and a daily series.",
+  "seoTitle": "npm and PyPI Download Stats API: Growth Trends"
+ },
+ "phone-number-checker": {
+  "seoDescription": "Check numbers in bulk: valid or not, country, mobile or landline, and clean international format. Same rules Android uses. Clean CRM lists.",
+  "seoTitle": "Phone Number Validation API: Bulk Format Check"
+ },
+ "podcast-charts-tracker": {
+  "seoDescription": "Apple Podcasts top charts for any country and genre, up to 200 ranks, with rank movement, new entries and drop-offs per scheduled run.",
+  "seoTitle": "Apple Podcast Charts API: Top Shows by Country"
+ },
+ "podcast-host-leads": {
+  "seoDescription": "Search the podcast directory by keyword for B2B leads: the host's public email, show name, author, website, category and episode count.",
+  "seoTitle": "Podcast Host Leads: Contact Emails by Keyword"
+ },
+ "polymarket-market-monitor": {
+  "seoDescription": "Pull Polymarket markets by category, keyword, min volume, liquidity and price move: question, outcomes, prices, 24h volume and end date.",
+  "seoTitle": "Polymarket API: Prediction Markets by Category"
+ },
+ "polymarket-scraper": {
+  "seoDescription": "Bulk pull Polymarket markets by category, keyword, tag, slug or condition ID: outcomes, YES and NO prices, 24h volume, liquidity and end date.",
+  "seoTitle": "Polymarket API: Order Book, Prices and Volume"
+ },
+ "postal-code-checker": {
+  "seoDescription": "Validate and enrich postal codes worldwide. Paste codes like US 90210 and get place name, region, district and GPS coordinates per code.",
+  "seoTitle": "Postal Code API: Validate ZIP Codes in 121 Countries"
+ },
+ "prediction-market-odds-comparison": {
+  "seoDescription": "Find the same question priced differently across Kalshi, Polymarket and PredictIt: the YES-price gap, the cheaper side and where to take it.",
+  "seoTitle": "Prediction Market Arbitrage: Kalshi vs Polymarket"
+ },
+ "premarket-after-hours-prices": {
+  "seoDescription": "US extended session prices: scan for the biggest premarket or after-hours gaps, or track a watchlist, with the gap from the prior close.",
+  "seoTitle": "Premarket Stock Price API: Gaps Before the Open"
+ },
+ "product-recall-finder": {
+  "seoDescription": "Products pulled from shelves for safety problems across consumer goods, food, drugs and devices: the problem, risk, fix, company and units.",
+  "seoTitle": "Product Recall API: Food, Drug and Toy Safety"
+ },
+ "producthunt-launch-tracker": {
+  "_note": "trim of existing over-length SEO",
+  "seoDescription": "Track new Product Hunt launches with name, tagline, product link and hunter. No login and no OAuth token needed. Deduped across runs.",
+  "seoTitle": "Product Hunt API: New Launch and Topic Alerts"
+ },
+ "public-holidays-finder": {
+  "seoDescription": "Public holidays for any country and year: date, name in English and the local language, type, and whether it is nationwide or regional.",
+  "seoTitle": "Public Holidays API: 187 Countries, Any Year"
+ },
+ "pubmed-clinical-trials-intelligence": {
+  "seoDescription": "Pull PubMed papers and ClinicalTrials.gov studies at scale: PMIDs, DOIs, abstracts, MeSH terms, NCT IDs, phases, sponsors and enrollment.",
+  "seoTitle": "PubMed and ClinicalTrials.gov API for Pharma"
+ },
+ "ransomware-victims-tracker": {
+  "seoDescription": "Organisations named on ransomware leak sites with the group claiming each, country, sector and claim date. Labelled as claims, not confirmed.",
+  "seoTitle": "Ransomware Victim Tracker API: Leak Site Claims"
+ },
+ "reddit-lead-monitor": {
+  "seoDescription": "Watches subreddits for posts matching your keywords, upvote floor and age window. Deduped across runs. Output JSON, CSV or Excel.",
+  "seoTitle": "Reddit Keyword Alert API: Subreddit Lead Feed"
+ },
+ "remote-jobs-scraper": {
+  "seoDescription": "Remote listings from four boards in one normalized feed: title, company, salary, tags, location limits, posted date and apply URL.",
+  "seoTitle": "Remote Jobs API: RemoteOK, Remotive, WeWorkRemotely"
+ },
+ "research-papers-scraper": {
+  "seoDescription": "Search 250M+ papers across every field: titles, abstracts, citation counts, journals and open-access PDF links. Find top experts by topic.",
+  "seoTitle": "Academic Paper API: 250M+ Papers and Citations"
+ },
+ "research-patent-radar-pipeline": {
+  "seoDescription": "Correlates academic research momentum from Google Scholar with patent filing activity from Google Patents, scored 0-100 per technology topic.",
+  "seoTitle": "Research to Patent Radar: Scholar + Patent Trends"
+ },
+ "restaurant-inspection-leads": {
+  "seoDescription": "Fresh inspections from official city open data across NYC, Chicago, Boston, Austin and King County: business name, address, phone and score.",
+  "seoTitle": "Restaurant Health Inspection API by City"
+ },
+ "rss-feed-scraper": {
+  "seoDescription": "Scrape any RSS or Atom feed into clean rows: title, link, date, author, summary, categories and image. Plain site URLs work too.",
+  "seoTitle": "RSS Feed API: Parse Any Feed to Structured JSON"
+ },
+ "ryanair-cheapest-fares": {
+  "seoDescription": "Live cheapest fares from Europe's largest low-cost airline: explore where you can fly cheapest, price a route, or pull a month's calendar.",
+  "seoTitle": "Ryanair API: Cheapest Flight Fares and Calendar"
+ },
+ "sanctions-watchlist-scraper": {
+  "seoDescription": "Download and screen official sanctions lists: OFAC SDN and Consolidated plus UK HMT, with aliases, addresses and sanction programs.",
+  "seoTitle": "OFAC Sanctions Screening API: SDN and UK Lists"
+ },
+ "satellite-tracking-data": {
+  "seoDescription": "Orbital data for objects in space: pick a constellation, catalogue number or name for apogee, perigee, period, inclination and orbit class.",
+  "seoTitle": "Satellite Tracking API: Orbits and Constellations"
+ },
+ "sec-13f-whale-tracker": {
+  "seoDescription": "Track institutional 13F holdings from EDGAR and diff them quarter over quarter: new positions, adds, trims and full exits per manager.",
+  "seoTitle": "SEC 13F API: Fund Holdings, New Buys and Exits"
+ },
+ "sec-8k-event-tracker": {
+  "seoDescription": "Track 8-K filings from EDGAR by ticker, CIK or item code, with shortcuts for earnings, exec changes, M&A, cyber incidents and bankruptcy.",
+  "seoTitle": "SEC 8-K API: Earnings, M&A and Cyber Filings"
+ },
+ "sec-company-filings-feed": {
+  "seoDescription": "Every SEC filing for a company from the official EDGAR API: 10-K, 10-Q, 8-K, S-1, proxy and more with date, form type and document links.",
+  "seoTitle": "SEC EDGAR API: Every Filing by Ticker or CIK"
+ },
+ "sec-filing-fulltext-scraper": {
+  "seoDescription": "Search the full text of every EDGAR filing since 2001 by keyword or phrase: company, ticker, form type, filing date and a direct link.",
+  "seoTitle": "SEC Full-Text Search API: Filings Since 2001"
+ },
+ "sec-form4-insider-tracker": {
+  "seoDescription": "Track Form 4 insider filings from EDGAR by ticker, CIK, transaction code, insider role, min value and age. Every buy, sell, grant and option.",
+  "seoTitle": "SEC Form 4 API: Insider Buys and Sells by Ticker"
+ },
+ "sec-insider-conviction-pipeline": {
+  "seoDescription": "Companies where insiders buy on the open market AND file material 8-K catalysts, joined on issuer CIK and scored 0-100 by conviction.",
+  "seoTitle": "Insider Buying + 8-K Catalyst Conviction Score"
+ },
+ "seo-site-audit-scraper": {
+  "seoDescription": "Crawl any site for an audit row per page: title and meta checks, H1s, canonical, noindex, redirect chains, broken links and alt coverage.",
+  "seoTitle": "SEO Site Audit API: On-Page Issues per URL"
+ },
+ "shopify-app-developer-leads": {
+  "seoDescription": "Name-match the Shopify App Store by keyword for B2B leads: developer support email, partner page, company website, rating and reviews.",
+  "seoTitle": "Shopify App Store Developer Leads and Contacts"
+ },
+ "shopify-price-monitor": {
+  "seoDescription": "Watch any Shopify store for one row per change: price up or down with percent, back in stock, sold out, new and removed products.",
+  "seoTitle": "Shopify Price Tracking API: Stock Change Alerts"
+ },
+ "shopify-store-products-scraper": {
+  "seoDescription": "Scrape any Shopify store's catalog: titles, vendors, tags, variants with price, SKU and live availability, and image URLs. Official endpoint.",
+  "seoTitle": "Shopify Product API: Full Catalog and Prices"
+ },
+ "short-selling-data-tracker": {
+  "seoDescription": "How much of a stock's daily volume was sold short, from FINRA's official files. Track a watchlist or screen every US ticker by short volume.",
+  "seoTitle": "FINRA Short Volume API: Daily Short Interest Data"
+ },
+ "sitemap-change-monitor": {
+  "seoDescription": "Watch any site's sitemap for one row per change: new pages, removed pages and lastmod updates. See competitors' pages the day they ship.",
+  "seoTitle": "Sitemap Monitor API: New and Removed Page Alerts"
+ },
+ "smart-money-buzz-pipeline": {
+  "seoDescription": "Joins SEC Form 4 insider open-market buying with Reddit and Hacker News chatter per ticker, scored 0-100 and tiered by convergence.",
+  "seoTitle": "Insider Buying + Reddit and Hacker News Buzz"
+ },
+ "sports-betting-results": {
+  "seoDescription": "Settled results for NFL, NBA, MLB, NHL, college and soccer: the closing spread, moneyline and total joined to the final score and graded.",
+  "seoTitle": "Sports Results API: Closing Odds vs Final Scores"
+ },
+ "sports-futures-odds": {
+  "seoDescription": "Season-long odds for NFL, NBA, MLB, NHL and college: championship, conference, division, win total and award markets with the full field.",
+  "seoTitle": "Futures Betting Odds API: Title and Award Markets"
+ },
+ "sports-injury-tracker": {
+  "_note": "trim of existing over-length SEO",
+  "seoDescription": "NFL, MLB, NBA, NHL and WNBA injury reports with player, position, status and analyst note. Remembers the last run, so you get the changes.",
+  "seoTitle": "Sports Injury API: Status Changes and Who Is Out"
+ },
+ "sports-odds-movement-tracker": {
+  "seoDescription": "Every betting price that moved since your last run, with prior line, new line and the delta in implied probability points. Moneyline and more.",
+  "seoTitle": "Line Movement API: Odds Changes and Arbitrage"
+ },
+ "sports-odds-scraper": {
+  "_note": "trim of existing over-length SEO",
+  "seoDescription": "Compare betting odds across sportsbooks, take the best price per outcome and spot arbitrage. Moneyline, spread and totals with implied odds.",
+  "seoTitle": "Betting Odds API: Best Price and Arbitrage"
+ },
+ "sports-player-stats-scraper": {
+  "seoDescription": "Team rosters and player career stats from ESPN feeds: NBA, NFL, MLB, NHL, WNBA, college and world soccer with season-by-season stat lines.",
+  "seoTitle": "Sports Player Stats API: Rosters and Career Data"
+ },
+ "sports-scores-scraper": {
+  "seoDescription": "Game scores, upcoming fixtures, results and league standings as clean rows. World soccer plus NBA, NFL, MLB, NHL and college. Keyless.",
+  "seoTitle": "Live Sports Scores API: Fixtures and Standings"
+ },
+ "sportsbook-odds-tracker": {
+  "seoDescription": "Live and pregame odds from a sportsbook's own public feed across football, basketball, baseball, hockey, soccer and tennis, with the price.",
+  "seoTitle": "Sportsbook Odds API: Moneyline, Spread, Totals"
+ },
+ "sportsbook-player-props": {
+  "seoDescription": "Per-player betting markets: strikeouts, hits, goals, assists and points with the line, both prices and the implied probability per market.",
+  "seoTitle": "Player Props API: Odds by Player, Stat and Line"
+ },
+ "ssl-subdomain-finder": {
+  "seoDescription": "Find every subdomain of any site from public certificate records, plus the certificate issuer, valid dates and expiry. Paste one domain or many.",
+  "seoTitle": "Subdomain Finder API: SSL Certificate Transparency"
+ },
+ "stackoverflow-lead-monitor": {
+  "seoDescription": "Watches Stack Overflow for questions matching your tags, keywords, score floor and age window. Deduped across runs. JSON, CSV or Excel.",
+  "seoTitle": "Stack Overflow Alert API: Tag and Keyword Feed"
+ },
+ "stackoverflow-scraper": {
+  "seoDescription": "Search Stack Overflow or any Stack Exchange site by keyword or tag: title, body, tags, score, views, answer count and accepted answer.",
+  "seoTitle": "Stack Overflow API: Questions, Answers and Tags"
+ },
+ "startup-jobs-search": {
+  "seoDescription": "Search live openings across hundreds of tech and startup job boards at once by keyword, location and remote: title, company and posted date.",
+  "seoTitle": "Startup Jobs API: Roles at Top Tech Companies"
+ },
+ "steam-game-review-intelligence": {
+  "seoDescription": "The full review stream and store metadata for any Steam game: review text, thumbs direction, playtime at review, votes and purchase flags.",
+  "seoTitle": "Steam Reviews API: Full Review Stream by Game"
+ },
+ "steam-game-studio-leads": {
+  "seoDescription": "Search Steam by keyword for B2B leads: studio, publisher, website, scraped contact email, genres, release date, price and review count.",
+  "seoTitle": "Steam Game Studio Leads: Developer Contacts"
+ },
+ "stock-analyst-ratings": {
+  "seoDescription": "Wall Street data for any US stock: consensus rating, mean, high and low price target, the buy-hold-sell split and implied upside percent.",
+  "seoTitle": "Analyst Ratings API: Price Targets and Upgrades"
+ },
+ "stock-dividend-calendar-scraper": {
+  "seoDescription": "Upcoming US dividends: ex-dividend, record, payment and announcement dates with the declared rate, annual dividend and days until ex-date.",
+  "seoTitle": "Dividend Calendar API: Ex-Dividend Dates by Ticker"
+ },
+ "stock-earnings-calendar-scraper": {
+  "seoDescription": "Upcoming earnings dates, EPS estimates, dividends, IPOs and stock splits for a date range or your ticker watchlist. Keyless public APIs.",
+  "seoTitle": "Earnings Calendar API: Dates and EPS Estimates"
+ },
+ "stock-earnings-estimates": {
+  "seoDescription": "What analysts expect a US stock to earn next quarter, what it actually earned in past quarters, and the percent it beat or missed by.",
+  "seoTitle": "Earnings Estimates API: EPS Forecast vs Actual"
+ },
+ "stock-market-fundamentals-scraper": {
+  "seoDescription": "Revenue, net income, EPS, assets, cash flow and other financial-statement line items per ticker, straight from official SEC XBRL filings.",
+  "seoTitle": "SEC XBRL API: Stock Fundamentals and Financials"
+ },
+ "stock-market-movers": {
+  "seoDescription": "Daily US market movers from official NASDAQ data: gainers, losers and most-active with price, percent change, volume, market cap and sector.",
+  "seoTitle": "Stock Screener API: Top Gainers, Losers, Actives"
+ },
+ "stock-options-scraper": {
+  "seoDescription": "US stock and index option chains from Cboe: unusual activity where volume dwarfs open interest, plus IV, greeks, open interest and volume.",
+  "seoTitle": "Options Chain API: Unusual Activity, IV, Greeks"
+ },
+ "stock-price-history-scraper": {
+  "seoDescription": "Daily open, high, low, close and volume for any stock or ETF over a date range. Clean JSON from a keyless public API, no browser or proxy.",
+  "seoTitle": "Stock Price History API: Daily OHLCV by Ticker"
+ },
+ "stock-trading-halts-tracker": {
+  "seoDescription": "Live US trading halts with the official reason spelled out instead of a code, halt and resumption times, and how long it has been frozen.",
+  "seoTitle": "Trading Halt API: Why a Stock Halted and Resumes"
+ },
+ "streaming-availability-scraper": {
+  "seoDescription": "Where any movie or show streams in 140+ countries across Netflix, Prime, Disney+ and more, with rent and buy prices and deep links.",
+  "seoTitle": "Streaming API: Where to Watch a Movie by Country"
+ },
+ "substack-newsletter-intelligence": {
+  "seoDescription": "Track Substack publications by subscriber count, paid versus free posting cadence, comments and writer profile. For ad networks and agencies.",
+  "seoTitle": "Substack API: Newsletter and Writer Analytics"
+ },
+ "telegram-channel-scraper": {
+  "seoDescription": "Scrape public channels without login: messages with text, date, views, links, media and forwards, plus channel title and subscriber count.",
+  "seoTitle": "Telegram Channel API: Scrape Public Channels"
+ },
+ "tradingview-stock-screener-scraper": {
+  "seoDescription": "Screen stocks, crypto and forex from TradingView's scanner by market cap, price, volume, sector, P/E, dividend yield, RSI and daily change.",
+  "seoTitle": "TradingView Screener API: Filter Stocks and Crypto"
+ },
+ "treasury-auction-results": {
+  "seoDescription": "Official US Treasury auction results: bid to cover, high rate, offering and accepted amounts, and the dealer, direct and indirect split.",
+  "seoTitle": "Treasury Auction API: Bid to Cover and Bidder Split"
+ },
+ "tripadvisor-property-rank-tracker": {
+  "seoDescription": "Daily rank, rating drift, review volume, owner response rate, Travelers' Choice status, price tier and amenities for any property.",
+  "seoTitle": "TripAdvisor Rank Tracker: Hotel Competitor Benchmark"
+ },
+ "tripadvisor-review-intelligence": {
+  "seoDescription": "Every TripAdvisor review for any hotel, attraction or restaurant with rating, text, trip type, traveler origin and stay date.",
+  "seoTitle": "TripAdvisor Reviews API: Hotel Reputation Monitor"
+ },
+ "tripadvisor-scraper": {
+  "seoDescription": "Pull hotels, restaurants, attractions, things to do, rentals and tours with pricing, contact, amenities, awards, ratings and coordinates.",
+  "seoTitle": "TripAdvisor API Scraper: Hotels and Restaurants"
+ },
+ "tv-schedule-scraper": {
+  "seoDescription": "TV schedules as clean rows: what airs on which network and when, for any country and date, plus streaming release dates and show details.",
+  "seoTitle": "TV Schedule API: Listings by Country and Date"
+ },
+ "twitch-streamer-leads": {
+  "seoDescription": "Find streamers by game, query or login and filter by follower band: followers, business email from the bio, social links and partner status.",
+  "seoTitle": "Twitch Streamer Leads: Contacts by Game and Size"
+ },
+ "uk-house-prices": {
+  "seoDescription": "Average sale price, index, monthly and annual change and sales volume for any UK region from HM Land Registry, split by property type.",
+  "seoTitle": "UK House Price Index API by Region and Type"
+ },
+ "upwork-opportunity-alert": {
+  "seoDescription": "Matching Upwork jobs with budget, client country, spend history, payment verification, proposal count and skills. For agencies and freelancers.",
+  "seoTitle": "Upwork Jobs API: Freelance Lead and Client Filter"
+ },
+ "us-address-checker": {
+  "seoDescription": "Check US addresses in bulk: is it real, the cleaned official version, and exact GPS coordinates, plus county, city and district info.",
+  "seoTitle": "US Address Validation API: Verify and Geocode"
+ },
+ "us-bank-data-finder": {
+  "seoDescription": "Look up any FDIC-insured bank: assets, deposits, ROA and ROE, branch count, charter and website. Search by name or browse by state.",
+  "seoTitle": "FDIC API: US Bank Assets, Branches and Failures"
+ },
+ "us-college-finder": {
+  "seoDescription": "Every US college filtered how students choose: open-admissions versus selective, online-only, 2 or 4 year, public or private, by state.",
+  "seoTitle": "US College Search API: Admission Rate and Cost Data"
+ },
+ "us-gas-diesel-prices": {
+  "seoDescription": "Official weekly US retail fuel prices: national, refining regions, nine states and ten cities, every gasoline grade and diesel, with changes.",
+  "seoTitle": "US Gas Price API: Weekly Retail by Region and Grade"
+ },
+ "us-loan-mortgage-rates": {
+  "seoDescription": "What Americans borrow at: 30 and 15 year mortgage rates, bank prime, credit card APR, car and personal loans from the Federal Reserve.",
+  "seoTitle": "US Mortgage Rate API: 30-Year and Prime History"
+ },
+ "us-rent-home-price-index": {
+  "seoDescription": "Typical home value and rent for any US state, metro, city or zip from Zillow's research indexes, with change and gross rental yield.",
+  "seoTitle": "Zillow Home Value API: Rent Index by Metro and Zip"
+ },
+ "us-treasury-rates-scraper": {
+  "seoDescription": "Official daily yield curve from 1-month to 30-year with the 2s10s spread and inversion flag, plus TIPS real yields and T-bill rates.",
+  "seoTitle": "Treasury Yield Curve API: Daily Rates and 2s10s"
+ },
+ "vat-number-checker": {
+  "seoDescription": "Check EU VAT numbers in bulk against VIES, the European Commission's official registry: valid or not, plus registered name and address.",
+  "seoTitle": "EU VAT Number Validation API: Bulk VIES Check"
+ },
+ "vehicle-defect-tracker": {
+  "seoDescription": "Every owner complaint filed with NHTSA for a vehicle with crash, fire, injury and death flags and the full narrative, rolled up by component.",
+  "seoTitle": "NHTSA Complaint API: Vehicle Defects and Recalls"
+ },
+ "viator-tours-tracker": {
+  "seoDescription": "Pull Viator tours and activities by destination, keyword or product URL: price from, rating, review count, duration and bookable status.",
+  "seoTitle": "Viator API: Tour Prices, Ratings and Availability"
+ },
+ "vscode-extension-developer-leads": {
+  "seoDescription": "VS Code Marketplace publisher leads by keyword or category: verified domain, website, GitHub repo, scraped contact emails and install count.",
+  "seoTitle": "VS Code Extension Publisher Leads and Contacts"
+ },
+ "weather-alerts-tracker": {
+  "seoDescription": "Live US alerts from the National Weather Service: tornado, flood, winter storm, heat and marine warnings with severity, area and timing.",
+  "seoTitle": "NWS Weather Alert API: US Warnings and Advisories"
+ },
+ "weather-forecast-scraper": {
+  "seoDescription": "Weather for any place on earth by city or coordinates: live conditions, multi-day forecast and decades of daily history. Keyless.",
+  "seoTitle": "Weather API: Forecast, Current and Historical Data"
+ },
+ "website-change-monitor": {
+  "seoDescription": "Monitor any list of pages on a schedule and get a row when one changes: added and removed lines, previous and current text, timestamps.",
+  "seoTitle": "Website Change Detection API: Page Diff Alerts"
+ },
+ "website-contact-scraper": {
+  "seoDescription": "Turn a list of sites into contact data. Fetches homepage plus contact and about pages for emails, phone numbers and social links per site.",
+  "seoTitle": "Email Finder API: Extract Contacts from Websites"
+ },
+ "website-content-scraper": {
+  "seoDescription": "Crawl any website for clean markdown, text or HTML per page, ready for RAG pipelines, chatbots and fine tuning. Plain HTTP, no browser.",
+  "seoTitle": "Website to Markdown API for RAG and LLM Training"
+ },
+ "website-history-checker": {
+  "seoDescription": "Check any domain's archive history in bulk: first and last snapshot, captures per year, gaps and dark periods, with links to every era.",
+  "seoTitle": "Wayback Machine API: Domain History in Bulk"
+ },
+ "website-tech-stack-detector": {
+  "seoDescription": "Detect what any list of sites runs: CMS, ecommerce platform, analytics, marketing tools, chat widgets, frameworks, CDN, hosting, payments.",
+  "seoTitle": "Tech Stack Detector API: BuiltWith Alternative"
+ },
+ "wikipedia-article-data": {
+  "seoDescription": "Pull clean data from Wikipedia articles in bulk: summary text, short description, main image, map location, categories and language count.",
+  "seoTitle": "Wikipedia API: Article Summary, Facts and Images"
+ },
+ "wikipedia-trends-scraper": {
+  "seoDescription": "What every country looks up: daily top 1000 most-viewed articles per country or language, with rank movement and view timeseries.",
+  "seoTitle": "Wikipedia Pageviews API: Top Articles by Country"
+ },
+ "wordpress-plugin-developer-leads": {
+  "seoDescription": "Query the WordPress.org directory by keyword for B2B leads: author, company website, active installs, rating, downloads and a scraped email.",
+  "seoTitle": "WordPress Plugin Developer Leads and Contacts"
+ },
+ "world-bank-projects-tenders": {
+  "seoDescription": "Development finance data for every borrowing country: live procurement notices with deadline, method and contact name, email and phone.",
+  "seoTitle": "World Bank Tender API: Funded Projects by Country"
+ },
+ "world-economic-indicators-scraper": {
+  "seoDescription": "World Bank data for any country: GDP, GDP per capita, inflation, unemployment, population, trade and ~29,500 more indicators with history.",
+  "seoTitle": "World Bank API: GDP, Inflation by Country"
+ },
+ "yc-startup-leads": {
+  "seoDescription": "Filter the YC directory by keyword, batch, industry or hiring status for B2B leads: company, website, contact email, one-liner and team size.",
+  "seoTitle": "Y Combinator Startup Leads: Founder Contacts"
+ },
+ "youtube-scraper": {
+  "seoDescription": "Pull videos, channels, playlists, shorts and live streams with engagement, transcripts, top comments with replies, chapters and channel stats.",
+  "seoTitle": "YouTube API Scraper: Videos, Comments, Transcripts"
+ },
+ "youtube-video-scraper": {
+  "seoDescription": "YouTube data as clean rows: search results for any keyword, recent videos from any channel, and full video details with views and duration.",
+  "seoTitle": "YouTube Data API: Search, Channel and Video Stats"
+ },
+ "zillow-home-price-scraper": {
+  "seoDescription": "Pull Zillow listings by city or URL: price, beds, baths, sqft, Zestimate, rent Zestimate, days on market and agent. For sale, rent and sold.",
+  "seoTitle": "Zillow API Scraper: Listings, Zestimate, Sales"
+ }
+}

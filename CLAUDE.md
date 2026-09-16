@@ -29,7 +29,7 @@ end of the task, so it is a known trade-off rather than a silent gap.
 - The store page renders `<title>` from `seoTitle or title` plus a ` · Apify`
   suffix, and `<meta name="description">` from `seoDescription or description`
   **hard-cut at 152 characters**. Keep `seoTitle` <= 52 and `seoDescription`
-  <= 152. `automation/deploy-seo.mjs` enforces both.
+  <= 152. `tools/deploy-seo.mjs` enforces both.
 - `categories` in `actor.json` only apply at actor creation. Editing that field
   on an existing actor does nothing; use `PUT /v2/acts/{id}`, then update the
   local file so it does not drift.
