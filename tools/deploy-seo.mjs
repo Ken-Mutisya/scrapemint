@@ -6,7 +6,13 @@
 // Dry-run is the DEFAULT here, unlike deploy-pricing.mjs. This touches the
 // public store listing of ~239 live actors in one pass, so the push has to be
 // asked for explicitly.
-// Usage: node tools/deploy-seo.mjs [--commit] [--only=actor-slug,...]
+//
+// A HOLDOUT EXPERIMENT IS RUNNING. tools/seo-holdout-2026-09-17.json lists 40
+// control actors whose SEO was deliberately reverted so the effect stays
+// measurable. This script SKIPS them on --commit; re-applying SEO there destroys
+// the experiment. Use --ignore-holdout only after the result has been read
+// (see that file's readItOn date).
+// Usage: node tools/deploy-seo.mjs [--commit] [--only=slug,...] [--revert-control] [--ignore-holdout]
 
 import fs from 'node:fs';
 import path from 'node:path';
@@ -15,11 +21,14 @@ import { fileURLToPath } from 'node:url';
 import { execSync } from 'node:child_process';
 
 const COMMIT = process.argv.includes('--commit');
+const REVERT_CONTROL = process.argv.includes('--revert-control');
+const IGNORE_HOLDOUT = process.argv.includes('--ignore-holdout');
 const ONLY = process.argv.find(a => a.startsWith('--only='))?.slice(7).split(',').filter(Boolean);
 
 const REPO = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const DRAFTS_PATH = path.join(REPO, 'tools/seo-drafts.json');
 const LOG_PATH = path.join(REPO, 'logs/seo-deploy-log.json');
+const HOLDOUT_PATH = path.join(REPO, 'tools/seo-holdout-2026-09-17.json');
 const AUTH_PATH = path.join(os.homedir(), '.apify/auth.json');
 
 // Same token resolution order as deploy-pricing.mjs: Keychain last, because a
@@ -88,7 +97,35 @@ async function deployOne(actor, draft) {
 
 async function main() {
   const drafts = JSON.parse(fs.readFileSync(DRAFTS_PATH, 'utf8'));
-  const actors = Object.keys(drafts).sort().filter(a => !ONLY || ONLY.includes(a));
+  let control = new Set();
+  try { control = new Set(JSON.parse(fs.readFileSync(HOLDOUT_PATH, 'utf8')).control); } catch {}
+
+  // --revert-control clears SEO on the holdout arm, restoring the pre-treatment
+  // state (Apify then falls back to title/description). That IS the control.
+  if (REVERT_CONTROL) {
+    const targets = [...control].sort().filter(a => !ONLY || ONLY.includes(a));
+    console.log(`${COMMIT ? '' : '[DRY-RUN, pass --commit] '}reverting SEO on ${targets.length} control actors...`);
+    const res = [];
+    for (const actor of targets) {
+      process.stdout.write(`  ${actor.padEnd(40)} `);
+      if (!COMMIT) { console.log('DRY would clear seoTitle/seoDescription'); res.push({ actor, dryRun: true }); continue; }
+      const r = await apifyPut(actor, { seoTitle: null, seoDescription: null });
+      res.push({ ts: new Date().toISOString(), actor, status: r.status, ok: r.ok });
+      console.log(r.ok ? `OK ${r.status}` : `FAIL ${r.status}`);
+    }
+    const bad = res.filter(r => r.status && !r.ok).length;
+    console.log(`\n${COMMIT ? 'reverted' : 'would revert'}: ${res.length}, failed: ${bad}`);
+    return;
+  }
+
+  let actors = Object.keys(drafts).sort().filter(a => !ONLY || ONLY.includes(a));
+  if (!IGNORE_HOLDOUT && control.size) {
+    const before = actors.length;
+    actors = actors.filter(a => !control.has(a));
+    if (before !== actors.length) {
+      console.log(`holdout: skipping ${before - actors.length} control actors (--ignore-holdout to override)`);
+    }
+  }
 
   console.log(`${COMMIT ? '' : '[DRY-RUN, pass --commit to push] '}SEO for ${actors.length} actors...`);
   const results = [];
