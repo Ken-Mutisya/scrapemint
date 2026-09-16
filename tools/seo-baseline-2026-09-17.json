@@ -1,0 +1,2199 @@
+{
+ "takenAt": "2026-09-17",
+ "note": "Baseline taken immediately AFTER seoTitle/seoDescription went live on all 239 actors. totalUsers is cumulative; diff a later snapshot against this to read the SEO effect. Do not use totalUsers30Days - see apify-stats-fields-are-unreliable.",
+ "actors": {
+  "activist-stake-catalyst-pipeline": {
+   "totalUsers": 2,
+   "totalRuns": 90,
+   "createdAt": "2026-06-25",
+   "categories": [
+    "BUSINESS",
+    "NEWS"
+   ]
+  },
+  "ai-model-prices": {
+   "totalUsers": 2,
+   "totalRuns": 57,
+   "createdAt": "2026-07-29",
+   "categories": [
+    "DEVELOPER_TOOLS",
+    "BUSINESS"
+   ]
+  },
+  "airbnb-market-intelligence": {
+   "totalUsers": 8,
+   "totalRuns": 389,
+   "createdAt": "2026-04-11",
+   "categories": [
+    "TRAVEL",
+    "REAL_ESTATE"
+   ]
+  },
+  "aircraft-owner-leads": {
+   "totalUsers": 2,
+   "totalRuns": 67,
+   "createdAt": "2026-07-16",
+   "categories": [
+    "LEAD_GENERATION",
+    "BUSINESS"
+   ]
+  },
+  "antidumping-duty-tracker": {
+   "totalUsers": 2,
+   "totalRuns": 48,
+   "createdAt": "2026-08-05",
+   "categories": [
+    "BUSINESS",
+    "NEWS"
+   ]
+  },
+  "app-review-intelligence": {
+   "totalUsers": 7,
+   "totalRuns": 227,
+   "createdAt": "2026-04-19",
+   "categories": [
+    "DEVELOPER_TOOLS",
+    "SEO_TOOLS",
+    "AUTOMATION"
+   ]
+  },
+  "app-store-top-charts-tracker": {
+   "totalUsers": 1,
+   "totalRuns": 78,
+   "createdAt": "2026-07-07",
+   "categories": [
+    "MARKETING",
+    "BUSINESS"
+   ]
+  },
+  "apple-app-developer-leads": {
+   "totalUsers": 2,
+   "totalRuns": 90,
+   "createdAt": "2026-06-27",
+   "categories": [
+    "BUSINESS",
+    "LEAD_GENERATION"
+   ]
+  },
+  "arxiv-papers-scraper": {
+   "totalUsers": 2,
+   "totalRuns": 79,
+   "createdAt": "2026-07-05",
+   "categories": [
+    "AI",
+    "NEWS"
+   ]
+  },
+  "asx-announcements-tracker": {
+   "totalUsers": 4,
+   "totalRuns": 53,
+   "createdAt": "2026-08-10",
+   "categories": [
+    "BUSINESS",
+    "NEWS"
+   ]
+  },
+  "ats-hiring-signal-tracker": {
+   "totalUsers": 2,
+   "totalRuns": 84,
+   "createdAt": "2026-06-27",
+   "categories": [
+    "BUSINESS",
+    "LEAD_GENERATION"
+   ]
+  },
+  "australia-economic-data": {
+   "totalUsers": 2,
+   "totalRuns": 41,
+   "createdAt": "2026-08-04",
+   "categories": [
+    "BUSINESS",
+    "REAL_ESTATE"
+   ]
+  },
+  "bitcoin-network-data": {
+   "totalUsers": 2,
+   "totalRuns": 55,
+   "createdAt": "2026-07-29",
+   "categories": [
+    "BUSINESS",
+    "DEVELOPER_TOOLS"
+   ]
+  },
+  "bls-labor-statistics-scraper": {
+   "totalUsers": 2,
+   "totalRuns": 59,
+   "createdAt": "2026-07-18",
+   "categories": [
+    "BUSINESS",
+    "EDUCATION"
+   ]
+  },
+  "bluesky-scraper": {
+   "totalUsers": 2,
+   "totalRuns": 63,
+   "createdAt": "2026-07-17",
+   "categories": [
+    "SOCIAL_MEDIA",
+    "MARKETING"
+   ]
+  },
+  "book-data-scraper": {
+   "totalUsers": 3,
+   "totalRuns": 75,
+   "createdAt": "2026-07-14",
+   "categories": [
+    "ECOMMERCE",
+    "BUSINESS"
+   ]
+  },
+  "brand-mention-monitor": {
+   "totalUsers": 1,
+   "totalRuns": 89,
+   "createdAt": "2026-07-11",
+   "categories": [
+    "MARKETING",
+    "NEWS"
+   ]
+  },
+  "building-permit-leads": {
+   "totalUsers": 2,
+   "totalRuns": 74,
+   "createdAt": "2026-07-08",
+   "categories": [
+    "LEAD_GENERATION",
+    "BUSINESS"
+   ]
+  },
+  "bulk-barcode-generator": {
+   "totalUsers": 1,
+   "totalRuns": 64,
+   "createdAt": "2026-07-16",
+   "categories": [
+    "ECOMMERCE",
+    "BUSINESS"
+   ]
+  },
+  "bulk-qr-code-generator": {
+   "totalUsers": 2,
+   "totalRuns": 64,
+   "createdAt": "2026-07-16",
+   "categories": [
+    "MARKETING",
+    "DEVELOPER_TOOLS"
+   ]
+  },
+  "business-locations-worldwide": {
+   "totalUsers": 1,
+   "totalRuns": 51,
+   "createdAt": "2026-07-28",
+   "categories": [
+    "LEAD_GENERATION",
+    "BUSINESS"
+   ]
+  },
+  "buyback-insider-conviction-pipeline": {
+   "totalUsers": 2,
+   "totalRuns": 170,
+   "createdAt": "2026-06-25",
+   "categories": [
+    "BUSINESS",
+    "NEWS"
+   ]
+  },
+  "buyer-intent-radar-pipeline": {
+   "totalUsers": 2,
+   "totalRuns": 123,
+   "createdAt": "2026-06-06",
+   "categories": [
+    "BUSINESS",
+    "LEAD_GENERATION"
+   ]
+  },
+  "canada-economic-data": {
+   "totalUsers": 3,
+   "totalRuns": 41,
+   "createdAt": "2026-08-04",
+   "categories": [
+    "BUSINESS",
+    "NEWS"
+   ]
+  },
+  "car-fuel-economy-scraper": {
+   "totalUsers": 2,
+   "totalRuns": 65,
+   "createdAt": "2026-07-15",
+   "categories": [
+    "BUSINESS",
+    "ECOMMERCE"
+   ]
+  },
+  "car-safety-check": {
+   "totalUsers": 1,
+   "totalRuns": 71,
+   "createdAt": "2026-07-13",
+   "categories": [
+    "BUSINESS",
+    "ECOMMERCE"
+   ]
+  },
+  "care-facility-ratings-scraper": {
+   "totalUsers": 2,
+   "totalRuns": 58,
+   "createdAt": "2026-07-19",
+   "categories": [
+    "BUSINESS",
+    "NEWS"
+   ]
+  },
+  "central-bank-policy-rates": {
+   "totalUsers": 2,
+   "totalRuns": 56,
+   "createdAt": "2026-07-29",
+   "categories": [
+    "BUSINESS",
+    "NEWS"
+   ]
+  },
+  "cfpb-complaints-scraper": {
+   "totalUsers": 2,
+   "totalRuns": 63,
+   "createdAt": "2026-07-18",
+   "categories": [
+    "BUSINESS",
+    "NEWS"
+   ]
+  },
+  "cftc-cot-tracker": {
+   "totalUsers": 6,
+   "totalRuns": 95,
+   "createdAt": "2026-07-23",
+   "categories": [
+    "BUSINESS",
+    "NEWS"
+   ]
+  },
+  "chrome-extension-developer-leads": {
+   "totalUsers": 1,
+   "totalRuns": 74,
+   "createdAt": "2026-07-09",
+   "categories": [
+    "LEAD_GENERATION",
+    "DEVELOPER_TOOLS"
+   ]
+  },
+  "clinical-catalyst-pipeline": {
+   "totalUsers": 2,
+   "totalRuns": 104,
+   "createdAt": "2026-06-10",
+   "categories": [
+    "BUSINESS",
+    "NEWS"
+   ]
+  },
+  "commodity-futures-settlements": {
+   "totalUsers": 14,
+   "totalRuns": 114,
+   "createdAt": "2026-07-28",
+   "categories": [
+    "BUSINESS",
+    "NEWS"
+   ]
+  },
+  "company-data-worldwide": {
+   "totalUsers": 2,
+   "totalRuns": 62,
+   "createdAt": "2026-07-28",
+   "categories": [
+    "BUSINESS",
+    "LEAD_GENERATION"
+   ]
+  },
+  "company-job-openings-scraper": {
+   "totalUsers": 10,
+   "totalRuns": 107,
+   "createdAt": "2026-07-02",
+   "categories": [
+    "JOBS",
+    "BUSINESS"
+   ]
+  },
+  "company-logo-scraper": {
+   "totalUsers": 11,
+   "totalRuns": 75,
+   "createdAt": "2026-07-19",
+   "categories": [
+    "BUSINESS",
+    "MARKETING"
+   ]
+  },
+  "corporate-catalyst-pipeline": {
+   "totalUsers": 2,
+   "totalRuns": 106,
+   "createdAt": "2026-06-06",
+   "categories": [
+    "BUSINESS",
+    "NEWS"
+   ]
+  },
+  "court-records-scraper": {
+   "totalUsers": 1,
+   "totalRuns": 62,
+   "createdAt": "2026-07-18",
+   "categories": [
+    "BUSINESS",
+    "NEWS"
+   ]
+  },
+  "credit-spreads-market-stress": {
+   "totalUsers": 2,
+   "totalRuns": 59,
+   "createdAt": "2026-07-29",
+   "categories": [
+    "BUSINESS",
+    "NEWS"
+   ]
+  },
+  "crime-data-scraper": {
+   "totalUsers": 2,
+   "totalRuns": 58,
+   "createdAt": "2026-07-19",
+   "categories": [
+    "BUSINESS",
+    "NEWS"
+   ]
+  },
+  "crypto-fear-greed-index": {
+   "totalUsers": 2,
+   "totalRuns": 55,
+   "createdAt": "2026-07-24",
+   "categories": [
+    "BUSINESS",
+    "NEWS"
+   ]
+  },
+  "crypto-funding-rates-tracker": {
+   "totalUsers": 3,
+   "totalRuns": 97,
+   "createdAt": "2026-07-21",
+   "categories": [
+    "BUSINESS",
+    "NEWS"
+   ]
+  },
+  "crypto-futures-basis-tracker": {
+   "totalUsers": 3,
+   "totalRuns": 51,
+   "createdAt": "2026-07-27",
+   "categories": [
+    "BUSINESS",
+    "NEWS"
+   ]
+  },
+  "crypto-liquidations-tracker": {
+   "totalUsers": 7,
+   "totalRuns": 108,
+   "createdAt": "2026-07-27",
+   "categories": [
+    "BUSINESS",
+    "NEWS"
+   ]
+  },
+  "crypto-market-data-scraper": {
+   "totalUsers": 2,
+   "totalRuns": 82,
+   "createdAt": "2026-06-30",
+   "categories": [
+    "BUSINESS",
+    "ECOMMERCE",
+    "MARKETING"
+   ]
+  },
+  "crypto-new-listings-tracker": {
+   "totalUsers": 2,
+   "totalRuns": 53,
+   "createdAt": "2026-07-27",
+   "categories": [
+    "BUSINESS",
+    "NEWS"
+   ]
+  },
+  "crypto-order-book-depth": {
+   "totalUsers": 2,
+   "totalRuns": 58,
+   "createdAt": "2026-07-29",
+   "categories": [
+    "BUSINESS",
+    "NEWS"
+   ]
+  },
+  "crypto-token-security-check": {
+   "totalUsers": 2,
+   "totalRuns": 45,
+   "createdAt": "2026-07-29",
+   "categories": [
+    "BUSINESS",
+    "DEVELOPER_TOOLS"
+   ]
+  },
+  "crypto-whale-token-launch-tracker": {
+   "totalUsers": 3,
+   "totalRuns": 153,
+   "createdAt": "2026-04-22",
+   "categories": [
+    "AUTOMATION",
+    "DEVELOPER_TOOLS",
+    "NEWS"
+   ]
+  },
+  "currency-exchange-rates-scraper": {
+   "totalUsers": 1,
+   "totalRuns": 69,
+   "createdAt": "2026-07-14",
+   "categories": [
+    "BUSINESS",
+    "DEVELOPER_TOOLS"
+   ]
+  },
+  "customs-ruling-finder": {
+   "totalUsers": 2,
+   "totalRuns": 44,
+   "createdAt": "2026-08-05",
+   "categories": [
+    "BUSINESS",
+    "NEWS"
+   ]
+  },
+  "cve-vulnerability-tracker": {
+   "totalUsers": 2,
+   "totalRuns": 56,
+   "createdAt": "2026-07-19",
+   "categories": [
+    "DEVELOPER_TOOLS",
+    "BUSINESS"
+   ]
+  },
+  "defi-tvl-tracker": {
+   "totalUsers": 2,
+   "totalRuns": 59,
+   "createdAt": "2026-07-22",
+   "categories": [
+    "BUSINESS",
+    "NEWS"
+   ]
+  },
+  "dependency-vulnerability-scanner": {
+   "totalUsers": 2,
+   "totalRuns": 60,
+   "createdAt": "2026-07-23",
+   "categories": [
+    "DEVELOPER_TOOLS",
+    "BUSINESS"
+   ]
+  },
+  "deribit-options-tracker": {
+   "totalUsers": 4,
+   "totalRuns": 93,
+   "createdAt": "2026-07-23",
+   "categories": [
+    "BUSINESS",
+    "NEWS"
+   ]
+  },
+  "dex-pool-price-tracker": {
+   "totalUsers": 1,
+   "totalRuns": 89,
+   "createdAt": "2026-07-30",
+   "categories": [
+    "BUSINESS",
+    "NEWS"
+   ]
+  },
+  "dns-records-checker": {
+   "totalUsers": 2,
+   "totalRuns": 67,
+   "createdAt": "2026-07-13",
+   "categories": [
+    "DEVELOPER_TOOLS",
+    "BUSINESS"
+   ]
+  },
+  "doctor-payments-scraper": {
+   "totalUsers": 2,
+   "totalRuns": 65,
+   "createdAt": "2026-07-19",
+   "categories": [
+    "BUSINESS",
+    "NEWS"
+   ]
+  },
+  "doctor-prescribing-patterns": {
+   "totalUsers": 2,
+   "totalRuns": 54,
+   "createdAt": "2026-07-21",
+   "categories": [
+    "BUSINESS",
+    "NEWS"
+   ]
+  },
+  "domain-intelligence": {
+   "totalUsers": 3,
+   "totalRuns": 147,
+   "createdAt": "2026-05-06",
+   "categories": [
+    "AUTOMATION",
+    "DEVELOPER_TOOLS",
+    "OTHER"
+   ]
+  },
+  "domain-whois-checker": {
+   "totalUsers": 2,
+   "totalRuns": 89,
+   "createdAt": "2026-07-10",
+   "categories": [
+    "LEAD_GENERATION",
+    "BUSINESS"
+   ]
+  },
+  "draftkings-odds-tracker": {
+   "totalUsers": 2,
+   "totalRuns": 9,
+   "createdAt": "2026-09-14",
+   "categories": [
+    "BUSINESS",
+    "NEWS"
+   ]
+  },
+  "drug-price-tracker": {
+   "totalUsers": 2,
+   "totalRuns": 54,
+   "createdAt": "2026-07-21",
+   "categories": [
+    "BUSINESS",
+    "ECOMMERCE"
+   ]
+  },
+  "ecommerce-scraper": {
+   "totalUsers": 28,
+   "totalRuns": 400,
+   "createdAt": "2026-04-28",
+   "categories": [
+    "ECOMMERCE",
+    "AUTOMATION"
+   ]
+  },
+  "email-list-checker": {
+   "totalUsers": 2,
+   "totalRuns": 68,
+   "createdAt": "2026-07-13",
+   "categories": [
+    "LEAD_GENERATION",
+    "MARKETING"
+   ]
+  },
+  "emerging-launch-radar-pipeline": {
+   "totalUsers": 5,
+   "totalRuns": 126,
+   "createdAt": "2026-06-04",
+   "categories": [
+    "BUSINESS"
+   ]
+  },
+  "environmental-violations-scraper": {
+   "totalUsers": 2,
+   "totalRuns": 57,
+   "createdAt": "2026-07-19",
+   "categories": [
+    "BUSINESS",
+    "NEWS"
+   ]
+  },
+  "europe-house-prices": {
+   "totalUsers": 2,
+   "totalRuns": 41,
+   "createdAt": "2026-08-04",
+   "categories": [
+    "REAL_ESTATE",
+    "BUSINESS"
+   ]
+  },
+  "european-economic-indicators": {
+   "totalUsers": 3,
+   "totalRuns": 48,
+   "createdAt": "2026-07-28",
+   "categories": [
+    "BUSINESS",
+    "NEWS"
+   ]
+  },
+  "european-electricity-prices": {
+   "totalUsers": 3,
+   "totalRuns": 49,
+   "createdAt": "2026-07-28",
+   "categories": [
+    "BUSINESS",
+    "NEWS"
+   ]
+  },
+  "event-buzz-radar-pipeline": {
+   "totalUsers": 2,
+   "totalRuns": 109,
+   "createdAt": "2026-06-07",
+   "categories": [
+    "BUSINESS",
+    "NEWS"
+   ]
+  },
+  "fda-approval-catalyst-pipeline": {
+   "totalUsers": 2,
+   "totalRuns": 85,
+   "createdAt": "2026-06-27",
+   "categories": [
+    "BUSINESS",
+    "NEWS"
+   ]
+  },
+  "fda-device-manufacturer-leads": {
+   "totalUsers": 2,
+   "totalRuns": 74,
+   "createdAt": "2026-07-08",
+   "categories": [
+    "LEAD_GENERATION",
+    "BUSINESS"
+   ]
+  },
+  "fda-drug-adverse-events": {
+   "totalUsers": 1,
+   "totalRuns": 59,
+   "createdAt": "2026-07-18",
+   "categories": [
+    "BUSINESS",
+    "EDUCATION"
+   ]
+  },
+  "fed-rate-expectations": {
+   "totalUsers": 3,
+   "totalRuns": 62,
+   "createdAt": "2026-07-30",
+   "categories": [
+    "BUSINESS",
+    "NEWS"
+   ]
+  },
+  "federal-contract-momentum-pipeline": {
+   "totalUsers": 2,
+   "totalRuns": 102,
+   "createdAt": "2026-06-10",
+   "categories": [
+    "BUSINESS",
+    "NEWS"
+   ]
+  },
+  "federal-register-monitor": {
+   "totalUsers": 2,
+   "totalRuns": 61,
+   "createdAt": "2026-07-17",
+   "categories": [
+    "BUSINESS",
+    "NEWS"
+   ]
+  },
+  "financial-advisor-check": {
+   "totalUsers": 2,
+   "totalRuns": 57,
+   "createdAt": "2026-07-19",
+   "categories": [
+    "BUSINESS",
+    "OTHER"
+   ]
+  },
+  "flight-delay-tracker": {
+   "totalUsers": 11,
+   "totalRuns": 420,
+   "createdAt": "2026-04-30",
+   "categories": [
+    "TRAVEL",
+    "OTHER",
+    "NEWS"
+   ]
+  },
+  "flight-price-tracker": {
+   "totalUsers": 54,
+   "totalRuns": 434,
+   "createdAt": "2026-04-23",
+   "categories": [
+    "AUTOMATION",
+    "ECOMMERCE",
+    "TRAVEL"
+   ]
+  },
+  "food-product-data-scraper": {
+   "totalUsers": 1,
+   "totalRuns": 65,
+   "createdAt": "2026-07-15",
+   "categories": [
+    "ECOMMERCE",
+    "BUSINESS"
+   ]
+  },
+  "forexfactory-economic-calendar": {
+   "totalUsers": 201,
+   "totalRuns": 16387,
+   "createdAt": "2026-05-10",
+   "categories": [
+    "BUSINESS",
+    "MARKETING",
+    "ECOMMERCE"
+   ]
+  },
+  "fund-etf-holdings": {
+   "totalUsers": 7,
+   "totalRuns": 80,
+   "createdAt": "2026-07-27",
+   "categories": [
+    "BUSINESS",
+    "NEWS"
+   ]
+  },
+  "funded-startup-lead-pipeline": {
+   "totalUsers": 1,
+   "totalRuns": 93,
+   "createdAt": "2026-06-27",
+   "categories": [
+    "BUSINESS",
+    "LEAD_GENERATION"
+   ]
+  },
+  "gas-fees-by-chain": {
+   "totalUsers": 2,
+   "totalRuns": 44,
+   "createdAt": "2026-07-29",
+   "categories": [
+    "BUSINESS",
+    "DEVELOPER_TOOLS"
+   ]
+  },
+  "github-issue-monitor": {
+   "totalUsers": 12,
+   "totalRuns": 177,
+   "createdAt": "2026-04-20",
+   "categories": [
+    "AUTOMATION",
+    "DEVELOPER_TOOLS",
+    "SEO_TOOLS"
+   ]
+  },
+  "github-repo-stats": {
+   "totalUsers": 2,
+   "totalRuns": 66,
+   "createdAt": "2026-07-13",
+   "categories": [
+    "DEVELOPER_TOOLS",
+    "BUSINESS"
+   ]
+  },
+  "github-trending-scraper": {
+   "totalUsers": 5,
+   "totalRuns": 151,
+   "createdAt": "2026-05-23",
+   "categories": [
+    "DEVELOPER_TOOLS",
+    "BUSINESS"
+   ]
+  },
+  "global-company-verification": {
+   "totalUsers": 1,
+   "totalRuns": 62,
+   "createdAt": "2026-07-16",
+   "categories": [
+    "BUSINESS",
+    "LEAD_GENERATION"
+   ]
+  },
+  "global-news-media-monitor": {
+   "totalUsers": 2,
+   "totalRuns": 61,
+   "createdAt": "2026-07-18",
+   "categories": [
+    "NEWS",
+    "BUSINESS"
+   ]
+  },
+  "google-ads-transparency-scraper": {
+   "totalUsers": 2,
+   "totalRuns": 82,
+   "createdAt": "2026-07-04",
+   "categories": [
+    "MARKETING",
+    "BUSINESS",
+    "ECOMMERCE"
+   ]
+  },
+  "google-keyword-suggestions-scraper": {
+   "totalUsers": 5,
+   "totalRuns": 99,
+   "createdAt": "2026-07-03",
+   "categories": [
+    "SEO_TOOLS",
+    "MARKETING",
+    "BUSINESS"
+   ]
+  },
+  "google-maps-scraper": {
+   "totalUsers": 150,
+   "totalRuns": 977,
+   "createdAt": "2026-04-24",
+   "categories": [
+    "AUTOMATION",
+    "ECOMMERCE",
+    "SEO_TOOLS"
+   ]
+  },
+  "google-news-scraper": {
+   "totalUsers": 1,
+   "totalRuns": 106,
+   "createdAt": "2026-06-30",
+   "categories": [
+    "BUSINESS",
+    "MARKETING",
+    "NEWS"
+   ]
+  },
+  "google-patents-scraper": {
+   "totalUsers": 8,
+   "totalRuns": 413,
+   "createdAt": "2026-04-29",
+   "categories": [
+    "OTHER"
+   ]
+  },
+  "google-play-developer-leads": {
+   "totalUsers": 2,
+   "totalRuns": 87,
+   "createdAt": "2026-06-27",
+   "categories": [
+    "BUSINESS",
+    "LEAD_GENERATION"
+   ]
+  },
+  "google-play-reviews-scraper": {
+   "totalUsers": 2,
+   "totalRuns": 81,
+   "createdAt": "2026-07-10",
+   "categories": [
+    "MARKETING",
+    "BUSINESS",
+    "ECOMMERCE"
+   ]
+  },
+  "government-bond-yields-worldwide": {
+   "totalUsers": 2,
+   "totalRuns": 48,
+   "createdAt": "2026-07-29",
+   "categories": [
+    "BUSINESS",
+    "NEWS"
+   ]
+  },
+  "government-contract-winner-leads": {
+   "totalUsers": 2,
+   "totalRuns": 73,
+   "createdAt": "2026-07-10",
+   "categories": [
+    "LEAD_GENERATION",
+    "BUSINESS"
+   ]
+  },
+  "government-tender-finder": {
+   "totalUsers": 1,
+   "totalRuns": 70,
+   "createdAt": "2026-07-12",
+   "categories": [
+    "BUSINESS",
+    "LEAD_GENERATION"
+   ]
+  },
+  "grant-opportunity-finder": {
+   "totalUsers": 2,
+   "totalRuns": 74,
+   "createdAt": "2026-07-07",
+   "categories": [
+    "BUSINESS",
+    "LEAD_GENERATION"
+   ]
+  },
+  "h1b-salary-data": {
+   "totalUsers": 2,
+   "totalRuns": 41,
+   "createdAt": "2026-08-04",
+   "categories": [
+    "JOBS",
+    "BUSINESS"
+   ]
+  },
+  "hacker-news-scraper": {
+   "totalUsers": 2,
+   "totalRuns": 58,
+   "createdAt": "2026-07-18",
+   "categories": [
+    "NEWS",
+    "DEVELOPER_TOOLS"
+   ]
+  },
+  "healthcare-provider-leads": {
+   "totalUsers": 1,
+   "totalRuns": 75,
+   "createdAt": "2026-07-08",
+   "categories": [
+    "LEAD_GENERATION",
+    "BUSINESS"
+   ]
+  },
+  "hiring-velocity-pipeline": {
+   "totalUsers": 2,
+   "totalRuns": 129,
+   "createdAt": "2026-05-31",
+   "categories": [
+    "BUSINESS",
+    "LEAD_GENERATION"
+   ]
+  },
+  "hn-hiring-company-leads": {
+   "totalUsers": 2,
+   "totalRuns": 85,
+   "createdAt": "2026-06-27",
+   "categories": [
+    "BUSINESS",
+    "LEAD_GENERATION"
+   ]
+  },
+  "hn-lead-monitor": {
+   "totalUsers": 10,
+   "totalRuns": 542,
+   "createdAt": "2026-04-20",
+   "categories": [
+    "DEVELOPER_TOOLS",
+    "LEAD_GENERATION",
+    "AUTOMATION"
+   ]
+  },
+  "home-listings-scraper": {
+   "totalUsers": 2,
+   "totalRuns": 68,
+   "createdAt": "2026-07-13",
+   "categories": [
+    "REAL_ESTATE",
+    "BUSINESS"
+   ]
+  },
+  "huggingface-ai-models-scraper": {
+   "totalUsers": 2,
+   "totalRuns": 80,
+   "createdAt": "2026-07-02",
+   "categories": [
+    "AI",
+    "DEVELOPER_TOOLS"
+   ]
+  },
+  "hyperliquid-data": {
+   "totalUsers": 2,
+   "totalRuns": 53,
+   "createdAt": "2026-07-29",
+   "categories": [
+    "BUSINESS",
+    "NEWS"
+   ]
+  },
+  "iban-checker": {
+   "totalUsers": 2,
+   "totalRuns": 63,
+   "createdAt": "2026-07-15",
+   "categories": [
+    "BUSINESS",
+    "LEAD_GENERATION"
+   ]
+  },
+  "imf-economic-forecasts": {
+   "totalUsers": 2,
+   "totalRuns": 39,
+   "createdAt": "2026-08-04",
+   "categories": [
+    "BUSINESS",
+    "NEWS"
+   ]
+  },
+  "import-duty-tariff-calculator": {
+   "totalUsers": 1,
+   "totalRuns": 92,
+   "createdAt": "2026-08-05",
+   "categories": [
+    "BUSINESS",
+    "ECOMMERCE"
+   ]
+  },
+  "indeed-jobs-scraper": {
+   "totalUsers": 11,
+   "totalRuns": 336,
+   "createdAt": "2026-04-27",
+   "categories": [
+    "JOBS"
+   ]
+  },
+  "insider-planned-stock-sales": {
+   "totalUsers": 2,
+   "totalRuns": 50,
+   "createdAt": "2026-07-27",
+   "categories": [
+    "BUSINESS",
+    "NEWS"
+   ]
+  },
+  "instagram-scraper": {
+   "totalUsers": 82,
+   "totalRuns": 289,
+   "createdAt": "2026-04-24",
+   "categories": [
+    "AUTOMATION",
+    "DEVELOPER_TOOLS",
+    "SOCIAL_MEDIA"
+   ]
+  },
+  "institutional-ownership-tracker": {
+   "totalUsers": 3,
+   "totalRuns": 55,
+   "createdAt": "2026-07-27",
+   "categories": [
+    "BUSINESS",
+    "NEWS"
+   ]
+  },
+  "internet-infrastructure-data": {
+   "totalUsers": 2,
+   "totalRuns": 44,
+   "createdAt": "2026-07-28",
+   "categories": [
+    "DEVELOPER_TOOLS",
+    "BUSINESS"
+   ]
+  },
+  "internet-outage-alerts": {
+   "totalUsers": 1,
+   "totalRuns": 44,
+   "createdAt": "2026-07-28",
+   "categories": [
+    "DEVELOPER_TOOLS",
+    "NEWS"
+   ]
+  },
+  "ip-address-lookup": {
+   "totalUsers": 2,
+   "totalRuns": 66,
+   "createdAt": "2026-07-13",
+   "categories": [
+    "DEVELOPER_TOOLS",
+    "BUSINESS"
+   ]
+  },
+  "ipo-calendar-scraper": {
+   "totalUsers": 2,
+   "totalRuns": 43,
+   "createdAt": "2026-08-05",
+   "categories": [
+    "BUSINESS",
+    "NEWS"
+   ]
+  },
+  "kalshi-prediction-market-scraper": {
+   "totalUsers": 55,
+   "totalRuns": 573,
+   "createdAt": "2026-07-16",
+   "categories": [
+    "BUSINESS",
+    "NEWS"
+   ]
+  },
+  "lead-enrichment-pipeline": {
+   "totalUsers": 17,
+   "totalRuns": 161,
+   "createdAt": "2026-05-06",
+   "categories": [
+    "OTHER"
+   ]
+  },
+  "linkedin-company-hiring-tracker": {
+   "totalUsers": 3,
+   "totalRuns": 130,
+   "createdAt": "2026-05-18",
+   "categories": [
+    "JOBS",
+    "LEAD_GENERATION"
+   ]
+  },
+  "linkedin-job-market-trend-scraper": {
+   "totalUsers": 2,
+   "totalRuns": 131,
+   "createdAt": "2026-05-18",
+   "categories": [
+    "JOBS"
+   ]
+  },
+  "linkedin-jobs-scraper": {
+   "totalUsers": 24,
+   "totalRuns": 202,
+   "createdAt": "2026-04-24",
+   "categories": [
+    "AUTOMATION",
+    "LEAD_GENERATION",
+    "SOCIAL_MEDIA"
+   ]
+  },
+  "linkedin-jobs-scraper-pro": {
+   "totalUsers": 127,
+   "totalRuns": 593,
+   "createdAt": "2026-04-25",
+   "categories": [
+    "AUTOMATION",
+    "JOBS",
+    "SOCIAL_MEDIA"
+   ]
+  },
+  "lobbying-disclosure-scraper": {
+   "totalUsers": 2,
+   "totalRuns": 59,
+   "createdAt": "2026-07-19",
+   "categories": [
+    "BUSINESS",
+    "NEWS"
+   ]
+  },
+  "local-lead-pipeline": {
+   "totalUsers": 2,
+   "totalRuns": 120,
+   "createdAt": "2026-05-31",
+   "categories": [
+    "BUSINESS",
+    "LEAD_GENERATION"
+   ]
+  },
+  "lookalike-domain-finder": {
+   "totalUsers": 2,
+   "totalRuns": 60,
+   "createdAt": "2026-07-16",
+   "categories": [
+    "BUSINESS",
+    "DEVELOPER_TOOLS"
+   ]
+  },
+  "lottery-results-scraper": {
+   "totalUsers": 3,
+   "totalRuns": 69,
+   "createdAt": "2026-07-16",
+   "categories": [
+    "NEWS",
+    "OTHER"
+   ]
+  },
+  "macro-event-edge-pipeline": {
+   "totalUsers": 3,
+   "totalRuns": 122,
+   "createdAt": "2026-06-06",
+   "categories": [
+    "BUSINESS",
+    "NEWS"
+   ]
+  },
+  "money-market-rates-tracker": {
+   "totalUsers": 3,
+   "totalRuns": 50,
+   "createdAt": "2026-07-28",
+   "categories": [
+    "BUSINESS",
+    "NEWS"
+   ]
+  },
+  "music-charts-tracker": {
+   "totalUsers": 4,
+   "totalRuns": 148,
+   "createdAt": "2026-07-11",
+   "categories": [
+    "MARKETING",
+    "BUSINESS"
+   ]
+  },
+  "natural-disaster-tracker": {
+   "totalUsers": 2,
+   "totalRuns": 61,
+   "createdAt": "2026-07-16",
+   "categories": [
+    "NEWS",
+    "BUSINESS"
+   ]
+  },
+  "new-business-registration-leads": {
+   "totalUsers": 2,
+   "totalRuns": 74,
+   "createdAt": "2026-07-11",
+   "categories": [
+    "LEAD_GENERATION",
+    "BUSINESS"
+   ]
+  },
+  "newly-registered-domain-leads": {
+   "totalUsers": 3,
+   "totalRuns": 80,
+   "createdAt": "2026-07-08",
+   "categories": [
+    "LEAD_GENERATION",
+    "BUSINESS"
+   ]
+  },
+  "nih-grant-finder": {
+   "totalUsers": 2,
+   "totalRuns": 59,
+   "createdAt": "2026-07-18",
+   "categories": [
+    "EDUCATION",
+    "BUSINESS"
+   ]
+  },
+  "nonprofit-leads-scraper": {
+   "totalUsers": 1,
+   "totalRuns": 75,
+   "createdAt": "2026-07-07",
+   "categories": [
+    "LEAD_GENERATION",
+    "BUSINESS"
+   ]
+  },
+  "oil-gas-inventory-report": {
+   "totalUsers": 3,
+   "totalRuns": 49,
+   "createdAt": "2026-07-28",
+   "categories": [
+    "BUSINESS",
+    "NEWS"
+   ]
+  },
+  "oss-maintainer-leads": {
+   "totalUsers": 2,
+   "totalRuns": 85,
+   "createdAt": "2026-06-27",
+   "categories": [
+    "BUSINESS",
+    "LEAD_GENERATION"
+   ]
+  },
+  "package-adoption-tracker": {
+   "totalUsers": 2,
+   "totalRuns": 50,
+   "createdAt": "2026-07-27",
+   "categories": [
+    "DEVELOPER_TOOLS",
+    "BUSINESS"
+   ]
+  },
+  "phone-number-checker": {
+   "totalUsers": 5,
+   "totalRuns": 76,
+   "createdAt": "2026-07-14",
+   "categories": [
+    "LEAD_GENERATION",
+    "MARKETING"
+   ]
+  },
+  "podcast-charts-tracker": {
+   "totalUsers": 2,
+   "totalRuns": 70,
+   "createdAt": "2026-07-11",
+   "categories": [
+    "MARKETING",
+    "BUSINESS"
+   ]
+  },
+  "podcast-host-leads": {
+   "totalUsers": 3,
+   "totalRuns": 100,
+   "createdAt": "2026-06-27",
+   "categories": [
+    "BUSINESS",
+    "LEAD_GENERATION"
+   ]
+  },
+  "polymarket-market-monitor": {
+   "totalUsers": 221,
+   "totalRuns": 4392,
+   "createdAt": "2026-04-21",
+   "categories": [
+    "AUTOMATION",
+    "DEVELOPER_TOOLS",
+    "NEWS"
+   ]
+  },
+  "polymarket-scraper": {
+   "totalUsers": 76,
+   "totalRuns": 476,
+   "createdAt": "2026-04-29",
+   "categories": [
+    "DEVELOPER_TOOLS",
+    "AUTOMATION",
+    "NEWS"
+   ]
+  },
+  "postal-code-checker": {
+   "totalUsers": 1,
+   "totalRuns": 64,
+   "createdAt": "2026-07-15",
+   "categories": [
+    "BUSINESS",
+    "LEAD_GENERATION"
+   ]
+  },
+  "prediction-market-odds-comparison": {
+   "totalUsers": 2,
+   "totalRuns": 55,
+   "createdAt": "2026-07-25",
+   "categories": [
+    "BUSINESS",
+    "NEWS"
+   ]
+  },
+  "premarket-after-hours-prices": {
+   "totalUsers": 4,
+   "totalRuns": 73,
+   "createdAt": "2026-07-28",
+   "categories": [
+    "BUSINESS",
+    "NEWS"
+   ]
+  },
+  "product-recall-finder": {
+   "totalUsers": 2,
+   "totalRuns": 67,
+   "createdAt": "2026-07-13",
+   "categories": [
+    "BUSINESS",
+    "ECOMMERCE"
+   ]
+  },
+  "producthunt-launch-tracker": {
+   "totalUsers": 1,
+   "totalRuns": 11,
+   "createdAt": "2026-04-20",
+   "categories": [
+    "AUTOMATION",
+    "LEAD_GENERATION",
+    "ECOMMERCE"
+   ]
+  },
+  "public-holidays-finder": {
+   "totalUsers": 2,
+   "totalRuns": 66,
+   "createdAt": "2026-07-14",
+   "categories": [
+    "BUSINESS",
+    "DEVELOPER_TOOLS"
+   ]
+  },
+  "pubmed-clinical-trials-intelligence": {
+   "totalUsers": 2,
+   "totalRuns": 465,
+   "createdAt": "2026-05-05",
+   "categories": [
+    "OTHER"
+   ]
+  },
+  "ransomware-victims-tracker": {
+   "totalUsers": 1,
+   "totalRuns": 45,
+   "createdAt": "2026-07-29",
+   "categories": [
+    "NEWS",
+    "BUSINESS"
+   ]
+  },
+  "reddit-lead-monitor": {
+   "totalUsers": 4,
+   "totalRuns": 401,
+   "createdAt": "2026-04-20",
+   "categories": [
+    "SEO_TOOLS",
+    "AGENTS",
+    "AI"
+   ]
+  },
+  "remote-jobs-scraper": {
+   "totalUsers": 36,
+   "totalRuns": 185,
+   "createdAt": "2026-07-04",
+   "categories": [
+    "JOBS",
+    "BUSINESS"
+   ]
+  },
+  "research-papers-scraper": {
+   "totalUsers": 2,
+   "totalRuns": 60,
+   "createdAt": "2026-07-17",
+   "categories": [
+    "EDUCATION",
+    "BUSINESS"
+   ]
+  },
+  "research-patent-radar-pipeline": {
+   "totalUsers": 2,
+   "totalRuns": 109,
+   "createdAt": "2026-06-08",
+   "categories": [
+    "BUSINESS",
+    "NEWS"
+   ]
+  },
+  "restaurant-inspection-leads": {
+   "totalUsers": 2,
+   "totalRuns": 63,
+   "createdAt": "2026-07-16",
+   "categories": [
+    "LEAD_GENERATION",
+    "BUSINESS"
+   ]
+  },
+  "rss-feed-scraper": {
+   "totalUsers": 2,
+   "totalRuns": 88,
+   "createdAt": "2026-07-19",
+   "categories": [
+    "NEWS",
+    "AUTOMATION"
+   ]
+  },
+  "ryanair-cheapest-fares": {
+   "totalUsers": 1,
+   "totalRuns": 57,
+   "createdAt": "2026-07-25",
+   "categories": [
+    "TRAVEL",
+    "BUSINESS"
+   ]
+  },
+  "sanctions-watchlist-scraper": {
+   "totalUsers": 2,
+   "totalRuns": 67,
+   "createdAt": "2026-07-12",
+   "categories": [
+    "BUSINESS"
+   ]
+  },
+  "satellite-tracking-data": {
+   "totalUsers": 1,
+   "totalRuns": 46,
+   "createdAt": "2026-07-28",
+   "categories": [
+    "DEVELOPER_TOOLS",
+    "BUSINESS"
+   ]
+  },
+  "sec-13f-whale-tracker": {
+   "totalUsers": 2,
+   "totalRuns": 120,
+   "createdAt": "2026-06-10",
+   "categories": [
+    "BUSINESS",
+    "NEWS"
+   ]
+  },
+  "sec-8k-event-tracker": {
+   "totalUsers": 44,
+   "totalRuns": 1160,
+   "createdAt": "2026-04-20",
+   "categories": [
+    "AUTOMATION",
+    "DEVELOPER_TOOLS",
+    "NEWS"
+   ]
+  },
+  "sec-company-filings-feed": {
+   "totalUsers": 2,
+   "totalRuns": 60,
+   "createdAt": "2026-07-17",
+   "categories": [
+    "BUSINESS",
+    "DEVELOPER_TOOLS"
+   ]
+  },
+  "sec-filing-fulltext-scraper": {
+   "totalUsers": 2,
+   "totalRuns": 80,
+   "createdAt": "2026-07-01",
+   "categories": [
+    "BUSINESS",
+    "NEWS"
+   ]
+  },
+  "sec-form4-insider-tracker": {
+   "totalUsers": 12,
+   "totalRuns": 970,
+   "createdAt": "2026-04-20",
+   "categories": [
+    "AUTOMATION",
+    "DEVELOPER_TOOLS",
+    "NEWS"
+   ]
+  },
+  "sec-insider-conviction-pipeline": {
+   "totalUsers": 2,
+   "totalRuns": 108,
+   "createdAt": "2026-06-02",
+   "categories": [
+    "BUSINESS"
+   ]
+  },
+  "seo-site-audit-scraper": {
+   "totalUsers": 7,
+   "totalRuns": 227,
+   "createdAt": "2026-07-07",
+   "categories": [
+    "SEO_TOOLS",
+    "MARKETING"
+   ]
+  },
+  "shopify-app-developer-leads": {
+   "totalUsers": 1,
+   "totalRuns": 84,
+   "createdAt": "2026-06-27",
+   "categories": [
+    "BUSINESS",
+    "LEAD_GENERATION"
+   ]
+  },
+  "shopify-price-monitor": {
+   "totalUsers": 2,
+   "totalRuns": 70,
+   "createdAt": "2026-07-11",
+   "categories": [
+    "ECOMMERCE",
+    "AUTOMATION"
+   ]
+  },
+  "shopify-store-products-scraper": {
+   "totalUsers": 1,
+   "totalRuns": 79,
+   "createdAt": "2026-07-05",
+   "categories": [
+    "ECOMMERCE",
+    "MARKETING"
+   ]
+  },
+  "short-selling-data-tracker": {
+   "totalUsers": 3,
+   "totalRuns": 59,
+   "createdAt": "2026-07-21",
+   "categories": [
+    "BUSINESS",
+    "NEWS"
+   ]
+  },
+  "sitemap-change-monitor": {
+   "totalUsers": 2,
+   "totalRuns": 69,
+   "createdAt": "2026-07-11",
+   "categories": [
+    "SEO_TOOLS",
+    "MARKETING"
+   ]
+  },
+  "smart-money-buzz-pipeline": {
+   "totalUsers": 2,
+   "totalRuns": 104,
+   "createdAt": "2026-06-07",
+   "categories": [
+    "BUSINESS",
+    "NEWS"
+   ]
+  },
+  "sports-betting-results": {
+   "totalUsers": 2,
+   "totalRuns": 50,
+   "createdAt": "2026-07-28",
+   "categories": [
+    "NEWS",
+    "BUSINESS"
+   ]
+  },
+  "sports-futures-odds": {
+   "totalUsers": 1,
+   "totalRuns": 50,
+   "createdAt": "2026-07-27",
+   "categories": [
+    "NEWS",
+    "BUSINESS"
+   ]
+  },
+  "sports-injury-tracker": {
+   "totalUsers": 2,
+   "totalRuns": 11,
+   "createdAt": "2026-09-14",
+   "categories": [
+    "BUSINESS",
+    "NEWS"
+   ]
+  },
+  "sports-odds-movement-tracker": {
+   "totalUsers": 155,
+   "totalRuns": 696,
+   "createdAt": "2026-04-21",
+   "categories": [
+    "AUTOMATION",
+    "DEVELOPER_TOOLS",
+    "ECOMMERCE"
+   ]
+  },
+  "sports-odds-scraper": {
+   "totalUsers": 621,
+   "totalRuns": 16470,
+   "createdAt": "2026-04-28",
+   "categories": [
+    "AUTOMATION",
+    "OTHER"
+   ]
+  },
+  "sports-player-stats-scraper": {
+   "totalUsers": 4,
+   "totalRuns": 72,
+   "createdAt": "2026-07-17",
+   "categories": [
+    "NEWS",
+    "BUSINESS"
+   ]
+  },
+  "sports-scores-scraper": {
+   "totalUsers": 4,
+   "totalRuns": 78,
+   "createdAt": "2026-07-14",
+   "categories": [
+    "NEWS",
+    "BUSINESS"
+   ]
+  },
+  "sportsbook-odds-tracker": {
+   "totalUsers": 1,
+   "totalRuns": 75,
+   "createdAt": "2026-07-30",
+   "categories": [
+    "BUSINESS",
+    "NEWS"
+   ]
+  },
+  "sportsbook-player-props": {
+   "totalUsers": 8,
+   "totalRuns": 91,
+   "createdAt": "2026-07-30",
+   "categories": [
+    "BUSINESS",
+    "NEWS"
+   ]
+  },
+  "ssl-subdomain-finder": {
+   "totalUsers": 1,
+   "totalRuns": 71,
+   "createdAt": "2026-07-13",
+   "categories": [
+    "DEVELOPER_TOOLS",
+    "BUSINESS"
+   ]
+  },
+  "stackoverflow-lead-monitor": {
+   "totalUsers": 4,
+   "totalRuns": 278,
+   "createdAt": "2026-04-20",
+   "categories": [
+    "AUTOMATION",
+    "LEAD_GENERATION",
+    "DEVELOPER_TOOLS"
+   ]
+  },
+  "stackoverflow-scraper": {
+   "totalUsers": 2,
+   "totalRuns": 66,
+   "createdAt": "2026-07-15",
+   "categories": [
+    "DEVELOPER_TOOLS",
+    "BUSINESS"
+   ]
+  },
+  "startup-jobs-search": {
+   "totalUsers": 1,
+   "totalRuns": 66,
+   "createdAt": "2026-07-14",
+   "categories": [
+    "JOBS",
+    "LEAD_GENERATION"
+   ]
+  },
+  "steam-game-review-intelligence": {
+   "totalUsers": 2,
+   "totalRuns": 4320,
+   "createdAt": "2026-05-18",
+   "categories": [
+    "ECOMMERCE",
+    "BUSINESS"
+   ]
+  },
+  "steam-game-studio-leads": {
+   "totalUsers": 2,
+   "totalRuns": 87,
+   "createdAt": "2026-06-27",
+   "categories": [
+    "BUSINESS",
+    "LEAD_GENERATION"
+   ]
+  },
+  "stock-analyst-ratings": {
+   "totalUsers": 2,
+   "totalRuns": 57,
+   "createdAt": "2026-07-23",
+   "categories": [
+    "BUSINESS",
+    "NEWS"
+   ]
+  },
+  "stock-dividend-calendar-scraper": {
+   "totalUsers": 2,
+   "totalRuns": 43,
+   "createdAt": "2026-08-05",
+   "categories": [
+    "BUSINESS",
+    "NEWS"
+   ]
+  },
+  "stock-earnings-calendar-scraper": {
+   "totalUsers": 6,
+   "totalRuns": 118,
+   "createdAt": "2026-06-29",
+   "categories": [
+    "BUSINESS",
+    "NEWS"
+   ]
+  },
+  "stock-earnings-estimates": {
+   "totalUsers": 3,
+   "totalRuns": 52,
+   "createdAt": "2026-07-27",
+   "categories": [
+    "BUSINESS",
+    "NEWS"
+   ]
+  },
+  "stock-market-fundamentals-scraper": {
+   "totalUsers": 4,
+   "totalRuns": 97,
+   "createdAt": "2026-06-29",
+   "categories": [
+    "BUSINESS",
+    "NEWS"
+   ]
+  },
+  "stock-market-movers": {
+   "totalUsers": 5,
+   "totalRuns": 60,
+   "createdAt": "2026-07-23",
+   "categories": [
+    "BUSINESS",
+    "NEWS"
+   ]
+  },
+  "stock-options-scraper": {
+   "totalUsers": 98,
+   "totalRuns": 601,
+   "createdAt": "2026-07-27",
+   "categories": [
+    "BUSINESS",
+    "NEWS"
+   ]
+  },
+  "stock-price-history-scraper": {
+   "totalUsers": 3,
+   "totalRuns": 106,
+   "createdAt": "2026-06-29",
+   "categories": [
+    "BUSINESS",
+    "NEWS"
+   ]
+  },
+  "stock-trading-halts-tracker": {
+   "totalUsers": 2,
+   "totalRuns": 54,
+   "createdAt": "2026-07-28",
+   "categories": [
+    "BUSINESS",
+    "NEWS"
+   ]
+  },
+  "streaming-availability-scraper": {
+   "totalUsers": 1,
+   "totalRuns": 71,
+   "createdAt": "2026-07-11",
+   "categories": [
+    "VIDEOS",
+    "ECOMMERCE"
+   ]
+  },
+  "substack-newsletter-intelligence": {
+   "totalUsers": 3,
+   "totalRuns": 148,
+   "createdAt": "2026-05-14",
+   "categories": [
+    "BUSINESS",
+    "MARKETING",
+    "LEAD_GENERATION"
+   ]
+  },
+  "telegram-channel-scraper": {
+   "totalUsers": 3,
+   "totalRuns": 92,
+   "createdAt": "2026-07-03",
+   "categories": [
+    "SOCIAL_MEDIA",
+    "NEWS",
+    "BUSINESS"
+   ]
+  },
+  "tradingview-ideas-scraper": {
+   "totalUsers": 73,
+   "totalRuns": 657,
+   "createdAt": "2026-05-10",
+   "categories": [
+    "ECOMMERCE"
+   ]
+  },
+  "tradingview-stock-screener-scraper": {
+   "totalUsers": 2,
+   "totalRuns": 88,
+   "createdAt": "2026-06-30",
+   "categories": [
+    "BUSINESS",
+    "ECOMMERCE",
+    "MARKETING"
+   ]
+  },
+  "treasury-auction-results": {
+   "totalUsers": 2,
+   "totalRuns": 43,
+   "createdAt": "2026-08-05",
+   "categories": [
+    "BUSINESS",
+    "NEWS"
+   ]
+  },
+  "tripadvisor-property-rank-tracker": {
+   "totalUsers": 1,
+   "totalRuns": 155,
+   "createdAt": "2026-04-25",
+   "categories": [
+    "AUTOMATION",
+    "TRAVEL",
+    "ECOMMERCE"
+   ]
+  },
+  "tripadvisor-review-intelligence": {
+   "totalUsers": 1,
+   "totalRuns": 176,
+   "createdAt": "2026-04-13",
+   "categories": [
+    "TRAVEL",
+    "ECOMMERCE",
+    "AUTOMATION"
+   ]
+  },
+  "tripadvisor-scraper": {
+   "totalUsers": 11,
+   "totalRuns": 371,
+   "createdAt": "2026-04-27",
+   "categories": [
+    "TRAVEL"
+   ]
+  },
+  "tv-schedule-scraper": {
+   "totalUsers": 1,
+   "totalRuns": 69,
+   "createdAt": "2026-07-14",
+   "categories": [
+    "VIDEOS",
+    "NEWS"
+   ]
+  },
+  "twitch-streamer-leads": {
+   "totalUsers": 14,
+   "totalRuns": 314,
+   "createdAt": "2026-07-08",
+   "categories": [
+    "LEAD_GENERATION",
+    "SOCIAL_MEDIA"
+   ]
+  },
+  "uk-house-prices": {
+   "totalUsers": 2,
+   "totalRuns": 41,
+   "createdAt": "2026-08-04",
+   "categories": [
+    "REAL_ESTATE",
+    "BUSINESS"
+   ]
+  },
+  "upwork-opportunity-alert": {
+   "totalUsers": 1,
+   "totalRuns": 3,
+   "createdAt": "2026-04-17",
+   "categories": [
+    "JOBS",
+    "AUTOMATION",
+    "DEVELOPER_TOOLS"
+   ]
+  },
+  "us-address-checker": {
+   "totalUsers": 1,
+   "totalRuns": 69,
+   "createdAt": "2026-07-13",
+   "categories": [
+    "BUSINESS",
+    "LEAD_GENERATION"
+   ]
+  },
+  "us-bank-data-finder": {
+   "totalUsers": 2,
+   "totalRuns": 59,
+   "createdAt": "2026-07-17",
+   "categories": [
+    "BUSINESS",
+    "LEAD_GENERATION"
+   ]
+  },
+  "us-college-finder": {
+   "totalUsers": 2,
+   "totalRuns": 74,
+   "createdAt": "2026-07-12",
+   "categories": [
+    "EDUCATION",
+    "BUSINESS"
+   ]
+  },
+  "us-gas-diesel-prices": {
+   "totalUsers": 1,
+   "totalRuns": 46,
+   "createdAt": "2026-07-29",
+   "categories": [
+    "BUSINESS",
+    "NEWS"
+   ]
+  },
+  "us-loan-mortgage-rates": {
+   "totalUsers": 2,
+   "totalRuns": 41,
+   "createdAt": "2026-08-04",
+   "categories": [
+    "BUSINESS",
+    "NEWS"
+   ]
+  },
+  "us-rent-home-price-index": {
+   "totalUsers": 2,
+   "totalRuns": 41,
+   "createdAt": "2026-08-04",
+   "categories": [
+    "REAL_ESTATE",
+    "BUSINESS"
+   ]
+  },
+  "us-treasury-rates-scraper": {
+   "totalUsers": 2,
+   "totalRuns": 63,
+   "createdAt": "2026-07-19",
+   "categories": [
+    "BUSINESS",
+    "EDUCATION"
+   ]
+  },
+  "vat-number-checker": {
+   "totalUsers": 2,
+   "totalRuns": 68,
+   "createdAt": "2026-07-14",
+   "categories": [
+    "BUSINESS",
+    "LEAD_GENERATION"
+   ]
+  },
+  "vehicle-defect-tracker": {
+   "totalUsers": 2,
+   "totalRuns": 44,
+   "createdAt": "2026-08-05",
+   "categories": [
+    "BUSINESS",
+    "NEWS"
+   ]
+  },
+  "viator-tours-tracker": {
+   "totalUsers": 43,
+   "totalRuns": 385,
+   "createdAt": "2026-04-22",
+   "categories": [
+    "AUTOMATION",
+    "DEVELOPER_TOOLS",
+    "ECOMMERCE"
+   ]
+  },
+  "vscode-extension-developer-leads": {
+   "totalUsers": 2,
+   "totalRuns": 72,
+   "createdAt": "2026-07-09",
+   "categories": [
+    "LEAD_GENERATION",
+    "DEVELOPER_TOOLS"
+   ]
+  },
+  "weather-alerts-tracker": {
+   "totalUsers": 2,
+   "totalRuns": 57,
+   "createdAt": "2026-07-23",
+   "categories": [
+    "BUSINESS",
+    "NEWS"
+   ]
+  },
+  "weather-forecast-scraper": {
+   "totalUsers": 1,
+   "totalRuns": 62,
+   "createdAt": "2026-07-18",
+   "categories": [
+    "BUSINESS",
+    "OTHER"
+   ]
+  },
+  "website-change-monitor": {
+   "totalUsers": 2,
+   "totalRuns": 86,
+   "createdAt": "2026-07-07",
+   "categories": [
+    "AUTOMATION",
+    "MARKETING"
+   ]
+  },
+  "website-contact-scraper": {
+   "totalUsers": 1,
+   "totalRuns": 80,
+   "createdAt": "2026-07-02",
+   "categories": [
+    "BUSINESS",
+    "LEAD_GENERATION"
+   ]
+  },
+  "website-content-scraper": {
+   "totalUsers": 5,
+   "totalRuns": 111,
+   "createdAt": "2026-07-05",
+   "categories": [
+    "AI",
+    "DEVELOPER_TOOLS"
+   ]
+  },
+  "website-history-checker": {
+   "totalUsers": 22,
+   "totalRuns": 464,
+   "createdAt": "2026-07-10",
+   "categories": [
+    "SEO_TOOLS",
+    "BUSINESS",
+    "OTHER"
+   ]
+  },
+  "website-tech-stack-detector": {
+   "totalUsers": 29,
+   "totalRuns": 151,
+   "createdAt": "2026-07-03",
+   "categories": [
+    "LEAD_GENERATION",
+    "MARKETING",
+    "DEVELOPER_TOOLS"
+   ]
+  },
+  "wikipedia-article-data": {
+   "totalUsers": 2,
+   "totalRuns": 66,
+   "createdAt": "2026-07-13",
+   "categories": [
+    "BUSINESS",
+    "DEVELOPER_TOOLS"
+   ]
+  },
+  "wikipedia-trends-scraper": {
+   "totalUsers": 2,
+   "totalRuns": 69,
+   "createdAt": "2026-07-11",
+   "categories": [
+    "MARKETING",
+    "NEWS"
+   ]
+  },
+  "wordpress-plugin-developer-leads": {
+   "totalUsers": 2,
+   "totalRuns": 84,
+   "createdAt": "2026-06-27",
+   "categories": [
+    "BUSINESS",
+    "LEAD_GENERATION"
+   ]
+  },
+  "world-bank-projects-tenders": {
+   "totalUsers": 2,
+   "totalRuns": 46,
+   "createdAt": "2026-07-28",
+   "categories": [
+    "BUSINESS",
+    "LEAD_GENERATION"
+   ]
+  },
+  "world-economic-indicators-scraper": {
+   "totalUsers": 1,
+   "totalRuns": 69,
+   "createdAt": "2026-07-12",
+   "categories": [
+    "BUSINESS"
+   ]
+  },
+  "yc-startup-leads": {
+   "totalUsers": 7,
+   "totalRuns": 96,
+   "createdAt": "2026-06-27",
+   "categories": [
+    "BUSINESS",
+    "LEAD_GENERATION"
+   ]
+  },
+  "youtube-scraper": {
+   "totalUsers": 28,
+   "totalRuns": 250,
+   "createdAt": "2026-04-26",
+   "categories": [
+    "VIDEOS",
+    "SOCIAL_MEDIA"
+   ]
+  },
+  "youtube-video-scraper": {
+   "totalUsers": 2,
+   "totalRuns": 69,
+   "createdAt": "2026-07-14",
+   "categories": [
+    "VIDEOS",
+    "MARKETING"
+   ]
+  },
+  "zillow-home-price-scraper": {
+   "totalUsers": 12,
+   "totalRuns": 190,
+   "createdAt": "2026-04-24",
+   "categories": [
+    "REAL_ESTATE",
+    "DEVELOPER_TOOLS",
+    "ECOMMERCE"
+   ]
+  }
+ }
+}
