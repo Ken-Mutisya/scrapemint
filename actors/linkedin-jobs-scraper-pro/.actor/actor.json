@@ -9,7 +9,8 @@
     "dockerfile": "./Dockerfile",
     "readme": "../README.md",
     "categories": [
+        "AUTOMATION",
         "JOBS",
-        "LEAD_GENERATION"
+        "SOCIAL_MEDIA"
     ]
 }

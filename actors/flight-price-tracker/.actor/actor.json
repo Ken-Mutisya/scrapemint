@@ -9,7 +9,8 @@
   "dockerfile": "./Dockerfile",
   "readme": "../README.md",
   "categories": [
-    "TRAVEL",
-    "ECOMMERCE"
+    "AUTOMATION",
+    "ECOMMERCE",
+    "TRAVEL"
   ]
 }

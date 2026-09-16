@@ -8,6 +8,7 @@
     "input": "./input_schema.json",
     "dockerfile": "./Dockerfile",
     "categories": [
-        "EDUCATION"
+        "EDUCATION",
+        "BUSINESS"
     ]
 }

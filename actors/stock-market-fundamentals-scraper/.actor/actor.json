@@ -9,6 +9,7 @@
   "dockerfile": "./Dockerfile",
   "readme": "../README.md",
   "categories": [
-    "BUSINESS"
+    "BUSINESS",
+    "NEWS"
   ]
 }

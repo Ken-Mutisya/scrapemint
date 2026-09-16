@@ -9,7 +9,7 @@
     "dockerfile": "./Dockerfile",
     "readme": "../README.md",
     "categories": [
-        "SOCIAL_MEDIA",
-        "MARKETING"
+        "VIDEOS",
+        "SOCIAL_MEDIA"
     ]
 }

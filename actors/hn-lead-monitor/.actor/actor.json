@@ -9,7 +9,8 @@
   "dockerfile": "./Dockerfile",
   "readme": "../README.md",
   "categories": [
-    "BUSINESS",
-    "LEAD_GENERATION"
+    "DEVELOPER_TOOLS",
+    "LEAD_GENERATION",
+    "AUTOMATION"
   ]
 }

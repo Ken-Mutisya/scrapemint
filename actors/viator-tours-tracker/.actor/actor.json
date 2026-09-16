@@ -9,7 +9,8 @@
     "dockerfile": "./Dockerfile",
     "readme": "../README.md",
     "categories": [
-        "TRAVEL",
+        "AUTOMATION",
+        "DEVELOPER_TOOLS",
         "ECOMMERCE"
     ],
     "minMemoryMbytes": 1024,

@@ -10,8 +10,7 @@
     "readme": "../README.md",
     "categories": [
         "JOBS",
-        "BUSINESS",
-        "LEAD_GENERATION"
+        "BUSINESS"
     ],
     "minMemoryMbytes": 128,
     "maxMemoryMbytes": 1024
