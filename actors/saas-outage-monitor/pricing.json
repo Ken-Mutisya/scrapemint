@@ -1,0 +1,25 @@
+{
+    "_note": "New actor, first pricing entry. PAY_PER_EVENT, tiered from day one: a major or critical outage is the row alert buyers pay for, so it carries the premium. No per-run free allowance: this is a poller, and an allowance that resets each run is what left sports-odds-scraper charging on 14% of its rows. Quiet runs return nothing and cost nothing. Compute is one JSON request per vendor, no proxy.",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~saas-outage-monitor?token=APIFY_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "incident_row": {
+                "eventTitle": "New incident",
+                "eventDescription": "One minor or no-impact incident that is new since your last run (or, with changes off, inside your window), with vendor, title, status, affected components and regions, start time and the vendor's latest update. A run that returns no rows is free.",
+                "eventPriceUsd": 0.005
+            },
+            "major_incident_row": {
+                "eventTitle": "Major or critical incident",
+                "eventDescription": "One incident the vendor rates major or critical, charged when it first appears at that level, or once when an open minor incident is escalated to it, with the same fields. Set minimum impact to major to receive and pay for only these.",
+                "eventPriceUsd": 0.02
+            },
+            "resolution_row": {
+                "eventTitle": "Incident resolved",
+                "eventDescription": "One incident you were shown open that has since been resolved, with its resolution time and total duration in minutes.",
+                "eventPriceUsd": 0.005
+            }
+        }
+    },
+    "startedAt": "2026-10-01T00:00:00.000Z"
+}

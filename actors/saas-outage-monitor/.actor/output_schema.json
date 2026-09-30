@@ -1,0 +1,20 @@
+{
+    "actorOutputSchemaVersion": 1,
+    "title": "Incidents",
+    "description": "One row per incident change: new, escalated or resolved, with vendor, impact, affected components and regions, timings and the latest update.",
+    "type": "object",
+    "properties": {
+        "incidents": {
+            "type": "string",
+            "title": "Incident changes",
+            "description": "Vendor, change type, title, impact, status, start and resolution times, duration, affected components and regions, latest update text and a link.",
+            "template": "{{links.apiDefaultDatasetUrl}}/items"
+        },
+        "summary": {
+            "type": "string",
+            "title": "Run summary",
+            "description": "Vendors read, any status pages that failed, rows returned and open incidents tracked.",
+            "template": "{{links.apiDefaultKeyValueStoreUrl}}/records/SUMMARY"
+        }
+    }
+}

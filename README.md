@@ -19,7 +19,7 @@ flowchart LR
 
 <!-- CATALOG:START -->
 
-There are **242** actors live right now, and a new one ships every few days.
+There are **243** actors live right now, and a new one ships every few days.
 
 ### Lead generation
 
@@ -294,6 +294,7 @@ There are **242** actors live right now, and a new one ships every few days.
 - [Google Ads Transparency Scraper (No Login)](https://apify.com/scrapemint/google-ads-transparency-scraper)
 - [SEO Site Audit Scraper: On-Page Issues for Every Page](https://apify.com/scrapemint/seo-site-audit-scraper)
 - [Sitemap Change Monitor: New & Removed Page Alerts](https://apify.com/scrapemint/sitemap-change-monitor)
+- [SaaS Outage Monitor: Status Page Incidents for 134 Vendors](https://apify.com/scrapemint/saas-outage-monitor)
 - [Website Change Monitor: Track Page Changes, Pay Per Change](https://apify.com/scrapemint/website-change-monitor)
 - [Website Technology Stack Detector (BuiltWith Alternative)](https://apify.com/scrapemint/website-tech-stack-detector)
 - [Company Logo & Brand Asset Scraper](https://apify.com/scrapemint/company-logo-scraper)

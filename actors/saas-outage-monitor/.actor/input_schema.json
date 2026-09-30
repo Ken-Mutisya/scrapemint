@@ -1,0 +1,59 @@
+{
+    "title": "SaaS Outage Monitor input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "vendors": {
+            "title": "Vendors",
+            "type": "array",
+            "description": "Vendor names, e.g. OpenAI, Anthropic, GitHub, AWS, Google Cloud, Slack, Cloudflare, Vercel, Datadog, Twilio, Shopify, Zoom. Leave empty (and categories empty) to watch all 134.",
+            "editor": "stringList",
+            "prefill": ["OpenAI", "Anthropic", "GitHub", "Cloudflare", "AWS", "Google Cloud", "Slack"],
+            "sectionCaption": "What to watch"
+        },
+        "categories": {
+            "title": "Categories",
+            "type": "array",
+            "description": "Watch whole groups: ai, cloud, devtools, observability, collaboration, marketing-sales, support, commerce, payments-finance, hr, security-identity.",
+            "editor": "stringList",
+            "default": []
+        },
+        "customStatusPages": {
+            "title": "Other status pages",
+            "type": "array",
+            "description": "Any status page run on Atlassian Statuspage, e.g. https://status.example.com. Most SaaS status pages are.",
+            "editor": "stringList",
+            "default": []
+        },
+        "minImpact": {
+            "title": "Minimum impact",
+            "type": "string",
+            "description": "Skip incidents below this impact. none includes maintenance-style notices.",
+            "enum": ["none", "minor", "major", "critical"],
+            "enumTitles": ["Everything", "Minor and above", "Major and above", "Critical only"],
+            "default": "minor",
+            "sectionCaption": "What to return"
+        },
+        "onlyChanges": {
+            "title": "Only changes since the last run",
+            "type": "boolean",
+            "description": "On: each run returns incidents that are new, escalated or resolved since the previous run, for alerts on a schedule. Off: every incident in the window, for outage history.",
+            "default": true
+        },
+        "lookbackHours": {
+            "title": "Lookback window (hours)",
+            "type": "integer",
+            "description": "With changes on, how far back the first run reaches (open incidents are always included). With changes off, the history window. Status pages keep their latest 50 incidents.",
+            "default": 24,
+            "prefill": 72,
+            "minimum": 1,
+            "maximum": 2160
+        },
+        "includeUpdateText": {
+            "title": "Include latest update text",
+            "type": "boolean",
+            "description": "The vendor's most recent message on the incident.",
+            "default": true
+        }
+    }
+}

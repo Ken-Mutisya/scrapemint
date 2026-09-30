@@ -139,7 +139,7 @@ SECTIONS = [
     ("SEO & marketing", [
         "google-keyword-suggestions-scraper",
         "google-ads-transparency-scraper", "seo-site-audit-scraper", "sitemap-change-monitor",
-        "website-change-monitor", "website-tech-stack-detector", "company-logo-scraper",
+        "saas-outage-monitor", "website-change-monitor", "website-tech-stack-detector", "company-logo-scraper",
     ]),
     ("Web utilities & lookups", [
         "website-content-scraper", "website-history-checker", "domain-intelligence",
