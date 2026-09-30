@@ -1,0 +1,20 @@
+{
+    "actorOutputSchemaVersion": 1,
+    "title": "Whale bets",
+    "description": "One row per large bet: market, outcome, side, size, price, potential payout, and the bettor's leaderboard rank and profit.",
+    "type": "object",
+    "properties": {
+        "bets": {
+            "type": "string",
+            "title": "Large bets",
+            "description": "Market, outcome, side, bet size in USD, average price, payout if right, smart money flag and reasons, wallet, trader name, all-time and 30-day profit rank and PnL, links.",
+            "template": "{{links.apiDefaultDatasetUrl}}/items"
+        },
+        "summary": {
+            "type": "string",
+            "title": "Run summary",
+            "description": "Window covered, fills read, bets returned and how many were smart money.",
+            "template": "{{links.apiDefaultKeyValueStoreUrl}}/records/SUMMARY"
+        }
+    }
+}

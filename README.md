@@ -19,7 +19,7 @@ flowchart LR
 
 <!-- CATALOG:START -->
 
-There are **244** actors live right now, and a new one ships every few days.
+There are **245** actors live right now, and a new one ships every few days.
 
 ### Lead generation
 
@@ -153,6 +153,7 @@ There are **244** actors live right now, and a new one ships every few days.
 
 ### Prediction markets, sports & betting
 
+- [Polymarket Whale Tracker: Big Bets and Smart Money](https://apify.com/scrapemint/polymarket-whale-tracker)
 - [Polymarket Prediction Market Tracker by Category](https://apify.com/scrapemint/polymarket-market-monitor)
 - [Polymarket Trade Intelligence: Order Book and Prices](https://apify.com/scrapemint/polymarket-scraper)
 - [Kalshi Prediction Market Scraper: Live Event Odds](https://apify.com/scrapemint/kalshi-prediction-market-scraper)

@@ -1,0 +1,82 @@
+{
+    "title": "Polymarket Whale Tracker input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "minBetUsd": {
+            "title": "Minimum bet (USD)",
+            "type": "integer",
+            "description": "Only bets at least this large. Fills of one order placed within 5 minutes are added together first.",
+            "default": 5000,
+            "prefill": 10000,
+            "minimum": 100,
+            "sectionCaption": "Which bets"
+        },
+        "onlySmartMoney": {
+            "title": "Only smart money",
+            "type": "boolean",
+            "description": "Only bets from wallets ranked inside the cut-off below on Polymarket's profit leaderboard.",
+            "default": false
+        },
+        "smartMoneyTopRank": {
+            "title": "Smart money cut-off (leaderboard rank)",
+            "type": "integer",
+            "description": "A bettor counts as smart money when ranked this high or better by profit, all time or over the last 30 days, with positive profit.",
+            "default": 250,
+            "minimum": 1,
+            "maximum": 100000
+        },
+        "marketKeywords": {
+            "title": "Market keywords",
+            "type": "array",
+            "description": "Only markets whose title matches one of these, e.g. election, bitcoin, fed, nba.",
+            "editor": "stringList",
+            "default": []
+        },
+        "sides": {
+            "title": "Sides",
+            "type": "array",
+            "description": "BUY, SELL, or empty for both.",
+            "editor": "stringList",
+            "default": []
+        },
+        "wallets": {
+            "title": "Follow wallets",
+            "type": "array",
+            "description": "Only bets from these wallet addresses (0x...), for following specific traders.",
+            "editor": "stringList",
+            "default": []
+        },
+        "skipNearCertain": {
+            "title": "Skip near-certain trades",
+            "type": "boolean",
+            "description": "Skip trades priced at 97 cents or above, or 3 cents or below: parking cash in, or cashing out of, an outcome already decided.",
+            "default": true
+        },
+        "onlyNew": {
+            "title": "Only bets since the last run",
+            "type": "boolean",
+            "description": "On: each run picks up where the previous one ended, for alerts on a schedule. Off: every bet in the lookback window.",
+            "default": true,
+            "sectionCaption": "Window"
+        },
+        "lookbackMinutes": {
+            "title": "Lookback (minutes)",
+            "type": "integer",
+            "description": "How far back the first run (or every run, with only-new off) reaches.",
+            "default": 60,
+            "prefill": 60,
+            "minimum": 1,
+            "maximum": 10080
+        },
+        "maxBets": {
+            "title": "Max bets",
+            "type": "integer",
+            "description": "Stop after this many bets, largest first.",
+            "default": 200,
+            "prefill": 50,
+            "minimum": 1,
+            "maximum": 5000
+        }
+    }
+}

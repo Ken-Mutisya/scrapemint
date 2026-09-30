@@ -75,7 +75,7 @@ SECTIONS = [
         "uk-house-prices", "europe-house-prices",
     ]),
     ("Prediction markets, sports & betting", [
-        "polymarket-market-monitor", "polymarket-scraper", "kalshi-prediction-market-scraper",
+        "polymarket-whale-tracker", "polymarket-market-monitor", "polymarket-scraper", "kalshi-prediction-market-scraper",
         "prediction-market-odds-comparison", "sports-odds-scraper", "draftkings-odds-tracker",
         "sports-injury-tracker",
         "sports-odds-movement-tracker",

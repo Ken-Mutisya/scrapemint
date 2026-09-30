@@ -1,0 +1,16 @@
+{
+    "actorSpecification": 1,
+    "name": "polymarket-whale-tracker",
+    "title": "Polymarket Whale Tracker: Big Bets and Smart Money",
+    "description": "Every large Polymarket bet across all markets, with the bettor's rank and profit on Polymarket's own leaderboard, so you can tell a top trader's $40K from a losing gambler's. Flags smart money. Schedule it for alerts. No key, no proxy. Pay per bet.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "output": "./output_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "BUSINESS",
+        "AUTOMATION"
+    ],
+    "readme": "../README.md"
+}

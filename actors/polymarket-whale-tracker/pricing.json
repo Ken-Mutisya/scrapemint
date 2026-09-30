@@ -1,0 +1,20 @@
+{
+    "_note": "New actor, first pricing entry. PAY_PER_EVENT, tiered from day one: a bet from a wallet ranked in the profit leaderboard's top N is the row alert buyers act on, so it carries the premium. No per-run free allowance (a poller). Runs with no new bets return nothing and cost nothing. Compute is a few JSON requests, no proxy.",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~polymarket-whale-tracker?token=APIFY_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "whale_bet": {
+                "eventTitle": "Large bet",
+                "eventDescription": "One Polymarket bet at or above your minimum size, with market, outcome, side, size, average price, payout if right, and the bettor's wallet, all-time and 30-day profit rank and PnL. A run with no new bets is free.",
+                "eventPriceUsd": 0.005
+            },
+            "smart_money_bet": {
+                "eventTitle": "Smart money bet",
+                "eventDescription": "One large bet from a wallet ranked within your cut-off on Polymarket's profit leaderboard (all time or last 30 days) with positive profit, with the same fields and the ranks that qualified it. A bet is charged once, under one event only.",
+                "eventPriceUsd": 0.02
+            }
+        }
+    },
+    "startedAt": "2026-10-01T00:00:00.000Z"
+}
