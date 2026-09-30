@@ -1,0 +1,17 @@
+{
+    "name": "layoff-warn-tracker",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "WARN Act layoff and closure notices from state labor agencies (CA, TX, WA, VA, CO, MD, TN) in one feed. Keyless, no browser, no proxy.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0",
+        "xlsx": "^0.18.5"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}

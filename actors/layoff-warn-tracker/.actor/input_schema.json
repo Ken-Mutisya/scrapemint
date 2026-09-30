@@ -1,0 +1,61 @@
+{
+    "title": "Layoff Tracker input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "states": {
+            "title": "States",
+            "type": "array",
+            "description": "Two-letter codes from: CA, TX, WA, VA, CO, MD, TN. Empty for all seven.",
+            "editor": "stringList",
+            "default": [],
+            "sectionCaption": "Which notices"
+        },
+        "lookbackDays": {
+            "title": "Received in the last (days)",
+            "type": "integer",
+            "description": "Notices the state received or published within this many days.",
+            "default": 30,
+            "prefill": 14,
+            "minimum": 1,
+            "maximum": 3650
+        },
+        "minEmployees": {
+            "title": "Minimum workers affected",
+            "type": "integer",
+            "description": "Skip notices affecting fewer workers.",
+            "default": 0,
+            "minimum": 0
+        },
+        "companies": {
+            "title": "Companies",
+            "type": "array",
+            "description": "Only notices whose company name contains one of these, e.g. Amazon, Intel, Kaiser.",
+            "editor": "stringList",
+            "default": []
+        },
+        "noticeTypes": {
+            "title": "Notice types",
+            "type": "array",
+            "description": "Closure, Layoff or Relocation. Empty for all. Texas and Tennessee do not publish the type.",
+            "editor": "stringList",
+            "default": []
+        },
+        "onlyNew": {
+            "title": "Only notices not returned before",
+            "type": "boolean",
+            "description": "On: each run returns only notices earlier runs (with the same filters) have not. For alerts on a schedule. Off: every notice in the window.",
+            "default": true,
+            "sectionCaption": "Output"
+        },
+        "maxNotices": {
+            "title": "Max notices",
+            "type": "integer",
+            "description": "Stop after this many, newest first. Any cut off are returned by the next run.",
+            "default": 500,
+            "prefill": 50,
+            "minimum": 1,
+            "maximum": 20000
+        }
+    }
+}

@@ -1,0 +1,20 @@
+{
+    "actorOutputSchemaVersion": 1,
+    "title": "WARN notices",
+    "description": "One row per layoff or closure notice: company, state, city, workers affected, notice and layoff dates, type, and a link to the notice where the state publishes one.",
+    "type": "object",
+    "properties": {
+        "notices": {
+            "type": "string",
+            "title": "Layoff and closure notices",
+            "description": "Company, state, city, county, address, workers affected, closure or layoff, permanent or temporary, notice, received and layoff dates, days until layoff, industry, reason, major flag, notice link.",
+            "template": "{{links.apiDefaultDatasetUrl}}/items"
+        },
+        "summary": {
+            "type": "string",
+            "title": "Run summary",
+            "description": "Notices per state, and any state that could not be read on this run.",
+            "template": "{{links.apiDefaultKeyValueStoreUrl}}/records/SUMMARY"
+        }
+    }
+}
