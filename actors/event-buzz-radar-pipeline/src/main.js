@@ -95,6 +95,9 @@ if (materialOnly) events = events.filter((e) => e.materialWeight > 8);
 
 if (events.length === 0) {
     log.warning('No 8-K events in range. Nothing to score.');
+    // A bare empty dataset looks broken to a buyer; say why instead. Free row.
+    await Actor.pushData({ rowType: 'note',
+        note: `No${materialOnly ? ' material' : ''} 8-K filings in range for the requested companies, so there was nothing to score. Widen the lookback or add tickers. Not charged.` });
     await Actor.exit();
 }
 

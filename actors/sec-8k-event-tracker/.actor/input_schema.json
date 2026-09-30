@@ -42,6 +42,7 @@
       "type": "integer",
       "description": "Skip filings submitted more than this many hours ago. Default is 168 hours (one week). Set to 0 to keep every filing in EDGAR's recent window (last ~1000 filings per company).",
       "default": 168,
+      "prefill": 720,
       "minimum": 0,
       "maximum": 17520
     },

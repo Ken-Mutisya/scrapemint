@@ -57,7 +57,35 @@ flushes charges and calls `Actor.exit()` so the run ends SUCCEEDED with partial
 rows. TIMED-OUT is what flags an actor UNDER_MAINTENANCE, so this is the
 difference between a bad run and a bad listing.
 
+## Shipped 2026-09-30
+
+Health-check sweep of every actor flagged in the 09-14/15 sweep. None carried
+`UNDER_MAINTENANCE` on the store API, but these were broken for a buyer
+pressing Start. All pushed, built and re-verified on their own prefill:
+
+| actor | fault | fix | after |
+|---|---|---|---|
+| `zillow-home-price-scraper` | 403 on every datacenter retry, TIMED-OUT (the maintenance trigger) | tiered proxy (datacenter, then US residential) + indeed-style watchdog | 25 rows, $0.095/run |
+| `tripadvisor-scraper` | typeahead and listing pages DataDome'd from datacenter (HTTP 200), 0 rows | geo ID via Wikidata P3134, DataDome detection, tiered proxy | 26 rows, $0.133/run |
+| `local-lead-pipeline` | flat 300s post-Maps reserve left a 300s run 60s for Maps, always 0 places | reserve scales to 25% of remaining (60-300s) | 14 rows |
+| `sec-8k-event-tracker` | prefill window (168h) usually holds no 8-K | prefill `maxAgeHours` 720, free note row on a first empty run | 2 rows |
+| `sports-odds-movement-tracker` | first run has no baseline, bare empty dataset | free note row on first run only | ok |
+| `google-patents-scraper` | no prefill, Start did nothing | prefill query + `maxPatents` 10 | 10 rows |
+| `activist-stake-catalyst-pipeline`, `event-buzz-radar-pipeline` | legitimately empty but silent | free note row | ok |
+
+Note rows appear only on a first run for the two pollers, so scheduled quiet
+polls stay empty and row-triggered integrations do not fire on them.
+
+**Margin now needs a look.** Residential fallback puts `tripadvisor-scraper`
+underwater at $0.005/row (~$0.096 net on 26 rows vs $0.133 cost) and
+`zillow-home-price-scraper` at break-even. Both have ~0-1 users/30d, so the
+cost is small, but a price change needs the 14-day notice.
+
 ## Still open
+
+- **`youtube-scraper`** is still INCONCLUSIVE (no row within 300s) and has
+  7 TIMED-OUT in its 30-day public stats. It is in `oct-1-slugs.txt`, so it
+  was deliberately not touched on 09-30; re-check after the 10-01 push.
 
 - **`ecommerce-scraper` deletes itself on 2026-09-24.** On track, nothing to do.
   Its FREE notice is scheduled and the launchd job is loaded and running daily at

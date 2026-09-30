@@ -175,6 +175,21 @@ if (dedupe) {
     await store.setValue('SEEN_IDS', trimmed);
 }
 
+// On the prefill (AAPL, NVDA, last 168h) most weeks have no 8-K at all, so a
+// buyer trying the actor got a bare empty dataset (health check, 2026-09-30).
+// Explain it in a free row, but only when there is no prior state: scheduled
+// polls stay empty when quiet so row-triggered integrations do not fire.
+if (totalPushed === 0 && seenState.length === 0) {
+    await Actor.pushData({
+        rowType: 'note',
+        companies: uniqueCiks.length,
+        maxAgeHours,
+        note: `No 8-K filings from these ${uniqueCiks.length} company(ies) in the last ${maxAgeHours} hours`
+            + `${itemSet.size ? ` matching items ${[...itemSet].join(', ')}` : ''}. `
+            + 'Most companies file only a few 8-Ks a year. Raise maxAgeHours (720 = 30 days) or add tickers. Not charged.',
+    });
+}
+
 log.info(`Run complete. Pushed ${totalPushed}. seen=${totalSeen} filteredOut=${filteredOut} deduped=${deduped}`);
 await Promise.allSettled(__chargeJobs);
 await Actor.exit();

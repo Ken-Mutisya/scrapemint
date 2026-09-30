@@ -1,6 +1,6 @@
 // Zillow Home Price Scraper
 // Scrapes Zillow search result pages via PlaywrightCrawler with fingerprint
-// injection + residential proxy. Parses embedded mapResults JSON for each
+// injection + tiered proxy (datacenter, then residential). Parses embedded mapResults JSON for each
 // listing.
 //
 // Free tier: first 2 items per run are free. Charge per item after.
@@ -54,7 +54,7 @@ try {
     if (searchRoots.length === 0) {
         log.error('Provide at least one searchUrls entry or a location.');
     } else {
-        const proxyConfiguration = await Actor.createProxyConfiguration(sanitizeProxyInput(proxyInput));
+        const proxyConfiguration = await Actor.createProxyConfiguration(buildProxyOptions(proxyInput));
 
         const requests = [];
         for (const root of searchRoots) {
@@ -124,7 +124,37 @@ try {
             },
         });
 
+        // A blocked Zillow page retries until the platform hard-kills the run,
+        // and TIMED-OUT is what flags the Actor UNDER_MAINTENANCE. Observed on
+        // 2026-09-15 and 2026-09-30: 403 on every retry, 0/1 pages, TIMED-OUT.
+        // Same pattern as indeed-jobs-scraper: stop at a soft deadline, and exit
+        // cleanly 30s before the hard one if a hung navigation ignores stop().
+        const runStart = Date.now();
+        const hardTimeoutAt = Actor.getEnv().timeoutAt
+            ? new Date(Actor.getEnv().timeoutAt).getTime()
+            : runStart + 1200 * 1000;
+        const budgetMs = hardTimeoutAt - runStart;
+        // Margin covers one in-flight request (handler 120s + 30s), capped at
+        // half the budget so a short buyer timeout does not stop it at once.
+        const softDeadlineAt = hardTimeoutAt - Math.min(150_000, budgetMs * 0.5);
+        const watchdog = setTimeout(() => {
+            log.warning(`Soft deadline reached; stopping with ${totalPushed} listing(s).`);
+            try { crawler.stop(); } catch (err) { log.warning(`crawler.stop() failed: ${err?.message}`); }
+        }, Math.max(1000, softDeadlineAt - Date.now()));
+        watchdog.unref?.();
+        const hardStop = setTimeout(() => {
+            (async () => {
+                log.warning(`Crawler did not stop after the soft deadline; exiting with ${totalPushed} listing(s).`);
+                try { if (dedupe) await store.setValue('SEEN_ZPIDS', [...newSeen].slice(-50_000)); } catch {}
+                try { await Promise.allSettled(__chargeJobs); } catch {}
+                await Actor.exit();
+            })();
+        }, Math.max(2000, hardTimeoutAt - 30_000 - Date.now()));
+        hardStop.unref?.();
+
         await crawler.run(requests);
+        clearTimeout(watchdog);
+        clearTimeout(hardStop);
     }
 
     if (dedupe) {
@@ -368,4 +398,19 @@ function sanitizeProxyInput(p) {
         else delete out.apifyProxyGroups;
     }
     return out;
+}
+
+// Datacenter stopped working here: every run on 2026-09-15 and 2026-09-30 got
+// 403 on each retry and was hard-killed. Tiered proxy starts every run on
+// datacenter and escalates to US residential only once Zillow blocks it, so a
+// run that datacenter can serve still costs the $0.02 measured on 2026-09-10.
+// Buyer-supplied proxyUrls, or Apify proxy switched off, pass through untouched.
+function buildProxyOptions(p) {
+    const out = sanitizeProxyInput(p) ?? { useApifyProxy: true };
+    if (out.useApifyProxy === false || (Array.isArray(out.proxyUrls) && out.proxyUrls.length)) return out;
+    const base = out.apifyProxyGroups?.length ? { groups: out.apifyProxyGroups } : {};
+    return {
+        ...out,
+        tieredProxyConfig: [base, { groups: ['RESIDENTIAL'], countryCode: 'US' }],
+    };
 }

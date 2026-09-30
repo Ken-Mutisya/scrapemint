@@ -247,6 +247,19 @@ if (totalPushed === 0 && linesSeen > 0) {
     log.info(`No line moved by at least ${minPoints} implied probability point(s) since the last run. `
         + `${linesSeen} line(s) checked, ${newLineCount} seen for the first time. `
         + 'This is a normal result on a quiet market or a first run; nothing was charged.');
+    // A first run has no baseline, so it can never report a move, and a buyer
+    // trying the actor sees a bare empty dataset that looks broken. Say so in a
+    // free row. Only on the first run: scheduled polls stay empty when quiet so
+    // integrations that alert on every row do not fire on a note.
+    if (newLineCount === linesSeen) {
+        await Actor.pushData({
+            rowType: 'note',
+            linesChecked: linesSeen,
+            note: `Baseline saved for ${linesSeen} line(s). Movement is measured against the previous run, `
+                + 'so the first run cannot report a move. Run it again later, or put it on a schedule, '
+                + 'and lines that moved will appear here. Not charged.',
+        });
+    }
 }
 log.info(`Run complete. Pushed ${totalPushed}. linesSeen=${linesSeen} moved=${movedCount} new=${newLineCount} pruned=${pruned} tracked=${Object.keys(history).length}`);
 await Promise.allSettled(__chargeJobs);

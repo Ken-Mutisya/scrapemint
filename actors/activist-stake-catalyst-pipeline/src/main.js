@@ -79,6 +79,7 @@ for (const t of cleanTickers) {
 }
 if (subjects.length === 0) {
     log.warning('No tickers resolved to a CIK. Nothing to scan.');
+    await Actor.pushData({ rowType: 'note', note: `None of ${cleanTickers.join(', ')} matched a company in the SEC ticker map. Check the symbols (US listings only). Not charged.` });
     await Actor.exit();
 }
 
@@ -94,6 +95,10 @@ filings = filings.slice(0, totalCap);
 
 if (filings.length === 0) {
     log.warning('No 13D/13G filings found in range. Nothing to score.');
+    // A bare empty dataset looks broken to a buyer; most tickers see no
+    // activist filing in a given window, so say that instead. Free row.
+    await Actor.pushData({ rowType: 'note', tickers: subjects.map((s) => s.ticker), since: startdt,
+        note: `No ${[...wantForms].join('/')} filings for ${subjects.map((s) => s.ticker).join(', ')} since ${startdt}. Activist stakes are rare per company; widen the date range or add tickers. Not charged.` });
     await Actor.exit();
 }
 

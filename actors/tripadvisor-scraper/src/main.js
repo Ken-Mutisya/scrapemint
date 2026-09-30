@@ -66,7 +66,7 @@ const {
 
 const cap = Number(maxResults) > 0 ? Number(maxResults) : Infinity;
 
-const proxyConfiguration = await Actor.createProxyConfiguration(sanitizeProxyInput(proxyInput));
+const proxyConfiguration = await Actor.createProxyConfiguration(buildProxyOptions(proxyInput));
 const seenStore = dedupe ? await Actor.openKeyValueStore('tripadvisor-seen') : null;
 const seenLocationIds = new Set(seenStore ? (await seenStore.getValue('seen-location-ids')) || [] : []);
 const perSourceCount = new Map();
@@ -96,7 +96,7 @@ const crawler = new PlaywrightCrawler({
     headless: true,
     navigationTimeoutSecs: 90,
     requestHandlerTimeoutSecs: 240,
-    maxRequestRetries: 2,
+    maxRequestRetries: 3,
     retryOnBlocked: false,
     useSessionPool: true,
     persistCookiesPerSession: true,
@@ -140,6 +140,13 @@ const crawler = new PlaywrightCrawler({
     async requestHandler(ctx) {
         if (Date.now() > SOFT_DEADLINE_AT) { log.warning('Run-time budget reached; stopping crawler.'); crawler.stop(); return; }
         const t = ctx.request.userData?.type;
+        // Search resolves via Wikidata when challenged, so only data pages need
+        // a clean exit. Throwing retries the request, which moves this domain
+        // up to the residential proxy tier.
+        if (t !== 'search' && await isDataDomeChallenge(ctx.page)) {
+            ctx.session?.retire();
+            throw new Error('DataDome challenge page; retrying on the next proxy tier');
+        }
         if (t === 'search') return handleSearch(ctx);
         if (t === 'listing') return handleListing(ctx);
         if (t === 'tourism') return handleTourism(ctx);
@@ -269,6 +276,32 @@ function makeListingRequest(listKind, geoId) {
 
 // ---------- Search handler ----------
 
+async function resolveGeoViaWikidata(query) {
+    const headers = { 'User-Agent': 'Scrapemint TripAdvisor Scraper (research@scrapemint.com)' };
+    const api = 'https://www.wikidata.org/w/api.php';
+    try {
+        const s = await fetch(`${api}?action=wbsearchentities&search=${encodeURIComponent(query)}&language=en&type=item&limit=7&format=json`,
+            { headers, signal: AbortSignal.timeout(15000) });
+        const ids = ((await s.json())?.search || []).map((r) => r.id);
+        if (!ids.length) return null;
+        const e = await fetch(`${api}?action=wbgetentities&ids=${ids.join('|')}&props=claims&format=json`,
+            { headers, signal: AbortSignal.timeout(15000) });
+        const entities = (await e.json())?.entities || {};
+        // Search results are ranked, so the first entity carrying P3134 wins.
+        for (const id of ids) {
+            const v = entities[id]?.claims?.P3134?.[0]?.mainsnak?.datavalue?.value;
+            const m = String(v || '').match(/^g?(\d+)$/);
+            if (m) {
+                log.info(`Resolved "${query}" via Wikidata ${id} -> geoId=${m[1]}`);
+                return m[1];
+            }
+        }
+    } catch (err) {
+        log.warning(`Wikidata geo lookup failed: ${err?.message}`);
+    }
+    return null;
+}
+
 async function handleSearch({ page, request, crawler: c }) {
     await page.waitForLoadState('domcontentloaded');
     await passCloudflareIfPresent(page);
@@ -306,8 +339,20 @@ async function handleSearch({ page, request, crawler: c }) {
         }).catch(() => null);
     }
 
+    // TripAdvisor answers both endpoints above with a DataDome challenge from
+    // datacenter exits, so every search query resolved to nothing and the
+    // prefill ("Chicago") returned 0 rows (health check, 2026-09-30).
+    // Wikidata carries TripAdvisor's geo ID as property P3134 and is not blocked.
+    if (!geoId) geoId = await resolveGeoViaWikidata(query);
+
     if (!geoId) {
         log.warning(`Could not resolve geo ID for query "${query}". Try passing a Tourism URL directly.`);
+        await Actor.pushData({
+            rowType: 'note',
+            query,
+            note: `Could not find a TripAdvisor location for "${query}". Try a city name such as "Chicago", `
+                + 'or paste a TripAdvisor Tourism, Hotels or Restaurants URL into startUrls. Not charged.',
+        });
         return;
     }
 
@@ -878,6 +923,17 @@ async function dismissModals(page) {
     } catch {}
 }
 
+// TripAdvisor answers datacenter exits with a DataDome interstitial served as
+// HTTP 200, so nothing upstream sees a block: the listing parsed as 0 cards and
+// the run SUCCEEDED empty (health check, 2026-09-30).
+async function isDataDomeChallenge(page) {
+    try {
+        await page.waitForLoadState('domcontentloaded');
+        return await page.evaluate(() => !!document.querySelector('iframe[src*="captcha-delivery.com"], script[src*="captcha-delivery.com"]')
+            || /please enable js and disable any ad blocker/i.test(document.body?.innerText || ''));
+    } catch { return false; }
+}
+
 async function passCloudflareIfPresent(page) {
     try {
         const isChallenge = await page.evaluate(() => {
@@ -913,4 +969,18 @@ function sanitizeProxyInput(p) {
         else delete out.apifyProxyGroups;
     }
     return out;
+}
+
+// Datacenter now gets DataDome on every listing and detail page (2026-09-30),
+// where it served 3 hotels on 2026-09-10. Tiered proxy starts each run on
+// datacenter and escalates to US residential only once a page is challenged.
+// Buyer-supplied proxyUrls, or Apify proxy switched off, pass through untouched.
+function buildProxyOptions(p) {
+    const out = sanitizeProxyInput(p) ?? { useApifyProxy: true };
+    if (out.useApifyProxy === false || (Array.isArray(out.proxyUrls) && out.proxyUrls.length)) return out;
+    const base = out.apifyProxyGroups?.length ? { groups: out.apifyProxyGroups } : {};
+    return {
+        ...out,
+        tieredProxyConfig: [base, { groups: ['RESIDENTIAL'], countryCode: 'US' }],
+    };
 }

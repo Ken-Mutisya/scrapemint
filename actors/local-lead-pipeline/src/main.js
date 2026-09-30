@@ -67,9 +67,14 @@ const CHILD_WAIT_SECS = 1500; // parent hard deadline to regain control (suspend
 // The static wait must also respect the run's ACTUAL timeout (buyers set
 // custom, often shorter, timeouts): clamp so enrichment + push always fit
 // before ACTOR_TIMEOUT_AT, else short buyer runs are TIMED-OUT by design.
-const POST_CHILD_RESERVE_SECS = 300;
+// The reserve scales with the run: a flat 300s left a 300s buyer run exactly
+// 60s for Maps, which is less than its container and browser take to start, so
+// the child was always aborted with 0 places (health check, 2026-09-30; Maps
+// alone needs ~120s for 10 places). Enrichment is 6s-capped parallel fetches,
+// so a quarter of the remaining time (60s floor, 300s cap) is plenty.
 const runTimeoutAtMs = process.env.ACTOR_TIMEOUT_AT ? Date.parse(process.env.ACTOR_TIMEOUT_AT) : null;
 const secsUntilTimeout = () => (runTimeoutAtMs ? Math.max(0, Math.floor((runTimeoutAtMs - Date.now()) / 1000)) : Infinity);
+const POST_CHILD_RESERVE_SECS = Math.min(300, Math.max(60, Math.floor(secsUntilTimeout() * 0.25)));
 const effectiveChildWait = Math.max(60, Math.min(CHILD_WAIT_SECS, secsUntilTimeout() - POST_CHILD_RESERVE_SECS));
 let mapsRun = null;
 try {

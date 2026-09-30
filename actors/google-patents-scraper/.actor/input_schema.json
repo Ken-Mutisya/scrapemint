@@ -10,6 +10,7 @@
       "description": "Free text Google Patents queries. Supports operators: \"exact phrase\", inventor:Smith, assignee:Apple, CPC=H04L. Example: [\"battery thermal management\", \"assignee:Tesla cathode\"].",
       "editor": "stringList",
       "default": [],
+      "prefill": ["battery thermal management"],
       "sectionCaption": "What to scrape",
       "sectionDescription": "Provide at least one of: queries, patentIds, assignees, or inventors."
     },
@@ -181,6 +182,7 @@
       "type": "integer",
       "description": "Hard cap on patent rows pushed per run. 0 means unlimited.",
       "default": 100,
+      "prefill": 10,
       "minimum": 0,
       "maximum": 50000
     },
