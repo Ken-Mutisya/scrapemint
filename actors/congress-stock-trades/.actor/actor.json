@@ -1,0 +1,16 @@
+{
+    "actorSpecification": 1,
+    "name": "congress-stock-trades",
+    "title": "Congress Stock Trades Tracker: House STOCK Act Filings",
+    "description": "Every stock trade reported by members of the US House, parsed from the Clerk's official STOCK Act filings: member, party, committees, ticker, buy or sell, amount range, trade date and days to disclose. Flags large, option and late trades. No key, no proxy. Pay per trade.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "output": "./output_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "BUSINESS",
+        "NEWS"
+    ],
+    "readme": "../README.md"
+}

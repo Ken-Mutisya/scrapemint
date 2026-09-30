@@ -1,0 +1,20 @@
+{
+    "_note": "New actor, first pricing entry. PAY_PER_EVENT, tiered from day one: the rows copy-traders and journalists act on (a $50,001+ trade, a stock option, a disclosure past the STOCK Act's 45-day deadline) carry the premium. No per-run free allowance: this is a poller. Runs with no new filings return nothing and cost nothing. Scanned paper filings are returned free. No proxy.",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~congress-stock-trades?token=APIFY_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "trade_row": {
+                "eventTitle": "Congressional trade",
+                "eventDescription": "One trade reported by a member of the US House, with member, party, district, committees, owner, asset, ticker, purchase or sale, trade and filing dates, amount range and days to disclose. Handwritten filings that cannot be read are returned free. A run with no new filings is free.",
+                "eventPriceUsd": 0.01
+            },
+            "notable_trade_row": {
+                "eventTitle": "Notable congressional trade",
+                "eventDescription": "One trade that is $50,001 or more, a stock option, or disclosed more than 45 days after the trade (the STOCK Act deadline), with the same fields and the reasons it was flagged. A trade is charged once, under one event only.",
+                "eventPriceUsd": 0.03
+            }
+        }
+    },
+    "startedAt": "2026-10-01T00:00:00.000Z"
+}

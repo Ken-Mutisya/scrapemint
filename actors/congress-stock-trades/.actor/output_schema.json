@@ -1,0 +1,20 @@
+{
+    "actorOutputSchemaVersion": 1,
+    "title": "Congressional trades",
+    "description": "One row per trade reported by a House member, with the member's party and committees and the trade's ticker, direction, amount range, dates and disclosure delay.",
+    "type": "object",
+    "properties": {
+        "trades": {
+            "type": "string",
+            "title": "Trades",
+            "description": "Member, party, district, committees, owner, asset, ticker, asset type, purchase or sale, trade and filing dates, amount range, days to disclose and notable flags.",
+            "template": "{{links.apiDefaultDatasetUrl}}/items"
+        },
+        "summary": {
+            "type": "string",
+            "title": "Run summary",
+            "description": "Reports in the window, reports parsed, scanned paper filings and trades returned.",
+            "template": "{{links.apiDefaultKeyValueStoreUrl}}/records/SUMMARY"
+        }
+    }
+}

@@ -1,0 +1,18 @@
+{
+    "name": "congress-stock-trades",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Every stock trade reported by members of the US House under the STOCK Act, parsed from the Clerk's official filings, with party and committee seats. Keyless, no browser, no proxy.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0",
+        "fflate": "^0.8.3",
+        "unpdf": "^1.8.1"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}

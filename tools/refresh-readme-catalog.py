@@ -37,7 +37,7 @@ SECTIONS = [
         "newly-registered-domain-leads", "government-contract-winner-leads",
     ]),
     ("Financial signals & SEC filings", [
-        "sec-form4-insider-tracker", "sec-8k-event-tracker", "sec-13f-whale-tracker",
+        "congress-stock-trades", "sec-form4-insider-tracker", "sec-8k-event-tracker", "sec-13f-whale-tracker",
         "sec-company-filings-feed", "sec-filing-fulltext-scraper", "sec-insider-conviction-pipeline",
         "activist-stake-catalyst-pipeline", "buyback-insider-conviction-pipeline",
         "corporate-catalyst-pipeline", "smart-money-buzz-pipeline", "event-buzz-radar-pipeline",

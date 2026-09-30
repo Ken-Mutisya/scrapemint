@@ -19,7 +19,7 @@ flowchart LR
 
 <!-- CATALOG:START -->
 
-There are **243** actors live right now, and a new one ships every few days.
+There are **244** actors live right now, and a new one ships every few days.
 
 ### Lead generation
 
@@ -62,6 +62,7 @@ There are **243** actors live right now, and a new one ships every few days.
 
 ### Financial signals & SEC filings
 
+- [Congress Stock Trades Tracker: House STOCK Act Filings](https://apify.com/scrapemint/congress-stock-trades)
 - [SEC Form 4 Insider Trading Tracker: Every Insider Buy and Sell](https://apify.com/scrapemint/sec-form4-insider-tracker)
 - [SEC 8-K Tracker: Earnings, Exec Changes, M&A, Cyber Events](https://apify.com/scrapemint/sec-8k-event-tracker)
 - [SEC 13F Whale Tracker: New Buys, Adds, Trims, Exits](https://apify.com/scrapemint/sec-13f-whale-tracker)

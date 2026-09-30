@@ -1,0 +1,95 @@
+{
+    "title": "Congress Stock Trades Tracker input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "lookbackDays": {
+            "title": "Filed in the last (days)",
+            "type": "integer",
+            "description": "Read trade reports filed within this many days. Members have up to 45 days to report a trade, so a trade can be older than its filing.",
+            "default": 30,
+            "prefill": 14,
+            "minimum": 1,
+            "maximum": 3650,
+            "sectionCaption": "Which filings"
+        },
+        "members": {
+            "title": "Members",
+            "type": "array",
+            "description": "Names or last names, e.g. Pelosi, Taylor, Wasserman Schultz. Leave empty for every member.",
+            "editor": "stringList",
+            "default": []
+        },
+        "parties": {
+            "title": "Parties",
+            "type": "array",
+            "description": "D, R or I.",
+            "editor": "stringList",
+            "default": []
+        },
+        "states": {
+            "title": "States",
+            "type": "array",
+            "description": "Two-letter state codes, e.g. CA, TX, NY.",
+            "editor": "stringList",
+            "default": []
+        },
+        "tickers": {
+            "title": "Tickers",
+            "type": "array",
+            "description": "Only trades in these tickers, e.g. NVDA, AAPL, MSFT.",
+            "editor": "stringList",
+            "default": [],
+            "sectionCaption": "Which trades"
+        },
+        "transactionTypes": {
+            "title": "Transaction types",
+            "type": "array",
+            "description": "purchase, sale (includes partial sales) or exchange. Empty for all.",
+            "editor": "stringList",
+            "default": []
+        },
+        "assetTypes": {
+            "title": "Asset type codes",
+            "type": "array",
+            "description": "The filing's own codes: ST stocks, OP options, EF ETFs, MF mutual funds, GS government securities, CS corporate bonds, CT crypto. Empty for all.",
+            "editor": "stringList",
+            "default": []
+        },
+        "minAmount": {
+            "title": "Minimum amount ($)",
+            "type": "integer",
+            "description": "Skip trades whose reported range tops out below this. 50000 keeps $50,001 and larger.",
+            "default": 0,
+            "minimum": 0
+        },
+        "includeSpouseAndJoint": {
+            "title": "Include spouse, joint and dependent trades",
+            "type": "boolean",
+            "description": "Off keeps only trades in the member's own name.",
+            "default": true
+        },
+        "onlyNew": {
+            "title": "Only filings not returned before",
+            "type": "boolean",
+            "description": "On: each run returns only filings earlier runs (with the same filters) have not. For daily alerts. Off: every trade in the window.",
+            "default": true,
+            "sectionCaption": "Output"
+        },
+        "includeScanned": {
+            "title": "List handwritten filings",
+            "type": "boolean",
+            "description": "Some members still file on paper; those are scanned images with no text. On: each is returned as a free row linking the PDF.",
+            "default": true
+        },
+        "maxTrades": {
+            "title": "Max trades",
+            "type": "integer",
+            "description": "Stop after this many trades. With onlyNew on, the next run picks up exactly where this one stopped, so nothing is skipped or billed twice.",
+            "default": 500,
+            "prefill": 50,
+            "minimum": 1,
+            "maximum": 20000
+        }
+    }
+}
