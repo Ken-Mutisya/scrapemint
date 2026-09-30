@@ -1,0 +1,20 @@
+{
+    "actorOutputSchemaVersion": 1,
+    "title": "Companies using the technology",
+    "description": "One row per company that uses the requested technology, with its full detected stack, the evidence for each detection, and public contacts.",
+    "type": "object",
+    "properties": {
+        "companies": {
+            "type": "string",
+            "title": "Matched companies",
+            "description": "Domain, company name, matched technologies, emails, phones, LinkedIn and socials, email provider, and every technology detected with its evidence.",
+            "template": "{{links.apiDefaultDatasetUrl}}/items"
+        },
+        "summary": {
+            "type": "string",
+            "title": "Run summary",
+            "description": "Domains scanned, matches, why the run stopped, and the startRank to continue from.",
+            "template": "{{links.apiDefaultKeyValueStoreUrl}}/records/SUMMARY"
+        }
+    }
+}

@@ -1,0 +1,20 @@
+{
+    "_note": "New actor, first pricing entry. PAY_PER_EVENT, tiered from day one on the podcast-host-leads finding (three tiers earn ~5x per row what flat pricing does). Scanning is free: only a company that uses the requested technology is charged, and a reachable address on its own domain (or a free mailbox on its own site) lifts it to the lead rate. First matched company per run free: this is a discovery actor, where the runbook keeps a sample. Compute measured locally: DNS-only scans ~10 domains/s at concurrency 25, homepage-dependent tools ~2.5/s. No proxy.",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~saas-customer-finder?token=APIFY_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "company_match": {
+                "eventTitle": "Company using the technology",
+                "eventDescription": "One company whose DNS records or homepage show it uses a technology you asked for, with its full detected stack, the evidence for each detection, email provider, website, phones and social profiles where public, but no email address of its own. Domains that do not match are scanned free and never charged. The first matched company per run is free.",
+                "eventPriceUsd": 0.01
+            },
+            "company_lead": {
+                "eventTitle": "Company lead with email",
+                "eventDescription": "One company using a technology you asked for, plus a public email address on its own domain (or a free mailbox published on its own site), with its full detected stack, phones, LinkedIn and social profiles. A company is charged once, never under both events. The first matched company per run is free.",
+                "eventPriceUsd": 0.03
+            }
+        }
+    },
+    "startedAt": "2026-09-30T00:00:00.000Z"
+}

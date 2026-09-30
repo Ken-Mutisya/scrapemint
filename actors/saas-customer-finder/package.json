@@ -1,0 +1,16 @@
+{
+    "name": "saas-customer-finder",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Find companies that use any SaaS tool or web technology, from their public DNS records and homepage, with contacts. Keyless, no browser, no proxy.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}

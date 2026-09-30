@@ -1,0 +1,81 @@
+{
+    "title": "SaaS Customer Finder input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "technologies": {
+            "title": "Technologies",
+            "type": "array",
+            "description": "Tools the companies must use. Examples: Atlassian (or Jira), OpenAI (or ChatGPT), Anthropic, Slack, Zoom, DocuSign, Salesforce, HubSpot, Microsoft 365, Google Workspace, Shopify, Klaviyo, Stripe, Intercom, Zendesk, WordPress, Webflow. An unrecognised name returns the full supported list.",
+            "editor": "stringList",
+            "prefill": ["Atlassian"],
+            "sectionCaption": "What to look for"
+        },
+        "matchMode": {
+            "title": "Match",
+            "type": "string",
+            "description": "any: a company using at least one of the technologies. all: only companies using every one of them.",
+            "enum": ["any", "all"],
+            "enumTitles": ["Any of them", "All of them"],
+            "default": "any"
+        },
+        "tlds": {
+            "title": "Country or TLD filter",
+            "type": "array",
+            "description": "Only scan domains ending in these, e.g. de, co.uk, fr, io. Leave empty for every domain.",
+            "editor": "stringList",
+            "default": []
+        },
+        "maxResults": {
+            "title": "Max companies",
+            "type": "integer",
+            "description": "Stop once this many matching companies are found. You pay only for matches.",
+            "default": 100,
+            "prefill": 20,
+            "minimum": 1,
+            "maximum": 10000
+        },
+        "startRank": {
+            "title": "Start at rank",
+            "type": "integer",
+            "description": "Where to start in the Tranco list of top sites (1 = the biggest). The first few thousand are global giants; start at 5000 or higher for reachable mid-size companies. Each run's summary gives the rank to continue from.",
+            "default": 1,
+            "prefill": 5000,
+            "minimum": 1,
+            "maximum": 1000000,
+            "sectionCaption": "Where to look"
+        },
+        "maxDomainsToScan": {
+            "title": "Max domains to scan",
+            "type": "integer",
+            "description": "Upper bound on domains checked. Scanning is free; only matches are charged. DNS-only tools (Atlassian, OpenAI, Slack, Microsoft 365) scan about 1,000 domains a minute.",
+            "default": 5000,
+            "prefill": 2000,
+            "minimum": 1,
+            "maximum": 200000
+        },
+        "domains": {
+            "title": "Your own domain list (optional)",
+            "type": "array",
+            "description": "Check these domains instead of the top sites list, e.g. a CRM export or a conference attendee list. Domains or URLs.",
+            "editor": "stringList",
+            "default": []
+        },
+        "includeContacts": {
+            "title": "Find contacts",
+            "type": "boolean",
+            "description": "Read each matched company's homepage (and contact page when needed) for emails, phones, LinkedIn and socials.",
+            "default": true,
+            "sectionCaption": "Output"
+        },
+        "concurrency": {
+            "title": "Concurrency",
+            "type": "integer",
+            "description": "Domains checked in parallel.",
+            "default": 25,
+            "minimum": 1,
+            "maximum": 50
+        }
+    },
+    "required": ["technologies"]
+}

@@ -1,0 +1,16 @@
+{
+    "actorSpecification": 1,
+    "name": "saas-customer-finder",
+    "title": "SaaS Customer Finder: Companies Using Any Tool",
+    "description": "Find companies that use any of 170 tools, from Atlassian, OpenAI and Slack to HubSpot, Shopify and Stripe, with emails, phones and LinkedIn. Reads public DNS records that reveal internal SaaS a homepage never shows. No proxy, no login. Pay per company.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "output": "./output_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "LEAD_GENERATION",
+        "DEVELOPER_TOOLS"
+    ],
+    "readme": "../README.md"
+}
