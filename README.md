@@ -19,10 +19,11 @@ flowchart LR
 
 <!-- CATALOG:START -->
 
-There are **241** actors live right now, and a new one ships every few days.
+There are **242** actors live right now, and a new one ships every few days.
 
 ### Lead generation
 
+- [SaaS Customer Finder: Companies Using Any Tool](https://apify.com/scrapemint/saas-customer-finder)
 - [Open Source Maintainer Leads: npm & PyPI](https://apify.com/scrapemint/oss-maintainer-leads)
 - [Google Play Developer Lead Scraper](https://apify.com/scrapemint/google-play-developer-leads)
 - [Apple App Store Developer Leads](https://apify.com/scrapemint/apple-app-developer-leads)

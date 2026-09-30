@@ -22,7 +22,7 @@ END = "<!-- CATALOG:END -->"
 
 SECTIONS = [
     ("Lead generation", [
-        "oss-maintainer-leads", "google-play-developer-leads", "apple-app-developer-leads",
+        "saas-customer-finder", "oss-maintainer-leads", "google-play-developer-leads", "apple-app-developer-leads",
         "wordpress-plugin-developer-leads", "shopify-app-developer-leads",
         "chrome-extension-developer-leads", "vscode-extension-developer-leads",
         "steam-game-studio-leads", "twitch-streamer-leads", "podcast-host-leads",
