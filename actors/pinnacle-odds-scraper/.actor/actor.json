@@ -1,0 +1,16 @@
+{
+    "actorSpecification": 1,
+    "name": "pinnacle-odds-scraper",
+    "title": "Pinnacle Odds Scraper: Sharp Lines, Fair Odds, Limits",
+    "description": "Pinnacle's lines for every sport and league: moneyline, spread, total and team totals with vig-free fair probability, margin and the max stake Pinnacle accepts. Soccer, NFL, NBA, tennis, esports, MMA and more. Only-changed mode for line alerts. No key, no proxy.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "output": "./output_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "AUTOMATION",
+        "OTHER"
+    ],
+    "readme": "../README.md"
+}

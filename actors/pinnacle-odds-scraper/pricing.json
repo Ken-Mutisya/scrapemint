@@ -1,0 +1,15 @@
+{
+    "_note": "New actor, first pricing entry. One event per game with every market asked for. Rivals: lergassy/pinnacle-odds-api $0.006/game + $0.002/odds row; parseforge $0.007/item + $0.054 start. $0.004 per game, no start fee, no per-run allowance (polled). onlyChanged skips unchanged games free. No proxy.",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~pinnacle-odds-scraper?token=APIFY_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "game_odds": {
+                "eventTitle": "Game odds",
+                "eventDescription": "One game from Pinnacle with every market you asked for (moneyline, spread, total, team totals, periods, alternates), each outcome with American and decimal odds, implied and vig-free fair probability, plus the market's margin and max stake. With 'Only games whose odds moved' on, unchanged games are skipped and not charged.",
+                "eventPriceUsd": 0.004
+            }
+        }
+    },
+    "startedAt": "2026-10-02T00:00:00.000Z"
+}

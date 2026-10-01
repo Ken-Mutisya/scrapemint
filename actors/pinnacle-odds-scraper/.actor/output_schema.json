@@ -1,0 +1,20 @@
+{
+    "actorOutputSchemaVersion": 1,
+    "title": "Pinnacle odds",
+    "description": "One row per game with every market asked for.",
+    "type": "object",
+    "properties": {
+        "games": {
+            "type": "string",
+            "title": "Games",
+            "description": "Sport, league, teams, start time, live flag, headline fair probabilities and lines, and markets with prices, fair odds, margin and max stake.",
+            "template": "{{links.apiDefaultDatasetUrl}}/items"
+        },
+        "summary": {
+            "type": "string",
+            "title": "Run summary",
+            "description": "Leagues read, games returned, unchanged games skipped, failed leagues.",
+            "template": "{{links.apiDefaultKeyValueStoreUrl}}/records/SUMMARY"
+        }
+    }
+}

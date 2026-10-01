@@ -1,0 +1,101 @@
+{
+    "title": "Pinnacle Odds Scraper input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "sports": {
+            "title": "Sports",
+            "type": "array",
+            "editor": "stringList",
+            "description": "Pinnacle sport names, e.g. Soccer, Basketball, Football, Baseball, Hockey, Tennis, E Sports, Mixed Martial Arts, Boxing, Golf, Cricket. Empty for every sport with open games.",
+            "prefill": [
+                "Football",
+                "Basketball"
+            ],
+            "default": [
+                "Soccer",
+                "Basketball",
+                "Football",
+                "Baseball",
+                "Hockey"
+            ],
+            "sectionCaption": "What to read"
+        },
+        "leagues": {
+            "title": "Leagues",
+            "type": "array",
+            "editor": "stringList",
+            "description": "Keep leagues whose name contains one of these, e.g. NFL, NBA, Premier League, Champions League, ATP. Empty for every league in the sports above.",
+            "prefill": [
+                "NFL",
+                "NBA"
+            ],
+            "default": []
+        },
+        "markets": {
+            "title": "Markets",
+            "type": "array",
+            "editor": "stringList",
+            "description": "Any of moneyline, spread, total.",
+            "default": [
+                "moneyline",
+                "spread",
+                "total"
+            ]
+        },
+        "includeTeamTotals": {
+            "title": "Team totals",
+            "type": "boolean",
+            "description": "Also each team's own points/goals over-under.",
+            "default": false
+        },
+        "includePeriods": {
+            "title": "Periods (halves, quarters)",
+            "type": "boolean",
+            "description": "Also first-half and other period markets, where Pinnacle prices them.",
+            "default": false
+        },
+        "includeAlternateLines": {
+            "title": "Alternate lines",
+            "type": "boolean",
+            "description": "Also alternate spreads and totals. Off returns the main line only.",
+            "default": false
+        },
+        "hoursAhead": {
+            "title": "Starting within (hours)",
+            "type": "integer",
+            "description": "Only games starting in the next N hours. 0 for all upcoming.",
+            "default": 0,
+            "minimum": 0,
+            "sectionCaption": "Which games"
+        },
+        "includeLive": {
+            "title": "Include live games",
+            "type": "boolean",
+            "description": "Games already in play.",
+            "default": true
+        },
+        "liveOnly": {
+            "title": "Live games only",
+            "type": "boolean",
+            "description": "Only games in play.",
+            "default": false
+        },
+        "onlyChanged": {
+            "title": "Only games whose odds moved",
+            "type": "boolean",
+            "description": "On: return only games that are new or whose prices or lines changed since the last run with the same settings. For line-movement alerts on a schedule; unchanged games are not charged.",
+            "default": false,
+            "sectionCaption": "Output"
+        },
+        "maxGames": {
+            "title": "Max games",
+            "type": "integer",
+            "description": "Stop after this many games.",
+            "default": 300,
+            "prefill": 100,
+            "minimum": 1,
+            "maximum": 20000
+        }
+    }
+}

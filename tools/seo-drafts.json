@@ -574,6 +574,10 @@
   "seoDescription": "Check numbers in bulk: valid or not, country, mobile or landline, and clean international format. Same rules Android uses. Clean CRM lists.",
   "seoTitle": "Phone Number Validation API: Bulk Format Check"
  },
+ "pinnacle-odds-scraper": {
+  "seoDescription": "Pinnacle odds for every sport and league: moneyline, spread, total with vig-free fair probability, margin and max stake. Line-move alerts. $0.004/game.",
+  "seoTitle": "Pinnacle Odds API: Sharp Lines, Fair Odds, Limits"
+ },
  "podcast-charts-tracker": {
   "seoDescription": "Apple Podcasts top charts for any country and genre, up to 200 ranks, with rank movement, new entries and drop-offs per scheduled run.",
   "seoTitle": "Apple Podcast Charts API: Top Shows by Country"

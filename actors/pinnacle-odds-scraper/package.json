@@ -1,0 +1,16 @@
+{
+    "name": "pinnacle-odds-scraper",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Pinnacle odds for every sport and league with vig-free fair probabilities, margins and max stakes. Keyless, no proxy.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}
