@@ -85,7 +85,7 @@ SECTIONS = [
     ]),
     ("Jobs & hiring", [
         "linkedin-jobs-scraper", "linkedin-job-market-trend-scraper", "indeed-jobs-scraper",
-        "layoff-warn-tracker", "company-job-openings-scraper", "remote-jobs-scraper", "startup-jobs-search",
+        "layoff-warn-tracker", "workday-jobs-scraper", "company-job-openings-scraper", "remote-jobs-scraper", "startup-jobs-search",
         "h1b-salary-data",
     ]),
     ("Reviews & reputation", [

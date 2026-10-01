@@ -1,0 +1,17 @@
+{
+    "name": "workday-jobs-scraper",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Every open job on any company's Workday career site, by URL or company name, past Workday's 2,000-job listing cap. Keyless, no browser, no proxy.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js",
+        "build-directory": "node scripts/build-directory.mjs"
+    },
+    "dependencies": {
+        "apify": "^3.7.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}

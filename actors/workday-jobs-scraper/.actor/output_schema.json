@@ -1,0 +1,20 @@
+{
+    "actorOutputSchemaVersion": 1,
+    "title": "Workday jobs",
+    "description": "One row per open job: company, title, requisition ID, location, country, remote flag, posted age, salary range, full description and apply link.",
+    "type": "object",
+    "properties": {
+        "jobs": {
+            "type": "string",
+            "title": "Jobs",
+            "description": "Company, title, requisition ID, location and additional locations, country, remote, time type, posted, salary min/max/currency/period, description, URL and apply URL.",
+            "template": "{{links.apiDefaultDatasetUrl}}/items"
+        },
+        "summary": {
+            "type": "string",
+            "title": "Run summary",
+            "description": "Jobs listed and returned per career site, and any company that could not be resolved or read.",
+            "template": "{{links.apiDefaultKeyValueStoreUrl}}/records/SUMMARY"
+        }
+    }
+}

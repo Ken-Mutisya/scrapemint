@@ -1,0 +1,20 @@
+{
+    "_note": "New actor, first pricing entry. PAY_PER_EVENT, two tiers: a posting opened for its full description and salary costs a detail call, a listing-only row does not. Rivals charge $0.001-0.002 per job; this one also resolves company names, searches across the whole directory and reads past Workday's 2,000 cap. No per-run free allowance: buyers schedule it with onlyNew. A run with no jobs is free. No proxy.",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~workday-jobs-scraper?token=APIFY_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "job_row": {
+                "eventTitle": "Job with description",
+                "eventDescription": "One open job from a Workday career site with company, title, requisition ID, location, country, remote flag, posted age, full description, salary range where the posting states one, and apply link. A run that returns no jobs is free.",
+                "eventPriceUsd": 0.003
+            },
+            "job_row_basic": {
+                "eventTitle": "Job from listing",
+                "eventDescription": "One open job from the career site's listing only (Full description off, or the posting could not be opened): company, title, requisition ID, location, posted age and apply link, without description or salary.",
+                "eventPriceUsd": 0.0015
+            }
+        }
+    },
+    "startedAt": "2026-10-01T00:00:00.000Z"
+}

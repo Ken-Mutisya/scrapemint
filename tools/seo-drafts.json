@@ -937,6 +937,10 @@
   "seoDescription": "Query the WordPress.org directory by keyword for B2B leads: author, company website, active installs, rating, downloads and a scraped email.",
   "seoTitle": "WordPress Plugin Developer Leads and Contacts"
  },
+ "workday-jobs-scraper": {
+  "seoDescription": "Every open job on any Workday career site, by company name or URL, past the 2,000 cap: description, req ID, location, remote, salary. 1,500+ employers.",
+  "seoTitle": "Workday Jobs Scraper API: Any Company, No 2K Cap"
+ },
  "world-bank-projects-tenders": {
   "seoDescription": "Development finance data for every borrowing country: live procurement notices with deadline, method and contact name, email and phone.",
   "seoTitle": "World Bank Tender API: Funded Projects by Country"

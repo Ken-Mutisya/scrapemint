@@ -1,0 +1,91 @@
+{
+    "title": "Workday Jobs Scraper input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "companies": {
+            "title": "Companies or Workday URLs",
+            "type": "array",
+            "description": "A Workday career-site URL (https://nvidia.wd5.myworkdayjobs.com/NVIDIAExternalCareerSite, any page on it works) or just a company name (nvidia, walmart, adobe), looked up in the built-in directory of Workday employers.",
+            "editor": "stringList",
+            "prefill": [
+                "nvidia",
+                "https://workday.wd5.myworkdayjobs.com/Workday"
+            ],
+            "default": [],
+            "sectionCaption": "Which career sites"
+        },
+        "searchAllCompanies": {
+            "title": "Search every company in the directory",
+            "type": "boolean",
+            "description": "Run the search across every Workday employer in the directory instead of a list. Needs a keyword or a posted-within window to keep the run bounded.",
+            "default": false
+        },
+        "searchText": {
+            "title": "Keyword",
+            "type": "string",
+            "description": "Workday's own job search, e.g. data engineer, nurse, account executive. Empty for every job.",
+            "default": "",
+            "editor": "textfield",
+            "sectionCaption": "Filters"
+        },
+        "strictKeyword": {
+            "title": "Every keyword word must match",
+            "type": "boolean",
+            "description": "On: keep a job only when every word of the keyword is in its title (or in its description, when Full description is on). Workday's own search is loose, so \"data engineer\" alone also returns operations managers. Off: Workday's raw matches.",
+            "default": true
+        },
+        "locations": {
+            "title": "Locations",
+            "type": "array",
+            "description": "Keep jobs whose location contains one of these, e.g. California, London, Remote.",
+            "editor": "stringList",
+            "default": []
+        },
+        "remoteOnly": {
+            "title": "Remote only",
+            "type": "boolean",
+            "description": "Only jobs marked remote.",
+            "default": false
+        },
+        "postedWithinDays": {
+            "title": "Posted within (days)",
+            "type": "integer",
+            "description": "Only jobs posted in the last N days. 0 for any age. Workday shows ages up to 30 days, then 30+.",
+            "default": 0,
+            "minimum": 0,
+            "maximum": 30
+        },
+        "includeDescription": {
+            "title": "Full description and salary",
+            "type": "boolean",
+            "description": "On: open each posting for its full description, requisition ID, country, start date and salary range. Off: the listing only, faster and cheaper.",
+            "default": true,
+            "sectionCaption": "Output"
+        },
+        "onlyNew": {
+            "title": "Only jobs not returned before",
+            "type": "boolean",
+            "description": "On: each run returns only jobs earlier runs (with the same companies and filters) have not. For alerts on a schedule.",
+            "default": false
+        },
+        "maxJobsPerCompany": {
+            "title": "Max jobs per company",
+            "type": "integer",
+            "description": "Stop each company after this many jobs.",
+            "default": 1000,
+            "prefill": 50,
+            "minimum": 1,
+            "maximum": 50000
+        },
+        "maxJobs": {
+            "title": "Max jobs in total",
+            "type": "integer",
+            "description": "Stop the run after this many jobs.",
+            "default": 5000,
+            "prefill": 200,
+            "minimum": 1,
+            "maximum": 200000
+        }
+    }
+}

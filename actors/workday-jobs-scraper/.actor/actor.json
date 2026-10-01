@@ -1,0 +1,16 @@
+{
+    "actorSpecification": 1,
+    "name": "workday-jobs-scraper",
+    "title": "Workday Jobs Scraper: Any Company, Past the 2,000 Cap",
+    "description": "Every open job on any company's Workday career site. Paste the URL or just type the company name, or search one keyword across thousands of Workday employers at once. Full description, req ID, location, remote flag, parsed salary. Reads past Workday's 2,000-job cap. No key, no proxy. Pay per job.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "output": "./output_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "JOBS",
+        "LEAD_GENERATION"
+    ],
+    "readme": "../README.md"
+}
