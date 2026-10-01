@@ -19,7 +19,7 @@ flowchart LR
 
 <!-- CATALOG:START -->
 
-There are **247** actors live right now, and a new one ships every few days.
+There are **248** actors live right now, and a new one ships every few days.
 
 ### Lead generation
 
@@ -294,6 +294,7 @@ There are **247** actors live right now, and a new one ships every few days.
 
 ### SEO & marketing
 
+- [Google Trends Scraper: Interest, Regions, Rising Queries](https://apify.com/scrapemint/google-trends-scraper)
 - [Google Keyword Suggestions Scraper (Autocomplete)](https://apify.com/scrapemint/google-keyword-suggestions-scraper)
 - [Google Ads Transparency Scraper (No Login)](https://apify.com/scrapemint/google-ads-transparency-scraper)
 - [SEO Site Audit Scraper: On-Page Issues for Every Page](https://apify.com/scrapemint/seo-site-audit-scraper)

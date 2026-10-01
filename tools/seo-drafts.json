@@ -385,6 +385,10 @@
   "seoDescription": "Scrape Play Store reviews at scale: rating, full text, date, thumbs up, app version and developer replies. Sort by newest or filter by stars.",
   "seoTitle": "Google Play Reviews API: Scrape App Reviews"
  },
+ "google-trends-scraper": {
+  "seoDescription": "Google Trends for any keyword: interest over time, rising or falling, by country, state or city, top and rising queries, Trending Now. $0.003 a keyword.",
+  "seoTitle": "Google Trends Scraper API: Interest & Rising Queries"
+ },
  "government-bond-yields-worldwide": {
   "seoDescription": "Sovereign yield curves for the US, UK, euro area, Japan, Canada and Australia in one comparable table, with the move since the prior session.",
   "seoTitle": "Government Bond Yield API: Curves by Country"

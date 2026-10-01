@@ -1,0 +1,20 @@
+{
+    "_note": "New actor, first pricing entry. Market: apify/google-trends-scraper $0.003 per item with 1,754 monthly users; most others add a $0.02-0.025 start fee. This matches $0.003 per keyword with no start fee; a keyword row carries every data type asked for. Trending Now rows are cheap to produce and priced at $0.001. Keywords with no data are free. No proxy: platform cost was $0.005 for 80 keyword sets in testing.",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~google-trends-scraper?token=APIFY_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "keyword_result": {
+                "eventTitle": "Keyword result",
+                "eventDescription": "One keyword with every data type you asked for: interest over time with its summary, interest by region, and top and rising related queries. A keyword Google has no data for is returned free.",
+                "eventPriceUsd": 0.003
+            },
+            "trending_search": {
+                "eventTitle": "Trending search",
+                "eventDescription": "One Trending Now search for a country, with approximate traffic, start time, picture and news links.",
+                "eventPriceUsd": 0.001
+            }
+        }
+    },
+    "startedAt": "2026-10-02T00:00:00.000Z"
+}

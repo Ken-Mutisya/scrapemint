@@ -1,0 +1,16 @@
+{
+    "name": "google-trends-scraper",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Google Trends interest over time, interest by region, related queries and the daily Trending Now feed. Keyless, no browser, no proxy.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}

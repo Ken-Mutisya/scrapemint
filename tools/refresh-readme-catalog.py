@@ -137,7 +137,7 @@ SECTIONS = [
         "ransomware-victims-tracker", "internet-infrastructure-data", "internet-outage-alerts",
     ]),
     ("SEO & marketing", [
-        "google-keyword-suggestions-scraper",
+        "google-trends-scraper", "google-keyword-suggestions-scraper",
         "google-ads-transparency-scraper", "seo-site-audit-scraper", "sitemap-change-monitor",
         "saas-outage-monitor", "website-change-monitor", "website-tech-stack-detector", "company-logo-scraper",
     ]),

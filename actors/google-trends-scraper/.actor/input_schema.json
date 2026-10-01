@@ -1,0 +1,160 @@
+{
+    "title": "Google Trends Scraper input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "searchTerms": {
+            "title": "Search terms",
+            "type": "array",
+            "description": "Keywords to look up, e.g. pickleball, air fryer, chatgpt.",
+            "editor": "stringList",
+            "prefill": [
+                "pickleball",
+                "padel"
+            ],
+            "default": [],
+            "sectionCaption": "Keywords"
+        },
+        "compareTerms": {
+            "title": "Compare terms against each other",
+            "type": "boolean",
+            "description": "On: terms are sent to Google together (up to 5 per comparison), so their values are relative to one another, as in the Trends compare view. Off: each term is scaled 0-100 on its own.",
+            "default": false
+        },
+        "geo": {
+            "title": "Region",
+            "type": "string",
+            "description": "Country or subregion code: US, GB, DE, US-CA, US-NY. Empty for worldwide.",
+            "editor": "textfield",
+            "default": "",
+            "prefill": "US"
+        },
+        "timeRange": {
+            "title": "Time range",
+            "type": "string",
+            "description": "Ignored when start and end dates are set.",
+            "editor": "select",
+            "enum": [
+                "now 1-H",
+                "now 4-H",
+                "now 1-d",
+                "now 7-d",
+                "today 1-m",
+                "today 3-m",
+                "today 12-m",
+                "today 5-y",
+                "all"
+            ],
+            "enumTitles": [
+                "Past hour",
+                "Past 4 hours",
+                "Past day",
+                "Past 7 days",
+                "Past 30 days",
+                "Past 90 days",
+                "Past 12 months",
+                "Past 5 years",
+                "2004 to present"
+            ],
+            "default": "today 12-m"
+        },
+        "startDate": {
+            "title": "Start date (custom range)",
+            "type": "string",
+            "description": "YYYY-MM-DD. Set both dates for a custom range.",
+            "editor": "textfield",
+            "default": ""
+        },
+        "endDate": {
+            "title": "End date (custom range)",
+            "type": "string",
+            "description": "YYYY-MM-DD.",
+            "editor": "textfield",
+            "default": ""
+        },
+        "searchType": {
+            "title": "Search type",
+            "type": "string",
+            "editor": "select",
+            "enum": [
+                "web",
+                "images",
+                "news",
+                "youtube",
+                "shopping"
+            ],
+            "enumTitles": [
+                "Web search",
+                "Image search",
+                "News search",
+                "YouTube search",
+                "Google Shopping"
+            ],
+            "default": "web",
+            "description": "Which Google search the interest comes from: web (default), images, news, YouTube or Shopping."
+        },
+        "category": {
+            "title": "Category ID",
+            "type": "integer",
+            "description": "Google Trends category, e.g. 0 all, 7 Finance, 71 Food & Drink, 958 Travel. 0 for all.",
+            "default": 0,
+            "minimum": 0
+        },
+        "interestOverTime": {
+            "title": "Interest over time",
+            "type": "boolean",
+            "description": "The time series, with a summary: average, latest, peak and date, and whether interest is rising, falling or flat.",
+            "default": true,
+            "sectionCaption": "What to return"
+        },
+        "interestByRegion": {
+            "title": "Interest by region",
+            "type": "boolean",
+            "default": true,
+            "description": "Where the term is searched most, 0-100 per country, state, city or metro."
+        },
+        "regionResolution": {
+            "title": "Region level",
+            "type": "string",
+            "description": "Countries, subregions (states), cities or US metro areas. Empty lets Google choose for the region you picked.",
+            "editor": "select",
+            "enum": [
+                "",
+                "COUNTRY",
+                "REGION",
+                "CITY",
+                "DMA"
+            ],
+            "enumTitles": [
+                "Automatic",
+                "Country",
+                "Subregion / state",
+                "City",
+                "US metro (DMA)"
+            ],
+            "default": ""
+        },
+        "relatedQueries": {
+            "title": "Related queries (top and rising)",
+            "type": "boolean",
+            "default": true,
+            "description": "What people also search: the top queries, and the rising ones with their growth."
+        },
+        "trendingNow": {
+            "title": "Trending Now searches",
+            "type": "boolean",
+            "description": "Also return today's trending searches with traffic and news links for the countries below.",
+            "default": false,
+            "sectionCaption": "Trending Now"
+        },
+        "trendingGeos": {
+            "title": "Trending Now countries",
+            "type": "array",
+            "description": "Country codes, e.g. US, GB, IN, DE.",
+            "editor": "stringList",
+            "default": [
+                "US"
+            ]
+        }
+    }
+}

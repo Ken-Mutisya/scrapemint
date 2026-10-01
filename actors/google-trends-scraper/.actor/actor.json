@@ -1,0 +1,16 @@
+{
+    "actorSpecification": 1,
+    "name": "google-trends-scraper",
+    "title": "Google Trends Scraper: Interest, Regions, Rising Queries",
+    "description": "Google Trends for any keyword: interest over time with a trend summary (peak, rising or falling), interest by country, state or city, top and rising related queries, and daily Trending Now with news links. Compare up to 5 terms. No key, no proxy. $0.003 per keyword.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "output": "./output_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "SEO_TOOLS",
+        "MARKETING"
+    ],
+    "readme": "../README.md"
+}

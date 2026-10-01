@@ -1,0 +1,20 @@
+{
+    "actorOutputSchemaVersion": 1,
+    "title": "Google Trends results",
+    "description": "One row per keyword with every data type asked for, plus one row per Trending Now search.",
+    "type": "object",
+    "properties": {
+        "results": {
+            "type": "string",
+            "title": "Results",
+            "description": "Keyword rows (interest over time and summary, interest by region, related queries) and trending rows (title, traffic, news links).",
+            "template": "{{links.apiDefaultDatasetUrl}}/items"
+        },
+        "summary": {
+            "type": "string",
+            "title": "Run summary",
+            "description": "Keyword results, keywords with no data, trending searches, and anything that failed.",
+            "template": "{{links.apiDefaultKeyValueStoreUrl}}/records/SUMMARY"
+        }
+    }
+}
