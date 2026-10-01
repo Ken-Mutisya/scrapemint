@@ -780,6 +780,12 @@ async function extractWatchData(page, opts) {
                 }
             } catch {}
         }
+        // The player microformat carries the exact count inline; checked before
+        // the DOM button, which is not always rendered when this runs.
+        if (!likeCount && /^\d+$/.test(String(mf.likeCount ?? ''))) {
+            const n = Number(mf.likeCount);
+            if (n > 0) likeCount = n;
+        }
         if (!likeCount) {
             try {
                 const sel = document.querySelector('like-button-view-model button[aria-label*="like" i], button[aria-label*="like this video" i]');
