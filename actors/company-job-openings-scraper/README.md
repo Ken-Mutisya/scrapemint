@@ -1,4 +1,4 @@
-# Company Job Openings Scraper: Greenhouse, Lever, Ashby & More
+# Greenhouse, Lever & Ashby Jobs Scraper: Any Company
 
 Get every open job at any list of companies. Give this Actor company names and it reads their public job boards on the four big applicant tracking systems, Greenhouse, Lever, Ashby, and SmartRecruiters, and returns one clean row per opening: title, department, location, remote flag, employment type, posted date, and a direct application link. No login, no API key, no browser.
 

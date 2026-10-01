@@ -137,8 +137,8 @@
   "seoTitle": "Company Data API: Industry, Owners, Listings"
  },
  "company-job-openings-scraper": {
-  "seoDescription": "Every open job at any list of companies from their public Greenhouse, Lever, Ashby and SmartRecruiters boards: title, department, location.",
-  "seoTitle": "Company Careers Page API: Greenhouse, Lever, Ashby"
+  "seoDescription": "Scrape every open job from Greenhouse, Lever, Ashby and SmartRecruiters boards by company name: title, team, location, remote, posted date, apply URL.",
+  "seoTitle": "Greenhouse, Lever & Ashby Jobs Scraper API"
  },
  "company-logo-scraper": {
   "seoDescription": "Bulk domain-to-logo: each site's logo, icon set, og image, theme color and site name, with the best logo verified reachable. Keyless.",
