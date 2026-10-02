@@ -247,7 +247,7 @@ curl -X POST \
 
 ## Pricing
 
-The first few jobs per run are free so you can validate the output before paying. After that, one charge per job row. Skills detection, seniority classification, salary parsing, and remote signal are all included at no extra cost. Company enrichment adds one charge per unique company.
+The first job per run is free so you can validate the output before paying. After that, one charge per job row. Skills detection, seniority classification, salary parsing, remote signal and company enrichment are all included at no extra cost. If Indeed blocks a job's detail page, the job is still returned from its search card, marked `partial`, and is not charged.
 
 ---
 

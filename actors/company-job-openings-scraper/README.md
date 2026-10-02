@@ -76,6 +76,7 @@ Pay per row. The first 5 job rows of every run are free so you can validate outp
 
 ## Notes
 
+- Want one search across many companies and ATSes at once (Workday, Greenhouse, Lever, Ashby, SmartRecruiters, Workable, Recruitee, Personio)? Use [Career Site Jobs Search](https://apify.com/scrapemint/ats-jobs-search).
 - Company hires through Workday (a `myworkdayjobs.com` careers page)? Use [Workday Jobs Scraper](https://apify.com/scrapemint/workday-jobs-scraper), which also takes company names and reads past Workday's 2,000-job cap.
 - The Actor probes each company's board by name variants across all four ATS providers and uses the first that responds. If a company's board token differs from its name (e.g. a brand name or an abbreviation), pass it explicitly as `greenhouse:token`, `lever:token`, `ashby:token`, or `smartrecruiters:token`.
 - Data comes from the ATS providers' public, keyless job-board APIs, the same data shown on each company's careers page.

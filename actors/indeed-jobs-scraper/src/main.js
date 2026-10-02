@@ -688,7 +688,11 @@ async function pushJobRow(job, request, c, { page = null, partial: partialIn = n
     await Actor.pushData(row);
     seenJobIds.add(jk);
     pushedRows += 1;
-    if (pushedRows > 1) __chargeJobs.push(Actor.charge({ eventName: 'job_row' }).catch((err) => log.warning(`charge failed: ${err?.message}`)));
+    // A card-only row (detail page blocked or challenged) is not the parsed
+    // posting job_row describes, so it is returned free; youtube-scraper bills
+    // its card-only rows at a third of the full price for the same reason.
+    // Billing them at full price was inconsistent between the two (2026-10-02).
+    if (pushedRows > 1 && !partial) __chargeJobs.push(Actor.charge({ eventName: 'job_row' }).catch((err) => log.warning(`charge failed: ${err?.message}`)));
 
     if (scrapeCompanyDetails && row.company.slug && !seenCompanies.has(row.company.slug)) {
         seenCompanies.add(row.company.slug);

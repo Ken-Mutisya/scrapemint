@@ -110,6 +110,7 @@ A run that returns no jobs is free. There is no proxy cost behind the price: run
 
 ## Notes
 
+- Want one search across many companies and ATSes at once (Workday, Greenhouse, Lever, Ashby, SmartRecruiters, Workable, Recruitee, Personio)? Use [Career Site Jobs Search](https://apify.com/scrapemint/ats-jobs-search).
 - Company on Greenhouse, Lever, Ashby or SmartRecruiters instead? Use [Greenhouse, Lever & Ashby Jobs Scraper](https://apify.com/scrapemint/company-job-openings-scraper).
 - A company the directory does not know can always be read by URL. Find it on the company's careers page: the address contains `myworkdayjobs.com` or `myworkdaysite.com`.
 - Some employers run several Workday sites (external, internal, campus). A name resolves to the one with the most open jobs; pass a URL to pick a specific site.

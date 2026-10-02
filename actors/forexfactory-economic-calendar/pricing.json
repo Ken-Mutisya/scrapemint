@@ -1,5 +1,5 @@
 {
-    "_note": "PUT this to /v2/acts/{actorId} as pricingInfos array entry. PAY_PER_EVENT only on BRONZE plan, startedAt 14+ days out. | 2026-09-14 tiering pass: flat $0.015 earned $0.0046 per row returned while podcast-host-leads earns $0.0240 on a three-tier schedule. Traders act on high-impact releases, so those carry the premium and low/holiday rows cost a fraction. Medium is held at the old flat price so the default input (impactLevels high+medium) cannot get cheaper. Effective 10-01, the 14-day notice from 09-14.",
+    "_note": "PUT this to /v2/acts/{actorId} as pricingInfos array entry. PAY_PER_EVENT only on BRONZE plan, startedAt 14+ days out. | 2026-09-14 tiering pass: flat $0.015 earned $0.0046 per row returned while podcast-host-leads earns $0.0240 on a three-tier schedule. Traders act on high-impact releases, so those carry the premium and low/holiday rows cost a fraction. Medium is held at the old flat price so the default input (impactLevels high+medium) cannot get cheaper. Effective 10-01, the 14-day notice from 09-14. | 2026-10-02: legacy event_row dropped (effective 2026-10-17). The tiered build went live 2026-10-01 and bills event_row_high/medium/low only; event_row had been kept so a build pushed before the code could still bill during the changeover.",
     "_legacy_event": "event_row is retained at the old flat price ON PURPOSE. On 10-01 the schedule flips before the new build is pushed; without this name the deployed build would charge an event the schedule does not know and bill nothing on the top-earning actor. Remove it only once verify-oct-1.mjs shows the tiered build live.",
     "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~forexfactory-economic-calendar?token=APIFY_TOKEN",
     "pricingModel": "PAY_PER_EVENT",
@@ -7,7 +7,7 @@
         "actorChargeEvents": {
             "event_row_high": {
                 "eventTitle": "High-impact economic event",
-                "eventDescription": "One high-impact ForexFactory economic event \u2014 the releases that move rates and currencies \u2014 with date, time, displayTimezone, currency, impact rating, title, actual, forecast, previous, revised, unit, source agency, and detail URL. First 2 rows per run are free so you can validate output.",
+                "eventDescription": "One high-impact ForexFactory economic event — the releases that move rates and currencies — with date, time, displayTimezone, currency, impact rating, title, actual, forecast, previous, revised, unit, source agency, and detail URL. First 2 rows per run are free so you can validate output.",
                 "eventPriceUsd": 0.035
             },
             "event_row_medium": {
@@ -19,13 +19,8 @@
                 "eventTitle": "Low-impact or holiday event",
                 "eventDescription": "One low-impact, holiday, or non-economic ForexFactory row with the same fields. These are excluded by default and priced at a fraction of a high-impact release. First 2 rows per run are free so you can validate output.",
                 "eventPriceUsd": 0.005
-            },
-            "event_row": {
-                "eventTitle": "Economic event row (legacy flat rate)",
-                "eventDescription": "Legacy flat-rate event row, retained so runs started from an older build continue to bill correctly during the changeover. New runs bill under the impact-rated events above. First 2 rows per run are free so you can validate output.",
-                "eventPriceUsd": 0.015
             }
         }
     },
-    "startedAt": "2026-10-01T00:00:00.000Z"
+    "startedAt": "2026-10-17T00:00:00.000Z"
 }
