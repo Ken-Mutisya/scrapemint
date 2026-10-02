@@ -94,6 +94,7 @@ SECTIONS = [
         "steam-game-review-intelligence", "brand-mention-monitor",
     ]),
     ("Social, news & content", [
+        "pinterest-scraper",
         "instagram-scraper", "youtube-scraper", "youtube-video-scraper", "bluesky-scraper",
         "telegram-channel-scraper",
         "substack-newsletter-intelligence", "producthunt-launch-tracker", "hacker-news-scraper",

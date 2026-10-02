@@ -578,6 +578,10 @@
   "seoDescription": "Pinnacle odds for every sport and league: moneyline, spread, total with vig-free fair probability, margin and max stake. Line-move alerts. $0.004/game.",
   "seoTitle": "Pinnacle Odds API: Sharp Lines, Fair Odds, Limits"
  },
+ "pinterest-scraper": {
+  "seoDescription": "Pinterest pins from any search, board or profile: full-size image, outbound link and domain, pinner, board, date, saves, repins, shares. No login.",
+  "seoTitle": "Pinterest Scraper API: Pins, Saves, Boards, Profiles"
+ },
  "podcast-charts-tracker": {
   "seoDescription": "Apple Podcasts top charts for any country and genre, up to 200 ranks, with rank movement, new entries and drop-offs per scheduled run.",
   "seoTitle": "Apple Podcast Charts API: Top Shows by Country"

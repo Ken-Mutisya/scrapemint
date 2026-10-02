@@ -1,0 +1,56 @@
+{
+    "title": "Pinterest Scraper input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "searchQueries": {
+            "title": "Search queries",
+            "type": "array",
+            "editor": "stringList",
+            "description": "Keywords to search pins for, e.g. kitchen remodel, fall outfits, wedding cake.",
+            "prefill": [
+                "kitchen remodel"
+            ],
+            "default": [],
+            "sectionCaption": "What to read"
+        },
+        "startUrls": {
+            "title": "Pinterest URLs",
+            "type": "array",
+            "editor": "requestListSources",
+            "description": "Pin URLs (pinterest.com/pin/...), board URLs (pinterest.com/user/board/), profile URLs (pinterest.com/user/, its created pins plus a profile row) or search URLs.",
+            "default": []
+        },
+        "maxPinsPerSource": {
+            "title": "Max pins per query or URL",
+            "type": "integer",
+            "description": "Stop each search, board or profile after this many pins.",
+            "default": 100,
+            "prefill": 25,
+            "minimum": 1,
+            "maximum": 5000
+        },
+        "maxPins": {
+            "title": "Max pins in total",
+            "type": "integer",
+            "description": "Stop the run after this many pins.",
+            "default": 1000,
+            "prefill": 100,
+            "minimum": 1,
+            "maximum": 100000
+        },
+        "includeEngagement": {
+            "title": "Saves, repins and shares",
+            "type": "boolean",
+            "description": "On: one extra call per pin for its save, repin, share and comment counts. Off: no engagement counts, half the price.",
+            "default": true,
+            "sectionCaption": "Output"
+        },
+        "onlyNew": {
+            "title": "Only pins not returned before",
+            "type": "boolean",
+            "description": "On: each run returns only pins earlier runs with the same sources have not. For monitoring a search, board or profile on a schedule.",
+            "default": false
+        }
+    }
+}

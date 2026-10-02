@@ -1,0 +1,16 @@
+{
+    "name": "pinterest-scraper",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Pinterest pins from searches, boards and profiles with saves, repins, shares, outbound links and full-size images. Keyless, no browser, no proxy.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}

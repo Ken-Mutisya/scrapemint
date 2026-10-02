@@ -19,7 +19,7 @@ flowchart LR
 
 <!-- CATALOG:START -->
 
-There are **249** actors live right now, and a new one ships every few days.
+There are **250** actors live right now, and a new one ships every few days.
 
 ### Lead generation
 
@@ -193,6 +193,7 @@ There are **249** actors live right now, and a new one ships every few days.
 
 ### Social, news & content
 
+- [Pinterest Scraper: Pins, Saves, Boards & Profiles](https://apify.com/scrapemint/pinterest-scraper)
 - [Instagram Influencer Analyzer & Sponsored Post Tracker](https://apify.com/scrapemint/instagram-scraper)
 - [YouTube Channel Intelligence Pro: Videos, Comments, Transcripts](https://apify.com/scrapemint/youtube-scraper)
 - [YouTube Video & Channel Scraper](https://apify.com/scrapemint/youtube-video-scraper)

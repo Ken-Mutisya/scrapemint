@@ -1,0 +1,20 @@
+{
+    "actorOutputSchemaVersion": 1,
+    "title": "Pinterest pins",
+    "description": "One row per pin, plus one row per profile URL.",
+    "type": "object",
+    "properties": {
+        "pins": {
+            "type": "string",
+            "title": "Pins and profiles",
+            "description": "Pins with images, link, domain, pinner, board, created date, saves, repins, shares; profile rows with followers, pins, boards and monthly views.",
+            "template": "{{links.apiDefaultDatasetUrl}}/items"
+        },
+        "summary": {
+            "type": "string",
+            "title": "Run summary",
+            "description": "Pins per source and any source that failed.",
+            "template": "{{links.apiDefaultKeyValueStoreUrl}}/records/SUMMARY"
+        }
+    }
+}

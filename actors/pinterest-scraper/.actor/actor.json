@@ -1,0 +1,16 @@
+{
+    "actorSpecification": 1,
+    "name": "pinterest-scraper",
+    "title": "Pinterest Scraper: Pins, Saves, Boards & Profiles",
+    "description": "Pinterest pins from any search, board or profile: title, description, full-size image, outbound link and domain, pinner, board, created date, plus saves, repins and shares. Profile stats too. Only-new mode for monitoring. No login, no proxy.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "output": "./output_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "SOCIAL_MEDIA",
+        "MARKETING"
+    ],
+    "readme": "../README.md"
+}
