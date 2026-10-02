@@ -1,0 +1,16 @@
+{
+    "actorSpecification": 1,
+    "name": "jobstreet-jobsdb-scraper",
+    "title": "JobStreet & JobsDB Jobs Scraper: 6 Asian Markets",
+    "description": "JobStreet and JobsDB jobs from Malaysia, Singapore, Philippines, Indonesia, Hong Kong and Thailand: title, company, location, salary parsed in local currency, work type, remote or hybrid, category and full description. Past the 540-result cap. No proxy.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "output": "./output_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "JOBS",
+        "LEAD_GENERATION"
+    ],
+    "readme": "../README.md"
+}

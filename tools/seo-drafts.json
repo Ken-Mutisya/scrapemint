@@ -489,6 +489,10 @@
   "seoDescription": "US IPOs: upcoming, priced, newly filed and withdrawn deals with ticker, exchange, share price, shares offered and deal value. Keyless.",
   "seoTitle": "IPO Calendar API: Upcoming and Priced US Deals"
  },
+ "jobstreet-jobsdb-scraper": {
+  "seoDescription": "JobStreet and JobsDB jobs in 6 Asian markets: salary parsed in local currency, remote or hybrid, category, full description. Past the 540 cap.",
+  "seoTitle": "JobStreet & JobsDB Jobs API: MY, SG, PH, ID, HK, TH"
+ },
  "kalshi-prediction-market-scraper": {
   "seoDescription": "Live odds from the regulated US event exchange: sports, elections, economics and weather markets with yes/no prices, probability and volume.",
   "seoTitle": "Kalshi API: Live Event Contract Odds and Volume"

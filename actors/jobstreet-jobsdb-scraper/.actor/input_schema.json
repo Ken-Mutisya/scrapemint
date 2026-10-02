@@ -1,0 +1,143 @@
+{
+    "title": "JobStreet & JobsDB Jobs Scraper input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "searchTerms": {
+            "title": "Keywords",
+            "type": "array",
+            "editor": "stringList",
+            "description": "Job titles or keywords, e.g. data engineer, nurse, electrician. Each is its own search. Empty searches all jobs matching the filters.",
+            "prefill": [
+                "software engineer"
+            ],
+            "default": [],
+            "sectionCaption": "What to find"
+        },
+        "country": {
+            "title": "Country",
+            "type": "string",
+            "editor": "select",
+            "enum": [
+                "MY",
+                "SG",
+                "PH",
+                "ID",
+                "HK",
+                "TH"
+            ],
+            "enumTitles": [
+                "Malaysia (JobStreet)",
+                "Singapore (JobStreet)",
+                "Philippines (JobStreet)",
+                "Indonesia (JobStreet)",
+                "Hong Kong (JobsDB)",
+                "Thailand (JobsDB)"
+            ],
+            "description": "Which site to search.",
+            "default": "MY"
+        },
+        "location": {
+            "title": "Location",
+            "type": "string",
+            "editor": "textfield",
+            "description": "As written on the site, e.g. Kuala Lumpur, Selangor, Metro Manila, Jakarta, Bangkok, Central Region (Singapore), Kwun Tong District (Hong Kong). Empty for the whole country.",
+            "default": ""
+        },
+        "categories": {
+            "title": "Categories",
+            "type": "array",
+            "editor": "stringList",
+            "description": "Seek categories, e.g. Accounting, Administration & Office Support, Advertising, Arts & Media, Banking & Financial Services, Call Centre & Customer Service, CEO & General Management… (all 30 are accepted, or Seek's numeric ids). Empty for all.",
+            "default": []
+        },
+        "workTypes": {
+            "title": "Work types",
+            "type": "array",
+            "editor": "stringList",
+            "description": "Any of: full time, part time, contract, casual. Empty for all.",
+            "default": []
+        },
+        "workArrangements": {
+            "title": "Work arrangements",
+            "type": "array",
+            "editor": "stringList",
+            "description": "Any of: on-site, hybrid, remote. Empty for all.",
+            "default": []
+        },
+        "minSalary": {
+            "title": "Minimum salary",
+            "type": "integer",
+            "description": "The site's own salary filter, in local currency. 0 for no minimum.",
+            "default": 0,
+            "minimum": 0
+        },
+        "maxSalary": {
+            "title": "Maximum annual salary",
+            "type": "integer",
+            "description": "0 for no maximum.",
+            "default": 0,
+            "minimum": 0
+        },
+        "postedWithinDays": {
+            "title": "Listed within (days)",
+            "type": "integer",
+            "description": "Only jobs listed in the last N days (up to 31). 0 for any age.",
+            "default": 0,
+            "minimum": 0,
+            "maximum": 31
+        },
+        "sortBy": {
+            "title": "Sort",
+            "type": "string",
+            "editor": "select",
+            "enum": [
+                "relevance",
+                "date"
+            ],
+            "enumTitles": [
+                "Most relevant",
+                "Newest first"
+            ],
+            "description": "Seek's own ordering.",
+            "default": "relevance"
+        },
+        "includeDescription": {
+            "title": "Full description",
+            "type": "boolean",
+            "description": "On: each job's full description (one extra call per job). Off: listing fields only, cheaper.",
+            "default": true,
+            "sectionCaption": "Output"
+        },
+        "splitPastCap": {
+            "title": "Read past Seek's 540-result cap",
+            "type": "boolean",
+            "description": "The sites return at most 540 jobs per search. On: a bigger search is split by work type, arrangement and category so every job can be read. Only used when you ask for more than 540.",
+            "default": true
+        },
+        "onlyNew": {
+            "title": "Only jobs not returned before",
+            "type": "boolean",
+            "description": "On: each run returns only jobs earlier runs with the same search have not. For daily alerts on a schedule.",
+            "default": false
+        },
+        "maxJobsPerSearch": {
+            "title": "Max jobs per keyword",
+            "type": "integer",
+            "description": "Per keyword (and per category, work type or arrangement combination).",
+            "default": 1000,
+            "prefill": 50,
+            "minimum": 1,
+            "maximum": 50000
+        },
+        "maxJobs": {
+            "title": "Max jobs in total",
+            "type": "integer",
+            "description": "Stop the run after this many jobs.",
+            "default": 2000,
+            "prefill": 100,
+            "minimum": 1,
+            "maximum": 100000
+        }
+    }
+}
