@@ -104,11 +104,16 @@ for (const raw of listOf(companies)) {
     if (/^https?:\/\//i.test(raw)) { unresolved.push({ input: raw, reason: 'not a Workday career-site URL (expected *.myworkdayjobs.com or wdN.myworkdaysite.com)' }); continue; }
     const q = norm(raw);
     const exact = DIRECTORY.filter((d) => norm(d.tenant) === q);
-    const loose = exact.length ? exact : DIRECTORY.filter((d) => norm(d.tenant).startsWith(q) || norm(d.site).includes(q));
+    // Workday tenant ids are often not the company name (Bank of America is
+    // "ghr"), so the employer name the directory recorded is matched too.
+    const byName = DIRECTORY.filter((d) => d.name && norm(String(d.name).replace(/^\d+\s+/, '')).startsWith(q));
+    const loose = exact.length ? exact : byName.length ? byName : DIRECTORY.filter((d) => norm(d.tenant).startsWith(q) || norm(d.site).includes(q));
     if (!loose.length) { unresolved.push({ input: raw, reason: 'not in the directory; pass the career-site URL instead' }); continue; }
     // Directory is sorted busiest site first within a tenant.
-    const tenant = loose[0].tenant;
-    addSite(loose.find((d) => d.tenant === tenant), raw);
+    // The busiest matching site, so a name shared by a tenant's campus or
+    // internal board resolves to its main public one.
+    const best = loose.slice().sort((x, y) => (y.jobs || 0) - (x.jobs || 0))[0];
+    addSite(best, raw);
 }
 
 if (!sites.size) {
