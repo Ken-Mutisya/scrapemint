@@ -103,6 +103,7 @@ No start fee. A run that returns no jobs is free.
 
 ## Notes
 
+- For Malaysia, Singapore, the Philippines, Indonesia, Hong Kong and Thailand, see [JobStreet & JobsDB Jobs Scraper](https://apify.com/scrapemint/jobstreet-jobsdb-scraper), built on the same stack.
 - `salaryIncludesSuper` is `true` for "incl. super" or "package", `false` for "+ super", and `null` when the label does not say.
 - Featured (paid) listings appear where Seek places them in the results; `isFeatured` marks them.
 - Splitting only runs when you ask for more than 540 jobs; a smaller run reads Seek's own top results in order.
