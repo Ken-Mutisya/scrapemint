@@ -129,7 +129,7 @@ SECTIONS = [
         "viator-tours-tracker", "public-holidays-finder",
     ]),
     ("Ecommerce & retail", [
-        "ecommerce-scraper", "shopify-store-products-scraper", "shopify-price-monitor",
+        "shopify-store-products-scraper", "shopify-price-monitor",
         "app-store-top-charts-tracker", "car-fuel-economy-scraper",
     ]),
     ("Developer & security tools", [
@@ -144,7 +144,7 @@ SECTIONS = [
         "saas-outage-monitor", "website-change-monitor", "website-tech-stack-detector", "company-logo-scraper",
     ]),
     ("Web utilities & lookups", [
-        "website-content-scraper", "website-history-checker", "domain-intelligence",
+        "website-content-scraper", "website-history-checker",
         "domain-whois-checker", "dns-records-checker", "ssl-subdomain-finder",
         "lookalike-domain-finder", "ip-address-lookup", "email-list-checker",
         "phone-number-checker", "postal-code-checker", "us-address-checker", "vat-number-checker",

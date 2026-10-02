@@ -87,16 +87,15 @@ cost is small, but a price change needs the 14-day notice.
   7 TIMED-OUT in its 30-day public stats. It is in `oct-1-slugs.txt`, so it
   was deliberately not touched on 09-30; re-check after the 10-01 push.
 
-- **`ecommerce-scraper` deletes itself on 2026-09-24.** On track, nothing to do.
-  Its FREE notice is scheduled and the launchd job is loaded and running daily at
-  10:00; its log reads `ecommerce-scraper -> FREE already scheduled, waiting for
-  it to take effect`. Its `UNDER_MAINTENANCE` flag is the retirement notice, not
-  a fault -- 30-day stats are 39/39 SUCCEEDED.
-- **`website-change-monitor`: decide on/after 2026-10-01.** Fix shipped in build
-  0.1.6 on 2026-09-09 and the one post-fix run SUCCEEDED, but its 30-day window
-  still holds 16 pre-fix TIMED-OUTs, which is why it still shows
-  `UNDER_MAINTENANCE`. Already `isDeprecated`. Costs ~$0.01/month, so there is no
-  hurry. If still 0-for-N by then, retire it.
+- **Retirements (2026-10-02).** `ecommerce-scraper` and `domain-intelligence`
+  are deleted. `tripadvisor-scraper` and `website-change-monitor` were approved
+  for retirement the same day; their FREE notice takes effect **2026-10-17**,
+  and `retire-dead-actors` deletes them on its first run after that. That job
+  runs from `~/Library/Application Support/scrapemint/` at 10:00, but its log
+  showed no run between 09-17 and 10-02 (the Mac was off or asleep at 10:00),
+  which is why `ecommerce-scraper` outlived its 09-24 date. On or after 10-17,
+  if they still exist, run it by hand:
+  `python3 "$HOME/Library/Application Support/scrapemint/retire-dead-actors.py"`.
 - **The watchdog gap is not specific to these two actors.** The same
   in-handler-only soft deadline is in ~157 actors, including
   `linkedin-jobs-scraper`, `flight-price-tracker` and

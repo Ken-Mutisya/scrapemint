@@ -19,7 +19,7 @@ flowchart LR
 
 <!-- CATALOG:START -->
 
-There are **251** actors live right now, and a new one ships every few days.
+There are **249** actors live right now, and a new one ships every few days.
 
 ### Lead generation
 
@@ -274,7 +274,6 @@ There are **251** actors live right now, and a new one ships every few days.
 
 ### Ecommerce & retail
 
-- [Ecommerce Intelligence Pro: Multi Marketplace Product Monitor](https://apify.com/scrapemint/ecommerce-scraper)
 - [Shopify Store Products Scraper: Full Catalog, Prices, Stock](https://apify.com/scrapemint/shopify-store-products-scraper)
 - [Shopify Price & Stock Monitor: Change Alerts Any Store](https://apify.com/scrapemint/shopify-price-monitor)
 - [App Store Top Charts Tracker: Ranks by Country & Category](https://apify.com/scrapemint/app-store-top-charts-tracker)
@@ -311,7 +310,6 @@ There are **251** actors live right now, and a new one ships every few days.
 
 - [Website Content Scraper: Clean Markdown for AI and RAG](https://apify.com/scrapemint/website-content-scraper)
 - [Website History Checker (Wayback Machine)](https://apify.com/scrapemint/website-history-checker)
-- [Domain Intelligence: WHOIS + DNS Bulk Lookup](https://apify.com/scrapemint/domain-intelligence)
 - [Domain WHOIS & Age Checker: Bulk RDAP Registration Data](https://apify.com/scrapemint/domain-whois-checker)
 - [DNS Records Checker: Full DNS Report for Any Domain](https://apify.com/scrapemint/dns-records-checker)
 - [SSL Certificate & Subdomain Finder for Any Website](https://apify.com/scrapemint/ssl-subdomain-finder)
