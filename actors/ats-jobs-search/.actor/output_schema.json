@@ -1,0 +1,20 @@
+{
+    "actorOutputSchemaVersion": 1,
+    "title": "Jobs",
+    "description": "One row per job from a company's own career site, in one shape whatever the ATS.",
+    "type": "object",
+    "properties": {
+        "jobs": {
+            "type": "string",
+            "title": "Jobs",
+            "description": "ATS, company, title, department, location, country, remote, workplace type, employment type, posted date, salary min/max/currency/period, description, URL and apply URL.",
+            "template": "{{links.apiDefaultDatasetUrl}}/items"
+        },
+        "summary": {
+            "type": "string",
+            "title": "Run summary",
+            "description": "Boards read, jobs listed and returned per platform, companies that matched, and any input that could not be resolved.",
+            "template": "{{links.apiDefaultKeyValueStoreUrl}}/records/SUMMARY"
+        }
+    }
+}

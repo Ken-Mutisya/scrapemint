@@ -44,6 +44,10 @@
   "seoDescription": "Resolve target companies on Greenhouse and Lever for live hiring signals: open roles, departments, locations and senior postings per company.",
   "seoTitle": "Greenhouse & Lever Job Board API: Hiring Data"
  },
+ "ats-jobs-search": {
+  "seoDescription": "Search jobs live from 10,000+ company career sites on Workday, Greenhouse, Lever, Ashby, SmartRecruiters, Workable and more: salary, remote, apply link.",
+  "seoTitle": "Career Site Jobs API: Workday, Greenhouse, Lever +5"
+ },
  "australia-economic-data": {
   "seoDescription": "Mean dwelling price by state, consumer price inflation and wage growth from the Australian Bureau of Statistics, quarterly with full history.",
   "seoTitle": "Australia Economic Data: House Prices, CPI"

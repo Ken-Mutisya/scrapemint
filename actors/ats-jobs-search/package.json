@@ -1,0 +1,17 @@
+{
+    "name": "ats-jobs-search",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "One live job search across the career sites of thousands of companies on Workday, Greenhouse, Lever, Ashby, SmartRecruiters, Workable, Recruitee and Personio. Keyless, no browser, no proxy.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js",
+        "build-directory": "node scripts/build-directory.mjs"
+    },
+    "dependencies": {
+        "apify": "^3.7.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}

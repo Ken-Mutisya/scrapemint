@@ -1,0 +1,16 @@
+{
+    "actorSpecification": 1,
+    "name": "ats-jobs-search",
+    "title": "Career Site Jobs Search: Workday, Greenhouse, Lever +5",
+    "description": "Search jobs straight from company career sites: Workday, Greenhouse, Lever, Ashby, SmartRecruiters, Workable, Recruitee and Personio in one query. Live at run time, not a stale database. Full description, salary, remote flag, posted date, apply link. Schedule it for new-job alerts. No key, no proxy.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "output": "./output_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "JOBS",
+        "LEAD_GENERATION"
+    ],
+    "readme": "../README.md"
+}

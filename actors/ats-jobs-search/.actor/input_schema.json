@@ -1,0 +1,96 @@
+{
+    "title": "ATS Jobs Search input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "searchText": {
+            "title": "Keyword",
+            "type": "string",
+            "description": "Job title words, e.g. data engineer, product designer, nurse. With no companies listed, the search runs across every company in the directories.",
+            "editor": "textfield",
+            "prefill": "data engineer",
+            "default": "",
+            "sectionCaption": "What to find"
+        },
+        "strictKeyword": {
+            "title": "Every keyword word must be in the title",
+            "type": "boolean",
+            "description": "On: keep a job only when every word of the keyword starts a word in its title (\"engineer\" matches Engineering). Off: take each ATS's own matches, which are loose on Workday and SmartRecruiters.",
+            "default": true
+        },
+        "matchDescription": {
+            "title": "Also match the keyword in the description",
+            "type": "boolean",
+            "description": "Keep a job whose description has every keyword word even when its title does not, e.g. a skill like Python or Kubernetes. Slower on Greenhouse, Workday, SmartRecruiters and Workable, which need one extra call per job.",
+            "default": false
+        },
+        "postedWithinDays": {
+            "title": "Posted within (days)",
+            "type": "integer",
+            "description": "Only jobs posted in the last N days. 0 for any age.",
+            "default": 0,
+            "prefill": 7,
+            "minimum": 0,
+            "maximum": 365
+        },
+        "locations": {
+            "title": "Locations",
+            "type": "array",
+            "description": "Keep jobs whose location contains one of these, e.g. New York, Germany, London, Remote.",
+            "editor": "stringList",
+            "default": []
+        },
+        "remoteOnly": {
+            "title": "Remote only",
+            "type": "boolean",
+            "description": "Only jobs marked remote.",
+            "default": false
+        },
+        "platforms": {
+            "title": "Platforms",
+            "type": "array",
+            "description": "Limit to some of: workday, greenhouse, lever, ashby, smartrecruiters, workable, recruitee, personio. Empty for all eight.",
+            "editor": "stringList",
+            "default": [],
+            "sectionCaption": "Where to look"
+        },
+        "companies": {
+            "title": "Companies (optional)",
+            "type": "array",
+            "description": "Limit the search to these companies: names (stripe, nvidia), career-site URLs on any supported ATS, or tokens like greenhouse:stripe. Empty searches every company in the directories.",
+            "editor": "stringList",
+            "default": []
+        },
+        "includeDescription": {
+            "title": "Full description",
+            "type": "boolean",
+            "description": "On: each job's full description, plus salary parsed from it where the ATS has no salary field. Off: no description, half the price.",
+            "default": true,
+            "sectionCaption": "Output"
+        },
+        "onlyNew": {
+            "title": "Only jobs not returned before",
+            "type": "boolean",
+            "description": "On: each run returns only jobs earlier runs with the same search have not. For alerts on a schedule.",
+            "default": false
+        },
+        "maxJobsPerCompany": {
+            "title": "Max jobs per company",
+            "type": "integer",
+            "description": "Newest first. Keeps one big employer from filling the run.",
+            "default": 100,
+            "prefill": 10,
+            "minimum": 1,
+            "maximum": 10000
+        },
+        "maxJobs": {
+            "title": "Max jobs in total",
+            "type": "integer",
+            "description": "Stop the run after this many jobs.",
+            "default": 500,
+            "prefill": 100,
+            "minimum": 1,
+            "maximum": 100000
+        }
+    }
+}
