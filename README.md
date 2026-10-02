@@ -19,7 +19,7 @@ flowchart LR
 
 <!-- CATALOG:START -->
 
-There are **250** actors live right now, and a new one ships every few days.
+There are **251** actors live right now, and a new one ships every few days.
 
 ### Lead generation
 
@@ -177,6 +177,7 @@ There are **250** actors live right now, and a new one ships every few days.
 - [LinkedIn Job Market Trend Intelligence](https://apify.com/scrapemint/linkedin-job-market-trend-scraper)
 - [Indeed Hiring Tracker Pro: Salaries and Company Intel](https://apify.com/scrapemint/indeed-jobs-scraper)
 - [Layoff Tracker: WARN Notices from 7 States](https://apify.com/scrapemint/layoff-warn-tracker)
+- [Career Site Jobs Search: Workday, Greenhouse, Lever +5](https://apify.com/scrapemint/ats-jobs-search)
 - [Workday Jobs Scraper: Any Company, Past the 2,000 Cap](https://apify.com/scrapemint/workday-jobs-scraper)
 - [Greenhouse, Lever & Ashby Jobs Scraper: Any Company](https://apify.com/scrapemint/company-job-openings-scraper)
 - [Remote Jobs Scraper: RemoteOK, Remotive, WeWorkRemotely](https://apify.com/scrapemint/remote-jobs-scraper)
