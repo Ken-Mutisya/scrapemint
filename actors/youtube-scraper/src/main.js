@@ -18,6 +18,7 @@
 
 import { Actor, log } from 'apify';
 import { PlaywrightCrawler } from 'crawlee';
+import { ProxyAgent } from 'undici';
 
 const YT_HOST = 'https://www.youtube.com';
 
@@ -553,7 +554,9 @@ async function handleWatch({ page, request, crawler: c }) {
         // it is not the row the pricing description promises.
         const card = request.userData.card;
         if (card && card.title) {
-            await Actor.pushData(assembleCardOnlyRow(videoId, card));
+            const cardRow = assembleCardOnlyRow(videoId, card);
+            try { await enrichCardOnlyRow(cardRow, videoId); } catch (err) { log.debug(`enrich ${videoId}: ${err?.message}`); }
+            await Actor.pushData(cardRow);
             seenVideoIds.add(videoId);
             partialRows += 1;
             // Billed as video_row_partial, not video_row: it is real data the
@@ -1196,21 +1199,61 @@ function sleepMs(ms) {
 // fails "Precondition check failed" in a headless browser. The iOS app's player
 // response carries caption URLs that still answer without one (checked
 // 2026-10-01; the ANDROID_VR, TVHTML5, MWEB and embedded clients were refused).
-// Tried first, from Node with no browser; the old paths stay as fallbacks.
-// The client constants live inside the function: it runs while top-level code
-// is still parked on crawler.run(), so module-level consts down here are in TDZ.
-async function fetchTranscriptViaIos(videoId, prefs) {
+//
+// From Apify's own IPs that call is bot-walled (200/200 LOGIN_REQUIRED, 10-02),
+// and through the datacenter proxy 15 of 20 were. Through the residential proxy
+// 20/20 returned metadata and transcripts for ~37 KB a video, about $0.0003, so
+// the call goes residential first, then the run's own proxy, then direct.
+//
+// State hangs off the function objects: they run while top-level code is still
+// parked on crawler.run(), so module-level declarations down here are in TDZ.
+async function iosDispatcher() {
+    const st = (iosDispatcher.state ||= { configs: null });
+    if (!st.configs) {
+        st.configs = [];
+        try { st.configs.push(await Actor.createProxyConfiguration({ groups: ['RESIDENTIAL'], countryCode: region || 'US' })); } catch (err) {
+            log.debug(`residential proxy unavailable: ${err?.message}`);
+        }
+        if (proxyConfiguration) st.configs.push(proxyConfiguration);
+        st.configs.push(null);
+    }
+    return st.configs;
+}
+
+async function iosPlayer(videoId) {
+    const cache = (iosPlayer.cache ||= new Map());
+    if (cache.has(videoId)) return cache.get(videoId);
     const IOS_CLIENT = { clientName: 'IOS', clientVersion: '20.10.4', deviceMake: 'Apple', deviceModel: 'iPhone16,2', osName: 'iPhone', osVersion: '18.3.2.22D82' };
     const IOS_UA = 'com.google.ios.youtube/20.10.4 (iPhone16,2; U; CPU iOS 18_3_2 like Mac OS X;)';
+    let result = null;
+    for (const cfg of await iosDispatcher()) {
+        try {
+            const dispatcher = cfg ? new ProxyAgent(await cfg.newUrl(`ios${Math.random().toString(36).slice(2, 10)}`)) : undefined;
+            const res = await fetch('https://www.youtube.com/youtubei/v1/player?prettyPrint=false', {
+                dispatcher,
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'User-Agent': IOS_UA, 'X-YouTube-Client-Name': '5', 'X-YouTube-Client-Version': IOS_CLIENT.clientVersion },
+                body: JSON.stringify({ context: { client: { ...IOS_CLIENT, hl: language, gl: region } }, videoId, contentCheckOk: true, racyCheckOk: true }),
+                signal: AbortSignal.timeout(20_000),
+            });
+            if (!res.ok) continue;
+            const j = await res.json();
+            if (j.playabilityStatus?.status !== 'OK' || !j.videoDetails) continue;
+            result = { json: j, dispatcher, ua: IOS_UA };
+            break;
+        } catch (err) {
+            log.debug(`iOS player for ${videoId}: ${err?.message}`);
+        }
+    }
+    cache.set(videoId, result);
+    return result;
+}
+
+async function fetchTranscriptViaIos(videoId, prefs) {
     try {
-        const res = await fetch('https://www.youtube.com/youtubei/v1/player?prettyPrint=false', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json', 'User-Agent': IOS_UA, 'X-YouTube-Client-Name': '5', 'X-YouTube-Client-Version': IOS_CLIENT.clientVersion },
-            body: JSON.stringify({ context: { client: { ...IOS_CLIENT, hl: language, gl: region } }, videoId, contentCheckOk: true, racyCheckOk: true }),
-            signal: AbortSignal.timeout(20_000),
-        });
-        if (!res.ok) return null;
-        const tracks = (await res.json()).captions?.playerCaptionsTracklistRenderer?.captionTracks || [];
+        const p = await iosPlayer(videoId);
+        if (!p) return null;
+        const tracks = p.json.captions?.playerCaptionsTracklistRenderer?.captionTracks || [];
         let pick = null;
         for (const lang of prefs) {
             pick = tracks.find((t) => t.languageCode === lang) || null;
@@ -1218,7 +1261,7 @@ async function fetchTranscriptViaIos(videoId, prefs) {
         }
         if (!pick) pick = tracks[0];
         if (!pick?.baseUrl) return null;
-        const cap = await fetch(`${pick.baseUrl}&fmt=json3`, { headers: { 'User-Agent': IOS_UA }, signal: AbortSignal.timeout(20_000) });
+        const cap = await fetch(`${pick.baseUrl}&fmt=json3`, { dispatcher: p.dispatcher, headers: { 'User-Agent': p.ua }, signal: AbortSignal.timeout(20_000) });
         if (!cap.ok) return null;
         const segments = parseJsonTranscript(await cap.text());
         if (segments.length === 0) return null;
@@ -1233,6 +1276,28 @@ async function fetchTranscriptViaIos(videoId, prefs) {
         log.debug(`iOS transcript for ${videoId}: ${err?.message}`);
         return null;
     }
+}
+
+// A card-only row (the watch page served no player data) is filled in from the
+// iOS player response: full description, keywords, exact views and duration,
+// and the transcript when asked for. Likes and comment count are not in that
+// response, so the row stays partial and is still billed at the partial rate.
+async function enrichCardOnlyRow(row, videoId) {
+    const p = await iosPlayer(videoId);
+    const v = p?.json?.videoDetails;
+    if (!v) return false;
+    row.title = v.title || row.title;
+    row.description = v.shortDescription || row.description;
+    row.keywords = Array.isArray(v.keywords) ? v.keywords : row.keywords;
+    if (v.lengthSeconds) { row.durationSeconds = Number(v.lengthSeconds); row.durationText = secondsToHHMMSS(row.durationSeconds); }
+    if (v.viewCount) row.engagement.viewCount = Number(v.viewCount);
+    row.channel.channelId = v.channelId || row.channel.channelId;
+    row.channel.name = v.author || row.channel.name;
+    if (v.isLiveContent) row.type = row.type === 'short' ? 'short' : 'live';
+    if (extractTranscript) row.transcript = await fetchTranscriptViaIos(videoId, transcriptLanguages);
+    row.partial = 'card-plus-app-api';
+    row.partialReason = 'The watch page returned no player data, so this row comes from the listing card and YouTube\'s app API. Title, channel, full description, keywords, duration, view count and (when asked) transcript are present; likes and comment count are not. Billed at the lower partial rate.';
+    return true;
 }
 
 async function fetchTranscript(page, captionTracks, prefs, videoId) {
