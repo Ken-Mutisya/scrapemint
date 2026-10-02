@@ -1,0 +1,16 @@
+{
+    "name": "seek-jobs-scraper",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Seek jobs in Australia and New Zealand with parsed salary, remote/hybrid flag and full descriptions, past Seek's 540-result cap. Keyless, no browser, no proxy.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}

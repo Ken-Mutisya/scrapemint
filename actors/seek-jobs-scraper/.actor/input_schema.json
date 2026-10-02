@@ -1,0 +1,135 @@
+{
+    "title": "Seek Jobs Scraper input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "searchTerms": {
+            "title": "Keywords",
+            "type": "array",
+            "editor": "stringList",
+            "description": "Job titles or keywords, e.g. data engineer, nurse, electrician. Each is its own search. Empty searches all jobs matching the filters.",
+            "prefill": [
+                "data engineer"
+            ],
+            "default": [],
+            "sectionCaption": "What to find"
+        },
+        "country": {
+            "title": "Country",
+            "type": "string",
+            "editor": "select",
+            "enum": [
+                "AU",
+                "NZ"
+            ],
+            "enumTitles": [
+                "Australia (seek.com.au)",
+                "New Zealand (seek.co.nz)"
+            ],
+            "description": "Which Seek site to search.",
+            "default": "AU"
+        },
+        "location": {
+            "title": "Location",
+            "type": "string",
+            "editor": "textfield",
+            "description": "As written on Seek: a city or area (Sydney NSW, Melbourne VIC, Brisbane QLD), a state (New South Wales NSW, Victoria VIC), or for New Zealand a region (All Auckland, All Wellington). Empty for the whole country.",
+            "default": ""
+        },
+        "categories": {
+            "title": "Categories",
+            "type": "array",
+            "editor": "stringList",
+            "description": "Seek categories, e.g. Accounting, Administration & Office Support, Advertising, Arts & Media, Banking & Financial Services, Call Centre & Customer Service, CEO & General Management… (all 30 are accepted, or Seek's numeric ids). Empty for all.",
+            "default": []
+        },
+        "workTypes": {
+            "title": "Work types",
+            "type": "array",
+            "editor": "stringList",
+            "description": "Any of: full time, part time, contract, casual. Empty for all.",
+            "default": []
+        },
+        "workArrangements": {
+            "title": "Work arrangements",
+            "type": "array",
+            "editor": "stringList",
+            "description": "Any of: on-site, hybrid, remote. Empty for all.",
+            "default": []
+        },
+        "minSalary": {
+            "title": "Minimum annual salary",
+            "type": "integer",
+            "description": "Seek's own salary filter, annual, in AUD or NZD. 0 for no minimum.",
+            "default": 0,
+            "minimum": 0
+        },
+        "maxSalary": {
+            "title": "Maximum annual salary",
+            "type": "integer",
+            "description": "0 for no maximum.",
+            "default": 0,
+            "minimum": 0
+        },
+        "postedWithinDays": {
+            "title": "Listed within (days)",
+            "type": "integer",
+            "description": "Only jobs listed in the last N days (up to 31). 0 for any age.",
+            "default": 0,
+            "minimum": 0,
+            "maximum": 31
+        },
+        "sortBy": {
+            "title": "Sort",
+            "type": "string",
+            "editor": "select",
+            "enum": [
+                "relevance",
+                "date"
+            ],
+            "enumTitles": [
+                "Most relevant",
+                "Newest first"
+            ],
+            "description": "Seek's own ordering.",
+            "default": "relevance"
+        },
+        "includeDescription": {
+            "title": "Full description",
+            "type": "boolean",
+            "description": "On: each job's full description (one extra call per job). Off: listing fields only, cheaper.",
+            "default": true,
+            "sectionCaption": "Output"
+        },
+        "splitPastCap": {
+            "title": "Read past Seek's 540-result cap",
+            "type": "boolean",
+            "description": "Seek returns at most 540 jobs per search. On: a bigger search is split by state, work type and arrangement so every job can be read. Only used when you ask for more than 540.",
+            "default": true
+        },
+        "onlyNew": {
+            "title": "Only jobs not returned before",
+            "type": "boolean",
+            "description": "On: each run returns only jobs earlier runs with the same search have not. For daily alerts on a schedule.",
+            "default": false
+        },
+        "maxJobsPerSearch": {
+            "title": "Max jobs per keyword",
+            "type": "integer",
+            "description": "Per keyword (and per category, work type or arrangement combination).",
+            "default": 1000,
+            "prefill": 50,
+            "minimum": 1,
+            "maximum": 50000
+        },
+        "maxJobs": {
+            "title": "Max jobs in total",
+            "type": "integer",
+            "description": "Stop the run after this many jobs.",
+            "default": 2000,
+            "prefill": 100,
+            "minimum": 1,
+            "maximum": 100000
+        }
+    }
+}

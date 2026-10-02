@@ -695,6 +695,10 @@
   "seoDescription": "Companies where insiders buy on the open market AND file material 8-K catalysts, joined on issuer CIK and scored 0-100 by conviction.",
   "seoTitle": "Insider Buying + 8-K Catalyst Conviction Score"
  },
+ "seek-jobs-scraper": {
+  "seoDescription": "Seek jobs in Australia and New Zealand: salary parsed to min, max and period, remote or hybrid, category, full description. Past Seek's 540 cap.",
+  "seoTitle": "Seek Jobs API: Australia & NZ Jobs, Salary, Remote"
+ },
  "seo-site-audit-scraper": {
   "seoDescription": "Crawl any site for an audit row per page: title and meta checks, H1s, canonical, noindex, redirect chains, broken links and alt coverage.",
   "seoTitle": "SEO Site Audit API: On-Page Issues per URL"
