@@ -88,8 +88,9 @@ cost is small, but a price change needs the 14-day notice.
   was deliberately not touched on 09-30; re-check after the 10-01 push.
 
 - **Retirements (2026-10-02).** `ecommerce-scraper` and `domain-intelligence`
-  are deleted. `tripadvisor-scraper` and `website-change-monitor` were approved
-  for retirement the same day; their FREE notice takes effect **2026-10-17**,
+  are deleted. `tripadvisor-scraper`, `website-change-monitor`, `email-list-checker`,
+  `imf-economic-forecasts` and `newly-registered-domain-leads` were approved
+  for retirement the same day (the last three with their local source removed); their FREE notice takes effect **2026-10-17**,
   and `retire-dead-actors` deletes them on its first run after that. That job
   runs from `~/Library/Application Support/scrapemint/` at 10:00, but its log
   showed no run between 09-17 and 10-02 (the Mac was off or asleep at 10:00),
