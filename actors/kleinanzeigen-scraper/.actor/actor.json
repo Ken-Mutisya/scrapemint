@@ -1,0 +1,16 @@
+{
+    "actorSpecification": 1,
+    "name": "kleinanzeigen-scraper",
+    "title": "Kleinanzeigen Scraper: Listings, Prices & Sellers",
+    "description": "Kleinanzeigen.de (ex eBay Kleinanzeigen) listings from any search: title, price, VB or fixed, postcode and city, posting date, shipping, PRO shops, photos, plus optional full description, attributes and seller profile. Paste a search URL or set keyword and city. Past the 1,250 cap. $0.001 per ad.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "output": "./output_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "ECOMMERCE",
+        "LEAD_GENERATION"
+    ],
+    "readme": "../README.md"
+}

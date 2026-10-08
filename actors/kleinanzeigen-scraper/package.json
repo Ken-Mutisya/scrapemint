@@ -1,0 +1,16 @@
+{
+    "name": "kleinanzeigen-scraper",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Kleinanzeigen.de (ex eBay Kleinanzeigen) listings from any search: title, price and price type, postcode and city, date, shipping, PRO sellers, photos, and optional full description, attributes and seller profile. Keyless, no browser, no proxy.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}

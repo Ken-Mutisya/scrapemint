@@ -1,0 +1,21 @@
+{
+    "_note": "New actor, first pricing entry. Market (2026-10-09): memo23/kleinanzeigen-search-scraper-ppe $0.0015 per item + $0.005 start (105 monthly users), beatanalytics/kleinanzeigen-scraper $0.0015 per item (61), clearpath/immobilien-export-pro (20). listing $0.001 from search pages (25 per request); listing_detail $0.0025 with the ad page read. No start fee. No proxy: search and ad pages answered Apify IPs 5/5 in the 2026-10-09 probe.",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~kleinanzeigen-scraper?token=APIFY_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "listing": {
+                "eventTitle": "Ad",
+                "eventDescription": "One Kleinanzeigen ad with title, price and price type, original price, postcode and city, posting date, description preview, shipping and direct-buy flags, PRO shop name, photo count, image and URL. A search with no results is free.",
+                "eventPriceUsd": 0.001,
+                "isPrimaryEvent": true
+            },
+            "listing_detail": {
+                "eventTitle": "Ad with details",
+                "eventDescription": "The same ad plus its full description, attributes, all photos, shipping, state, and the seller's name, type, active-since date, ads online and badges, read from the ad page. Only with Full description on; charged instead of Ad, not on top of it.",
+                "eventPriceUsd": 0.0025
+            }
+        }
+    },
+    "startedAt": "2026-10-08T22:00:00.000Z"
+}

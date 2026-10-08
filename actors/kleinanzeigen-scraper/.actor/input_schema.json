@@ -1,0 +1,102 @@
+{
+    "title": "Kleinanzeigen Scraper input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "searchUrls": {
+            "title": "Kleinanzeigen search URLs",
+            "type": "array",
+            "description": "Search result pages copied from kleinanzeigen.de with any filters set on the site (category, city and radius, price, private or commercial, category attributes...). Each URL is one search.",
+            "editor": "stringList",
+            "default": [],
+            "sectionCaption": "Search by URL"
+        },
+        "queries": {
+            "title": "Keywords",
+            "type": "array",
+            "description": "Or build searches here. One search per keyword, e.g. fahrrad, iphone 15, wohnung, playstation 5.",
+            "editor": "stringList",
+            "prefill": [
+                "fahrrad"
+            ],
+            "default": [],
+            "sectionCaption": "Or build a search"
+        },
+        "location": {
+            "title": "City or postcode",
+            "type": "string",
+            "editor": "textfield",
+            "description": "Optional, e.g. Berlin, München, 50667. Empty searches all of Germany.",
+            "default": ""
+        },
+        "radiusKm": {
+            "title": "Radius (km)",
+            "type": "integer",
+            "description": "Used with a city or postcode. Kleinanzeigen offers 5, 10, 20, 30, 50, 100, 150 and 200; other values are rounded up.",
+            "default": 20,
+            "minimum": 1,
+            "maximum": 200
+        },
+        "minPrice": {
+            "title": "Min price (EUR)",
+            "type": "integer",
+            "minimum": 0,
+            "description": "Optional."
+        },
+        "maxPrice": {
+            "title": "Max price (EUR)",
+            "type": "integer",
+            "minimum": 0,
+            "description": "Optional."
+        },
+        "sellerType": {
+            "title": "Seller",
+            "type": "string",
+            "editor": "select",
+            "enum": [
+                "",
+                "privat",
+                "gewerblich"
+            ],
+            "enumTitles": [
+                "Any",
+                "Private only",
+                "Commercial only"
+            ],
+            "description": "Private or commercial sellers.",
+            "default": ""
+        },
+        "adType": {
+            "title": "Ad type",
+            "type": "string",
+            "editor": "select",
+            "enum": [
+                "",
+                "angebote",
+                "gesuche"
+            ],
+            "enumTitles": [
+                "Any",
+                "Offers",
+                "Wanted"
+            ],
+            "description": "Offers (Angebote) or wanted ads (Gesuche).",
+            "default": ""
+        },
+        "includeDetails": {
+            "title": "Full description, attributes and seller",
+            "type": "boolean",
+            "description": "Opens each ad for its full description, attributes (condition, type, size...), all photos, shipping, state, and the seller's name, private or commercial, active since, ads online and badges. Slower. $0.0025 per ad instead of $0.001.",
+            "default": false,
+            "sectionCaption": "Output"
+        },
+        "maxItemsPerSearch": {
+            "title": "Max ads per search",
+            "type": "integer",
+            "description": "Newest first. Kleinanzeigen shows 1,250 per search; bigger searches are split by price automatically (ads without a price are then left out).",
+            "minimum": 1,
+            "maximum": 100000,
+            "default": 500
+        }
+    }
+}
