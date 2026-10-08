@@ -77,7 +77,7 @@ SECTIONS = [
     ("Prediction markets, sports & betting", [
         "pinnacle-odds-scraper",
         "polymarket-whale-tracker", "polymarket-market-monitor", "polymarket-scraper", "kalshi-prediction-market-scraper",
-        "prediction-market-odds-comparison", "sports-odds-scraper", "draftkings-odds-tracker",
+        "prediction-market-odds-comparison", "sports-odds-scraper", "tennis-scraper", "draftkings-odds-tracker",
         "sports-injury-tracker",
         "sports-odds-movement-tracker",
         "sportsbook-odds-tracker", "sportsbook-player-props", "sports-futures-odds",
@@ -99,7 +99,7 @@ SECTIONS = [
         "telegram-channel-scraper",
         "substack-newsletter-intelligence", "producthunt-launch-tracker", "hacker-news-scraper",
         "google-news-scraper", "global-news-media-monitor", "rss-feed-scraper",
-        "wikipedia-trends-scraper", "wikipedia-article-data", "music-charts-tracker",
+        "wikipedia-trends-scraper", "wikipedia-article-data", "music-charts-tracker", "spotify-scraper",
         "podcast-charts-tracker", "streaming-availability-scraper", "tv-schedule-scraper",
     ]),
     ("Research, science & patents", [
@@ -124,11 +124,12 @@ SECTIONS = [
         "food-product-data-scraper",
     ]),
     ("Travel & local", [
-        "airbnb-market-intelligence", "flight-price-tracker", "flight-delay-tracker",
+        "airbnb-market-intelligence", "eventbrite-events-scraper", "flight-price-tracker", "flight-delay-tracker",
         "ryanair-cheapest-fares", "tripadvisor-scraper", "tripadvisor-property-rank-tracker",
         "viator-tours-tracker", "public-holidays-finder",
     ]),
     ("Ecommerce & retail", [
+        "craigslist-scraper",
         "shopify-store-products-scraper", "shopify-price-monitor",
         "app-store-top-charts-tracker", "car-fuel-economy-scraper",
     ]),
@@ -141,7 +142,7 @@ SECTIONS = [
     ("SEO & marketing", [
         "google-trends-scraper", "google-keyword-suggestions-scraper",
         "google-ads-transparency-scraper", "seo-site-audit-scraper", "sitemap-change-monitor",
-        "saas-outage-monitor", "website-change-monitor", "website-tech-stack-detector", "company-logo-scraper",
+        "saas-outage-monitor", "website-change-monitor", "website-tech-stack-detector", "website-screenshot-generator", "company-logo-scraper",
     ]),
     ("Web utilities & lookups", [
         "website-content-scraper", "website-history-checker",

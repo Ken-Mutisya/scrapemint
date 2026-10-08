@@ -19,7 +19,7 @@ flowchart LR
 
 <!-- CATALOG:START -->
 
-There are **249** actors live right now, and a new one ships every few days.
+There are **256** actors live right now, and a new one ships every few days.
 
 ### Lead generation
 
@@ -160,6 +160,7 @@ There are **249** actors live right now, and a new one ships every few days.
 - [Kalshi Prediction Market Scraper: Live Event Odds](https://apify.com/scrapemint/kalshi-prediction-market-scraper)
 - [Prediction Market Odds: Kalshi, Polymarket and PredictIt](https://apify.com/scrapemint/prediction-market-odds-comparison)
 - [Betting Odds Comparison: Best Price & Arbitrage Finder](https://apify.com/scrapemint/sports-odds-scraper)
+- [Tennis Scraper: Live Scores, Results, Odds & Stats](https://apify.com/scrapemint/tennis-scraper)
 - [DraftKings Odds: Line Movement, Spreads and Totals](https://apify.com/scrapemint/draftkings-odds-tracker)
 - [Sports Injury Report: Who Is Out and What Just Changed](https://apify.com/scrapemint/sports-injury-tracker)
 - [Sports Odds Movement and Arbitrage Tracker](https://apify.com/scrapemint/sports-odds-movement-tracker)
@@ -178,6 +179,8 @@ There are **249** actors live right now, and a new one ships every few days.
 - [Indeed Hiring Tracker Pro: Salaries and Company Intel](https://apify.com/scrapemint/indeed-jobs-scraper)
 - [Layoff Tracker: WARN Notices from 7 States](https://apify.com/scrapemint/layoff-warn-tracker)
 - [Career Site Jobs Search: Workday, Greenhouse, Lever +5](https://apify.com/scrapemint/ats-jobs-search)
+- [Seek Jobs Scraper: Australia & NZ, Salary, Remote](https://apify.com/scrapemint/seek-jobs-scraper)
+- [JobStreet & JobsDB Jobs Scraper: 6 Asian Markets](https://apify.com/scrapemint/jobstreet-jobsdb-scraper)
 - [Workday Jobs Scraper: Any Company, Past the 2,000 Cap](https://apify.com/scrapemint/workday-jobs-scraper)
 - [Greenhouse, Lever & Ashby Jobs Scraper: Any Company](https://apify.com/scrapemint/company-job-openings-scraper)
 - [Remote Jobs Scraper: RemoteOK, Remotive, WeWorkRemotely](https://apify.com/scrapemint/remote-jobs-scraper)
@@ -209,6 +212,7 @@ There are **249** actors live right now, and a new one ships every few days.
 - [Wikipedia Trends Scraper: Top Articles by Country](https://apify.com/scrapemint/wikipedia-trends-scraper)
 - [Wikipedia Article Data: Summary, Facts & Images](https://apify.com/scrapemint/wikipedia-article-data)
 - [Music Charts Tracker: Apple Music Ranks by Country](https://apify.com/scrapemint/music-charts-tracker)
+- [Spotify Scraper: Play Counts, Monthly Listeners & Stats](https://apify.com/scrapemint/spotify-scraper)
 - [Podcast Charts Tracker: Apple Ranks by Country & Genre](https://apify.com/scrapemint/podcast-charts-tracker)
 - [Streaming Availability Scraper: Where to Watch by Country](https://apify.com/scrapemint/streaming-availability-scraper)
 - [TV Schedule & Shows Scraper](https://apify.com/scrapemint/tv-schedule-scraper)
@@ -264,6 +268,7 @@ There are **249** actors live right now, and a new one ships every few days.
 ### Travel & local
 
 - [Vacation Rental Revenue Estimator & Competitor Intelligence](https://apify.com/scrapemint/airbnb-market-intelligence)
+- [Eventbrite Scraper: Events, Prices & Organizer Leads](https://apify.com/scrapemint/eventbrite-events-scraper)
 - [Flight Price Tracker: Google Flights Fares by Route](https://apify.com/scrapemint/flight-price-tracker)
 - [Flight Delay & Cancellation Tracker](https://apify.com/scrapemint/flight-delay-tracker)
 - [Cheapest Flight Fares: Ryanair One-Way & Round-Trip Prices](https://apify.com/scrapemint/ryanair-cheapest-fares)
@@ -274,6 +279,7 @@ There are **249** actors live right now, and a new one ships every few days.
 
 ### Ecommerce & retail
 
+- [Craigslist Scraper: Listings, Housing, Jobs & Cars](https://apify.com/scrapemint/craigslist-scraper)
 - [Shopify Store Products Scraper: Full Catalog, Prices, Stock](https://apify.com/scrapemint/shopify-store-products-scraper)
 - [Shopify Price & Stock Monitor: Change Alerts Any Store](https://apify.com/scrapemint/shopify-price-monitor)
 - [App Store Top Charts Tracker: Ranks by Country & Category](https://apify.com/scrapemint/app-store-top-charts-tracker)
@@ -304,6 +310,7 @@ There are **249** actors live right now, and a new one ships every few days.
 - [SaaS Outage Monitor: Status Page Incidents for 134 Vendors](https://apify.com/scrapemint/saas-outage-monitor)
 - [Website Change Monitor: Track Page Changes, Pay Per Change](https://apify.com/scrapemint/website-change-monitor)
 - [Website Technology Stack Detector (BuiltWith Alternative)](https://apify.com/scrapemint/website-tech-stack-detector)
+- [Website Screenshot Generator: Bulk, Full Page, Mobile](https://apify.com/scrapemint/website-screenshot-generator)
 - [Company Logo & Brand Asset Scraper](https://apify.com/scrapemint/company-logo-scraper)
 
 ### Web utilities & lookups
