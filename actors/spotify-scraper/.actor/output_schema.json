@@ -1,0 +1,20 @@
+{
+    "actorOutputSchemaVersion": 1,
+    "title": "Spotify data",
+    "description": "Artist, album, track, playlist and playlist-track rows, each with play counts.",
+    "type": "object",
+    "properties": {
+        "results": {
+            "type": "string",
+            "title": "Results",
+            "description": "One row per artist, album, track, playlist or playlist track (rowType tells which).",
+            "template": "{{links.apiDefaultDatasetUrl}}/items"
+        },
+        "summary": {
+            "type": "string",
+            "title": "Run summary",
+            "description": "Row counts by type and anything that failed.",
+            "template": "{{links.apiDefaultKeyValueStoreUrl}}/records/SUMMARY"
+        }
+    }
+}

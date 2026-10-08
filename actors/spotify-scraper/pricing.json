@@ -1,0 +1,21 @@
+{
+    "_note": "New actor, first pricing entry. Market (2026-10-08): beatanalytics/spotify-play-count-scraper $0.004 per item (166 monthly users), automation-lab/spotify-scraper $0.005 + $0.005 start (107), sourabhbgp/spotify-scraper $0.003 (64). artist_profile $0.004 (listeners, rank, cities, bio, socials, top tracks); item_row $0.0015 for album (all tracks' play counts in one row), track, playlist or playlist track. No start fee. No proxy: embed token and pathfinder API answered from Apify IPs in the 2026-10-08 probe.",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~spotify-scraper?token=APIFY_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "artist_profile": {
+                "eventTitle": "Artist profile",
+                "eventDescription": "One artist with monthly listeners, followers, world rank, top cities, biography, social links, related artists, release counts and top tracks with play counts.",
+                "eventPriceUsd": 0.004,
+                "isPrimaryEvent": true
+            },
+            "item_row": {
+                "eventTitle": "Album, track or playlist row",
+                "eventDescription": "One album (with every track's play count), one track, one playlist, or one track on a playlist. Items Spotify does not find are returned free.",
+                "eventPriceUsd": 0.0015
+            }
+        }
+    },
+    "startedAt": "2026-10-07T23:00:00.000Z"
+}

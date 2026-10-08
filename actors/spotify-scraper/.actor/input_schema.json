@@ -1,0 +1,67 @@
+{
+    "title": "Spotify Scraper input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "urls": {
+            "title": "Spotify URLs",
+            "type": "array",
+            "description": "Artist, album, track or playlist links (open.spotify.com/... or spotify:artist:...). Mix freely.",
+            "editor": "stringList",
+            "prefill": ["https://open.spotify.com/artist/3wcj11K77LjEY1PkEazffa", "https://open.spotify.com/playlist/37i9dQZF1DXcBWIGoYBM5M"],
+            "default": [],
+            "sectionCaption": "What to get"
+        },
+        "searchTerms": {
+            "title": "Search",
+            "type": "array",
+            "description": "Names to look up, e.g. Tems, Burna Boy. Each term returns the top match(es) of the type below.",
+            "editor": "stringList",
+            "default": []
+        },
+        "searchType": {
+            "title": "Search for",
+            "type": "string",
+            "editor": "select",
+            "enum": ["artists", "tracks", "albums", "playlists"],
+            "enumTitles": ["Artists", "Tracks", "Albums", "Playlists"],
+            "default": "artists",
+            "description": "What a search term finds."
+        },
+        "maxSearchResults": {
+            "title": "Results per search term",
+            "type": "integer",
+            "description": "1 takes the top match only.",
+            "minimum": 1,
+            "maximum": 50,
+            "default": 1
+        },
+        "includeDiscography": {
+            "title": "Artist discography",
+            "type": "boolean",
+            "description": "For each artist, also return every album, single and compilation with each track's play count (one album row per release).",
+            "default": false,
+            "sectionCaption": "Depth"
+        },
+        "maxReleasesPerArtist": {
+            "title": "Max releases per artist",
+            "type": "integer",
+            "description": "Newest first.",
+            "minimum": 1,
+            "default": 50
+        },
+        "playlistTracks": {
+            "title": "Playlist tracks",
+            "type": "boolean",
+            "description": "Return each track on a playlist as its own row, with position, date added and play count.",
+            "default": true
+        },
+        "maxTracksPerPlaylist": {
+            "title": "Max tracks per playlist",
+            "type": "integer",
+            "minimum": 1,
+            "default": 500,
+            "description": "Stop after this many tracks on each playlist."
+        }
+    }
+}

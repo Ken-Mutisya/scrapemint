@@ -1,0 +1,17 @@
+{
+    "actorSpecification": 1,
+    "name": "spotify-scraper",
+    "title": "Spotify Scraper: Play Counts, Monthly Listeners & Stats",
+    "description": "Spotify play counts for every track, plus artist monthly listeners, followers, world rank, top cities, bio and socials. Artists, albums, tracks and playlists by URL or search, full discographies included. No login, no API key. $0.0015 per item, $0.004 per artist.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "output": "./output_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "SOCIAL_MEDIA",
+        "MARKETING",
+        "FOR_CREATORS"
+    ],
+    "readme": "../README.md"
+}
