@@ -1,0 +1,21 @@
+{
+    "_note": "New actor, first pricing entry. Market (2026-10-08): aitorsm/eventbrite $0.02 per event + $0.015 organizer (82 monthly users), parseforge/eventbrite-scraper $0.0045 + $0.003 organizer + $0.006 start (71), hypebridge/eventbrite-search $0.005 + $0.005 details (41). Organizer website and socials come with every row here at no extra charge. event_row $0.003; event_row_description $0.004 (one extra page fetch). No start fee. No proxy: search API answered from Apify IPs in the 2026-10-08 probe.",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~eventbrite-events-scraper?token=APIFY_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "event_row": {
+                "eventTitle": "Event",
+                "eventDescription": "One Eventbrite event with name, dates, venue and coordinates, ticket price range, sold-out and sales status, category, tags, and the organizer's name, website, Twitter, Facebook and followers. A run with no events is free.",
+                "eventPriceUsd": 0.003,
+                "isPrimaryEvent": true
+            },
+            "event_row_description": {
+                "eventTitle": "Event with full description",
+                "eventDescription": "The same event row plus the full description from the event page. Only with Full description on; charged instead of Event, not on top of it.",
+                "eventPriceUsd": 0.004
+            }
+        }
+    },
+    "startedAt": "2026-10-07T23:00:00.000Z"
+}

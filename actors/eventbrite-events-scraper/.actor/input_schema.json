@@ -1,0 +1,82 @@
+{
+    "title": "Eventbrite Scraper input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "locations": {
+            "title": "Locations",
+            "type": "array",
+            "description": "Cities or regions: New York, London, Austin TX written as \"Austin, TX\", \"Paris, France\", a country like \"Germany\", an Eventbrite /d/... URL, or \"online\" for online events.",
+            "editor": "stringList",
+            "prefill": ["New York, NY"],
+            "default": ["New York, NY"],
+            "sectionCaption": "Search"
+        },
+        "keywords": {
+            "title": "Keywords",
+            "type": "array",
+            "description": "Optional, e.g. startup, AI, yoga, jazz. Each keyword is a separate search. Empty for all events.",
+            "editor": "stringList",
+            "prefill": ["startup"],
+            "default": []
+        },
+        "dateRange": {
+            "title": "When",
+            "type": "string",
+            "editor": "select",
+            "enum": ["future", "today", "tomorrow", "weekend", "week", "next-week", "month"],
+            "enumTitles": ["Any upcoming date", "Today", "Tomorrow", "This weekend", "This week", "Next week", "This month"],
+            "default": "future",
+            "description": "Ignored when start or end date is set."
+        },
+        "startDate": {
+            "title": "Start date",
+            "type": "string",
+            "description": "YYYY-MM-DD. Events on or after this day.",
+            "editor": "datepicker",
+            "default": ""
+        },
+        "endDate": {
+            "title": "End date",
+            "type": "string",
+            "description": "YYYY-MM-DD. Events on or before this day.",
+            "editor": "datepicker",
+            "default": ""
+        },
+        "categories": {
+            "title": "Categories",
+            "type": "array",
+            "description": "Empty for all.",
+            "editor": "select",
+            "items": {
+                "type": "string",
+                "enum": ["business", "technology", "music", "film", "arts", "fashion", "health", "sports", "travel", "food", "charity", "government", "community", "spirituality", "family", "holiday", "home", "auto", "hobbies", "school", "other"],
+                "enumTitles": ["Business & Professional", "Science & Technology", "Music", "Film, Media & Entertainment", "Performing & Visual Arts", "Fashion & Beauty", "Health & Wellness", "Sports & Fitness", "Travel & Outdoor", "Food & Drink", "Charity & Causes", "Government & Politics", "Community & Culture", "Religion & Spirituality", "Family & Education", "Seasonal & Holiday", "Home & Lifestyle", "Auto, Boat & Air", "Hobbies & Special Interest", "School Activities", "Other"]
+            },
+            "default": []
+        },
+        "price": {
+            "title": "Price",
+            "type": "string",
+            "editor": "select",
+            "enum": ["any", "free", "paid"],
+            "enumTitles": ["Any", "Free only", "Paid only"],
+            "default": "any",
+            "description": "Free or paid tickets."
+        },
+        "includeDescription": {
+            "title": "Full description",
+            "type": "boolean",
+            "description": "Reads each event page for the full description (speakers, agenda, details). Slower. $0.004 per event instead of $0.003.",
+            "default": false,
+            "sectionCaption": "Output"
+        },
+        "maxEvents": {
+            "title": "Max events",
+            "type": "integer",
+            "description": "Stop after this many events across all searches. Searches past 1,000 results are split by date automatically.",
+            "minimum": 1,
+            "default": 500
+        }
+    }
+}

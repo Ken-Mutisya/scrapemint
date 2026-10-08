@@ -1,0 +1,17 @@
+{
+    "actorSpecification": 1,
+    "name": "eventbrite-events-scraper",
+    "title": "Eventbrite Scraper: Events, Prices & Organizer Leads",
+    "description": "Eventbrite events for any city or online, by keyword, dates, category and free or paid: name, start and end, venue with coordinates, ticket price range, sold out, category, and the organizer's website, Twitter, Facebook and followers. Past the 1,000-result cap. $0.003 per event.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "output": "./output_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "LEAD_GENERATION",
+        "MARKETING",
+        "TRAVEL"
+    ],
+    "readme": "../README.md"
+}

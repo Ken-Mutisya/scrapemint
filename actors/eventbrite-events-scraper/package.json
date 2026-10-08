@@ -1,0 +1,16 @@
+{
+    "name": "eventbrite-events-scraper",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Eventbrite events by city, keyword, date, category and price, with organizer website and social links. Keyless, no browser, no proxy.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}

@@ -1,0 +1,20 @@
+{
+    "actorOutputSchemaVersion": 1,
+    "title": "Eventbrite events",
+    "description": "One row per event with venue, prices and organizer contact links.",
+    "type": "object",
+    "properties": {
+        "events": {
+            "type": "string",
+            "title": "Events",
+            "description": "Event name, dates, venue, price range, category and organizer website and social links.",
+            "template": "{{links.apiDefaultDatasetUrl}}/items"
+        },
+        "summary": {
+            "type": "string",
+            "title": "Run summary",
+            "description": "Event count and any locations or searches that failed.",
+            "template": "{{links.apiDefaultKeyValueStoreUrl}}/records/SUMMARY"
+        }
+    }
+}
