@@ -1,0 +1,16 @@
+{
+    "actorSpecification": 1,
+    "name": "dice-jobs-scraper",
+    "title": "Dice Jobs Scraper: Tech Jobs, Salary & Skills",
+    "description": "Dice tech jobs from any search: title, company, location, salary split into min and max, full-time or contract, remote or hybrid, visa sponsorship, easy apply, posted date, and optional full description and skills. Paste a Dice URL or set filters. $0.001 per job.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "output": "./output_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "JOBS",
+        "LEAD_GENERATION"
+    ],
+    "readme": "../README.md"
+}
