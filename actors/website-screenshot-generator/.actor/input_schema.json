@@ -1,0 +1,212 @@
+{
+    "title": "Website Screenshot Generator input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "urls": {
+            "title": "URLs",
+            "type": "array",
+            "description": "Pages to capture. https:// is added if missing.",
+            "editor": "stringList",
+            "prefill": [
+                "https://apify.com",
+                "https://www.bbc.com"
+            ],
+            "default": [],
+            "sectionCaption": "Pages"
+        },
+        "devices": {
+            "title": "Devices",
+            "type": "array",
+            "description": "One capture per URL per device.",
+            "editor": "select",
+            "items": {
+                "type": "string",
+                "enum": [
+                    "desktop",
+                    "laptop",
+                    "desktop-hd",
+                    "tablet",
+                    "mobile",
+                    "android"
+                ],
+                "enumTitles": [
+                    "Desktop 1440x900",
+                    "Laptop 1280x800",
+                    "Full HD 1920x1080",
+                    "Tablet (iPad)",
+                    "Phone (iPhone 13)",
+                    "Phone (Pixel 7)"
+                ]
+            },
+            "prefill": [
+                "desktop"
+            ],
+            "default": [
+                "desktop"
+            ]
+        },
+        "customWidth": {
+            "title": "Custom width (px)",
+            "type": "integer",
+            "description": "Adds a custom viewport as an extra device. 0 for none.",
+            "minimum": 0,
+            "maximum": 3840,
+            "default": 0
+        },
+        "customHeight": {
+            "title": "Custom height (px)",
+            "type": "integer",
+            "description": "Height of the custom viewport.",
+            "minimum": 0,
+            "maximum": 2160,
+            "default": 0
+        },
+        "fullPage": {
+            "title": "Full page",
+            "type": "boolean",
+            "description": "On: the whole scrollable page. Off: what fits in the viewport (above the fold).",
+            "default": true,
+            "sectionCaption": "Output"
+        },
+        "format": {
+            "title": "Format",
+            "type": "string",
+            "editor": "select",
+            "enum": [
+                "png",
+                "jpeg",
+                "webp",
+                "pdf"
+            ],
+            "enumTitles": [
+                "PNG",
+                "JPEG",
+                "WebP",
+                "PDF"
+            ],
+            "default": "png",
+            "description": "PDF prints the page as rendered on screen, with backgrounds."
+        },
+        "quality": {
+            "title": "JPEG / WebP quality",
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100,
+            "default": 80,
+            "description": "1-100."
+        },
+        "retina": {
+            "title": "Retina (2x)",
+            "type": "boolean",
+            "description": "Device pixel density: 2x on desktop sizes, the phone or tablet's own density (3x on iPhone) on mobile. Off: images at CSS pixels, smaller and faster.",
+            "default": false
+        },
+        "darkMode": {
+            "title": "Dark mode",
+            "type": "boolean",
+            "description": "Tells the site the visitor prefers a dark color scheme.",
+            "default": false
+        },
+        "elementSelector": {
+            "title": "Capture one element",
+            "type": "string",
+            "description": "CSS selector of a single element to capture instead of the page, e.g. #pricing or header.",
+            "editor": "textfield",
+            "default": ""
+        },
+        "pdfFormat": {
+            "title": "PDF paper size",
+            "type": "string",
+            "editor": "select",
+            "enum": [
+                "A4",
+                "Letter",
+                "Legal",
+                "A3",
+                "Tabloid"
+            ],
+            "default": "A4",
+            "description": "Only used for PDF."
+        },
+        "hideCookieBanners": {
+            "title": "Hide cookie banners and chat widgets",
+            "type": "boolean",
+            "description": "Hides OneTrust, Cookiebot, Usercentrics, Didomi, Quantcast and other consent popups, and Intercom, HubSpot, Drift and similar chat bubbles. Nothing is clicked.",
+            "default": true,
+            "sectionCaption": "Page cleanup"
+        },
+        "blockAds": {
+            "title": "Block ads and trackers",
+            "type": "boolean",
+            "description": "Blocks the main ad networks and trackers, so pages load faster and ad slots stay empty.",
+            "default": true
+        },
+        "hideSelectors": {
+            "title": "Hide these elements",
+            "type": "array",
+            "description": "CSS selectors to hide before capture, e.g. .newsletter-popup.",
+            "editor": "stringList",
+            "default": []
+        },
+        "scrollToBottom": {
+            "title": "Scroll to load lazy images",
+            "type": "boolean",
+            "description": "Scrolls through the page before a full-page capture so lazy-loaded images appear.",
+            "default": true,
+            "sectionCaption": "Loading"
+        },
+        "waitUntil": {
+            "title": "Wait until",
+            "type": "string",
+            "editor": "select",
+            "enum": [
+                "load",
+                "domcontentloaded",
+                "networkidle"
+            ],
+            "enumTitles": [
+                "Page loaded",
+                "HTML ready (fastest)",
+                "Network idle (slowest, most complete)"
+            ],
+            "default": "load",
+            "description": "When the page counts as loaded."
+        },
+        "delayMs": {
+            "title": "Extra delay (ms)",
+            "type": "integer",
+            "description": "Wait this long after loading, for animations or late content. Max 30000.",
+            "minimum": 0,
+            "maximum": 30000,
+            "default": 1000
+        },
+        "maxPageHeight": {
+            "title": "Max page height (px)",
+            "type": "integer",
+            "description": "Full-page captures are cut at this height. Endless feeds would otherwise never finish.",
+            "minimum": 1000,
+            "maximum": 30000,
+            "default": 16000
+        },
+        "concurrency": {
+            "title": "Parallel pages",
+            "type": "integer",
+            "description": "Pages captured at the same time. Lower it for heavy pages.",
+            "minimum": 1,
+            "maximum": 10,
+            "default": 3
+        },
+        "timeoutSecs": {
+            "title": "Page timeout (s)",
+            "type": "integer",
+            "description": "Give up on a page after this long. A failed page is not charged.",
+            "minimum": 10,
+            "maximum": 180,
+            "default": 45
+        }
+    },
+    "required": [
+        "urls"
+    ]
+}

@@ -1,0 +1,20 @@
+{
+    "actorOutputSchemaVersion": 1,
+    "title": "Screenshots",
+    "description": "One row per URL and device with a public link to the image or PDF.",
+    "type": "object",
+    "properties": {
+        "screenshots": {
+            "type": "string",
+            "title": "Screenshots",
+            "description": "URL, device, status code, page title, page size and the screenshotUrl of each capture.",
+            "template": "{{links.apiDefaultDatasetUrl}}/items"
+        },
+        "files": {
+            "type": "string",
+            "title": "Image files",
+            "description": "The key-value store holding every image and PDF.",
+            "template": "{{links.apiDefaultKeyValueStoreUrl}}/keys"
+        }
+    }
+}

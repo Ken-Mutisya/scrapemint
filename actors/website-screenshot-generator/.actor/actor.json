@@ -1,0 +1,17 @@
+{
+    "actorSpecification": 1,
+    "name": "website-screenshot-generator",
+    "title": "Website Screenshot Generator: Bulk, Full Page, Mobile",
+    "description": "Screenshots of any list of URLs: full page or viewport, desktop, laptop, tablet and phone, PNG, JPEG, WebP or PDF. Cookie banners and chat widgets hidden, lazy images loaded, ads blocked, dark mode, retina. Each row has a public image link. $0.003 per screenshot, $0.005 full page.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "output": "./output_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "DEVELOPER_TOOLS",
+        "AUTOMATION",
+        "SEO_TOOLS"
+    ],
+    "readme": "../README.md"
+}

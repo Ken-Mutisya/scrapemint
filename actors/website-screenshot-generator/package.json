@@ -1,0 +1,17 @@
+{
+    "name": "website-screenshot-generator",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Bulk website screenshots: full page or viewport, desktop, tablet and phone, PNG, JPEG, WebP or PDF, cookie banners hidden. No proxy.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0",
+        "playwright": "*"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}

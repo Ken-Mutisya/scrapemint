@@ -1,0 +1,21 @@
+{
+    "_note": "New actor, first pricing entry. Market (2026-10-08): apify/screenshot-url (1,195 monthly users, 3.9 stars, pay for compute only), cheapapi/website-screenshot-api (106), i-scraper/website-screenshot $0.006 per result (46). Measured on platform at 4 GB: above the fold $0.0006 per capture (12 sites), full page $0.0026 (10 heavy sites incl. bbc, stripe, github). So two events: $0.003 viewport or element, $0.005 full page or PDF. Failed loads and 4xx/5xx pages free. No start fee, no proxy.",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~website-screenshot-generator?token=APIFY_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "screenshot": {
+                "eventTitle": "Screenshot (above the fold)",
+                "eventDescription": "One image (PNG, JPEG or WebP) of what fits in the viewport, or of a single element, for one URL on one device, stored with a public link. Pages that fail to load or answer 4xx/5xx are not charged.",
+                "eventPriceUsd": 0.003,
+                "isPrimaryEvent": true
+            },
+            "full_page_screenshot": {
+                "eventTitle": "Full-page screenshot or PDF",
+                "eventDescription": "One image of the whole scrollable page (up to Max page height), or a PDF, for one URL on one device, stored with a public link. Pages that fail to load or answer 4xx/5xx are not charged.",
+                "eventPriceUsd": 0.005
+            }
+        }
+    },
+    "startedAt": "2026-10-08T00:11:04.000Z"
+}
