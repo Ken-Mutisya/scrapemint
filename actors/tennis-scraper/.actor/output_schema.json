@@ -1,0 +1,20 @@
+{
+    "actorOutputSchemaVersion": 1,
+    "title": "Tennis matches",
+    "description": "One row per match with players, status, set scores, odds and (optionally) match stats.",
+    "type": "object",
+    "properties": {
+        "matches": {
+            "type": "string",
+            "title": "Matches",
+            "description": "Match rows: tournament, surface, players, status, winner, set scores with tiebreaks, odds and stats.",
+            "template": "{{links.apiDefaultDatasetUrl}}/items"
+        },
+        "summary": {
+            "type": "string",
+            "title": "Run summary",
+            "description": "Match and stats counts, the date range, and anything that failed.",
+            "template": "{{links.apiDefaultKeyValueStoreUrl}}/records/SUMMARY"
+        }
+    }
+}

@@ -1,0 +1,79 @@
+{
+    "title": "Tennis Scraper input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "dateFrom": {
+            "title": "From date",
+            "type": "string",
+            "description": "YYYY-MM-DD, or today, yesterday, tomorrow, or a day offset like -3 or +2. Live scores and serve stats cover 7 days back to 7 ahead; older dates (back to 2005) return results and closing odds.",
+            "editor": "textfield",
+            "prefill": "today",
+            "default": "today",
+            "sectionCaption": "Dates"
+        },
+        "dateTo": {
+            "title": "To date",
+            "type": "string",
+            "description": "Same formats. Empty means the same day as From. Up to 366 days per run.",
+            "editor": "textfield",
+            "default": ""
+        },
+        "tours": {
+            "title": "Tours",
+            "type": "array",
+            "description": "Which levels to include.",
+            "editor": "select",
+            "items": {
+                "type": "string",
+                "enum": ["atp", "wta", "challenger-men", "challenger-women", "itf-men", "itf-women", "other"],
+                "enumTitles": ["ATP", "WTA", "Challenger (men)", "WTA 125 / Challenger (women)", "ITF men", "ITF women", "Other (team cups, exhibitions, juniors)"]
+            },
+            "prefill": ["atp", "wta"],
+            "default": ["atp", "wta"],
+            "sectionCaption": "Filters"
+        },
+        "includeDoubles": {
+            "title": "Include doubles",
+            "type": "boolean",
+            "description": "Off: singles only.",
+            "default": false
+        },
+        "status": {
+            "title": "Match status",
+            "type": "string",
+            "description": "Live works for today only.",
+            "editor": "select",
+            "enum": ["all", "finished", "scheduled", "live"],
+            "enumTitles": ["All", "Finished (results)", "Scheduled (fixtures)", "Live now"],
+            "default": "all"
+        },
+        "players": {
+            "title": "Players",
+            "type": "array",
+            "description": "Only matches with these players, e.g. Sinner, Alcaraz, Swiatek. Surname is enough. Empty for all.",
+            "editor": "stringList",
+            "default": []
+        },
+        "includeOdds": {
+            "title": "Odds and head-to-head",
+            "type": "boolean",
+            "description": "Average bookmaker odds for each player (closing odds for finished matches), implied probability, favourite, and head-to-head count for fixtures. No extra charge.",
+            "default": true,
+            "sectionCaption": "Extras"
+        },
+        "includeStats": {
+            "title": "Match stats",
+            "type": "boolean",
+            "description": "Aces, double faults, 1st serve %, serve and return points won, break points, winners, unforced errors, per match and per set. Finished and live matches within the last 7 days. +$0.002 per match that has stats.",
+            "default": false
+        },
+        "maxMatches": {
+            "title": "Max matches",
+            "type": "integer",
+            "description": "Stop after this many match rows.",
+            "minimum": 1,
+            "default": 1000
+        }
+    }
+}

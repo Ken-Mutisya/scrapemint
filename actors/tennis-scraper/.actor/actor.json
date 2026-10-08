@@ -1,0 +1,16 @@
+{
+    "actorSpecification": 1,
+    "name": "tennis-scraper",
+    "title": "Tennis Scraper: Live Scores, Results, Odds & Stats",
+    "description": "Tennis matches for any date: live scores, results with set and tiebreak scores, fixtures, closing odds with implied probability, head-to-head and serve stats. ATP, WTA, Challenger, ITF, singles and doubles. History back to 2005. $0.002 per match.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "output": "./output_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "AUTOMATION",
+        "OTHER"
+    ],
+    "readme": "../README.md"
+}
