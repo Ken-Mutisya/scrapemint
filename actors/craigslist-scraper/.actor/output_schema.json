@@ -1,0 +1,20 @@
+{
+    "actorOutputSchemaVersion": 1,
+    "title": "Craigslist listings",
+    "description": "One row per listing.",
+    "type": "object",
+    "properties": {
+        "listings": {
+            "type": "string",
+            "title": "Listings",
+            "description": "Title, price, posted date, category, location and coordinates, housing and job fields, photos, and details when asked for.",
+            "template": "{{links.apiDefaultDatasetUrl}}/items"
+        },
+        "summary": {
+            "type": "string",
+            "title": "Run summary",
+            "description": "Listing counts and any searches that failed.",
+            "template": "{{links.apiDefaultKeyValueStoreUrl}}/records/SUMMARY"
+        }
+    }
+}

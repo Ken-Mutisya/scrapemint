@@ -1,0 +1,21 @@
+{
+    "_note": "New actor, first pricing entry. Market (2026-10-08): solidcode/craigslist-scraper $0.0018 per item (102 monthly users), memo23/craigslist-scraper $0.0015 + $0.007 start + $0.001 details (83), ivanvs pay-per-result $0.006 (28). listing $0.0015 from search data (up to 10,000 per search, past the 360 a page shows); listing_detail $0.003 with the posting page read. No start fee. No proxy: sapi and posting pages answered from Apify IPs in the 2026-10-08 probe.",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~craigslist-scraper?token=APIFY_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "listing": {
+                "eventTitle": "Listing",
+                "eventDescription": "One Craigslist listing with title, price, posted date, category, area and neighborhood, coordinates, bedrooms and sqft (housing), pay, job title and employer (jobs), photo links and URL. A search with no results is free.",
+                "eventPriceUsd": 0.0015,
+                "isPrimaryEvent": true
+            },
+            "listing_detail": {
+                "eventTitle": "Listing with details",
+                "eventDescription": "The same listing plus its full description, attributes, street address and update time, read from the posting page. Only with Full description on; charged instead of Listing, not on top of it.",
+                "eventPriceUsd": 0.003
+            }
+        }
+    },
+    "startedAt": "2026-10-07T23:00:00.000Z"
+}

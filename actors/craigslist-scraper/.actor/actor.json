@@ -1,0 +1,17 @@
+{
+    "actorSpecification": 1,
+    "name": "craigslist-scraper",
+    "title": "Craigslist Scraper: Listings, Housing, Jobs & Cars",
+    "description": "Craigslist listings from any search in any city: for sale, housing, jobs, gigs, cars. Price, date, coordinates, bedrooms and sqft, pay and employer, photos, optional full description. Paste a search URL or pick an area. Up to 10,000 per search. $0.0015 per listing.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "output": "./output_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "ECOMMERCE",
+        "REAL_ESTATE",
+        "LEAD_GENERATION"
+    ],
+    "readme": "../README.md"
+}

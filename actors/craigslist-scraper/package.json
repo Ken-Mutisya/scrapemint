@@ -1,0 +1,16 @@
+{
+    "name": "craigslist-scraper",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Craigslist listings from any search: for sale, housing, jobs, gigs, cars, in any area, up to 10,000 per search. Keyless, no browser, no proxy.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}

@@ -1,0 +1,92 @@
+{
+    "title": "Craigslist Scraper input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "searchUrls": {
+            "title": "Craigslist search URLs",
+            "type": "array",
+            "description": "Search pages copied from your browser, with any filters set on the site (price, bedrooms, make and model, distance from zip...). Each URL is one search.",
+            "editor": "stringList",
+            "prefill": ["https://sfbay.craigslist.org/search/apa?max_price=3000&min_bedrooms=2"],
+            "default": [],
+            "sectionCaption": "Search by URL"
+        },
+        "areas": {
+            "title": "Areas",
+            "type": "array",
+            "description": "Or build a search here. Craigslist areas by subdomain or name: sfbay, newyork, losangeles, chicago, london, toronto. One search per area.",
+            "editor": "stringList",
+            "default": [],
+            "sectionCaption": "Or build a search"
+        },
+        "category": {
+            "title": "Category",
+            "type": "string",
+            "editor": "select",
+            "enum": ["sss", "fua", "ela", "bia", "cta", "cto", "ctd", "apa", "roo", "sub", "rea", "hhh", "jjj", "ggg", "bbb", "ccc", "eee", "zip"],
+            "enumTitles": ["For sale (all)", "Furniture", "Electronics", "Bikes", "Cars & trucks (all)", "Cars & trucks by owner", "Cars & trucks by dealer", "Apartments / housing for rent", "Rooms & shares", "Sublets & temporary", "Real estate for sale", "Housing (all)", "Jobs (all)", "Gigs (all)", "Services (all)", "Community (all)", "Events", "Free stuff"],
+            "default": "sss",
+            "description": "For other categories, paste a search URL above."
+        },
+        "query": {
+            "title": "Keywords",
+            "type": "string",
+            "editor": "textfield",
+            "description": "Optional, e.g. couch, honda civic, bartender.",
+            "default": ""
+        },
+        "minPrice": {
+            "title": "Min price",
+            "type": "integer",
+            "minimum": 0,
+            "description": "Optional."
+        },
+        "maxPrice": {
+            "title": "Max price",
+            "type": "integer",
+            "minimum": 0,
+            "description": "Optional."
+        },
+        "postal": {
+            "title": "ZIP / postal code",
+            "type": "string",
+            "editor": "textfield",
+            "description": "Optional. With a distance, only listings within that many miles of it.",
+            "default": ""
+        },
+        "searchDistance": {
+            "title": "Distance (miles)",
+            "type": "integer",
+            "minimum": 1,
+            "description": "Used with the ZIP code."
+        },
+        "hasPic": {
+            "title": "Has photo",
+            "type": "boolean",
+            "default": false,
+            "description": "Only listings with photos."
+        },
+        "postedToday": {
+            "title": "Posted today",
+            "type": "boolean",
+            "default": false,
+            "description": "Only listings posted today."
+        },
+        "includeDetails": {
+            "title": "Full description and attributes",
+            "type": "boolean",
+            "description": "Opens each listing for its full text, attributes (condition, make, model, odometer, laundry, parking, pets...), street address and update time. Slower. $0.003 per listing instead of $0.0015.",
+            "default": false,
+            "sectionCaption": "Output"
+        },
+        "maxItemsPerSearch": {
+            "title": "Max listings per search",
+            "type": "integer",
+            "description": "Newest first for most categories. Craigslist returns up to 10,000 per search.",
+            "minimum": 1,
+            "maximum": 10000,
+            "default": 1000
+        }
+    }
+}
