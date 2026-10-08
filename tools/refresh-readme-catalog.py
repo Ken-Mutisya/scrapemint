@@ -86,6 +86,7 @@ SECTIONS = [
     ]),
     ("Jobs & hiring", [
         "linkedin-jobs-scraper", "linkedin-job-market-trend-scraper", "indeed-jobs-scraper",
+        "dice-jobs-scraper", "welcome-to-the-jungle-jobs-scraper",
         "layoff-warn-tracker", "ats-jobs-search", "seek-jobs-scraper", "jobstreet-jobsdb-scraper", "workday-jobs-scraper", "company-job-openings-scraper", "remote-jobs-scraper", "startup-jobs-search",
         "h1b-salary-data",
     ]),
@@ -99,7 +100,7 @@ SECTIONS = [
         "telegram-channel-scraper",
         "substack-newsletter-intelligence", "producthunt-launch-tracker", "hacker-news-scraper",
         "google-news-scraper", "global-news-media-monitor", "rss-feed-scraper",
-        "wikipedia-trends-scraper", "wikipedia-article-data", "music-charts-tracker", "spotify-scraper",
+        "wikipedia-trends-scraper", "wikipedia-article-data", "music-charts-tracker", "spotify-scraper", "snapchat-profile-scraper",
         "podcast-charts-tracker", "streaming-availability-scraper", "tv-schedule-scraper",
     ]),
     ("Research, science & patents", [
@@ -129,7 +130,7 @@ SECTIONS = [
         "viator-tours-tracker", "public-holidays-finder",
     ]),
     ("Ecommerce & retail", [
-        "craigslist-scraper",
+        "craigslist-scraper", "kleinanzeigen-scraper", "autoscout24-scraper",
         "shopify-store-products-scraper", "shopify-price-monitor",
         "app-store-top-charts-tracker", "car-fuel-economy-scraper",
     ]),
