@@ -1,0 +1,20 @@
+{
+    "actorOutputSchemaVersion": 1,
+    "title": "Welcome to the Jungle jobs",
+    "description": "One row per job.",
+    "type": "object",
+    "properties": {
+        "jobs": {
+            "type": "string",
+            "title": "Jobs",
+            "description": "Title, company, location, contract, remote, salary, experience, profession, missions and requirements, and the full description when asked for.",
+            "template": "{{links.apiDefaultDatasetUrl}}/items"
+        },
+        "summary": {
+            "type": "string",
+            "title": "Run summary",
+            "description": "Job counts per search and any searches that failed.",
+            "template": "{{links.apiDefaultKeyValueStoreUrl}}/records/SUMMARY"
+        }
+    }
+}

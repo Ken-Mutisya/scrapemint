@@ -1,0 +1,16 @@
+{
+    "actorSpecification": 1,
+    "name": "welcome-to-the-jungle-jobs-scraper",
+    "title": "Welcome to the Jungle Jobs Scraper (WTTJ)",
+    "description": "Welcome to the Jungle jobs in France, the US, the UK and beyond: company size and sector, city, contract, remote policy, salary range, experience, missions, plus optional full description, skills and apply link. Past the 1,000-result cap. $0.002 per job.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "output": "./output_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "JOBS",
+        "LEAD_GENERATION"
+    ],
+    "readme": "../README.md"
+}

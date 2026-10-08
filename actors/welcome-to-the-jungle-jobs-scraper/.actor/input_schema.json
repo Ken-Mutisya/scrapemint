@@ -1,0 +1,90 @@
+{
+    "title": "Welcome to the Jungle Jobs Scraper input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "searchUrls": {
+            "title": "Welcome to the Jungle search URLs",
+            "type": "array",
+            "description": "Job search pages copied from welcometothejungle.com/en/jobs (or /fr/jobs) with any filters set on the site: country, contract, remote, profession, sector... Each URL is one search.",
+            "editor": "stringList",
+            "default": [],
+            "sectionCaption": "Search by URL"
+        },
+        "queries": {
+            "title": "Keywords",
+            "type": "array",
+            "description": "Or build searches here. One search per keyword, e.g. data engineer, product manager, stage marketing. Leave empty with filters set to get every job matching the filters.",
+            "editor": "stringList",
+            "prefill": ["data engineer"],
+            "default": [],
+            "sectionCaption": "Or build a search"
+        },
+        "countries": {
+            "title": "Countries",
+            "type": "array",
+            "description": "Two-letter country codes, e.g. FR, US, GB, DE, ES. Empty means all.",
+            "editor": "stringList",
+            "default": []
+        },
+        "cities": {
+            "title": "Cities",
+            "type": "array",
+            "description": "City names as the site writes them, e.g. Paris, Lyon, London, New York. Empty means all.",
+            "editor": "stringList",
+            "default": []
+        },
+        "contractTypes": {
+            "title": "Contract",
+            "type": "array",
+            "editor": "select",
+            "items": {
+                "type": "string",
+                "enum": ["full_time", "internship", "apprenticeship", "temporary", "freelance", "part_time", "graduate_program", "vie", "other"],
+                "enumTitles": ["Permanent / full-time", "Internship", "Apprenticeship (alternance)", "Fixed-term / temporary", "Freelance", "Part-time", "Graduate program", "VIE", "Other"]
+            },
+            "description": "Any of these. Empty means all.",
+            "default": []
+        },
+        "remote": {
+            "title": "Remote policy",
+            "type": "array",
+            "editor": "select",
+            "items": {
+                "type": "string",
+                "enum": ["fulltime", "partial", "punctual", "no"],
+                "enumTitles": ["Fully remote", "Hybrid (regular remote)", "Occasional remote", "No remote"]
+            },
+            "description": "Any of these. Empty means all.",
+            "default": []
+        },
+        "languages": {
+            "title": "Job ad language",
+            "type": "array",
+            "description": "Language the ad is written in, e.g. en, fr, de, es. Empty means all.",
+            "editor": "stringList",
+            "default": []
+        },
+        "postedWithinDays": {
+            "title": "Posted within (days)",
+            "type": "integer",
+            "minimum": 1,
+            "description": "Only jobs published in the last this many days. Empty means any time."
+        },
+        "includeDetails": {
+            "title": "Full description, skills and apply link",
+            "type": "boolean",
+            "description": "Reads each job for its full description, requirements, hiring process, skills, tools, street address, start date and the apply link (often the company's ATS). $0.003 per job instead of $0.002.",
+            "default": false,
+            "sectionCaption": "Output"
+        },
+        "maxItemsPerSearch": {
+            "title": "Max jobs per search",
+            "type": "integer",
+            "description": "Newest first. Searches with more than 1,000 results are split by date, so a broad search can return tens of thousands.",
+            "minimum": 1,
+            "maximum": 100000,
+            "default": 1000
+        }
+    }
+}

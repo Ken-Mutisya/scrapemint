@@ -1,0 +1,21 @@
+{
+    "_note": "New actor, first pricing entry. Market (2026-10-09): clearpath/welcome-to-the-jungle-jobs-api $0.00299 per item (178 monthly users), shahidirfan/Jungle-Job-Scraper tiered (61), bebity (30), memo23 (15). job $0.002 from the search index; job_detail $0.003 with the job API read (full description, skills, apply link). No start fee. No proxy: the site's Algolia index and job API answered Apify IPs in the 2026-10-09 probe.",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~welcome-to-the-jungle-jobs-scraper?token=APIFY_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "job": {
+                "eventTitle": "Job",
+                "eventDescription": "One Welcome to the Jungle job with title, company (size, sector, founded year, logo), offices and coordinates, contract, remote policy, salary range, experience, education, profession, missions, requirements summary and URL. A search with no results is free.",
+                "eventPriceUsd": 0.002,
+                "isPrimaryEvent": true
+            },
+            "job_detail": {
+                "eventTitle": "Job with details",
+                "eventDescription": "The same job plus its full description, requirements, hiring process, skills, tools, street address, start date and apply link, read from the job page. Only with Full description on; charged instead of Job, not on top of it.",
+                "eventPriceUsd": 0.003
+            }
+        }
+    },
+    "startedAt": "2026-10-08T22:00:00.000Z"
+}

@@ -1,0 +1,16 @@
+{
+    "name": "welcome-to-the-jungle-jobs-scraper",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Welcome to the Jungle jobs from any search: title, company with size and sector, city and country, contract, remote policy, salary range, experience, profession, missions and requirements, optional full description and apply link. Keyless, no browser, no proxy.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}
