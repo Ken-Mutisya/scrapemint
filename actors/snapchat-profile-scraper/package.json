@@ -1,0 +1,16 @@
+{
+    "name": "snapchat-profile-scraper",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Snapchat public profiles: subscribers, bio, website, category, verified badge, created date, stories, highlights, lenses, related accounts, and Spotlight videos with views, shares, comments and boosts. Keyless, no browser, no proxy.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}

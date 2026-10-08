@@ -1,0 +1,20 @@
+{
+    "actorOutputSchemaVersion": 1,
+    "title": "Snapchat profiles",
+    "description": "One row per profile, plus one row per Spotlight video when asked for.",
+    "type": "object",
+    "properties": {
+        "profiles": {
+            "type": "string",
+            "title": "Profiles and Spotlight videos",
+            "description": "Profile rows (rowType profile) and Spotlight video rows (rowType spotlight).",
+            "template": "{{links.apiDefaultDatasetUrl}}/items"
+        },
+        "summary": {
+            "type": "string",
+            "title": "Run summary",
+            "description": "Profile and video counts, and usernames that were not found.",
+            "template": "{{links.apiDefaultKeyValueStoreUrl}}/records/SUMMARY"
+        }
+    }
+}

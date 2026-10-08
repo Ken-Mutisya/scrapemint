@@ -1,0 +1,21 @@
+{
+    "_note": "New actor, first pricing entry. Market (2026-10-09): tri_angle/snapchat-scraper $0.002 per profile + $0.001 start (88 monthly users), automation-lab/snapchat-scraper tiered + $0.005 start (50), tri_angle/snapchat-spotlight-scraper $0.0015 per video (38), easyapi/snapchat-profile-scraper $0.003 + $0.09 start (35). profile $0.002; spotlight $0.0005 per video row (they come from the same page, no extra request). No start fee. No proxy: profile pages answered Apify IPs 5/5 in the 2026-10-09 probe.",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~snapchat-profile-scraper?token=APIFY_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "profile": {
+                "eventTitle": "Profile",
+                "eventDescription": "One Snapchat profile with display name, subscriber count, bio, website, category, verified badge, created and updated dates, story, highlight and Spotlight counts, Spotlight view totals, lenses and related accounts. Usernames that do not exist are free.",
+                "eventPriceUsd": 0.002,
+                "isPrimaryEvent": true
+            },
+            "spotlight": {
+                "eventTitle": "Spotlight video",
+                "eventDescription": "One Spotlight video row with views, shares, comments, boosts, caption, hashtags, duration, upload date, video and transcript links. Only with Spotlight videos as rows on.",
+                "eventPriceUsd": 0.0005
+            }
+        }
+    },
+    "startedAt": "2026-10-08T22:00:00.000Z"
+}

@@ -1,0 +1,28 @@
+{
+    "title": "Snapchat Profile Scraper input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "usernames": {
+            "title": "Usernames or profile URLs",
+            "type": "array",
+            "description": "Snapchat usernames (kyliejenner, @djkhaled305) or profile links (https://www.snapchat.com/@kyliejenner, https://www.snapchat.com/add/kyliejenner).",
+            "editor": "stringList",
+            "prefill": ["kyliejenner", "djkhaled305"],
+            "default": []
+        },
+        "includeSpotlight": {
+            "title": "Spotlight videos as rows",
+            "type": "boolean",
+            "description": "Adds one row per recent Spotlight video (up to 25 per profile): views, shares, comments, boosts, caption, hashtags, duration, video and transcript links. $0.0005 per video.",
+            "default": false,
+            "sectionCaption": "Output"
+        },
+        "includeMedia": {
+            "title": "Story and highlight media links",
+            "type": "boolean",
+            "description": "Keeps the current story snaps and saved highlights on each profile row, with media links and timestamps. No extra charge.",
+            "default": true
+        }
+    }
+}

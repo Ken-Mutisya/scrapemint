@@ -1,0 +1,16 @@
+{
+    "actorSpecification": 1,
+    "name": "snapchat-profile-scraper",
+    "title": "Snapchat Profile Scraper: Subscribers & Spotlight",
+    "description": "Snapchat public profiles in bulk: subscriber count, bio, website, category, verified badge, created and updated dates, story and highlight media, lenses, related accounts, and Spotlight videos with views, shares, comments and boosts. $0.002 per profile.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "output": "./output_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "SOCIAL_MEDIA",
+        "LEAD_GENERATION"
+    ],
+    "readme": "../README.md"
+}
