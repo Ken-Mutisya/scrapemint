@@ -1,0 +1,21 @@
+{
+    "_note": "New actor, first pricing entry. Market (2026-10-09): blackfalcondata/autoscout24-scraper $0.00049 per item + $0.005 start (93 monthly users), 3x1t/autoscout24-scraper-ppr (47), ivanvs/autoscout-scraper (45), memo23 (28). listing $0.0005 from search pages (20 per request, dealer phones included); listing_detail $0.0015 with the listing page read. No start fee. No proxy: listing and detail pages answered Apify IPs in the 2026-10-09 probe (a home IP got 403).",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~autoscout24-scraper?token=APIFY_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "listing": {
+                "eventTitle": "Car listing",
+                "eventDescription": "One AutoScout24 listing with make, model, version, price and price rating, mileage, first registration, fuel, gearbox, power, condition, location, seller type, dealer name, phones and ratings, photos and URL. A search with no results is free.",
+                "eventPriceUsd": 0.0005,
+                "isPrimaryEvent": true
+            },
+            "listing_detail": {
+                "eventTitle": "Car listing with details",
+                "eventDescription": "The same listing plus description, equipment, body type, colour, seats, doors, drivetrain, emissions, coordinates, market median price and listing date, read from the listing page. Only with Full specs on; charged instead of Car listing, not on top of it.",
+                "eventPriceUsd": 0.0015
+            }
+        }
+    },
+    "startedAt": "2026-10-08T22:00:00.000Z"
+}

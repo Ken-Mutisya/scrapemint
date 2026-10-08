@@ -1,0 +1,20 @@
+{
+    "actorOutputSchemaVersion": 1,
+    "title": "AutoScout24 listings",
+    "description": "One row per car.",
+    "type": "object",
+    "properties": {
+        "listings": {
+            "type": "string",
+            "title": "Listings",
+            "description": "Make, model, price, mileage, registration, fuel, power, location, seller and phones, and full specs when asked for.",
+            "template": "{{links.apiDefaultDatasetUrl}}/items"
+        },
+        "summary": {
+            "type": "string",
+            "title": "Run summary",
+            "description": "Listing counts per search and any searches that failed.",
+            "template": "{{links.apiDefaultKeyValueStoreUrl}}/records/SUMMARY"
+        }
+    }
+}

@@ -1,0 +1,237 @@
+{
+    "title": "AutoScout24 Scraper input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "searchUrls": {
+            "title": "AutoScout24 search URLs",
+            "type": "array",
+            "description": "Search result pages copied from any AutoScout24 site (.com, .de, .it, .fr, .es, .nl, .be, .at) with any filters set. Each URL is one search.",
+            "editor": "stringList",
+            "default": [],
+            "sectionCaption": "Search by URL"
+        },
+        "makes": {
+            "title": "Make and model",
+            "type": "array",
+            "description": "Or build searches here, one per line: a make, or a make and model separated by a slash. E.g. Volkswagen / Golf, BMW / 3 Series, Mercedes-Benz / C-Class, Tesla.",
+            "editor": "stringList",
+            "prefill": [
+                "Volkswagen / Golf"
+            ],
+            "default": [],
+            "sectionCaption": "Or build a search"
+        },
+        "site": {
+            "title": "Site",
+            "type": "string",
+            "editor": "select",
+            "enum": [
+                "com",
+                "de",
+                "it",
+                "fr",
+                "es",
+                "nl",
+                "be",
+                "at"
+            ],
+            "enumTitles": [
+                "autoscout24.com (English)",
+                "autoscout24.de",
+                "autoscout24.it",
+                "autoscout24.fr",
+                "autoscout24.es",
+                "autoscout24.nl",
+                "autoscout24.be",
+                "autoscout24.at"
+            ],
+            "description": "Which AutoScout24 site built searches use. Labels (fuel, gearbox) come in that site's language, and make and model names are matched the way that site writes them. Country sites also publish the price rating band; autoscout24.com does not.",
+            "default": "com"
+        },
+        "countries": {
+            "title": "Countries",
+            "type": "array",
+            "editor": "select",
+            "items": {
+                "type": "string",
+                "enum": [
+                    "D",
+                    "A",
+                    "B",
+                    "E",
+                    "F",
+                    "I",
+                    "L",
+                    "NL"
+                ],
+                "enumTitles": [
+                    "Germany",
+                    "Austria",
+                    "Belgium",
+                    "Spain",
+                    "France",
+                    "Italy",
+                    "Luxembourg",
+                    "Netherlands"
+                ]
+            },
+            "description": "Where the car is. Empty means all eight.",
+            "default": []
+        },
+        "offerTypes": {
+            "title": "Condition",
+            "type": "array",
+            "editor": "select",
+            "items": {
+                "type": "string",
+                "enum": [
+                    "U",
+                    "N",
+                    "J",
+                    "D",
+                    "S",
+                    "O"
+                ],
+                "enumTitles": [
+                    "Used",
+                    "New",
+                    "Employee's car",
+                    "Demonstration",
+                    "Pre-registered",
+                    "Classic"
+                ]
+            },
+            "description": "Empty means all.",
+            "default": []
+        },
+        "sellerType": {
+            "title": "Seller",
+            "type": "string",
+            "editor": "select",
+            "enum": [
+                "",
+                "D",
+                "P"
+            ],
+            "enumTitles": [
+                "Any",
+                "Dealers only",
+                "Private sellers only"
+            ],
+            "description": "Dealer or private seller.",
+            "default": ""
+        },
+        "fuelTypes": {
+            "title": "Fuel",
+            "type": "array",
+            "editor": "select",
+            "items": {
+                "type": "string",
+                "enum": [
+                    "B",
+                    "D",
+                    "E",
+                    "2",
+                    "3",
+                    "L",
+                    "C",
+                    "H",
+                    "M",
+                    "O"
+                ],
+                "enumTitles": [
+                    "Petrol",
+                    "Diesel",
+                    "Electric",
+                    "Hybrid (electric/petrol)",
+                    "Hybrid (electric/diesel)",
+                    "LPG",
+                    "CNG",
+                    "Hydrogen",
+                    "Ethanol",
+                    "Other"
+                ]
+            },
+            "description": "Empty means all.",
+            "default": []
+        },
+        "gearbox": {
+            "title": "Gearbox",
+            "type": "string",
+            "editor": "select",
+            "enum": [
+                "",
+                "A",
+                "M",
+                "S"
+            ],
+            "enumTitles": [
+                "Any",
+                "Automatic",
+                "Manual",
+                "Semi-automatic"
+            ],
+            "description": "Transmission type.",
+            "default": ""
+        },
+        "priceFrom": {
+            "title": "Price from (EUR)",
+            "type": "integer",
+            "minimum": 0,
+            "description": "Optional."
+        },
+        "priceTo": {
+            "title": "Price to (EUR)",
+            "type": "integer",
+            "minimum": 0,
+            "description": "Optional."
+        },
+        "yearFrom": {
+            "title": "First registration from (year)",
+            "type": "integer",
+            "minimum": 1900,
+            "description": "Optional."
+        },
+        "yearTo": {
+            "title": "First registration to (year)",
+            "type": "integer",
+            "minimum": 1900,
+            "description": "Optional."
+        },
+        "mileageTo": {
+            "title": "Mileage up to (km)",
+            "type": "integer",
+            "minimum": 0,
+            "description": "Optional."
+        },
+        "zip": {
+            "title": "Postcode",
+            "type": "string",
+            "editor": "textfield",
+            "description": "Optional. With a radius, only cars within that distance. Use with one country.",
+            "default": ""
+        },
+        "radiusKm": {
+            "title": "Radius (km)",
+            "type": "integer",
+            "minimum": 1,
+            "description": "Used with the postcode."
+        },
+        "includeDetails": {
+            "title": "Full specs and description",
+            "type": "boolean",
+            "description": "Opens each listing for its description, equipment list, body type, colour, seats, doors, drivetrain, emissions, coordinates, market median price and listing date. Slower. $0.0015 per car instead of $0.0005.",
+            "default": false,
+            "sectionCaption": "Output"
+        },
+        "maxItemsPerSearch": {
+            "title": "Max cars per search",
+            "type": "integer",
+            "description": "Newest first. AutoScout24 shows 4,000 per search; bigger searches are split by price automatically.",
+            "minimum": 1,
+            "maximum": 200000,
+            "default": 1000
+        }
+    }
+}

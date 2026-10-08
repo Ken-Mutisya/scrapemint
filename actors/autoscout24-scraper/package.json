@@ -1,0 +1,16 @@
+{
+    "name": "autoscout24-scraper",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "AutoScout24 car listings from any search in Germany, Italy, France, Spain, the Netherlands, Belgium, Austria and Luxembourg: price, mileage, registration, fuel, power, location, dealer name and phones, price rating, optional full specs. Keyless, no browser, no proxy.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}

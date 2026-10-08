@@ -1,0 +1,16 @@
+{
+    "actorSpecification": 1,
+    "name": "autoscout24-scraper",
+    "title": "AutoScout24 Scraper: Cars, Prices & Dealer Phones",
+    "description": "AutoScout24 car listings across Europe: price and price rating, mileage, first registration, fuel, gearbox, power, location, dealer or private seller with phone numbers, photos, and optional full specs and description. Paste a search URL or pick make and model. Past the 4,000 cap. $0.0005 per car.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "output": "./output_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "ECOMMERCE",
+        "LEAD_GENERATION"
+    ],
+    "readme": "../README.md"
+}
