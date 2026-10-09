@@ -19,7 +19,7 @@ flowchart LR
 
 <!-- CATALOG:START -->
 
-There are **256** actors live right now, and a new one ships every few days.
+There are **261** actors live right now, and a new one ships every few days.
 
 ### Lead generation
 
@@ -177,6 +177,8 @@ There are **256** actors live right now, and a new one ships every few days.
 - [LinkedIn Hiring Tracker & Salary Intelligence](https://apify.com/scrapemint/linkedin-jobs-scraper)
 - [LinkedIn Job Market Trend Intelligence](https://apify.com/scrapemint/linkedin-job-market-trend-scraper)
 - [Indeed Hiring Tracker Pro: Salaries and Company Intel](https://apify.com/scrapemint/indeed-jobs-scraper)
+- [Dice Jobs Scraper: Tech Jobs, Salary & Skills](https://apify.com/scrapemint/dice-jobs-scraper)
+- [Welcome to the Jungle Jobs Scraper (WTTJ)](https://apify.com/scrapemint/welcome-to-the-jungle-jobs-scraper)
 - [Layoff Tracker: WARN Notices from 7 States](https://apify.com/scrapemint/layoff-warn-tracker)
 - [Career Site Jobs Search: Workday, Greenhouse, Lever +5](https://apify.com/scrapemint/ats-jobs-search)
 - [Seek Jobs Scraper: Australia & NZ, Salary, Remote](https://apify.com/scrapemint/seek-jobs-scraper)
@@ -213,6 +215,7 @@ There are **256** actors live right now, and a new one ships every few days.
 - [Wikipedia Article Data: Summary, Facts & Images](https://apify.com/scrapemint/wikipedia-article-data)
 - [Music Charts Tracker: Apple Music Ranks by Country](https://apify.com/scrapemint/music-charts-tracker)
 - [Spotify Scraper: Play Counts, Monthly Listeners & Stats](https://apify.com/scrapemint/spotify-scraper)
+- [Snapchat Profile Scraper: Subscribers & Spotlight](https://apify.com/scrapemint/snapchat-profile-scraper)
 - [Podcast Charts Tracker: Apple Ranks by Country & Genre](https://apify.com/scrapemint/podcast-charts-tracker)
 - [Streaming Availability Scraper: Where to Watch by Country](https://apify.com/scrapemint/streaming-availability-scraper)
 - [TV Schedule & Shows Scraper](https://apify.com/scrapemint/tv-schedule-scraper)
@@ -280,6 +283,8 @@ There are **256** actors live right now, and a new one ships every few days.
 ### Ecommerce & retail
 
 - [Craigslist Scraper: Listings, Housing, Jobs & Cars](https://apify.com/scrapemint/craigslist-scraper)
+- [Kleinanzeigen Scraper: Listings, Prices & Sellers](https://apify.com/scrapemint/kleinanzeigen-scraper)
+- [AutoScout24 Scraper: Cars, Prices & Dealer Phones](https://apify.com/scrapemint/autoscout24-scraper)
 - [Shopify Store Products Scraper: Full Catalog, Prices, Stock](https://apify.com/scrapemint/shopify-store-products-scraper)
 - [Shopify Price & Stock Monitor: Change Alerts Any Store](https://apify.com/scrapemint/shopify-price-monitor)
 - [App Store Top Charts Tracker: Ranks by Country & Category](https://apify.com/scrapemint/app-store-top-charts-tracker)
