@@ -1,0 +1,16 @@
+{
+    "_note": "New actor, first pricing entry. Market (2026-10-09): thirdwatch/aliexpress-product-scraper $0.003 per item free tier (176 monthly users), piotrv1001/aliexpress-listings-scraper $0.0025 (64). product $0.0015, no start fee. Source: m.aliexpress.com server-rendered search (20 per page, 60 pages), no proxy; 100% of requests answered from Apify IPs in the 2026-10-09 probes.",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~aliexpress-scraper?token=APIFY_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "product": {
+                "eventTitle": "Product",
+                "eventDescription": "One AliExpress product from search results with title, price, original price, discount, exact units sold, rating, ship-from country, listing date, Choice and free-shipping badges, ad flag, image and URL. A search with no results is free.",
+                "eventPriceUsd": 0.0015,
+                "isPrimaryEvent": true
+            }
+        }
+    },
+    "startedAt": "2026-10-09T22:00:00.000Z"
+}

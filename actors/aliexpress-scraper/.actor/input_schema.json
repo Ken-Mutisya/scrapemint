@@ -1,0 +1,93 @@
+{
+    "title": "AliExpress Scraper input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "queries": {
+            "title": "Keywords",
+            "type": "array",
+            "description": "One search per keyword, e.g. phone case, yoga mat, mechanical keyboard, led strip.",
+            "editor": "stringList",
+            "prefill": [
+                "phone case"
+            ],
+            "default": [],
+            "sectionCaption": "Search"
+        },
+        "searchUrls": {
+            "title": "Or AliExpress search URLs",
+            "type": "array",
+            "description": "Search pages copied from aliexpress.com (\u2026/w/wholesale-\u2026.html), with sort, price range and filters kept.",
+            "editor": "stringList",
+            "default": []
+        },
+        "sort": {
+            "title": "Sort",
+            "type": "string",
+            "editor": "select",
+            "enum": [
+                "default",
+                "orders",
+                "priceAsc",
+                "priceDesc"
+            ],
+            "enumTitles": [
+                "Best match",
+                "Top sales",
+                "Price: low to high",
+                "Price: high to low"
+            ],
+            "description": "Order of results.",
+            "default": "default"
+        },
+        "minPrice": {
+            "title": "Min price",
+            "type": "integer",
+            "minimum": 0,
+            "description": "Optional, in the chosen currency.",
+            "sectionCaption": "Filters"
+        },
+        "maxPrice": {
+            "title": "Max price",
+            "type": "integer",
+            "minimum": 0,
+            "description": "Optional, in the chosen currency."
+        },
+        "freeShippingOnly": {
+            "title": "Free shipping only",
+            "type": "boolean",
+            "description": "Keep only products with free shipping to the ship-to country.",
+            "default": false
+        },
+        "choiceOnly": {
+            "title": "AliExpress Choice only",
+            "type": "boolean",
+            "description": "Keep only Choice products (faster delivery, free returns).",
+            "default": false
+        },
+        "shipToCountry": {
+            "title": "Ship-to country",
+            "type": "string",
+            "editor": "textfield",
+            "description": "Two-letter country code that sets availability and shipping, e.g. GB, DE, FR, ES, IT, NL, PL, AU, BR, MX, KR, US, CA. For US and CA AliExpress hides many prices from new visitors behind a first-order promo; GB or DE shows every price.",
+            "default": "GB",
+            "sectionCaption": "Market"
+        },
+        "currency": {
+            "title": "Currency",
+            "type": "string",
+            "editor": "textfield",
+            "description": "Three-letter currency code for prices, e.g. USD, EUR, GBP, AUD, CAD, BRL, PLN.",
+            "default": "USD"
+        },
+        "maxItemsPerSearch": {
+            "title": "Max products per search",
+            "type": "integer",
+            "description": "Stop each search after this many products. AliExpress shows 1,200 per search; bigger searches are split by price range automatically.",
+            "default": 200,
+            "minimum": 1,
+            "sectionCaption": "Output"
+        }
+    },
+    "required": []
+}

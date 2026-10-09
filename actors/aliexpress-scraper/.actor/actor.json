@@ -1,0 +1,16 @@
+{
+    "actorSpecification": 1,
+    "name": "aliexpress-scraper",
+    "title": "AliExpress Scraper: Products, Prices & Units Sold",
+    "description": "AliExpress products from any keyword or search URL: price, original price and discount, exact units sold, rating, ship-from country (CN, US, EU warehouses), listing date, Choice and free-shipping badges, ads flag. Any currency and ship-to country. Past the 1,200 cap. $0.0015 per product.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "output": "./output_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "ECOMMERCE",
+        "LEAD_GENERATION"
+    ],
+    "readme": "../README.md"
+}

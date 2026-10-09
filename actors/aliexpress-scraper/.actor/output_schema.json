@@ -1,0 +1,20 @@
+{
+    "actorOutputSchemaVersion": 1,
+    "title": "AliExpress products",
+    "description": "One row per product.",
+    "type": "object",
+    "properties": {
+        "products": {
+            "type": "string",
+            "title": "Products",
+            "description": "Title, price, original price, discount, units sold, rating, ship-from, listing date, badges, image and URL.",
+            "template": "{{links.apiDefaultDatasetUrl}}/items"
+        },
+        "summary": {
+            "type": "string",
+            "title": "Run summary",
+            "description": "Product counts per search and any searches that failed.",
+            "template": "{{links.apiDefaultKeyValueStoreUrl}}/records/SUMMARY"
+        }
+    }
+}

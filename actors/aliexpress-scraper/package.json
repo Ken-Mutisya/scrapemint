@@ -1,0 +1,16 @@
+{
+    "name": "aliexpress-scraper",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "AliExpress products from any search: price, original price, discount, exact units sold, rating, ship-from country, listing date, Choice and free-shipping badges, in your currency and ship-to country. Past the 1,200 cap. Keyless, no browser, no proxy.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}
