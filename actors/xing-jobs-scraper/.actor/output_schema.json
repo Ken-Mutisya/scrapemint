@@ -1,0 +1,20 @@
+{
+    "actorOutputSchemaVersion": 1,
+    "title": "XING jobs",
+    "description": "One row per job.",
+    "type": "object",
+    "properties": {
+        "jobs": {
+            "type": "string",
+            "title": "Jobs",
+            "description": "Title, company, location, remote option, employment type, career level, discipline, industry, salary, dates, apply link and description.",
+            "template": "{{links.apiDefaultDatasetUrl}}/items"
+        },
+        "summary": {
+            "type": "string",
+            "title": "Run summary",
+            "description": "Job counts per search and any searches that failed.",
+            "template": "{{links.apiDefaultKeyValueStoreUrl}}/records/SUMMARY"
+        }
+    }
+}

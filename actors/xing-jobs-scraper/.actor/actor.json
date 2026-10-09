@@ -1,0 +1,16 @@
+{
+    "actorSpecification": 1,
+    "name": "xing-jobs-scraper",
+    "title": "XING Jobs Scraper: Salaries & Full Descriptions",
+    "description": "XING jobs from Germany, Austria and Switzerland for any keyword and city: salary range or XING estimate, company, career level, discipline, industry, remote or hybrid, apply link and the full description. Filters by remote, employment type and level. Past the 1,000 cap. $0.001 per job.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "output": "./output_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "JOBS",
+        "LEAD_GENERATION"
+    ],
+    "readme": "../README.md"
+}

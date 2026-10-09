@@ -1,0 +1,91 @@
+{
+    "title": "XING Jobs Scraper input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "queries": {
+            "title": "Keywords",
+            "type": "array",
+            "description": "One search per keyword or job title, e.g. data engineer, Projektmanager, Vertrieb, nurse.",
+            "editor": "stringList",
+            "prefill": [
+                "data engineer"
+            ],
+            "default": [],
+            "sectionCaption": "Search"
+        },
+        "location": {
+            "title": "City or region",
+            "type": "string",
+            "editor": "textfield",
+            "description": "Optional, e.g. Berlin, München, Wien, Zürich, Hamburg. Empty searches everywhere.",
+            "default": ""
+        },
+        "radiusKm": {
+            "title": "Radius (km)",
+            "type": "integer",
+            "description": "Optional distance around the city, e.g. 10, 20, 50, 100.",
+            "minimum": 1,
+            "maximum": 200
+        },
+        "searchUrls": {
+            "title": "Or XING search URLs",
+            "type": "array",
+            "description": "Search pages copied from xing.com/jobs/search with keywords and location set.",
+            "editor": "stringList",
+            "default": []
+        },
+        "remoteOptions": {
+            "title": "Remote",
+            "type": "array",
+            "description": "Keep only these work models. Any of: FULL_REMOTE, PARTLY_REMOTE (hybrid), NON_REMOTE (on-site). Empty keeps all.",
+            "editor": "stringList",
+            "default": [],
+            "sectionCaption": "Filters"
+        },
+        "employmentTypes": {
+            "title": "Employment type",
+            "type": "array",
+            "description": "Any of: FULL_TIME, PART_TIME, CONTRACTOR (freelance), INTERN (student jobs), TEMPORARY, SEASONAL, VOLUNTARY. Empty keeps all.",
+            "editor": "stringList",
+            "default": []
+        },
+        "careerLevels": {
+            "title": "Career level",
+            "type": "array",
+            "description": "Any of: STUDENT, ENTRY, PROFESSIONAL, MANAGER, EXECUTIVE, SENIOR_EXECUTIVE. Empty keeps all.",
+            "editor": "stringList",
+            "default": []
+        },
+        "includeDescription": {
+            "title": "Full job description",
+            "type": "boolean",
+            "description": "Adds the posting text, as plain text and HTML. Same price either way.",
+            "default": true,
+            "sectionCaption": "Output"
+        },
+        "language": {
+            "title": "Field language",
+            "type": "string",
+            "editor": "select",
+            "enum": [
+                "en",
+                "de"
+            ],
+            "enumTitles": [
+                "English",
+                "German"
+            ],
+            "description": "Language of labels such as employment type, career level, discipline and industry. Job texts stay as posted.",
+            "default": "en"
+        },
+        "maxItemsPerSearch": {
+            "title": "Max jobs per search",
+            "type": "integer",
+            "description": "Stop each search after this many jobs. XING shows 1,000 per search; bigger searches are split by career level and employment type automatically.",
+            "default": 200,
+            "minimum": 1
+        }
+    },
+    "required": []
+}

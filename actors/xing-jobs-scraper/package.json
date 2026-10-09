@@ -1,0 +1,16 @@
+{
+    "name": "xing-jobs-scraper",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "XING job listings for any keyword and location: salary range or estimate, company, career level, discipline, industry, remote option, apply link and full description. Past the 1,000 cap. Keyless, no browser, no proxy.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}
