@@ -1,0 +1,86 @@
+{
+    "title": "Google Hotels Scraper input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "locations": {
+            "title": "Cities or areas",
+            "type": "array",
+            "description": "Hotels in each place, e.g. Paris, New York, Lisbon, Bali, Shibuya Tokyo. Each is read with several Google queries (by star class, budget, hostels, pool...) to collect more than one page.",
+            "editor": "stringList",
+            "prefill": [
+                "Lisbon"
+            ],
+            "default": [],
+            "sectionCaption": "What to search"
+        },
+        "queries": {
+            "title": "Google Hotels searches",
+            "type": "array",
+            "description": "Free-text searches run as typed, e.g. hotels near Eiffel Tower, beach resorts in Phuket, hotels near JFK airport.",
+            "editor": "stringList",
+            "default": []
+        },
+        "hotels": {
+            "title": "Specific hotels",
+            "type": "array",
+            "description": "Google Hotels links (\u2026/travel/hotels/entity/\u2026) or hotel names with the city, e.g. Hilton Paris Opera, The Ritz London. Each is read for every check-in date: use it for a price calendar.",
+            "editor": "stringList",
+            "default": []
+        },
+        "checkIn": {
+            "title": "Check-in date",
+            "type": "string",
+            "editor": "textfield",
+            "description": "YYYY-MM-DD. Empty uses 14 days from today.",
+            "default": "",
+            "sectionCaption": "Stay"
+        },
+        "checkInDates": {
+            "title": "More check-in dates",
+            "type": "array",
+            "description": "Extra YYYY-MM-DD dates, each read as its own stay, to compare prices across dates.",
+            "editor": "stringList",
+            "default": []
+        },
+        "nights": {
+            "title": "Nights",
+            "type": "integer",
+            "description": "Length of stay.",
+            "default": 1,
+            "minimum": 1,
+            "maximum": 30
+        },
+        "adults": {
+            "title": "Adults",
+            "type": "integer",
+            "description": "Guests per room.",
+            "default": 2,
+            "minimum": 1,
+            "maximum": 10
+        },
+        "currency": {
+            "title": "Currency",
+            "type": "string",
+            "editor": "textfield",
+            "description": "Three-letter code, e.g. USD, EUR, GBP, JPY, AUD, INR.",
+            "default": "USD"
+        },
+        "includeBookingOffers": {
+            "title": "Every booking site's price",
+            "type": "boolean",
+            "description": "Open each hotel's Google page for the price on every booking site (Booking.com, Expedia, Agoda, Hotels.com, Trip.com, the official site...) with booking links, plus address and phone. Charged as Hotel with booking sites instead of Hotel.",
+            "default": false,
+            "sectionCaption": "Output"
+        },
+        "maxHotelsPerLocation": {
+            "title": "Max hotels per city or search",
+            "type": "integer",
+            "description": "Stop each city or search after this many hotels, per check-in date.",
+            "default": 50,
+            "minimum": 1,
+            "maximum": 500
+        }
+    },
+    "required": []
+}

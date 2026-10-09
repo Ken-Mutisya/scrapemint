@@ -1,0 +1,21 @@
+{
+    "_note": "New actor, first pricing entry. Market (2026-10-09): vittuhy/google-travel-hotel-prices $0.001 per item + $0.005 start (510 monthly users), johnvc/google-hotels-search-scraper (56), ~25 others with 0-32 users. hotel $0.002 from search pages (~20 per request); hotel_offers $0.004 with the hotel page read (15-30 booking sites). No start fee. No proxy: search and hotel pages answered Apify IPs on every request in the 2026-10-09 probes.",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~google-hotels-scraper?token=APIFY_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "hotel": {
+                "eventTitle": "Hotel",
+                "eventDescription": "One hotel for one set of dates: name, star class, rating and review breakdown, nightly and total price with and without taxes, price insight, amenities, coordinates, check-in times, website and nearby places. A search with no results is free.",
+                "eventPriceUsd": 0.002,
+                "isPrimaryEvent": true
+            },
+            "hotel_offers": {
+                "eventTitle": "Hotel with booking sites",
+                "eventDescription": "The same hotel plus every booking site's price for the stay (Booking.com, Expedia, Agoda, Hotels.com, the official site...) with booking links, address and phone, read from the hotel's Google page. Only with Every booking site's price on; charged instead of Hotel, not on top of it.",
+                "eventPriceUsd": 0.004
+            }
+        }
+    },
+    "startedAt": "2026-10-09T22:00:00.000Z"
+}

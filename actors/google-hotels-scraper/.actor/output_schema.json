@@ -1,0 +1,20 @@
+{
+    "actorOutputSchemaVersion": 1,
+    "title": "Google Hotels",
+    "description": "One row per hotel per check-in date.",
+    "type": "object",
+    "properties": {
+        "hotels": {
+            "type": "string",
+            "title": "Hotels",
+            "description": "Name, star class, rating, prices for the stay, price insight, amenities, location and, when asked for, every booking site's price.",
+            "template": "{{links.apiDefaultDatasetUrl}}/items"
+        },
+        "summary": {
+            "type": "string",
+            "title": "Run summary",
+            "description": "Hotel counts per search and date, and any that failed.",
+            "template": "{{links.apiDefaultKeyValueStoreUrl}}/records/SUMMARY"
+        }
+    }
+}
