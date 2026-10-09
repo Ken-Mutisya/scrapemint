@@ -1,0 +1,16 @@
+{
+    "name": "amazon-product-scraper",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Amazon products from search results, Best Sellers and New Releases lists, or ASINs on amazon.com and amazon.ca: price, list price, rating, reviews, bought in past month, badges, and optional full product page with brand, bullets, specs, Best Sellers Rank, seller and images. Keyless, no browser, no proxy.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}

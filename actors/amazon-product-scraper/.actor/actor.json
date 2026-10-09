@@ -1,0 +1,16 @@
+{
+    "actorSpecification": 1,
+    "name": "amazon-product-scraper",
+    "title": "Amazon Product Scraper: Search, Best Sellers & ASINs",
+    "description": "Amazon.com and Amazon.ca products from any search, Best Sellers or New Releases list, or ASIN: price, list price, rating, reviews, bought in past month, Best Seller and Amazon's Choice badges, sponsored flag, plus optional brand, bullets, specs, sales rank, seller, images. $0.002 per product.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "output": "./output_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "ECOMMERCE",
+        "LEAD_GENERATION"
+    ],
+    "readme": "../README.md"
+}

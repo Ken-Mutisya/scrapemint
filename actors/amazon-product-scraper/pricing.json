@@ -1,0 +1,21 @@
+{
+    "_note": "New actor, first pricing entry. Market (2026-10-09): junglee/Amazon-crawler $0.005 per result free tier (3,076 monthly users), junglee/free-amazon-product-scraper $0.012 (423), junglee/amazon-bestsellers $0.0059 (452), axesso_data/amazon-product-details-scraper $0.0015 (163). product $0.002 from search and list pages (48 per request); product_detail $0.004 with the product page read. No start fee. No proxy: amazon.com and amazon.ca answered Apify IPs 50/50 in the 2026-10-09 probes; other Amazon sites 503.",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~amazon-product-scraper?token=APIFY_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "product": {
+                "eventTitle": "Product",
+                "eventDescription": "One Amazon product from a search or Best Sellers / New Releases list: ASIN, title, price, list price, rating, review count, bought in past month, badges, sponsored and Prime flags, rank for lists, image and URL. A search with no results is free.",
+                "eventPriceUsd": 0.002,
+                "isPrimaryEvent": true
+            },
+            "product_detail": {
+                "eventTitle": "Product with details",
+                "eventDescription": "The same product plus its product page: brand, bullet points, specs and details table, Best Sellers Rank, categories, availability, seller and ships-from, all images, variations and description. Only with Full product page on, or for ASINs and product URLs; charged instead of Product, not on top of it.",
+                "eventPriceUsd": 0.004
+            }
+        }
+    },
+    "startedAt": "2026-10-09T22:00:00.000Z"
+}

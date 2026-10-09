@@ -1,0 +1,20 @@
+{
+    "actorOutputSchemaVersion": 1,
+    "title": "Amazon products",
+    "description": "One row per product.",
+    "type": "object",
+    "properties": {
+        "products": {
+            "type": "string",
+            "title": "Products",
+            "description": "ASIN, title, price, list price, rating, reviews, bought in past month, badges, rank for lists, and product page fields when asked for.",
+            "template": "{{links.apiDefaultDatasetUrl}}/items"
+        },
+        "summary": {
+            "type": "string",
+            "title": "Run summary",
+            "description": "Product counts per search or list and any that failed.",
+            "template": "{{links.apiDefaultKeyValueStoreUrl}}/records/SUMMARY"
+        }
+    }
+}

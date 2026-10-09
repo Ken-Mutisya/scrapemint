@@ -1,0 +1,98 @@
+{
+    "title": "Amazon Product Scraper input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "searchQueries": {
+            "title": "Search keywords",
+            "type": "array",
+            "description": "One Amazon search per keyword, e.g. standing desk, wireless earbuds, protein powder.",
+            "editor": "stringList",
+            "prefill": [
+                "standing desk"
+            ],
+            "default": [],
+            "sectionCaption": "What to scrape"
+        },
+        "startUrls": {
+            "title": "Amazon URLs",
+            "type": "array",
+            "description": "Search result pages (amazon.com/s?k=\u2026 with any filters), Best Sellers, New Releases, Movers & Shakers or Most Wished For pages (any category), or product pages (/dp/ASIN).",
+            "editor": "stringList",
+            "default": []
+        },
+        "asins": {
+            "title": "ASINs",
+            "type": "array",
+            "description": "Product ASINs, e.g. B0B41YH9B6. Each is read from its product page (charged as Product with details).",
+            "editor": "stringList",
+            "default": []
+        },
+        "marketplace": {
+            "title": "Marketplace",
+            "type": "string",
+            "editor": "select",
+            "enum": [
+                "US",
+                "CA"
+            ],
+            "enumTitles": [
+                "Amazon.com (US)",
+                "Amazon.ca (Canada)"
+            ],
+            "description": "Amazon store to read: searches, ASINs and pasted search URLs all use it. Best Sellers and other list URLs are read from the store in the URL.",
+            "default": "US"
+        },
+        "sort": {
+            "title": "Sort",
+            "type": "string",
+            "editor": "select",
+            "enum": [
+                "relevance",
+                "bestSellers",
+                "priceAsc",
+                "priceDesc",
+                "reviews",
+                "newest"
+            ],
+            "enumTitles": [
+                "Featured",
+                "Best sellers",
+                "Price: low to high",
+                "Price: high to low",
+                "Avg. customer review",
+                "Newest arrivals"
+            ],
+            "description": "Order of keyword search results.",
+            "default": "relevance",
+            "sectionCaption": "Search options"
+        },
+        "minPrice": {
+            "title": "Min price",
+            "type": "integer",
+            "minimum": 0,
+            "description": "Optional, in dollars."
+        },
+        "maxPrice": {
+            "title": "Max price",
+            "type": "integer",
+            "minimum": 0,
+            "description": "Optional, in dollars."
+        },
+        "includeDetails": {
+            "title": "Full product page",
+            "type": "boolean",
+            "description": "Open each product page for brand, bullet points, specs and details table, Best Sellers Rank, categories, availability, seller and ships-from, all images, variations and description. Charged as Product with details instead of Product.",
+            "default": false,
+            "sectionCaption": "Output"
+        },
+        "maxItemsPerSearch": {
+            "title": "Max products per search or list",
+            "type": "integer",
+            "description": "Stop each search or list after this many products. Amazon shows about 7 pages per search; past 300, searches are split by price range automatically. Lists hold up to 100.",
+            "default": 100,
+            "minimum": 1
+        }
+    },
+    "required": []
+}
