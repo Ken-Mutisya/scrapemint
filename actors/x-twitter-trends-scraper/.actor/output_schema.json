@@ -1,0 +1,20 @@
+{
+    "actorOutputSchemaVersion": 1,
+    "title": "X (Twitter) trends",
+    "description": "One row per trend per list.",
+    "type": "object",
+    "properties": {
+        "trends": {
+            "type": "string",
+            "title": "Trends",
+            "description": "Rank, trend, hashtag flag, X search link, country, snapshot hour, 8-hour rank history, and tweet score or hours trending for the top lists.",
+            "template": "{{links.apiDefaultDatasetUrl}}/items"
+        },
+        "summary": {
+            "type": "string",
+            "title": "Run summary",
+            "description": "Trend counts per country and list, and any that failed.",
+            "template": "{{links.apiDefaultKeyValueStoreUrl}}/records/SUMMARY"
+        }
+    }
+}

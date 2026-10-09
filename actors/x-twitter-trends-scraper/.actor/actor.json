@@ -1,0 +1,16 @@
+{
+    "actorSpecification": 1,
+    "name": "x-twitter-trends-scraper",
+    "title": "X (Twitter) Trends Scraper: 62 Countries, Hourly",
+    "description": "X (Twitter) trending topics for 62 countries and worldwide: the top 50 right now or any hour of the last 24, each trend's rank over the past 8 hours, new-entry flag, plus most-tweeted and longest-trending lists by day, week or month. $0.0002 per trend.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "output": "./output_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "SOCIAL_MEDIA",
+        "NEWS"
+    ],
+    "readme": "../README.md"
+}

@@ -1,0 +1,16 @@
+{
+    "name": "x-twitter-trends-scraper",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "X (Twitter) trending topics for 62 countries and worldwide: the top 50 now or any hour of the last 24, each trend's rank over the past 8 hours, plus most-tweeted and longest-trending lists. Keyless, no browser, no proxy.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}

@@ -1,0 +1,16 @@
+{
+    "_note": "New actor, first pricing entry. Market (2026-10-09): automation-lab/twitter-trends-scraper $0.00023 per trend + $0.003 start (123 monthly users), karamelo/twitter-trends-scraper $0.00039 per item (105). trend $0.0002, no start fee. Source: getdaytrends.com hourly archive, no proxy (3/3 from Apify IPs in the 2026-10-09 probe).",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~x-twitter-trends-scraper?token=APIFY_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "trend": {
+                "eventTitle": "Trend",
+                "eventDescription": "One trend in one list: rank, trend name, hashtag flag, X search link, country, snapshot hour and 8-hour rank history, or tweet score / hours trending for the top lists. A country that fails is free.",
+                "eventPriceUsd": 0.0002,
+                "isPrimaryEvent": true
+            }
+        }
+    },
+    "startedAt": "2026-10-09T22:00:00.000Z"
+}

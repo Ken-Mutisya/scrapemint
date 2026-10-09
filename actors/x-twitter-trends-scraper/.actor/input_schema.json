@@ -1,0 +1,65 @@
+{
+    "title": "X (Twitter) Trends Scraper input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "countries": {
+            "title": "Countries",
+            "type": "array",
+            "description": "Countries to read, by name or slug: united-states, united-kingdom, japan, worldwide... Use all for every one of the 62 locations. Common short forms work (us, uk, uae).",
+            "editor": "stringList",
+            "prefill": [
+                "united-states",
+                "worldwide"
+            ],
+            "default": [
+                "united-states"
+            ]
+        },
+        "hoursAgo": {
+            "title": "Hours ago",
+            "type": "array",
+            "description": "Which hourly snapshots to read: 0 is now, 1 to 23 are that many hours ago. E.g. 0, 6, 12, 18 for four snapshots across the day.",
+            "editor": "stringList",
+            "prefill": [
+                "0"
+            ],
+            "default": [
+                "0"
+            ]
+        },
+        "maxTrendsPerList": {
+            "title": "Max trends per list",
+            "type": "integer",
+            "description": "Top N trends kept from each list, 1 to 50.",
+            "default": 50,
+            "minimum": 1,
+            "maximum": 50
+        },
+        "includeTopLists": {
+            "title": "Add most-tweeted and longest-trending lists",
+            "type": "boolean",
+            "description": "Also read, per country, the trends with the highest tweet score and those that trended the most hours over the chosen period.",
+            "default": false,
+            "sectionCaption": "Top lists"
+        },
+        "topListPeriod": {
+            "title": "Top lists period",
+            "type": "string",
+            "editor": "select",
+            "enum": [
+                "day",
+                "week",
+                "month"
+            ],
+            "enumTitles": [
+                "Last 24 hours",
+                "Last 7 days",
+                "Last 30 days"
+            ],
+            "description": "Time window for the most-tweeted and longest-trending lists.",
+            "default": "day"
+        }
+    },
+    "required": []
+}
