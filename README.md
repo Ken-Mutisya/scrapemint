@@ -19,7 +19,7 @@ flowchart LR
 
 <!-- CATALOG:START -->
 
-There are **261** actors live right now, and a new one ships every few days.
+There are **266** actors live right now, and a new one ships every few days.
 
 ### Lead generation
 
@@ -179,6 +179,7 @@ There are **261** actors live right now, and a new one ships every few days.
 - [Indeed Hiring Tracker Pro: Salaries and Company Intel](https://apify.com/scrapemint/indeed-jobs-scraper)
 - [Dice Jobs Scraper: Tech Jobs, Salary & Skills](https://apify.com/scrapemint/dice-jobs-scraper)
 - [Welcome to the Jungle Jobs Scraper (WTTJ)](https://apify.com/scrapemint/welcome-to-the-jungle-jobs-scraper)
+- [XING Jobs Scraper: Salaries & Full Descriptions](https://apify.com/scrapemint/xing-jobs-scraper)
 - [Layoff Tracker: WARN Notices from 7 States](https://apify.com/scrapemint/layoff-warn-tracker)
 - [Career Site Jobs Search: Workday, Greenhouse, Lever +5](https://apify.com/scrapemint/ats-jobs-search)
 - [Seek Jobs Scraper: Australia & NZ, Salary, Remote](https://apify.com/scrapemint/seek-jobs-scraper)
@@ -216,6 +217,7 @@ There are **261** actors live right now, and a new one ships every few days.
 - [Music Charts Tracker: Apple Music Ranks by Country](https://apify.com/scrapemint/music-charts-tracker)
 - [Spotify Scraper: Play Counts, Monthly Listeners & Stats](https://apify.com/scrapemint/spotify-scraper)
 - [Snapchat Profile Scraper: Subscribers & Spotlight](https://apify.com/scrapemint/snapchat-profile-scraper)
+- [X (Twitter) Trends Scraper: 62 Countries, Hourly](https://apify.com/scrapemint/x-twitter-trends-scraper)
 - [Podcast Charts Tracker: Apple Ranks by Country & Genre](https://apify.com/scrapemint/podcast-charts-tracker)
 - [Streaming Availability Scraper: Where to Watch by Country](https://apify.com/scrapemint/streaming-availability-scraper)
 - [TV Schedule & Shows Scraper](https://apify.com/scrapemint/tv-schedule-scraper)
@@ -270,6 +272,7 @@ There are **261** actors live right now, and a new one ships every few days.
 
 ### Travel & local
 
+- [Google Hotels Scraper: Prices & Booking Sites](https://apify.com/scrapemint/google-hotels-scraper)
 - [Vacation Rental Revenue Estimator & Competitor Intelligence](https://apify.com/scrapemint/airbnb-market-intelligence)
 - [Eventbrite Scraper: Events, Prices & Organizer Leads](https://apify.com/scrapemint/eventbrite-events-scraper)
 - [Flight Price Tracker: Google Flights Fares by Route](https://apify.com/scrapemint/flight-price-tracker)
@@ -282,6 +285,8 @@ There are **261** actors live right now, and a new one ships every few days.
 
 ### Ecommerce & retail
 
+- [Amazon Product Scraper: Search, Best Sellers & ASINs](https://apify.com/scrapemint/amazon-product-scraper)
+- [AliExpress Scraper: Products, Prices & Units Sold](https://apify.com/scrapemint/aliexpress-scraper)
 - [Craigslist Scraper: Listings, Housing, Jobs & Cars](https://apify.com/scrapemint/craigslist-scraper)
 - [Kleinanzeigen Scraper: Listings, Prices & Sellers](https://apify.com/scrapemint/kleinanzeigen-scraper)
 - [AutoScout24 Scraper: Cars, Prices & Dealer Phones](https://apify.com/scrapemint/autoscout24-scraper)
