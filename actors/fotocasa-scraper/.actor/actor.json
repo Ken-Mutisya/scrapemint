@@ -1,0 +1,16 @@
+{
+    "actorSpecification": 1,
+    "name": "fotocasa-scraper",
+    "title": "Fotocasa Scraper: Spain Property Listings & Prices",
+    "description": "Homes for sale and rent on fotocasa.es for any city or search URL: price and price per m², size, rooms, bathrooms, floor, condition, address, GPS, features, agency name and phone, photos and description. Pages to the end of any search. $0.0015 per listing.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "output": "./output_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "REAL_ESTATE",
+        "LEAD_GENERATION"
+    ],
+    "readme": "../README.md"
+}

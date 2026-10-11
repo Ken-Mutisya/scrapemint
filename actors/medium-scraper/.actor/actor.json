@@ -1,0 +1,16 @@
+{
+    "actorSpecification": 1,
+    "name": "medium-scraper",
+    "title": "Medium Scraper: Articles, Claps & Full Text",
+    "description": "Medium articles from tags, keyword search, authors, publications or URLs: title, author and followers, publication, claps, responses, reading time, word count, tags, dates and optionally the full text. Hot, newest or top feeds. $0.002 per article.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "output": "./output_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "SOCIAL_MEDIA",
+        "NEWS"
+    ],
+    "readme": "../README.md"
+}

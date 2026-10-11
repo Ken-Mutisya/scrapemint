@@ -1,0 +1,21 @@
+{
+    "_note": "New actor, first pricing entry. Market (2026-10-11): moving_beacon-owner1/medium-scraper $0.01 per item (279 monthly users), fatihtahta/medium-scraper $0.00199 (6), easyapi/medium-posts-search-scraper $0.005 + $0.09 start (2). article $0.002 metadata; article_text $0.004 with the text (one extra GraphQL call per 10 articles). No start fee. Source: medium.com/_/graphql, no proxy; answers Apify IPs (home IPs get Cloudflare's block page).",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~medium-scraper?token=APIFY_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "article": {
+                "eventTitle": "Article",
+                "eventDescription": "One Medium article with title, subtitle, author and follower count, publication, published and updated dates, claps, responses, reading time, word count, tags and image. A source with no articles is free.",
+                "eventPriceUsd": 0.002,
+                "isPrimaryEvent": true
+            },
+            "article_text": {
+                "eventTitle": "Article with text",
+                "eventDescription": "The same article plus its text, with headings, lists and code blocks (opening paragraphs only for members-only articles). Only with Article text on; charged instead of Article, not on top of it.",
+                "eventPriceUsd": 0.004
+            }
+        }
+    },
+    "startedAt": "2026-10-11T22:00:00.000Z"
+}

@@ -1,0 +1,20 @@
+{
+    "actorOutputSchemaVersion": 1,
+    "title": "Flipkart products",
+    "description": "One row per product.",
+    "type": "object",
+    "properties": {
+        "products": {
+            "type": "string",
+            "title": "Products",
+            "description": "Title, brand, price, MRP, discount, rating and breakdown, reviews, key specs, stock, images, and with details on the full specifications and seller.",
+            "template": "{{links.apiDefaultDatasetUrl}}/items"
+        },
+        "summary": {
+            "type": "string",
+            "title": "Run summary",
+            "description": "Products and pages per search, and any searches that failed.",
+            "template": "{{links.apiDefaultKeyValueStoreUrl}}/records/SUMMARY"
+        }
+    }
+}

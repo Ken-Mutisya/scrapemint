@@ -1,0 +1,20 @@
+{
+    "actorOutputSchemaVersion": 1,
+    "title": "Fotocasa listings",
+    "description": "One row per property.",
+    "type": "object",
+    "properties": {
+        "listings": {
+            "type": "string",
+            "title": "Listings",
+            "description": "Price, size, rooms, floor, condition, address, coordinates, features, advertiser and phone, photos and description.",
+            "template": "{{links.apiDefaultDatasetUrl}}/items"
+        },
+        "summary": {
+            "type": "string",
+            "title": "Run summary",
+            "description": "Listings on Fotocasa and listings saved per search, the search URL used, and any searches that failed.",
+            "template": "{{links.apiDefaultKeyValueStoreUrl}}/records/SUMMARY"
+        }
+    }
+}

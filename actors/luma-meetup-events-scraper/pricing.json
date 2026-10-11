@@ -1,0 +1,16 @@
+{
+    "_note": "New actor, first pricing entry. Market (2026-10-11): Luma: matyascimbulka/luma-event-scraper tiered (44 monthly users), aitorsm/luma-events tiered + $0.01 detail (26); Meetup: filip_cicvarek/meetup-scraper tiered (70), easyapi/meetup-events-scraper $0.005 + $0.09 start (26), shahidirfan/meetup-events-scraper $0.001 + $0.0005 start (12). event $0.002 with the description (one extra Luma call per event). No start fee. Sources: api.lu.ma and meetup.com/gql2, no proxy; both answered Apify IPs 3/3 in the 2026-10-11 probe.",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~luma-meetup-events-scraper?token=APIFY_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "event": {
+                "eventTitle": "Event",
+                "eventDescription": "One Luma or Meetup event with title, start and end, timezone, in person or online, venue, address, coordinates, price, attendee count, capacity, organiser, hosts with social links and the description. A search with no events is free.",
+                "eventPriceUsd": 0.002,
+                "isPrimaryEvent": true
+            }
+        }
+    },
+    "startedAt": "2026-10-11T22:00:00.000Z"
+}

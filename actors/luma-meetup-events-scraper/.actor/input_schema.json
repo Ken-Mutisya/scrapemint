@@ -1,0 +1,97 @@
+{
+    "title": "Luma & Meetup Events Scraper input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "locations": {
+            "title": "Cities",
+            "type": "array",
+            "description": "One search per city on each platform, e.g. London, San Francisco, Berlin, Manchester, GB, Portland, US. Add a country code when a name is ambiguous.",
+            "editor": "stringList",
+            "prefill": [
+                "San Francisco, US"
+            ],
+            "default": [],
+            "sectionCaption": "Search"
+        },
+        "keywords": {
+            "title": "Keywords",
+            "type": "array",
+            "description": "Optional, e.g. AI, startup, python, networking, yoga. Meetup searches by keyword; Luma events are kept when the keyword appears as a whole word in the title, description or organiser.",
+            "editor": "stringList",
+            "default": []
+        },
+        "platforms": {
+            "title": "Platforms",
+            "type": "array",
+            "description": "Which sites to search: luma, meetup, or both.",
+            "editor": "stringList",
+            "default": [
+                "luma",
+                "meetup"
+            ]
+        },
+        "lumaUrls": {
+            "title": "Luma pages",
+            "type": "array",
+            "description": "Luma calendars, city pages or events, as URLs or slugs, e.g. lu.ma/genai-sf, lu.ma/nyc, lu.ma/sf, lu.ma/london.",
+            "editor": "stringList",
+            "default": [],
+            "sectionCaption": "Pages"
+        },
+        "meetupGroups": {
+            "title": "Meetup groups or events",
+            "type": "array",
+            "description": "Meetup group URLs or names for their upcoming events, e.g. meetup.com/djangolondon, or single event URLs.",
+            "editor": "stringList",
+            "default": []
+        },
+        "strictKeywordMatch": {
+            "title": "Strict keyword match on Meetup",
+            "type": "boolean",
+            "description": "Meetup's search is broad: \"python\" also returns Django and data-science events. On keeps only events whose title, description or group contains the keyword.",
+            "default": false,
+            "sectionCaption": "Filters"
+        },
+        "eventType": {
+            "title": "In person or online",
+            "type": "string",
+            "editor": "select",
+            "enum": [
+                "any",
+                "in_person",
+                "online",
+                "hybrid"
+            ],
+            "enumTitles": [
+                "Any",
+                "In person",
+                "Online",
+                "Hybrid"
+            ],
+            "description": "Keep only this kind of event.",
+            "default": "any"
+        },
+        "daysAhead": {
+            "title": "Within the next N days",
+            "type": "integer",
+            "description": "Optional. Keep only events starting within this many days, e.g. 7 or 30.",
+            "minimum": 1
+        },
+        "includeDescription": {
+            "title": "Include description",
+            "type": "boolean",
+            "description": "Adds each event's full description. Same price either way.",
+            "default": true,
+            "sectionCaption": "Output"
+        },
+        "maxItemsPerSearch": {
+            "title": "Max events per search",
+            "type": "integer",
+            "description": "Stop each city, keyword, page or group after this many events.",
+            "default": 100,
+            "minimum": 1
+        }
+    },
+    "required": []
+}

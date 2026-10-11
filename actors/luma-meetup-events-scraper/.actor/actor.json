@@ -1,0 +1,16 @@
+{
+    "actorSpecification": 1,
+    "name": "luma-meetup-events-scraper",
+    "title": "Luma & Meetup Events Scraper",
+    "description": "Upcoming events from Luma (lu.ma) and Meetup for any city and keyword, or Luma calendars and Meetup groups: date, venue, address, GPS, online or in person, price, attendee count, organiser, hosts with social links and description. One row format. $0.002 per event.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "output": "./output_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "LEAD_GENERATION",
+        "SOCIAL_MEDIA"
+    ],
+    "readme": "../README.md"
+}

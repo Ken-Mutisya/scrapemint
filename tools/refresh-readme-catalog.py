@@ -72,7 +72,7 @@ SECTIONS = [
     ]),
     ("Real estate & housing", [
         "zillow-home-price-scraper", "home-listings-scraper", "us-rent-home-price-index",
-        "uk-house-prices", "europe-house-prices",
+        "uk-house-prices", "europe-house-prices", "fotocasa-scraper",
     ]),
     ("Prediction markets, sports & betting", [
         "pinnacle-odds-scraper",
@@ -86,7 +86,7 @@ SECTIONS = [
     ]),
     ("Jobs & hiring", [
         "linkedin-jobs-scraper", "linkedin-job-market-trend-scraper", "indeed-jobs-scraper",
-        "dice-jobs-scraper", "welcome-to-the-jungle-jobs-scraper", "xing-jobs-scraper",
+        "dice-jobs-scraper", "welcome-to-the-jungle-jobs-scraper", "xing-jobs-scraper", "reed-jobs-scraper",
         "layoff-warn-tracker", "ats-jobs-search", "seek-jobs-scraper", "jobstreet-jobsdb-scraper", "workday-jobs-scraper", "company-job-openings-scraper", "remote-jobs-scraper", "startup-jobs-search",
         "h1b-salary-data",
     ]),
@@ -98,7 +98,7 @@ SECTIONS = [
         "pinterest-scraper",
         "instagram-scraper", "youtube-scraper", "youtube-video-scraper", "bluesky-scraper",
         "telegram-channel-scraper",
-        "substack-newsletter-intelligence", "producthunt-launch-tracker", "hacker-news-scraper",
+        "substack-newsletter-intelligence", "medium-scraper", "producthunt-launch-tracker", "hacker-news-scraper",
         "google-news-scraper", "global-news-media-monitor", "rss-feed-scraper",
         "wikipedia-trends-scraper", "wikipedia-article-data", "music-charts-tracker", "spotify-scraper", "snapchat-profile-scraper", "x-twitter-trends-scraper",
         "podcast-charts-tracker", "streaming-availability-scraper", "tv-schedule-scraper",
@@ -125,12 +125,12 @@ SECTIONS = [
         "food-product-data-scraper",
     ]),
     ("Travel & local", [
-        "google-hotels-scraper", "airbnb-market-intelligence", "eventbrite-events-scraper", "flight-price-tracker", "flight-delay-tracker",
+        "google-hotels-scraper", "airbnb-market-intelligence", "eventbrite-events-scraper", "luma-meetup-events-scraper", "flight-price-tracker", "flight-delay-tracker",
         "ryanair-cheapest-fares", "tripadvisor-scraper", "tripadvisor-property-rank-tracker",
         "viator-tours-tracker", "public-holidays-finder",
     ]),
     ("Ecommerce & retail", [
-        "amazon-product-scraper", "aliexpress-scraper", "craigslist-scraper", "kleinanzeigen-scraper", "autoscout24-scraper",
+        "amazon-product-scraper", "flipkart-scraper", "aliexpress-scraper", "craigslist-scraper", "kleinanzeigen-scraper", "autoscout24-scraper",
         "shopify-store-products-scraper", "shopify-price-monitor",
         "app-store-top-charts-tracker", "car-fuel-economy-scraper",
     ]),

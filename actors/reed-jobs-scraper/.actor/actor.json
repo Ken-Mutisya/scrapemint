@@ -1,0 +1,16 @@
+{
+    "actorSpecification": 1,
+    "name": "reed-jobs-scraper",
+    "title": "Reed.co.uk Jobs Scraper: UK Jobs with Salaries",
+    "description": "UK jobs from reed.co.uk for any keyword and location: salary range and period, company, job type, remote or hybrid, posted and expiry dates, apply link. Optional full description, skills and postcode. Filters by salary, job type, date and employer. $0.001 per job.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "output": "./output_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "JOBS",
+        "LEAD_GENERATION"
+    ],
+    "readme": "../README.md"
+}

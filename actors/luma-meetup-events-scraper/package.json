@@ -1,0 +1,16 @@
+{
+    "name": "luma-meetup-events-scraper",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Upcoming events from Luma and Meetup by city, keyword, calendar or group: date, venue, coordinates, price, attendees, organiser, hosts and description in one row format. Keyless, no browser, no proxy.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}

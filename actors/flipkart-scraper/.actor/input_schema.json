@@ -1,0 +1,67 @@
+{
+    "title": "Flipkart Scraper input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "queries": {
+            "title": "Search terms",
+            "type": "array",
+            "description": "One Flipkart search per term, e.g. iphone 17, running shoes, office chair, 55 inch tv.",
+            "editor": "stringList",
+            "prefill": [
+                "wireless earbuds"
+            ],
+            "default": [],
+            "sectionCaption": "Search"
+        },
+        "searchUrls": {
+            "title": "Or Flipkart search / category URLs",
+            "type": "array",
+            "description": "Search or category pages copied from flipkart.com with your filters set, e.g. flipkart.com/mobiles/pr?sid=tyy,4io or flipkart.com/search?q=shoes&p[]=facets.brand%5B%5D%3DADIDAS.",
+            "editor": "stringList",
+            "default": []
+        },
+        "sortBy": {
+            "title": "Sort by",
+            "type": "string",
+            "editor": "select",
+            "enum": [
+                "relevance",
+                "popularity",
+                "price_asc",
+                "price_desc",
+                "newest"
+            ],
+            "enumTitles": [
+                "Relevance",
+                "Popularity",
+                "Price: low to high",
+                "Price: high to low",
+                "Newest first"
+            ],
+            "description": "Order of results for search terms. URLs keep their own sort.",
+            "default": "relevance"
+        },
+        "includeSponsored": {
+            "title": "Include sponsored products",
+            "type": "boolean",
+            "description": "Keep the ads Flipkart mixes into results. They are flagged with isSponsored either way.",
+            "default": true,
+            "sectionCaption": "Output"
+        },
+        "includeDetails": {
+            "title": "Full specifications and seller",
+            "type": "boolean",
+            "description": "Reads each product page for the full specification table, seller name and rating, colour and return policy. Costs $0.003 per product instead of $0.001.",
+            "default": false
+        },
+        "maxItemsPerSearch": {
+            "title": "Max products per search",
+            "type": "integer",
+            "description": "Stop each search after this many products.",
+            "default": 200,
+            "minimum": 1
+        }
+    },
+    "required": []
+}

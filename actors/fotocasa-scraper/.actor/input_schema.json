@@ -1,0 +1,140 @@
+{
+    "title": "Fotocasa Scraper input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "locations": {
+            "title": "Locations",
+            "type": "array",
+            "description": "One search per city, town or province in Spain, e.g. Madrid, Barcelona, Sevilla, Marbella, Valencia provincia, España.",
+            "editor": "stringList",
+            "prefill": [
+                "Madrid"
+            ],
+            "default": [],
+            "sectionCaption": "Search"
+        },
+        "operation": {
+            "title": "Buy or rent",
+            "type": "string",
+            "editor": "select",
+            "enum": [
+                "buy",
+                "rent"
+            ],
+            "enumTitles": [
+                "For sale",
+                "For rent"
+            ],
+            "description": "Listings for sale or for rent.",
+            "default": "buy"
+        },
+        "propertyType": {
+            "title": "Property type",
+            "type": "string",
+            "editor": "select",
+            "enum": [
+                "homes",
+                "garages",
+                "commercial",
+                "offices",
+                "land",
+                "storage",
+                "buildings"
+            ],
+            "enumTitles": [
+                "Homes (flats, houses, penthouses)",
+                "Garages and parking",
+                "Commercial premises",
+                "Offices",
+                "Land",
+                "Storage rooms",
+                "Buildings"
+            ],
+            "description": "What kind of property to search.",
+            "default": "homes"
+        },
+        "searchUrls": {
+            "title": "Or Fotocasa search URLs",
+            "type": "array",
+            "description": "Search pages copied from fotocasa.es with your area and filters set, including drawn zones and neighbourhoods. Filters below do not apply to these.",
+            "editor": "stringList",
+            "default": []
+        },
+        "minPrice": {
+            "title": "Minimum price (€)",
+            "type": "integer",
+            "description": "Optional. For rent this is the monthly rent.",
+            "minimum": 0,
+            "sectionCaption": "Filters"
+        },
+        "maxPrice": {
+            "title": "Maximum price (€)",
+            "type": "integer",
+            "description": "Optional. For rent this is the monthly rent.",
+            "minimum": 0
+        },
+        "minRooms": {
+            "title": "Minimum bedrooms",
+            "type": "integer",
+            "description": "Optional, e.g. 2.",
+            "minimum": 0
+        },
+        "minBathrooms": {
+            "title": "Minimum bathrooms",
+            "type": "integer",
+            "description": "Optional, e.g. 2.",
+            "minimum": 0
+        },
+        "minSizeM2": {
+            "title": "Minimum size (m²)",
+            "type": "integer",
+            "description": "Optional.",
+            "minimum": 0
+        },
+        "maxSizeM2": {
+            "title": "Maximum size (m²)",
+            "type": "integer",
+            "description": "Optional.",
+            "minimum": 0
+        },
+        "sortBy": {
+            "title": "Sort by",
+            "type": "string",
+            "editor": "select",
+            "enum": [
+                "relevance",
+                "newest",
+                "price_asc",
+                "price_desc",
+                "size_desc",
+                "size_asc"
+            ],
+            "enumTitles": [
+                "Relevance",
+                "Newest first",
+                "Cheapest first",
+                "Most expensive first",
+                "Largest first",
+                "Smallest first"
+            ],
+            "description": "Order of results. Newest first with a schedule collects new listings as they appear.",
+            "default": "relevance"
+        },
+        "includeDescription": {
+            "title": "Include description",
+            "type": "boolean",
+            "description": "Adds the advertiser's full listing text. Same price either way.",
+            "default": true,
+            "sectionCaption": "Output"
+        },
+        "maxItemsPerSearch": {
+            "title": "Max listings per search",
+            "type": "integer",
+            "description": "Stop each search after this many listings. Fotocasa lets you page to the end of every search, 100 listings per request.",
+            "default": 300,
+            "minimum": 1
+        }
+    },
+    "required": []
+}

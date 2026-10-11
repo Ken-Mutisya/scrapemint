@@ -1,0 +1,143 @@
+{
+    "title": "Reed Jobs Scraper input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "queries": {
+            "title": "Keywords",
+            "type": "array",
+            "description": "One search per keyword or job title, e.g. python developer, nurse, accountant, warehouse operative.",
+            "editor": "stringList",
+            "prefill": [
+                "software developer"
+            ],
+            "default": [],
+            "sectionCaption": "Search"
+        },
+        "location": {
+            "title": "Location",
+            "type": "string",
+            "editor": "textfield",
+            "description": "Optional town, city, county or postcode, e.g. London, Manchester, Kent, LS1. Empty searches the whole UK.",
+            "default": ""
+        },
+        "distanceMiles": {
+            "title": "Distance (miles)",
+            "type": "integer",
+            "description": "Optional radius around the location: 0, 1, 3, 5, 10, 15, 20, 30 or 50. Reed's default is 10.",
+            "minimum": 0,
+            "maximum": 50
+        },
+        "searchUrls": {
+            "title": "Or Reed search URLs",
+            "type": "array",
+            "description": "Search pages copied from reed.co.uk/jobs with your filters already set. Filters below do not apply to these.",
+            "editor": "stringList",
+            "default": []
+        },
+        "jobTypes": {
+            "title": "Job type",
+            "type": "array",
+            "description": "Any of: permanent, contract, temporary, full_time, part_time. Empty keeps all.",
+            "editor": "stringList",
+            "default": [],
+            "sectionCaption": "Filters"
+        },
+        "workingOption": {
+            "title": "Remote / on-site",
+            "type": "string",
+            "editor": "select",
+            "enum": [
+                "",
+                "remote",
+                "hybrid",
+                "on_site"
+            ],
+            "enumTitles": [
+                "Any",
+                "Remote",
+                "Hybrid",
+                "On-site"
+            ],
+            "description": "Keep only remote, hybrid or on-site jobs.",
+            "default": ""
+        },
+        "postedWithin": {
+            "title": "Posted within",
+            "type": "string",
+            "editor": "select",
+            "enum": [
+                "anytime",
+                "today",
+                "lastthreedays",
+                "lastweek",
+                "lasttwoweeks"
+            ],
+            "enumTitles": [
+                "Anytime",
+                "Today",
+                "Last 3 days",
+                "Last week",
+                "Last 2 weeks"
+            ],
+            "description": "Only jobs posted in this window. Use Today or Last 3 days on a schedule to collect new jobs.",
+            "default": "anytime"
+        },
+        "salaryFrom": {
+            "title": "Minimum salary (£ per year)",
+            "type": "integer",
+            "description": "Optional, e.g. 30000.",
+            "minimum": 0
+        },
+        "salaryTo": {
+            "title": "Maximum salary (£ per year)",
+            "type": "integer",
+            "description": "Optional, e.g. 60000.",
+            "minimum": 0
+        },
+        "employerType": {
+            "title": "Posted by",
+            "type": "string",
+            "editor": "select",
+            "enum": [
+                "any",
+                "direct",
+                "agency"
+            ],
+            "enumTitles": [
+                "Anyone",
+                "Employers only",
+                "Agencies only"
+            ],
+            "description": "Keep jobs posted by direct employers, or by recruitment agencies.",
+            "default": "any"
+        },
+        "graduateOnly": {
+            "title": "Graduate jobs only",
+            "type": "boolean",
+            "description": "Keep only jobs Reed marks as suitable for graduates.",
+            "default": false
+        },
+        "hideTrainingJobs": {
+            "title": "Hide training courses",
+            "type": "boolean",
+            "description": "Drop training-course listings that Reed shows among jobs.",
+            "default": false
+        },
+        "includeDetails": {
+            "title": "Full description and skills",
+            "type": "boolean",
+            "description": "Reads each job page for the full description, skills, postcode, region, sector, salary per annum and recruiter reference. Costs $0.002 per job instead of $0.001.",
+            "default": false,
+            "sectionCaption": "Output"
+        },
+        "maxItemsPerSearch": {
+            "title": "Max jobs per search",
+            "type": "integer",
+            "description": "Stop each search after this many jobs. Reed shows 25 per page and lets you page to the end of every search.",
+            "default": 200,
+            "minimum": 1
+        }
+    },
+    "required": []
+}

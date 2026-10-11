@@ -1,0 +1,16 @@
+{
+    "actorSpecification": 1,
+    "name": "flipkart-scraper",
+    "title": "Flipkart Scraper: Prices, Ratings & Specs",
+    "description": "Flipkart products for any search term, category or search URL: price, MRP, discount, rating and 1-5 star breakdown, review count, key specs, stock, Flipkart Assured, images. Optional full specification table and seller. $0.001 per product.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "output": "./output_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "ECOMMERCE",
+        "LEAD_GENERATION"
+    ],
+    "readme": "../README.md"
+}

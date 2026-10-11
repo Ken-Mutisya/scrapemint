@@ -1,0 +1,20 @@
+{
+    "actorOutputSchemaVersion": 1,
+    "title": "Luma and Meetup events",
+    "description": "One row per event, same fields for both platforms.",
+    "type": "object",
+    "properties": {
+        "events": {
+            "type": "string",
+            "title": "Events",
+            "description": "Platform, title, start and end, venue, address, coordinates, price, attendees, organiser, hosts and description.",
+            "template": "{{links.apiDefaultDatasetUrl}}/items"
+        },
+        "summary": {
+            "type": "string",
+            "title": "Run summary",
+            "description": "Events per search and any searches that failed.",
+            "template": "{{links.apiDefaultKeyValueStoreUrl}}/records/SUMMARY"
+        }
+    }
+}

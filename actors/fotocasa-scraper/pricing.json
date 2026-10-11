@@ -1,0 +1,16 @@
+{
+    "_note": "New actor, first pricing entry. Market (2026-10-11): igolaizola/fotocasa-scraper tiered (83 monthly users), azzouzana/fotocasa-es-search-results-scraper-by-search-url-ppr tiered + $0.005 start (42), parsebird/fotocasa-scraper $0.006 per listing (3). listing $0.0015 with description, coordinates, features, photos and the agency phone. No start fee. Source: fotocasa search gateway (web.gw.fotocasa.es/v2/propertysearch/search, 100 per page, no page cap), no proxy; answered Apify IPs 3/3 in the 2026-10-11 probe.",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~fotocasa-scraper?token=APIFY_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "listing": {
+                "eventTitle": "Listing",
+                "eventDescription": "One Fotocasa property with price, price per m², size, rooms, bathrooms, floor, condition, address and coordinates, features, advertiser name and phone, photos and the description. A search with no results is free.",
+                "eventPriceUsd": 0.0015,
+                "isPrimaryEvent": true
+            }
+        }
+    },
+    "startedAt": "2026-10-11T22:00:00.000Z"
+}

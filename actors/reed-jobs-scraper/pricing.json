@@ -1,0 +1,21 @@
+{
+    "_note": "New actor, first pricing entry. Market (2026-10-11): scrapersdelight/reed-jobs-scraper $0.0005 per job + monitor events (121 monthly users), doggo/uk-jobs-board-scraper tiered (35), shahidirfan/Reed-Job-Scraper tiered + $0.005 start (29). job $0.001 from the search page; job_detail $0.002 with the job page read (full description, skills, postcode). No start fee. No proxy: reed.co.uk answered Apify IPs 3/3 in the 2026-10-11 probe.",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~reed-jobs-scraper?token=APIFY_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "job": {
+                "eventTitle": "Job",
+                "eventDescription": "One Reed job with title, company, location, job type, salary range and period, remote option, posted and expiry dates, category, apply type and a description snippet. A search with no results is free.",
+                "eventPriceUsd": 0.001,
+                "isPrimaryEvent": true
+            },
+            "job_detail": {
+                "eventTitle": "Job with details",
+                "eventDescription": "The same job plus its full description, skills, postcode, region, sector, salary per annum and recruiter reference, read from the job page. Only with Full description on; charged instead of Job, not on top of it.",
+                "eventPriceUsd": 0.002
+            }
+        }
+    },
+    "startedAt": "2026-10-11T22:00:00.000Z"
+}

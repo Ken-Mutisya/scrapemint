@@ -1,0 +1,84 @@
+{
+    "title": "Medium Scraper input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "tags": {
+            "title": "Tags",
+            "type": "array",
+            "description": "Medium tags (topics), e.g. artificial-intelligence, python, startup, productivity, or medium.com/tag/... URLs.",
+            "editor": "stringList",
+            "prefill": [
+                "artificial-intelligence"
+            ],
+            "default": [],
+            "sectionCaption": "Sources"
+        },
+        "tagSort": {
+            "title": "Tag feed",
+            "type": "string",
+            "editor": "select",
+            "enum": [
+                "hot",
+                "new",
+                "top_week",
+                "top_month",
+                "top_year",
+                "top_all_time"
+            ],
+            "enumTitles": [
+                "Recommended (hot)",
+                "Newest",
+                "Top this week",
+                "Top this month",
+                "Top this year",
+                "Top of all time"
+            ],
+            "description": "Which feed of each tag to read. Newest with a schedule collects new articles as they are published.",
+            "default": "hot"
+        },
+        "searchQueries": {
+            "title": "Search keywords",
+            "type": "array",
+            "description": "Medium article search, e.g. vector database, remote work, ozempic.",
+            "editor": "stringList",
+            "default": []
+        },
+        "authors": {
+            "title": "Authors",
+            "type": "array",
+            "description": "Usernames, @usernames or profile URLs, e.g. karpathy, medium.com/@username, username.medium.com. Returns their articles, newest first.",
+            "editor": "stringList",
+            "default": []
+        },
+        "publications": {
+            "title": "Publications",
+            "type": "array",
+            "description": "Publication slugs, URLs or custom domains, e.g. data-science-collective, medium.com/better-programming, towardsdatascience.com.",
+            "editor": "stringList",
+            "default": []
+        },
+        "articleUrls": {
+            "title": "Article URLs",
+            "type": "array",
+            "description": "Individual Medium articles, on medium.com or a publication's own domain.",
+            "editor": "stringList",
+            "default": []
+        },
+        "includeContent": {
+            "title": "Article text",
+            "type": "boolean",
+            "description": "Adds each article's text with headings, lists and code blocks. Members-only articles give only their opening paragraphs. Costs $0.004 per article instead of $0.002.",
+            "default": false,
+            "sectionCaption": "Output"
+        },
+        "maxItemsPerSource": {
+            "title": "Max articles per source",
+            "type": "integer",
+            "description": "Stop each tag, search, author or publication after this many articles.",
+            "default": 100,
+            "minimum": 1
+        }
+    },
+    "required": []
+}
