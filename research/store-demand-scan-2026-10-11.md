@@ -18,6 +18,11 @@ Account check the same day: all 266 Scrapemint actors are `isPublic: true`
 | 4 | Luma + Meetup events | 120 + 115 | matyascimbulka/luma-event-scraper 44, filip_cicvarek/meetup-scraper 70 | Luma API 40-90 events/call 3/3; Meetup /find 7-32 events 3/3 |
 | 5 | Reed.co.uk jobs | 124 | scrapersdelight/reed-jobs-scraper 121 | 3/3, 50 jobs/page |
 
+**Outcome (same day):** Bing was dropped at build time. From Apify IPs it ignored
+`first=` paging and, with a market set or a cookie session, returned results for
+unrelated queries ("best crm software" came back as UK taxi insurance). Fotocasa
+took its place. All five shipped public 2026-10-11 (1168f9d, f8e70fe).
+
 Reserve: Fotocasa 130 (60/page, 10-09b), Rightmove 92 (3/3, 25/page; + Zoopla 62
 but Zoopla is Cloudflare), IndiaMART 120 (1/3 on the category page, search marker
 not found), Naver search (page loads; map API 403).
