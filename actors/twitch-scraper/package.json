@@ -1,0 +1,10 @@
+{
+    "name": "twitch-scraper",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Twitch channels, live streams, clips, past broadcasts and top categories: followers, viewers, partner status, titles, languages and social links. Keyless, no browser, no proxy.",
+    "main": "src/main.js",
+    "scripts": { "start": "node src/main.js" },
+    "dependencies": { "apify": "^3.7.0" },
+    "engines": { "node": ">=20" }
+}

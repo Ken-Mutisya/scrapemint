@@ -1,0 +1,204 @@
+{
+    "title": "Property Finder Scraper input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "locations": {
+            "title": "Locations",
+            "type": "array",
+            "description": "One search per area, community or building, e.g. Dubai Marina, Jumeirah Village Circle, Abu Dhabi, Riyadh, The Pearl. Matched with Property Finder's own location search.",
+            "editor": "stringList",
+            "prefill": [
+                "Dubai Marina"
+            ],
+            "default": [],
+            "sectionCaption": "Search"
+        },
+        "country": {
+            "title": "Country",
+            "type": "string",
+            "editor": "select",
+            "enum": [
+                "ae",
+                "sa",
+                "qa",
+                "bh",
+                "eg"
+            ],
+            "enumTitles": [
+                "United Arab Emirates",
+                "Saudi Arabia",
+                "Qatar",
+                "Bahrain",
+                "Egypt"
+            ],
+            "description": "Which Property Finder site to search.",
+            "default": "ae"
+        },
+        "operation": {
+            "title": "Buy or rent",
+            "type": "string",
+            "editor": "select",
+            "enum": [
+                "buy",
+                "rent",
+                "commercial_buy",
+                "commercial_rent"
+            ],
+            "enumTitles": [
+                "Buy (residential)",
+                "Rent (residential)",
+                "Buy (commercial)",
+                "Rent (commercial)"
+            ],
+            "description": "Listings for sale or for rent, residential or commercial.",
+            "default": "buy"
+        },
+        "searchUrls": {
+            "title": "Or Property Finder search URLs",
+            "type": "array",
+            "description": "Search or listing pages copied from propertyfinder.ae, .sa, .qa, .bh or .eg with your filters set. Filters below do not apply to these.",
+            "editor": "stringList",
+            "default": []
+        },
+        "propertyType": {
+            "title": "Property type",
+            "type": "string",
+            "editor": "select",
+            "enum": [
+                "",
+                "apartment",
+                "villa",
+                "townhouse",
+                "penthouse",
+                "duplex",
+                "compound",
+                "hotel_apartment",
+                "full_floor",
+                "whole_building",
+                "land",
+                "bungalow",
+                "office",
+                "retail",
+                "shop",
+                "showroom",
+                "warehouse",
+                "factory"
+            ],
+            "enumTitles": [
+                "Any",
+                "Apartment",
+                "Villa",
+                "Townhouse",
+                "Penthouse",
+                "Duplex",
+                "Compound",
+                "Hotel apartment",
+                "Full floor",
+                "Whole building",
+                "Land",
+                "Bungalow",
+                "Office",
+                "Retail",
+                "Shop",
+                "Showroom",
+                "Warehouse",
+                "Factory"
+            ],
+            "description": "Optional.",
+            "default": "",
+            "sectionCaption": "Filters"
+        },
+        "minBedrooms": {
+            "title": "Minimum bedrooms",
+            "type": "integer",
+            "description": "Optional, 1 to 7.",
+            "minimum": 0,
+            "maximum": 7
+        },
+        "minPrice": {
+            "title": "Minimum price",
+            "type": "integer",
+            "description": "Optional, in local currency (AED, SAR, QAR, BHD, EGP). For rent, per the rent period below.",
+            "minimum": 0
+        },
+        "maxPrice": {
+            "title": "Maximum price",
+            "type": "integer",
+            "description": "Optional, in local currency.",
+            "minimum": 0
+        },
+        "rentPeriod": {
+            "title": "Rent period",
+            "type": "string",
+            "editor": "select",
+            "enum": [
+                "yearly",
+                "monthly",
+                "weekly",
+                "daily"
+            ],
+            "enumTitles": [
+                "Yearly",
+                "Monthly",
+                "Weekly",
+                "Daily"
+            ],
+            "description": "For rentals: which rent the price filter and prices refer to.",
+            "default": "yearly"
+        },
+        "furnished": {
+            "title": "Furnishing",
+            "type": "string",
+            "editor": "select",
+            "enum": [
+                "any",
+                "furnished",
+                "unfurnished",
+                "partly"
+            ],
+            "enumTitles": [
+                "Any",
+                "Furnished",
+                "Unfurnished",
+                "Partly furnished"
+            ],
+            "description": "Optional.",
+            "default": "any"
+        },
+        "sortBy": {
+            "title": "Sort by",
+            "type": "string",
+            "editor": "select",
+            "enum": [
+                "newest",
+                "featured",
+                "price_asc",
+                "price_desc"
+            ],
+            "enumTitles": [
+                "Newest first",
+                "Featured",
+                "Price: low to high",
+                "Price: high to low"
+            ],
+            "description": "Order of results. Newest first on a schedule collects new listings.",
+            "default": "newest"
+        },
+        "includeDescription": {
+            "title": "Include description",
+            "type": "boolean",
+            "description": "Adds the agent's full listing text. Same price either way.",
+            "default": true,
+            "sectionCaption": "Output"
+        },
+        "maxItemsPerSearch": {
+            "title": "Max listings per search",
+            "type": "integer",
+            "description": "Stop each search after this many listings. Property Finder lets you page to the end of every search, 25 per page.",
+            "default": 300,
+            "minimum": 1
+        }
+    },
+    "required": []
+}

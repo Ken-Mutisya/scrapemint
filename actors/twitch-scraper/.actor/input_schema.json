@@ -1,0 +1,81 @@
+{
+    "title": "Twitch Scraper input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "mode": {
+            "title": "What to scrape",
+            "type": "string",
+            "editor": "select",
+            "enum": ["channels", "live_streams", "clips", "videos", "top_categories"],
+            "enumTitles": ["Channels (profiles, followers, socials)", "Live streams", "Clips", "Past broadcasts and videos", "Top categories"],
+            "description": "Channels: by name, keyword search or who is live in a category. Live streams: in categories or site-wide. Clips: of channels or categories. Videos: of channels. Top categories: the 100 most watched.",
+            "default": "channels",
+            "sectionCaption": "Mode"
+        },
+        "channels": {
+            "title": "Channels",
+            "type": "array",
+            "description": "Channel names or URLs, e.g. shroud, twitch.tv/pokimane. Used by Channels, Clips and Videos.",
+            "editor": "stringList",
+            "prefill": ["shroud"],
+            "default": [],
+            "sectionCaption": "Sources"
+        },
+        "categories": {
+            "title": "Categories (games)",
+            "type": "array",
+            "description": "Category names exactly as on Twitch, e.g. Fortnite, Just Chatting, Chess, League of Legends. Used by Channels (who is live there), Live streams and Clips.",
+            "editor": "stringList",
+            "default": []
+        },
+        "searchQueries": {
+            "title": "Channel search",
+            "type": "array",
+            "description": "Keywords for Twitch's channel search, e.g. valorant, cooking, asmr. Channels mode only; up to 100 channels each.",
+            "editor": "stringList",
+            "default": []
+        },
+        "languages": {
+            "title": "Stream languages",
+            "type": "array",
+            "description": "Two-letter codes, e.g. en, es, de, fr, pt, ja. Filters live streams and live channels; each language is read separately, so more languages return more streams.",
+            "editor": "stringList",
+            "default": [],
+            "sectionCaption": "Filters"
+        },
+        "minFollowers": {
+            "title": "Minimum followers",
+            "type": "integer",
+            "description": "Optional. Drops channels and streams with fewer followers.",
+            "minimum": 0
+        },
+        "clipPeriod": {
+            "title": "Clip period",
+            "type": "string",
+            "editor": "select",
+            "enum": ["day", "week", "month", "all_time"],
+            "enumTitles": ["Last 24 hours", "Last 7 days", "Last 30 days", "All time"],
+            "description": "Most-viewed clips from this window.",
+            "default": "week"
+        },
+        "videoType": {
+            "title": "Video type",
+            "type": "string",
+            "editor": "select",
+            "enum": ["archive", "highlight", "upload", "all"],
+            "enumTitles": ["Past broadcasts", "Highlights", "Uploads", "All three"],
+            "description": "Which videos to list for each channel.",
+            "default": "archive"
+        },
+        "maxItems": {
+            "title": "Max rows per source",
+            "type": "integer",
+            "description": "Stop each channel list, category or search after this many rows. Twitch returns up to 100 clips, videos or categories and about 30-90 live streams per category and language.",
+            "default": 100,
+            "minimum": 1,
+            "sectionCaption": "Output"
+        }
+    },
+    "required": []
+}

@@ -1,0 +1,16 @@
+{
+    "actorSpecification": 1,
+    "name": "property-finder-scraper",
+    "title": "Property Finder Scraper: UAE, Saudi & Gulf",
+    "description": "Property Finder listings for sale and rent in the UAE, Saudi Arabia, Qatar, Bahrain and Egypt: price, price per sqft, beds, baths, size, community, GPS, agent and agency, phone and WhatsApp, photos and description. Pages to the end. $0.0015 per listing.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "output": "./output_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "REAL_ESTATE",
+        "LEAD_GENERATION"
+    ],
+    "readme": "../README.md"
+}

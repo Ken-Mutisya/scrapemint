@@ -1,0 +1,20 @@
+{
+    "actorOutputSchemaVersion": 1,
+    "title": "Property Finder listings",
+    "description": "One row per property.",
+    "type": "object",
+    "properties": {
+        "listings": {
+            "type": "string",
+            "title": "Listings",
+            "description": "Price, price per area, beds, baths, size, location and coordinates, agent, agency, phone, WhatsApp, photos and description.",
+            "template": "{{links.apiDefaultDatasetUrl}}/items"
+        },
+        "summary": {
+            "type": "string",
+            "title": "Run summary",
+            "description": "Listings on Property Finder and listings saved per search, and any searches that failed.",
+            "template": "{{links.apiDefaultKeyValueStoreUrl}}/records/SUMMARY"
+        }
+    }
+}

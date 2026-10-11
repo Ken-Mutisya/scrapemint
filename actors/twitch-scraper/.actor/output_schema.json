@@ -1,0 +1,20 @@
+{
+    "actorOutputSchemaVersion": 1,
+    "title": "Twitch data",
+    "description": "One row per channel, stream, clip, video or category; the type field says which.",
+    "type": "object",
+    "properties": {
+        "rows": {
+            "type": "string",
+            "title": "Rows",
+            "description": "Channels with followers, partner status, live state and socials; streams with viewers; clips and videos with views; categories with viewers.",
+            "template": "{{links.apiDefaultDatasetUrl}}/items"
+        },
+        "summary": {
+            "type": "string",
+            "title": "Run summary",
+            "description": "Rows per source and any sources that failed.",
+            "template": "{{links.apiDefaultKeyValueStoreUrl}}/records/SUMMARY"
+        }
+    }
+}

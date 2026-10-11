@@ -1,0 +1,121 @@
+{
+    "title": "Rightmove Scraper input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "locations": {
+            "title": "Locations",
+            "type": "array",
+            "description": "One search per town, city, area or postcode district, e.g. Manchester, Clapham, Bristol, SW11, Cornwall. Matched with Rightmove's own place search.",
+            "editor": "stringList",
+            "prefill": [
+                "Manchester"
+            ],
+            "default": [],
+            "sectionCaption": "Search"
+        },
+        "operation": {
+            "title": "Buy or rent",
+            "type": "string",
+            "editor": "select",
+            "enum": ["buy", "rent"],
+            "enumTitles": ["For sale", "To rent"],
+            "description": "Property for sale or to rent.",
+            "default": "buy"
+        },
+        "searchUrls": {
+            "title": "Or Rightmove search URLs",
+            "type": "array",
+            "description": "Search pages copied from rightmove.co.uk with your area and filters set (drawn areas, keywords, any filter). Filters below do not apply to these.",
+            "editor": "stringList",
+            "default": []
+        },
+        "radiusMiles": {
+            "title": "Radius (miles)",
+            "type": "string",
+            "editor": "select",
+            "enum": ["", "0.25", "0.5", "1.0", "3.0", "5.0", "10.0", "15.0", "20.0", "30.0", "40.0"],
+            "enumTitles": ["This area only", "1/4 mile", "1/2 mile", "1 mile", "3 miles", "5 miles", "10 miles", "15 miles", "20 miles", "30 miles", "40 miles"],
+            "description": "Include properties within this distance of the location.",
+            "default": "",
+            "sectionCaption": "Filters"
+        },
+        "minPrice": {
+            "title": "Minimum price (£)",
+            "type": "integer",
+            "description": "Optional. For rent this is per calendar month.",
+            "minimum": 0
+        },
+        "maxPrice": {
+            "title": "Maximum price (£)",
+            "type": "integer",
+            "description": "Optional. For rent this is per calendar month.",
+            "minimum": 0
+        },
+        "minBedrooms": {
+            "title": "Minimum bedrooms",
+            "type": "integer",
+            "description": "Optional.",
+            "minimum": 0
+        },
+        "maxBedrooms": {
+            "title": "Maximum bedrooms",
+            "type": "integer",
+            "description": "Optional.",
+            "minimum": 0
+        },
+        "propertyTypes": {
+            "title": "Property types",
+            "type": "array",
+            "description": "Any of: detached, semi-detached, terraced, flat, bungalow, land, park-home. Empty keeps all.",
+            "editor": "stringList",
+            "default": []
+        },
+        "mustHave": {
+            "title": "Must have",
+            "type": "array",
+            "description": "Any of: garden, parking, newHome, retirement, sharedOwnership, auction.",
+            "editor": "stringList",
+            "default": []
+        },
+        "addedWithinDays": {
+            "title": "Added to site within",
+            "type": "string",
+            "editor": "select",
+            "enum": ["", "1", "3", "7", "14"],
+            "enumTitles": ["Anytime", "Last 24 hours", "Last 3 days", "Last 7 days", "Last 14 days"],
+            "description": "Only properties added in this window. Last 24 hours on a daily schedule collects new listings.",
+            "default": ""
+        },
+        "includeUnderOffer": {
+            "title": "Include under offer / let agreed",
+            "type": "boolean",
+            "description": "Also include properties that are sold subject to contract, under offer or let agreed.",
+            "default": false
+        },
+        "sortBy": {
+            "title": "Sort by",
+            "type": "string",
+            "editor": "select",
+            "enum": ["newest", "price_asc", "price_desc", "oldest"],
+            "enumTitles": ["Newest listed", "Lowest price", "Highest price", "Oldest listed"],
+            "description": "Order of results.",
+            "default": "newest"
+        },
+        "includeDetails": {
+            "title": "Full description and property details",
+            "type": "boolean",
+            "description": "Reads each property page for the full description, floor area, full postcode, tenure and lease length, service charge, ground rent, council tax band, nearest stations, parking, garden, heating, floorplans and EPC. Costs $0.003 per property instead of $0.001.",
+            "default": false,
+            "sectionCaption": "Output"
+        },
+        "maxItemsPerSearch": {
+            "title": "Max properties per search",
+            "type": "integer",
+            "description": "Stop each search after this many properties. Rightmove shows about 1,000 per search; bigger searches are split by price automatically.",
+            "default": 300,
+            "minimum": 1
+        }
+    },
+    "required": []
+}

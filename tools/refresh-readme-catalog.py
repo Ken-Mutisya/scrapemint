@@ -72,7 +72,7 @@ SECTIONS = [
     ]),
     ("Real estate & housing", [
         "zillow-home-price-scraper", "home-listings-scraper", "us-rent-home-price-index",
-        "uk-house-prices", "europe-house-prices", "fotocasa-scraper",
+        "uk-house-prices", "europe-house-prices", "fotocasa-scraper", "rightmove-scraper", "property-finder-scraper",
     ]),
     ("Prediction markets, sports & betting", [
         "pinnacle-odds-scraper",
@@ -98,7 +98,7 @@ SECTIONS = [
         "pinterest-scraper",
         "instagram-scraper", "youtube-scraper", "youtube-video-scraper", "bluesky-scraper",
         "telegram-channel-scraper",
-        "substack-newsletter-intelligence", "medium-scraper", "producthunt-launch-tracker", "hacker-news-scraper",
+        "substack-newsletter-intelligence", "medium-scraper", "twitch-scraper", "username-checker", "producthunt-launch-tracker", "hacker-news-scraper",
         "google-news-scraper", "global-news-media-monitor", "rss-feed-scraper",
         "wikipedia-trends-scraper", "wikipedia-article-data", "music-charts-tracker", "spotify-scraper", "snapchat-profile-scraper", "x-twitter-trends-scraper",
         "podcast-charts-tracker", "streaming-availability-scraper", "tv-schedule-scraper",
@@ -130,7 +130,7 @@ SECTIONS = [
         "viator-tours-tracker", "public-holidays-finder",
     ]),
     ("Ecommerce & retail", [
-        "amazon-product-scraper", "flipkart-scraper", "aliexpress-scraper", "craigslist-scraper", "kleinanzeigen-scraper", "autoscout24-scraper",
+        "amazon-product-scraper", "flipkart-scraper", "aliexpress-scraper", "vinted-scraper", "craigslist-scraper", "kleinanzeigen-scraper", "autoscout24-scraper",
         "shopify-store-products-scraper", "shopify-price-monitor",
         "app-store-top-charts-tracker", "car-fuel-economy-scraper",
     ]),

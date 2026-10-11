@@ -1,0 +1,16 @@
+{
+    "actorSpecification": 1,
+    "name": "username-checker",
+    "title": "Username Checker: Availability on 50 Sites",
+    "description": "Check a username or brand handle on 50 sites: GitHub, Twitch, TikTok, Telegram, Bluesky, Pinterest, Snapchat, Steam, Medium, Substack, Roblox and more. Taken, available or unknown per site, with the profile link. For handle checks and brand protection. $0.0005 per check.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "output": "./output_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "SOCIAL_MEDIA",
+        "DEVELOPER_TOOLS"
+    ],
+    "readme": "../README.md"
+}

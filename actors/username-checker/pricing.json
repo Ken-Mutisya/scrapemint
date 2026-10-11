@@ -1,0 +1,16 @@
+{
+    "_note": "New actor, first pricing entry. Market (2026-10-11): ntriqpro/maigret-actor (156 monthly users), automation-lab/username-checker (60); 30 username/OSINT actors share 745. check $0.0005 per answered site check (50 sites = $0.025 per username). Unknown answers are free. No start fee. Every site passed a known-account / random-name self-test from Apify IPs with no proxy on 2026-10-11 (input _selfTest).",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~username-checker?token=APIFY_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "check": {
+                "eventTitle": "Site check",
+                "eventDescription": "One username checked on one site with a definite answer: taken (with the profile link) or available. Unknown answers (site blocked or unclear) are free.",
+                "eventPriceUsd": 0.0005,
+                "isPrimaryEvent": true
+            }
+        }
+    },
+    "startedAt": "2026-10-12T22:00:00.000Z"
+}

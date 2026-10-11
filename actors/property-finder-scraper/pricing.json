@@ -1,0 +1,16 @@
+{
+    "_note": "New actor, first pricing entry. Market (2026-10-11): ~30 Property Finder actors share 146 monthly users; top one azzouzana/propertyfinder-ads-search-results-pages-scraper has 28. listing $0.0015 with description, coordinates, agent and phone. No start fee. Source: __NEXT_DATA__ of the search page (25 per page, no page cap), no proxy; answered Apify IPs in the 2026-10-11 probe on .ae and .sa.",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~property-finder-scraper?token=APIFY_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "listing": {
+                "eventTitle": "Listing",
+                "eventDescription": "One Property Finder property with price, price per area, size, beds, baths, furnishing, completion status, location and coordinates, agent, agency, phone and WhatsApp, photos and the description. A search with no results is free.",
+                "eventPriceUsd": 0.0015,
+                "isPrimaryEvent": true
+            }
+        }
+    },
+    "startedAt": "2026-10-12T22:00:00.000Z"
+}

@@ -1,0 +1,16 @@
+{
+    "_note": "New actor, first pricing entry. Market (2026-10-11): automation-lab/twitch-scraper tiered (124 monthly users); 22 Twitch actors share 172. row $0.001 for any channel, stream, clip, video or category. No start fee. Source: gql.twitch.tv with the public web client id, no proxy; only channel.socialMedias and follow-up pages fail the integrity check, so socials come from About panels and each list is one page.",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~twitch-scraper?token=APIFY_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "row": {
+                "eventTitle": "Row",
+                "eventDescription": "One Twitch channel (followers, partner status, live state, last broadcast, social links), live stream (viewers, category, language), clip (views, curator), video (views, length) or category (viewers, live channels). A run that finds nothing is free.",
+                "eventPriceUsd": 0.001,
+                "isPrimaryEvent": true
+            }
+        }
+    },
+    "startedAt": "2026-10-12T22:00:00.000Z"
+}

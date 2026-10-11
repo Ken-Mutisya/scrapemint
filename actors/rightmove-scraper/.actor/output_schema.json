@@ -1,0 +1,20 @@
+{
+    "actorOutputSchemaVersion": 1,
+    "title": "Rightmove properties",
+    "description": "One row per property.",
+    "type": "object",
+    "properties": {
+        "properties": {
+            "type": "string",
+            "title": "Properties",
+            "description": "Price, beds, baths, type, size, address, coordinates, agent and phone, key features, dates, and with details on the full description, postcode, tenure, costs and stations.",
+            "template": "{{links.apiDefaultDatasetUrl}}/items"
+        },
+        "summary": {
+            "type": "string",
+            "title": "Run summary",
+            "description": "Properties on Rightmove and properties saved per search, and any searches that failed.",
+            "template": "{{links.apiDefaultKeyValueStoreUrl}}/records/SUMMARY"
+        }
+    }
+}

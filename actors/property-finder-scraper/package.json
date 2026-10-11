@@ -1,0 +1,16 @@
+{
+    "name": "property-finder-scraper",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Property Finder listings in the UAE, Saudi Arabia, Qatar, Bahrain and Egypt: price, size, beds, location, agent, agency, phone, WhatsApp, photos and description. Keyless, no browser, no proxy.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}

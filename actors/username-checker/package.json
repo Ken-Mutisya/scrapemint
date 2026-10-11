@@ -1,0 +1,10 @@
+{
+    "name": "username-checker",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Check a username across 50+ sites: taken, available or unknown, with the profile link. Keyless, no browser, no proxy.",
+    "main": "src/main.js",
+    "scripts": { "start": "node src/main.js" },
+    "dependencies": { "apify": "^3.7.0" },
+    "engines": { "node": ">=20" }
+}

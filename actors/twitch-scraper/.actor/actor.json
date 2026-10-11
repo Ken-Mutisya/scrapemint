@@ -1,0 +1,13 @@
+{
+    "actorSpecification": 1,
+    "name": "twitch-scraper",
+    "title": "Twitch Scraper: Channels, Streams, Clips & VODs",
+    "description": "Twitch channels with followers, partner status, live state and social links; live streams by category and language with viewers; top clips and past broadcasts of any channel; the top 100 categories. By name, search or category. $0.001 per row.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "output": "./output_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": ["SOCIAL_MEDIA", "VIDEOS"],
+    "readme": "../README.md"
+}

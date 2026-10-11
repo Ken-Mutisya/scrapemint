@@ -1,0 +1,16 @@
+{
+    "actorSpecification": 1,
+    "name": "vinted-scraper",
+    "title": "Vinted Scraper: Prices, Brands & Sellers",
+    "description": "Vinted listings from any country site for a search term or catalog URL: price, buyer fee and total, brand, size, condition, favourites, photos and seller. Optional description, colour, material, upload time and seller rating. Past the 960 cap. $0.0008 per item.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "output": "./output_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "ECOMMERCE",
+        "LEAD_GENERATION"
+    ],
+    "readme": "../README.md"
+}

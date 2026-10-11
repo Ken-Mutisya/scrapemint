@@ -1,0 +1,20 @@
+{
+    "actorOutputSchemaVersion": 1,
+    "title": "Username checks",
+    "description": "One row per username and site.",
+    "type": "object",
+    "properties": {
+        "checks": {
+            "type": "string",
+            "title": "Checks",
+            "description": "Username, site, category, taken / available / unknown, profile URL.",
+            "template": "{{links.apiDefaultDatasetUrl}}/items"
+        },
+        "summary": {
+            "type": "string",
+            "title": "Run summary",
+            "description": "Per username: how many sites it is taken, available and unknown on, and where it is taken.",
+            "template": "{{links.apiDefaultKeyValueStoreUrl}}/records/SUMMARY"
+        }
+    }
+}

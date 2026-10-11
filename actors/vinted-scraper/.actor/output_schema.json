@@ -1,0 +1,20 @@
+{
+    "actorOutputSchemaVersion": 1,
+    "title": "Vinted items",
+    "description": "One row per listing.",
+    "type": "object",
+    "properties": {
+        "items": {
+            "type": "string",
+            "title": "Items",
+            "description": "Title, brand, size, condition, price, buyer fee, total, favourites, photos, seller id, and with details on the description and seller rating.",
+            "template": "{{links.apiDefaultDatasetUrl}}/items"
+        },
+        "summary": {
+            "type": "string",
+            "title": "Run summary",
+            "description": "Items per search and any searches that failed.",
+            "template": "{{links.apiDefaultKeyValueStoreUrl}}/records/SUMMARY"
+        }
+    }
+}

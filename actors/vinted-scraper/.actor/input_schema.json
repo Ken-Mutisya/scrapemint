@@ -1,0 +1,71 @@
+{
+    "title": "Vinted Scraper input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "queries": {
+            "title": "Search terms",
+            "type": "array",
+            "description": "One Vinted search per term, e.g. nike jacket, levis 501, adidas samba, zara dress.",
+            "editor": "stringList",
+            "prefill": [
+                "nike jacket"
+            ],
+            "default": [],
+            "sectionCaption": "Search"
+        },
+        "country": {
+            "title": "Vinted site",
+            "type": "string",
+            "editor": "select",
+            "enum": ["uk", "fr", "de", "es", "it", "nl", "be", "at", "pl", "pt", "lt", "cz", "sk", "hu", "ro", "se", "dk", "fi", "gr", "hr", "ie", "lu", "us"],
+            "enumTitles": ["United Kingdom", "France", "Germany", "Spain", "Italy", "Netherlands", "Belgium", "Austria", "Poland", "Portugal", "Lithuania", "Czechia", "Slovakia", "Hungary", "Romania", "Sweden", "Denmark", "Finland", "Greece", "Croatia", "Ireland", "Luxembourg", "United States"],
+            "description": "Which country's Vinted to search for the search terms. Prices come in that site's currency.",
+            "default": "uk"
+        },
+        "searchUrls": {
+            "title": "Or Vinted catalog URLs",
+            "type": "array",
+            "description": "Catalog pages copied from any Vinted site with your filters set (brand, size, condition, colour, category, price), e.g. vinted.fr/catalog?search_text=...&brand_ids[]=53.",
+            "editor": "stringList",
+            "default": []
+        },
+        "sortBy": {
+            "title": "Sort by",
+            "type": "string",
+            "editor": "select",
+            "enum": ["relevance", "newest", "price_asc", "price_desc"],
+            "enumTitles": ["Relevance", "Newest first", "Price: low to high", "Price: high to low"],
+            "description": "Order of results for search terms. Newest first on a schedule collects new listings.",
+            "default": "relevance",
+            "sectionCaption": "Filters"
+        },
+        "minPrice": {
+            "title": "Minimum price",
+            "type": "integer",
+            "description": "Optional, in the site's currency.",
+            "minimum": 0
+        },
+        "maxPrice": {
+            "title": "Maximum price",
+            "type": "integer",
+            "description": "Optional, in the site's currency.",
+            "minimum": 0
+        },
+        "includeDetails": {
+            "title": "Description and seller",
+            "type": "boolean",
+            "description": "Reads each item page for the full description, category, colour, material, upload time and the seller's name, review count and rating. Costs $0.002 per item instead of $0.0008.",
+            "default": false,
+            "sectionCaption": "Output"
+        },
+        "maxItemsPerSearch": {
+            "title": "Max items per search",
+            "type": "integer",
+            "description": "Stop each search after this many items. Vinted shows 960 per search; bigger searches are split by price automatically.",
+            "default": 200,
+            "minimum": 1
+        }
+    },
+    "required": []
+}

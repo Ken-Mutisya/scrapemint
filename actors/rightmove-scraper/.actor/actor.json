@@ -1,0 +1,16 @@
+{
+    "actorSpecification": 1,
+    "name": "rightmove-scraper",
+    "title": "Rightmove Scraper: UK Property for Sale & Rent",
+    "description": "UK property from Rightmove for any town, area or search URL: price, beds, baths, type, size, address, GPS, agent and phone, key features, listing dates. Optional full description, postcode, tenure and lease, service charge, council tax, stations. Past the 1,000 cap. $0.001 per property.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "output": "./output_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "REAL_ESTATE",
+        "LEAD_GENERATION"
+    ],
+    "readme": "../README.md"
+}

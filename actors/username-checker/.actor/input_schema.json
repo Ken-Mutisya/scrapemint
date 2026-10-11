@@ -1,0 +1,38 @@
+{
+    "title": "Username Checker input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "usernames": {
+            "title": "Usernames",
+            "type": "array",
+            "description": "One or more usernames or handles to check, e.g. acmecorp, myband, janedoe_art. Letters, digits, dot, dash and underscore.",
+            "editor": "stringList",
+            "prefill": [
+                "openai"
+            ],
+            "default": []
+        },
+        "categories": {
+            "title": "Site categories",
+            "type": "array",
+            "description": "Optional. Any of: developer, social, video, music, gaming, writing, creative, other. Empty checks all 50 sites.",
+            "editor": "stringList",
+            "default": []
+        },
+        "sites": {
+            "title": "Only these sites",
+            "type": "array",
+            "description": "Optional. Site names, e.g. GitHub, Twitch, Bluesky. Empty checks every site.",
+            "editor": "stringList",
+            "default": []
+        },
+        "onlyTaken": {
+            "title": "Only sites where it is taken",
+            "type": "boolean",
+            "description": "Output only the sites that have an account with the username (profile finder). Off lists every site with taken, available or unknown (availability check).",
+            "default": false
+        }
+    },
+    "required": []
+}
