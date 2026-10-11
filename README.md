@@ -19,7 +19,7 @@ flowchart LR
 
 <!-- CATALOG:START -->
 
-There are **266** actors live right now, and a new one ships every few days.
+There are **271** actors live right now, and a new one ships every few days.
 
 ### Lead generation
 
@@ -150,6 +150,7 @@ There are **266** actors live right now, and a new one ships every few days.
 - [US Rent and Home Price Index by Metro, City and Zip](https://apify.com/scrapemint/us-rent-home-price-index)
 - [UK House Prices by Region and Property Type](https://apify.com/scrapemint/uk-house-prices)
 - [Europe House Prices: Index and Change by Country](https://apify.com/scrapemint/europe-house-prices)
+- [Fotocasa Scraper: Spain Property Listings & Prices](https://apify.com/scrapemint/fotocasa-scraper)
 
 ### Prediction markets, sports & betting
 
@@ -180,6 +181,7 @@ There are **266** actors live right now, and a new one ships every few days.
 - [Dice Jobs Scraper: Tech Jobs, Salary & Skills](https://apify.com/scrapemint/dice-jobs-scraper)
 - [Welcome to the Jungle Jobs Scraper (WTTJ)](https://apify.com/scrapemint/welcome-to-the-jungle-jobs-scraper)
 - [XING Jobs Scraper: Salaries & Full Descriptions](https://apify.com/scrapemint/xing-jobs-scraper)
+- [Reed.co.uk Jobs Scraper: UK Jobs with Salaries](https://apify.com/scrapemint/reed-jobs-scraper)
 - [Layoff Tracker: WARN Notices from 7 States](https://apify.com/scrapemint/layoff-warn-tracker)
 - [Career Site Jobs Search: Workday, Greenhouse, Lever +5](https://apify.com/scrapemint/ats-jobs-search)
 - [Seek Jobs Scraper: Australia & NZ, Salary, Remote](https://apify.com/scrapemint/seek-jobs-scraper)
@@ -207,6 +209,7 @@ There are **266** actors live right now, and a new one ships every few days.
 - [Bluesky Scraper: Profiles, Posts & Followers](https://apify.com/scrapemint/bluesky-scraper)
 - [Telegram Channel Scraper (No Login)](https://apify.com/scrapemint/telegram-channel-scraper)
 - [Substack Newsletter Intelligence: Top Writer Tracker](https://apify.com/scrapemint/substack-newsletter-intelligence)
+- [Medium Scraper: Articles, Claps & Full Text](https://apify.com/scrapemint/medium-scraper)
 - [Product Hunt Launch Tracker: New Launches and Topic Alerts](https://apify.com/scrapemint/producthunt-launch-tracker)
 - [Hacker News Scraper: Stories, Comments & Search](https://apify.com/scrapemint/hacker-news-scraper)
 - [Google News Scraper (No Login)](https://apify.com/scrapemint/google-news-scraper)
@@ -275,6 +278,7 @@ There are **266** actors live right now, and a new one ships every few days.
 - [Google Hotels Scraper: Prices & Booking Sites](https://apify.com/scrapemint/google-hotels-scraper)
 - [Vacation Rental Revenue Estimator & Competitor Intelligence](https://apify.com/scrapemint/airbnb-market-intelligence)
 - [Eventbrite Scraper: Events, Prices & Organizer Leads](https://apify.com/scrapemint/eventbrite-events-scraper)
+- [Luma & Meetup Events Scraper](https://apify.com/scrapemint/luma-meetup-events-scraper)
 - [Flight Price Tracker: Google Flights Fares by Route](https://apify.com/scrapemint/flight-price-tracker)
 - [Flight Delay & Cancellation Tracker](https://apify.com/scrapemint/flight-delay-tracker)
 - [Cheapest Flight Fares: Ryanair One-Way & Round-Trip Prices](https://apify.com/scrapemint/ryanair-cheapest-fares)
@@ -286,6 +290,7 @@ There are **266** actors live right now, and a new one ships every few days.
 ### Ecommerce & retail
 
 - [Amazon Product Scraper: Search, Best Sellers & ASINs](https://apify.com/scrapemint/amazon-product-scraper)
+- [Flipkart Scraper: Prices, Ratings & Specs](https://apify.com/scrapemint/flipkart-scraper)
 - [AliExpress Scraper: Products, Prices & Units Sold](https://apify.com/scrapemint/aliexpress-scraper)
 - [Craigslist Scraper: Listings, Housing, Jobs & Cars](https://apify.com/scrapemint/craigslist-scraper)
 - [Kleinanzeigen Scraper: Listings, Prices & Sellers](https://apify.com/scrapemint/kleinanzeigen-scraper)
