@@ -36,6 +36,10 @@ const ALL_ATS = Object.keys(FETCHERS);
 // every worker and the run took 28 minutes.
 const BOARD_CONCURRENCY = { greenhouse: 10, ashby: 8, workday: 8, smartrecruiters: 6, personio: 6, lever: 6, recruitee: 4, workable: 2 };
 const DETAIL_CONCURRENCY = 6;
+// Raising these (greenhouse 16, ashby 24, recruitee 8) was tried 2026-10-11 on
+// a 1,000-job, every-company search: Ashby read 939 boards instead of 722 but
+// Workday fell from all 1,530 to 565 and the run returned fewer jobs (621 vs
+// 704). The run is bound by CPU at 1 GB, not by request count.
 
 const DIRS = Object.fromEntries(ALL_ATS.map((a) => {
     try { return [a, JSON.parse(readFileSync(new URL(`./directories/${a}.json`, import.meta.url), 'utf8'))]; } catch { return [a, []]; }
@@ -231,6 +235,8 @@ function keepFinal(j) {
 let pushed = 0;
 let charged = 0;
 let stopAll = false;
+// Saves and charges still running; finish() waits for them before exiting.
+const inflight = new Set();
 const returned = [];
 const boardStats = [];
 
@@ -252,15 +258,24 @@ async function emit(j) {
     if (!includeDescription) delete row.description;
     // Counted before the await so concurrent emits cannot overshoot maxJobs.
     pushed += 1;
-    await Actor.pushData({ ...row, atsBoard: boardTenant, postedText: postedText || undefined, scrapedAt: new Date().toISOString() });
-    returned.push(key);
-    try {
-        const r = await Actor.charge({ eventName: withDesc ? 'job_row' : 'job_row_basic' });
-        charged += 1;
-        if (r?.eventChargeLimitReached) { log.warning('Maximum cost per run reached; stopping.'); stopAll = true; }
-    } catch (err) {
-        log.warning(`charge failed (continuing): ${err?.message}`);
-    }
+    const save = (async () => {
+        await Actor.pushData({ ...row, atsBoard: boardTenant, postedText: postedText || undefined, scrapedAt: new Date().toISOString() });
+        returned.push(key);
+        try {
+            const r = await Actor.charge({ eventName: withDesc ? 'job_row' : 'job_row_basic' });
+            charged += 1;
+            if (r?.eventChargeLimitReached) { log.warning('Maximum cost per run reached; stopping.'); stopAll = true; }
+        } catch (err) {
+            log.warning(`charge failed (continuing): ${err?.message}`);
+        }
+    })();
+    inflight.add(save);
+    await save;
+    inflight.delete(save);
+    // maxJobs reached: finish now instead of waiting for every board still
+    // being read. A 100-job prefill run used to sit for the full 10-minute
+    // budget after its 100th job and time out on callers with short timeouts.
+    if (pushed >= totalCap || stopAll) finish(false);
     return true;
 }
 
@@ -334,6 +349,7 @@ async function finish(cutShort) {
     if (finish.started) return;
     finish.started = true;
     stopAll = true;
+    await Promise.allSettled([...inflight]);
     if (store) {
         const prior = (await store.getValue(stateName)) || [];
         await store.setValue(stateName, [...new Set([...prior, ...returned])].slice(-200000));
@@ -360,12 +376,16 @@ async function finish(cutShort) {
     }
     // Boards never started: skipped after the budget, or still queued when the
     // run was cut short.
+    const hitCap = pushed >= totalCap;
+    let notRead = 0;
     for (const [ats, list] of Object.entries(byPlatform)) {
         const n = list.length - (byAts[ats]?.boards || 0);
         if (n <= 0) continue;
-        (byAts[ats] ||= { boards: 0, jobsListed: 0, jobsReturned: 0, failed: 0 }).notReachedInTime = n;
-        log.warning(`${ats}: ${n} of ${list.length} board(s) not read within the ${Math.round(HARD_STOP_MS / 60000)}-minute budget for a search across every company; narrow it with platforms or companies to read them all.`);
+        notRead += n;
+        (byAts[ats] ||= { boards: 0, jobsListed: 0, jobsReturned: 0, failed: 0 })[hitCap ? 'notReadAfterMaxJobs' : 'notReachedInTime'] = n;
+        if (!hitCap) log.warning(`${ats}: ${n} of ${list.length} board(s) not read within the ${Math.round(HARD_STOP_MS / 60000)}-minute budget for a search across every company; narrow it with platforms or companies to read them all.`);
     }
+    if (hitCap && notRead) log.info(`Reached maxJobs (${totalCap}) with ${notRead} board(s) still unread; raise maxJobs for more.`);
     await Actor.setValue('SUMMARY', {
         jobs: pushed,
         charged,
