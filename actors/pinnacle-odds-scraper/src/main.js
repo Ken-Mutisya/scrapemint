@@ -29,6 +29,7 @@
 // whose prices did not move since the last run is not returned or charged.
 
 import { Actor, log } from 'apify';
+import { ProxyAgent } from 'undici';
 import { createHash } from 'node:crypto';
 
 const HOST = 'https://guest.api.arcadia.pinnacle.com/0.1';
@@ -50,6 +51,7 @@ const {
     includeAlternateLines = false,
     onlyChanged = false,
     maxGames = 300,
+    _forceProxy = false,
 } = input;
 
 const listOf = (v) => (Array.isArray(v) ? v : String(v || '').split(/[\n,]/)).map((s) => String(s).trim()).filter(Boolean);
@@ -60,13 +62,40 @@ const cap = Math.max(1, Number(maxGames) || 300);
 const horizon = Number(hoursAhead) > 0 ? Date.now() + Number(hoursAhead) * 3600_000 : null;
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+// Pinnacle refuses some Apify IPs outright (403 on every request; about 1 run
+// in 3 on 2026-10-13, other IPs fine). Retrying from the same IP never helps,
+// so on the first 403 the rest of the run goes through Apify's datacenter
+// proxy. Responses are small JSON, so the proxy costs next to nothing, and
+// runs on an unblocked IP never use it.
+let dispatcher = null;
+let proxyReady = null;
+// One shared attempt, so concurrent requests that all hit 403 wait for it.
+function useProxy() {
+    proxyReady ??= (async () => {
+        try {
+            const conf = await Actor.createProxyConfiguration();
+            const url = conf ? await conf.newUrl() : null;
+            if (url) dispatcher = new ProxyAgent(url);
+        } catch (err) {
+            log.warning(`Proxy unavailable (${err?.message}); continuing direct.`);
+        }
+        if (dispatcher) log.info("Pinnacle refused this run's server (HTTP 403); continuing through Apify's datacenter proxy.");
+        return Boolean(dispatcher);
+    })();
+    return proxyReady;
+}
+
+// Test hook: exercise the proxy path without waiting for a refused IP.
+if (_forceProxy) await useProxy();
+
 async function get(path) {
     let last;
     for (let attempt = 0; attempt < 5; attempt++) {
         try {
-            const r = await fetch(`${HOST}${path}`, { headers: { Accept: 'application/json', 'User-Agent': UA }, signal: AbortSignal.timeout(30_000) });
+            const r = await fetch(`${HOST}${path}`, { headers: { Accept: 'application/json', 'User-Agent': UA }, signal: AbortSignal.timeout(30_000), ...(dispatcher ? { dispatcher } : {}) });
             if (r.ok) return await r.json();
             last = new Error(`HTTP ${r.status}`);
+            if (r.status === 403 && !dispatcher && (await useProxy())) continue;
             if (r.status === 404 || r.status === 401) throw Object.assign(last, { fatal: true });
         } catch (err) {
             if (err.fatal) throw err;
@@ -248,8 +277,10 @@ await Promise.all(Array.from({ length: Math.min(LEAGUE_CONCURRENCY, leagueList.l
 }));
 
 if (store) await store.setValue(stateKey, { ...prevLines, ...nextLines });
-if (!pushed && !(onlyChanged && Object.keys(prevLines).length)) {
-    await Actor.pushData({ rowType: 'note', note: `No open games matched across ${leagueList.length} league(s). Not charged.` });
+// Always leave a row, so a quiet poll reads as "nothing changed", not a failure.
+if (!pushed) {
+    const changedOnly = onlyChanged && Object.keys(prevLines).length;
+    await Actor.pushData({ rowType: 'note', note: changedOnly ? `No game's prices moved since the last run across ${leagueList.length} league(s). Not charged.` : `No open games matched across ${leagueList.length} league(s). Not charged.` });
 }
 await Actor.setValue('SUMMARY', { leagues: leagueList.length, games: pushed, unchangedSkipped: unchanged, failed, skippedSports });
 log.info(`Done. ${pushed} game(s) from ${leagueList.length} league(s)${onlyChanged ? `, ${unchanged} unchanged skipped` : ''}${failed.length ? `, ${failed.length} league(s) failed` : ''}.`);

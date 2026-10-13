@@ -31,7 +31,8 @@ import { Actor, log } from 'apify';
 
 const API = 'https://data-api.polymarket.com';
 const PAGE = 1000;
-const MAX_PAGES = 15;
+// The trades API refuses offsets past 10,000 (HTTP 400), so 11 pages of 1,000.
+const MAX_PAGES = 11;
 const MERGE_WINDOW_S = 300;
 const FETCH_TIMEOUT_MS = 20000;
 const TRADER_CACHE_MS = 6 * 3600 * 1000;
@@ -265,10 +266,13 @@ if (onlyNew) {
 }
 await store.setValue('TRADER_CACHE', cache);
 
-if (!pushed && (!onlyNew || !state.lastTs)) {
+// Always leave a row, so an empty poll reads as "nothing new", not a failure.
+if (!pushed) {
     await Actor.pushData({
         rowType: 'note',
-        note: `No Polymarket bet of $${minUsd.toLocaleString('en-US')} or more${onlySmartMoney ? ' from a top-ranked trader' : ''} `
+        note: onlyNew && state.lastTs
+            ? `No new Polymarket bet of $${minUsd.toLocaleString('en-US')} or more${onlySmartMoney ? ' from a top-ranked trader' : ''} since the last run. Not charged.`
+            : `No Polymarket bet of $${minUsd.toLocaleString('en-US')} or more${onlySmartMoney ? ' from a top-ranked trader' : ''} `
             + `in the window since ${new Date(sinceS * 1000).toISOString()}. Lower minBetUsd or widen lookbackMinutes. Not charged.`,
     });
 }
