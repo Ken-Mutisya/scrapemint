@@ -19,7 +19,7 @@ flowchart LR
 
 <!-- CATALOG:START -->
 
-There are **271** actors live right now, and a new one ships every few days.
+There are **276** actors live right now, and a new one ships every few days.
 
 ### Lead generation
 
@@ -151,6 +151,8 @@ There are **271** actors live right now, and a new one ships every few days.
 - [UK House Prices by Region and Property Type](https://apify.com/scrapemint/uk-house-prices)
 - [Europe House Prices: Index and Change by Country](https://apify.com/scrapemint/europe-house-prices)
 - [Fotocasa Scraper: Spain Property Listings & Prices](https://apify.com/scrapemint/fotocasa-scraper)
+- [Rightmove Scraper: UK Property for Sale & Rent](https://apify.com/scrapemint/rightmove-scraper)
+- [Property Finder Scraper: UAE, Saudi & Gulf](https://apify.com/scrapemint/property-finder-scraper)
 
 ### Prediction markets, sports & betting
 
@@ -210,6 +212,8 @@ There are **271** actors live right now, and a new one ships every few days.
 - [Telegram Channel Scraper (No Login)](https://apify.com/scrapemint/telegram-channel-scraper)
 - [Substack Newsletter Intelligence: Top Writer Tracker](https://apify.com/scrapemint/substack-newsletter-intelligence)
 - [Medium Scraper: Articles, Claps & Full Text](https://apify.com/scrapemint/medium-scraper)
+- [Twitch Scraper: Channels, Streams, Clips & VODs](https://apify.com/scrapemint/twitch-scraper)
+- [Username Checker: Availability on 50 Sites](https://apify.com/scrapemint/username-checker)
 - [Product Hunt Launch Tracker: New Launches and Topic Alerts](https://apify.com/scrapemint/producthunt-launch-tracker)
 - [Hacker News Scraper: Stories, Comments & Search](https://apify.com/scrapemint/hacker-news-scraper)
 - [Google News Scraper (No Login)](https://apify.com/scrapemint/google-news-scraper)
@@ -292,6 +296,7 @@ There are **271** actors live right now, and a new one ships every few days.
 - [Amazon Product Scraper: Search, Best Sellers & ASINs](https://apify.com/scrapemint/amazon-product-scraper)
 - [Flipkart Scraper: Prices, Ratings & Specs](https://apify.com/scrapemint/flipkart-scraper)
 - [AliExpress Scraper: Products, Prices & Units Sold](https://apify.com/scrapemint/aliexpress-scraper)
+- [Vinted Scraper: Prices, Brands & Sellers](https://apify.com/scrapemint/vinted-scraper)
 - [Craigslist Scraper: Listings, Housing, Jobs & Cars](https://apify.com/scrapemint/craigslist-scraper)
 - [Kleinanzeigen Scraper: Listings, Prices & Sellers](https://apify.com/scrapemint/kleinanzeigen-scraper)
 - [AutoScout24 Scraper: Cars, Prices & Dealer Phones](https://apify.com/scrapemint/autoscout24-scraper)
