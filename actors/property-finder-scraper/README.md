@@ -1,6 +1,6 @@
 # Property Finder Scraper: UAE, Saudi & Gulf
 
-Property listings from **Property Finder**, the leading portal in the **UAE, Saudi Arabia, Qatar, Bahrain and Egypt**, for sale and for rent: **price and price per sqft/sqm**, size, built-up area and plot, bedrooms, bathrooms, furnishing, off-plan or ready, **community, sub-community and building**, **GPS coordinates**, amenities, the **agent and agency**, the listing's **phone and WhatsApp numbers**, permit number, photos and the full description.
+Property listings from **Property Finder**, the leading portal in the **UAE, Saudi Arabia, Qatar, Bahrain and Egypt**, for sale and for rent: **price and price per sqft/sqm**, size and plot, bedrooms, bathrooms, furnishing, off-plan or ready, **community, sub-community and building**, **GPS coordinates**, amenities, the **agent and agency**, the listing's **phone and WhatsApp numbers**, permit number, photos and the full description.
 
 Search by area (Dubai Marina, JVC, Riyadh, The Pearl...) with filters, or paste any Property Finder search URL. Property Finder lets you page to the end of every search.
 
@@ -9,7 +9,7 @@ No Property Finder account, no API key, no proxy. $0.0015 per listing, no start 
 ## What you get per listing
 
 - `listingId`, `url`, `title`, `offeringType`, `propertyType`
-- `price`, `currency`, `pricePeriod`, `pricePerArea`, `areaUnit`, `size`, `builtUpArea`, `plotSize`
+- `price`, `currency`, `pricePeriod`, `pricePerArea`, `areaUnit`, `size`, `plotSize`
 - `bedrooms`, `isStudio`, `bathrooms`, `furnished`, `completionStatus`, `amenities`
 - `location`, `city`, `community`, `subCommunity`, `tower`, `latitude`, `longitude`
 - `agentName`, `agentId`, `agentIsSuperAgent`, `agencyName`, `agencyId`, `agencyLogoUrl`
@@ -65,7 +65,6 @@ A search URL copied from the site:
   "pricePerArea": 1920,
   "areaUnit": "sqft",
   "size": 3749,
-  "builtUpArea": 2888,
   "bedrooms": 3,
   "bathrooms": 4,
   "furnished": false,

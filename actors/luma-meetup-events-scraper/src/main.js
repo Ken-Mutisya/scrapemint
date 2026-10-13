@@ -85,7 +85,8 @@ async function getJson(url, opts = {}) {
             if (err.fatal) throw err;
             last = err;
         }
-        await sleep(1500 * 2 ** attempt);
+        // Luma's 429 says "wait a minute"; shorter waits just hit it again.
+        await sleep(/HTTP 429/.test(String(last?.message)) ? 20_000 * (attempt + 1) : 1500 * 2 ** attempt);
     }
     throw last;
 }
@@ -432,12 +433,14 @@ for (const s of searches) {
         log.warning(`${s.label}: ${err?.message}`);
         failures.push({ search: s.label, error: String(err?.message || err) });
         if (err.notFound) await Actor.pushData({ rowType: 'error', error: `${err.message} Not charged.` });
+        else if (/HTTP 429/.test(String(err?.message))) await Actor.pushData({ rowType: 'error', search: s.label, error: "The site rate-limited this run's server. Run it again in a few minutes. Not charged." });
+        else await Actor.pushData({ rowType: 'error', search: s.label, error: `${err?.message}. Not charged.` });
     }
     log.info(`${s.label}: ${count} event(s)${kws.length ? ` matching ${kws.join(' / ')} of ${scanned} scanned` : ''}.`);
     perSearchCounts.push({ search: s.label, events: count, scanned });
 }
 
-if (!events) await Actor.pushData({ rowType: 'note', note: 'No events found. Not charged.' });
+if (!events && !failures.length) await Actor.pushData({ rowType: 'note', note: 'No events found. Not charged.' });
 await Actor.setValue('SUMMARY', { events, searches: perSearchCounts, failures });
 log.info(`Done. ${events} event(s)${failures.length ? `, ${failures.length} failed` : ''}.`);
 await Actor.exit();

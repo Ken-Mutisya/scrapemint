@@ -317,12 +317,14 @@ for (const s of searches) {
     } catch (err) {
         log.warning(`${s.label}: ${err?.message}`);
         failures.push({ search: s.label, error: String(err?.message || err) });
+        const refused = /HTTP (403|429)/.test(String(err?.message));
+        await Actor.pushData({ rowType: 'error', search: s.label, error: refused ? "Vinted refused this run's server (HTTP 403), which happens to a small share of runs. Run it again. Not charged." : `${err?.message}. Not charged.` });
     }
     log.info(`${s.label}: ${count} item(s).`);
     perSearchCounts.push({ search: s.label, items: count });
 }
 
-if (!items) await Actor.pushData({ rowType: 'note', note: 'No items found. Not charged.' });
+if (!items && !failures.length) await Actor.pushData({ rowType: 'note', note: 'No items found. Not charged.' });
 await Actor.setValue('SUMMARY', { items, searches: perSearchCounts, failures });
 log.info(`Done. ${items} item(s)${failures.length ? `, ${failures.length} failed` : ''}.`);
 await Actor.exit();

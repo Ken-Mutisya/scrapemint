@@ -58,6 +58,16 @@ const list = (v) => (Array.isArray(v) ? v : String(v || '').split(/[\n,]/)).map(
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 const perSearch = Math.max(1, Number(maxItemsPerSearch) || 200);
 
+// schema.org MerchantReturnPolicy as text, e.g. "7-day return, free".
+function returnText(p) {
+    if (!p) return null;
+    if (p.description) return p.description;
+    if (/NotPermitted/.test(p.returnPolicyCategory || '')) return 'No returns';
+    const days = Number(p.merchantReturnDays) > 0 ? `${p.merchantReturnDays}-day return` : null;
+    const fee = /FreeReturn/.test(p.returnFees || '') ? 'free' : /ReturnFeesCustomerResponsibility|ReturnShippingFees/.test(p.returnFees || '') ? 'buyer pays return shipping' : null;
+    return [days, fee].filter(Boolean).join(', ') || null;
+}
+
 async function fetchPage(body) {
     let last;
     for (let attempt = 0; attempt < 5; attempt++) {
@@ -196,7 +206,7 @@ async function addDetails(r) {
             seller: seller || fulfilledBy,
             sellerRating: seller ? sellerRating : fulfilledRating,
             color: ld.color || null,
-            returnPolicy: ld.offers?.hasMerchantReturnPolicy?.description || null,
+            returnPolicy: returnText(ld.offers?.hasMerchantReturnPolicy),
             metaDescription: ld.description || d.pageData?.seoData?.seo?.description || null,
             imageUrls: Array.isArray(ld.image) && ld.image.length > r.imageUrls.length ? ld.image : r.imageUrls,
         });
