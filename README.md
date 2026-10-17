@@ -19,7 +19,7 @@ flowchart LR
 
 <!-- CATALOG:START -->
 
-There are **276** actors live right now, and a new one ships every few days.
+There are **281** actors live right now, and a new one ships every few days.
 
 ### Lead generation
 
@@ -50,6 +50,7 @@ There are **276** actors live right now, and a new one ships every few days.
 - [LinkedIn Company Hiring Signal Tracker](https://apify.com/scrapemint/linkedin-company-hiring-tracker)
 - [ATS Hiring-Signal Tracker (Greenhouse + Lever)](https://apify.com/scrapemint/ats-hiring-signal-tracker)
 - [Website Contact Scraper: Emails, Phones & Social Profiles](https://apify.com/scrapemint/website-contact-scraper)
+- [Company Email Finder: People, Titles & Email Pattern](https://apify.com/scrapemint/company-email-finder)
 - [Aircraft Owner Leads: FAA Registration Lookup](https://apify.com/scrapemint/aircraft-owner-leads)
 - [Building Permit Leads Scraper: New Permits by City & Trade](https://apify.com/scrapemint/building-permit-leads)
 - [Healthcare Provider Leads Scraper: NPI Contacts by Specialty](https://apify.com/scrapemint/healthcare-provider-leads)
@@ -88,6 +89,8 @@ There are **276** actors live right now, and a new one ships every few days.
 
 - [Stock Market Price History Scraper](https://apify.com/scrapemint/stock-price-history-scraper)
 - [Stock Market Fundamentals Scraper](https://apify.com/scrapemint/stock-market-fundamentals-scraper)
+- [Yahoo Finance Scraper: Quotes, Fundamentals & Movers](https://apify.com/scrapemint/yahoo-finance-scraper)
+- [Stocktwits Scraper: Messages, Sentiment & Trending](https://apify.com/scrapemint/stocktwits-scraper)
 - [Stock Earnings Calendar Scraper](https://apify.com/scrapemint/stock-earnings-calendar-scraper)
 - [Stock Earnings Estimates & Results: EPS Forecast vs Actual](https://apify.com/scrapemint/stock-earnings-estimates)
 - [Stock Analyst Ratings: Price Targets, Upgrades & Downgrades](https://apify.com/scrapemint/stock-analyst-ratings)
@@ -161,6 +164,7 @@ There are **276** actors live right now, and a new one ships every few days.
 - [Polymarket Prediction Market Tracker by Category](https://apify.com/scrapemint/polymarket-market-monitor)
 - [Polymarket Trade Intelligence: Order Book and Prices](https://apify.com/scrapemint/polymarket-scraper)
 - [Kalshi Prediction Market Scraper: Live Event Odds](https://apify.com/scrapemint/kalshi-prediction-market-scraper)
+- [Kalshi Weather Markets: Prices vs Forecast Odds](https://apify.com/scrapemint/kalshi-weather-markets)
 - [Prediction Market Odds: Kalshi, Polymarket and PredictIt](https://apify.com/scrapemint/prediction-market-odds-comparison)
 - [Betting Odds Comparison: Best Price & Arbitrage Finder](https://apify.com/scrapemint/sports-odds-scraper)
 - [Tennis Scraper: Live Scores, Results, Odds & Stats](https://apify.com/scrapemint/tennis-scraper)
@@ -169,6 +173,7 @@ There are **276** actors live right now, and a new one ships every few days.
 - [Sports Odds Movement and Arbitrage Tracker](https://apify.com/scrapemint/sports-odds-movement-tracker)
 - [Sportsbook Odds Tracker: Moneyline, Spread and Totals](https://apify.com/scrapemint/sportsbook-odds-tracker)
 - [Player Prop Bets: Odds by Player, Stat and Line](https://apify.com/scrapemint/sportsbook-player-props)
+- [Underdog & Sleeper Player Props Scraper](https://apify.com/scrapemint/underdog-sleeper-player-props)
 - [Sports Futures Odds: Who Is Favored to Win the Title & Awards](https://apify.com/scrapemint/sports-futures-odds)
 - [Sports Betting Results: Closing Odds vs Final Scores](https://apify.com/scrapemint/sports-betting-results)
 - [Sports Scores, Fixtures & Standings Scraper](https://apify.com/scrapemint/sports-scores-scraper)
