@@ -1,0 +1,20 @@
+{
+    "actorOutputSchemaVersion": 1,
+    "title": "Stocktwits data",
+    "description": "One row per message, per-ticker sentiment or trending ticker; the type field says which.",
+    "type": "object",
+    "properties": {
+        "rows": {
+            "type": "string",
+            "title": "Rows",
+            "description": "Messages with sentiment tags and author stats; sentiment rows with daily bullish % history; trending tickers.",
+            "template": "{{links.apiDefaultDatasetUrl}}/items"
+        },
+        "summary": {
+            "type": "string",
+            "title": "Run summary",
+            "description": "Rows per source and any that failed.",
+            "template": "{{links.apiDefaultKeyValueStoreUrl}}/records/SUMMARY"
+        }
+    }
+}

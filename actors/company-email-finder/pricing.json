@@ -1,0 +1,16 @@
+{
+    "_note": "New actor, first pricing entry. Market (2026-10-17): snipercoder/decision-maker-email-finder 279 monthly users, pequod-labs/company-decision-maker-finder 128, caprolok/website-email-phone-finder 81; ~864 users on 'email finder domain'. contact_row $0.004 per person, published email or answered lookup; domain summaries and unreachable sites free. Sources: the company's own website and dns.google MX; no proxy. No SMTP verification (port 25 is closed from datacenters).",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~company-email-finder?token=APIFY_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "contact_row": {
+                "eventTitle": "Contact",
+                "eventDescription": "One person from the company's website (name, title, decision-maker flag, LinkedIn when linked, and an email: published, or built from the company's pattern with a confidence level), one published email, or one answered name lookup. Domain summaries are free. Unreachable sites are free.",
+                "eventPriceUsd": 0.004,
+                "isPrimaryEvent": true
+            }
+        }
+    },
+    "startedAt": "2026-10-18T00:00:00.000Z"
+}

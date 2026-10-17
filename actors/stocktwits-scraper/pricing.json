@@ -1,0 +1,21 @@
+{
+    "_note": "New actor, first pricing entry. Market (2026-10-17): automation-lab/stocktwits-scraper 43 monthly users, maximedupre/stocktwits-scraper 14, shahidirfan/stocktwits-sentiment-scraper 12; 91 users across Stocktwits actors. message_row $0.0008, symbol_row $0.003 (sentiment with daily history, or a trending ticker with summary and fundamentals). No start fee. Source: api.stocktwits.com/api/2, keyless, no proxy; Cloudflare challenges some home IPs but not Apify's.",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~stocktwits-scraper?token=APIFY_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "message_row": {
+                "eventTitle": "Message",
+                "eventDescription": "One Stocktwits message: text, Bullish/Bearish tag, cashtags, prices at posting, likes, replies and the author's followers and join date. A run that finds nothing is free.",
+                "eventPriceUsd": 0.0008,
+                "isPrimaryEvent": true
+            },
+            "symbol_row": {
+                "eventTitle": "Ticker sentiment or trending row",
+                "eventDescription": "One ticker's sentiment summary (watchers, daily bullish/bearish % history, tagged split and post rate of the latest messages) or one trending ticker (rank, trending score, why-it's-trending summary, fundamentals).",
+                "eventPriceUsd": 0.003
+            }
+        }
+    },
+    "startedAt": "2026-10-18T00:00:00.000Z"
+}

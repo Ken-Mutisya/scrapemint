@@ -1,0 +1,16 @@
+{
+    "_note": "New actor, first pricing entry. Market (2026-10-17): zen-studio/prizepicks-player-props 64 monthly users, zen-studio/underdog-player-props 29, zen-studio/sleeper-player-props 14, lergassy/dfs-props-scraper 19; ~230 users across PrizePicks/Underdog/Sleeper actors. prop_row $0.002. No start fee. Sources: Underdog v1 over_under_lines and Sleeper lines/available, keyless, no proxy. PrizePicks is DataDome-blocked from datacenter IPs.",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~underdog-sleeper-player-props?token=APIFY_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "prop_row": {
+                "eventTitle": "Player line",
+                "eventDescription": "One live player prop from Underdog Fantasy or Sleeper Picks: player, stat, line, higher/lower payout multipliers, odds, last-10 results and pick share (Sleeper), and the other app's line when both list it. A run that finds nothing is free.",
+                "eventPriceUsd": 0.002,
+                "isPrimaryEvent": true
+            }
+        }
+    },
+    "startedAt": "2026-10-18T00:00:00.000Z"
+}

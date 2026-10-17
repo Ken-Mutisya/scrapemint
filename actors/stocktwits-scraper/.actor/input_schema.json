@@ -1,0 +1,62 @@
+{
+    "title": "Stocktwits Scraper input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "symbols": {
+            "title": "Tickers",
+            "type": "array",
+            "description": "Stock, ETF or crypto tickers, cashtags or Stocktwits URLs, e.g. AAPL, $TSLA, SPY, BTC.X, ETH.X (crypto ends in .X).",
+            "editor": "stringList",
+            "prefill": ["AAPL", "TSLA"],
+            "default": [],
+            "sectionCaption": "Tickers"
+        },
+        "includeMessages": {
+            "title": "Messages",
+            "type": "boolean",
+            "description": "Output each ticker's latest messages.",
+            "default": true
+        },
+        "includeSentiment": {
+            "title": "Sentiment summary",
+            "type": "boolean",
+            "description": "One row per ticker: watchers, Stocktwits' daily bullish/bearish % history, and the bullish/bearish split and post rate of the latest messages.",
+            "default": true
+        },
+        "users": {
+            "title": "Users",
+            "type": "array",
+            "description": "Optional. Stocktwits usernames or profile URLs; outputs their latest messages.",
+            "editor": "stringList",
+            "default": [],
+            "sectionCaption": "Users and trending"
+        },
+        "trending": {
+            "title": "Trending tickers",
+            "type": "boolean",
+            "description": "The tickers trending on Stocktwits right now, with rank, trending score, the why-it's-trending summary and fundamentals.",
+            "default": false
+        },
+        "trendingMessages": {
+            "title": "Trending messages",
+            "type": "boolean",
+            "description": "Messages from Stocktwits' trending stream.",
+            "default": false
+        },
+        "onlyWithSentiment": {
+            "title": "Only tagged messages",
+            "type": "boolean",
+            "description": "Output only messages the author tagged Bullish or Bearish.",
+            "default": false,
+            "sectionCaption": "Options"
+        },
+        "maxMessagesPerSource": {
+            "title": "Messages per ticker or user",
+            "type": "integer",
+            "description": "How many of the latest messages to read per ticker, user or the trending stream. 30 per request.",
+            "default": 100,
+            "minimum": 1
+        }
+    }
+}

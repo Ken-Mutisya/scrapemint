@@ -1,0 +1,16 @@
+{
+    "_note": "New actor, first pricing entry. Market (2026-10-17): bigdavidson/kalshi-weather-markets 53 monthly users, lergassy/kalshi-weather-scraper 26; our kalshi-prediction-market-scraper charges $0.004/$0.01 per market without forecasts. market_row $0.005 includes the ensemble forecast probability. No start fee. Sources: Kalshi trade API, api.weather.gov, Open-Meteo ensemble; all keyless, no proxy.",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~kalshi-weather-markets?token=APIFY_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "market_row": {
+                "eventTitle": "Weather market",
+                "eventDescription": "One open Kalshi weather market (temperature bracket, rain or snow threshold) with bid/ask, implied probability, volume and open interest, plus the ensemble forecast probability, edge and observed-so-far value for its settlement station. A run that finds nothing is free.",
+                "eventPriceUsd": 0.005,
+                "isPrimaryEvent": true
+            }
+        }
+    },
+    "startedAt": "2026-10-18T00:00:00.000Z"
+}

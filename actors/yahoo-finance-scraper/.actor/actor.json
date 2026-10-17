@@ -1,0 +1,13 @@
+{
+    "actorSpecification": 1,
+    "name": "yahoo-finance-scraper",
+    "title": "Yahoo Finance Scraper: Quotes, Fundamentals & Movers",
+    "description": "Yahoo Finance quotes for any stock, ETF, index or crypto with 90+ fields: price, valuation, margins, cash and debt, analyst targets and ratings, rating changes, earnings dates, ETF holdings and company profile. Plus gainers, losers, most active, trending, 52-week movers, crypto and screeners.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "output": "./output_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": ["BUSINESS", "NEWS"],
+    "readme": "../README.md"
+}

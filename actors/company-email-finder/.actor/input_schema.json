@@ -1,0 +1,52 @@
+{
+    "title": "Company Email Finder input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "domains": {
+            "title": "Company websites",
+            "type": "array",
+            "description": "Domains or URLs, e.g. hubspot.com, https://www.calendly.com. Each returns the people on its team/about pages with titles and emails, and every email published on the site.",
+            "editor": "stringList",
+            "prefill": ["hubspot.com"],
+            "default": [],
+            "sectionCaption": "Find people at companies"
+        },
+        "people": {
+            "title": "People to look up",
+            "type": "array",
+            "description": "One per line: first and last name, then the company domain, e.g. \"Jane Doe, acme.com\". Returns that person's most likely email, with confidence.",
+            "editor": "stringList",
+            "default": [],
+            "sectionCaption": "Look up one person's email"
+        },
+        "onlyDecisionMakers": {
+            "title": "Only decision-makers",
+            "type": "boolean",
+            "description": "Keep only founders, C-level, presidents, VPs, heads of, directors, partners and owners. Published generic emails (info@, sales@...) are left out too.",
+            "default": false,
+            "sectionCaption": "Options"
+        },
+        "includeGenericEmails": {
+            "title": "Include generic emails",
+            "type": "boolean",
+            "description": "Also return role inboxes found on the site (info@, sales@, press@, support@...).",
+            "default": true
+        },
+        "maxPagesPerDomain": {
+            "title": "Pages per website",
+            "type": "integer",
+            "description": "How many pages to read per site (homepage, team, about, leadership, contact...). More pages find more people on large sites.",
+            "default": 8,
+            "minimum": 1,
+            "maximum": 25
+        },
+        "maxResultsPerDomain": {
+            "title": "Maximum contacts per website",
+            "type": "integer",
+            "description": "Stop after this many people and emails per site. Decision-makers come first.",
+            "default": 100,
+            "minimum": 1
+        }
+    }
+}

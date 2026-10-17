@@ -1,0 +1,20 @@
+{
+    "actorOutputSchemaVersion": 1,
+    "title": "Yahoo Finance data",
+    "description": "One row per quote or list entry; the type field says which.",
+    "type": "object",
+    "properties": {
+        "rows": {
+            "type": "string",
+            "title": "Rows",
+            "description": "Quotes with fundamentals, analysts and profile; list rows with price, change, volume and market cap.",
+            "template": "{{links.apiDefaultDatasetUrl}}/items"
+        },
+        "summary": {
+            "type": "string",
+            "title": "Run summary",
+            "description": "Rows per source and any that failed.",
+            "template": "{{links.apiDefaultKeyValueStoreUrl}}/records/SUMMARY"
+        }
+    }
+}

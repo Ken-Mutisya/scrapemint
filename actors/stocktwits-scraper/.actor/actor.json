@@ -1,0 +1,13 @@
+{
+    "actorSpecification": 1,
+    "name": "stocktwits-scraper",
+    "title": "Stocktwits Scraper: Messages, Sentiment & Trending",
+    "description": "Stocktwits messages for any stock or crypto ticker or user, with the Bullish/Bearish tag, likes, replies and author stats; daily bullish % history and post rate per ticker; trending tickers with Stocktwits' why-it's-trending summary. From $0.0008 per message.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "output": "./output_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": ["SOCIAL_MEDIA", "BUSINESS"],
+    "readme": "../README.md"
+}

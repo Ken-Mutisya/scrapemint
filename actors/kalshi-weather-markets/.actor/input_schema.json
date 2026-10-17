@@ -1,0 +1,51 @@
+{
+    "title": "Kalshi Weather Markets input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "marketTypes": {
+            "title": "Market types",
+            "type": "array",
+            "description": "Which weather markets to read. high_temp and low_temp are the daily temperature brackets; rain covers daily, weekend and monthly rain; snow is monthly snowfall; other is hurricanes, ski-resort openings, climate and the rest (price only, no forecast).",
+            "editor": "select",
+            "items": { "type": "string", "enum": ["high_temp", "low_temp", "rain", "snow", "other"], "enumTitles": ["Daily high temperature", "Daily low temperature", "Rain", "Snow", "Other (hurricanes, ski openings...)"] },
+            "default": ["high_temp", "low_temp"],
+            "prefill": ["high_temp", "low_temp"],
+            "sectionCaption": "Markets"
+        },
+        "cities": {
+            "title": "Cities",
+            "type": "array",
+            "description": "Optional. Only these cities, e.g. New York City, Chicago, Miami, Austin, Denver. Empty = every city.",
+            "editor": "stringList",
+            "default": []
+        },
+        "seriesTickers": {
+            "title": "Series tickers",
+            "type": "array",
+            "description": "Optional. Exact Kalshi series, e.g. KXHIGHNY, KXLOWTCHI, KXRAINNYCM. Overrides market types and cities.",
+            "editor": "stringList",
+            "default": []
+        },
+        "includeForecast": {
+            "title": "Add forecast probability",
+            "type": "boolean",
+            "description": "Adds the share of 82 ensemble forecast members (ECMWF + GFS) that land in each bracket at the settlement station, the edge versus the market, and today's observed high/low. Off = prices only, faster.",
+            "default": true,
+            "sectionCaption": "Options"
+        },
+        "onlyTraded": {
+            "title": "Only traded markets",
+            "type": "boolean",
+            "description": "Skip markets with no volume and no open interest.",
+            "default": false
+        },
+        "maxRows": {
+            "title": "Maximum markets",
+            "type": "integer",
+            "description": "Stop after this many market rows.",
+            "default": 500,
+            "minimum": 1
+        }
+    }
+}

@@ -1,0 +1,50 @@
+{
+    "title": "Yahoo Finance Scraper input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "symbols": {
+            "title": "Symbols",
+            "type": "array",
+            "description": "Tickers or Yahoo quote URLs: stocks (AAPL), ETFs (SPY), indexes (^GSPC), crypto (BTC-USD), currencies (EURUSD=X), futures (CL=F), foreign listings (VOD.L, 7203.T). One full quote row each.",
+            "editor": "stringList",
+            "prefill": ["AAPL", "NVDA", "SPY"],
+            "default": [],
+            "sectionCaption": "Quotes"
+        },
+        "lists": {
+            "title": "Market lists",
+            "type": "array",
+            "description": "Yahoo's market lists, top 100 each.",
+            "editor": "select",
+            "items": {
+                "type": "string",
+                "enum": ["gainers", "losers", "most_active", "trending", "52_week_gainers", "52_week_losers", "top_etfs", "crypto", "crypto_gainers", "crypto_losers", "crypto_most_active"],
+                "enumTitles": ["Day gainers", "Day losers", "Most active", "Trending", "52-week gainers", "52-week losers", "Top ETFs", "Crypto by market cap", "Crypto gainers", "Crypto losers", "Crypto most active"]
+            },
+            "default": [],
+            "sectionCaption": "Lists and screeners"
+        },
+        "screeners": {
+            "title": "Screeners",
+            "type": "array",
+            "description": "Yahoo research screener ids or URLs, e.g. undervalued_growth_stocks, growth_technology_stocks, aggressive_small_caps, most_shorted_stocks, undervalued_large_caps, small_cap_gainers. Top 100 each.",
+            "editor": "stringList",
+            "default": []
+        },
+        "listDetails": {
+            "title": "Full quote for each list row",
+            "type": "boolean",
+            "description": "Fetch the full quote (fundamentals, analysts, profile) for every symbol in the lists and screeners, charged as quote rows. Off = the list's own columns.",
+            "default": false
+        },
+        "maxListRows": {
+            "title": "Rows per list",
+            "type": "integer",
+            "description": "Top N of each list or screener, up to 100.",
+            "default": 100,
+            "minimum": 1,
+            "maximum": 100
+        }
+    }
+}

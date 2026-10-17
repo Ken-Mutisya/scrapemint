@@ -1,0 +1,10 @@
+{
+    "name": "company-email-finder",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Find the people, titles and email addresses of any company from its own website: team-page names and titles, published emails, the company's email pattern, pattern-based emails per person, mail provider and decision-maker flags. Keyless, no browser, no proxy.",
+    "main": "src/main.js",
+    "scripts": { "start": "node src/main.js" },
+    "dependencies": { "apify": "^3.7.0", "cheerio": "^1.0.0" },
+    "engines": { "node": ">=20" }
+}

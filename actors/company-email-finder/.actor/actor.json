@@ -1,0 +1,13 @@
+{
+    "actorSpecification": 1,
+    "name": "company-email-finder",
+    "title": "Company Email Finder: People, Titles & Email Pattern",
+    "description": "Find a company's people and emails from its own website: names and titles from team pages, every published email, the company's email pattern (first.last@, flast@...), an email for each person, the mail provider and decision-maker flags. Or look up a person by name + domain. $0.004 per contact.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "output": "./output_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": ["LEAD_GENERATION", "BUSINESS"],
+    "readme": "../README.md"
+}

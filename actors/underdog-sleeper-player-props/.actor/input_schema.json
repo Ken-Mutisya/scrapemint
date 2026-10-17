@@ -1,0 +1,54 @@
+{
+    "title": "Underdog & Sleeper Player Props input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "sources": {
+            "title": "Apps",
+            "type": "array",
+            "description": "Which pick'em apps to read. Both = line shopping between them.",
+            "editor": "select",
+            "items": { "type": "string", "enum": ["underdog", "sleeper"], "enumTitles": ["Underdog Fantasy", "Sleeper Picks"] },
+            "default": ["underdog", "sleeper"],
+            "prefill": ["underdog", "sleeper"],
+            "sectionCaption": "Sources"
+        },
+        "sports": {
+            "title": "Sports",
+            "type": "array",
+            "description": "Optional. e.g. NFL, CFB, NBA, WNBA, MLB, NHL, CBB, SOCCER, TENNIS, MMA, CS. Empty = every sport.",
+            "editor": "stringList",
+            "prefill": ["NFL"],
+            "default": [],
+            "sectionCaption": "Filters"
+        },
+        "players": {
+            "title": "Players",
+            "type": "array",
+            "description": "Optional. Player names or parts of names, e.g. Josh Allen, McCaffrey.",
+            "editor": "stringList",
+            "default": []
+        },
+        "stats": {
+            "title": "Stats",
+            "type": "array",
+            "description": "Optional. e.g. Passing Yards, Receptions, Points, Shots, Strikeouts. Either app's wording works (Rec Yds = Receiving Yards).",
+            "editor": "stringList",
+            "default": []
+        },
+        "includeAlternates": {
+            "title": "Include alternate lines",
+            "type": "boolean",
+            "description": "Also return Underdog's alternate and Sleeper's non-standard lines. Off = the main line per player and stat.",
+            "default": false,
+            "sectionCaption": "Options"
+        },
+        "maxRows": {
+            "title": "Maximum lines",
+            "type": "integer",
+            "description": "Stop after this many lines. A full slate across all sports is several thousand.",
+            "default": 1000,
+            "minimum": 1
+        }
+    }
+}

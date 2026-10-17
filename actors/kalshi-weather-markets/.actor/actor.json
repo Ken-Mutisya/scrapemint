@@ -1,0 +1,13 @@
+{
+    "actorSpecification": 1,
+    "name": "kalshi-weather-markets",
+    "title": "Kalshi Weather Markets: Prices vs Forecast Odds",
+    "description": "Every open Kalshi weather market: daily high and low temperature in ~30 US cities, rain and snow. Live bid/ask and implied probability next to an 82-member ECMWF+GFS ensemble forecast probability for the exact settlement station, with today's observed high/low. $0.005 per market.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "output": "./output_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": ["BUSINESS", "NEWS"],
+    "readme": "../README.md"
+}

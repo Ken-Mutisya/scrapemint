@@ -1,0 +1,10 @@
+{
+    "name": "underdog-sleeper-player-props",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Live pick'em player props from Underdog Fantasy and Sleeper Picks in one format: lines, payout multipliers, odds, last-10 results, pick popularity and line differences between the two apps. Keyless, no browser, no proxy.",
+    "main": "src/main.js",
+    "scripts": { "start": "node src/main.js" },
+    "dependencies": { "apify": "^3.7.0" },
+    "engines": { "node": ">=20" }
+}

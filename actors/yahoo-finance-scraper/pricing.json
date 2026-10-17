@@ -1,0 +1,21 @@
+{
+    "_note": "New actor, first pricing entry. Market (2026-10-17): kaix/yahoo-finance-scraper 111 monthly users, architjn/yahoo-finance 92, memo23/yahoo-finance-scraper 57; ~484 users across Yahoo Finance actors. quote_row $0.004 (one ~1 MB page, 90+ fields), list_row $0.001. No start fee. Source: finance.yahoo.com server-rendered pages (embedded API JSON); the JSON API itself 429s datacenter IPs. No proxy. Needs node --max-http-header-size (Yahoo sends ~35 KB of headers).",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~yahoo-finance-scraper?token=APIFY_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "quote_row": {
+                "eventTitle": "Full quote",
+                "eventDescription": "One symbol's full quote: price and trading data, valuation ratios, margins, cash and debt, analyst targets, ratings and recent rating changes, earnings dates and recent quarters, returns, ETF holdings and company profile. Unknown symbols are free.",
+                "eventPriceUsd": 0.004,
+                "isPrimaryEvent": true
+            },
+            "list_row": {
+                "eventTitle": "List row",
+                "eventDescription": "One row of a Yahoo market list or screener (gainers, losers, most active, trending, 52-week movers, top ETFs, crypto): rank, symbol, name, price, change, volume, market cap, P/E, sector. A run that finds nothing is free.",
+                "eventPriceUsd": 0.001
+            }
+        }
+    },
+    "startedAt": "2026-10-18T00:00:00.000Z"
+}

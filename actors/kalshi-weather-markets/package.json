@@ -1,0 +1,10 @@
+{
+    "name": "kalshi-weather-markets",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Every open Kalshi weather market (daily high and low temperature, rain, snow) with live prices next to an 82-member ensemble forecast probability for the settlement station. Keyless, no browser, no proxy.",
+    "main": "src/main.js",
+    "scripts": { "start": "node src/main.js" },
+    "dependencies": { "apify": "^3.7.0" },
+    "engines": { "node": ">=20" }
+}

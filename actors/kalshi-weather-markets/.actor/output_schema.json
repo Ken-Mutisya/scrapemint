@@ -1,0 +1,20 @@
+{
+    "actorOutputSchemaVersion": 1,
+    "title": "Kalshi weather markets",
+    "description": "One row per open market with price, implied probability and forecast probability.",
+    "type": "object",
+    "properties": {
+        "rows": {
+            "type": "string",
+            "title": "Markets",
+            "description": "Bracket, bid/ask, implied probability, forecast probability, edge, observed so far, volume.",
+            "template": "{{links.apiDefaultDatasetUrl}}/items"
+        },
+        "summary": {
+            "type": "string",
+            "title": "Run summary",
+            "description": "Rows per market type and any series that failed.",
+            "template": "{{links.apiDefaultKeyValueStoreUrl}}/records/SUMMARY"
+        }
+    }
+}

@@ -1,0 +1,20 @@
+{
+    "actorOutputSchemaVersion": 1,
+    "title": "Player props",
+    "description": "One row per player line from Underdog or Sleeper.",
+    "type": "object",
+    "properties": {
+        "rows": {
+            "type": "string",
+            "title": "Player lines",
+            "description": "Player, stat, line, payout multipliers, odds, last-10 hit rate, pick share, other app's line.",
+            "template": "{{links.apiDefaultDatasetUrl}}/items"
+        },
+        "summary": {
+            "type": "string",
+            "title": "Run summary",
+            "description": "Lines per app, lines matched across apps and any source that failed.",
+            "template": "{{links.apiDefaultKeyValueStoreUrl}}/records/SUMMARY"
+        }
+    }
+}

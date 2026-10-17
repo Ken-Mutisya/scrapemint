@@ -1,0 +1,20 @@
+{
+    "actorOutputSchemaVersion": 1,
+    "title": "People and emails",
+    "description": "One row per person, email or lookup, plus a free summary per domain; the type field says which.",
+    "type": "object",
+    "properties": {
+        "rows": {
+            "type": "string",
+            "title": "Contacts",
+            "description": "People with title and email (published or pattern-based, with confidence), published emails, name lookups and domain summaries.",
+            "template": "{{links.apiDefaultDatasetUrl}}/items"
+        },
+        "summary": {
+            "type": "string",
+            "title": "Run summary",
+            "description": "Per domain: rows, people, emails and the detected pattern.",
+            "template": "{{links.apiDefaultKeyValueStoreUrl}}/records/SUMMARY"
+        }
+    }
+}

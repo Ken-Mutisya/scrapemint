@@ -1,0 +1,10 @@
+{
+    "name": "yahoo-finance-scraper",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Yahoo Finance quotes with fundamentals, valuation, analyst targets and ratings, earnings dates and company profile; plus gainers, losers, most active, trending, 52-week movers, top ETFs, crypto and Yahoo's screeners. Keyless, no browser, no proxy.",
+    "main": "src/main.js",
+    "scripts": { "start": "node --max-http-header-size=81920 src/main.js" },
+    "dependencies": { "apify": "^3.7.0" },
+    "engines": { "node": ">=20" }
+}

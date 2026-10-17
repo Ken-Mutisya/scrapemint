@@ -1,0 +1,10 @@
+{
+    "name": "stocktwits-scraper",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Stocktwits messages with Bullish/Bearish tags, daily sentiment history and post rate per ticker, user streams and trending tickers with Stocktwits' why-it's-trending summary. Keyless, no browser, no proxy.",
+    "main": "src/main.js",
+    "scripts": { "start": "node src/main.js" },
+    "dependencies": { "apify": "^3.7.0" },
+    "engines": { "node": ">=20" }
+}

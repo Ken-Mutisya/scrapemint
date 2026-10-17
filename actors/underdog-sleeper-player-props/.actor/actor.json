@@ -1,0 +1,14 @@
+{
+    "actorSpecification": 1,
+    "name": "underdog-sleeper-player-props",
+    "title": "Underdog & Sleeper Player Props Scraper",
+    "description": "Every live pick'em player prop on Underdog Fantasy and Sleeper Picks (NFL, CFB, NBA, WNBA, MLB, NHL, soccer, tennis, MMA, esports): line, higher/lower payout multipliers, odds, Sleeper's last-10 hit rate and pick share, and the other app's line for line shopping. $0.002 per line.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "output": "./output_schema.json",
+    "dockerfile": "./Dockerfile",
+    "defaultMemoryMbytes": 2048,
+    "categories": ["BUSINESS", "AUTOMATION"],
+    "readme": "../README.md"
+}
