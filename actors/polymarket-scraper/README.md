@@ -209,16 +209,15 @@ Yes, set `maxItemsTotal` to 0 (unlimited) and pick one or more categories. Expec
 
 ---
 
-## Related actors
-
-- **Polymarket Market Monitor** filters and alerts on price moves, volume surges, and end date approaches across the same markets. Use it for automated watchlists; use this scraper for bulk extraction and dataset builds.
-- **Sports Odds Scraper** pulls live odds from DraftKings, Pinnacle, FanDuel, and other sportsbooks. Pair with this scraper to compare prediction market prices to sportsbook lines on the same event.
-- **Sports Odds Movement Tracker** alerts on sharp line moves across books in real time.
-- **Crypto Whale Token Launch Tracker** surfaces new token launches and large whale moves.
-- **SEC Form 4 Insider Tracker** and **SEC 8-K Event Tracker** for equity and corporate event signals that often correlate with politics and macro Polymarket markets.
-
----
 
 ## Disclaimer
 
 This actor uses the public Polymarket Gamma, CLOB, and data APIs. Polymarket may change endpoint shapes or rate limits at any time without notice; if a request shape changes the actor degrades gracefully and logs a warning rather than failing the run. Polymarket access is not available in every jurisdiction; comply with your local regulations.
+
+## Related actors
+
+- [Prediction Market Arbitrage: Kalshi vs Polymarket vs PredictIt](https://apify.com/scrapemint/prediction-market-odds-comparison): Polymarket against Kalshi and PredictIt, with locked-in arbitrage
+- [Polymarket Prediction Market Tracker by Category](https://apify.com/scrapemint/polymarket-market-monitor): watchlists and alerts on price moves and volume
+- [Polymarket Whale Tracker: Big Bets and Smart Money](https://apify.com/scrapemint/polymarket-whale-tracker): large bets and the wallets behind them
+- [Kalshi Trades: Live Tape, Whale Trades and Price History](https://apify.com/scrapemint/kalshi-trades-tracker): the Kalshi side of the same questions
+- [Betting Odds Comparison: Best Price & Arbitrage Finder](https://apify.com/scrapemint/sports-odds-scraper): sportsbook lines to compare with sports markets

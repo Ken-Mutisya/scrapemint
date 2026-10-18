@@ -196,12 +196,10 @@ Each run hits the live page, so likes, views, and the most recent ideas reflect 
 
 This actor reads HTML any anonymous web visitor can see. Respect TradingView's terms and rate limit sensibly. Do not redistribute personal data you have no lawful basis to process.
 
----
-
 ## Related actors
 
-- **Polymarket Trade Intelligence: Order Book and Prices** , pull live prediction market odds, volume, and resolution metadata
-- **Sports Odds Scraper: NFL, NBA, MLB & Soccer Lines** , pull live moneyline, spread, and total odds across sportsbooks
-- **Crypto Whale Token Launch Tracker** , pull on-chain whale wallet activity around new launches
-- **Google Patents Intelligence: Claims, Citations, Family Tree** , pull patent metadata, claims, and citations by query
-- **PubMed Clinical Trials Intelligence** , pull clinical trials and pubmed records by condition
+- [Stocktwits Scraper: Messages, Sentiment & Trending](https://apify.com/scrapemint/stocktwits-scraper): retail sentiment by ticker
+- [Stock Options Scraper: Unusual Activity, IV & Open Interest](https://apify.com/scrapemint/stock-options-scraper): what the options market is betting on the same tickers
+- [Earnings Call Transcripts: Full Text by Ticker or Date](https://apify.com/scrapemint/earnings-call-transcripts): what management said on the last call
+- [ForexFactory Economic Calendar Feed (No Login)](https://apify.com/scrapemint/forexfactory-economic-calendar): the releases that move FX ideas
+- [Crypto Liquidation Map: Real Liquidation Levels (Hyperliquid)](https://apify.com/scrapemint/crypto-liquidation-map): where leveraged crypto positions get liquidated

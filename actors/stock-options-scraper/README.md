@@ -57,3 +57,19 @@ This is a live snapshot feed. Schedule it to build your own history.
 Pay per event: **$0.004 per row**. The first 2 rows of every run are free.
 
 Data source: Cboe delayed quotes (`cdn.cboe.com`).
+
+## Run it on a schedule
+
+Most people run this once a day after the close, or every 15 to 30 minutes in market hours. In Apify Console open the actor, go to **Schedules**, and pick the interval with your saved input. Each run adds a fresh snapshot, so over time you build a history of open interest and implied volatility. Send every run to Google Sheets, Slack, Telegram or your own webhook under **Integrations**, or start runs from code:
+
+```bash
+curl -X POST "https://api.apify.com/v2/acts/scrapemint~stock-options-scraper/runs?token=YOUR_TOKEN" -H "Content-Type: application/json" -d '{}'
+```
+
+## Related actors
+
+- [Earnings Call Transcripts: Full Text by Ticker or Date](https://apify.com/scrapemint/earnings-call-transcripts): what management said behind an options move
+- [Stock Earnings Estimates & Results: EPS Forecast vs Actual](https://apify.com/scrapemint/stock-earnings-estimates): EPS forecast vs actual around the event
+- [Yahoo Finance Scraper: Quotes, Fundamentals & Movers](https://apify.com/scrapemint/yahoo-finance-scraper): quotes and fundamentals for the same tickers
+- [TradingView Ideas Intelligence Feed (No Login)](https://apify.com/scrapemint/tradingview-ideas-scraper): trader ideas and direction by ticker
+- [Stocktwits Scraper: Messages, Sentiment & Trending](https://apify.com/scrapemint/stocktwits-scraper): retail sentiment on the same names

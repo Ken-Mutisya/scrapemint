@@ -42,3 +42,10 @@ Pay per detection row. A site only costs money when it yields at least one detec
 - Signatures favor precision over recall: a match means the vendor asset, header, or cookie is actually present. Client-rendered pages can hide some HTML signatures, but headers and cookies still work.
 - Sites behind aggressive bot protection may be unreachable; those rows are free and marked `reachable: false`.
 - This Actor reads only public data and never logs in.
+
+## Related actors
+
+- [Website Contact Scraper: Emails, Phones & Social Profiles](https://apify.com/scrapemint/website-contact-scraper): emails and phones for the same domains
+- [Company Email Finder: People, Titles & Email Pattern](https://apify.com/scrapemint/company-email-finder): named people, titles and the email pattern at each company
+- [SaaS Customer Finder: Companies Using Any Tool](https://apify.com/scrapemint/saas-customer-finder): find companies using a tool, then check their full stack here
+- [DNS Records Checker: Full DNS Report for Any Domain](https://apify.com/scrapemint/dns-records-checker): mail provider, SPF and DMARC for each domain

@@ -52,3 +52,19 @@ You pay per market row (`market_row`). The first 2 rows of every run are free. U
 - Prices are dollars per contract that pays $1, so 0.63 means a 63% implied probability.
 - `onlyPriced` (default on) skips empty order books and long-dated combo markets that have never traded.
 - Kalshi rate limits are handled: the actor paces requests, retries once, and stops cleanly with partial data if limits persist.
+
+## Run it on a schedule
+
+Most people run this every 5 to 60 minutes. In Apify Console open the actor, go to **Schedules**, and pick the interval with your saved input. Each run adds a fresh snapshot, so over time you build your own probability history for every market you track. Send every run to Google Sheets, Slack, Telegram or your own webhook under **Integrations**, or start runs from code:
+
+```bash
+curl -X POST "https://api.apify.com/v2/acts/scrapemint~kalshi-prediction-market-scraper/runs?token=YOUR_TOKEN" -H "Content-Type: application/json" -d '{}'
+```
+
+## Related actors
+
+- [Kalshi Trades: Live Tape, Whale Trades and Price History](https://apify.com/scrapemint/kalshi-trades-tracker): every fill and whale trade behind the prices, plus candles
+- [Prediction Market Arbitrage: Kalshi vs Polymarket vs PredictIt](https://apify.com/scrapemint/prediction-market-odds-comparison): the same question priced on three venues, with locked-in arbitrage
+- [Kalshi Weather Markets: Prices vs Forecast Odds](https://apify.com/scrapemint/kalshi-weather-markets): temperature and rain markets next to an ensemble forecast
+- [Polymarket Trade Intelligence: Order Book and Prices](https://apify.com/scrapemint/polymarket-scraper): the other big prediction market
+- [Polymarket Whale Tracker: Big Bets and Smart Money](https://apify.com/scrapemint/polymarket-whale-tracker): large Polymarket bets as they happen

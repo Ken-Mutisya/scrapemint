@@ -204,12 +204,18 @@ Each run hits the live calendar page, so actual values reflect what ForexFactory
 
 This actor reads HTML any anonymous web visitor can see. Respect ForexFactory's terms and rate limit sensibly. Do not redistribute personal data you have no lawful basis to process.
 
----
+## Run it on a schedule
+
+Most people run this every Monday for the week ahead, plus every 15 minutes on release days. In Apify Console open the actor, go to **Schedules**, and pick the interval with your saved input. Each run adds a fresh snapshot, so over time you build an actual-vs-forecast history. Send every run to Google Sheets, Slack, Telegram or your own webhook under **Integrations**, or start runs from code:
+
+```bash
+curl -X POST "https://api.apify.com/v2/acts/scrapemint~forexfactory-economic-calendar/runs?token=YOUR_TOKEN" -H "Content-Type: application/json" -d '{}'
+```
 
 ## Related actors
 
-- **TradingView Ideas Intelligence Feed (No Login)** , pull public trade ideas with author, direction, timeframe, and engagement
-- **Polymarket Trade Intelligence: Order Book and Prices** , pull live prediction market odds, volume, and resolution metadata
-- **Sports Odds Scraper: NFL, NBA, MLB & Soccer Lines** , pull live moneyline, spread, and total odds across sportsbooks
-- **Crypto Whale Token Launch Tracker** , pull on-chain whale wallet activity around new launches
-- **Google Patents Intelligence: Claims, Citations, Family Tree** , pull patent metadata, claims, and citations by query
+- [Economic Calendar: Actual vs Forecast, 20+ Countries](https://apify.com/scrapemint/economic-calendar-scraper): a second calendar source with parsed numbers, surprise and years of history
+- [CFTC Commitments of Traders (COT) Tracker](https://apify.com/scrapemint/cftc-cot-tracker): weekly futures positioning by trader type
+- [Central Bank Interest Rates: Policy Rates and Rate Changes](https://apify.com/scrapemint/central-bank-policy-rates): every central bank rate and change
+- [Currency Exchange Rates: Live & History for 160+ Currencies](https://apify.com/scrapemint/currency-exchange-rates-scraper): FX rates to line up with each release
+- [TradingView Ideas Intelligence Feed (No Login)](https://apify.com/scrapemint/tradingview-ideas-scraper): what traders are posting about each pair

@@ -64,8 +64,10 @@ curl -X POST "https://api.apify.com/v2/acts/scrapemint~sports-odds-scraper/run-s
 
 **Tennis, golf, F1, esports?** Not available from the current source; those inputs return a free explanatory row rather than silently vanishing.
 
-## More tools from Scrapemint
+## Related actors
 
-- [Sports Scores Scraper](https://apify.com/scrapemint/sports-scores-scraper): results, schedules and standings for the same leagues.
-- [Polymarket Market Monitor](https://apify.com/scrapemint/polymarket-market-monitor): prediction market prices for real-world events.
-- [TradingView Stock Screener](https://apify.com/scrapemint/tradingview-stock-screener-scraper): market data for the finance side.
+- [Sports Odds Movement and Arbitrage Tracker](https://apify.com/scrapemint/sports-odds-movement-tracker): sharp line moves across books
+- [Player Prop Bets: Odds by Player, Stat and Line](https://apify.com/scrapemint/sportsbook-player-props): player props by stat and line
+- [Underdog & Sleeper Player Props Scraper](https://apify.com/scrapemint/underdog-sleeper-player-props): DFS pick'em lines to compare with sportsbook props
+- [Kalshi Trades: Live Tape, Whale Trades and Price History](https://apify.com/scrapemint/kalshi-trades-tracker): Kalshi game markets and the big trades on them
+- [Prediction Market Arbitrage: Kalshi vs Polymarket vs PredictIt](https://apify.com/scrapemint/prediction-market-odds-comparison): prediction market prices on the same events
