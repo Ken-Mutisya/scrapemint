@@ -176,6 +176,10 @@
   "seoDescription": "How far above or below spot each OKX dated expiry trades, converted to an annual percentage yield, for BTC, ETH, SOL and gold. Keyless.",
   "seoTitle": "Crypto Futures Basis API: Premium and Annual Yield"
  },
+ "crypto-liquidation-map": {
+  "seoDescription": "Real liquidation levels from on-chain Hyperliquid positions: BTC, ETH, SOL price bands and whale positions near liquidation. CoinGlass alternative.",
+  "seoTitle": "Crypto Liquidation Map & Heatmap (Hyperliquid)"
+ },
  "crypto-liquidations-tracker": {
   "seoDescription": "How much was liquidated long versus short in USD per coin on OKX and Gate.io, every forced closeout with its dollar size. Keyless.",
   "seoTitle": "Crypto Liquidations API: Long and Short Closeouts"
@@ -257,9 +261,17 @@
   "seoDescription": "Official CMS NADAC acquisition costs for every US prescription and OTC drug, by name or NDC, with week-over-week changes and the CMS reason.",
   "seoTitle": "NADAC Drug Price API: What Pharmacies Pay"
  },
+ "earnings-call-transcripts": {
+  "seoDescription": "Full earnings call transcripts by ticker or date, split into speaker turns with Q&A, analysts, takeaways and risks. JSON ready for AI and RAG.",
+  "seoTitle": "Earnings Call Transcripts Scraper by Ticker"
+ },
  "ecommerce-scraper": {
   "seoDescription": "Pull products from 14+ marketplaces with pricing, stock, variants, images and ratings. Auto-detects the marketplace from any product URL.",
   "seoTitle": "Ecommerce Product API: Amazon, Walmart, eBay, Etsy"
+ },
+ "economic-calendar-scraper": {
+  "seoDescription": "Macro releases for 20+ countries with actual, forecast, previous and surprise. Filter by date, importance and currency. Investing.com alternative.",
+  "seoTitle": "Economic Calendar Scraper: Actual vs Forecast"
  },
  "email-list-checker": {
   "seoDescription": "Clean your list in bulk: syntax, domain exists, can receive mail, and flags for throwaway, free and role inboxes like info@. One row per address.",
@@ -497,6 +509,10 @@
   "seoDescription": "Live odds from the regulated US event exchange: sports, elections, economics and weather markets with yes/no prices, probability and volume.",
   "seoTitle": "Kalshi API: Live Event Contract Odds and Volume"
  },
+ "kalshi-trades-tracker": {
+  "seoDescription": "Every Kalshi fill for any market, event or series, or a whole-exchange whale scan for trades over $1,000. Price candles too. No key, no login.",
+  "seoTitle": "Kalshi Trades Scraper: Whale Trades & Tape"
+ },
  "lead-enrichment-pipeline": {
   "seoDescription": "Turn a list of domains into enriched leads: emails, phones, social profiles across 7 networks, and company signals. Built for sales teams.",
   "seoTitle": "Lead Enrichment API: Domain to Email and Phone"
@@ -611,8 +627,8 @@
   "seoTitle": "Postal Code API: Validate ZIP Codes in 121 Countries"
  },
  "prediction-market-odds-comparison": {
-  "seoDescription": "Find the same question priced differently across Kalshi, Polymarket and PredictIt: the YES-price gap, the cheaper side and where to take it.",
-  "seoTitle": "Prediction Market Arbitrage: Kalshi vs Polymarket"
+  "seoDescription": "Find arbitrage between Kalshi, Polymarket and PredictIt: matched markets where YES plus NO costs under $1 after fees, with net profit per contract.",
+  "seoTitle": "Prediction Market Arbitrage: Kalshi, Polymarket"
  },
  "premarket-after-hours-prices": {
   "seoDescription": "US extended session prices: scan for the biggest premarket or after-hours gaps, or track a watchlist, with the gap from the prior close.",

@@ -1,0 +1,16 @@
+{
+    "_note": "New actor, first pricing entry. Market (2026-10-18): pintostudio Investing.com calendar 37 monthly users, solidcode economic-calendar 6. Our forexfactory-economic-calendar is the sister product (41 users). event_row $0.001. No start fee. Source: MQL5 economic calendar JSON, keyless, no proxy (Investing.com answers 403).",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~economic-calendar-scraper?token=APIFY_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "event_row": {
+                "eventTitle": "Calendar event",
+                "eventDescription": "One economic calendar event: time (UTC), country, currency, event name, importance, actual, forecast, previous, revision and surprise. A run that finds nothing is free.",
+                "eventPriceUsd": 0.001,
+                "isPrimaryEvent": true
+            }
+        }
+    },
+    "startedAt": "2026-10-19T00:00:00.000Z"
+}

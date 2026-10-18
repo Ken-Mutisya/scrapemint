@@ -1,0 +1,20 @@
+{
+    "actorOutputSchemaVersion": 1,
+    "title": "Kalshi trades",
+    "description": "One row per fill, plus one row per candle when candles are on.",
+    "type": "object",
+    "properties": {
+        "rows": {
+            "type": "string",
+            "title": "Trades and candles",
+            "description": "Time, market, side, contracts, price, dollar size; candles with OHLC, volume and open interest.",
+            "template": "{{links.apiDefaultDatasetUrl}}/items"
+        },
+        "summary": {
+            "type": "string",
+            "title": "Run summary",
+            "description": "Rows out, trades scanned, markets read and any failures.",
+            "template": "{{links.apiDefaultKeyValueStoreUrl}}/records/SUMMARY"
+        }
+    }
+}

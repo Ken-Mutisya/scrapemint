@@ -1,0 +1,13 @@
+{
+    "actorSpecification": 1,
+    "name": "crypto-liquidation-map",
+    "title": "Crypto Liquidation Map: Real Liquidation Levels (Hyperliquid)",
+    "description": "Liquidation heatmap from real positions, not estimates: where the biggest Hyperliquid whales get liquidated on BTC, ETH, SOL and 200+ perps. Price bands with dollar size and cumulative totals, plus the positions closest to liquidation. CoinGlass alternative.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "output": "./output_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": ["BUSINESS", "AUTOMATION"],
+    "readme": "../README.md"
+}

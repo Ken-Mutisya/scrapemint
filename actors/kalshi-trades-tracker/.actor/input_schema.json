@@ -1,0 +1,119 @@
+{
+    "title": "Kalshi Trades input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "marketTickers": {
+            "title": "Market tickers",
+            "type": "array",
+            "description": "Exact Kalshi markets, e.g. KXNFLGAME-26OCT18PITTB-TB. Leave all three ticker fields empty to scan the whole exchange for whale trades.",
+            "editor": "stringList",
+            "default": [],
+            "sectionCaption": "What to read"
+        },
+        "eventTickers": {
+            "title": "Event tickers",
+            "type": "array",
+            "description": "Every market in these events, e.g. KXNFLGAME-26OCT18PITTB (both teams).",
+            "editor": "stringList",
+            "default": []
+        },
+        "seriesTickers": {
+            "title": "Series tickers",
+            "type": "array",
+            "description": "Every OPEN market in these series, e.g. KXHIGHNY, KXFED. Up to 300 markets per run.",
+            "editor": "stringList",
+            "default": []
+        },
+        "lookbackHours": {
+            "title": "Lookback (hours)",
+            "type": "integer",
+            "description": "How far back to read trades and candles for the tickers above. Up to 2,160 (90 days).",
+            "default": 24,
+            "minimum": 1,
+            "maximum": 2160
+        },
+        "whaleScanMinutes": {
+            "title": "Whale scan window (minutes)",
+            "type": "integer",
+            "description": "Used only when no tickers are given: how far back to scan the whole exchange. Kalshi prints ~6,000 fills a minute, so 30 minutes is ~180,000 fills checked.",
+            "default": 30,
+            "minimum": 1,
+            "maximum": 240,
+            "sectionCaption": "Filters"
+        },
+        "minNotionalUsd": {
+            "title": "Minimum trade size (USD)",
+            "type": "integer",
+            "description": "Only fills where contracts x price paid is at least this. Empty = $1,000 in the whale scan, $0 for tickers."
+        },
+        "minContracts": {
+            "title": "Minimum contracts",
+            "type": "integer",
+            "description": "Only fills of at least this many contracts.",
+            "default": 0,
+            "minimum": 0
+        },
+        "maxTakerPrice": {
+            "title": "Maximum price paid",
+            "type": "string",
+            "editor": "textfield",
+            "description": "Skip fills where the taker paid more than this (0.01-1). Default 0.97 drops near-certain bets at 98-99.9c on contracts about to settle, which are large but carry no signal. Set 1 to keep everything.",
+            "default": "0.97"
+        },
+        "takerSide": {
+            "title": "Taker side",
+            "type": "string",
+            "description": "Only fills where the taker bought this side.",
+            "editor": "select",
+            "enum": [
+                "any",
+                "yes",
+                "no"
+            ],
+            "enumTitles": [
+                "Any",
+                "YES buyers",
+                "NO buyers"
+            ],
+            "default": "any"
+        },
+        "includeTrades": {
+            "title": "Trades",
+            "type": "boolean",
+            "description": "One row per fill.",
+            "default": true,
+            "sectionCaption": "Output"
+        },
+        "includeCandles": {
+            "title": "Price candles",
+            "type": "boolean",
+            "description": "One row per candle per market: open, high, low, close, bid/ask, volume, open interest. Needs tickers.",
+            "default": false
+        },
+        "candleInterval": {
+            "title": "Candle interval",
+            "type": "string",
+            "description": "1m covers at most the last 2 days, 1h the last 60 days.",
+            "editor": "select",
+            "enum": [
+                "1m",
+                "1h",
+                "1d"
+            ],
+            "enumTitles": [
+                "1 minute",
+                "1 hour",
+                "1 day"
+            ],
+            "default": "1h"
+        },
+        "maxRows": {
+            "title": "Maximum rows",
+            "type": "integer",
+            "description": "Stop after this many rows (trades plus candles).",
+            "default": 1000,
+            "minimum": 1
+        }
+    }
+}

@@ -1,0 +1,10 @@
+{
+    "name": "economic-calendar-scraper",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Economic calendar for 20+ economies: every macro release with actual, forecast, previous, revision and surprise, by date range, importance and currency. Keyless, no browser, no proxy.",
+    "main": "src/main.js",
+    "scripts": { "start": "node src/main.js" },
+    "dependencies": { "apify": "^3.7.0" },
+    "engines": { "node": ">=20" }
+}

@@ -1,4 +1,17 @@
-// Prediction Market Odds Comparison: Kalshi, Polymarket and PredictIt
+// Prediction Market Arbitrage Finder: Kalshi, Polymarket and PredictIt
+//
+// Arbitrage (added 2026-10-18)
+// ----------------------------
+// For every matched pair, the two hedged trades are priced at the venues' own
+// asks: YES on one venue plus NO on the other pays exactly $1 whichever way
+// the question resolves. If YES ask + NO ask < $1 the difference is locked-in
+// profit before fees. NO ask is Kalshi 1 - YES bid, Polymarket 1 - YES bid
+// (or the NO token's ask when NO is listed first), PredictIt bestBuyNoCost.
+// Fees are counted conservatively, as if both legs paid them:
+//   Kalshi      taker fee 0.07 x P x (1 - P) per contract
+//   PredictIt   10% of the profit on a winning contract, (1 - P) x 0.10
+//   Polymarket  none on most markets
+// Rows with a positive net return sort first.
 //
 // Strategy
 // --------
@@ -39,7 +52,9 @@ const POLY_API = 'https://gamma-api.polymarket.com';
 const PREDICTIT_API = 'https://www.predictit.org/api/marketdata/all/';
 const FETCH_TIMEOUT_MS = 30000;
 const REQUEST_GAP_MS = 200;
-const POOL_HARD_CAP = 2000;
+// Kalshi lists ~1,800 markets per 200 events, so a small pool only ever saw
+// the first few dozen events and matched almost nothing.
+const POOL_HARD_CAP = 10000;
 const UA = 'PredictionMarketOddsComparison/1.0 (+https://apify.com/scrapemint/prediction-market-odds-comparison)';
 
 const ALL_VENUES = ['kalshi', 'polymarket', 'predictit'];
@@ -60,7 +75,9 @@ const {
     minKalshiVolume = 0,
     minPolymarketVolume24h = 0,
     maxPairs = 100,
-    poolPerVenue = 600,
+    poolPerVenue = 4000,
+    onlyArbitrage = false,
+    minNetReturnPct = 0,
 } = input;
 
 const asList = (v) => (Array.isArray(v) ? v : String(v || '').split(/[\n,]/))
@@ -71,7 +88,8 @@ const minScore = Math.min(1, Math.max(0, Number(minMatchScore) || 0.5));
 const minKVol = Math.max(0, Number(minKalshiVolume) || 0);
 const minPVol = Math.max(0, Number(minPolymarketVolume24h) || 0);
 const cap = Math.max(1, Math.min(HARD_CAP, Number(maxPairs) || 100));
-const pool = Math.max(50, Math.min(POOL_HARD_CAP, Number(poolPerVenue) || 600));
+const pool = Math.max(50, Math.min(POOL_HARD_CAP, Number(poolPerVenue) || 4000));
+const minNetReturn = Number(minNetReturnPct) || 0;
 
 // Comparison needs two venues. A selection with fewer falls back to all three
 // rather than running a pass that can never produce a pair.
@@ -186,6 +204,8 @@ const CLAIM_FAMILIES = [
     ['candidacy', [/\bwho will run\b/, /\brun for\b/, /\brunning for\b/, /\bannounce\b/, /\bcandidacy\b/, /\bdeclare\b/, /\bfile to run\b/]],
     ['resign', [/\bresign\b/, /\bstep down\b/, /\bimpeach/, /\bremoved from office\b/, /\bout as\b/]],
     ['concede', [/\bconcede\b/, /\bconcession\b/]],
+    // "Will X and Y not meet" is the opposite bet of "will X and Y meet". Paired, it read as a 729% arbitrage.
+    ['negated', [/\bnot\b/, /\bwon'?t\b/, /\bfail to\b/, /\bfails to\b/]],
 ];
 // Returns the sorted family names a question triggers. The empty set is the
 // plain "will X win / will X happen" claim, which is the common case.
@@ -271,6 +291,8 @@ async function fetchKalshiPool() {
         if (!d?.events?.length) break;
         for (const ev of d.events) {
             for (const m of ev.markets || []) {
+                // Multivariate combos (parlays) exist only on Kalshi; they can never match.
+                if (/^KXMVE/.test(m.ticker || '')) continue;
                 const yesBid = num(m.yes_bid_dollars);
                 const yesAsk = num(m.yes_ask_dollars);
                 const last = num(m.last_price_dollars);
@@ -292,6 +314,9 @@ async function fetchKalshiPool() {
                     tokens: tokenize(text),
                     yesPct: pct(yes),
                     bookWidthPct: bookWidth(yesBid, yesAsk),
+                    // A 0 bid or a $1 ask is an empty side of the book, not a price.
+                    yesAsk: yesAsk > 0 && yesAsk < 1 ? yesAsk : null,
+                    noAsk: yesBid > 0 && yesBid < 1 ? Math.round((1 - yesBid) * 10000) / 10000 : null,
                     volume: vol,
                     category: clean(ev.category),
                     closeTime: clean(m.close_time),
@@ -323,12 +348,19 @@ function polyYesPrice(m) {
     // first they describe the No side, so the YES book width is unknown rather
     // than assumed.
     const width = yesIdx === 0 ? bookWidth(num(m.bestBid), num(m.bestAsk)) : null;
-    return { yes, bookWidthPct: width };
+    // The same quote read as YES ask and NO ask, whichever outcome it belongs to.
+    const bid = num(m.bestBid);
+    const ask = num(m.bestAsk);
+    const live = (p) => (p != null && p > 0 && p < 1 ? p : null);
+    const flip = (p) => (live(p) == null ? null : Math.round((1 - p) * 10000) / 10000);
+    const yesAsk = yesIdx === 0 ? live(ask) : flip(bid);
+    const noAsk = yesIdx === 0 ? flip(bid) : live(ask);
+    return { yes, bookWidthPct: width, yesAsk, noAsk };
 }
 async function fetchPolyPool() {
     const items = [];
     let offset = 0;
-    for (let page = 0; page < 30 && items.length < pool; page++) {
+    for (let page = 0; page < 60 && items.length < pool; page++) {
         if (pastDeadline()) break;
         await sleep(REQUEST_GAP_MS);
         const p = new URLSearchParams({
@@ -356,6 +388,8 @@ async function fetchPolyPool() {
                 tokens: tokenize(text),
                 yesPct: pct(yes),
                 bookWidthPct: quote.bookWidthPct,
+                yesAsk: quote.yesAsk,
+                noAsk: quote.noAsk,
                 volume24hr: vol24,
                 volumeTotal: num(m.volumeNum) ?? num(m.volume),
                 endDate: clean(m.endDate),
@@ -415,6 +449,8 @@ async function fetchPredictItPool() {
                 tokens: tokenize(text),
                 yesPct: pct(yes),
                 bookWidthPct: bookWidth(bid, ask),
+                yesAsk: ask > 0 && ask < 1 ? ask : null,
+                noAsk: num(c.bestBuyNoCost) > 0 && num(c.bestBuyNoCost) < 1 ? num(c.bestBuyNoCost) : null,
                 contract: contractName,
                 bestBuyYesCost: ask,
                 bestSellYesCost: bid,
@@ -499,10 +535,26 @@ for (let i = 0; i < selected.length; i++) {
         const va = selected[i];
         const vb = selected[j];
         const combo = `${va}|${vb}`;
+        // scorePair needs a shared strong token, so only those pairs are scored.
+        // Comparing every market with every other took 7 minutes at 4,000 per venue.
+        const index = new Map();
+        for (const b of pools[vb]) {
+            for (const t of b.tokens) {
+                if (!isStrong(t)) continue;
+                if (!index.has(t)) index.set(t, []);
+                index.get(t).push(b);
+            }
+        }
         for (const a of pools[va]) {
-            for (const b of pools[vb]) {
-                const s = scorePair(a, b);
-                if (s >= minScore) candidates.push({ s, combo, a, b });
+            const seen = new Set();
+            for (const t of a.tokens) {
+                if (!isStrong(t)) continue;
+                for (const b of index.get(t) || []) {
+                    if (seen.has(b)) continue;
+                    seen.add(b);
+                    const s = scorePair(a, b);
+                    if (s >= minScore) candidates.push({ s, combo, a, b });
+                }
             }
         }
     }
@@ -512,10 +564,64 @@ log.info(`${candidates.length} candidate pair(s) at score >= ${minScore} across 
 
 // Assign greedily one-to-one by descending score, PER venue combination, so
 // the same question can still surface on every combination it appears in.
+const FEE = {
+    kalshi: (p) => 0.07 * p * (1 - p),
+    predictit: (p) => 0.10 * (1 - p),
+    polymarket: () => 0,
+};
+const r4 = (n) => Math.round(n * 10000) / 10000;
+const MAX_SANE_GAP_PTS = 25;
+// Pairs below this match score are shown for the odds gap but never called arbitrage.
+const MIN_ARB_SCORE = 0.8;
+// Best of the two hedges: YES on one venue + NO on the other pays $1 either way.
+// A number on one side only (a district like NJ-04, a date like Jan 1) means
+// the two questions differ in a detail; years are left out since "next" and
+// "2026" routinely name the same election.
+function numbersDiffer(a, b) {
+    const nums = (x) => [...x.tokens].filter((t) => /\d/.test(t) && !/^(19|20)\d\d$/.test(t));
+    const na = nums(a);
+    const nb = nums(b);
+    return na.some((t) => !b.tokens.has(t)) || nb.some((t) => !a.tokens.has(t));
+}
+function arbOf(a, b, score) {
+    let best = null;
+    for (const [y, n] of [[a, b], [b, a]]) {
+        if (y.yesAsk == null || n.noAsk == null) continue;
+        const cost = y.yesAsk + n.noAsk;
+        const fees = FEE[y.venue](y.yesAsk) + FEE[n.venue](n.noAsk);
+        const net = 1 - cost - fees;
+        if (!best || net > best.net) best = { y, n, cost, fees, net };
+    }
+    if (!best) return null;
+    // A one-sided book (a 1c ask with no bid, say) is usually a stale order, not a price you can fill.
+    const twoSided = [a, b].every((v) => v.yesAsk != null && v.noAsk != null);
+    // Venues rarely disagree by more than a few points on the same question. A
+    // gap this wide almost always means the matcher paired two different questions.
+    const suspect = Math.abs(a.yesPct - b.yesPct) > MAX_SANE_GAP_PTS || numbersDiffer(a, b) || score < MIN_ARB_SCORE;
+    return {
+        arbitrage: best.net > 0 && twoSided && !suspect,
+        suspectedMismatch: suspect,
+        bothBooksTwoSided: twoSided,
+        arbStrategy: `Buy YES on ${best.y.venue} at ${best.y.yesAsk} + buy NO on ${best.n.venue} at ${best.n.noAsk} = ${r4(best.cost)} for a $1 payout`,
+        arbYesVenue: best.y.venue,
+        arbYesAsk: best.y.yesAsk,
+        arbNoVenue: best.n.venue,
+        arbNoAsk: best.n.noAsk,
+        arbCostPerContract: r4(best.cost),
+        grossProfitPerContract: r4(1 - best.cost),
+        feesPerContract: r4(best.fees),
+        netProfitPerContract: r4(best.net),
+        netReturnPct: Math.round((best.net / best.cost) * 10000) / 100,
+    };
+}
+const NO_ARB = {
+    arbitrage: null, suspectedMismatch: null, bothBooksTwoSided: null, arbStrategy: null, arbYesVenue: null, arbYesAsk: null, arbNoVenue: null, arbNoAsk: null,
+    arbCostPerContract: null, grossProfitPerContract: null, feesPerContract: null, netProfitPerContract: null, netReturnPct: null,
+};
+
 const used = new Set();
-let emitted = 0;
+const pairs = [];
 for (const c of candidates) {
-    if (rowsPushed >= cap) break;
     const ka = `${c.combo}|${c.a.key}`;
     const kb = `${c.combo}|${c.b.key}`;
     if (used.has(ka) || used.has(kb)) continue;
@@ -523,6 +629,19 @@ for (const c of candidates) {
     if (spread < minSpread) continue;
     used.add(ka);
     used.add(kb);
+    const arb = arbOf(c.a, c.b, c.s);
+    if (onlyArbitrage && !(arb?.arbitrage && arb.netReturnPct >= minNetReturn)) continue;
+    pairs.push({ c, spread, arb });
+}
+// Locked-in profit first, best net return on top; then the widest gaps.
+pairs.sort((x, y) => (y.arb?.arbitrage ? 1 : 0) - (x.arb?.arbitrage ? 1 : 0)
+    || (y.arb?.arbitrage ? y.arb.netReturnPct - x.arb.netReturnPct : 0)
+    || y.spread - x.spread);
+log.info(`${pairs.length} matched pair(s), ${pairs.filter((p) => p.arb?.arbitrage).length} with a positive net arbitrage.`);
+
+let emitted = 0;
+for (const { c, spread, arb } of pairs) {
+    if (rowsPushed >= cap) break;
 
     const byVenue = { [c.a.venue]: c.a, [c.b.venue]: c.b };
     const cheaper = c.a.yesPct <= c.b.yesPct ? c.a : c.b;
@@ -542,6 +661,7 @@ for (const c of candidates) {
 
     await flushRow({
         question: headline,
+        ...(arb ?? NO_ARB),
         venueA: c.a.venue,
         venueB: c.b.venue,
         venueAYesPct: c.a.yesPct,

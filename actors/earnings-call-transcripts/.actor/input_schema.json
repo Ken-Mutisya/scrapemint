@@ -1,0 +1,59 @@
+{
+    "title": "Earnings Call Transcripts input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "tickers": {
+            "title": "Tickers",
+            "type": "array",
+            "description": "US stock tickers, e.g. AAPL, NVDA, JPM. Returns each company's most recent transcripts. Leave empty (with no dates and no URLs) for the newest transcripts across all companies.",
+            "editor": "stringList",
+            "prefill": ["AAPL", "NVDA"],
+            "default": [],
+            "sectionCaption": "What to read"
+        },
+        "transcriptsPerTicker": {
+            "title": "Transcripts per ticker",
+            "type": "integer",
+            "description": "Newest N calls per ticker. Up to ~8 are listed per company.",
+            "default": 4,
+            "minimum": 1,
+            "maximum": 8
+        },
+        "dateFrom": {
+            "title": "From date",
+            "type": "string",
+            "description": "Every transcript published from this date, YYYY-MM-DD. Up to 24 months per run.",
+            "editor": "textfield",
+            "pattern": "^(\\d{4}-\\d{2}-\\d{2})?$"
+        },
+        "dateTo": {
+            "title": "To date",
+            "type": "string",
+            "description": "Up to this date, YYYY-MM-DD. Empty = today.",
+            "editor": "textfield",
+            "pattern": "^(\\d{4}-\\d{2}-\\d{2})?$"
+        },
+        "transcriptUrls": {
+            "title": "Transcript URLs",
+            "type": "array",
+            "description": "Exact fool.com transcript pages, e.g. https://www.fool.com/earnings/call-transcripts/2026/10/16/interactive-brokers-ibkr-q3-2026-earnings-call-transcript/",
+            "editor": "stringList",
+            "default": []
+        },
+        "includeTurns": {
+            "title": "Speaker turns",
+            "type": "boolean",
+            "description": "Adds a turns array: speaker, role, section (prepared_remarks or qa) and text for every turn. The full transcript text is always included.",
+            "default": true,
+            "sectionCaption": "Output"
+        },
+        "maxTranscripts": {
+            "title": "Maximum transcripts",
+            "type": "integer",
+            "description": "Stop after this many transcripts.",
+            "default": 20,
+            "minimum": 1
+        }
+    }
+}

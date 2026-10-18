@@ -1,0 +1,16 @@
+{
+    "_note": "New actor, first pricing entry. Market (2026-10-18): johnvc/earnings-call-transcript-api 16 monthly users, jungle_synthesizer Motley Fool transcripts 10. A transcript is a 5-15k word document; $0.015 each. No start fee. Source: fool.com HTML, keyless, no proxy.",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~earnings-call-transcripts?token=APIFY_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "transcript_row": {
+                "eventTitle": "Transcript",
+                "eventDescription": "One full earnings call transcript: ticker, quarter, call date, participants, analysts, takeaways, risks, full text and speaker turns. A run that finds nothing is free.",
+                "eventPriceUsd": 0.015,
+                "isPrimaryEvent": true
+            }
+        }
+    },
+    "startedAt": "2026-10-19T00:00:00.000Z"
+}

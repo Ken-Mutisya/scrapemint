@@ -1,0 +1,13 @@
+{
+    "actorSpecification": 1,
+    "name": "kalshi-trades-tracker",
+    "title": "Kalshi Trades: Live Tape, Whale Trades and Price History",
+    "description": "Every Kalshi fill for any market, event or series: time, side, contracts, price and dollar size. Or scan the whole exchange for whale trades over $1,000. Optional 1m/1h/1d price candles. No account, no key. $0.80 per 1,000 trades.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "output": "./output_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": ["BUSINESS", "NEWS"],
+    "readme": "../README.md"
+}

@@ -1,0 +1,10 @@
+{
+    "name": "crypto-liquidation-map",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Crypto liquidation map from real on-chain positions: where the largest Hyperliquid accounts get liquidated, by price band and by position, for BTC, ETH, SOL and every other perp. Keyless, no browser, no proxy.",
+    "main": "src/main.js",
+    "scripts": { "start": "node src/main.js" },
+    "dependencies": { "apify": "^3.7.0" },
+    "engines": { "node": ">=20" }
+}

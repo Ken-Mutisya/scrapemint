@@ -1,0 +1,13 @@
+{
+    "actorSpecification": 1,
+    "name": "economic-calendar-scraper",
+    "title": "Economic Calendar: Actual vs Forecast, 20+ Countries",
+    "description": "Every macro release (CPI, NFP, GDP, rate decisions, PMIs, speeches) for 20+ economies with actual, forecast, previous, revision and surprise. Filter by date, importance and currency. Investing.com calendar alternative. $1 per 1,000 events.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "output": "./output_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": ["BUSINESS", "NEWS"],
+    "readme": "../README.md"
+}

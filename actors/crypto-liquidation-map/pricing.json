@@ -1,0 +1,21 @@
+{
+    "_note": "New actor, first pricing entry. Market (2026-10-18): api_merge/coinglass-liquidation-heatmap 38 monthly users at $0.01 per item, coinglass-liquidation-map 10, max-pain 6. level_row $0.002, position_row $0.001. No start fee. Source: Hyperliquid info API and stats leaderboard, keyless, no proxy.",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~crypto-liquidation-map?token=APIFY_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "level_row": {
+                "eventTitle": "Liquidation level",
+                "eventDescription": "One price band for one coin and side: price range, distance from mark, liquidation notional, number of positions, largest position and cumulative notional from the mark. A run that finds nothing is free.",
+                "eventPriceUsd": 0.002,
+                "isPrimaryEvent": true
+            },
+            "position_row": {
+                "eventTitle": "Position",
+                "eventDescription": "One open Hyperliquid position: coin, side, size, notional, entry, mark and liquidation price, distance to liquidation, leverage, unrealized PnL and wallet address.",
+                "eventPriceUsd": 0.001
+            }
+        }
+    },
+    "startedAt": "2026-10-19T00:00:00.000Z"
+}

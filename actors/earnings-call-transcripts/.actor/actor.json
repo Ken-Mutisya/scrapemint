@@ -1,0 +1,13 @@
+{
+    "actorSpecification": 1,
+    "name": "earnings-call-transcripts",
+    "title": "Earnings Call Transcripts: Full Text by Ticker or Date",
+    "description": "Full earnings call transcripts for US stocks by ticker or date range. Each call split into speaker turns (prepared remarks vs Q&A) with executives, analysts, key takeaways and risks. Ready for AI, RAG and sentiment. $0.015 per transcript.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "output": "./output_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": ["BUSINESS", "AI"],
+    "readme": "../README.md"
+}

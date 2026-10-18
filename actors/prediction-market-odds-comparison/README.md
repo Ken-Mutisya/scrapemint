@@ -1,12 +1,30 @@
-# Prediction Market Odds: Kalshi, Polymarket and PredictIt
+# Prediction Market Arbitrage: Kalshi vs Polymarket vs PredictIt
 
-The same real-world question is often listed on **several** prediction venues at once, and they frequently price the **YES** outcome differently. This actor pulls live binary Yes/No markets from [Kalshi](https://kalshi.com) (the CFTC-regulated US event-contract exchange), [Polymarket](https://polymarket.com) (the crypto order book) and [PredictIt](https://www.predictit.org) (the US real-money political market), matches equivalent questions across venues, and reports the **cross-venue YES-price gap** so you can see at a glance where the same bet is cheaper.
+Find **prediction market arbitrage** between [Kalshi](https://kalshi.com), [Polymarket](https://polymarket.com) and [PredictIt](https://www.predictit.org). This actor matches the same Yes/No question across the three venues and prices the hedge: **buy YES on one venue and NO on the other**. Together those pay exactly $1 whichever way the question resolves, so when they cost less than $1 after fees, the difference is locked-in profit.
 
-- **Keyless.** No account, no API key, no browser. Straight from each venue's public API.
-- **Binary only.** Only Yes/No markets are compared, so the YES probability is directly comparable.
-- **Tradeability check.** Every gap is compared against the venues' own bid/ask, so you can tell a real edge from a wide spread.
+Each matched pair comes with:
 
-With three venues a single question can appear as up to three pairs (Kalshi vs Polymarket, Kalshi vs PredictIt, Polymarket vs PredictIt), which lets you see every leg of the same market side by side.
+- **The arbitrage:** which venue to buy YES on and which to buy NO on, at their live **asks**, the total cost, fees, and **net profit and return**. Rows with real arbitrage sort to the top.
+- **The odds gap:** both venues' YES probability, the spread, and whether that gap clears both order books.
+
+No account, no API key, no browser. Straight from each venue's public API.
+
+## Arbitrage fields
+
+| Field | Meaning |
+|---|---|
+| `arbitrage` | `true` = YES + NO cost under $1 after fees, both venues quote both sides of their book, and the pair is not a suspected mismatch |
+| `arbStrategy` | Plain language, e.g. "Buy YES on kalshi at 0.42 + buy NO on polymarket at 0.55 = 0.97 for a $1 payout" |
+| `arbYesVenue` / `arbYesAsk` | Where to buy YES and the ask you pay |
+| `arbNoVenue` / `arbNoAsk` | Where to buy NO and the ask you pay |
+| `arbCostPerContract` | YES ask + NO ask |
+| `grossProfitPerContract` | $1 minus the cost |
+| `feesPerContract` | Kalshi taker fee (0.07 x P x (1-P)) and PredictIt's 10% profit fee, counted on both legs to be safe. Polymarket charges none on most markets. |
+| `netProfitPerContract` / `netReturnPct` | Profit after fees, per contract and as a return on the cost |
+| `suspectedMismatch` | The pair is probably two different questions, so it is not marked as arbitrage. That covers: YES prices more than 25 points apart, a number other than a year on one side only (a district like NJ-04, a date like Jan 1), or a match score under 0.8. |
+| `bothBooksTwoSided` | Both venues quote YES and NO. A one-sided book is usually a stale order you can't fill. |
+
+Set `onlyArbitrage: true` to get only the opportunities, and `minNetReturnPct` to skip the small ones. Schedule it every few minutes to catch gaps when they open.
 
 ## The gap that is not a gap
 
@@ -55,7 +73,9 @@ Column blocks for all three venues are present on every row, so the shape stays 
 | `minMatchScore` | How strict the cross-venue match must be (0-1, default 0.5). Raise for precision, lower for recall. |
 | `minKalshiVolume` | Skip thin Kalshi markets (lifetime contracts). |
 | `minPolymarketVolume24h` | Skip thin Polymarket markets (24h USD). |
-| `poolPerVenue` | Top-by-volume markets scanned per venue before matching (default 600). |
+| `poolPerVenue` | Markets scanned per venue before matching (default 4,000). |
+| `onlyArbitrage` | Only rows where `arbitrage` is `true`. |
+| `minNetReturnPct` | With `onlyArbitrage`, the minimum net return in percent. |
 | `maxPairs` | Cap on pairs returned. |
 
 Volume filters do not apply to PredictIt, which reports no volume.
@@ -79,4 +99,5 @@ Pay per event: **$0.005 per matched pair** pushed. The first 2 rows of every run
 - Works best on **named-entity event markets** (elections, geopolitics, courts, awards) where the venues list the identical yes/no question. Crypto price levels are structured differently on each venue (Kalshi uses price *ranges*, Polymarket uses *thresholds*) and rarely match cleanly.
 - Prices are live snapshots at scrape time; all three venues move continuously.
 - A high `spreadPct` can also mean the two questions differ in a detail (date, threshold) the matcher missed. Confirm the titles and resolution terms before acting.
-- Fees, slippage, and settlement rules differ between the venues; the gap is a signal, not guaranteed profit.
+- **Check before you trade.** Arbitrage is only locked in if both markets resolve on the same event. Read both venues' resolution rules: dates, sources and edge cases can differ even when the titles match.
+- Prices are top-of-book asks. Depth isn't shown, so a large order can move past them. PredictIt also caps each contract at $850 and charges 5% on withdrawals, which isn't counted here.

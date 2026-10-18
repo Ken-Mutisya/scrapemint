@@ -1,0 +1,20 @@
+{
+    "actorOutputSchemaVersion": 1,
+    "title": "Earnings call transcripts",
+    "description": "One row per earnings call.",
+    "type": "object",
+    "properties": {
+        "rows": {
+            "type": "string",
+            "title": "Transcripts",
+            "description": "Ticker, quarter, call date, participants, analysts, takeaways, risks, full text and speaker turns.",
+            "template": "{{links.apiDefaultDatasetUrl}}/items"
+        },
+        "summary": {
+            "type": "string",
+            "title": "Run summary",
+            "description": "Transcripts found and read, and any that failed.",
+            "template": "{{links.apiDefaultKeyValueStoreUrl}}/records/SUMMARY"
+        }
+    }
+}

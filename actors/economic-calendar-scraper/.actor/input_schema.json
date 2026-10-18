@@ -1,0 +1,75 @@
+{
+    "title": "Economic Calendar input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "dateFrom": {
+            "title": "From date",
+            "type": "string",
+            "description": "YYYY-MM-DD. Empty = today. History goes back years, so past dates return released actuals.",
+            "editor": "textfield",
+            "pattern": "^(\\d{4}-\\d{2}-\\d{2})?$",
+            "sectionCaption": "Dates"
+        },
+        "dateTo": {
+            "title": "To date",
+            "type": "string",
+            "description": "YYYY-MM-DD. Empty = From date plus Days ahead. Up to one year per run.",
+            "editor": "textfield",
+            "pattern": "^(\\d{4}-\\d{2}-\\d{2})?$"
+        },
+        "daysAhead": {
+            "title": "Days ahead",
+            "type": "integer",
+            "description": "Used when To date is empty.",
+            "default": 7,
+            "minimum": 0,
+            "maximum": 366
+        },
+        "importance": {
+            "title": "Importance",
+            "type": "array",
+            "description": "Which impact levels to include.",
+            "editor": "select",
+            "items": { "type": "string", "enum": ["high", "medium", "low"], "enumTitles": ["High", "Medium", "Low"] },
+            "default": ["high", "medium"],
+            "prefill": ["high", "medium"],
+            "sectionCaption": "Filters"
+        },
+        "currencies": {
+            "title": "Currencies",
+            "type": "array",
+            "description": "Optional, e.g. USD, EUR, GBP, JPY, CAD, AUD, NZD, CHF, CNY. Empty = all.",
+            "editor": "stringList",
+            "default": []
+        },
+        "countries": {
+            "title": "Countries",
+            "type": "array",
+            "description": "Optional, e.g. United States, Germany, United Kingdom, Japan. Useful to split the euro area by country. Empty = all.",
+            "editor": "stringList",
+            "default": []
+        },
+        "eventTypes": {
+            "title": "Event types",
+            "type": "array",
+            "description": "Indicators have actual/forecast/previous values; speeches are central bankers and officials; holidays are bank holidays.",
+            "editor": "select",
+            "items": { "type": "string", "enum": ["indicator", "speech", "holiday"], "enumTitles": ["Indicators", "Speeches and events", "Holidays"] },
+            "default": ["indicator", "speech"]
+        },
+        "onlyReleased": {
+            "title": "Only released",
+            "type": "boolean",
+            "description": "Only events that already have an actual value.",
+            "default": false
+        },
+        "maxRows": {
+            "title": "Maximum events",
+            "type": "integer",
+            "description": "Stop after this many events.",
+            "default": 2000,
+            "minimum": 1
+        }
+    }
+}

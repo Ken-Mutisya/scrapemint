@@ -1,0 +1,84 @@
+{
+    "title": "Crypto Liquidation Map input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "coins": {
+            "title": "Coins",
+            "type": "array",
+            "description": "Hyperliquid perp names, e.g. BTC, ETH, SOL, HYPE, XRP, DOGE. Empty = every coin.",
+            "editor": "stringList",
+            "prefill": [
+                "BTC",
+                "ETH",
+                "SOL"
+            ],
+            "default": [
+                "BTC",
+                "ETH",
+                "SOL"
+            ],
+            "sectionCaption": "What to map"
+        },
+        "topAccounts": {
+            "title": "Accounts to scan",
+            "type": "integer",
+            "description": "The N largest Hyperliquid accounts by account value. 2,000 takes about 90 seconds; more accounts fill in smaller positions.",
+            "default": 2000,
+            "minimum": 10,
+            "maximum": 3000
+        },
+        "minPositionUsd": {
+            "title": "Minimum position size (USD)",
+            "type": "integer",
+            "description": "Ignore positions smaller than this.",
+            "default": 10000,
+            "minimum": 0
+        },
+        "bucketPct": {
+            "title": "Band width (%)",
+            "type": "string",
+            "editor": "textfield",
+            "description": "Width of each price band as a percent of the mark price, 0.1-10.",
+            "default": "1",
+            "sectionCaption": "Map"
+        },
+        "rangePct": {
+            "title": "Range (%)",
+            "type": "string",
+            "editor": "textfield",
+            "description": "Only map liquidations within this percent of the mark price, up and down.",
+            "default": "25"
+        },
+        "output": {
+            "title": "Output",
+            "type": "string",
+            "description": "Levels = the liquidation map (price bands). Positions = individual positions closest to liquidation.",
+            "editor": "select",
+            "enum": [
+                "both",
+                "levels",
+                "positions"
+            ],
+            "enumTitles": [
+                "Levels and positions",
+                "Levels only",
+                "Positions only"
+            ],
+            "default": "both"
+        },
+        "maxPositions": {
+            "title": "Maximum positions",
+            "type": "integer",
+            "description": "How many positions to list, closest to liquidation first.",
+            "default": 200,
+            "minimum": 0
+        },
+        "maxDistancePct": {
+            "title": "Maximum distance to liquidation (%)",
+            "type": "integer",
+            "description": "Positions output only: list only positions within this percent of their liquidation price. Empty = no limit.",
+            "minimum": 0
+        }
+    }
+}

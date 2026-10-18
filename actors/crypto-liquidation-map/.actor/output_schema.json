@@ -1,0 +1,20 @@
+{
+    "actorOutputSchemaVersion": 1,
+    "title": "Crypto liquidation map",
+    "description": "Price bands with liquidation size per coin and side, and the positions closest to liquidation.",
+    "type": "object",
+    "properties": {
+        "rows": {
+            "type": "string",
+            "title": "Levels and positions",
+            "description": "Levels: coin, side, price band, liquidation notional, cumulative. Positions: coin, side, size, entry, liquidation price, distance, leverage, wallet.",
+            "template": "{{links.apiDefaultDatasetUrl}}/items"
+        },
+        "summary": {
+            "type": "string",
+            "title": "Run summary",
+            "description": "Accounts read, positions found and notional per coin.",
+            "template": "{{links.apiDefaultKeyValueStoreUrl}}/records/SUMMARY"
+        }
+    }
+}

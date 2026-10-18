@@ -1,0 +1,20 @@
+{
+    "actorOutputSchemaVersion": 1,
+    "title": "Economic calendar",
+    "description": "One row per release, speech or holiday.",
+    "type": "object",
+    "properties": {
+        "rows": {
+            "type": "string",
+            "title": "Events",
+            "description": "Time (UTC), country, currency, event, importance, actual, forecast, previous, surprise.",
+            "template": "{{links.apiDefaultDatasetUrl}}/items"
+        },
+        "summary": {
+            "type": "string",
+            "title": "Run summary",
+            "description": "Events matched and any date chunks that failed.",
+            "template": "{{links.apiDefaultKeyValueStoreUrl}}/records/SUMMARY"
+        }
+    }
+}

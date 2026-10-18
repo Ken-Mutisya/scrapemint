@@ -1,0 +1,21 @@
+{
+    "_note": "New actor, first pricing entry. Market (2026-10-18): no Store actor sells the Kalshi trade tape; saswave/kalshi-profile-scraper 8 monthly users, pappy-dev/kalshi-markets 26 (markets only). Our kalshi-prediction-market-scraper charges $0.004/$0.01 per market. A fill is a much smaller unit, so trade_row $0.0008, candle_row $0.0004. No start fee. Source: Kalshi trade API, keyless, no proxy.",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~kalshi-trades-tracker?token=APIFY_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "trade_row": {
+                "eventTitle": "Trade",
+                "eventDescription": "One Kalshi fill: time, market, taker side, contracts, YES and NO price, price paid and dollar size. A run that finds nothing is free.",
+                "eventPriceUsd": 0.0008,
+                "isPrimaryEvent": true
+            },
+            "candle_row": {
+                "eventTitle": "Price candle",
+                "eventDescription": "One 1-minute, 1-hour or 1-day candle for one Kalshi market: open, high, low, close, closing bid and ask, volume and open interest.",
+                "eventPriceUsd": 0.0004
+            }
+        }
+    },
+    "startedAt": "2026-10-19T00:00:00.000Z"
+}
