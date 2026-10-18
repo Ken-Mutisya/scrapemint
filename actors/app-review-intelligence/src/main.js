@@ -1,14 +1,13 @@
 // Mobile App Review Intelligence
-// Pulls reviews from iOS App Store (via Apple's public customer reviews RSS
-// JSON feed) and Google Play Store (via google-play-scraper).
+// Pulls reviews from iOS App Store (via the App Store web app's reviews API)
+// and Google Play Store (via google-play-scraper).
 //
 // Strategy:
 //   1. For each input URL, detect platform by hostname.
 //      apps.apple.com  -> iOS (extract numeric id from /id{N})
 //      play.google.com -> Android (extract package from ?id=com.foo.bar)
 //   2. iOS: loop over requested country storefronts. For each country,
-//      page 1..10 of the RSS JSON feed. Feed entries[0] is the app
-//      metadata block, entries[1..] are reviews.
+//      page through apps.apple.com/api/apps reviews, 20 per page, newest first.
 //   3. Android: call gplay.reviews({appId, country, lang, sort, num}).
 //      gplay paginates internally. Also fetch gplay.app() for metadata.
 //   4. Normalize to the same shape and pushData.
@@ -24,28 +23,29 @@ await Actor.init();
 
 const input = (await Actor.getInput()) ?? {};
 const {
-    appUrls,
     maxReviewsPerApp = 500,
     iosCountries = ['us'],
     androidCountry = 'us',
     androidLanguage = 'en',
     sortBy = 'NEWEST',
     filterByRating = [],
-    proxyConfiguration: proxyInput,
 } = input;
 
+// API and AI-agent callers send startUrls / urls / appIds, a single string,
+// or bare ids instead of appUrls. Throwing on those failed ~3 of 4 store runs.
 const starts = [];
-if (Array.isArray(appUrls)) {
-    for (const item of appUrls) {
-        const u = typeof item === 'string' ? item : item?.url;
-        if (u) starts.push(u);
+for (const key of ['appUrls', 'startUrls', 'urls', 'appIds', 'appUrl', 'url', 'appId']) {
+    const v = input[key];
+    for (const item of Array.isArray(v) ? v : (v ? [v] : [])) {
+        const u = normalizeAppRef(typeof item === 'string' ? item : item?.url);
+        if (u && !starts.includes(u)) starts.push(u);
     }
 }
 if (starts.length === 0) {
-    throw new Error('Provide appUrls. Example: https://apps.apple.com/us/app/instagram/id389801252');
+    const msg = 'No app given. Add appUrls, e.g. https://apps.apple.com/us/app/instagram/id389801252';
+    log.error(msg);
+    await Actor.exit({ statusMessage: msg });
 }
-
-const proxyConfiguration = await Actor.createProxyConfiguration(proxyInput);
 
 const validRatings = new Set(
     (Array.isArray(filterByRating) ? filterByRating : [])
@@ -84,6 +84,19 @@ await Actor.exit();
 
 // ---- helpers ----
 
+// Turns a bare iOS id (389801252, id389801252) or Android package
+// (com.instagram.android) into a store URL; passes real URLs through.
+function normalizeAppRef(ref) {
+    const s = String(ref ?? '').trim();
+    if (!s) return null;
+    if (/^https?:\/\//i.test(s)) return s;
+    if (/^(apps|itunes|play)\./i.test(s)) return `https://${s}`;
+    const ios = s.match(/^(?:id)?(\d{6,})$/i);
+    if (ios) return `https://apps.apple.com/us/app/id${ios[1]}`;
+    if (/^[a-z][\w]*(\.[\w]+)+$/i.test(s)) return `https://play.google.com/store/apps/details?id=${s}`;
+    return s;
+}
+
 function detectPlatform(url) {
     try {
         const host = new URL(url).hostname;
@@ -108,8 +121,8 @@ function extractAndroidPackage(url) {
 }
 
 async function scrapeIos(appId, sourceUrl) {
-    // Fetch app metadata once via iTunes Lookup API. The RSS feed's entry[0]
-    // block is inconsistent across regions, so an explicit lookup is safer.
+    // Fetch app metadata once via the iTunes Lookup API; the reviews API
+    // rows carry no app name or developer.
     let meta = null;
     try {
         const lookupUrl = `https://itunes.apple.com/lookup?id=${appId}`;
@@ -140,55 +153,43 @@ async function scrapeIos(appId, sourceUrl) {
         if (pushedForApp >= maxReviewsPerApp) break;
         const countryCode = String(country).trim().toLowerCase() || 'us';
 
-        for (let pageNum = 1; pageNum <= 10; pageNum++) {
+        // Apple's customerreviews RSS feed went empty in Oct 2026. The App Store
+        // web app reads reviews through this same-origin proxy of amp-api,
+        // which needs no token but answers 429 under bursts, hence the backoff.
+        for (let offset = 0; offset < 5000; offset += 20) {
             if (pushedForApp >= maxReviewsPerApp) break;
 
-            const feedUrl = `https://itunes.apple.com/${countryCode}/rss/customerreviews/id=${appId}/sortBy=mostRecent/page=${pageNum}/json`;
-            log.info(`iOS ${appId} ${countryCode} page ${pageNum}: ${feedUrl}`);
+            const pageUrl = `https://apps.apple.com/api/apps/v1/catalog/${countryCode}/apps/${appId}/reviews`
+                + `?l=en-US&offset=${offset}&limit=20&platform=web&additionalPlatforms=appletv,ipad,iphone,mac&sort=recent`;
+            log.info(`iOS ${appId} ${countryCode} offset ${offset}`);
 
-            let json;
-            try {
-                const res = await fetch(feedUrl, {
-                    headers: {
-                        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Safari/605.1.15',
-                        'Accept': 'application/json',
-                    },
-                });
-                if (!res.ok) {
-                    log.warning(`iOS feed ${countryCode} page ${pageNum} HTTP ${res.status}`);
-                    break;
-                }
-                json = await res.json();
-            } catch (err) {
-                log.warning(`iOS feed ${countryCode} page ${pageNum} failed: ${err?.message}`);
+            const json = await fetchAppleJson(pageUrl);
+            if (!json) {
+                log.warning(`iOS ${appId} ${countryCode} offset ${offset}: no data, stopping this storefront.`);
                 break;
             }
 
-            const entries = json?.feed?.entry;
-            if (!Array.isArray(entries) || entries.length === 0) break;
+            const entries = Array.isArray(json.data) ? json.data : [];
+            if (entries.length === 0) break;
 
-            // On page 1 Apple sometimes prepends an app metadata entry (has
-            // im:name) before the actual reviews. Skip it when present.
-            let startIdx = 0;
-            if (pageNum === 1 && entries[0]?.['im:name'] && !entries[0]?.['im:rating']) {
-                startIdx = 1;
-            }
-
-            const reviews = entries.slice(startIdx).map((e) => ({
-                reviewId: e.id?.label ?? null,
-                rating: Number(e['im:rating']?.label) || null,
-                title: e.title?.label ?? null,
-                text: e.content?.label ?? null,
-                author: e.author?.name?.label ?? null,
-                authorUrl: e.author?.uri?.label ?? null,
-                appVersion: e['im:version']?.label ?? null,
-                helpfulVotes: Number(e['im:voteCount']?.label) || 0,
-                helpfulSum: Number(e['im:voteSum']?.label) || 0,
-                updated: e.updated?.label ?? null,
-                language: null,
-                developerResponse: null,
-                developerResponseDate: null,
-            }));
+            const reviews = entries.map((e) => {
+                const a = e.attributes ?? {};
+                return {
+                    reviewId: e.id ?? null,
+                    rating: Number(a.rating) || null,
+                    title: a.title ?? null,
+                    text: a.review ?? null,
+                    author: a.userName ?? null,
+                    authorUrl: null,
+                    appVersion: null,
+                    helpfulVotes: 0,
+                    helpfulSum: 0,
+                    updated: a.date ?? null,
+                    language: null,
+                    developerResponse: a.developerResponse?.body ?? null,
+                    developerResponseDate: a.developerResponse?.modified ?? null,
+                };
+            });
 
             for (const r of reviews) {
                 if (pushedForApp >= maxReviewsPerApp) break;
@@ -215,13 +216,43 @@ async function scrapeIos(appId, sourceUrl) {
                 }
             }
 
-            if (reviews.length < 40) break;
-            // Small pause to stay polite to Apple's RSS endpoint.
-            await new Promise((r) => setTimeout(r, 600));
+            if (!json.next) break;
+            await sleep(700);
         }
     }
 
     log.info(`iOS ${appId}: pushed ${pushedForApp} reviews across ${iosCountries.length} country(ies).`);
+}
+
+function sleep(ms) {
+    return new Promise((r) => setTimeout(r, ms));
+}
+
+async function fetchAppleJson(url) {
+    for (let attempt = 0; attempt < 6; attempt++) {
+        try {
+            const res = await fetch(url, {
+                headers: {
+                    'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Safari/605.1.15',
+                    'Accept': 'application/json',
+                    'Origin': 'https://apps.apple.com',
+                },
+            });
+            if (res.status === 429 || res.status >= 500) {
+                await sleep(2000 * 2 ** attempt);
+                continue;
+            }
+            if (!res.ok) {
+                log.warning(`Apple reviews HTTP ${res.status}`);
+                return null;
+            }
+            return await res.json();
+        } catch (err) {
+            log.warning(`Apple reviews fetch failed: ${err?.message}`);
+            await sleep(2000 * 2 ** attempt);
+        }
+    }
+    return null;
 }
 
 async function scrapeAndroid(packageName, sourceUrl) {

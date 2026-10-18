@@ -34,9 +34,9 @@ flowchart TD
 ```mermaid
 flowchart LR
     A[App Store or<br/>Play Store URL] --> B{Detect platform}
-    B -->|apps.apple.com| C[Apple RSS<br/>reviews feed]
+    B -->|apps.apple.com| C[App Store<br/>reviews API]
     B -->|play.google.com| D[Play Store<br/>reviews endpoint]
-    C --> E[Loop countries<br/>pages 1 to 10]
+    C --> E[Loop countries<br/>20 per page]
     D --> F[Paginate internal<br/>tokens]
     E --> G[Normalize fields]
     F --> G
@@ -45,7 +45,7 @@ flowchart LR
 
 Paste one or more App Store or Google Play URLs. The actor auto detects the platform from the hostname, pulls the public review feeds both stores already expose, and returns one normalized dataset. No login, no captcha, no fragile DOM pulling.
 
-iOS uses Apple's RSS customer reviews feed. Up to 500 reviews per country storefront. Loop multiple countries in one run.
+iOS uses the same reviews API the App Store website loads, newest first. Thousands of reviews per country storefront. Loop multiple countries in one run.
 
 Android uses the same reviews endpoint the Play Store web UI uses. Pagination is automatic, so popular apps return thousands of reviews per pull.
 
@@ -142,7 +142,7 @@ Mix iOS and Android URLs in the same run. The actor detects each platform from t
 }
 ```
 
-Every row: platform (ios or android), star rating, title, full body, author, app version at time of review, helpful votes, published date, country, developer reply, and source URL.
+Every row: platform (ios or android), star rating, title, full body, author, app version at time of review (Android), helpful votes (Android), published date, country, developer reply, and source URL.
 
 ---
 
@@ -158,13 +158,13 @@ First 2 reviews per run are free. After that you pay per review extracted. No se
 Yes. Any iOS or Android app with a public store listing. Paste the URL, the actor pulls the review feed.
 
 **How many reviews can I get per app?**
-iOS caps at 500 per country storefront. Across 10 countries that is 5000 per app. Android returns up to a few thousand per call depending on the app's total review count.
+iOS pages back through thousands of reviews per country storefront (1,500 Instagram reviews take about 2.5 minutes). Android returns up to a few thousand per call depending on the app's total review count.
 
 **Is pulling App Store reviews legal?**
-Both feeds are public and Apple and Google expose them openly. The iOS RSS feed is documented by Apple. The Play Store reviews endpoint is the same one Google's own web UI uses.
+Both feeds are public and Apple and Google expose them openly. The iOS reviews come from the same API the App Store website uses. The Play Store reviews endpoint is the same one Google's own web UI uses.
 
 **How do I track review sentiment per release?**
-Each review includes the app version field. Group by version in a spreadsheet and you see which release caused a drop in stars.
+Android reviews include the app version field. Group by version in a spreadsheet and you see which release caused a drop in stars.
 
 **Does it pull developer responses?**
 Yes. The `developerResponse` and `developerResponseDate` fields include the reply you posted from App Store Connect or Play Console.
