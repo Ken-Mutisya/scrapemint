@@ -48,7 +48,7 @@ SECTIONS = [
     ]),
     ("Stocks & markets", [
         "stock-price-history-scraper", "stock-market-fundamentals-scraper", "yahoo-finance-scraper", "stocktwits-scraper",
-        "stock-earnings-calendar-scraper", "stock-earnings-estimates", "stock-analyst-ratings",
+        "stock-earnings-calendar-scraper", "stock-earnings-estimates", "earnings-call-transcripts", "stock-analyst-ratings",
         "stock-dividend-calendar-scraper", "stock-market-movers", "stock-options-scraper",
         "stock-trading-halts-tracker", "premarket-after-hours-prices", "ipo-calendar-scraper",
         "fund-etf-holdings", "tradingview-stock-screener-scraper", "tradingview-ideas-scraper",
@@ -59,7 +59,7 @@ SECTIONS = [
         "crypto-market-data-scraper", "crypto-fear-greed-index", "crypto-new-listings-tracker",
         "crypto-funding-rates-tracker", "crypto-futures-basis-tracker", "crypto-liquidations-tracker",
         "crypto-order-book-depth", "crypto-token-security-check", "crypto-whale-token-launch-tracker",
-        "defi-tvl-tracker", "deribit-options-tracker", "dex-pool-price-tracker", "hyperliquid-data",
+        "defi-tvl-tracker", "deribit-options-tracker", "dex-pool-price-tracker", "hyperliquid-data", "crypto-liquidation-map",
         "bitcoin-network-data", "gas-fees-by-chain",
     ]),
     ("Economy, rates & energy", [
@@ -67,7 +67,7 @@ SECTIONS = [
         "canada-economic-data", "australia-economic-data", "bls-labor-statistics-scraper",
         "central-bank-policy-rates", "fed-rate-expectations", "us-treasury-rates-scraper",
         "government-bond-yields-worldwide", "money-market-rates-tracker", "us-loan-mortgage-rates",
-        "currency-exchange-rates-scraper", "forexfactory-economic-calendar",
+        "currency-exchange-rates-scraper", "forexfactory-economic-calendar", "economic-calendar-scraper",
         "european-electricity-prices", "oil-gas-inventory-report", "us-gas-diesel-prices",
     ]),
     ("Real estate & housing", [
@@ -76,7 +76,7 @@ SECTIONS = [
     ]),
     ("Prediction markets, sports & betting", [
         "pinnacle-odds-scraper",
-        "polymarket-whale-tracker", "polymarket-market-monitor", "polymarket-scraper", "kalshi-prediction-market-scraper", "kalshi-weather-markets",
+        "polymarket-whale-tracker", "polymarket-market-monitor", "polymarket-scraper", "kalshi-prediction-market-scraper", "kalshi-weather-markets", "kalshi-trades-tracker",
         "prediction-market-odds-comparison", "sports-odds-scraper", "tennis-scraper", "draftkings-odds-tracker",
         "sports-injury-tracker",
         "sports-odds-movement-tracker",
