@@ -173,7 +173,7 @@ There are **286** actors live right now, and a new one ships every few days.
 - [Kalshi Weather Markets: Prices vs Forecast Odds](https://apify.com/scrapemint/kalshi-weather-markets)
 - [Kalshi Trades: Live Tape, Whale Trades and Price History](https://apify.com/scrapemint/kalshi-trades-tracker)
 - [Prediction Market Arbitrage: Kalshi vs Polymarket vs PredictIt](https://apify.com/scrapemint/prediction-market-odds-comparison)
-- [Betting Odds Comparison: Best Price & Arbitrage Finder](https://apify.com/scrapemint/sports-odds-scraper)
+- [Sports Odds Scraper: DraftKings, Pinnacle & Bovada](https://apify.com/scrapemint/sports-odds-scraper)
 - [Tennis Scraper: Live Scores, Results, Odds & Stats](https://apify.com/scrapemint/tennis-scraper)
 - [DraftKings Odds: Line Movement, Spreads and Totals](https://apify.com/scrapemint/draftkings-odds-tracker)
 - [Sports Injury Report: Who Is Out and What Just Changed](https://apify.com/scrapemint/sports-injury-tracker)

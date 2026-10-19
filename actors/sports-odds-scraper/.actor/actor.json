@@ -1,8 +1,8 @@
 {
     "actorSpecification": 1,
     "name": "sports-odds-scraper",
-    "title": "Betting Odds Comparison: Best Price & Arbitrage Finder",
-    "description": "Compare betting odds across Bovada and Pinnacle on one line, take the best price per outcome and spot arbitrage. Moneyline, spread and totals for NFL, NBA, WNBA, MLB, NHL, UFC, college and soccer. American or decimal. Keyless feed, no login, no browser. One row per game, pay per row.",
+    "title": "Sports Odds Scraper: DraftKings, Pinnacle & Bovada",
+    "description": "Sports betting odds from DraftKings, Pinnacle and Bovada on one line per game, with the best price per outcome and arbitrage. Moneyline, spread and totals for NFL, NBA, WNBA, MLB, NHL, UFC, college and soccer. American or decimal. Keyless, no login, no browser. One row per game, pay per row.",
     "version": "0.1",
     "buildTag": "latest",
     "input": "./input_schema.json",

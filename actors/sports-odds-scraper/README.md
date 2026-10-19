@@ -1,6 +1,6 @@
-# Betting Odds Comparison: Best Price & Arbitrage Finder
+# Sports Odds Scraper: DraftKings, Pinnacle & Bovada
 
-Compare betting odds across **Bovada and Pinnacle** on a single line, take the best available price per outcome, and surface arbitrage where the two books disagree. Pregame odds for the major leagues in one clean, normalized schema. Pick your sports and get one row per upcoming game with **moneyline, point spread and total (over/under)**, in American, decimal, fractional or implied probability format, with team names and start time — from a keyless public feed, no login and no API key.
+Sports betting odds from **DraftKings, Pinnacle and Bovada** on a single line per game, with the best available price per outcome and arbitrage where the books disagree. Pregame odds for the major leagues in one clean, normalized schema. Pick your sports and get one row per upcoming game with **moneyline, point spread and total (over/under)**, in American, decimal, fractional or implied probability format, with team names and start time — from a keyless public feed, no login and no API key.
 
 Covers **NFL, college football, NBA, WNBA, college basketball, MLB, NHL, UFC and the top soccer leagues** (Premier League, La Liga, Bundesliga, Serie A, Ligue 1, MLS, Champions League, Europa League) — plus any other league ESPN covers via a `sport/league` path like `soccer/bra.1`.
 
@@ -11,7 +11,7 @@ Built for **odds trackers and alert bots, sports content sites, model builders a
 - **home**, **away**, **commenceTime**, **sport**
 - **markets[]**: moneyline (`h2h`), `spreads` and `totals`, each outcome carrying the price in your chosen format plus the decimal price and the line/point
 - Soccer moneylines include the **Draw** outcome
-- **books** with per-outcome price attribution (currently one bookmaker feed, typically DraftKings)
+- **books** with per-outcome price attribution: up to three books per game (DraftKings, Pinnacle, Bovada)
 - **dedupe** (on by default): scheduled runs only emit games they have not seen before, so a cron run works as a new-games feed
 
 ## Example output
@@ -50,13 +50,13 @@ curl -X POST "https://api.apify.com/v2/acts/scrapemint~sports-odds-scraper/run-s
 
 ## Frequently asked questions
 
-**Where do the odds come from?** Two keyless public feeds. ESPN's scoreboard carries one bookmaker's pregame lines for each game (typically DraftKings), and Bovada publishes its own prices. Both are normalized into one schema across sports.
+**Where do the odds come from?** Three keyless public feeds. ESPN's scoreboard carries DraftKings' pregame lines, Pinnacle publishes its own prices through its guest API, and Bovada publishes its own coupon feed. All three are normalized into one schema.
 
-**Which sports get two books?** MLB, NFL, NBA, NHL, WNBA, college football and college basketball. Soccer and UFC come from ESPN alone, so those events carry a single book. An event is never dropped for having one price.
+**Which sports get several books?** NBA, NHL, NFL, MLB, WNBA and college football and basketball can carry all three. Premier League and MLS add Pinnacle to ESPN's line. Other soccer leagues and UFC come from ESPN alone. A game any one book lists is returned, even with a single price.
 
-**How are the two books matched?** On an exact join: both team names plus the start time to the minute. Nothing fuzzy. If either side differs the event simply stays single book, because a wrong pairing would invent a price gap that is not real.
+**How are the books matched?** Both team names must match exactly, and the start times must be within 45 minutes (Bovada stamps the real puck drop or first pitch, a few minutes after the scheduled start). No fuzzy team matching. If the names differ the game simply stays single book, because a wrong pairing would invent a price gap that is not real.
 
-**Why did you used to read DraftKings and Pinnacle directly?** Both blocked automated access to their own endpoints, so the actor moved to public feeds that are reachable without a key or a proxy.
+**Why not read DraftKings directly?** DraftKings blocks automated access to its own endpoints, so its lines come through ESPN's public scoreboard instead. ESPN only posts lines for games close to kick-off, so games further out may show Pinnacle and Bovada only.
 
 **Do you have live/in-play odds or player props?** No — pregame moneyline, spread and total. `includeStartedEvents` keeps rows for games already underway, but prices are the pregame closes.
 

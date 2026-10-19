@@ -765,9 +765,8 @@
   "seoTitle": "Line Movement API: Odds Changes and Arbitrage"
  },
  "sports-odds-scraper": {
-  "_note": "trim of existing over-length SEO",
-  "seoDescription": "Compare betting odds across sportsbooks, take the best price per outcome and spot arbitrage. Moneyline, spread and totals with implied odds.",
-  "seoTitle": "Betting Odds API: Best Price and Arbitrage"
+  "seoDescription": "Sports betting odds from DraftKings, Pinnacle and Bovada for NFL, NBA, NHL, MLB and soccer: moneyline, spread, totals, best price and arbitrage.",
+  "seoTitle": "Sports Odds API: DraftKings, Pinnacle & Bovada"
  },
  "sports-player-stats-scraper": {
   "seoDescription": "Team rosters and player career stats from ESPN feeds: NBA, NFL, MLB, NHL, WNBA, college and world soccer with season-by-season stat lines.",

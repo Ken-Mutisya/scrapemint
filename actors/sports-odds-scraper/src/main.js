@@ -272,6 +272,9 @@ const BOVADA_PATHS = {
 // rest. A throttled sport just stays single book.
 const BOVADA_GAP_MS = 1500;
 
+// Start-time slack when joining books on exact team names; see findBucketKey.
+const JOIN_SLACK_MS = 45 * 60 * 1000;
+
 // Bovada names the same bet differently per sport, so match on shape not label.
 const BOVADA_MARKET_KEY = (desc) => {
     const d = String(desc || '').toLowerCase();
@@ -440,18 +443,34 @@ async function fetchBovadaSport(sport, path) {
 
 const yyyymmdd = (d) => d.toISOString().slice(0, 10).replace(/-/g, '');
 
-async function fetchEspnSport(sport, path) {
-    const from = new Date();
-    const to = new Date(Date.now() + fetchWindowMs);
-    const url = `https://site.api.espn.com/apis/site/v2/sports/${path}/scoreboard?dates=${yyyymmdd(from)}-${yyyymmdd(to)}&limit=300`;
-    const data = await getJson(url);
-    if (data?.error) {
-        log.warning(`${sport}: ${data.error}`);
-        return [];
+// ESPN stopped accepting date ranges: ?dates=YYYYMMDD-YYYYMMDD has answered
+// HTTP 400 "Failed to get events endpoint" in every league since at least
+// 2026-10-19, which silently emptied the ESPN feed and, through the strict
+// join, Bovada with it. Single days still work, so ask one day at a time.
+// Start a day early: ESPN files games under the US date, so a 00:15Z kickoff
+// sits on the previous day.
+async function fetchEspnDays(sport, path) {
+    const days = [];
+    for (let t = Date.now() - 86400_000; t <= Date.now() + fetchWindowMs; t += 86400_000) days.push(yyyymmdd(new Date(t)));
+    const seen = new Set();
+    const events = [];
+    let failed = 0;
+    for (const day of days) {
+        const data = await getJson(`https://site.api.espn.com/apis/site/v2/sports/${path}/scoreboard?dates=${day}&limit=300`);
+        if (data?.error) { failed += 1; continue; }
+        for (const ev of data?.events || []) {
+            if (seen.has(ev.id)) continue;
+            seen.add(ev.id);
+            events.push(ev);
+        }
     }
+    if (failed) log.warning(`${sport}: ESPN failed on ${failed} of ${days.length} day(s).`);
+    return events;
+}
 
+async function fetchEspnSport(sport, path) {
     const out = [];
-    for (const ev of data?.events || []) {
+    for (const ev of await fetchEspnDays(sport, path)) {
         const comp = (ev.competitions || [])[0] || {};
         const competitors = comp.competitors || [];
         const home = competitors.find((c) => c.homeAway === 'home')?.team?.displayName;
@@ -511,16 +530,13 @@ for (const sport of sportList) {
 
     // Third book, and the one that makes best price and arbitrage meaningful.
     //
-    // It also rescues the run when ESPN is the feed that fails. ESPN is the
-    // spine here: every other book merges only into events ESPN returned, so an
-    // ESPN 403, which the Apify datacenter got on 2026-08-10, emptied the whole
-    // run while Bovada and Pinnacle were both answering normally. When ESPN
-    // returns nothing for a sport, Pinnacle is allowed to seed the events
-    // instead. Those rows are honestly single book until another feed matches
-    // them, and best price and arbitrage stay inert on one book by design.
-    //
-    // Seeding is deliberately limited to the ESPN-empty case. While ESPN has
-    // events, the strict join still governs, so nothing is paired loosely.
+    // Every book can add events. ESPN used to be the spine, and anything it did
+    // not list was dropped: an ESPN 403 (2026-08-10) or its date-range 400
+    // (2026-10-19) emptied whole runs, and ESPN only lists odds for games close
+    // to kick-off, so 9 of Pinnacle's 11 NFL games were thrown away. A game
+    // only one book carries stays honestly single book; best price and
+    // arbitrage stay inert on it by design. Joining is still exact on team
+    // names (see findBucketKey), so nothing is paired loosely.
     let pinnacleMatched = 0;
     let pinnacleSeeded = 0;
     {
@@ -529,12 +545,12 @@ for (const sport of sportList) {
             log.info(`${sport}: Pinnacle unavailable (${err?.message}); events stay on the other books.`);
             return [];
         });
-        const espnEmpty = events.length === 0;
         for (const ev of pinnacleEvents) {
-            if (eventBucket.has(ev.eventKey)) {
-                mergeEvent(ev);
+            const key = findBucketKey(ev);
+            if (key) {
+                mergeEvent({ ...ev, eventKey: key });
                 pinnacleMatched += 1;
-            } else if (espnEmpty && perSportCount < perSportCap) {
+            } else if (perSportCount < perSportCap) {
                 mergeEvent(ev);
                 pinnacleSeeded += 1;
                 perSportCount += 1;
@@ -542,7 +558,7 @@ for (const sport of sportList) {
         }
         if (pinnacleEvents.length) {
             log.info(`${sport}: Pinnacle returned ${pinnacleEvents.length} event(s), ${pinnacleMatched} matched an ESPN event`
-                + `${pinnacleSeeded ? `, ${pinnacleSeeded} seeded because ESPN returned nothing` : ''}.`);
+                + `${pinnacleSeeded ? `, ${pinnacleSeeded} added that ESPN does not list` : ''}.`);
         }
     }
 
@@ -550,25 +566,31 @@ for (const sport of sportList) {
     // ESPN returns none, and Bovada merges only into events that already exist,
     // so seeding first is what lets Bovada still attach during an ESPN outage.
     let bovadaMatched = 0;
+    let bovadaSeeded = 0;
     const bovadaPath = BOVADA_PATHS[sport];
-    if (bovadaPath && (events.length > 0 || pinnacleSeeded > 0)) {
+    if (bovadaPath) {
         await sleep(BOVADA_GAP_MS);
         const bovadaEvents = await fetchBovadaSport(sport, bovadaPath).catch((err) => {
             log.info(`${sport}: Bovada unavailable (${err?.message}); events stay single book.`);
             return [];
         });
         for (const ev of bovadaEvents) {
-            if (!eventBucket.has(ev.eventKey)) continue;
-            mergeEvent(ev);
-            bovadaMatched += 1;
+            const key = findBucketKey(ev);
+            if (key) {
+                mergeEvent({ ...ev, eventKey: key });
+                bovadaMatched += 1;
+            } else if (perSportCount < perSportCap) {
+                mergeEvent(ev);
+                bovadaSeeded += 1;
+                perSportCount += 1;
+            }
         }
-        log.info(`${sport}: Bovada returned ${bovadaEvents.length} event(s), ${bovadaMatched} matched an ESPN event.`);
+        log.info(`${sport}: Bovada returned ${bovadaEvents.length} event(s), ${bovadaMatched} matched an existing event${bovadaSeeded ? `, ${bovadaSeeded} added` : ''}.`);
     }
 
     // events.length is ESPN's count alone, which read as "0 events with odds"
     // on a run that had in fact seeded 10 from Pinnacle.
-    log.info(`${sport}: ${events.length + pinnacleSeeded} event(s) with odds`
-        + `${pinnacleSeeded ? ` (${pinnacleSeeded} from Pinnacle because ESPN returned none)` : ''}.`);
+    log.info(`${sport}: ${events.length + pinnacleSeeded + bovadaSeeded} event(s) with odds.`);
     await sleep(250);
 }
 
@@ -628,6 +650,22 @@ await Actor.exit();
 function makeEventKey(sport, home, away, commenceTime) {
     const norm = (s) => String(s).toLowerCase().replace(/[^a-z0-9]+/g, '');
     return `${sport}|${norm(home)}|${norm(away)}|${String(commenceTime).slice(0, 16)}`;
+}
+
+// Bovada stamps the real start (NHL puck drop at 23:08 for a 23:00 game), so
+// a to-the-minute key never joined its NHL board to ESPN (0 of 16 on
+// 2026-10-19). Team names must still match exactly; only the clock gets
+// slack. The same two teams cannot meet twice inside 45 minutes, so this
+// cannot pair the wrong game.
+function findBucketKey(ev) {
+    if (eventBucket.has(ev.eventKey)) return ev.eventKey;
+    const teams = ev.eventKey.split('|').slice(0, 3).join('|');
+    const t = Date.parse(ev.commenceTime);
+    for (const [key, b] of eventBucket) {
+        if (!key.startsWith(`${teams}|`)) continue;
+        if (Math.abs(Date.parse(b.commenceTime) - t) <= JOIN_SLACK_MS) return key;
+    }
+    return null;
 }
 
 function mergeEvent(ev) {
