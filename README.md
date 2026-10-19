@@ -19,7 +19,7 @@ flowchart LR
 
 <!-- CATALOG:START -->
 
-There are **281** actors live right now, and a new one ships every few days.
+There are **286** actors live right now, and a new one ships every few days.
 
 ### Lead generation
 
@@ -60,6 +60,9 @@ There are **281** actors live right now, and a new one ships every few days.
 - [New Business Registration Leads: Fresh LLC & Corp Filings](https://apify.com/scrapemint/new-business-registration-leads)
 - [Newly Registered Domain Leads: Daily New Domains by Keyword](https://apify.com/scrapemint/newly-registered-domain-leads)
 - [Government Contract Winner Leads: New Federal Contract Awards](https://apify.com/scrapemint/government-contract-winner-leads)
+- [Skool Community Finder: Owner Leads, Members & Prices](https://apify.com/scrapemint/skool-community-finder)
+- [Europages Scraper: European B2B Suppliers, Phones & VAT IDs](https://apify.com/scrapemint/europages-supplier-scraper)
+- [BBB Business Leads: Phones, Ratings & Accreditation](https://apify.com/scrapemint/bbb-business-leads)
 
 ### Financial signals & SEC filings
 
@@ -158,6 +161,7 @@ There are **281** actors live right now, and a new one ships every few days.
 - [Fotocasa Scraper: Spain Property Listings & Prices](https://apify.com/scrapemint/fotocasa-scraper)
 - [Rightmove Scraper: UK Property for Sale & Rent](https://apify.com/scrapemint/rightmove-scraper)
 - [Property Finder Scraper: UAE, Saudi & Gulf](https://apify.com/scrapemint/property-finder-scraper)
+- [Crexi Scraper: Commercial Real Estate Listings & Brokers](https://apify.com/scrapemint/crexi-property-scraper)
 
 ### Prediction markets, sports & betting
 
@@ -338,6 +342,7 @@ There are **281** actors live right now, and a new one ships every few days.
 - [Website Technology Stack Detector (BuiltWith Alternative)](https://apify.com/scrapemint/website-tech-stack-detector)
 - [Website Screenshot Generator: Bulk, Full Page, Mobile](https://apify.com/scrapemint/website-screenshot-generator)
 - [Company Logo & Brand Asset Scraper](https://apify.com/scrapemint/company-logo-scraper)
+- [Journalist Request Finder: HARO Alternative for PR & Backlinks](https://apify.com/scrapemint/journalist-request-finder)
 
 ### Web utilities & lookups
 
