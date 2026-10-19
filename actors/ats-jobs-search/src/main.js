@@ -293,19 +293,31 @@ progress.unref?.();
 // A platform that rate-limits hard (Workable) gets PLATFORM_BUDGET_MS to start
 // boards; after that it stops picking up new ones, and the boards it did not
 // reach are named in the summary instead of holding the run open.
-const PLATFORM_BUDGET_MS = 8 * 60_000;
 const runStart = Date.now();
+// The budgets were fixed at 8 + 2 minutes, so a run started with a shorter
+// timeout (API, MCP and Zapier callers often pass 300s) was killed as
+// TIMED-OUT before it could save: 9 of 30 public runs in the 30 days to
+// 2026-10-19. Fit them inside the run's real deadline, keeping 30s to save.
+const timeoutAtMs = Actor.getEnv().timeoutAt ? new Date(Actor.getEnv().timeoutAt).getTime() : null;
+const runLeftMs = timeoutAtMs ? timeoutAtMs - runStart - 30_000 : Infinity;
+const PLATFORM_BUDGET_MS = Math.max(30_000, Math.min(8 * 60_000, runLeftMs - 2 * 60_000));
 // The budget stops new boards, not ones in flight: a Workday board splitting
 // thousands of loose matches, or a Workable board in 429 backoff, held a
 // directory-wide run open for 15+ minutes after everything else had finished.
 // Two minutes past the budget the run saves what it has and exits; boards
 // still in flight are named in the summary. Named-company runs are left alone.
-const HARD_STOP_MS = PLATFORM_BUDGET_MS + 2 * 60_000;
+const HARD_STOP_MS = Math.min(PLATFORM_BUDGET_MS + 2 * 60_000, runLeftMs);
 const hardStop = searchAll ? setTimeout(() => {
     log.warning('Time budget reached with boards still in flight; finishing with the jobs found so far.');
     finish(true);
 }, HARD_STOP_MS) : null;
 hardStop?.unref?.();
+// Named-company runs have no budget, but they still must not outlive the run.
+const deadlineStop = !searchAll && Number.isFinite(runLeftMs) ? setTimeout(() => {
+    log.warning('Run timeout is near; finishing with the jobs found so far.');
+    finish(true);
+}, Math.max(10_000, runLeftMs)) : null;
+deadlineStop?.unref?.();
 await Promise.all(Object.entries(byPlatform).map(([ats, list]) => pool(list, BOARD_CONCURRENCY[ats] || 4, async (b) => {
     if (searchAll && Date.now() - runStart > PLATFORM_BUDGET_MS) return;
     await readBoard(b);
@@ -343,6 +355,7 @@ async function readBoard(b) {
 }
 
 clearTimeout(hardStop);
+clearTimeout(deadlineStop);
 await finish(false);
 
 async function finish(cutShort) {
