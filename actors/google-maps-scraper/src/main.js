@@ -99,7 +99,11 @@ const crawler = new PlaywrightCrawler({
     navigationTimeoutSecs: 60,
     requestHandlerTimeoutSecs: 300,
     maxRequestRetries: 2,
-    maxConcurrency: 2,
+    // At the old 2 GB default Apify gives this run well under one CPU, Chromium
+    // pins it and the pool falls to one page: 20 places took 335s. 4 GB and up
+    // to 4 pages: 176s and slightly cheaper ($0.042 vs $0.050), measured
+    // 2026-10-19. Slow runs were the likeliest reason buyers aborted 27 of 94.
+    maxConcurrency: 4,
     // Residential proxy bandwidth dominates run cost. Disable image loading at
     // the Blink level instead of via page.route(): route interception turns off
     // Chromium's HTTP cache, so the multi-MB Maps JS bundle re-downloads through

@@ -12,5 +12,6 @@
         "AUTOMATION",
         "ECOMMERCE",
         "SEO_TOOLS"
-    ]
+    ],
+    "defaultMemoryMbytes": 4096
 }
