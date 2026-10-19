@@ -125,10 +125,11 @@ async function getJson(url, attempt = 0) {
     try {
         const res = await fetch(url, {
             signal: controller.signal,
-            headers: { accept: 'application/json', 'User-Agent': 'Mozilla/5.0 (compatible; Scrapemint/1.0)' },
+            // site.api.espn.com 403s a "Scrapemint/1.0" agent (2026-10-19); a browser one gets 200.
+            headers: { accept: 'application/json', 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36' },
         });
         if (res.status === 429 || res.status >= 500) throw new Error(`HTTP ${res.status}`);
-        if (!res.ok) return null;
+        if (!res.ok) { log.warning(`HTTP ${res.status}: ${url.slice(0, 120)}`); return null; }
         return await res.json();
     } catch (err) {
         if (attempt < 2) {
@@ -326,6 +327,35 @@ function gradeGame(league, event, oddsItem) {
     };
 }
 
+// ESPN stopped accepting date ranges: ?dates=YYYYMMDD-YYYYMMDD answers HTTP
+// 400 "Failed to get events endpoint" in every league (seen 2026-10-19), so
+// the default three-day lookback returned "no games" for everything. Single
+// days still work, so read the range one day at a time, four at once.
+const rangeDays = (() => {
+    const out = [];
+    const p = (d) => Date.UTC(Number(d.slice(0, 4)), Number(d.slice(4, 6)) - 1, Number(d.slice(6, 8)));
+    for (let t = p(rangeStart); t <= p(rangeEnd); t += 86400000) out.push(yyyymmdd(new Date(t)));
+    return out;
+})();
+async function fetchScoreboardDays(path, groups) {
+    const seen = new Set();
+    const events = [];
+    let i = 0;
+    await Promise.all(Array.from({ length: 4 }, async () => {
+        while (i < rangeDays.length) {
+            const day = rangeDays[i++];
+            const board = await getJson(`${SITE}/${path}/scoreboard?dates=${day}&limit=1000${groups}`);
+            for (const ev of board?.events || []) {
+                if (seen.has(ev.id)) continue;
+                seen.add(ev.id);
+                events.push(ev);
+            }
+        }
+    }));
+    events.sort((a, b) => String(a.date).localeCompare(String(b.date)));
+    return events;
+}
+
 async function fetchLeagueGames(key) {
     const path = LEAGUE_PATHS[key.toLowerCase()] || (key.includes('/') ? key : null);
     if (!path) {
@@ -334,8 +364,7 @@ async function fetchLeagueGames(key) {
     }
     const [sport, leagueId] = path.split('/');
     const groups = LEAGUE_GROUPS[path] ? `&groups=${LEAGUE_GROUPS[path]}` : '';
-    const board = await getJson(`${SITE}/${path}/scoreboard?dates=${dateParam}&limit=1000${groups}`);
-    const events = board?.events || [];
+    const events = await fetchScoreboardDays(path, groups);
     if (!events.length) {
         await flushRow({ type: 'note', league: key, found: false, dateRange: dateParam, note: 'no games on the scoreboard for this league and date range; check the dates or the league was out of season; not charged' }, false);
         return [];
