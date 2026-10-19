@@ -1,0 +1,13 @@
+{
+    "actorSpecification": 1,
+    "name": "crexi-property-scraper",
+    "title": "Crexi Scraper: Commercial Real Estate Listings & Brokers",
+    "description": "Commercial property for sale on Crexi: asking price, cap rate, square footage, address, property details, auction and offers-due dates, plus the listing brokers and brokerage. Filter by state, property type, price and cap rate. LoopNet alternative for CRE investors and brokers.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "output": "./output_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": ["REAL_ESTATE", "LEAD_GENERATION"],
+    "readme": "../README.md"
+}

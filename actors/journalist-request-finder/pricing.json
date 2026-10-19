@@ -1,0 +1,16 @@
+{
+    "_note": "New actor, first pricing entry. Market (2026-10-19): fayoussef/journalist-request-finder 200 monthly users at $0.002 per item + $0.002 per matched request; monriah-studio/journalist-requests 1. request_row $0.002. No start fee. Sources: SourceBottle listings, Bluesky searchPosts, Mastodon tag timelines; keyless, no proxy.",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~journalist-request-finder?token=APIFY_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "request_row": {
+                "eventTitle": "Journalist request",
+                "eventDescription": "One journalist or media request: title, request text, outlet, requester, countries, industries, posted date, deadline and link. A run that finds nothing is free.",
+                "eventPriceUsd": 0.002,
+                "isPrimaryEvent": true
+            }
+        }
+    },
+    "startedAt": "2026-10-21T00:00:00.000Z"
+}

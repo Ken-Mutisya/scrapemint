@@ -1,0 +1,10 @@
+{
+    "name": "bbb-business-leads",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Local business leads from the Better Business Bureau directory: name, phone, address, BBB rating, accreditation, categories, service areas and coordinates, by business type and city or ZIP, US and Canada. Keyless, no browser, no proxy.",
+    "main": "src/main.js",
+    "scripts": { "start": "node src/main.js" },
+    "dependencies": { "apify": "^3.7.0" },
+    "engines": { "node": ">=20" }
+}

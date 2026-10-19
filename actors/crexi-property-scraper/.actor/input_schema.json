@@ -1,0 +1,80 @@
+{
+    "title": "Crexi Scraper input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "searchTerm": {
+            "title": "Search",
+            "type": "string",
+            "description": "Free text, e.g. a city, county, tenant name or property kind: Austin, Dollar General, car wash, NNN.",
+            "editor": "textfield",
+            "sectionCaption": "What to find"
+        },
+        "states": {
+            "title": "States",
+            "type": "array",
+            "description": "Two-letter US state codes, e.g. TX, FL, CA. Empty = nationwide.",
+            "editor": "stringList",
+            "prefill": ["TX"]
+        },
+        "propertyTypes": {
+            "title": "Property types",
+            "type": "array",
+            "description": "Empty = all types.",
+            "editor": "select",
+            "items": {
+                "type": "string",
+                "enum": ["Retail", "Office", "Industrial", "Multifamily", "Land", "Mixed Use", "Hospitality", "Self Storage", "Special Purpose", "Senior Living", "Mobile Home Park", "Business for Sale", "Note/Loan"]
+            },
+            "default": []
+        },
+        "minPrice": {
+            "title": "Minimum asking price (USD)",
+            "type": "integer",
+            "description": "Empty = no minimum.",
+            "minimum": 0,
+            "sectionCaption": "Filters"
+        },
+        "maxPrice": {
+            "title": "Maximum asking price (USD)",
+            "type": "integer",
+            "description": "Empty = no maximum.",
+            "minimum": 0
+        },
+        "minCapRate": {
+            "title": "Minimum cap rate (%)",
+            "type": "string",
+            "editor": "textfield",
+            "description": "e.g. 7 or 6.5. Listings without a stated cap rate are left out when this is set."
+        },
+        "includeUnpriced": {
+            "title": "Include unpriced listings",
+            "type": "boolean",
+            "description": "Listings with no asking price (price on request, auctions without a starting bid). Ignored when a price filter is set.",
+            "default": true
+        },
+        "sort": {
+            "title": "Sort",
+            "type": "string",
+            "description": "Newest = most recently listed first.",
+            "editor": "select",
+            "enum": ["newest", "relevance", "updated"],
+            "enumTitles": ["Newest listings", "Crexi ranking", "Recently updated"],
+            "default": "newest"
+        },
+        "includeDetails": {
+            "title": "Property details and brokers",
+            "type": "boolean",
+            "description": "Open each listing for the property facts (year built, lot size, zoning, NOI, tenancy...), investment highlights and the listing brokers with license and brokerage. Off = search data only, faster.",
+            "default": true
+        },
+        "maxListings": {
+            "title": "Maximum listings",
+            "type": "integer",
+            "description": "Stop after this many listings, split evenly across the state and type combinations. Crexi returns up to 1,500 per search; each state/type combination is its own search.",
+            "default": 100,
+            "minimum": 1,
+            "maximum": 20000
+        }
+    }
+}

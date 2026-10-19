@@ -1,0 +1,75 @@
+{
+    "title": "BBB Business Leads input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "searchTerms": {
+            "title": "Business types",
+            "type": "array",
+            "description": "What to search for, e.g. plumber, roofing, dentist, HVAC, auto repair. A business name works too.",
+            "editor": "stringList",
+            "prefill": ["roofing"],
+            "sectionCaption": "What to find"
+        },
+        "locations": {
+            "title": "Locations",
+            "type": "array",
+            "description": "City and state or ZIP code, e.g. Austin, TX or 10001 or Toronto, ON. Each search term runs in each location.",
+            "editor": "stringList",
+            "prefill": ["Austin, TX"]
+        },
+        "country": {
+            "title": "Country",
+            "type": "string",
+            "description": "BBB covers the US and Canada.",
+            "editor": "select",
+            "enum": ["US", "CA"],
+            "enumTitles": ["United States", "Canada"],
+            "default": "US"
+        },
+        "accreditedOnly": {
+            "title": "BBB accredited only",
+            "type": "boolean",
+            "description": "Keep only businesses with BBB accreditation.",
+            "default": false,
+            "sectionCaption": "Filters"
+        },
+        "minRating": {
+            "title": "Minimum BBB rating",
+            "type": "string",
+            "description": "Drop businesses rated below this. NR (not rated) is dropped when this is set.",
+            "editor": "select",
+            "enum": ["any", "A+", "A", "A-", "B+", "B", "B-", "C"],
+            "enumTitles": ["Any rating", "A+", "A or better", "A- or better", "B+ or better", "B or better", "B- or better", "C or better"],
+            "default": "any"
+        },
+        "requirePhone": {
+            "title": "Only businesses with a phone number",
+            "type": "boolean",
+            "description": "Skip listings that show no phone.",
+            "default": true
+        },
+        "strictMatch": {
+            "title": "Only exact category matches",
+            "type": "boolean",
+            "description": "BBB search also returns related trades (a roofing search brings some general contractors and gutter companies). On = keep only businesses whose name or BBB categories contain the search term.",
+            "default": false
+        },
+        "maxResultsPerSearch": {
+            "title": "Maximum per search",
+            "type": "integer",
+            "description": "Per search term and location. BBB shows up to 225 (15 pages) per search, so add more cities or ZIP codes for wider coverage.",
+            "default": 225,
+            "minimum": 1,
+            "maximum": 225,
+            "sectionCaption": "Limits"
+        },
+        "maxResults": {
+            "title": "Maximum businesses in total",
+            "type": "integer",
+            "default": 500,
+            "description": "Stop after this many businesses across all searches.",
+            "minimum": 1
+        }
+    }
+}

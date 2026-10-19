@@ -1,0 +1,16 @@
+{
+    "_note": "New actor, first pricing entry. Market (2026-10-19): memo23/crexi-ppe 55 monthly users at $0.0019 per item + $0.02 start; kazkn/commercial-real-estate-brokerage-intel 46 at $0.018; fatihtahta 24 at $0.00099; solidcode 18 at $0.00155 + $0.005 start. listing_row $0.002. No start fee. Source: api.crexi.com search, asset and brokers endpoints, keyless, no proxy.",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~crexi-property-scraper?token=APIFY_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "listing_row": {
+                "eventTitle": "Property listing",
+                "eventDescription": "One Crexi commercial property listing: price, cap rate, size, address, property facts, highlights and listing brokers. A run that finds nothing is free.",
+                "eventPriceUsd": 0.002,
+                "isPrimaryEvent": true
+            }
+        }
+    },
+    "startedAt": "2026-10-21T00:00:00.000Z"
+}

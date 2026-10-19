@@ -35,6 +35,7 @@ SECTIONS = [
         "building-permit-leads", "healthcare-provider-leads", "fda-device-manufacturer-leads",
         "restaurant-inspection-leads", "nonprofit-leads-scraper", "new-business-registration-leads",
         "newly-registered-domain-leads", "government-contract-winner-leads",
+        "skool-community-finder", "europages-supplier-scraper", "bbb-business-leads",
     ]),
     ("Financial signals & SEC filings", [
         "congress-stock-trades", "sec-form4-insider-tracker", "sec-8k-event-tracker", "sec-13f-whale-tracker",
@@ -73,6 +74,7 @@ SECTIONS = [
     ("Real estate & housing", [
         "zillow-home-price-scraper", "home-listings-scraper", "us-rent-home-price-index",
         "uk-house-prices", "europe-house-prices", "fotocasa-scraper", "rightmove-scraper", "property-finder-scraper",
+        "crexi-property-scraper",
     ]),
     ("Prediction markets, sports & betting", [
         "pinnacle-odds-scraper",
@@ -144,6 +146,7 @@ SECTIONS = [
         "google-trends-scraper", "google-keyword-suggestions-scraper",
         "google-ads-transparency-scraper", "seo-site-audit-scraper", "sitemap-change-monitor",
         "saas-outage-monitor", "website-change-monitor", "website-tech-stack-detector", "website-screenshot-generator", "company-logo-scraper",
+        "journalist-request-finder",
     ]),
     ("Web utilities & lookups", [
         "website-content-scraper", "website-history-checker",

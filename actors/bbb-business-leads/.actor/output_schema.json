@@ -1,0 +1,20 @@
+{
+    "actorOutputSchemaVersion": 1,
+    "title": "BBB businesses",
+    "description": "One row per business with phone, address, BBB rating and accreditation.",
+    "type": "object",
+    "properties": {
+        "businesses": {
+            "type": "string",
+            "title": "Businesses",
+            "description": "Name, phone, address, city, state, ZIP, rating, accredited, categories, service areas, BBB profile URL, coordinates.",
+            "template": "{{links.apiDefaultDatasetUrl}}/items"
+        },
+        "summary": {
+            "type": "string",
+            "title": "Run summary",
+            "description": "Matching businesses per search and rows written.",
+            "template": "{{links.apiDefaultKeyValueStoreUrl}}/records/SUMMARY"
+        }
+    }
+}

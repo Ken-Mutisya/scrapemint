@@ -1,0 +1,13 @@
+{
+    "actorSpecification": 1,
+    "name": "bbb-business-leads",
+    "title": "BBB Business Leads: Phones, Ratings & Accreditation",
+    "description": "Local business leads from the Better Business Bureau: name, phone, address, BBB rating (A+ to F), accredited status, categories and service areas, by business type and city or ZIP across the US and Canada. Filter to accredited or A-rated businesses.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "output": "./output_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": ["LEAD_GENERATION", "BUSINESS"],
+    "readme": "../README.md"
+}

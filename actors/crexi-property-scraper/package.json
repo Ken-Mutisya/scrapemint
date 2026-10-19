@@ -1,0 +1,10 @@
+{
+    "name": "crexi-property-scraper",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Crexi commercial real estate listings for sale: asking price, cap rate, size, address, property details, offers-due dates and listing brokers, filtered by state, property type, price and cap rate. Keyless, no browser, no proxy.",
+    "main": "src/main.js",
+    "scripts": { "start": "node src/main.js" },
+    "dependencies": { "apify": "^3.7.0" },
+    "engines": { "node": ">=20" }
+}

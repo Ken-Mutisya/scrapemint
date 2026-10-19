@@ -1004,5 +1004,25 @@
  "zillow-home-price-scraper": {
   "seoDescription": "Pull Zillow listings by city or URL: price, beds, baths, sqft, Zestimate, rent Zestimate, days on market and agent. For sale, rent and sold.",
   "seoTitle": "Zillow API Scraper: Listings, Zestimate, Sales"
+ },
+ "journalist-request-finder": {
+  "seoDescription": "Journalist requests for expert sources from SourceBottle, Bluesky and Mastodon #journorequest. Filter by topic; get outlet, deadline and link. No key.",
+  "seoTitle": "Journalist Request Finder: HARO Alternative"
+ },
+ "skool-community-finder": {
+  "seoDescription": "Find Skool communities by keyword or category: owner name, website and socials, members, price, rating, posts and courses. Creator leads. No login.",
+  "seoTitle": "Skool Community Scraper: Owner Leads & Members"
+ },
+ "crexi-property-scraper": {
+  "seoDescription": "Crexi commercial real estate for sale: price, cap rate, sq ft, address, property facts and listing brokers. Filter by state, type and price. No login.",
+  "seoTitle": "Crexi Scraper: Commercial Property & Brokers"
+ },
+ "europages-supplier-scraper": {
+  "seoDescription": "European manufacturers and suppliers by product and country: website, phone, VAT ID, address, employees, contacts and trade terms. No login, no key.",
+  "seoTitle": "Europages Scraper: B2B Suppliers, Phones & VAT"
+ },
+ "bbb-business-leads": {
+  "seoDescription": "Better Business Bureau leads by business type and city or ZIP: name, phone, address, BBB rating and accreditation. US and Canada. No key, no proxy.",
+  "seoTitle": "BBB Scraper: Business Leads, Phones & Ratings"
  }
 }

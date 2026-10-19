@@ -1,0 +1,72 @@
+{
+    "title": "Journalist Request Finder input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "keywords": {
+            "title": "Topics",
+            "type": "array",
+            "description": "Keep requests that mention any of these words, e.g. finance, fintech, nutrition, SaaS, small business. Empty = every request.",
+            "editor": "stringList",
+            "prefill": ["small business", "finance", "marketing", "tech"],
+            "sectionCaption": "What to find"
+        },
+        "excludeKeywords": {
+            "title": "Exclude",
+            "type": "array",
+            "description": "Drop requests that mention any of these words, e.g. giveaway, sample, product review.",
+            "editor": "stringList"
+        },
+        "sources": {
+            "title": "Sources",
+            "type": "array",
+            "description": "Where to look.",
+            "editor": "select",
+            "items": {
+                "type": "string",
+                "enum": ["sourcebottle", "bluesky", "mastodon"],
+                "enumTitles": ["SourceBottle call-outs", "Bluesky #journorequest", "Mastodon #journorequest"]
+            },
+            "default": ["sourcebottle", "bluesky", "mastodon"]
+        },
+        "countries": {
+            "title": "SourceBottle countries",
+            "type": "array",
+            "description": "SourceBottle lists call-outs per country. Empty = all six. Bluesky and Mastodon posts have no country.",
+            "editor": "select",
+            "items": {
+                "type": "string",
+                "enum": ["US", "UK", "AU", "CA", "NZ", "SG"],
+                "enumTitles": ["United States", "UK & Ireland", "Australia", "Canada", "New Zealand", "Singapore"]
+            },
+            "default": []
+        },
+        "maxAgeDays": {
+            "title": "Posted in the last N days",
+            "type": "integer",
+            "description": "Skip requests older than this.",
+            "default": 7,
+            "minimum": 1,
+            "maximum": 60
+        },
+        "openOnly": {
+            "title": "Only open requests",
+            "type": "boolean",
+            "description": "Drop requests whose deadline has passed (when a deadline is given).",
+            "default": true
+        },
+        "includeProductRequests": {
+            "title": "Include product and giveaway requests",
+            "type": "boolean",
+            "description": "SourceBottle also lists requests for samples, prizes and gift-bag fillers. Off = expert and case-study requests only.",
+            "default": false
+        },
+        "maxResults": {
+            "title": "Maximum requests",
+            "type": "integer",
+            "description": "Stop after this many requests, newest first.",
+            "default": 200,
+            "minimum": 1
+        }
+    }
+}

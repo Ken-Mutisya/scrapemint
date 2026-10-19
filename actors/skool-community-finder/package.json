@@ -1,0 +1,10 @@
+{
+    "name": "skool-community-finder",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Skool communities with owner name, bio, website and social links, member counts, price, courses and activity, from Skool discovery search or a list of community URLs. Keyless, no browser, no proxy.",
+    "main": "src/main.js",
+    "scripts": { "start": "node src/main.js" },
+    "dependencies": { "apify": "^3.7.0" },
+    "engines": { "node": ">=20" }
+}

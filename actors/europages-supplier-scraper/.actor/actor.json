@@ -1,0 +1,13 @@
+{
+    "actorSpecification": 1,
+    "name": "europages-supplier-scraper",
+    "title": "Europages Scraper: European B2B Suppliers, Phones & VAT IDs",
+    "description": "Find European manufacturers, wholesalers and service providers on Europages by product and country. Get company name, website, phone, VAT ID, address, employee count, supplier type, founding year, product keywords and payment terms. B2B lead lists and supplier sourcing.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "output": "./output_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": ["LEAD_GENERATION", "BUSINESS"],
+    "readme": "../README.md"
+}

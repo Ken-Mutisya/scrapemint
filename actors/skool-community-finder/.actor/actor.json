@@ -1,0 +1,13 @@
+{
+    "actorSpecification": 1,
+    "name": "skool-community-finder",
+    "title": "Skool Community Finder: Owner Leads, Members & Prices",
+    "description": "Find Skool communities by keyword or category and get the owner's name, bio, website, Instagram, YouTube and LinkedIn, plus members, price, rating, courses and activity. Creator leads for agencies, sponsors and course tools.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "output": "./output_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": ["LEAD_GENERATION", "SOCIAL_MEDIA"],
+    "readme": "../README.md"
+}

@@ -1,0 +1,20 @@
+{
+    "actorOutputSchemaVersion": 1,
+    "title": "Journalist requests",
+    "description": "One row per journalist request: source, title, request text, outlet, deadline, posted date and link.",
+    "type": "object",
+    "properties": {
+        "requests": {
+            "type": "string",
+            "title": "Requests",
+            "description": "Source, title, summary, outlet, requester, country, industry, posted date, deadline, matched topics and link.",
+            "template": "{{links.apiDefaultDatasetUrl}}/items"
+        },
+        "summary": {
+            "type": "string",
+            "title": "Run summary",
+            "description": "Requests found per source.",
+            "template": "{{links.apiDefaultKeyValueStoreUrl}}/records/SUMMARY"
+        }
+    }
+}

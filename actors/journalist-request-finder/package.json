@@ -1,0 +1,10 @@
+{
+    "name": "journalist-request-finder",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Journalist requests for expert sources (HARO alternative) from SourceBottle call-outs and #journorequest posts on Bluesky and Mastodon, filtered by topic and deadline. Keyless, no browser, no proxy.",
+    "main": "src/main.js",
+    "scripts": { "start": "node src/main.js" },
+    "dependencies": { "apify": "^3.7.0" },
+    "engines": { "node": ">=20" }
+}

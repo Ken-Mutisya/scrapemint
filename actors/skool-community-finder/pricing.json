@@ -1,0 +1,16 @@
+{
+    "_note": "New actor, first pricing entry. Market (2026-10-19): crustapi/skool-community-scraper 109 monthly users at $0.0037 per item; dz_omar/skool-scraper-pro 33 ($0.006 per community + start fee); sourabhbgp 17 ($0.003). community_row $0.003. No start fee. Source: skool.com discovery and about pages (__NEXT_DATA__), keyless, no proxy.",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~skool-community-finder?token=APIFY_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "community_row": {
+                "eventTitle": "Skool community",
+                "eventDescription": "One Skool community: name, URL, members, price, rating, posts, courses, and the owner's name, bio, website and social links. A run that finds nothing is free.",
+                "eventPriceUsd": 0.003,
+                "isPrimaryEvent": true
+            }
+        }
+    },
+    "startedAt": "2026-10-21T00:00:00.000Z"
+}

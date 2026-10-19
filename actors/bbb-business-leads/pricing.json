@@ -1,0 +1,16 @@
+{
+    "_note": "New actor, first pricing entry. Market (2026-10-19): memo23/bbb-scraper 74 monthly users at $0.02 per profile + $0.005 start; abotapi/bbb-org-scraper 18 at $0.002 + $0.08 start; haketa 17 at $0.006. business_row $0.002 (search data only, no emails). No start fee. Source: bbb.org/api/search, keyless, no proxy.",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~bbb-business-leads?token=APIFY_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "business_row": {
+                "eventTitle": "Business",
+                "eventDescription": "One BBB-listed business: name, phone, address, BBB rating, accreditation, categories, service areas and profile link. A run that finds nothing is free.",
+                "eventPriceUsd": 0.002,
+                "isPrimaryEvent": true
+            }
+        }
+    },
+    "startedAt": "2026-10-21T00:00:00.000Z"
+}

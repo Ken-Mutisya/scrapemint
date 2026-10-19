@@ -1,0 +1,48 @@
+{
+    "title": "Europages Supplier Scraper input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "searchTerms": {
+            "title": "Products or services",
+            "type": "array",
+            "description": "What the suppliers make or do, e.g. office furniture, cnc machining, packaging, olive oil.",
+            "editor": "stringList",
+            "prefill": ["office furniture"],
+            "sectionCaption": "What to find"
+        },
+        "countries": {
+            "title": "Supplier countries",
+            "type": "array",
+            "description": "Two-letter country codes, e.g. DE, IT, GB, FR, ES, PL, TR. Empty = all of Europe.",
+            "editor": "stringList"
+        },
+        "startUrls": {
+            "title": "Europages search URLs",
+            "type": "array",
+            "description": "Optional: Europages search result pages to read as they are, e.g. https://www.europages.co.uk/companies/germany/packaging.html",
+            "editor": "stringList"
+        },
+        "includeDetails": {
+            "title": "Phone, VAT ID and employees",
+            "type": "boolean",
+            "description": "Open each company page for phone, fax, VAT ID, employee count, full address, product keywords, payment methods, payment terms and Incoterms. Off = search data only (name, website, city, country, type), faster.",
+            "default": true,
+            "sectionCaption": "Output"
+        },
+        "requireWebsite": {
+            "title": "Only companies with a website",
+            "type": "boolean",
+            "description": "Skip companies that list no website.",
+            "default": false
+        },
+        "maxCompanies": {
+            "title": "Maximum companies",
+            "type": "integer",
+            "description": "Stop after this many companies in total.",
+            "default": 100,
+            "minimum": 1,
+            "maximum": 20000
+        }
+    }
+}

@@ -1,0 +1,70 @@
+{
+    "title": "Skool Community Finder input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "searchQueries": {
+            "title": "Search terms",
+            "type": "array",
+            "description": "Skool discovery searches, e.g. fitness, AI automation, real estate. Empty = the discovery front page (trending).",
+            "editor": "stringList",
+            "prefill": ["ai automation", "fitness"],
+            "sectionCaption": "What to find"
+        },
+        "categories": {
+            "title": "Categories",
+            "type": "array",
+            "description": "Only communities in these Skool categories. Empty = all.",
+            "editor": "select",
+            "items": {
+                "type": "string",
+                "enum": ["hobbies", "music", "money", "spirituality", "tech", "health", "sports", "self_improvement", "relationships"],
+                "enumTitles": ["Hobbies", "Music", "Money", "Spirituality", "Tech", "Health", "Sports", "Self-improvement", "Relationships"]
+            },
+            "default": []
+        },
+        "communityUrls": {
+            "title": "Community URLs",
+            "type": "array",
+            "description": "Specific communities to look up, e.g. https://www.skool.com/ai-automation-society or just ai-automation-society.",
+            "editor": "stringList"
+        },
+        "price": {
+            "title": "Price",
+            "type": "string",
+            "description": "Free, paid or both.",
+            "editor": "select",
+            "enum": ["any", "free", "paid"],
+            "enumTitles": ["Free and paid", "Free only", "Paid only"],
+            "default": "any",
+            "sectionCaption": "Filters"
+        },
+        "minMembers": {
+            "title": "Minimum members",
+            "type": "integer",
+            "description": "Skip smaller communities.",
+            "default": 0,
+            "minimum": 0
+        },
+        "maxMembers": {
+            "title": "Maximum members",
+            "type": "integer",
+            "description": "Skip larger communities. Empty = no limit. Useful for finding growing creators rather than the giants.",
+            "minimum": 0
+        },
+        "includeOwner": {
+            "title": "Owner details",
+            "type": "boolean",
+            "description": "Open each community's about page for the owner's name, bio, website and social links, plus posts, courses, admins and members online. Off = discovery data only, faster.",
+            "default": true
+        },
+        "maxCommunities": {
+            "title": "Maximum communities",
+            "type": "integer",
+            "description": "Stop after this many communities in total. Skool discovery shows up to 1,000 per search.",
+            "default": 100,
+            "minimum": 1,
+            "maximum": 5000
+        }
+    }
+}

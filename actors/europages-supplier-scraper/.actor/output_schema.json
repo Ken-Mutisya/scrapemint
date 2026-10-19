@@ -1,0 +1,20 @@
+{
+    "actorOutputSchemaVersion": 1,
+    "title": "Europages suppliers",
+    "description": "One row per company with website, phone, VAT ID, address and size.",
+    "type": "object",
+    "properties": {
+        "companies": {
+            "type": "string",
+            "title": "Companies",
+            "description": "Name, Europages URL, website, phone, VAT ID, address, country, employees, supplier types, founding year, keywords, payment terms.",
+            "template": "{{links.apiDefaultDatasetUrl}}/items"
+        },
+        "summary": {
+            "type": "string",
+            "title": "Run summary",
+            "description": "Matching companies per search and rows written.",
+            "template": "{{links.apiDefaultKeyValueStoreUrl}}/records/SUMMARY"
+        }
+    }
+}

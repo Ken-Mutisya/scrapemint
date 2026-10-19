@@ -1,0 +1,20 @@
+{
+    "actorOutputSchemaVersion": 1,
+    "title": "Skool communities",
+    "description": "One row per Skool community with owner contact links, members, price and activity.",
+    "type": "object",
+    "properties": {
+        "communities": {
+            "type": "string",
+            "title": "Communities",
+            "description": "Name, URL, description, members, price, rating, owner name, bio, website and socials, posts, courses.",
+            "template": "{{links.apiDefaultDatasetUrl}}/items"
+        },
+        "summary": {
+            "type": "string",
+            "title": "Run summary",
+            "description": "Communities found per search.",
+            "template": "{{links.apiDefaultKeyValueStoreUrl}}/records/SUMMARY"
+        }
+    }
+}

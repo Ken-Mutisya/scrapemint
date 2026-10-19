@@ -1,0 +1,16 @@
+{
+    "_note": "New actor, first pricing entry. Market (2026-10-19): memo23/europages-scraper 133 monthly users at $0.006 per item + $0.005 start + $0.001 add-on; saswave 9 at $0.002. company_row $0.003. No start fee. Source: europages.co.uk search and company pages (__NUXT_DATA__), keyless, no proxy.",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~europages-supplier-scraper?token=APIFY_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "company_row": {
+                "eventTitle": "Company",
+                "eventDescription": "One Europages company: website, phone, VAT ID, address, employees, supplier type, contacts and trade terms. A run that finds nothing is free.",
+                "eventPriceUsd": 0.003,
+                "isPrimaryEvent": true
+            }
+        }
+    },
+    "startedAt": "2026-10-21T00:00:00.000Z"
+}

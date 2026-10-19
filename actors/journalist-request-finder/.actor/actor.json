@@ -1,0 +1,13 @@
+{
+    "actorSpecification": 1,
+    "name": "journalist-request-finder",
+    "title": "Journalist Request Finder: HARO Alternative for PR & Backlinks",
+    "description": "Fresh journalist requests for expert sources in one feed: SourceBottle call-outs (US, UK, Australia, Canada, NZ, Singapore) plus #journorequest posts on Bluesky and Mastodon. Filter by topic, get the outlet, deadline and link. HARO alternative for PR and link building.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "output": "./output_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": ["LEAD_GENERATION", "MARKETING"],
+    "readme": "../README.md"
+}

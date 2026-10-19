@@ -1,0 +1,20 @@
+{
+    "actorOutputSchemaVersion": 1,
+    "title": "Crexi listings",
+    "description": "One row per commercial property listing with price, size, address, details and brokers.",
+    "type": "object",
+    "properties": {
+        "listings": {
+            "type": "string",
+            "title": "Listings",
+            "description": "Name, URL, status, type, asking price, cap rate, square footage, price per sq ft, address, coordinates, details, highlights, brokers.",
+            "template": "{{links.apiDefaultDatasetUrl}}/items"
+        },
+        "summary": {
+            "type": "string",
+            "title": "Run summary",
+            "description": "Matching listings per search and rows written.",
+            "template": "{{links.apiDefaultKeyValueStoreUrl}}/records/SUMMARY"
+        }
+    }
+}
