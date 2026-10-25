@@ -1,0 +1,20 @@
+{
+    "actorOutputSchemaVersion": 1,
+    "title": "AI Overview results",
+    "description": "One row per keyword.",
+    "type": "object",
+    "properties": {
+        "keywords": {
+            "type": "string",
+            "title": "Keywords",
+            "description": "AI Overview status and text, brand mentions, citations, your domains, organic top 10 and changes since the last run.",
+            "template": "{{links.apiDefaultDatasetUrl}}/items"
+        },
+        "summary": {
+            "type": "string",
+            "title": "Run summary",
+            "description": "Keywords checked and how many showed an AI Overview.",
+            "template": "{{links.apiDefaultKeyValueStoreUrl}}/records/SUMMARY"
+        }
+    }
+}

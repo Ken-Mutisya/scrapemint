@@ -1,0 +1,13 @@
+{
+    "actorSpecification": 1,
+    "name": "google-jobs-scraper",
+    "title": "Google Jobs Scraper: Salaries, Apply Links, Full Descriptions",
+    "description": "Scrape Google Jobs by role and location: title, company, salary range, employment type, posted date, full description, qualifications and every apply link (LinkedIn, Indeed, ZipRecruiter, company site). Expands queries automatically to reach more jobs.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "output": "./output_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": ["JOBS", "LEAD_GENERATION"],
+    "readme": "../README.md"
+}

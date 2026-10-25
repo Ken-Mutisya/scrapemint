@@ -1,0 +1,20 @@
+{
+    "actorOutputSchemaVersion": 1,
+    "title": "Amazon seller leads",
+    "description": "One row per seller.",
+    "type": "object",
+    "properties": {
+        "sellers": {
+            "type": "string",
+            "title": "Seller leads",
+            "description": "Seller ID and name, business name, address (street, city, state, postal code, country), 12-month rating and count, about text and the products found.",
+            "template": "{{links.apiDefaultDatasetUrl}}/items"
+        },
+        "summary": {
+            "type": "string",
+            "title": "Run summary",
+            "description": "Products checked, sellers found, leads written and why sellers were skipped.",
+            "template": "{{links.apiDefaultKeyValueStoreUrl}}/records/SUMMARY"
+        }
+    }
+}

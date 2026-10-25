@@ -1,0 +1,20 @@
+{
+    "actorOutputSchemaVersion": 1,
+    "title": "Google Shopping products",
+    "description": "One row per product offer.",
+    "type": "object",
+    "properties": {
+        "products": {
+            "type": "string",
+            "title": "Products",
+            "description": "Title, price, was-price, merchant, delivery, rating, reviews, brand, image and price change since the last run.",
+            "template": "{{links.apiDefaultDatasetUrl}}/items"
+        },
+        "summary": {
+            "type": "string",
+            "title": "Run summary",
+            "description": "Products per search, new or changed prices and pages read.",
+            "template": "{{links.apiDefaultKeyValueStoreUrl}}/records/SUMMARY"
+        }
+    }
+}

@@ -1,0 +1,10 @@
+{
+    "name": "google-jobs-scraper",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Google Jobs listings by role and location with salary, employment type, posted date, full description, highlights and all apply links. Uses Apify's Google SERP proxy; expands queries to reach past Google's 10-job page.",
+    "main": "src/main.js",
+    "scripts": { "start": "node src/main.js" },
+    "dependencies": { "apify": "^3.7.0", "cheerio": "^1.0.0", "got-scraping": "^4.1.1" },
+    "engines": { "node": ">=20" }
+}

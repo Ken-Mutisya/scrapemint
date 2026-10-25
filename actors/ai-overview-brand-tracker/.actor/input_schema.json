@@ -1,0 +1,64 @@
+{
+    "title": "AI Overview Tracker input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "keywords": {
+            "title": "Keywords",
+            "type": "array",
+            "description": "Searches to check, one per line, e.g. best crm for small business, \"hubspot alternatives\", how to choose running shoes.",
+            "editor": "stringList",
+            "prefill": ["best crm for small business", "best project management software"],
+            "sectionCaption": "What to check"
+        },
+        "brands": {
+            "title": "Brands to look for",
+            "type": "array",
+            "description": "Your brand and competitors, e.g. HubSpot, Zoho, Pipedrive. Each row says whether the AI Overview mentions them, how often, in what order, and whether their site is cited.",
+            "editor": "stringList",
+            "prefill": ["HubSpot", "Zoho", "Pipedrive", "Salesforce", "monday.com"]
+        },
+        "domains": {
+            "title": "Your domains",
+            "type": "array",
+            "description": "Sites to look for among the AI Overview citations and the organic top 10, e.g. hubspot.com.",
+            "editor": "stringList",
+            "prefill": ["hubspot.com"]
+        },
+        "includeOrganic": {
+            "title": "Include organic top 10",
+            "type": "boolean",
+            "description": "Organic result titles and domains with positions.",
+            "default": true,
+            "sectionCaption": "Options"
+        },
+        "retryUnavailable": {
+            "title": "Retry when Google cannot generate the overview",
+            "type": "boolean",
+            "description": "Google sometimes replies \"Can't generate an AI overview right now\". Retry those keywords once.",
+            "default": true
+        },
+        "trackChanges": {
+            "title": "Track changes between runs",
+            "type": "boolean",
+            "description": "Remember each keyword's last result and report brands and cited domains gained or lost. History lives in your named key-value store ai-overview-tracker-history.",
+            "default": true
+        },
+        "country": {
+            "title": "Google country",
+            "type": "string",
+            "description": "Two-letter country code (gl), e.g. us, gb, ca, au, in.",
+            "editor": "textfield",
+            "default": "us",
+            "sectionCaption": "Google settings"
+        },
+        "language": {
+            "title": "Language",
+            "type": "string",
+            "description": "Interface language (hl), e.g. en, de, fr, es.",
+            "editor": "textfield",
+            "default": "en"
+        }
+    },
+    "required": ["keywords"]
+}

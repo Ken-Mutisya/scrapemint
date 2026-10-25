@@ -1,0 +1,75 @@
+{
+    "title": "Google Jobs Scraper input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "queries": {
+            "title": "Job searches",
+            "type": "array",
+            "description": "Roles or keywords, one per line, e.g. data analyst, registered nurse, \"react developer\".",
+            "editor": "stringList",
+            "prefill": ["data analyst"],
+            "sectionCaption": "What and where"
+        },
+        "locations": {
+            "title": "Locations",
+            "type": "array",
+            "description": "Cities, states or countries, e.g. Austin, TX / London / Remote. Every query runs for every location. Leave empty to let Google pick from the query.",
+            "editor": "stringList",
+            "prefill": ["Austin, TX"]
+        },
+        "maxJobs": {
+            "title": "Max jobs",
+            "type": "integer",
+            "description": "Total unique jobs to return across all searches.",
+            "minimum": 1,
+            "maximum": 5000,
+            "default": 50,
+            "prefill": 30
+        },
+        "expandQueries": {
+            "title": "Expand queries to reach more jobs",
+            "type": "boolean",
+            "description": "Google shows 10 jobs per search. With this on, the actor also searches variants (remote, senior, entry level, contract...) and keeps going while they add new jobs. Turn off to get just the top 10 per search.",
+            "default": true
+        },
+        "employmentTypes": {
+            "title": "Employment types",
+            "type": "array",
+            "description": "Keep only these types. Empty = any.",
+            "editor": "select",
+            "items": { "type": "string", "enum": ["FULLTIME", "PARTTIME", "CONTRACTOR", "INTERN"], "enumTitles": ["Full-time", "Part-time", "Contractor / temp", "Internship"] },
+            "default": [],
+            "sectionCaption": "Filters"
+        },
+        "postedWithinDays": {
+            "title": "Posted within (days)",
+            "type": "integer",
+            "description": "Keep only jobs posted in the last N days. 0 = any date. Jobs with no posted date are dropped when this is set.",
+            "minimum": 0,
+            "default": 0
+        },
+        "includeDescription": {
+            "title": "Include full description",
+            "type": "boolean",
+            "description": "The full job description text. Turn off for smaller rows.",
+            "default": true
+        },
+        "country": {
+            "title": "Google country",
+            "type": "string",
+            "description": "Two-letter country code for Google (gl), e.g. us, gb, ca, au, in, de.",
+            "editor": "textfield",
+            "default": "us",
+            "sectionCaption": "Google settings"
+        },
+        "language": {
+            "title": "Language",
+            "type": "string",
+            "description": "Interface language (hl), e.g. en, de, fr, es.",
+            "editor": "textfield",
+            "default": "en"
+        }
+    },
+    "required": ["queries"]
+}

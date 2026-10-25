@@ -1,0 +1,13 @@
+{
+    "actorSpecification": 1,
+    "name": "google-shopping-price-tracker",
+    "title": "Google Shopping Scraper & Price Tracker: Prices, Sellers, Deals",
+    "description": "Scrape Google Shopping by product search: price, was-price, discount, merchant, delivery, returns, rating, reviews, brand and image. Tracks price changes between runs, so a schedule becomes a price-drop and new-seller monitor.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "output": "./output_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": ["ECOMMERCE", "MARKETING"],
+    "readme": "../README.md"
+}

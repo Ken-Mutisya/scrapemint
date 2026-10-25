@@ -1,0 +1,16 @@
+{
+    "_note": "New actor, first pricing entry. Market (2026-10-25): apify/google-ai-overviews-scraper 274 monthly users at $0.003 per overview (raw overview, no brand analysis); khadinakbar/llm-visibility-tracker 25 at $0.09 per keyword; tugelbay/google-ai-overview-tracker 10. keyword $0.008 with brand mentions, citations, your-domain checks, organic top 10 and change tracking. Cost: 1-2 GOOGLE_SERP requests ($0.0025 each) per keyword; SERP spend capped at 70% of charged revenue.",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~ai-overview-brand-tracker?token=APIFY_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "keyword": {
+                "eventTitle": "Keyword checked",
+                "eventDescription": "One keyword checked on Google: AI Overview text (or that none was shown), brand mentions and order, cited sources, your domains in citations and organic results, and changes since your last run. Keywords whose page could not be fetched are free.",
+                "eventPriceUsd": 0.008,
+                "isPrimaryEvent": true
+            }
+        }
+    },
+    "startedAt": "2026-10-27T00:00:00.000Z"
+}

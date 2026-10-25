@@ -1,0 +1,45 @@
+{
+    "title": "Woolworths & Coles input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "searches": {
+            "title": "Searches",
+            "type": "array",
+            "description": "Products or keywords, one per line, as you would type them on the store website, e.g. milk, tim tams, \"olive oil\", nappies.",
+            "editor": "stringList",
+            "prefill": ["milk", "coffee beans"],
+            "sectionCaption": "What"
+        },
+        "stores": {
+            "title": "Stores",
+            "type": "array",
+            "description": "Which supermarkets to read.",
+            "editor": "select",
+            "items": { "type": "string", "enum": ["woolworths", "coles"], "enumTitles": ["Woolworths", "Coles"] },
+            "default": ["woolworths", "coles"]
+        },
+        "maxProductsPerSearch": {
+            "title": "Max products per search, per store",
+            "type": "integer",
+            "description": "Woolworths pages hold 36 products and Coles pages 48; more reads further pages.",
+            "minimum": 1,
+            "maximum": 1000,
+            "default": 50
+        },
+        "onlySpecials": {
+            "title": "Only specials",
+            "type": "boolean",
+            "description": "Keep only products on special, half price or with a was-price. Other rows are not charged.",
+            "default": false,
+            "sectionCaption": "Options"
+        },
+        "compareStores": {
+            "title": "Match products across stores",
+            "type": "boolean",
+            "description": "When both stores are selected, pair the same branded product (same pack size, near-identical name) and add otherStore, cheaperAt and priceDifference. Store brands (Woolworths, Coles, Macro...) are never paired.",
+            "default": true
+        }
+    },
+    "required": ["searches"]
+}

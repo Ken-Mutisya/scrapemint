@@ -1,0 +1,10 @@
+{
+    "name": "google-shopping-price-tracker",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Google Shopping products by search with price, was-price, merchant, delivery, rating, reviews, brand and image, plus price changes between runs. Uses Apify's Google SERP proxy.",
+    "main": "src/main.js",
+    "scripts": { "start": "node src/main.js" },
+    "dependencies": { "apify": "^3.7.0", "cheerio": "^1.0.0", "got-scraping": "^4.1.1" },
+    "engines": { "node": ">=20" }
+}

@@ -1,0 +1,79 @@
+{
+    "title": "Amazon Seller Leads input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "searches": {
+            "title": "Keyword searches",
+            "type": "array",
+            "description": "Amazon.com searches whose products you want the sellers of, e.g. yoga mat, \"phone case\", supplements.",
+            "editor": "stringList",
+            "prefill": ["yoga mat"],
+            "sectionCaption": "Where to find sellers"
+        },
+        "listingUrls": {
+            "title": "Listing URLs",
+            "type": "array",
+            "description": "Amazon.com bestseller, category or search URLs, e.g. https://www.amazon.com/Best-Sellers-Kitchen-Dining/zgbs/kitchen.",
+            "editor": "stringList"
+        },
+        "asins": {
+            "title": "Products (ASINs or URLs)",
+            "type": "array",
+            "description": "Get every third-party seller of these products, e.g. B085DVHQ57 or https://www.amazon.com/dp/B085DVHQ57.",
+            "editor": "stringList"
+        },
+        "sellerIds": {
+            "title": "Seller IDs or profile URLs",
+            "type": "array",
+            "description": "Look these sellers up directly, e.g. A3EQJ16CEAAUOF or https://www.amazon.com/sp?seller=A3EQJ16CEAAUOF.",
+            "editor": "stringList"
+        },
+        "maxSellers": {
+            "title": "Max seller leads",
+            "type": "integer",
+            "description": "Stop after this many leads.",
+            "minimum": 1,
+            "maximum": 5000,
+            "default": 50,
+            "prefill": 20,
+            "sectionCaption": "Limits"
+        },
+        "maxProductsPerSearch": {
+            "title": "Products per search or listing",
+            "type": "integer",
+            "description": "How many products from each search or listing to check for sellers. Each product usually has 2-10 sellers.",
+            "minimum": 1,
+            "maximum": 200,
+            "default": 30
+        },
+        "pagesPerSearch": {
+            "title": "Pages per search",
+            "type": "integer",
+            "description": "Amazon search pages to read per keyword (about 50 products each).",
+            "minimum": 1,
+            "maximum": 7,
+            "default": 1
+        },
+        "sellerCountries": {
+            "title": "Seller countries",
+            "type": "array",
+            "description": "Keep only sellers registered in these countries (two-letter codes), e.g. US, CA, GB. Empty = any. Filtered sellers are not charged.",
+            "editor": "stringList",
+            "sectionCaption": "Filters"
+        },
+        "minRatings12Months": {
+            "title": "Min ratings (last 12 months)",
+            "type": "integer",
+            "description": "Skip sellers with fewer feedback ratings than this in the last 12 months. 0 = no minimum.",
+            "minimum": 0,
+            "default": 0
+        },
+        "requireBusinessAddress": {
+            "title": "Only sellers with published business details",
+            "type": "boolean",
+            "description": "Skip sellers whose profile shows no business name and address. Skipped sellers are not charged.",
+            "default": true
+        }
+    }
+}

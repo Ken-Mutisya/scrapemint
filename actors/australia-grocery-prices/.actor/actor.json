@@ -1,0 +1,13 @@
+{
+    "actorSpecification": 1,
+    "name": "australia-grocery-prices",
+    "title": "Woolworths & Coles Scraper: Australian Grocery Prices",
+    "description": "Woolworths and Coles product prices in one run: price, was-price, specials, unit price, stock, barcode, category and image, with the same branded product matched across both stores so you see where it is cheaper.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "output": "./output_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": ["ECOMMERCE", "OTHER"],
+    "readme": "../README.md"
+}

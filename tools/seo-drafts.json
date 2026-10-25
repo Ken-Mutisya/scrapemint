@@ -1043,5 +1043,25 @@
  "uk-companies-house-scraper": {
   "seoDescription": "New UK companies from Companies House by date, SIC code and town: address, status, SIC, filing deadlines and directors. 5,000 per second. No API key.",
   "seoTitle": "Companies House Scraper: New UK Firms & Directors"
+ },
+ "google-jobs-scraper": {
+  "seoDescription": "Scrape Google Jobs by role and city: salary range, job type, posted date, full description and every apply link (Indeed, LinkedIn, ZipRecruiter).",
+  "seoTitle": "Google Jobs Scraper: Salaries & Apply Links"
+ },
+ "google-shopping-price-tracker": {
+  "seoDescription": "Google Shopping prices, merchants, discounts, ratings and reviews by product, with price changes and new sellers since your last run.",
+  "seoTitle": "Google Shopping Scraper & Price Tracker"
+ },
+ "ai-overview-brand-tracker": {
+  "seoDescription": "Check Google AI Overviews for your keywords: brand mentions vs competitors, cited sources and domains, organic top 10 and weekly changes.",
+  "seoTitle": "Google AI Overview Tracker: Brand Visibility"
+ },
+ "australia-grocery-prices": {
+  "seoDescription": "Woolworths and Coles prices, specials, unit prices, stock and barcodes in one run, with the same product matched to show where it is cheaper.",
+  "seoTitle": "Woolworths & Coles Scraper: Grocery Prices"
+ },
+ "amazon-seller-leads": {
+  "seoDescription": "Find Amazon.com third-party sellers by keyword, bestseller list or ASIN with registered business name, full address, ratings and products.",
+  "seoTitle": "Amazon Seller Leads: Business Name & Address"
  }
 }

@@ -1,0 +1,20 @@
+{
+    "actorOutputSchemaVersion": 1,
+    "title": "Grocery products",
+    "description": "One row per product per store.",
+    "type": "object",
+    "properties": {
+        "products": {
+            "type": "string",
+            "title": "Products",
+            "description": "Store, name, brand, size, price, was-price, special, unit price, stock, barcode, category, image, URL and the cross-store match.",
+            "template": "{{links.apiDefaultDatasetUrl}}/items"
+        },
+        "summary": {
+            "type": "string",
+            "title": "Run summary",
+            "description": "Products read per store and search, and matched pairs.",
+            "template": "{{links.apiDefaultKeyValueStoreUrl}}/records/SUMMARY"
+        }
+    }
+}

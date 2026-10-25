@@ -1,0 +1,16 @@
+{
+    "_note": "New actor, first pricing entry. Market (2026-10-25): damilo/google-shopping-apify 266 monthly users at $0.0035 per item; burbn 121 at $0.02 per item + $0.008 start; scrape.badger 28 at $0.003 per page. product $0.002. Cost: one GOOGLE_SERP request ($0.0025) returns 40 products, ~$0.0001 per product; SERP spend capped at 50% of charged revenue.",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~google-shopping-price-tracker?token=APIFY_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "product": {
+                "eventTitle": "Product",
+                "eventDescription": "One Google Shopping product offer with price, was-price, merchant, delivery, rating, reviews, brand, image and the price change since your last run. Filtered-out and unchanged (onlyChanges) rows are free.",
+                "eventPriceUsd": 0.002,
+                "isPrimaryEvent": true
+            }
+        }
+    },
+    "startedAt": "2026-10-27T00:00:00.000Z"
+}

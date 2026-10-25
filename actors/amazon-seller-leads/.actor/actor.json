@@ -1,0 +1,13 @@
+{
+    "actorSpecification": 1,
+    "name": "amazon-seller-leads",
+    "title": "Amazon Seller Leads: Business Name, Address & Ratings",
+    "description": "Find third-party Amazon.com sellers by keyword, bestseller list, product or seller ID, with their registered business name and full address (INFORM Act), 12-month rating and ratings count, and the products and prices they sell.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "output": "./output_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": ["LEAD_GENERATION", "ECOMMERCE"],
+    "readme": "../README.md"
+}

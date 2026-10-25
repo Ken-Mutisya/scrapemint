@@ -1,0 +1,13 @@
+{
+    "actorSpecification": 1,
+    "name": "ai-overview-brand-tracker",
+    "title": "Google AI Overview Tracker: Brand Mentions & Citations",
+    "description": "Check Google AI Overviews for your keywords: does the answer mention your brand or competitors, which sites does it cite, and where do you rank organically? Tracks changes between runs for GEO / AI search visibility reporting.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "output": "./output_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": ["SEO_TOOLS", "AI"],
+    "readme": "../README.md"
+}

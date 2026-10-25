@@ -1,0 +1,78 @@
+{
+    "title": "Google Shopping Price Tracker input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "queries": {
+            "title": "Product searches",
+            "type": "array",
+            "description": "One product or keyword per line, as you would type it into Google Shopping, e.g. airpods pro 2, dyson v15, \"nike pegasus 41\".",
+            "editor": "stringList",
+            "prefill": ["airpods pro 2"],
+            "sectionCaption": "What"
+        },
+        "maxProductsPerQuery": {
+            "title": "Max products per search",
+            "type": "integer",
+            "description": "Google shows 40 products per page; more than 40 reads further pages.",
+            "minimum": 1,
+            "maximum": 400,
+            "default": 40
+        },
+        "country": {
+            "title": "Google country",
+            "type": "string",
+            "description": "Two-letter country code (gl), e.g. us, gb, ca, au, de, in. Prices and merchants are for this country.",
+            "editor": "textfield",
+            "default": "us"
+        },
+        "language": {
+            "title": "Language",
+            "type": "string",
+            "description": "Interface language (hl), e.g. en, de, fr.",
+            "editor": "textfield",
+            "default": "en"
+        },
+        "minPrice": {
+            "title": "Min price",
+            "type": "number",
+            "description": "Drop products below this price. 0 = no minimum. Dropped products are not charged.",
+            "minimum": 0,
+            "default": 0,
+            "sectionCaption": "Filters"
+        },
+        "maxPrice": {
+            "title": "Max price",
+            "type": "number",
+            "description": "Drop products above this price. 0 = no maximum.",
+            "minimum": 0,
+            "default": 0
+        },
+        "merchants": {
+            "title": "Only these merchants",
+            "type": "array",
+            "description": "Keep only rows whose merchant name contains one of these, e.g. Walmart, Best Buy. Useful for MAP and reseller monitoring.",
+            "editor": "stringList"
+        },
+        "excludeMerchants": {
+            "title": "Exclude merchants",
+            "type": "array",
+            "description": "Drop rows from merchants containing these words, e.g. eBay, Mercari.",
+            "editor": "stringList"
+        },
+        "trackPriceChanges": {
+            "title": "Track price changes",
+            "type": "boolean",
+            "description": "Remember each merchant's last price per search and add previousPrice, priceChange, priceChangePct and isNewListing. History lives in your named key-value store google-shopping-price-history.",
+            "default": true,
+            "sectionCaption": "Monitoring"
+        },
+        "onlyChanges": {
+            "title": "Return only new listings and price changes",
+            "type": "boolean",
+            "description": "For scheduled runs: skip products whose price is unchanged since the last run. Skipped rows are not charged.",
+            "default": false
+        }
+    },
+    "required": ["queries"]
+}
