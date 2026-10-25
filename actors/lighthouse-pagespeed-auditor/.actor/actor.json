@@ -1,0 +1,13 @@
+{
+    "actorSpecification": 1,
+    "name": "lighthouse-pagespeed-auditor",
+    "title": "Lighthouse & PageSpeed Bulk Auditor: Core Web Vitals",
+    "description": "Run Google Lighthouse on many URLs at once, mobile and desktop: performance, accessibility, best practices and SEO scores, Core Web Vitals (LCP, CLS, TBT, FCP), page weight and the top fixes. No PageSpeed API key or quota.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "output": "./output_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": ["SEO_TOOLS", "DEVELOPER_TOOLS"],
+    "readme": "../README.md"
+}

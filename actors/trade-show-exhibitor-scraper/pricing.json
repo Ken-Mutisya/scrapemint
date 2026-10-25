@@ -1,0 +1,21 @@
+{
+    "_note": "New actor, first pricing entry. Market (2026-10-25): skython/exhibitor-list-scraper 62 monthly users at $0.005/$0.003 per exhibitor + $0.01 start; skython MYS-only 29; maximedupre MYS 7 at $0.00265. exhibitor $0.001 (list only), exhibitor_detail $0.003 (profile: website, phone, address, socials, categories, brands). Compute measured 2026-10-25: 2,244 AAPEX exhibitors with details for $0.029 at 2 GB. No start fee. Source: *.mapyourshow.com gallery JSON + profile pages (AWS WAF token from one headless visit), no proxy.",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~trade-show-exhibitor-scraper?token=APIFY_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "exhibitor": {
+                "eventTitle": "Exhibitor",
+                "eventDescription": "One exhibitor from the show list: company, booth, hall, description, logo and profile link.",
+                "eventPriceUsd": 0.001,
+                "isPrimaryEvent": true
+            },
+            "exhibitor_detail": {
+                "eventTitle": "Exhibitor with details",
+                "eventDescription": "One exhibitor with its profile: website, phone, address, LinkedIn, Facebook, X, Instagram, booth locations, product categories and brands. Charged instead of Exhibitor when details are on.",
+                "eventPriceUsd": 0.003
+            }
+        }
+    },
+    "startedAt": "2026-10-26T00:00:00.000Z"
+}

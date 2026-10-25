@@ -1,0 +1,20 @@
+{
+    "actorOutputSchemaVersion": 1,
+    "title": "SAM.gov notices",
+    "description": "One row per contract opportunity notice.",
+    "type": "object",
+    "properties": {
+        "notices": {
+            "type": "string",
+            "title": "Notices",
+            "description": "Title, notice type, solicitation number, agency, deadline, NAICS, set-aside, place of performance, contacts, description, attachments and award.",
+            "template": "{{links.apiDefaultDatasetUrl}}/items"
+        },
+        "summary": {
+            "type": "string",
+            "title": "Run summary",
+            "description": "Matching notices, rows written and the search used.",
+            "template": "{{links.apiDefaultKeyValueStoreUrl}}/records/SUMMARY"
+        }
+    }
+}

@@ -1,0 +1,16 @@
+{
+    "_note": "New actor, first pricing entry. Market (2026-10-25): scrapesage/sam-gov-scraper 29 monthly users at $0.0025 per opportunity + $0.002 per attachment; fortuitous_pirate 23 at $0.003 + start; jungle_synthesizer 11. opportunity $0.0015 including contacts, NAICS, set-aside and attachment links. No start fee. Source: sam.gov/api/prod/sgs/v1/search + opps/v2 detail + opps/v3 resources, keyless, no proxy.",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~sam-gov-contract-opportunities?token=APIFY_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "opportunity": {
+                "eventTitle": "Contract notice",
+                "eventDescription": "One SAM.gov notice with agency, deadline, NAICS and PSC codes, set-aside, place of performance, contracting officer contacts, full description, attachment links and award details. A run that finds nothing is free.",
+                "eventPriceUsd": 0.0015,
+                "isPrimaryEvent": true
+            }
+        }
+    },
+    "startedAt": "2026-10-26T00:00:00.000Z"
+}

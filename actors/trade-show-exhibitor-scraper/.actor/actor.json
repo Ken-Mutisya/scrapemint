@@ -1,0 +1,13 @@
+{
+    "actorSpecification": 1,
+    "name": "trade-show-exhibitor-scraper",
+    "title": "Trade Show Exhibitor List Scraper: Map Your Show",
+    "description": "Export the full exhibitor list of any Map Your Show trade show: company, booth, hall, description, website, phone, address, LinkedIn, Facebook, X and Instagram, product categories and brands. B2B leads from US expos.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "output": "./output_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": ["LEAD_GENERATION", "BUSINESS"],
+    "readme": "../README.md"
+}

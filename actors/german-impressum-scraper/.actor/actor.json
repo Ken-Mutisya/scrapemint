@@ -1,0 +1,13 @@
+{
+    "actorSpecification": 1,
+    "name": "german-impressum-scraper",
+    "title": "Impressum Scraper: German Company Contacts & Directors",
+    "description": "Extract the Impressum (legal notice) from German, Austrian and Swiss websites: company name, legal form, managing directors (Geschäftsführer), address, phone, email, Handelsregister number and court, VAT ID. Bulk B2B lead data.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "output": "./output_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": ["LEAD_GENERATION", "BUSINESS"],
+    "readme": "../README.md"
+}

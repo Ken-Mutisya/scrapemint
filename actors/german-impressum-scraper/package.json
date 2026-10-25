@@ -1,0 +1,10 @@
+{
+    "name": "german-impressum-scraper",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Company contact data from the Impressum (legal notice) of German, Austrian and Swiss websites: company name, legal form, managing directors, address, phone, email, commercial register number and court, VAT ID. Keyless, no browser, no proxy.",
+    "main": "src/main.js",
+    "scripts": { "start": "node src/main.js" },
+    "dependencies": { "apify": "^3.7.0" },
+    "engines": { "node": ">=20" }
+}

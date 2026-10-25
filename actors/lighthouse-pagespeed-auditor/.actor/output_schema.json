@@ -1,0 +1,20 @@
+{
+    "actorOutputSchemaVersion": 1,
+    "title": "Lighthouse audits",
+    "description": "One row per URL and device.",
+    "type": "object",
+    "properties": {
+        "audits": {
+            "type": "string",
+            "title": "Audits",
+            "description": "Scores, Core Web Vitals lab metrics, page weight, top fixes and failed audits.",
+            "template": "{{links.apiDefaultDatasetUrl}}/items"
+        },
+        "summary": {
+            "type": "string",
+            "title": "Run summary",
+            "description": "Audits completed and failed.",
+            "template": "{{links.apiDefaultKeyValueStoreUrl}}/records/SUMMARY"
+        }
+    }
+}

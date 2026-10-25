@@ -1,0 +1,13 @@
+{
+    "actorSpecification": 1,
+    "name": "sam-gov-contract-opportunities",
+    "title": "SAM.gov Contract Opportunities Scraper: Federal Bids",
+    "description": "US federal contract opportunities from SAM.gov by keyword, NAICS, set-aside, notice type, state and posted date: deadlines, agency, contracting officer email and phone, place of performance, full description and attachment links. No API key needed.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "output": "./output_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": ["LEAD_GENERATION", "BUSINESS"],
+    "readme": "../README.md"
+}

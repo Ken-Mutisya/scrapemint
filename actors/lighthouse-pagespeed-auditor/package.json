@@ -1,0 +1,15 @@
+{
+    "name": "lighthouse-pagespeed-auditor",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Bulk Google Lighthouse audits: performance, accessibility, best-practices and SEO scores, Core Web Vitals lab metrics (LCP, CLS, TBT, FCP, Speed Index), page weight and the top fixes for many URLs, mobile and desktop. No PageSpeed API key, no quota.",
+    "main": "src/main.js",
+    "scripts": { "start": "node src/main.js" },
+    "dependencies": {
+        "apify": "^3.7.0",
+        "chrome-launcher": "1.2.1",
+        "lighthouse": "13.5.0",
+        "playwright": "*"
+    },
+    "engines": { "node": ">=22.19" }
+}

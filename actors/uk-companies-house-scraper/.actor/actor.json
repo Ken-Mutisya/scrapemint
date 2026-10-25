@@ -1,0 +1,13 @@
+{
+    "actorSpecification": 1,
+    "name": "uk-companies-house-scraper",
+    "title": "UK Companies House Scraper: New Companies & Directors",
+    "description": "Search the UK Companies House register by incorporation date, SIC code, location, name, status and company type. Get registered address, SIC descriptions, accounts and confirmation-statement due dates and active directors. Daily new-company lead lists.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "output": "./output_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": ["LEAD_GENERATION", "BUSINESS"],
+    "readme": "../README.md"
+}

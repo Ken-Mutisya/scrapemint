@@ -1,0 +1,16 @@
+{
+    "_note": "New actor, first pricing entry. Market (2026-10-25): constant_quadruped/lighthouse-auditor 72 monthly users; neverempty/pagespeed-lighthouse-audit 52 at $0.03 per audit + $0.015 per URL checked + $0.01 start; dev00 PSI API 70. audit $0.02. Compute measured at ~$0.009 per audit at 4 GB (Lighthouse 13.5 in headless Chrome), paid by us under pay-per-event. No start fee; failed loads free.",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~lighthouse-pagespeed-auditor?token=APIFY_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "audit": {
+                "eventTitle": "Lighthouse audit",
+                "eventDescription": "One completed Lighthouse audit of one URL on one device: performance, accessibility, best-practices and SEO scores, Core Web Vitals lab metrics, page weight, top fixes and failed audits. URLs that fail to load are free.",
+                "eventPriceUsd": 0.02,
+                "isPrimaryEvent": true
+            }
+        }
+    },
+    "startedAt": "2026-10-26T00:00:00.000Z"
+}

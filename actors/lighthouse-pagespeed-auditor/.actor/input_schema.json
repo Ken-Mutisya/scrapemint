@@ -1,0 +1,51 @@
+{
+    "title": "Lighthouse & PageSpeed Bulk Auditor input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "urls": {
+            "title": "URLs",
+            "type": "array",
+            "description": "Pages to audit, one per line. Domains without https:// work too.",
+            "editor": "stringList",
+            "prefill": ["https://apify.com", "https://www.wikipedia.org"]
+        },
+        "devices": {
+            "title": "Devices",
+            "type": "array",
+            "description": "Mobile uses Lighthouse's phone profile with simulated slow 4G, desktop its desktop profile: the same lab settings as PageSpeed Insights. Each URL is audited once per device.",
+            "editor": "select",
+            "items": { "type": "string", "enum": ["mobile", "desktop"], "enumTitles": ["Mobile", "Desktop"] },
+            "default": ["mobile"]
+        },
+        "categories": {
+            "title": "Categories",
+            "type": "array",
+            "description": "Fewer categories run a little faster.",
+            "editor": "select",
+            "items": { "type": "string", "enum": ["performance", "accessibility", "best-practices", "seo"], "enumTitles": ["Performance", "Accessibility", "Best practices", "SEO"] },
+            "default": ["performance", "accessibility", "best-practices", "seo"]
+        },
+        "saveHtmlReport": {
+            "title": "Save the full HTML report",
+            "type": "boolean",
+            "description": "Stores the standard Lighthouse HTML report for each audit and adds its link as reportUrl.",
+            "default": false
+        },
+        "maxConcurrency": {
+            "title": "Audits at a time",
+            "type": "integer",
+            "description": "1 gives the most stable timings. 2-3 finish big lists faster; give the run 4 GB+ of memory.",
+            "default": 1,
+            "minimum": 1,
+            "maximum": 3
+        },
+        "maxResults": {
+            "title": "Maximum audits",
+            "type": "integer",
+            "description": "Stop after this many audits (URLs x devices).",
+            "default": 500,
+            "minimum": 1
+        }
+    }
+}

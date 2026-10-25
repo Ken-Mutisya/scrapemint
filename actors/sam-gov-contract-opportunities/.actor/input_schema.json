@@ -1,0 +1,87 @@
+{
+    "title": "SAM.gov Contract Opportunities input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "keywords": {
+            "title": "Keywords",
+            "type": "string",
+            "description": "Words to search in titles and descriptions, e.g. cybersecurity, janitorial, \"cloud migration\". Leave empty to list everything that matches the filters.",
+            "editor": "textfield",
+            "prefill": "software",
+            "sectionCaption": "What"
+        },
+        "naicsCodes": {
+            "title": "NAICS codes",
+            "type": "array",
+            "description": "e.g. 541511 (custom programming), 541512 (systems design), 541330 (engineering), 236220 (commercial building), 561720 (janitorial), 541611 (management consulting).",
+            "editor": "stringList"
+        },
+        "noticeTypes": {
+            "title": "Notice types",
+            "type": "array",
+            "description": "Empty = all types. Default: open bids and early-stage notices.",
+            "editor": "select",
+            "items": {
+                "type": "string",
+                "enum": ["o", "k", "p", "r", "s", "a", "u", "i", "g"],
+                "enumTitles": ["Solicitation", "Combined Synopsis/Solicitation", "Presolicitation", "Sources Sought", "Special Notice", "Award Notice", "Justification", "Intent to Bundle", "Sale of Surplus Property"]
+            },
+            "default": ["o", "k", "p", "r"]
+        },
+        "setAsides": {
+            "title": "Set-asides",
+            "type": "array",
+            "description": "Keep only notices reserved for these business types. Empty = any.",
+            "editor": "select",
+            "items": {
+                "type": "string",
+                "enum": ["SBA", "SBP", "8A", "8AN", "HZC", "HZS", "SDVOSBC", "SDVOSBS", "WOSB", "WOSBSS", "EDWOSB", "EDWOSBSS", "VSA", "VSS", "LAS", "IEE", "ISBEE", "BICiv"],
+                "enumTitles": ["Total Small Business", "Partial Small Business", "8(a) Set-Aside", "8(a) Sole Source", "HUBZone Set-Aside", "HUBZone Sole Source", "SDVOSB Set-Aside", "SDVOSB Sole Source", "WOSB Set-Aside", "WOSB Sole Source", "EDWOSB Set-Aside", "EDWOSB Sole Source", "Veteran-Owned (VA) Set-Aside", "Veteran-Owned (VA) Sole Source", "Local Area Set-Aside", "Indian Economic Enterprise", "Indian Small Business Economic Enterprise", "Buy Indian"]
+            },
+            "default": []
+        },
+        "states": {
+            "title": "Place of performance states",
+            "type": "array",
+            "description": "Two-letter state codes, e.g. TX, VA, DC.",
+            "editor": "stringList",
+            "sectionCaption": "Where and when"
+        },
+        "postedWithinDays": {
+            "title": "Posted or updated in the last N days",
+            "type": "integer",
+            "description": "0 = any date. Use 1 on a daily schedule for a feed of new and amended notices.",
+            "default": 0,
+            "minimum": 0
+        },
+        "responseDueWithinDays": {
+            "title": "Responses due in the next N days",
+            "type": "integer",
+            "description": "Only notices whose response deadline falls between today and N days from now. 0 = any deadline.",
+            "default": 0,
+            "minimum": 0
+        },
+        "activeOnly": {
+            "title": "Active notices only",
+            "type": "boolean",
+            "description": "Off includes archived and past notices (useful for award history).",
+            "default": true
+        },
+        "includeDetails": {
+            "title": "Add contacts, NAICS, set-aside and attachments",
+            "type": "boolean",
+            "description": "Reads each notice: contracting officer name, email and phone, NAICS and PSC codes, set-aside, place of performance, full description, attachment links and award details. Off = search fields only, faster.",
+            "default": true,
+            "sectionCaption": "Output"
+        },
+        "maxResults": {
+            "title": "Maximum notices",
+            "type": "integer",
+            "description": "Newest first. SAM.gov returns up to 10,000 per search.",
+            "default": 200,
+            "minimum": 1,
+            "maximum": 10000
+        }
+    }
+}

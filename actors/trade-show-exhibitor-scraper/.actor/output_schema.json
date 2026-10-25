@@ -1,0 +1,20 @@
+{
+    "actorOutputSchemaVersion": 1,
+    "title": "Exhibitors",
+    "description": "One row per exhibitor per show.",
+    "type": "object",
+    "properties": {
+        "exhibitors": {
+            "type": "string",
+            "title": "Exhibitors",
+            "description": "Company, booth, hall, description, website, phone, address, socials, product categories, brands.",
+            "template": "{{links.apiDefaultDatasetUrl}}/items"
+        },
+        "summary": {
+            "type": "string",
+            "title": "Run summary",
+            "description": "Exhibitors listed and written per show.",
+            "template": "{{links.apiDefaultKeyValueStoreUrl}}/records/SUMMARY"
+        }
+    }
+}

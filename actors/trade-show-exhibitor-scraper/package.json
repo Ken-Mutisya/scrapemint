@@ -1,0 +1,13 @@
+{
+    "name": "trade-show-exhibitor-scraper",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Exhibitor lists from Map Your Show trade shows (AAPEX, RSNA and hundreds more): company, booth, hall, description, website, phone, address, LinkedIn and other socials, product categories and brands. One headless browser visit per show, then plain requests. No proxy.",
+    "main": "src/main.js",
+    "scripts": { "start": "node src/main.js" },
+    "dependencies": {
+        "apify": "^3.7.0",
+        "playwright": "*"
+    },
+    "engines": { "node": ">=20" }
+}

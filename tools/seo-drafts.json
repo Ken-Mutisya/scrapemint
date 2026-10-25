@@ -1023,5 +1023,25 @@
  "bbb-business-leads": {
   "seoDescription": "Better Business Bureau leads by business type and city or ZIP: name, phone, address, BBB rating and accreditation. US and Canada. No key, no proxy.",
   "seoTitle": "BBB Scraper: Business Leads, Phones & Ratings"
+ },
+ "german-impressum-scraper": {
+  "seoDescription": "Read the Impressum of German, Austrian and Swiss websites: company name, Geschäftsführer, address, phone, email, HRB number, VAT ID. Pay per hit.",
+  "seoTitle": "Impressum Scraper: German Company Data & Directors"
+ },
+ "lighthouse-pagespeed-auditor": {
+  "seoDescription": "Run Google Lighthouse on many URLs, mobile and desktop: performance, SEO and accessibility scores, LCP, CLS, TBT, top fixes. No PageSpeed API key.",
+  "seoTitle": "Bulk Lighthouse & PageSpeed Test: Core Web Vitals"
+ },
+ "sam-gov-contract-opportunities": {
+  "seoDescription": "SAM.gov bids by keyword, NAICS, set-aside and state: deadlines, agency, contracting officer email and phone, attachments, awards. No API key.",
+  "seoTitle": "SAM.gov Scraper: Federal Contract Opportunities"
+ },
+ "trade-show-exhibitor-scraper": {
+  "seoDescription": "Export any Map Your Show trade show exhibitor list: company, booth, website, phone, address, LinkedIn, product categories. AAPEX, RSNA and more.",
+  "seoTitle": "Map Your Show Exhibitor List Scraper: Trade Shows"
+ },
+ "uk-companies-house-scraper": {
+  "seoDescription": "New UK companies from Companies House by date, SIC code and town: address, status, SIC, filing deadlines and directors. 5,000 per second. No API key.",
+  "seoTitle": "Companies House Scraper: New UK Firms & Directors"
  }
 }

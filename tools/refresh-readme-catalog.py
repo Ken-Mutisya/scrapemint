@@ -36,6 +36,8 @@ SECTIONS = [
         "restaurant-inspection-leads", "nonprofit-leads-scraper", "new-business-registration-leads",
         "newly-registered-domain-leads", "government-contract-winner-leads",
         "skool-community-finder", "europages-supplier-scraper", "bbb-business-leads",
+        "uk-companies-house-scraper", "sam-gov-contract-opportunities", "german-impressum-scraper",
+        "trade-show-exhibitor-scraper",
     ]),
     ("Financial signals & SEC filings", [
         "congress-stock-trades", "sec-form4-insider-tracker", "sec-8k-event-tracker", "sec-13f-whale-tracker",
@@ -144,7 +146,7 @@ SECTIONS = [
     ]),
     ("SEO & marketing", [
         "google-trends-scraper", "google-keyword-suggestions-scraper",
-        "google-ads-transparency-scraper", "seo-site-audit-scraper", "sitemap-change-monitor",
+        "google-ads-transparency-scraper", "seo-site-audit-scraper", "lighthouse-pagespeed-auditor", "sitemap-change-monitor",
         "saas-outage-monitor", "website-change-monitor", "website-tech-stack-detector", "website-screenshot-generator", "company-logo-scraper",
         "journalist-request-finder",
     ]),

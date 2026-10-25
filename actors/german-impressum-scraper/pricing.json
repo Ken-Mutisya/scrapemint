@@ -1,0 +1,16 @@
+{
+    "_note": "New actor, first pricing entry. Market (2026-10-25): winningsolutions/german-imprint-scraper 74 monthly users at $0.005 per result + $0.0012 per site + $0.04 start; haketa/impressum-legal-notice-extractor 36 at $0.0025 per row. imprint $0.002 only for sites where company data was read; blocked or JS-only sites are free. No start fee. Source: plain HTTP fetch of each site's Impressum, keyless, no proxy.",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~german-impressum-scraper?token=APIFY_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "imprint": {
+                "eventTitle": "Impressum read",
+                "eventDescription": "One website whose Impressum yielded company data: name, legal form, directors, address, phone, email, register number and court, VAT ID. Sites with no readable Impressum are free.",
+                "eventPriceUsd": 0.002,
+                "isPrimaryEvent": true
+            }
+        }
+    },
+    "startedAt": "2026-10-26T00:00:00.000Z"
+}

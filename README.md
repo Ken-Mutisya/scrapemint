@@ -19,7 +19,7 @@ flowchart LR
 
 <!-- CATALOG:START -->
 
-There are **286** actors live right now, and a new one ships every few days.
+There are **290** actors live right now, and a new one ships every few days.
 
 ### Lead generation
 
@@ -58,11 +58,14 @@ There are **286** actors live right now, and a new one ships every few days.
 - [Restaurant Inspection Leads: Health Violations by City](https://apify.com/scrapemint/restaurant-inspection-leads)
 - [Nonprofit Leads Scraper: IRS 990 Revenue, Assets & Contacts](https://apify.com/scrapemint/nonprofit-leads-scraper)
 - [New Business Registration Leads: Fresh LLC & Corp Filings](https://apify.com/scrapemint/new-business-registration-leads)
-- [Newly Registered Domain Leads: Daily New Domains by Keyword](https://apify.com/scrapemint/newly-registered-domain-leads)
 - [Government Contract Winner Leads: New Federal Contract Awards](https://apify.com/scrapemint/government-contract-winner-leads)
 - [Skool Community Finder: Owner Leads, Members & Prices](https://apify.com/scrapemint/skool-community-finder)
 - [Europages Scraper: European B2B Suppliers, Phones & VAT IDs](https://apify.com/scrapemint/europages-supplier-scraper)
 - [BBB Business Leads: Phones, Ratings & Accreditation](https://apify.com/scrapemint/bbb-business-leads)
+- [UK Companies House Scraper: New Companies & Directors](https://apify.com/scrapemint/uk-companies-house-scraper)
+- [SAM.gov Contract Opportunities Scraper: Federal Bids](https://apify.com/scrapemint/sam-gov-contract-opportunities)
+- [Impressum Scraper: German Company Contacts & Directors](https://apify.com/scrapemint/german-impressum-scraper)
+- [Trade Show Exhibitor List Scraper: Map Your Show](https://apify.com/scrapemint/trade-show-exhibitor-scraper)
 
 ### Financial signals & SEC filings
 
@@ -337,6 +340,7 @@ There are **286** actors live right now, and a new one ships every few days.
 - [Google Keyword Suggestions Scraper (Autocomplete)](https://apify.com/scrapemint/google-keyword-suggestions-scraper)
 - [Google Ads Transparency Scraper (No Login)](https://apify.com/scrapemint/google-ads-transparency-scraper)
 - [SEO Site Audit Scraper: On-Page Issues for Every Page](https://apify.com/scrapemint/seo-site-audit-scraper)
+- [Lighthouse & PageSpeed Bulk Auditor: Core Web Vitals](https://apify.com/scrapemint/lighthouse-pagespeed-auditor)
 - [Sitemap Change Monitor: New & Removed Page Alerts](https://apify.com/scrapemint/sitemap-change-monitor)
 - [SaaS Outage Monitor: Status Page Incidents for 134 Vendors](https://apify.com/scrapemint/saas-outage-monitor)
 - [Website Technology Stack Detector (BuiltWith Alternative)](https://apify.com/scrapemint/website-tech-stack-detector)

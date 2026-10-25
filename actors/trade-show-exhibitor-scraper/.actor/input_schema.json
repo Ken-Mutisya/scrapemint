@@ -1,0 +1,42 @@
+{
+    "title": "Trade Show Exhibitor List Scraper input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "shows": {
+            "title": "Shows",
+            "type": "array",
+            "description": "Map Your Show links or show codes, one per line. Any page of the show works, e.g. https://aapex2026.mapyourshow.com/8_0/explore/exhibitor-gallery.cfm, or just aapex2026.",
+            "editor": "stringList",
+            "prefill": [
+                "https://rsna2026.mapyourshow.com/8_0/explore/exhibitor-gallery.cfm"
+            ]
+        },
+        "includeDetails": {
+            "title": "Add website, phone, address and socials",
+            "type": "boolean",
+            "description": "Opens every exhibitor profile for website, phone, fax, address, LinkedIn, Facebook, X, Instagram, booth locations, product categories and brands. Off = the exhibitor list only (name, booth, hall, description, logo), much faster and cheaper.",
+            "default": true
+        },
+        "keyword": {
+            "title": "Keyword filter",
+            "type": "string",
+            "description": "Only exhibitors whose company name matches this word in the show's own search, e.g. software or brakes. Empty = all exhibitors.",
+            "editor": "textfield"
+        },
+        "maxResultsPerShow": {
+            "title": "Maximum exhibitors per show",
+            "type": "integer",
+            "description": "0 = all.",
+            "default": 0,
+            "minimum": 0
+        },
+        "maxResults": {
+            "title": "Maximum exhibitors in total",
+            "type": "integer",
+            "default": 5000,
+            "minimum": 1,
+            "description": "Stop after this many exhibitors across all shows."
+        }
+    }
+}

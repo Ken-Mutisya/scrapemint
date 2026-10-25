@@ -1,0 +1,10 @@
+{
+    "name": "uk-companies-house-scraper",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "UK companies from the Companies House register: new incorporations by date, SIC code, location and name, with registered address, status, SIC descriptions, accounts and confirmation-statement deadlines and active directors. Keyless, no browser, no proxy.",
+    "main": "src/main.js",
+    "scripts": { "start": "node src/main.js" },
+    "dependencies": { "apify": "^3.7.0" },
+    "engines": { "node": ">=20" }
+}

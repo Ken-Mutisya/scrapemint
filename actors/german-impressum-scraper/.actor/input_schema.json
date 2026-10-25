@@ -1,0 +1,35 @@
+{
+    "title": "Impressum Scraper input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "websites": {
+            "title": "Websites",
+            "type": "array",
+            "description": "Company websites or domains, one per line, e.g. heise.de or https://www.example.de. The Impressum page is found automatically; you can also paste Impressum URLs directly.",
+            "editor": "stringList",
+            "prefill": ["https://www.heise.de", "https://www.thomann.de"]
+        },
+        "requireEmail": {
+            "title": "Only keep sites with an email",
+            "type": "boolean",
+            "description": "Sites whose Impressum has no email address are returned as not found and not charged.",
+            "default": false
+        },
+        "maxConcurrency": {
+            "title": "Sites at a time",
+            "type": "integer",
+            "description": "How many websites to read in parallel.",
+            "default": 8,
+            "minimum": 1,
+            "maximum": 20
+        },
+        "maxResults": {
+            "title": "Maximum websites",
+            "type": "integer",
+            "description": "Stop after this many websites.",
+            "default": 1000,
+            "minimum": 1
+        }
+    }
+}

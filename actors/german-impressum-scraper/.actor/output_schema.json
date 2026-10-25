@@ -1,0 +1,20 @@
+{
+    "actorOutputSchemaVersion": 1,
+    "title": "Impressum data",
+    "description": "One row per website with the company data from its Impressum.",
+    "type": "object",
+    "properties": {
+        "companies": {
+            "type": "string",
+            "title": "Companies",
+            "description": "Company name, legal form, managing directors, address, phone, email, register court and number, VAT ID, Impressum URL.",
+            "template": "{{links.apiDefaultDatasetUrl}}/items"
+        },
+        "summary": {
+            "type": "string",
+            "title": "Run summary",
+            "description": "Websites processed and how many had company data.",
+            "template": "{{links.apiDefaultKeyValueStoreUrl}}/records/SUMMARY"
+        }
+    }
+}

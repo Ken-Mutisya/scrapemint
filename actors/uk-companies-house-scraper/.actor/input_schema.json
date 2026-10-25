@@ -1,0 +1,99 @@
+{
+    "title": "UK Companies House Scraper input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "incorporatedInLastDays": {
+            "title": "Incorporated in the last N days",
+            "type": "integer",
+            "description": "New companies registered in the last N days, today included. Overrides the date fields below. 0 = use the dates below.",
+            "default": 0,
+            "minimum": 0,
+            "prefill": 7,
+            "sectionCaption": "When"
+        },
+        "incorporatedFrom": {
+            "title": "Incorporated from",
+            "type": "string",
+            "description": "Earliest incorporation date, YYYY-MM-DD.",
+            "editor": "datepicker"
+        },
+        "incorporatedTo": {
+            "title": "Incorporated to",
+            "type": "string",
+            "description": "Latest incorporation date, YYYY-MM-DD.",
+            "editor": "datepicker"
+        },
+        "sicCodes": {
+            "title": "SIC codes",
+            "type": "array",
+            "description": "Nature of business codes, e.g. 62012 (software development), 56101 (restaurants), 68100 (buying and selling property), 43210 (electricians), 70229 (management consultancy). Each code runs as its own search; companies are not repeated.",
+            "editor": "stringList",
+            "prefill": ["62012"],
+            "sectionCaption": "What"
+        },
+        "location": {
+            "title": "Registered office location",
+            "type": "string",
+            "description": "Town, city or postcode in the registered office address, e.g. Manchester or SW1A.",
+            "editor": "textfield"
+        },
+        "nameIncludes": {
+            "title": "Company name includes",
+            "type": "string",
+            "description": "Word or phrase in the company name, e.g. coffee.",
+            "editor": "textfield"
+        },
+        "nameExcludes": {
+            "title": "Company name excludes",
+            "type": "string",
+            "description": "Skip companies whose name contains this.",
+            "editor": "textfield"
+        },
+        "status": {
+            "title": "Company status",
+            "type": "array",
+            "description": "Empty = any status.",
+            "editor": "select",
+            "items": {
+                "type": "string",
+                "enum": ["active", "dissolved", "open", "closed", "converted-closed", "receivership", "liquidation", "administration", "insolvency-proceedings", "voluntary-arrangement"],
+                "enumTitles": ["Active", "Dissolved", "Open", "Closed", "Converted / closed", "Receivership", "Liquidation", "Administration", "Insolvency proceedings", "Voluntary arrangement"]
+            },
+            "default": ["active"]
+        },
+        "companyTypes": {
+            "title": "Company types",
+            "type": "array",
+            "description": "Empty = any type.",
+            "editor": "select",
+            "items": {
+                "type": "string",
+                "enum": ["ltd", "plc", "llp", "private-unlimited", "private-limited-guarant-nsc", "limited-partnership", "charitable-incorporated-organisation", "registered-overseas-entity", "uk-establishment"],
+                "enumTitles": ["Private limited (Ltd)", "Public limited (PLC)", "LLP", "Private unlimited", "Limited by guarantee", "Limited partnership", "Charitable incorporated organisation", "Registered overseas entity", "UK establishment of overseas company"]
+            },
+            "default": []
+        },
+        "companyNumbers": {
+            "title": "Or look up company numbers",
+            "type": "array",
+            "description": "Company numbers such as 00445790 or SC906865. When given, the search filters above are ignored.",
+            "editor": "stringList",
+            "sectionCaption": "Lookup"
+        },
+        "includeDetails": {
+            "title": "Add profile details and officers",
+            "type": "boolean",
+            "description": "Reads each company's page: accounts and confirmation-statement due dates, overdue flags, previous names and active directors and secretaries (name, role, appointed date, nationality, country of residence). Two extra page reads per company, billed as a detailed company.",
+            "default": false,
+            "sectionCaption": "Output"
+        },
+        "maxResults": {
+            "title": "Maximum companies",
+            "type": "integer",
+            "description": "Stop after this many companies.",
+            "default": 1000,
+            "minimum": 1
+        }
+    }
+}

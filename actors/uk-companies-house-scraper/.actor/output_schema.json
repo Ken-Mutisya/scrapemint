@@ -1,0 +1,20 @@
+{
+    "actorOutputSchemaVersion": 1,
+    "title": "UK companies",
+    "description": "One row per company from the Companies House register.",
+    "type": "object",
+    "properties": {
+        "companies": {
+            "type": "string",
+            "title": "Companies",
+            "description": "Name, number, status, type, incorporation date, registered address, postcode, SIC codes and descriptions, plus deadlines and officers when details are on.",
+            "template": "{{links.apiDefaultDatasetUrl}}/items"
+        },
+        "summary": {
+            "type": "string",
+            "title": "Run summary",
+            "description": "Export windows used and companies written.",
+            "template": "{{links.apiDefaultKeyValueStoreUrl}}/records/SUMMARY"
+        }
+    }
+}
