@@ -1063,5 +1063,25 @@
  "amazon-seller-leads": {
   "seoDescription": "Find Amazon.com third-party sellers by keyword, bestseller list or ASIN with registered business name, full address, ratings and products.",
   "seoTitle": "Amazon Seller Leads: Business Name & Address"
+ },
+ "google-images-scraper": {
+  "seoDescription": "Scrape Google Images by keyword: full-size image URL, width, height, file size, source and page URL. Filter by size, type, colour, licence and date.",
+  "seoTitle": "Google Images Scraper: Full-Size Image URLs"
+ },
+ "google-local-rank-tracker": {
+  "seoDescription": "Your rank in Google's map pack and local finder per keyword and city or ZIP, with competitors' ratings, reviews, phone, address and rank changes.",
+  "seoTitle": "Google Local Rank Tracker: Map Pack Rankings"
+ },
+ "truth-social-monitor": {
+  "seoDescription": "Donald Trump's and any Truth Social account's posts with likes, reposts, replies and media, flagged for keywords, cashtags and market topics.",
+  "seoTitle": "Truth Social Scraper: Trump Posts & Alerts"
+ },
+ "amazon-bestsellers-rank-tracker": {
+  "seoDescription": "Amazon Best Sellers and New Releases top 100 for any category: rank, ASIN, price, rating, reviews, image, plus rank changes and new entries.",
+  "seoTitle": "Amazon Best Sellers Scraper & Rank Tracker"
+ },
+ "threads-scraper": {
+  "seoDescription": "Scrape public Threads profiles and posts without login: followers, bio, verified badge, likes, replies, reposts, quotes, media and post replies.",
+  "seoTitle": "Threads Scraper: Profiles, Posts & Replies"
  }
 }

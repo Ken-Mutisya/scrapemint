@@ -1,0 +1,66 @@
+{
+    "title": "Google Local Rank Tracker input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "keywords": {
+            "title": "Keywords",
+            "type": "array",
+            "description": "Searches your customers make, one per line, e.g. plumber, emergency plumber, water heater repair.",
+            "editor": "stringList",
+            "prefill": ["plumber", "emergency plumber"],
+            "sectionCaption": "What and where"
+        },
+        "locations": {
+            "title": "Locations",
+            "type": "array",
+            "description": "Cities, neighbourhoods or ZIP codes, one per line, e.g. Austin, TX / 78744 / Round Rock, TX. Every keyword runs for every location. A list of ZIP codes works as a coarse geo-grid.",
+            "editor": "stringList",
+            "prefill": ["Austin, TX"]
+        },
+        "yourBusiness": {
+            "title": "Your business",
+            "type": "array",
+            "description": "How to recognise your listing: its name (or part of it), its phone number, or its Google CID. Add several for multiple locations or brands. Leave empty to just collect the rankings.",
+            "editor": "stringList",
+            "prefill": ["Reliant Plumbing"]
+        },
+        "depth": {
+            "title": "Results to check",
+            "type": "integer",
+            "description": "20, 40 or 60 businesses per keyword and location. Each 20 is one charged page.",
+            "minimum": 20,
+            "maximum": 60,
+            "default": 20,
+            "sectionCaption": "Options"
+        },
+        "includeResults": {
+            "title": "Include the competitor list",
+            "type": "boolean",
+            "description": "Add every business checked (name, rating, reviews, category, address, phone, hours, CID). Off = just your rank and the top competitor, and reading stops at the page your listing is on.",
+            "default": true
+        },
+        "trackChanges": {
+            "title": "Track rank changes",
+            "type": "boolean",
+            "description": "Remember your last rank per keyword and location and add previousRank and rankChange. History lives in your named key-value store local-rank-tracker-history.",
+            "default": true
+        },
+        "country": {
+            "title": "Google country",
+            "type": "string",
+            "description": "Two-letter country code (gl), e.g. us, gb, ca, au.",
+            "editor": "textfield",
+            "default": "us",
+            "sectionCaption": "Google settings"
+        },
+        "language": {
+            "title": "Language",
+            "type": "string",
+            "description": "Interface language (hl), e.g. en, es, fr.",
+            "editor": "textfield",
+            "default": "en"
+        }
+    },
+    "required": ["keywords"]
+}

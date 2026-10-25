@@ -1,0 +1,13 @@
+{
+    "actorSpecification": 1,
+    "name": "truth-social-monitor",
+    "title": "Truth Social Scraper & Monitor: Trump Posts, Keyword Alerts",
+    "description": "Posts from Donald Trump's and any public Truth Social account: full text, time, likes, reposts, replies, media and links, flagged for your keywords, $cashtags and market topics (tariffs, Fed, China, oil, crypto). Schedule it to get only new posts.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "output": "./output_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": ["SOCIAL_MEDIA", "NEWS"],
+    "readme": "../README.md"
+}

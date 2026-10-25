@@ -1,0 +1,10 @@
+{
+    "actorOutputSchemaVersion": 1,
+    "title": "Google Images results",
+    "description": "One row per image.",
+    "type": "object",
+    "properties": {
+        "images": { "type": "string", "title": "Images", "description": "Title, full-size URL, width, height, file size, thumbnail, source and page URL.", "template": "{{links.apiDefaultDatasetUrl}}/items" },
+        "summary": { "type": "string", "title": "Run summary", "description": "Images per search and pages read.", "template": "{{links.apiDefaultKeyValueStoreUrl}}/records/SUMMARY" }
+    }
+}

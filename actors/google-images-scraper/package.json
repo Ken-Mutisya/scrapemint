@@ -1,0 +1,10 @@
+{
+    "name": "google-images-scraper",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Google Images results by keyword with full-size image URL, dimensions, file size, thumbnail, title, source and page URL. Size, type, colour, licence and date filters. Uses Apify's Google SERP proxy.",
+    "main": "src/main.js",
+    "scripts": { "start": "node src/main.js" },
+    "dependencies": { "apify": "^3.7.0", "cheerio": "^1.0.0", "got-scraping": "^4.1.1" },
+    "engines": { "node": ">=20" }
+}

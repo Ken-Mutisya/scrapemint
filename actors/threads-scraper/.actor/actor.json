@@ -1,0 +1,13 @@
+{
+    "actorSpecification": 1,
+    "name": "threads-scraper",
+    "title": "Threads Scraper: Profiles, Posts, Replies & Engagement",
+    "description": "Scrape public Threads profiles and posts without logging in: bio, followers, verified badge, latest posts with likes, replies, reposts, quotes, media and links, plus replies on any post URL.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "output": "./output_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": ["SOCIAL_MEDIA", "MARKETING"],
+    "readme": "../README.md"
+}

@@ -1,0 +1,16 @@
+{
+    "actorSpecification": 1,
+    "name": "amazon-bestsellers-rank-tracker",
+    "title": "Amazon Best Sellers Scraper & Rank Tracker: Top 100",
+    "description": "Amazon.com Best Sellers and Hot New Releases top 100 for any category or subcategory: rank, ASIN, title, price, rating, reviews and image, with rank changes, new entries and drop-outs since your last run.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "output": "./output_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "ECOMMERCE",
+        "MARKETING"
+    ],
+    "readme": "../README.md"
+}

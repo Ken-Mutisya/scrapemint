@@ -1,0 +1,132 @@
+{
+    "title": "Google Images Scraper input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "queries": {
+            "title": "Image searches",
+            "type": "array",
+            "description": "One search per line, e.g. modern kitchen, golden retriever puppy, \"tesla model 3 interior\".",
+            "editor": "stringList",
+            "prefill": [
+                "modern kitchen"
+            ],
+            "sectionCaption": "What"
+        },
+        "maxImagesPerQuery": {
+            "title": "Max images per search",
+            "type": "integer",
+            "description": "Google returns 50 images per page; more reads further pages.",
+            "minimum": 1,
+            "maximum": 500,
+            "default": 50
+        },
+        "size": {
+            "title": "Size",
+            "type": "string",
+            "editor": "select",
+            "enum": [
+                "any",
+                "large",
+                "medium",
+                "icon"
+            ],
+            "enumTitles": [
+                "Any",
+                "Large",
+                "Medium",
+                "Icon"
+            ],
+            "default": "any",
+            "sectionCaption": "Google filters",
+            "description": "Google image size filter."
+        },
+        "type": {
+            "title": "Type",
+            "type": "string",
+            "editor": "select",
+            "enum": [
+                "any",
+                "photo",
+                "clipart",
+                "lineart",
+                "animated",
+                "face"
+            ],
+            "enumTitles": [
+                "Any",
+                "Photo",
+                "Clip art",
+                "Line drawing",
+                "GIF",
+                "Face"
+            ],
+            "default": "any",
+            "description": "Photo, clip art, line drawing, GIF or face."
+        },
+        "color": {
+            "title": "Colour",
+            "type": "string",
+            "editor": "select",
+            "enum": [
+                "any",
+                "color",
+                "grayscale",
+                "transparent"
+            ],
+            "enumTitles": [
+                "Any",
+                "Full colour",
+                "Black and white",
+                "Transparent"
+            ],
+            "default": "any",
+            "description": "Full colour, black and white, or transparent background."
+        },
+        "creativeCommonsOnly": {
+            "title": "Creative Commons licences only",
+            "type": "boolean",
+            "description": "Google's usage-rights filter. Always check the licence on the source page.",
+            "default": false
+        },
+        "postedWithin": {
+            "title": "Time",
+            "type": "string",
+            "editor": "select",
+            "enum": [
+                "any",
+                "day",
+                "week",
+                "month",
+                "year"
+            ],
+            "enumTitles": [
+                "Any time",
+                "Past 24 hours",
+                "Past week",
+                "Past month",
+                "Past year"
+            ],
+            "default": "any",
+            "description": "Only images Google found in this period."
+        },
+        "country": {
+            "title": "Google country",
+            "type": "string",
+            "description": "Two-letter country code (gl), e.g. us, gb, de, in.",
+            "editor": "textfield",
+            "default": "us",
+            "sectionCaption": "Google settings"
+        },
+        "language": {
+            "title": "Language",
+            "type": "string",
+            "description": "Interface language (hl), e.g. en, de, fr.",
+            "editor": "textfield",
+            "default": "en"
+        }
+    },
+    "required": [
+        "queries"
+    ]
+}

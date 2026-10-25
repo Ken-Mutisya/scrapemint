@@ -1,0 +1,70 @@
+{
+    "title": "Amazon Best Sellers Rank Tracker input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "categories": {
+            "title": "Categories",
+            "type": "array",
+            "description": "Amazon department slugs, one per line, e.g. kitchen, electronics, beauty, toys-and-games, sporting-goods, pet-supplies, hpc (health), books. For subcategories, paste URLs below.",
+            "editor": "stringList",
+            "prefill": [
+                "kitchen"
+            ],
+            "sectionCaption": "Which lists"
+        },
+        "categoryUrls": {
+            "title": "List URLs",
+            "type": "array",
+            "description": "Any Amazon.com Best Sellers or New Releases URL, including subcategories, e.g. https://www.amazon.com/Best-Sellers-Kitchen-Dining-Bakeware/zgbs/kitchen/289668.",
+            "editor": "stringList"
+        },
+        "lists": {
+            "title": "Lists",
+            "type": "array",
+            "description": "Which Amazon lists to read for each category above.",
+            "editor": "select",
+            "items": {
+                "type": "string",
+                "enum": [
+                    "best-sellers",
+                    "new-releases"
+                ],
+                "enumTitles": [
+                    "Best Sellers",
+                    "Hot New Releases"
+                ]
+            },
+            "default": [
+                "best-sellers"
+            ]
+        },
+        "maxRank": {
+            "title": "Top N",
+            "type": "integer",
+            "description": "How deep to read each list (Amazon shows up to 100).",
+            "minimum": 1,
+            "maximum": 100,
+            "default": 100,
+            "sectionCaption": "Options"
+        },
+        "includeSubcategories": {
+            "title": "Include direct subcategories",
+            "type": "boolean",
+            "description": "Also read every subcategory one level below each category (e.g. Kitchen & Dining -> Bakeware, Cookware...). Each is its own top 100.",
+            "default": false
+        },
+        "fillDetails": {
+            "title": "Fill details for every rank",
+            "type": "boolean",
+            "description": "Amazon's list page only shows title, price and rating for about the first 30 ranks; this reads the product page for the rest. Off = those rows have ASIN and rank only.",
+            "default": true
+        },
+        "trackChanges": {
+            "title": "Track rank changes",
+            "type": "boolean",
+            "description": "Remember each list's ranks and add previousRank, rankChange and isNewEntry; the run summary lists products that dropped out. History lives in your named key-value store amazon-bestsellers-history.",
+            "default": true
+        }
+    }
+}

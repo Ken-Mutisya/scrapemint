@@ -1,0 +1,13 @@
+{
+    "actorSpecification": 1,
+    "name": "google-local-rank-tracker",
+    "title": "Google Local Rank Tracker: Map Pack Rankings & Competitors",
+    "description": "Track where your business ranks in Google's local results (map pack and local finder) for each keyword and city or ZIP, with the top 20-60 competitors: rating, reviews, category, address, phone and hours. Rank changes between runs.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "output": "./output_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": ["SEO_TOOLS", "LEAD_GENERATION"],
+    "readme": "../README.md"
+}

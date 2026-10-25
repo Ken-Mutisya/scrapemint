@@ -1,0 +1,10 @@
+{
+    "actorOutputSchemaVersion": 1,
+    "title": "Local rankings",
+    "description": "One row per keyword and location.",
+    "type": "object",
+    "properties": {
+        "checks": { "type": "string", "title": "Rankings", "description": "Your rank, map pack yes/no, rank change, top competitor and the businesses checked.", "template": "{{links.apiDefaultDatasetUrl}}/items" },
+        "summary": { "type": "string", "title": "Run summary", "description": "Checks and pages read.", "template": "{{links.apiDefaultKeyValueStoreUrl}}/records/SUMMARY" }
+    }
+}

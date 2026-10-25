@@ -1,0 +1,21 @@
+{
+    "_note": "New actor, first pricing entry. Market (2026-10-25): futurizerush/meta-threads-scraper 1,859 monthly users at $0.0025 per item + $0.02 start; apify/threads-profile-api-scraper 693 at $0.005; logical_scrapers/threads-post-scraper 381. post $0.002, profile $0.002, no start fee. Cost: direct requests (Threads answers Apify IPs); US residential (~1.2 MB a page = ~$0.01) only as fallback, capped at 25% of charged revenue.",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~threads-scraper?token=APIFY_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "post": {
+                "eventTitle": "Post or reply",
+                "eventDescription": "One Threads post or reply with text, time, likes, replies, reposts, quotes, media and link.",
+                "eventPriceUsd": 0.002,
+                "isPrimaryEvent": true
+            },
+            "profile": {
+                "eventTitle": "Profile",
+                "eventDescription": "One Threads profile with bio, followers, verified badge, bio links and picture.",
+                "eventPriceUsd": 0.002
+            }
+        }
+    },
+    "startedAt": "2026-10-28T00:00:00.000Z"
+}

@@ -1,0 +1,10 @@
+{
+    "actorOutputSchemaVersion": 1,
+    "title": "Truth Social posts",
+    "description": "One row per post.",
+    "type": "object",
+    "properties": {
+        "posts": { "type": "string", "title": "Posts", "description": "Account, time, text, likes, reposts, replies, media, link, cashtags, market topics and matched keywords.", "template": "{{links.apiDefaultDatasetUrl}}/items" },
+        "summary": { "type": "string", "title": "Run summary", "description": "Posts per account and the newest post id seen.", "template": "{{links.apiDefaultKeyValueStoreUrl}}/records/SUMMARY" }
+    }
+}

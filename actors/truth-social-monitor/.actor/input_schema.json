@@ -1,0 +1,60 @@
+{
+    "title": "Truth Social Monitor input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "accounts": {
+            "title": "Accounts",
+            "type": "array",
+            "description": "Truth Social usernames or profile URLs, e.g. realDonaldTrump, https://truthsocial.com/@JDVance.",
+            "editor": "stringList",
+            "prefill": [
+                "realDonaldTrump"
+            ],
+            "sectionCaption": "Whose posts"
+        },
+        "maxPostsPerAccount": {
+            "title": "Max posts per account",
+            "type": "integer",
+            "description": "Newest first.",
+            "minimum": 1,
+            "maximum": 1000,
+            "default": 20
+        },
+        "onlyNew": {
+            "title": "Only posts since the last run",
+            "type": "boolean",
+            "description": "For schedules (e.g. every 5 minutes): return only posts newer than the newest one the previous run saw. State lives in your named key-value store truth-social-monitor-state.",
+            "default": false,
+            "sectionCaption": "Monitoring"
+        },
+        "keywords": {
+            "title": "Keywords to flag",
+            "type": "array",
+            "description": "Words or names to look for, e.g. Tesla, tariff, Bitcoin, Intel. Matches go in matchedKeywords.",
+            "editor": "stringList"
+        },
+        "onlyMatching": {
+            "title": "Only posts that match a keyword",
+            "type": "boolean",
+            "description": "Skip posts with no keyword match. Skipped posts are not charged.",
+            "default": false
+        },
+        "includeReplies": {
+            "title": "Include replies",
+            "type": "boolean",
+            "description": "The account's replies to other posts.",
+            "default": false,
+            "sectionCaption": "Options"
+        },
+        "includeReposts": {
+            "title": "Include reposts (ReTruths)",
+            "type": "boolean",
+            "description": "Posts the account reposted from others.",
+            "default": true
+        }
+    },
+    "required": [
+        "accounts"
+    ]
+}

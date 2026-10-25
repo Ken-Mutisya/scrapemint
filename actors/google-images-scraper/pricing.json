@@ -1,0 +1,16 @@
+{
+    "_note": "New actor, first pricing entry. Market (2026-10-25): hooli/google-images-scraper 503 monthly users at $0.0035 per image; johnvc/google-images-api 278 at $0.0001 per image. image $0.0004. Cost: one GOOGLE_SERP request ($0.0025) returns 50 images, ~$0.00005 per image; SERP spend capped at 50% of charged revenue.",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~google-images-scraper?token=APIFY_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "image": {
+                "eventTitle": "Image",
+                "eventDescription": "One Google Images result with full-size image URL, width, height, file size, thumbnail, title, source site and page URL.",
+                "eventPriceUsd": 0.0004,
+                "isPrimaryEvent": true
+            }
+        }
+    },
+    "startedAt": "2026-10-28T00:00:00.000Z"
+}

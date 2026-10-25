@@ -1,0 +1,10 @@
+{
+    "actorOutputSchemaVersion": 1,
+    "title": "Threads data",
+    "description": "Profile rows and post / reply rows.",
+    "type": "object",
+    "properties": {
+        "items": { "type": "string", "title": "Profiles and posts", "description": "type = profile, post or reply. Posts carry text, time, likes, replies, reposts, quotes, media and links.", "template": "{{links.apiDefaultDatasetUrl}}/items" },
+        "summary": { "type": "string", "title": "Run summary", "description": "Profiles, posts and replies read.", "template": "{{links.apiDefaultKeyValueStoreUrl}}/records/SUMMARY" }
+    }
+}

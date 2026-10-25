@@ -1,0 +1,13 @@
+{
+    "actorSpecification": 1,
+    "name": "google-images-scraper",
+    "title": "Google Images Scraper: Full-Size URLs, Sizes & Sources",
+    "description": "Scrape Google Images by keyword: full-size image URL, width and height, file size, thumbnail, title, source site and page URL. Filter by size, type, colour, Creative Commons licence and date.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "output": "./output_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": ["SEO_TOOLS", "AI"],
+    "readme": "../README.md"
+}

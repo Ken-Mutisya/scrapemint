@@ -1,0 +1,16 @@
+{
+    "_note": "New actor, first pricing entry. Market (2026-10-25): junglee/amazon-bestsellers 509 monthly users at $0.0059 per result; amazon-scraper/amazon-bestsellers-scraper 395 at $0.002; khadinakbar 127 at $0.005. product $0.0015 with rank-change tracking. Cost: direct requests (Amazon answers Apify IPs); list pages fall back to datacenter then US residential (~$0.0036 a page of 50) capped at 25% of charged revenue; product pages never use residential.",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~amazon-bestsellers-rank-tracker?token=APIFY_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "product": {
+                "eventTitle": "Ranked product",
+                "eventDescription": "One product on an Amazon Best Sellers or Hot New Releases list, with rank, title, price, rating, reviews, image and the rank change since your last run.",
+                "eventPriceUsd": 0.0015,
+                "isPrimaryEvent": true
+            }
+        }
+    },
+    "startedAt": "2026-10-28T00:00:00.000Z"
+}

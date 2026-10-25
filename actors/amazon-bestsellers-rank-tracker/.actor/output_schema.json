@@ -1,0 +1,20 @@
+{
+    "actorOutputSchemaVersion": 1,
+    "title": "Amazon ranked products",
+    "description": "One row per product per list.",
+    "type": "object",
+    "properties": {
+        "products": {
+            "type": "string",
+            "title": "Ranked products",
+            "description": "List, category, rank, ASIN, title, price, rating, reviews, image and rank change since the last run.",
+            "template": "{{links.apiDefaultDatasetUrl}}/items"
+        },
+        "summary": {
+            "type": "string",
+            "title": "Run summary",
+            "description": "Products per list, and products that dropped out since the last run.",
+            "template": "{{links.apiDefaultKeyValueStoreUrl}}/records/SUMMARY"
+        }
+    }
+}

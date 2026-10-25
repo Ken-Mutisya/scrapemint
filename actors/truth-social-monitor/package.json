@@ -1,0 +1,10 @@
+{
+    "name": "truth-social-monitor",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Truth Social posts from any public account with likes, reposts, replies, media and links, flagged for keywords, $cashtags and market topics; incremental polling for schedules.",
+    "main": "src/main.js",
+    "scripts": { "start": "node src/main.js" },
+    "dependencies": { "apify": "^3.7.0", "got-scraping": "^4.1.1" },
+    "engines": { "node": ">=20" }
+}

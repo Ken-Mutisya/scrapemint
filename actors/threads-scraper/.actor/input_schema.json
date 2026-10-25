@@ -1,0 +1,42 @@
+{
+    "title": "Threads Scraper input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "usernames": {
+            "title": "Profiles",
+            "type": "array",
+            "description": "Threads usernames or profile URLs, e.g. zuck, @mosseri, https://www.threads.com/@nasa.",
+            "editor": "stringList",
+            "prefill": ["zuck", "mosseri"],
+            "sectionCaption": "What"
+        },
+        "postUrls": {
+            "title": "Post URLs",
+            "type": "array",
+            "description": "Threads post URLs to read with their replies, e.g. https://www.threads.com/@zuck/post/DeZtp-TkQHh.",
+            "editor": "stringList"
+        },
+        "includeProfile": {
+            "title": "Include profile rows",
+            "type": "boolean",
+            "description": "One row per profile with bio, followers, verified badge, bio links and picture.",
+            "default": true,
+            "sectionCaption": "Options"
+        },
+        "maxPostsPerProfile": {
+            "title": "Max posts per profile",
+            "type": "integer",
+            "description": "Logged-out Threads shows a profile's latest ~10-20 posts.",
+            "minimum": 1,
+            "maximum": 50,
+            "default": 20
+        },
+        "includeReplies": {
+            "title": "Include replies",
+            "type": "boolean",
+            "description": "Replies under post URLs, and the profile's own replies.",
+            "default": true
+        }
+    }
+}

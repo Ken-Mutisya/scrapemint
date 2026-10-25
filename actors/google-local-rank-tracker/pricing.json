@@ -1,0 +1,16 @@
+{
+    "_note": "New actor, first pricing entry. Market (2026-10-25): crashlattice57/geo-grid-rank-tracker 34 monthly users at $0.02 per grid point; fayoussef/geo-grid-local-rank-tracker 17 at $0.004 per item; johnvc/google-local-api 30. results_page $0.008 per keyword x location per 20 results read. Cost: one GOOGLE_SERP request ($0.0025) per 20 results; SERP spend capped at 60% of charged revenue.",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~google-local-rank-tracker?token=APIFY_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "results_page": {
+                "eventTitle": "Local results checked (per 20)",
+                "eventDescription": "One keyword x location check of Google's local results, per 20 businesses read: your rank, map pack yes/no, rank change and the competitors' rating, reviews, category, address, phone and hours.",
+                "eventPriceUsd": 0.008,
+                "isPrimaryEvent": true
+            }
+        }
+    },
+    "startedAt": "2026-10-28T00:00:00.000Z"
+}
