@@ -19,7 +19,7 @@ flowchart LR
 
 <!-- CATALOG:START -->
 
-There are **290** actors live right now, and a new one ships every few days.
+There are **295** actors live right now, and a new one ships every few days.
 
 ### Lead generation
 
@@ -29,6 +29,7 @@ There are **290** actors live right now, and a new one ships every few days.
 - [Apple App Store Developer Leads](https://apify.com/scrapemint/apple-app-developer-leads)
 - [WordPress Plugin & Theme Developer Leads](https://apify.com/scrapemint/wordpress-plugin-developer-leads)
 - [Shopify App Store Developer Leads](https://apify.com/scrapemint/shopify-app-developer-leads)
+- [Amazon Seller Leads: Business Name, Address & Ratings](https://apify.com/scrapemint/amazon-seller-leads)
 - [Chrome Extension Developer Leads: Publisher Contacts](https://apify.com/scrapemint/chrome-extension-developer-leads)
 - [VS Code Extension Developer Leads: Publisher Contacts](https://apify.com/scrapemint/vscode-extension-developer-leads)
 - [Steam Game Studio Lead Scraper](https://apify.com/scrapemint/steam-game-studio-leads)
@@ -195,6 +196,7 @@ There are **290** actors live right now, and a new one ships every few days.
 - [LinkedIn Hiring Tracker & Salary Intelligence](https://apify.com/scrapemint/linkedin-jobs-scraper)
 - [LinkedIn Job Market Trend Intelligence](https://apify.com/scrapemint/linkedin-job-market-trend-scraper)
 - [Indeed Hiring Tracker Pro: Salaries and Company Intel](https://apify.com/scrapemint/indeed-jobs-scraper)
+- [Google Jobs Scraper: Salaries, Apply Links, Full Descriptions](https://apify.com/scrapemint/google-jobs-scraper)
 - [Dice Jobs Scraper: Tech Jobs, Salary & Skills](https://apify.com/scrapemint/dice-jobs-scraper)
 - [Welcome to the Jungle Jobs Scraper (WTTJ)](https://apify.com/scrapemint/welcome-to-the-jungle-jobs-scraper)
 - [XING Jobs Scraper: Salaries & Full Descriptions](https://apify.com/scrapemint/xing-jobs-scraper)
@@ -316,6 +318,8 @@ There are **290** actors live right now, and a new one ships every few days.
 - [AutoScout24 Scraper: Cars, Prices & Dealer Phones](https://apify.com/scrapemint/autoscout24-scraper)
 - [Shopify Store Products Scraper: Full Catalog, Prices, Stock](https://apify.com/scrapemint/shopify-store-products-scraper)
 - [Shopify Price & Stock Monitor: Change Alerts Any Store](https://apify.com/scrapemint/shopify-price-monitor)
+- [Google Shopping Scraper & Price Tracker: Prices, Sellers, Deals](https://apify.com/scrapemint/google-shopping-price-tracker)
+- [Woolworths & Coles Scraper: Australian Grocery Prices](https://apify.com/scrapemint/australia-grocery-prices)
 - [App Store Top Charts Tracker: Ranks by Country & Category](https://apify.com/scrapemint/app-store-top-charts-tracker)
 - [Car Fuel Economy Scraper: MPG, EV Range & CO2 by Model](https://apify.com/scrapemint/car-fuel-economy-scraper)
 
@@ -338,6 +342,7 @@ There are **290** actors live right now, and a new one ships every few days.
 
 - [Google Trends Scraper: Interest, Regions, Rising Queries](https://apify.com/scrapemint/google-trends-scraper)
 - [Google Keyword Suggestions Scraper (Autocomplete)](https://apify.com/scrapemint/google-keyword-suggestions-scraper)
+- [Google AI Overview Tracker: Brand Mentions & Citations](https://apify.com/scrapemint/ai-overview-brand-tracker)
 - [Google Ads Transparency Scraper (No Login)](https://apify.com/scrapemint/google-ads-transparency-scraper)
 - [SEO Site Audit Scraper: On-Page Issues for Every Page](https://apify.com/scrapemint/seo-site-audit-scraper)
 - [Lighthouse & PageSpeed Bulk Auditor: Core Web Vitals](https://apify.com/scrapemint/lighthouse-pagespeed-auditor)

@@ -23,7 +23,7 @@ END = "<!-- CATALOG:END -->"
 SECTIONS = [
     ("Lead generation", [
         "saas-customer-finder", "oss-maintainer-leads", "google-play-developer-leads", "apple-app-developer-leads",
-        "wordpress-plugin-developer-leads", "shopify-app-developer-leads",
+        "wordpress-plugin-developer-leads", "shopify-app-developer-leads", "amazon-seller-leads",
         "chrome-extension-developer-leads", "vscode-extension-developer-leads",
         "steam-game-studio-leads", "twitch-streamer-leads", "podcast-host-leads",
         "yc-startup-leads", "funded-startup-lead-pipeline", "hn-hiring-company-leads",
@@ -89,7 +89,7 @@ SECTIONS = [
         "lottery-results-scraper",
     ]),
     ("Jobs & hiring", [
-        "linkedin-jobs-scraper", "linkedin-job-market-trend-scraper", "indeed-jobs-scraper",
+        "linkedin-jobs-scraper", "linkedin-job-market-trend-scraper", "indeed-jobs-scraper", "google-jobs-scraper",
         "dice-jobs-scraper", "welcome-to-the-jungle-jobs-scraper", "xing-jobs-scraper", "reed-jobs-scraper",
         "layoff-warn-tracker", "ats-jobs-search", "seek-jobs-scraper", "jobstreet-jobsdb-scraper", "workday-jobs-scraper", "company-job-openings-scraper", "remote-jobs-scraper", "startup-jobs-search",
         "h1b-salary-data",
@@ -135,7 +135,7 @@ SECTIONS = [
     ]),
     ("Ecommerce & retail", [
         "amazon-product-scraper", "flipkart-scraper", "aliexpress-scraper", "vinted-scraper", "craigslist-scraper", "kleinanzeigen-scraper", "autoscout24-scraper",
-        "shopify-store-products-scraper", "shopify-price-monitor",
+        "shopify-store-products-scraper", "shopify-price-monitor", "google-shopping-price-tracker", "australia-grocery-prices",
         "app-store-top-charts-tracker", "car-fuel-economy-scraper",
     ]),
     ("Developer & security tools", [
@@ -145,7 +145,7 @@ SECTIONS = [
         "ransomware-victims-tracker", "internet-infrastructure-data", "internet-outage-alerts",
     ]),
     ("SEO & marketing", [
-        "google-trends-scraper", "google-keyword-suggestions-scraper",
+        "google-trends-scraper", "google-keyword-suggestions-scraper", "ai-overview-brand-tracker",
         "google-ads-transparency-scraper", "seo-site-audit-scraper", "lighthouse-pagespeed-auditor", "sitemap-change-monitor",
         "saas-outage-monitor", "website-change-monitor", "website-tech-stack-detector", "website-screenshot-generator", "company-logo-scraper",
         "journalist-request-finder",
