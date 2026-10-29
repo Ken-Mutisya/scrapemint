@@ -1,0 +1,14 @@
+{
+    "actorSpecification": 1,
+    "name": "newly-registered-domain-leads",
+    "title": "Newly Registered Domain Leads: Daily New Domains by Keyword",
+    "description": "Find businesses the day they register a domain. Filter the daily list of ~70,000 newly registered domains by keyword and TLD, with DNS enrichment per match: resolving, email provider, live website and title. Leads for web, hosting and SEO services, plus brand monitoring. Keyless, no browser.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "LEAD_GENERATION",
+        "BUSINESS"
+    ]
+}

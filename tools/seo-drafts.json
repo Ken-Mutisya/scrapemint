@@ -570,8 +570,7 @@
   "seoTitle": "New LLC Registration Leads: Fresh State Filings"
  },
  "newly-registered-domain-leads": {
-  "_note": "trim of existing over-length SEO",
-  "seoDescription": "Daily newly registered domains matched to your keywords, with registrar and registration date. Reach founders the week they start building.",
+  "seoDescription": "Daily newly registered domains matched to your keywords, with DNS, email provider and live-site check. Reach founders the week they start building.",
   "seoTitle": "New Domain Registration Leads by Keyword"
  },
  "nih-grant-finder": {
@@ -1083,5 +1082,13 @@
  "threads-scraper": {
   "seoDescription": "Scrape public Threads profiles and posts without login: followers, bio, verified badge, likes, replies, reposts, quotes, media and post replies.",
   "seoTitle": "Threads Scraper: Profiles, Posts & Replies"
+ },
+ "kick-streamer-leads": {
+  "seoDescription": "Find Kick streamers by category, search or channel: business email from the bio, followers, Instagram, X, YouTube, TikTok, live viewers. No login.",
+  "seoTitle": "Kick Streamer Leads: Emails & Socials"
+ },
+ "redfin-scraper": {
+  "seoDescription": "Scrape Redfin for-sale and sold homes from any search URL or ZIP: price, sold date, beds, sq ft, $/sq ft, HOA, days on market. Tracks price drops.",
+  "seoTitle": "Redfin Scraper: For Sale & Sold Homes"
  }
 }

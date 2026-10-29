@@ -1,0 +1,77 @@
+{
+    "title": "Redfin Scraper Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "searchUrls": {
+            "title": "Redfin search URLs",
+            "type": "array",
+            "description": "Any Redfin search page: city, neighborhood, county or ZIP, with any filters you set on redfin.com, e.g. https://www.redfin.com/city/30818/TX/Austin/filter/include=sold-3mo,min-beds=3",
+            "editor": "stringList",
+            "prefill": ["https://www.redfin.com/city/30818/TX/Austin"],
+            "default": []
+        },
+        "zipCodes": {
+            "title": "US ZIP codes (optional)",
+            "type": "array",
+            "description": "Five-digit ZIP codes, e.g. 78704. Uses the listing type and filters below.",
+            "editor": "stringList",
+            "default": []
+        },
+        "listingType": {
+            "title": "Listing type (for ZIP codes)",
+            "type": "string",
+            "description": "For-sale listings, or homes sold in a time window. Search URLs keep their own setting.",
+            "editor": "select",
+            "enum": ["for_sale", "sold-1wk", "sold-1mo", "sold-3mo", "sold-6mo", "sold-1yr", "sold-2yr", "sold-3yr", "sold-5yr"],
+            "enumTitles": ["For sale", "Sold in last week", "Sold in last month", "Sold in last 3 months", "Sold in last 6 months", "Sold in last year", "Sold in last 2 years", "Sold in last 3 years", "Sold in last 5 years"],
+            "default": "for_sale"
+        },
+        "minPrice": {
+            "title": "Min price, USD (for ZIP codes)",
+            "type": "integer",
+            "description": "Optional lower price bound.",
+            "minimum": 0
+        },
+        "maxPrice": {
+            "title": "Max price, USD (for ZIP codes)",
+            "type": "integer",
+            "description": "Optional upper price bound.",
+            "minimum": 0
+        },
+        "minBeds": {
+            "title": "Min bedrooms (for ZIP codes)",
+            "type": "integer",
+            "description": "Optional.",
+            "minimum": 0,
+            "maximum": 10
+        },
+        "splitLargeSearches": {
+            "title": "Get past the 350-home cap",
+            "type": "boolean",
+            "description": "Redfin returns at most 350 homes per search. When a search hits that cap, split it into price bands and fetch each one.",
+            "default": true
+        },
+        "trackChanges": {
+            "title": "Track price changes between runs",
+            "type": "boolean",
+            "description": "Remember each home's price and status, and add previousPrice, priceChange, previousStatus and isNew to every row. Built for scheduled runs.",
+            "default": false
+        },
+        "onlyChanges": {
+            "title": "Only return new or changed homes",
+            "type": "boolean",
+            "description": "With tracking on, skip homes whose price and status have not changed since the last run. Unchanged homes are not charged.",
+            "default": false
+        },
+        "maxHomes": {
+            "title": "Max homes per run",
+            "type": "integer",
+            "description": "Cap on home rows returned. Controls total cost.",
+            "default": 500,
+            "minimum": 1,
+            "maximum": 20000
+        }
+    },
+    "required": []
+}

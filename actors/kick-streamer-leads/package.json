@@ -1,0 +1,10 @@
+{
+    "name": "kick-streamer-leads",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Find Kick streamers by category, search query, or channel and filter by follower band: one row per streamer with followers, business email from the bio, social links, verified status, language, last stream and recent viewers. For casino, gaming and creator outreach. No login, no browser. Pay per streamer.",
+    "main": "src/main.js",
+    "scripts": { "start": "node src/main.js" },
+    "dependencies": { "apify": "^3.7.0", "got-scraping": "^4.1.1" },
+    "engines": { "node": ">=20" }
+}

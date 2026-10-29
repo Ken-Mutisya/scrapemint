@@ -1,0 +1,21 @@
+{
+    "_note": "New actor, first pricing entry. Market (2026-10-29): no Kick leads actor above ~14 monthly users (zhorex/kick-scraper 8, aitooolsmax/kick-data-scraper 8); priced like our twitch-streamer-leads (13 u30, ~130 runs/user). Cost: direct requests (Kick answers Apify IPs), test run 40 rows for $0.006 compute; datacenter/residential only as capped fallback.",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~kick-streamer-leads?token=APIFY_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "streamer_contact_row": {
+                "eventTitle": "Streamer lead with business email",
+                "eventDescription": "One Kick streamer whose bio contains a business email, with followers, social links, verified status, language, live viewers and last stream. First 2 rows per run are free.",
+                "eventPriceUsd": 0.015,
+                "isPrimaryEvent": true
+            },
+            "streamer_row": {
+                "eventTitle": "Streamer row",
+                "eventDescription": "One Kick streamer with followers, bio, social links, verified status, language, live viewers and last stream, without an email in the bio. First 2 rows per run are free.",
+                "eventPriceUsd": 0.005
+            }
+        }
+    },
+    "startedAt": "2026-11-01T00:00:00.000Z"
+}

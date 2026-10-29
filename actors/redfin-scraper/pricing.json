@@ -1,0 +1,21 @@
+{
+    "_note": "New actor, first pricing entry. Market (2026-10-29): tri_angle/redfin-search 104 monthly users, scrapesage/redfin-scraper 57 at $0.004/property, epctex/redfin-scraper 42 at $0.001/item, memo23 14 at $0.002. home $0.002, unchanged_home $0.0002 (only-changes mode, pays for page fetches on quiet runs). Cost: test run 2,329 sold Austin homes over 23 pages for $0.030 total ($0.029 residential) = ~$0.000013/home.",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~redfin-scraper?token=APIFY_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "home": {
+                "eventTitle": "Home",
+                "eventDescription": "One Redfin home for sale or sold, with price, status, sold date, beds, baths, sq ft, $/sq ft, HOA, year built, days on market, coordinates and remarks.",
+                "eventPriceUsd": 0.002,
+                "isPrimaryEvent": true
+            },
+            "unchanged_home": {
+                "eventTitle": "Unchanged home check",
+                "eventDescription": "With 'Only return new or changed homes' on: one home checked whose price and status did not change since the last run, so no row is returned.",
+                "eventPriceUsd": 0.0002
+            }
+        }
+    },
+    "startedAt": "2026-11-01T00:00:00.000Z"
+}

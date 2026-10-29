@@ -1,0 +1,69 @@
+{
+    "title": "Kick Streamer Leads Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "categories": {
+            "title": "Categories",
+            "type": "array",
+            "description": "Kick category names or slugs, e.g. Slots, Poker, Just Chatting, Grand Theft Auto V, Counter-Strike 2. Returns streamers live in each right now, biggest first.",
+            "editor": "stringList",
+            "prefill": ["Poker"],
+            "default": ["Poker"]
+        },
+        "searchQueries": {
+            "title": "Search queries (optional)",
+            "type": "array",
+            "description": "Free-text channel search, e.g. casino, crypto, fitness. Also finds offline channels (up to 20 per query).",
+            "editor": "stringList",
+            "default": []
+        },
+        "channels": {
+            "title": "Specific channels (optional)",
+            "type": "array",
+            "description": "Kick channel names or URLs to look up directly, e.g. xqc or https://kick.com/xqc.",
+            "editor": "stringList",
+            "default": []
+        },
+        "languages": {
+            "title": "Stream languages (optional)",
+            "type": "array",
+            "description": "Keep only live streamers broadcasting in these languages, e.g. English, Spanish, Portuguese. Applies to category results.",
+            "editor": "stringList",
+            "default": []
+        },
+        "minFollowers": {
+            "title": "Min followers (optional)",
+            "type": "integer",
+            "description": "Only streamers with at least this many followers.",
+            "minimum": 0
+        },
+        "maxFollowers": {
+            "title": "Max followers (optional)",
+            "type": "integer",
+            "description": "Only streamers with at most this many followers. Set 1000-50000 to target smaller creators.",
+            "minimum": 0
+        },
+        "requireEmail": {
+            "title": "Only streamers with a business email",
+            "type": "boolean",
+            "description": "Skip streamers whose bio contains no email address.",
+            "default": false
+        },
+        "maxStreamers": {
+            "title": "Max streamers per run",
+            "type": "integer",
+            "description": "Cap on streamer rows returned. Controls total cost.",
+            "default": 50,
+            "minimum": 1,
+            "maximum": 1000
+        },
+        "dedupe": {
+            "title": "Skip streamers seen in previous runs",
+            "type": "boolean",
+            "description": "Remember returned streamers across runs and skip them. Turn on for scheduled prospecting.",
+            "default": false
+        }
+    },
+    "required": []
+}

@@ -1,0 +1,12 @@
+{
+    "actorSpecification": 1,
+    "name": "redfin-scraper",
+    "title": "Redfin Scraper: For Sale & Sold Homes, Price Changes",
+    "description": "Scrape Redfin homes for sale and recently sold from any Redfin search URL or ZIP code: price, status, sold date, beds, baths, sq ft, $/sq ft, HOA, year built, days on market, lat/long, remarks. Tracks price drops between runs and splits big areas past the 350-home cap.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": ["REAL_ESTATE", "LEAD_GENERATION"],
+    "readme": "../README.md"
+}

@@ -1,0 +1,10 @@
+{
+    "name": "redfin-scraper",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Redfin homes for sale and recently sold from any Redfin search URL or ZIP code: price, status, sold date, beds, baths, sq ft, $/sq ft, HOA, year built, days on market, coordinates and remarks, with price-change tracking between runs. Splits big areas past Redfin's 350-home cap.",
+    "main": "src/main.js",
+    "scripts": { "start": "node src/main.js" },
+    "dependencies": { "apify": "^3.7.0", "got-scraping": "^4.1.1" },
+    "engines": { "node": ">=20" }
+}

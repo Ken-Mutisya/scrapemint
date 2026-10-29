@@ -1,0 +1,12 @@
+{
+    "actorSpecification": 1,
+    "name": "kick-streamer-leads",
+    "title": "Kick Streamer Leads: Emails, Socials & Followers by Category",
+    "description": "Find Kick.com streamers by category (Slots, Poker, Just Chatting, GTA...), search query or channel name. One row per streamer: followers, business email from the bio, Instagram/X/YouTube/TikTok/Discord, verified badge, language, live viewers, last stream. No login.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": ["LEAD_GENERATION", "SOCIAL_MEDIA"],
+    "readme": "../README.md"
+}
