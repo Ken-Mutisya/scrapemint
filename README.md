@@ -19,7 +19,7 @@ flowchart LR
 
 <!-- CATALOG:START -->
 
-There are **295** actors live right now, and a new one ships every few days.
+There are **300** actors live right now, and a new one ships every few days.
 
 ### Lead generation
 
@@ -242,6 +242,8 @@ There are **295** actors live right now, and a new one ships every few days.
 - [Spotify Scraper: Play Counts, Monthly Listeners & Stats](https://apify.com/scrapemint/spotify-scraper)
 - [Snapchat Profile Scraper: Subscribers & Spotlight](https://apify.com/scrapemint/snapchat-profile-scraper)
 - [X (Twitter) Trends Scraper: 62 Countries, Hourly](https://apify.com/scrapemint/x-twitter-trends-scraper)
+- [Threads Scraper: Profiles, Posts, Replies & Engagement](https://apify.com/scrapemint/threads-scraper)
+- [Truth Social Scraper & Monitor: Trump Posts, Keyword Alerts](https://apify.com/scrapemint/truth-social-monitor)
 - [Podcast Charts Tracker: Apple Ranks by Country & Genre](https://apify.com/scrapemint/podcast-charts-tracker)
 - [Streaming Availability Scraper: Where to Watch by Country](https://apify.com/scrapemint/streaming-availability-scraper)
 - [TV Schedule & Shows Scraper](https://apify.com/scrapemint/tv-schedule-scraper)
@@ -320,6 +322,7 @@ There are **295** actors live right now, and a new one ships every few days.
 - [Shopify Price & Stock Monitor: Change Alerts Any Store](https://apify.com/scrapemint/shopify-price-monitor)
 - [Google Shopping Scraper & Price Tracker: Prices, Sellers, Deals](https://apify.com/scrapemint/google-shopping-price-tracker)
 - [Woolworths & Coles Scraper: Australian Grocery Prices](https://apify.com/scrapemint/australia-grocery-prices)
+- [Amazon Best Sellers Scraper & Rank Tracker: Top 100](https://apify.com/scrapemint/amazon-bestsellers-rank-tracker)
 - [App Store Top Charts Tracker: Ranks by Country & Category](https://apify.com/scrapemint/app-store-top-charts-tracker)
 - [Car Fuel Economy Scraper: MPG, EV Range & CO2 by Model](https://apify.com/scrapemint/car-fuel-economy-scraper)
 
@@ -343,6 +346,8 @@ There are **295** actors live right now, and a new one ships every few days.
 - [Google Trends Scraper: Interest, Regions, Rising Queries](https://apify.com/scrapemint/google-trends-scraper)
 - [Google Keyword Suggestions Scraper (Autocomplete)](https://apify.com/scrapemint/google-keyword-suggestions-scraper)
 - [Google AI Overview Tracker: Brand Mentions & Citations](https://apify.com/scrapemint/ai-overview-brand-tracker)
+- [Google Images Scraper: Full-Size URLs, Sizes & Sources](https://apify.com/scrapemint/google-images-scraper)
+- [Google Local Rank Tracker: Map Pack Rankings & Competitors](https://apify.com/scrapemint/google-local-rank-tracker)
 - [Google Ads Transparency Scraper (No Login)](https://apify.com/scrapemint/google-ads-transparency-scraper)
 - [SEO Site Audit Scraper: On-Page Issues for Every Page](https://apify.com/scrapemint/seo-site-audit-scraper)
 - [Lighthouse & PageSpeed Bulk Auditor: Core Web Vitals](https://apify.com/scrapemint/lighthouse-pagespeed-auditor)

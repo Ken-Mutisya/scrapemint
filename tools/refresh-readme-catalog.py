@@ -105,6 +105,7 @@ SECTIONS = [
         "substack-newsletter-intelligence", "medium-scraper", "twitch-scraper", "username-checker", "producthunt-launch-tracker", "hacker-news-scraper",
         "google-news-scraper", "global-news-media-monitor", "rss-feed-scraper",
         "wikipedia-trends-scraper", "wikipedia-article-data", "music-charts-tracker", "spotify-scraper", "snapchat-profile-scraper", "x-twitter-trends-scraper",
+        "threads-scraper", "truth-social-monitor",
         "podcast-charts-tracker", "streaming-availability-scraper", "tv-schedule-scraper",
     ]),
     ("Research, science & patents", [
@@ -135,7 +136,7 @@ SECTIONS = [
     ]),
     ("Ecommerce & retail", [
         "amazon-product-scraper", "flipkart-scraper", "aliexpress-scraper", "vinted-scraper", "craigslist-scraper", "kleinanzeigen-scraper", "autoscout24-scraper",
-        "shopify-store-products-scraper", "shopify-price-monitor", "google-shopping-price-tracker", "australia-grocery-prices",
+        "shopify-store-products-scraper", "shopify-price-monitor", "google-shopping-price-tracker", "australia-grocery-prices", "amazon-bestsellers-rank-tracker",
         "app-store-top-charts-tracker", "car-fuel-economy-scraper",
     ]),
     ("Developer & security tools", [
@@ -146,6 +147,7 @@ SECTIONS = [
     ]),
     ("SEO & marketing", [
         "google-trends-scraper", "google-keyword-suggestions-scraper", "ai-overview-brand-tracker",
+        "google-images-scraper", "google-local-rank-tracker",
         "google-ads-transparency-scraper", "seo-site-audit-scraper", "lighthouse-pagespeed-auditor", "sitemap-change-monitor",
         "saas-outage-monitor", "website-change-monitor", "website-tech-stack-detector", "website-screenshot-generator", "company-logo-scraper",
         "journalist-request-finder",
