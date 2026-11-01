@@ -25,7 +25,7 @@ SECTIONS = [
         "saas-customer-finder", "oss-maintainer-leads", "google-play-developer-leads", "apple-app-developer-leads",
         "wordpress-plugin-developer-leads", "shopify-app-developer-leads", "amazon-seller-leads",
         "chrome-extension-developer-leads", "vscode-extension-developer-leads",
-        "steam-game-studio-leads", "twitch-streamer-leads", "podcast-host-leads",
+        "steam-game-studio-leads", "twitch-streamer-leads", "kick-streamer-leads", "podcast-host-leads",
         "yc-startup-leads", "funded-startup-lead-pipeline", "hn-hiring-company-leads",
         "local-lead-pipeline", "lead-enrichment-pipeline", "hiring-velocity-pipeline",
         "buyer-intent-radar-pipeline", "reddit-lead-monitor", "hn-lead-monitor",
@@ -75,7 +75,7 @@ SECTIONS = [
     ]),
     ("Real estate & housing", [
         "zillow-home-price-scraper", "home-listings-scraper", "us-rent-home-price-index",
-        "uk-house-prices", "europe-house-prices", "fotocasa-scraper", "rightmove-scraper", "property-finder-scraper",
+        "uk-house-prices", "europe-house-prices", "fotocasa-scraper", "rightmove-scraper", "property-finder-scraper", "redfin-scraper",
         "crexi-property-scraper",
     ]),
     ("Prediction markets, sports & betting", [

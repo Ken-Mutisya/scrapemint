@@ -1,0 +1,20 @@
+{
+    "actorOutputSchemaVersion": 1,
+    "title": "Redfin homes",
+    "description": "One row per home for sale or recently sold, with price changes between runs.",
+    "type": "object",
+    "properties": {
+        "homes": {
+            "type": "string",
+            "title": "Homes",
+            "description": "Address, price, status, sold date, beds, baths, sq ft, $/sq ft, HOA, year built, days on market, coordinates, Redfin URL, price change flags.",
+            "template": "{{links.apiDefaultDatasetUrl}}/items"
+        },
+        "summary": {
+            "type": "string",
+            "title": "Run summary",
+            "description": "Searches run, homes found and rows written.",
+            "template": "{{links.apiDefaultKeyValueStoreUrl}}/records/SUMMARY"
+        }
+    }
+}

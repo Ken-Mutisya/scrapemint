@@ -19,7 +19,7 @@ flowchart LR
 
 <!-- CATALOG:START -->
 
-There are **300** actors live right now, and a new one ships every few days.
+There are **303** actors live right now, and a new one ships every few days.
 
 ### Lead generation
 
@@ -34,6 +34,7 @@ There are **300** actors live right now, and a new one ships every few days.
 - [VS Code Extension Developer Leads: Publisher Contacts](https://apify.com/scrapemint/vscode-extension-developer-leads)
 - [Steam Game Studio Lead Scraper](https://apify.com/scrapemint/steam-game-studio-leads)
 - [Twitch Streamer Leads Scraper: Contacts by Game & Followers](https://apify.com/scrapemint/twitch-streamer-leads)
+- [Kick Streamer Leads: Emails, Socials & Followers by Category](https://apify.com/scrapemint/kick-streamer-leads)
 - [Podcast Host Lead Scraper](https://apify.com/scrapemint/podcast-host-leads)
 - [Y Combinator Startup Lead Scraper](https://apify.com/scrapemint/yc-startup-leads)
 - [Funded Startup Lead Pipeline: Form D Plus Contacts](https://apify.com/scrapemint/funded-startup-lead-pipeline)
@@ -59,6 +60,7 @@ There are **300** actors live right now, and a new one ships every few days.
 - [Restaurant Inspection Leads: Health Violations by City](https://apify.com/scrapemint/restaurant-inspection-leads)
 - [Nonprofit Leads Scraper: IRS 990 Revenue, Assets & Contacts](https://apify.com/scrapemint/nonprofit-leads-scraper)
 - [New Business Registration Leads: Fresh LLC & Corp Filings](https://apify.com/scrapemint/new-business-registration-leads)
+- [Newly Registered Domain Leads: Daily New Domains by Keyword](https://apify.com/scrapemint/newly-registered-domain-leads)
 - [Government Contract Winner Leads: New Federal Contract Awards](https://apify.com/scrapemint/government-contract-winner-leads)
 - [Skool Community Finder: Owner Leads, Members & Prices](https://apify.com/scrapemint/skool-community-finder)
 - [Europages Scraper: European B2B Suppliers, Phones & VAT IDs](https://apify.com/scrapemint/europages-supplier-scraper)
@@ -165,6 +167,7 @@ There are **300** actors live right now, and a new one ships every few days.
 - [Fotocasa Scraper: Spain Property Listings & Prices](https://apify.com/scrapemint/fotocasa-scraper)
 - [Rightmove Scraper: UK Property for Sale & Rent](https://apify.com/scrapemint/rightmove-scraper)
 - [Property Finder Scraper: UAE, Saudi & Gulf](https://apify.com/scrapemint/property-finder-scraper)
+- [Redfin Scraper: For Sale & Sold Homes, Price Changes](https://apify.com/scrapemint/redfin-scraper)
 - [Crexi Scraper: Commercial Real Estate Listings & Brokers](https://apify.com/scrapemint/crexi-property-scraper)
 
 ### Prediction markets, sports & betting

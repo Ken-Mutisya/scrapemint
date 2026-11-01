@@ -1,0 +1,20 @@
+{
+    "actorOutputSchemaVersion": 1,
+    "title": "Kick streamers",
+    "description": "One row per Kick streamer with channel stats and contact links.",
+    "type": "object",
+    "properties": {
+        "streamers": {
+            "type": "string",
+            "title": "Streamers",
+            "description": "Channel name, URL, followers, category, viewers, bio, social links and contact details.",
+            "template": "{{links.apiDefaultDatasetUrl}}/items"
+        },
+        "summary": {
+            "type": "string",
+            "title": "Run summary",
+            "description": "Channels scanned and rows written.",
+            "template": "{{links.apiDefaultKeyValueStoreUrl}}/records/SUMMARY"
+        }
+    }
+}

@@ -1,0 +1,14 @@
+{
+    "actorOutputSchemaVersion": 1,
+    "title": "Newly registered domains",
+    "description": "One row per newly registered domain, optionally enriched with website and contact details.",
+    "type": "object",
+    "properties": {
+        "domains": {
+            "type": "string",
+            "title": "Domains",
+            "description": "Domain, TLD, registration date, keyword matches and enrichment fields (site status, title, emails, phones, socials).",
+            "template": "{{links.apiDefaultDatasetUrl}}/items"
+        }
+    }
+}
