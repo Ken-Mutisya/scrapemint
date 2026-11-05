@@ -379,7 +379,7 @@
  },
  "google-keyword-suggestions-scraper": {
   "seoDescription": "Expand any seed keyword into hundreds of real Google or YouTube autocomplete suggestions: a-z suffixes, questions and prepositions, deduped.",
-  "seoTitle": "Google Autocomplete API: Keyword Suggestion Tool"
+  "seoTitle": "Google Autocomplete Scraper: Keyword Suggestions"
  },
  "google-maps-scraper": {
   "seoDescription": "Pull Google Maps by query or URL: name, address, phone, website, rating, reviews, images and hours, with optional email and social enrichment.",
@@ -857,7 +857,7 @@
  },
  "tradingview-stock-screener-scraper": {
   "seoDescription": "Screen stocks, crypto and forex from TradingView's scanner by market cap, price, volume, sector, P/E, dividend yield, RSI and daily change.",
-  "seoTitle": "TradingView Screener API: Filter Stocks and Crypto"
+  "seoTitle": "Stock Screener API: TradingView Stocks & Crypto"
  },
  "treasury-auction-results": {
   "seoDescription": "Official US Treasury auction results: bid to cover, high rate, offering and accepted amounts, and the dealer, direct and indirect split.",
@@ -957,7 +957,7 @@
  },
  "website-history-checker": {
   "seoDescription": "Check any domain's archive history in bulk: first and last snapshot, captures per year, gaps and dark periods, with links to every era.",
-  "seoTitle": "Wayback Machine API: Domain History in Bulk"
+  "seoTitle": "Wayback Machine Checker: Domain History in Bulk"
  },
  "website-tech-stack-detector": {
   "seoDescription": "Detect what any list of sites runs: CMS, ecommerce platform, analytics, marketing tools, chat widgets, frameworks, CDN, hosting, payments.",

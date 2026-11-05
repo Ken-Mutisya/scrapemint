@@ -1,4 +1,4 @@
-# Google Keyword Suggestions Scraper (Autocomplete)
+# Google Autocomplete Scraper: Keyword Suggestions
 
 Turn one seed keyword into hundreds of real search queries people type. This Actor fans a seed out through Google (or YouTube) autocomplete with a to z suffixes, question prefixes and preposition suffixes, dedupes everything, and returns one clean row per unique suggestion. No login, no API key, no browser.
 

@@ -1,4 +1,4 @@
-# Website History Checker (Wayback Machine)
+# Wayback Machine Checker: Website History in Bulk
 
 Check the full archive history of any domain, in bulk. One summary row per site tells you when it first appeared on the web, when it was last captured, how many snapshots exist, which years are missing and the longest dark period. Optional snapshot rows give you a direct archive link to every era of the site. The data source is the Internet Archive's Wayback Machine, the same record SEO tools charge $99 a month to query. No login, no API key, no browser.
 

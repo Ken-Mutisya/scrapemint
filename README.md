@@ -111,7 +111,7 @@ There are **303** actors live right now, and a new one ships every few days.
 - [Premarket & After-Hours Stock Prices: Gaps Before the Open](https://apify.com/scrapemint/premarket-after-hours-prices)
 - [IPO Calendar Scraper](https://apify.com/scrapemint/ipo-calendar-scraper)
 - [ETF & Mutual Fund Holdings: Every Stock a Fund Owns](https://apify.com/scrapemint/fund-etf-holdings)
-- [TradingView Stock Screener Scraper (No Login)](https://apify.com/scrapemint/tradingview-stock-screener-scraper)
+- [Stock Screener: TradingView Stocks, Crypto & Forex](https://apify.com/scrapemint/tradingview-stock-screener-scraper)
 - [TradingView Ideas Intelligence Feed (No Login)](https://apify.com/scrapemint/tradingview-ideas-scraper)
 - [ASX Company Announcements and Data Tracker (Australia)](https://apify.com/scrapemint/asx-announcements-tracker)
 - [Commodity Futures Prices: Gold, Oil, Grains and Rates](https://apify.com/scrapemint/commodity-futures-settlements)
@@ -347,7 +347,7 @@ There are **303** actors live right now, and a new one ships every few days.
 ### SEO & marketing
 
 - [Google Trends Scraper: Interest, Regions, Rising Queries](https://apify.com/scrapemint/google-trends-scraper)
-- [Google Keyword Suggestions Scraper (Autocomplete)](https://apify.com/scrapemint/google-keyword-suggestions-scraper)
+- [Google Autocomplete Scraper: Keyword Suggestions](https://apify.com/scrapemint/google-keyword-suggestions-scraper)
 - [Google AI Overview Tracker: Brand Mentions & Citations](https://apify.com/scrapemint/ai-overview-brand-tracker)
 - [Google Images Scraper: Full-Size URLs, Sizes & Sources](https://apify.com/scrapemint/google-images-scraper)
 - [Google Local Rank Tracker: Map Pack Rankings & Competitors](https://apify.com/scrapemint/google-local-rank-tracker)
@@ -364,7 +364,7 @@ There are **303** actors live right now, and a new one ships every few days.
 ### Web utilities & lookups
 
 - [Website Content Scraper: Clean Markdown for AI and RAG](https://apify.com/scrapemint/website-content-scraper)
-- [Website History Checker (Wayback Machine)](https://apify.com/scrapemint/website-history-checker)
+- [Wayback Machine Checker: Website History in Bulk](https://apify.com/scrapemint/website-history-checker)
 - [Domain WHOIS & Age Checker: Bulk RDAP Registration Data](https://apify.com/scrapemint/domain-whois-checker)
 - [DNS Records Checker: Full DNS Report for Any Domain](https://apify.com/scrapemint/dns-records-checker)
 - [SSL Certificate & Subdomain Finder for Any Website](https://apify.com/scrapemint/ssl-subdomain-finder)
