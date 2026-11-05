@@ -10,13 +10,15 @@
 // technicals, analyst target, earnings date and latest headline. We accept
 // any Finviz screener URL (old screener.ashx or new path), or build one from
 // filter codes, a signal and a sort, then page through r=1,21,41,... No
-// login, no API key, no browser, no proxy.
+// login, no API key, no browser. Finviz answers 403 to Apify's own IPs, so
+// requests go through Apify datacenter proxy (a new session per retry).
 //
 // Pay per event
 // -------------
 //   stock_row ($0.003) per ticker row pushed. First 2 rows per run are free.
 
 import { Actor, log } from 'apify';
+import { ProxyAgent } from 'undici';
 
 const FREE_TIER_ROWS = 2;
 const HARD_CAP = 10000;
@@ -39,7 +41,19 @@ const {
     tickers = [],
     sortBy = '',
     maxRows = 200,
+    proxyConfiguration = { useApifyProxy: true },
 } = input;
+
+const proxyConfig = await Actor.createProxyConfiguration(proxyConfiguration ?? { useApifyProxy: true });
+const agents = new Map();
+async function dispatcherFor(session) {
+    if (!proxyConfig) return undefined;
+    const proxyUrl = await proxyConfig.newUrl(session);
+    if (!proxyUrl) return undefined;
+    if (!agents.has(proxyUrl)) agents.set(proxyUrl, new ProxyAgent(proxyUrl));
+    return agents.get(proxyUrl);
+}
+let sessionNo = 0;
 
 const asList = (v) => (Array.isArray(v) ? v : String(v || '').split(/[\n,]/))
     .map((s) => String(s || '').trim()).filter(Boolean);
@@ -81,11 +95,13 @@ async function fetchPage(firstRow) {
         const controller = new AbortController();
         const timer = setTimeout(() => controller.abort(), 30000);
         try {
+            if (attempt > 1) sessionNo++;
             const res = await fetch(url, {
                 signal: controller.signal,
+                dispatcher: await dispatcherFor(`fz${sessionNo}`),
                 headers: { 'User-Agent': UA, Accept: 'text/html,application/xhtml+xml', 'Accept-Language': 'en-US,en;q=0.9' },
             });
-            if (res.status === 429 || res.status >= 500) {
+            if (res.status === 403 || res.status === 429 || res.status >= 500) {
                 log.warning(`Finviz HTTP ${res.status} on rows ${firstRow}+; retrying.`);
                 await sleep(3000 * attempt);
                 continue;

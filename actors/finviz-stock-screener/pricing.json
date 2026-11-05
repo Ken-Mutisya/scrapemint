@@ -1,5 +1,5 @@
 {
-    "_note": "New actor, first pricing entry. Market (2026-11-05): 'finviz' u30 48 (sheshinmcfly 27 at $0.02/stock, hipersoft 4), 'stock screener' 99 (30/27). Priced under the leader, near our stock-options-scraper ($0.004). Cost: one ~300 KB page per 20 rows, no proxy.",
+    "_note": "New actor, first pricing entry. Market (2026-11-05): 'finviz' u30 48 (sheshinmcfly 27 at $0.02/stock, hipersoft 4), 'stock screener' 99 (30/27). Priced under the leader, near our stock-options-scraper ($0.004). Cost: one ~300 KB page per 20 rows via Apify datacenter proxy (Finviz 403s Apify IPs); test 45 rows = $0.0048 platform.",
     "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~finviz-stock-screener?token=APIFY_TOKEN",
     "pricingModel": "PAY_PER_EVENT",
     "pricingPerEvent": {

@@ -15,8 +15,14 @@
             "type": "string",
             "description": "Stocks or ETFs. Ignored when the URL already points to the ETF screener.",
             "editor": "select",
-            "enum": ["stocks", "etf"],
-            "enumTitles": ["Stocks", "ETFs"],
+            "enum": [
+                "stocks",
+                "etf"
+            ],
+            "enumTitles": [
+                "Stocks",
+                "ETFs"
+            ],
             "default": "stocks"
         },
         "filters": {
@@ -52,6 +58,18 @@
             "default": 200,
             "minimum": 1,
             "maximum": 10000
+        },
+        "proxyConfiguration": {
+            "title": "Proxy configuration",
+            "type": "object",
+            "description": "Finviz blocks Apify's own server IPs, so the default Apify datacenter proxy is needed. Keep the default unless you have a reason to change it.",
+            "editor": "proxy",
+            "default": {
+                "useApifyProxy": true
+            },
+            "prefill": {
+                "useApifyProxy": true
+            }
         }
     },
     "required": []
