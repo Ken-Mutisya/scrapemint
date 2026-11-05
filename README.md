@@ -19,7 +19,7 @@ flowchart LR
 
 <!-- CATALOG:START -->
 
-There are **307** actors live right now, and a new one ships every few days.
+There are **308** actors live right now, and a new one ships every few days.
 
 ### Lead generation
 
@@ -113,6 +113,7 @@ There are **307** actors live right now, and a new one ships every few days.
 - [Premarket & After-Hours Stock Prices: Gaps Before the Open](https://apify.com/scrapemint/premarket-after-hours-prices)
 - [IPO Calendar Scraper](https://apify.com/scrapemint/ipo-calendar-scraper)
 - [ETF & Mutual Fund Holdings: Every Stock a Fund Owns](https://apify.com/scrapemint/fund-etf-holdings)
+- [Finviz Stock Screener Scraper: 100+ Fields, Any Filter](https://apify.com/scrapemint/finviz-stock-screener)
 - [TradingView Stock Screener Scraper (No Login)](https://apify.com/scrapemint/tradingview-stock-screener-scraper)
 - [TradingView Ideas Intelligence Feed (No Login)](https://apify.com/scrapemint/tradingview-ideas-scraper)
 - [ASX Company Announcements and Data Tracker (Australia)](https://apify.com/scrapemint/asx-announcements-tracker)
