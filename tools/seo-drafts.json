@@ -857,7 +857,7 @@
  },
  "tradingview-stock-screener-scraper": {
   "seoDescription": "Screen stocks, crypto and forex from TradingView's scanner by market cap, price, volume, sector, P/E, dividend yield, RSI and daily change.",
-  "seoTitle": "Stock Screener API: TradingView Stocks & Crypto"
+  "seoTitle": "TradingView Screener API: Filter Stocks and Crypto"
  },
  "treasury-auction-results": {
   "seoDescription": "Official US Treasury auction results: bid to cover, high rate, offering and accepted amounts, and the dealer, direct and indirect split.",

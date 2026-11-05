@@ -19,7 +19,7 @@ flowchart LR
 
 <!-- CATALOG:START -->
 
-There are **303** actors live right now, and a new one ships every few days.
+There are **307** actors live right now, and a new one ships every few days.
 
 ### Lead generation
 
@@ -61,6 +61,8 @@ There are **303** actors live right now, and a new one ships every few days.
 - [Nonprofit Leads Scraper: IRS 990 Revenue, Assets & Contacts](https://apify.com/scrapemint/nonprofit-leads-scraper)
 - [New Business Registration Leads: Fresh LLC & Corp Filings](https://apify.com/scrapemint/new-business-registration-leads)
 - [Newly Registered Domain Leads: Daily New Domains by Keyword](https://apify.com/scrapemint/newly-registered-domain-leads)
+- [New Shopify Store Leads: Fresh Stores Daily with Emails](https://apify.com/scrapemint/new-shopify-store-leads)
+- [Company Enrichment API: Domain to Company Data](https://apify.com/scrapemint/company-enrichment)
 - [Government Contract Winner Leads: New Federal Contract Awards](https://apify.com/scrapemint/government-contract-winner-leads)
 - [Skool Community Finder: Owner Leads, Members & Prices](https://apify.com/scrapemint/skool-community-finder)
 - [Europages Scraper: European B2B Suppliers, Phones & VAT IDs](https://apify.com/scrapemint/europages-supplier-scraper)
@@ -111,7 +113,7 @@ There are **303** actors live right now, and a new one ships every few days.
 - [Premarket & After-Hours Stock Prices: Gaps Before the Open](https://apify.com/scrapemint/premarket-after-hours-prices)
 - [IPO Calendar Scraper](https://apify.com/scrapemint/ipo-calendar-scraper)
 - [ETF & Mutual Fund Holdings: Every Stock a Fund Owns](https://apify.com/scrapemint/fund-etf-holdings)
-- [Stock Screener: TradingView Stocks, Crypto & Forex](https://apify.com/scrapemint/tradingview-stock-screener-scraper)
+- [TradingView Stock Screener Scraper (No Login)](https://apify.com/scrapemint/tradingview-stock-screener-scraper)
 - [TradingView Ideas Intelligence Feed (No Login)](https://apify.com/scrapemint/tradingview-ideas-scraper)
 - [ASX Company Announcements and Data Tracker (Australia)](https://apify.com/scrapemint/asx-announcements-tracker)
 - [Commodity Futures Prices: Gold, Oil, Grains and Rates](https://apify.com/scrapemint/commodity-futures-settlements)
@@ -348,6 +350,8 @@ There are **303** actors live right now, and a new one ships every few days.
 
 - [Google Trends Scraper: Interest, Regions, Rising Queries](https://apify.com/scrapemint/google-trends-scraper)
 - [Google Autocomplete Scraper: Keyword Suggestions](https://apify.com/scrapemint/google-keyword-suggestions-scraper)
+- [Amazon Autocomplete Keyword Scraper: 20 Marketplaces](https://apify.com/scrapemint/amazon-keyword-suggestions)
+- [Bulk Domain Authority Checker: Rank, Backlinks & Age](https://apify.com/scrapemint/domain-authority-checker)
 - [Google AI Overview Tracker: Brand Mentions & Citations](https://apify.com/scrapemint/ai-overview-brand-tracker)
 - [Google Images Scraper: Full-Size URLs, Sizes & Sources](https://apify.com/scrapemint/google-images-scraper)
 - [Google Local Rank Tracker: Map Pack Rankings & Competitors](https://apify.com/scrapemint/google-local-rank-tracker)

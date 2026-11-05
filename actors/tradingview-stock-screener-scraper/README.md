@@ -1,4 +1,4 @@
-# Stock Screener: TradingView Stocks, Crypto & Forex
+# TradingView Stock Screener Scraper (No Login)
 
 Screen stocks, crypto, and forex straight from TradingView's public scanner and get one clean row per matching symbol. No login, no API key, no browser. You set the filters, the Actor returns the matches with live fundamentals and technicals.
 
