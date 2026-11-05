@@ -1,0 +1,10 @@
+{
+    "name": "domain-authority-checker",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Bulk domain authority checker: 0-100 authority score, referring subnets and IPs, Majestic, Tranco and Cisco Umbrella ranks, domain age and registrar for thousands of domains per run. Free daily data, no API key. Pay per domain.",
+    "main": "src/main.js",
+    "scripts": { "start": "node src/main.js" },
+    "dependencies": { "apify": "^3.7.0" },
+    "engines": { "node": ">=20" }
+}

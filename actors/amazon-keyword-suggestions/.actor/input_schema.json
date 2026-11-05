@@ -1,0 +1,70 @@
+{
+    "title": "Amazon Keyword Suggestions Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "keywords": {
+            "title": "Seed keywords",
+            "type": "array",
+            "description": "Product keywords to expand, e.g. yoga mat, dog bed, phone case.",
+            "editor": "stringList",
+            "prefill": ["yoga mat"]
+        },
+        "marketplaces": {
+            "title": "Marketplaces",
+            "type": "array",
+            "description": "Country codes: us, uk, de, fr, it, es, ca, jp, mx, au, br, nl, ae, sa, se, pl, tr, sg, be, eg, in. Each seed is expanded on every marketplace listed.",
+            "editor": "stringList",
+            "prefill": ["us"],
+            "default": ["us"]
+        },
+        "department": {
+            "title": "Department (search alias)",
+            "type": "string",
+            "description": "Amazon search alias. aps = All Departments. Others: stripbooks, electronics, beauty, fashion, garden, toys-and-games, sporting, pets, grocery, hpc, tools, automotive, baby-products, kitchen.",
+            "editor": "textfield",
+            "default": "aps"
+        },
+        "expandLetters": {
+            "title": "Expand with a to z",
+            "type": "boolean",
+            "description": "Query \"seed a\" ... \"seed z\". The main source of long-tail terms (26 requests per seed).",
+            "default": true
+        },
+        "expandDigits": {
+            "title": "Expand with 0 to 9",
+            "type": "boolean",
+            "description": "Query the seed followed by each digit. Good for sizes, models and pack counts.",
+            "default": false
+        },
+        "expandPrefixes": {
+            "title": "Expand with intent prefixes",
+            "type": "boolean",
+            "description": "Query best, cheap, top, small, large, kids, women, men... in front of the seed.",
+            "default": true
+        },
+        "expandSuffixes": {
+            "title": "Expand with suffixes",
+            "type": "boolean",
+            "description": "Query the seed followed by for, with, without, vs, set, pack, kit, accessories, replacement, gift.",
+            "default": true
+        },
+        "maxRowsPerKeyword": {
+            "title": "Max keywords per seed",
+            "type": "integer",
+            "description": "Cap on unique keywords per seed per marketplace.",
+            "default": 300,
+            "minimum": 1,
+            "maximum": 5000
+        },
+        "maxRows": {
+            "title": "Max keywords per run",
+            "type": "integer",
+            "description": "Cap on total keyword rows. Controls cost.",
+            "default": 3000,
+            "minimum": 1,
+            "maximum": 50000
+        }
+    },
+    "required": ["keywords"]
+}

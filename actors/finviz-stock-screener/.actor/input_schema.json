@@ -1,0 +1,58 @@
+{
+    "title": "Finviz Stock Screener Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "screenerUrl": {
+            "title": "Finviz screener URL (optional)",
+            "type": "string",
+            "description": "Paste any screen from finviz.com, e.g. https://finviz.com/screener.ashx?v=111&f=cap_large,fa_pe_u15&o=-marketcap. Filters, signal, tickers and sort are taken from it; the actor always returns every column.",
+            "editor": "textfield",
+            "prefill": "https://finviz.com/screener.ashx?v=111&f=cap_large,sh_avgvol_o1000&o=-marketcap"
+        },
+        "screenerType": {
+            "title": "Universe",
+            "type": "string",
+            "description": "Stocks or ETFs. Ignored when the URL already points to the ETF screener.",
+            "editor": "select",
+            "enum": ["stocks", "etf"],
+            "enumTitles": ["Stocks", "ETFs"],
+            "default": "stocks"
+        },
+        "filters": {
+            "title": "Filter codes (optional)",
+            "type": "array",
+            "description": "Finviz filter codes, as they appear after f= in a screener URL, e.g. cap_large, sec_technology, fa_pe_u20, sh_short_o20, ta_rsi_os30, geo_usa, idx_sp500. Added to any URL filters.",
+            "editor": "stringList",
+            "default": []
+        },
+        "signal": {
+            "title": "Signal (optional)",
+            "type": "string",
+            "description": "Finviz signal code, e.g. ta_topgainers, ta_toplosers, ta_newhigh, ta_newlow, ta_mostactive, ta_unusualvolume, ta_overbought, ta_oversold, n_majornews, n_insiderbuying, n_upgrades, n_earningsbefore.",
+            "editor": "textfield"
+        },
+        "tickers": {
+            "title": "Tickers (optional)",
+            "type": "array",
+            "description": "Look up specific tickers instead of screening, e.g. AAPL, MSFT, NVDA.",
+            "editor": "stringList",
+            "default": []
+        },
+        "sortBy": {
+            "title": "Sort (optional)",
+            "type": "string",
+            "description": "Finviz sort code (the o= parameter), e.g. -marketcap, -change, -volume, pe, -relativevolume. A leading minus sorts descending.",
+            "editor": "textfield"
+        },
+        "maxRows": {
+            "title": "Max rows",
+            "type": "integer",
+            "description": "Cap on tickers returned. Controls cost. Finviz pages hold 20 rows.",
+            "default": 200,
+            "minimum": 1,
+            "maximum": 10000
+        }
+    },
+    "required": []
+}

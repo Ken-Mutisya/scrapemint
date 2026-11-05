@@ -1,0 +1,16 @@
+{
+    "_note": "New actor, first pricing entry. Market (2026-11-05): 'domain authority' u30 153 (memo23/moz-scraper 57, blueskyscraper bulk checker 22 at ~$0.0045/domain, maximedupre 19). Cost: three free list downloads per run (~100 MB, ~30-60 s compute) plus one RDAP call per domain; no proxy.",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~domain-authority-checker?token=APIFY_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "domain_checked": {
+                "eventTitle": "Domain checked",
+                "eventDescription": "One domain with authority score, referring subnets and IPs, Majestic, Tranco and Umbrella ranks, and domain age when requested. Domains with no data at all and invalid inputs are free. The first 2 charged rows per run are free.",
+                "eventPriceUsd": 0.002,
+                "isPrimaryEvent": true
+            }
+        }
+    },
+    "startedAt": "2026-11-08T00:00:00.000Z"
+}

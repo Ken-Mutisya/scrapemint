@@ -1,0 +1,93 @@
+{
+    "title": "New Shopify Store Leads Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "daysBack": {
+            "title": "Days of new domains",
+            "type": "integer",
+            "description": "How many daily lists to scan, newest first (1 = domains registered yesterday). Each day adds roughly 1,500-2,000 new Shopify stores.",
+            "default": 1,
+            "minimum": 1,
+            "maximum": 7
+        },
+        "countries": {
+            "title": "Store countries (optional)",
+            "type": "array",
+            "description": "Keep stores whose Shopify business address is in these countries. Two-letter codes, e.g. US, GB, CA, AU, DE.",
+            "editor": "stringList",
+            "prefill": ["US"],
+            "default": []
+        },
+        "keywords": {
+            "title": "Domain keywords (optional)",
+            "type": "array",
+            "description": "Keep only domains containing one of these words, e.g. pet, coffee, skin, fitness, jewelry.",
+            "editor": "stringList",
+            "default": []
+        },
+        "tlds": {
+            "title": "TLDs (optional)",
+            "type": "array",
+            "description": "Keep only these domain endings, e.g. com, shop, store, co.uk.",
+            "editor": "stringList",
+            "default": []
+        },
+        "currencies": {
+            "title": "Store currencies (optional)",
+            "type": "array",
+            "description": "Keep stores selling in these currencies, e.g. USD, EUR, GBP.",
+            "editor": "stringList",
+            "default": []
+        },
+        "minProducts": {
+            "title": "Min published products",
+            "type": "integer",
+            "description": "Skip stores with fewer published products. 0 keeps empty new stores too.",
+            "default": 0,
+            "minimum": 0
+        },
+        "onlyLaunched": {
+            "title": "Only launched stores",
+            "type": "boolean",
+            "description": "Skip stores still behind Shopify's password page (not open to shoppers yet). Leave off to reach owners while they are still building.",
+            "default": false
+        },
+        "requireEmail": {
+            "title": "Only stores with an email",
+            "type": "boolean",
+            "description": "Skip stores where no email was found on the homepage, contact policy or contact page.",
+            "default": false
+        },
+        "platforms": {
+            "title": "Platforms",
+            "type": "array",
+            "description": "shopify (found by DNS, covers every new store), woocommerce, bigcommerce (found by fingerprinting a capped number of other new sites, see below).",
+            "editor": "stringList",
+            "default": ["shopify"]
+        },
+        "maxSitesToFingerprint": {
+            "title": "Max other sites to fingerprint",
+            "type": "integer",
+            "description": "Only used for woocommerce or bigcommerce. How many non-Shopify live domains to open and check per run. Higher finds more stores but takes longer.",
+            "default": 1500,
+            "minimum": 0,
+            "maximum": 20000
+        },
+        "maxStores": {
+            "title": "Max stores per run",
+            "type": "integer",
+            "description": "Cap on store rows. Controls cost.",
+            "default": 100,
+            "minimum": 1,
+            "maximum": 3000
+        },
+        "dedupe": {
+            "title": "Skip stores returned in earlier runs",
+            "type": "boolean",
+            "description": "Remember returned stores across runs. Turn on for a daily scheduled lead feed.",
+            "default": false
+        }
+    },
+    "required": []
+}

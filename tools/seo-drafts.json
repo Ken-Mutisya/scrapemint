@@ -1090,5 +1090,25 @@
  "redfin-scraper": {
   "seoDescription": "Scrape Redfin for-sale and sold homes from any search URL or ZIP: price, sold date, beds, sq ft, $/sq ft, HOA, days on market. Tracks price drops.",
   "seoTitle": "Redfin Scraper: For Sale & Sold Homes"
+ },
+ "amazon-keyword-suggestions": {
+  "seoTitle": "Amazon Autocomplete Keyword Scraper",
+  "seoDescription": "Get long-tail Amazon keywords from the search box autocomplete in 20 marketplaces. A-z expansion for Amazon SEO, PPC and product research. No login."
+ },
+ "company-enrichment": {
+  "seoTitle": "Company Enrichment API: Domain to Company",
+  "seoDescription": "Enrich domains or work emails with company name, logo, address, emails, phones, LinkedIn, tech stack, email provider and SaaS tools. No API key."
+ },
+ "domain-authority-checker": {
+  "seoTitle": "Bulk Domain Authority Checker",
+  "seoDescription": "Check domain authority for thousands of sites: 0-100 score, referring domains/IPs, Majestic, Tranco and Umbrella rank, domain age and registrar."
+ },
+ "new-shopify-store-leads": {
+  "seoTitle": "New Shopify Store Leads: Daily Fresh Stores",
+  "seoDescription": "Shopify stores launched in the last 1-7 days with owner email, phone, socials, country, currency and product count. Filter by country. WooCommerce too."
+ },
+ "finviz-stock-screener": {
+  "seoTitle": "Finviz Stock Screener Scraper",
+  "seoDescription": "Export any Finviz screen to JSON or CSV: ~110 fields per stock or ETF including P/E, short float, ownership, RSI, performance, target price and news."
  }
 }

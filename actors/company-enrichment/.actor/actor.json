@@ -1,0 +1,16 @@
+{
+    "actorSpecification": 1,
+    "name": "company-enrichment",
+    "title": "Company Enrichment API: Domain to Company Data",
+    "description": "Turn domains, websites or work emails into company profiles: name, description, logo, founding year, address, emails, phones, LinkedIn and socials, tech stack, email provider, SaaS tools seen in DNS (HubSpot, Salesforce...), domain age. No API key.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "output": "./output_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "LEAD_GENERATION",
+        "BUSINESS"
+    ],
+    "readme": "../README.md"
+}

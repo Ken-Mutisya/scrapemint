@@ -1,0 +1,16 @@
+{
+    "actorSpecification": 1,
+    "name": "domain-authority-checker",
+    "title": "Bulk Domain Authority Checker: Rank, Backlinks & Age",
+    "description": "Check thousands of domains in one run: 0-100 authority score, referring subnets and IPs (backlink strength), Majestic, Tranco and Cisco Umbrella top-1M ranks, daily rank change, domain age, expiry and registrar. For SEO agencies, link builders and domain investors. No API key.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "output": "./output_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "SEO_TOOLS",
+        "MARKETING"
+    ],
+    "readme": "../README.md"
+}

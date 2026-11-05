@@ -1,0 +1,20 @@
+{
+    "actorOutputSchemaVersion": 1,
+    "title": "Domain authority",
+    "description": "One row per domain with authority score, ranks and age.",
+    "type": "object",
+    "properties": {
+        "domains": {
+            "type": "string",
+            "title": "Domains",
+            "description": "Authority score and tier, referring subnets and IPs, Majestic, Tranco and Umbrella ranks, domain age and registrar.",
+            "template": "{{links.apiDefaultDatasetUrl}}/items"
+        },
+        "summary": {
+            "type": "string",
+            "title": "Run summary",
+            "description": "Domains checked, ranked and unranked, and the date of each source list.",
+            "template": "{{links.apiDefaultKeyValueStoreUrl}}/records/SUMMARY"
+        }
+    }
+}

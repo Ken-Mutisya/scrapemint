@@ -1,0 +1,16 @@
+{
+    "actorSpecification": 1,
+    "name": "new-shopify-store-leads",
+    "title": "New Shopify Store Leads: Fresh Stores Daily with Emails",
+    "description": "Find Shopify stores launched in the last 1-7 days, before anyone else contacts them. One row per store: name, city, country, currency, product count, launched or still on the password page, owner email, phone, Instagram/TikTok/Facebook. Filter by country, keyword or TLD. WooCommerce optional.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "output": "./output_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "LEAD_GENERATION",
+        "ECOMMERCE"
+    ],
+    "readme": "../README.md"
+}

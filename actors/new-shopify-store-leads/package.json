@@ -1,0 +1,10 @@
+{
+    "name": "new-shopify-store-leads",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "New Shopify store leads every day: stores whose domain was registered yesterday, with store name, city, country, currency, product count, launched or password page, owner email, phone and socials. Optional WooCommerce and BigCommerce. No login, no proxy. Pay per store.",
+    "main": "src/main.js",
+    "scripts": { "start": "node src/main.js" },
+    "dependencies": { "apify": "^3.7.0" },
+    "engines": { "node": ">=20" }
+}

@@ -1,0 +1,35 @@
+{
+    "title": "Domain Authority Checker Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "domains": {
+            "title": "Domains",
+            "type": "array",
+            "description": "Domains or URLs to check, e.g. apify.com, https://www.shopify.com/blog. Paths and www are stripped.",
+            "editor": "stringList",
+            "prefill": ["apify.com", "shopify.com", "notion.so", "ahrefs.com"]
+        },
+        "includeDomainAge": {
+            "title": "Domain age, expiry and registrar",
+            "type": "boolean",
+            "description": "Look up the registration record (RDAP) for each domain.",
+            "default": true
+        },
+        "includeWaybackFirstSeen": {
+            "title": "Wayback Machine first capture",
+            "type": "boolean",
+            "description": "Add the date the Internet Archive first saved the site. Slower: about 1-3 seconds per domain.",
+            "default": false
+        },
+        "maxRows": {
+            "title": "Max domains per run",
+            "type": "integer",
+            "description": "Cap on domains checked. Controls cost.",
+            "default": 5000,
+            "minimum": 1,
+            "maximum": 100000
+        }
+    },
+    "required": ["domains"]
+}

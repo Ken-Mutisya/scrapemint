@@ -1,0 +1,10 @@
+{
+    "name": "finviz-stock-screener",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Scrape any Finviz stock or ETF screen: paste a screener URL or give filter codes, signals and tickers, get ~110 fields per ticker (valuation, growth, margins, ownership, short interest, performance, technicals, analyst target, earnings date, latest news). No login. Pay per row.",
+    "main": "src/main.js",
+    "scripts": { "start": "node src/main.js" },
+    "dependencies": { "apify": "^3.7.0" },
+    "engines": { "node": ">=20" }
+}

@@ -1,0 +1,20 @@
+{
+    "actorOutputSchemaVersion": 1,
+    "title": "Finviz screener rows",
+    "description": "One row per ticker matched by the screen.",
+    "type": "object",
+    "properties": {
+        "stocks": {
+            "type": "string",
+            "title": "Stocks",
+            "description": "Ticker, company, sector, valuation, growth, ownership, short interest, performance, technicals and latest news.",
+            "template": "{{links.apiDefaultDatasetUrl}}/items"
+        },
+        "summary": {
+            "type": "string",
+            "title": "Run summary",
+            "description": "The screen URL, total matched and rows returned.",
+            "template": "{{links.apiDefaultKeyValueStoreUrl}}/records/SUMMARY"
+        }
+    }
+}

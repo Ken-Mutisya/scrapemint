@@ -1,0 +1,10 @@
+{
+    "name": "company-enrichment",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Company enrichment from a domain, website or work email: company name, description, logo, founding year, address, emails, phones, LinkedIn and socials, tech stack, email provider, SaaS tools from DNS, domain age and registrar. No API key. Pay per company.",
+    "main": "src/main.js",
+    "scripts": { "start": "node src/main.js" },
+    "dependencies": { "apify": "^3.7.0", "cheerio": "^1.0.0" },
+    "engines": { "node": ">=20" }
+}

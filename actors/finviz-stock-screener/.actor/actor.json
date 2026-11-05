@@ -1,0 +1,16 @@
+{
+    "actorSpecification": 1,
+    "name": "finviz-stock-screener",
+    "title": "Finviz Stock Screener Scraper: 100+ Fields, Any Filter",
+    "description": "Paste any Finviz screener URL or pick filters and signals (top gainers, new highs, unusual volume). Get one row per stock or ETF with ~110 fields: P/E, EPS growth, margins, short float, ownership, RSI, SMAs, performance, target price, earnings date, latest news. No login.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "output": "./output_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "BUSINESS",
+        "AUTOMATION"
+    ],
+    "readme": "../README.md"
+}

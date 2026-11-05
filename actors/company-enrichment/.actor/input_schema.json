@@ -1,0 +1,49 @@
+{
+    "title": "Company Enrichment Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "domains": {
+            "title": "Domains, websites or work emails",
+            "type": "array",
+            "description": "One per line, e.g. stripe.com, https://www.notion.so/product, jane@acme.com. Paths, www and the part before @ are stripped.",
+            "editor": "stringList",
+            "prefill": ["apify.com", "basecamp.com", "allbirds.com"]
+        },
+        "maxPagesPerSite": {
+            "title": "Max pages per site",
+            "type": "integer",
+            "description": "Homepage plus about, contact, impressum and team pages found on it. More pages find more emails and phones but take longer.",
+            "default": 4,
+            "minimum": 1,
+            "maximum": 8
+        },
+        "includeTechStack": {
+            "title": "Tech stack",
+            "type": "boolean",
+            "description": "Detect CMS, ecommerce platform, analytics, marketing, payments and hosting from the homepage.",
+            "default": true
+        },
+        "includeDnsInsights": {
+            "title": "DNS insights",
+            "type": "boolean",
+            "description": "Email provider from MX, SaaS tools from SPF and verification TXT records, DMARC policy.",
+            "default": true
+        },
+        "includeDomainAge": {
+            "title": "Domain age and registrar",
+            "type": "boolean",
+            "description": "Registration date, expiry and registrar from RDAP.",
+            "default": true
+        },
+        "maxRows": {
+            "title": "Max companies per run",
+            "type": "integer",
+            "description": "Cap on domains enriched. Controls cost.",
+            "default": 1000,
+            "minimum": 1,
+            "maximum": 10000
+        }
+    },
+    "required": ["domains"]
+}

@@ -1,0 +1,16 @@
+{
+    "actorSpecification": 1,
+    "name": "amazon-keyword-suggestions",
+    "title": "Amazon Autocomplete Keyword Scraper: 20 Marketplaces",
+    "description": "Turn seed keywords into hundreds of long-tail Amazon search terms from the Amazon search box itself. A-z, digit, intent and preposition expansion across US, UK, DE, FR, IT, ES, CA, JP, MX, AU and 10 more marketplaces. For Amazon SEO, PPC and product research. No login.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "output": "./output_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "ECOMMERCE",
+        "SEO_TOOLS"
+    ],
+    "readme": "../README.md"
+}

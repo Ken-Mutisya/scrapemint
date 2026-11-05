@@ -1,0 +1,20 @@
+{
+    "actorOutputSchemaVersion": 1,
+    "title": "Amazon keyword suggestions",
+    "description": "One row per unique Amazon autocomplete keyword.",
+    "type": "object",
+    "properties": {
+        "keywords": {
+            "type": "string",
+            "title": "Keywords",
+            "description": "Keyword, seed, marketplace, modifier, position and Amazon search URL.",
+            "template": "{{links.apiDefaultDatasetUrl}}/items"
+        },
+        "summary": {
+            "type": "string",
+            "title": "Run summary",
+            "description": "Requests made and keywords per seed.",
+            "template": "{{links.apiDefaultKeyValueStoreUrl}}/records/SUMMARY"
+        }
+    }
+}

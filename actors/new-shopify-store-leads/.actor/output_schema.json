@@ -1,0 +1,20 @@
+{
+    "actorOutputSchemaVersion": 1,
+    "title": "New store leads",
+    "description": "One row per newly launched ecommerce store.",
+    "type": "object",
+    "properties": {
+        "stores": {
+            "type": "string",
+            "title": "Stores",
+            "description": "Domain, store name, location, currency, product count, launch status, emails, phones, socials and email provider.",
+            "template": "{{links.apiDefaultDatasetUrl}}/items"
+        },
+        "summary": {
+            "type": "string",
+            "title": "Run summary",
+            "description": "Domains scanned, stores detected and rows written.",
+            "template": "{{links.apiDefaultKeyValueStoreUrl}}/records/SUMMARY"
+        }
+    }
+}

@@ -1,0 +1,10 @@
+{
+    "name": "amazon-keyword-suggestions",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Amazon autocomplete keyword scraper for 20 marketplaces: expand seed keywords with a-z, digits, intent prefixes and suffixes into long-tail Amazon search terms in Amazon's own order. No login, no API key. Pay per keyword.",
+    "main": "src/main.js",
+    "scripts": { "start": "node src/main.js" },
+    "dependencies": { "apify": "^3.7.0" },
+    "engines": { "node": ">=20" }
+}
