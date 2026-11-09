@@ -25,6 +25,7 @@
 //   chargeable rows per run are free.
 
 import { Actor, log } from 'apify';
+import { installResume } from './resume.js';
 
 const XML_BASE = 'https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml';
 const FISCAL_BASE = 'https://api.fiscaldata.treasury.gov/services/api/fiscal_service';
@@ -42,6 +43,7 @@ const pastDeadline = () => deadlineMs && Date.now() > deadlineMs;
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
 await Actor.init();
+await installResume(Actor);
 
 const input = (await Actor.getInput()) ?? {};
 const { dataset = 'yield_curve', sinceDays = 90, newOnly = false, maxRows = 250 } = input;

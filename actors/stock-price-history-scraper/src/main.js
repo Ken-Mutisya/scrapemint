@@ -9,6 +9,7 @@
 // Free tier: first 1 row per run is free, then each price row is charged.
 
 import { Actor, log } from 'apify';
+import { installResume } from './resume.js';
 
 const FREE_TIER_ROWS = 1;
 const NASDAQ = 'https://api.nasdaq.com/api';
@@ -20,6 +21,7 @@ const HEADERS = {
 const POLITE_SLEEP_MS = 200;
 
 await Actor.init();
+await installResume(Actor);
 
 const input = (await Actor.getInput()) ?? {};
 const {

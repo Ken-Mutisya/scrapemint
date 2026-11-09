@@ -42,6 +42,7 @@
 //   liquidation_row ($0.003) charged per row pushed. First 2 rows per run free.
 
 import { Actor, log } from 'apify';
+import { installResume } from './resume.js';
 
 const FREE_TIER_ROWS = 0;
 const HARD_CAP = 5000;
@@ -51,6 +52,7 @@ const timeoutAtMs = process.env.ACTOR_TIMEOUT_AT ? Date.parse(process.env.ACTOR_
 const deadlineMs = timeoutAtMs ? timeoutAtMs - 45000 : null;
 
 await Actor.init();
+await installResume(Actor);
 
 const input = (await Actor.getInput()) ?? {};
 const {

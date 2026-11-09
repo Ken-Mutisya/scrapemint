@@ -17,6 +17,7 @@
 //   First 2 rows per run are free so buyers can validate output.
 
 import { Actor, log } from 'apify';
+import { installResume } from './resume.js';
 
 const FREE_TIER_ROWS = 2;
 const HARD_CAP = 2000;
@@ -24,6 +25,7 @@ const UA = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (
 const ALL_SOURCES = ['remoteok', 'remotive', 'weworkremotely', 'himalayas'];
 
 await Actor.init();
+await installResume(Actor);
 
 const input = (await Actor.getInput()) ?? {};
 const {

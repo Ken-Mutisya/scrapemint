@@ -16,6 +16,7 @@
 //   free so buyers can validate output.
 
 import { Actor, log } from 'apify';
+import { installResume } from './resume.js';
 import * as cheerio from 'cheerio';
 
 const FREE_TIER_ROWS = 2;
@@ -33,6 +34,7 @@ const NON_HTML_EXT = /\.(pdf|zip|gz|tar|png|jpe?g|gif|svg|webp|ico|mp4|mp3|webm|
 const TRACKING_PARAMS = /^(utm_|fbclid|gclid|mc_cid|mc_eid|ref$)/;
 
 await Actor.init();
+await installResume(Actor);
 
 const input = (await Actor.getInput()) ?? {};
 const {

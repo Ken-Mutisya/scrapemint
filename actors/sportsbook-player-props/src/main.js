@@ -25,6 +25,7 @@
 //   Note rows are never charged.
 
 import { Actor, log } from 'apify';
+import { installResume } from './resume.js';
 import { num, metric } from './numeric-helpers.js';
 import { PINNACLE_LEAGUES, PINNACLE_HOST, americanToDecimal } from './pinnacle-book.js';
 
@@ -45,6 +46,7 @@ const deadlineMs = timeoutAtMs ? timeoutAtMs - 30000 : null;
 const pastDeadline = () => deadlineMs !== null && Date.now() > deadlineMs;
 
 await Actor.init();
+await installResume(Actor);
 
 const input = (await Actor.getInput()) ?? {};
 const {

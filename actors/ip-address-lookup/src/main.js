@@ -17,6 +17,7 @@
 //   are free.
 
 import { Actor, log } from 'apify';
+import { installResume } from './resume.js';
 
 const BATCH_URL = 'http://ip-api.com/batch';
 const FIELDS = 'status,message,query,country,countryCode,region,regionName,city,zip,lat,lon,timezone,isp,org,as,asname,mobile,proxy,hosting';
@@ -31,6 +32,7 @@ const pastDeadline = () => deadlineMs && Date.now() > deadlineMs;
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
 await Actor.init();
+await installResume(Actor);
 
 const input = (await Actor.getInput()) ?? {};
 const { ips = [], maxRows = 1000 } = input;

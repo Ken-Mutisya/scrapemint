@@ -22,6 +22,7 @@
 //   First 2 chargeable rows per run are free.
 
 import { Actor, log } from 'apify';
+import { installResume } from './resume.js';
 
 const FREE_TIER_ROWS = 2;
 const FETCH_TIMEOUT_MS = 20000;
@@ -35,6 +36,7 @@ const pastDeadline = () => deadlineMs && Date.now() > deadlineMs;
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
 await Actor.init();
+await installResume(Actor);
 
 const input = (await Actor.getInput()) ?? {};
 const { domains = [], verifyLogo = true, includeAllIcons = true, maxRows = 1000 } = input;

@@ -36,6 +36,7 @@
 //   earnings_row ($0.005) charged per row pushed. First 2 rows per run free.
 
 import { Actor, log } from 'apify';
+import { installResume } from './resume.js';
 
 const FREE_TIER_ROWS = 2;
 const HARD_CAP = 2000;
@@ -47,6 +48,7 @@ const timeoutAtMs = process.env.ACTOR_TIMEOUT_AT ? Date.parse(process.env.ACTOR_
 const deadlineMs = timeoutAtMs ? timeoutAtMs - 60000 : null;
 
 await Actor.init();
+await installResume(Actor);
 
 const input = (await Actor.getInput()) ?? {};
 const {

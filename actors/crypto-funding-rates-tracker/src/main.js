@@ -39,6 +39,7 @@
 //   per run are free.
 
 import { Actor, log } from 'apify';
+import { installResume } from './resume.js';
 
 const FREE_TIER_ROWS = 2;
 const FETCH_TIMEOUT_MS = 45000;
@@ -48,6 +49,7 @@ const deadlineMs = timeoutAtMs ? timeoutAtMs - 30000 : null;
 const pastDeadline = () => deadlineMs && Date.now() > deadlineMs;
 
 await Actor.init();
+await installResume(Actor);
 
 const input = (await Actor.getInput()) ?? {};
 const {

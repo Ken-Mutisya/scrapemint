@@ -18,6 +18,7 @@
 //   are free note rows. First 2 chargeable rows per run are free.
 
 import { Actor, log } from 'apify';
+import { installResume } from './resume.js';
 
 const SEARCH_URL = 'https://openlibrary.org/search.json';
 const FIELDS = 'key,title,author_name,first_publish_year,number_of_pages_median,publisher,subject,language,edition_count,ratings_average,ratings_count,cover_i,isbn';
@@ -33,6 +34,7 @@ const pastDeadline = () => deadlineMs && Date.now() > deadlineMs;
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
 await Actor.init();
+await installResume(Actor);
 
 const input = (await Actor.getInput()) ?? {};
 const { isbns = [], queries = [], maxResultsPerQuery = 1, maxRows = 1000 } = input;

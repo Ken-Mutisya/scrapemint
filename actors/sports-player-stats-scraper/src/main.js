@@ -23,6 +23,7 @@
 //   are free note rows. First 2 chargeable rows per run are free.
 
 import { Actor, log } from 'apify';
+import { installResume } from './resume.js';
 
 const SITE = 'https://site.api.espn.com/apis/site/v2/sports';
 const WEB = 'https://site.web.api.espn.com/apis';
@@ -57,6 +58,7 @@ const pastDeadline = () => deadlineMs && Date.now() > deadlineMs;
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
 await Actor.init();
+await installResume(Actor);
 
 const input = (await Actor.getInput()) ?? {};
 const {
