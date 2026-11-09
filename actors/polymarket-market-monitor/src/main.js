@@ -14,6 +14,7 @@
 // Free tier: first 2 items per run are free. Charge per item after.
 
 import { Actor, log } from 'apify';
+import { installResume } from './resume.js';
 
 const FREE_TIER_ITEMS = 0;
 const RATE_SLEEP_MS = 200;
@@ -38,6 +39,7 @@ const CATEGORY_TO_TAG_ID = {
 };
 
 await Actor.init();
+await installResume(Actor);
 const __chargeJobs = [];
 
 const input = (await Actor.getInput()) ?? {};

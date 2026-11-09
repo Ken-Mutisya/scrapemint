@@ -13,6 +13,7 @@
 // Free tier: first 2 items per run are free. After that charge per item.
 
 import { Actor, log } from 'apify';
+import { installResume } from './resume.js';
 
 const FREE_TIER_ITEMS = 0;
 const FIREBASE = 'https://hacker-news.firebaseio.com/v0';
@@ -28,6 +29,7 @@ const FEED_ENDPOINTS = {
 };
 
 await Actor.init();
+await installResume(Actor);
 const __chargeJobs = [];
 
 const input = (await Actor.getInput()) ?? {};

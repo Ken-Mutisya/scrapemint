@@ -21,6 +21,7 @@
 //   Every row is charged; there is no per-run free allowance.
 
 import { Actor, log } from 'apify';
+import { installResume } from './resume.js';
 
 const FREE_TIER_ROWS = 0;
 const HARD_CAP = 50000;
@@ -31,6 +32,7 @@ const timeoutAtMs = process.env.ACTOR_TIMEOUT_AT ? Date.parse(process.env.ACTOR_
 const deadlineMs = timeoutAtMs ? timeoutAtMs - 30000 : null;
 
 await Actor.init();
+await installResume(Actor);
 
 const input = (await Actor.getInput()) ?? {};
 const {

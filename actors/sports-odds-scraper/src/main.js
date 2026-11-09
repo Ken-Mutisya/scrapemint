@@ -33,6 +33,7 @@
 //   free. Events without odds are skipped, never charged.
 
 import { Actor, log } from 'apify';
+import { installResume } from './resume.js';
 import { fetchPinnacleLeague } from './pinnacle-book.js';
 
 // The actor addresses leagues by ESPN path; Pinnacle is keyed on the Bovada
@@ -100,6 +101,7 @@ const pastDeadline = () => deadlineMs && Date.now() > deadlineMs;
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
 await Actor.init();
+await installResume(Actor);
 const __chargeJobs = [];
 
 const input = (await Actor.getInput()) ?? {};

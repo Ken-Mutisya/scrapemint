@@ -31,6 +31,7 @@
 //   odds_movement per moved line. First 1 per run is free.
 
 import { Actor, log } from 'apify';
+import { installResume } from './resume.js';
 import { fetchPinnacleLeague } from './pinnacle-book.js';
 
 const FREE_TIER_ITEMS = 1;
@@ -58,6 +59,7 @@ const pastDeadline = () => deadlineMs && Date.now() > deadlineMs;
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
 await Actor.init();
+await installResume(Actor);
 const __chargeJobs = [];
 
 const input = (await Actor.getInput()) ?? {};

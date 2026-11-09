@@ -14,6 +14,7 @@
 // Free tier: no free allowance; every filing is charged.
 
 import { Actor, log } from 'apify';
+import { installResume } from './resume.js';
 
 const FREE_TIER_ITEMS = 0;
 const EDGAR_RATE_SLEEP_MS = 120;
@@ -69,6 +70,7 @@ const CATEGORY_TO_ITEMS = {
 };
 
 await Actor.init();
+await installResume(Actor);
 const __chargeJobs = [];
 
 const input = (await Actor.getInput()) ?? {};
