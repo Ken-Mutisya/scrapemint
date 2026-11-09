@@ -95,11 +95,31 @@ for (const r of results) {
 // Newest first across all states.
 all.sort((a, b) => String(b.n.receivedDate || b.n.noticeDate).localeCompare(String(a.n.receivedDate || a.n.noticeDate)));
 
-let pushed = 0;
-let charged = 0;
-let major = 0;
-const returned = [];
+// Apify can move a run to another server, which restarts this script from the
+// top. Progress lives in the run's own store so a restart resumes instead of
+// pushing and charging the same notices again.
+const PROGRESS_KEY = 'PROGRESS';
+const progress = (await Actor.getValue(PROGRESS_KEY)) || {};
+let pushed = progress.pushed || 0;
+let charged = progress.charged || 0;
+let major = progress.major || 0;
+const returned = progress.returned || [];
+const alreadyDone = new Set(returned);
+if (alreadyDone.size) log.info(`Resuming after a restart: ${alreadyDone.size} notice(s) already returned.`);
+const saveProgress = () => Actor.setValue(PROGRESS_KEY, { pushed, charged, major, returned });
+let migrating = false;
+Actor.on('migrating', () => { migrating = true; });
+Actor.on('persistState', saveProgress);
+
 for (const { key, state, n } of all) {
+    if (alreadyDone.has(key)) continue;
+    if (migrating) {
+        // Checked between rows, so the saved position is exact. The platform
+        // stops this container shortly; carry on only if it does not.
+        await saveProgress();
+        await new Promise((resolve) => { setTimeout(resolve, 120000); });
+        migrating = false;
+    }
     if (pushed >= cap) break;
     const isMajor = (n.employees ?? 0) >= MAJOR_WORKERS || n.type === 'Closure';
     const reasons = [];
@@ -138,6 +158,7 @@ for (const { key, state, n } of all) {
     } catch (err) {
         log.warning(`charge failed (continuing): ${err?.message}`);
     }
+    if (returned.length % 25 === 0) await saveProgress();
 }
 
 // Only notices actually returned are remembered, so any cut off by maxNotices
