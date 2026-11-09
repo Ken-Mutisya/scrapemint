@@ -21,7 +21,7 @@ One row per notice:
 | Field | Example |
 |---|---|
 | `company` | `Covenant Aviation Security, LLC` |
-| `state`, `city`, `county`, `address` | `CA`, `San Francisco`, `San Francisco`, street address where published |
+| `state`, `city`, `county`, `address` | `CA`, `San Francisco`, `San Francisco`, street address where published. `city` is empty when it can't be read reliably from the address |
 | `employeesAffected` | `1279` |
 | `noticeType`, `permanent` | `Layoff` / `Closure` / `Relocation`, `true` / `false` |
 | `noticeDate`, `receivedDate` | the date on the notice, and when the state received it |

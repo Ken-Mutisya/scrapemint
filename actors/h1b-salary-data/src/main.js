@@ -18,6 +18,10 @@ const HEADERS = {
 };
 const REQ_SLEEP_MS = 400; // one small site, stay polite
 const MAX_YEAR_LOOKBACK = 6;
+// A median filing is near $136k. Figures outside this range are almost always
+// entry errors, such as $284,362.00 published as 28,436,200.
+const MIN_PLAUSIBLE_SALARY = 20_000;
+const MAX_PLAUSIBLE_SALARY = 2_000_000;
 
 await Actor.init();
 
@@ -149,6 +153,7 @@ function parseTable(html, year, sourceUrl) {
             // number: a salary of 0 would read as a real filed wage.
             baseSalary: parseSalary(salary),
             baseSalaryRaw: salary || null,
+            salarySuspect: isSuspectSalary(parseSalary(salary)),
             location: location || null,
             city: cityName,
             state,
@@ -210,7 +215,8 @@ async function resolveYears() {
 // ---------- output ----------
 
 function buildSummary(rows) {
-    const salaries = rows.map((r) => r.baseSalary).filter((v) => typeof v === 'number' && Number.isFinite(v));
+    const parsed = rows.map((r) => r.baseSalary).filter((v) => typeof v === 'number' && Number.isFinite(v));
+    const salaries = parsed.filter((v) => !isSuspectSalary(v));
     salaries.sort((a, b) => a - b);
     // Every statistic stays null when nothing parsed, so an empty sample cannot
     // publish as a confident zero.
@@ -223,7 +229,8 @@ function buildSummary(rows) {
         years: yearList,
         filingsMatched: rows.length,
         salaryRowsReturned: Math.min(rows.length, rowCap),
-        salariesParsed: salaries.length,
+        salariesParsed: parsed.length,
+        salariesExcludedAsSuspect: parsed.length - salaries.length,
         minSalary: has ? salaries[0] : null,
         p25Salary: percentile(salaries, 0.25),
         medianSalary: percentile(salaries, 0.5),
@@ -296,11 +303,16 @@ function toIso(s) {
     return `${m[3]}-${m[1]}-${m[2]}`;
 }
 
-// Highest salary first, with unparseable wages always sinking to the bottom
+function isSuspectSalary(v) {
+    return typeof v === 'number' && (v < MIN_PLAUSIBLE_SALARY || v > MAX_PLAUSIBLE_SALARY);
+}
+
+// Highest salary first, with unparseable or suspect wages always sinking to the bottom
 // rather than riding the sort direction to the top.
 function salaryDesc(a, b) {
-    const av = typeof a.baseSalary === 'number' && Number.isFinite(a.baseSalary) ? a.baseSalary : null;
-    const bv = typeof b.baseSalary === 'number' && Number.isFinite(b.baseSalary) ? b.baseSalary : null;
+    const usable = (r) => (typeof r.baseSalary === 'number' && Number.isFinite(r.baseSalary) && !r.salarySuspect ? r.baseSalary : null);
+    const av = usable(a);
+    const bv = usable(b);
     if (av === null && bv === null) return 0;
     if (av === null) return 1;
     if (bv === null) return -1;

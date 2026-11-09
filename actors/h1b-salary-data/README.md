@@ -2,7 +2,7 @@
 
 Real base salaries that US employers filed with the Department of Labor to sponsor H-1B workers. Search by company, job title or city and get the actual pay figures, plus the median and percentiles for whatever you searched.
 
-These are not self reported estimates. Every number here comes from a Labor Condition Application the employer signed, so the figures are exact and legally attested.
+These are not self reported estimates. The figures come from Labor Condition Applications employers filed, collected through the public [h1bdata.info](https://h1bdata.info) search. This actor doesn't read the Department of Labor's files directly.
 
 No login, no API key, no proxy.
 
@@ -16,6 +16,7 @@ One row per filing:
   "jobTitle": "ACCOUNT EXECUTIVE",
   "baseSalary": 99424,
   "baseSalaryRaw": "99,424",
+  "salarySuspect": false,
   "location": "NEW YORK, NY",
   "city": "NEW YORK",
   "state": "NY",
@@ -83,6 +84,8 @@ One role at one company over several years:
 Filings are disclosed on a lag, so the current year is often empty or thin early on. Leaving `years` empty walks back to the most recent year that actually has filings for your search.
 
 There is no "all years" option upstream, so each year you ask for is a separate fetch. Asking for three years costs three requests per employer.
+
+Some filings contain entry errors, such as a $284,362 salary published as $28,436,200. Salaries under $20,000 or over $2,000,000 keep their published value but are marked `salarySuspect: true`, sorted last when sorting by salary, and left out of the summary statistics. The summary's `salariesExcludedAsSuspect` shows how many.
 
 A filing is a request to sponsor at a stated wage. It is strong evidence of what a role pays, but it is not proof a person was hired at that number.
 

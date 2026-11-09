@@ -82,7 +82,9 @@ for (const r of results) {
         if (minEmployees && (n.employees ?? 0) < minEmployees) continue;
         if (coQ.length && !coQ.some((q) => n.company.toLowerCase().includes(q))) continue;
         if (typeQ.size && !typeQ.has(String(n.type || '').toLowerCase())) continue;
-        const key = `${r.code}|${n.company.toLowerCase()}|${when}|${(n.city || n.county || n.address || '').toLowerCase()}|${n.employees ?? ''}`;
+        // legacyCity keeps this key unchanged for scheduled runs that stored the old one.
+        const place = 'legacyCity' in n ? n.legacyCity : n.city;
+        const key = `${r.code}|${n.company.toLowerCase()}|${when}|${(place || n.county || n.address || '').toLowerCase()}|${n.employees ?? ''}`;
         if (seen.has(key)) continue;
         seen.add(key); // also collapses a notice a state lists twice
         perState[r.code].notices += 1;

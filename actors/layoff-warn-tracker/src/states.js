@@ -7,6 +7,25 @@
 // requests (Florida, Arizona, Michigan, Utah, Kansas) are not included.
 
 import XLSX from 'xlsx';
+import { PLACES } from './places.js';
+
+const STATE_NAMES = { CA: 'California', MD: 'Maryland' };
+const PLACE_INDEX = Object.fromEntries(Object.entries(PLACES)
+    .map(([st, names]) => [st, new Map(names.map((p) => [p.toLowerCase(), p]))]));
+
+// California and Maryland publish one address string with nothing separating
+// street from city, so the city is the longest known place name that ends it.
+// No match returns null: an empty city is better than a street fragment.
+export function cityFromAddress(address, st) {
+    const m = String(address || '').match(new RegExp(`^(.*?)[\\s,]+(?:${st}|${STATE_NAMES[st]})\\.?\\s+\\d{5}(?:-\\d{4})?\\s*$`, 'i'));
+    if (!m) return null;
+    const words = m[1].replace(/,/g, ' ').trim().split(/\s+/);
+    for (let n = Math.min(5, words.length - 1); n >= 1; n -= 1) {
+        const hit = PLACE_INDEX[st].get(words.slice(-n).join(' ').toLowerCase());
+        if (hit) return hit;
+    }
+    return null;
+}
 
 const UA = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0 Safari/537.36';
 
@@ -104,7 +123,9 @@ async function california() {
         const k = classify(r[c.type]);
         const addr = clean(r[c.addr]);
         return {
-            company: clean(r[c.co]), city: (addr.match(/\s{1,}([A-Za-z .'-]+?)\s+CA\s+\d{5}/) || [])[1]?.trim() || null,
+            company: clean(r[c.co]), city: cityFromAddress(addr, 'CA'),
+            // The earlier parse, kept only so notices already seen stay seen.
+            legacyCity: (addr.match(/\s{1,}([A-Za-z .'-]+?)\s+CA\s+\d{5}/) || [])[1]?.trim() || null,
             county: clean(r[c.county]).replace(/ County$/, '') || null, address: addr || null,
             noticeDate: isoDate(r[c.notice]), receivedDate: isoDate(r[c.rec]), effectiveDate: isoDate(r[c.eff]),
             employees: num(r[c.emp]), ...k, industry: c.ind >= 0 ? clean(r[c.ind]).replace(/^[\d-]+\s+/, '') || null : null,
@@ -223,7 +244,8 @@ async function maryland() {
     return body.filter((r) => clean(r[c.co])).map((r) => {
         const loc = clean(r[c.loc]);
         return {
-            company: clean(r[c.co]), city: (loc.match(/([A-Za-z .'-]+),?\s+MD\s+\d{5}/) || [])[1]?.trim().split(/\s{2,}/).pop() || null,
+            company: clean(r[c.co]), city: cityFromAddress(loc, 'MD'),
+            legacyCity: (loc.match(/([A-Za-z .'-]+),?\s+MD\s+\d{5}/) || [])[1]?.trim().split(/\s{2,}/).pop() || null,
             county: clean(r[c.area]) || null, address: loc || null,
             noticeDate: isoDate(clean(r[c.notice])), receivedDate: null, effectiveDate: isoDate(clean(r[c.eff])),
             employees: num(r[c.emp]), ...classify(r[c.type]), industry: null, reason: null, rawType: clean(r[c.type]) || null,
