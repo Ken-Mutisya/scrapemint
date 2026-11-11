@@ -221,11 +221,20 @@ async function observedToday(loc, station, day) {
             const start = Date.parse(`${day}T00:00:00Z`) - std * 60_000;
             const end = start + 24 * 3600_000;
             const d = await getJson(`https://api.weather.gov/stations/${station.code}/observations?start=${new Date(start).toISOString()}`).catch(() => null);
-            const temps = (d?.features || [])
+            // The 5-minute readings (no raw METAR) are whole degrees C, so the
+            // true value is anywhere within +/-0.5 C (0.9 F). Hourly METARs
+            // carry 0.1 C. Bound the high from below and the low from above
+            // so a rounded 5-minute reading can't rule out a bracket.
+            const obs = (d?.features || [])
                 .filter((f) => { const t = Date.parse(f.properties?.timestamp); return t >= start && t < end; })
-                .map((f) => f.properties?.temperature?.value).filter((v) => v != null).map((c) => c * 9 / 5 + 32);
-            if (!temps.length) return null;
-            return { high: Math.max(...temps), low: Math.min(...temps), count: temps.length };
+                .filter((f) => f.properties?.temperature?.value != null)
+                .map((f) => {
+                    const c = f.properties.temperature.value;
+                    const slack = f.properties.rawMessage ? 0 : 0.5;
+                    return { lo: (c - slack) * 9 / 5 + 32, hi: (c + slack) * 9 / 5 + 32 };
+                });
+            if (!obs.length) return null;
+            return { high: Math.max(...obs.map((o) => o.lo)), low: Math.min(...obs.map((o) => o.hi)), count: obs.length };
         })());
     }
     return obsCache.get(key);
