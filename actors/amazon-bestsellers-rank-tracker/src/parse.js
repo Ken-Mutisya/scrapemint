@@ -75,8 +75,17 @@ export function parseListPage(html) {
     return { category, items: items.map(({ rankText, percentChangeText, ...x }) => x), subcategories, listLinks };
 }
 
+// Product pages are 2-3 MB, mostly inline scripts, styles and SVG. Parsing
+// them whole with 4 workers ran a 512 MB run out of memory (Nov 2026), so drop
+// those blocks first; every field below comes from regular elements.
+const strip = (html) => String(html)
+    .replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, '')
+    .replace(/<style\b[^>]*>[\s\S]*?<\/style>/gi, '')
+    .replace(/<svg\b[^>]*>[\s\S]*?<\/svg>/gi, '')
+    .replace(/<!--[\s\S]*?-->/g, '');
+
 export function parseProductPage(html) {
-    const $ = cheerio.load(html);
+    const $ = cheerio.load(strip(html));
     const title = txt($('#productTitle').first());
     if (!title) return null;
     const rating = /([\d.]+) out of 5/.exec($('#acrPopover').attr('title') || '')?.[1];

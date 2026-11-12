@@ -8,7 +8,7 @@
 //   Gamma:    https://gamma-api.polymarket.com/markets
 //   CLOB:     https://clob.polymarket.com/book?token_id=<token_id>
 //             https://clob.polymarket.com/prices-history?market=<token_id>&interval=<i>
-//   Data:     https://data-api.polymarket.com/trades?market=<conditionId>
+//   Data:     https://data-api.polymarket.com/v2/trades?condition=<conditionId> (v1 retired 2026-11, HTTP 410)
 //
 // Free tier: first 2 items per run are free. Charge per row after.
 
@@ -416,19 +416,20 @@ async function fetchOrderbook(tokenId, depth) {
 }
 
 async function fetchRecentTrades(conditionId, limit, outcomes, tokenIds) {
-    const url = `${DATA_BASE}/trades?market=${encodeURIComponent(conditionId)}&limit=${limit}`;
-    const list = await getJson(url);
+    const url = `${DATA_BASE}/v2/trades?condition=${encodeURIComponent(conditionId)}&limit=${limit}`;
+    const res = await getJson(url);
+    const list = Array.isArray(res) ? res : res?.data;
     if (!Array.isArray(list)) return [];
     const tokenToOutcome = new Map();
     for (let i = 0; i < tokenIds.length; i += 1) tokenToOutcome.set(String(tokenIds[i]), outcomes[i] || `outcome_${i}`);
     return list.map((t) => ({
         side: t.side || null,
-        outcome: tokenToOutcome.get(String(t.asset)) || null,
+        outcome: tokenToOutcome.get(String(t.token_id ?? t.asset)) || null,
         price: numberOrNull(t.price),
         size: numberOrNull(t.size),
         timestamp: t.timestamp ? isoFromMs(Number(t.timestamp) * 1000) : null,
-        trader: t.proxyWallet || null,
-        txHash: t.transactionHash || null,
+        trader: t.proxy_wallet || t.proxyWallet || null,
+        txHash: t.transaction_hash || t.transactionHash || null,
     }));
 }
 

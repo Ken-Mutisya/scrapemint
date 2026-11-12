@@ -133,7 +133,7 @@ while (queue.length && !stop && !deadline.pastSoft()) {
                 if (d) Object.assign(it, { ...d, image: it.image || d.image });
             }
         };
-        await Promise.all([worker(), worker(), worker(), worker()]);
+        await Promise.all([worker(), worker()]); // 2, not 4: 4 parallel 2-3 MB pages ran 512 MB runs out of memory
     }
 
     const histKey = `h-${createHash('sha1').update(t.url).digest('hex').slice(0, 20)}`;

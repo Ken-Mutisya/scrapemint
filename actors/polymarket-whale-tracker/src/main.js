@@ -31,7 +31,7 @@ import { Actor, log } from 'apify';
 
 const API = 'https://data-api.polymarket.com';
 const PAGE = 1000;
-// The trades API refuses offsets past 10,000 (HTTP 400), so 11 pages of 1,000.
+// Data API v2 pages by cursor (v1 offsets were retired on 2026-11 with HTTP 410).
 const MAX_PAGES = 11;
 const MERGE_WINDOW_S = 300;
 const FETCH_TIMEOUT_MS = 20000;
@@ -94,12 +94,29 @@ const seenFills = new Set(state.fills || []);
 // fills, and only the merged total is compared with minBetUsd.
 const fillFloor = Math.max(50, Math.floor(minUsd / 10));
 const fills = [];
+// v2 rows are snake_case; map them to the field names used below.
+function v2Trade(t) {
+    return {
+        ...t,
+        proxyWallet: t.proxy_wallet,
+        asset: t.token_id,
+        conditionId: t.condition_id,
+        transactionHash: t.transaction_hash,
+        eventSlug: t.event_slug || null,
+        outcome: t.outcome || null,
+        outcomeIndex: t.outcome_index,
+        slug: t.slug || null,
+    };
+}
 async function pull(extra) {
+    let cursor = null;
     for (let page = 0; page < MAX_PAGES; page += 1) {
-        const rows = await get(`/trades?limit=${PAGE}&offset=${page * PAGE}&filterType=CASH&filterAmount=${fillFloor}${extra}`);
-        if (!Array.isArray(rows) || !rows.length) return;
+        const res = await get(`/v2/trades?limit=${PAGE}&filterType=CASH&filterAmount=${fillFloor}${extra}${cursor ? `&cursor=${encodeURIComponent(cursor)}` : ''}`);
+        const rows = (res?.data || []).map(v2Trade);
+        cursor = res?.pagination?.has_more ? res.pagination.next_cursor : null;
+        if (!rows.length) return;
         for (const t of rows) if (t.timestamp >= sinceS) fills.push(t);
-        if (rows[rows.length - 1].timestamp < sinceS || rows.length < PAGE) return;
+        if (rows[rows.length - 1].timestamp < sinceS || !cursor) return;
     }
     log.warning(`Hit the ${MAX_PAGES * PAGE}-fill page limit before the start of the window; the oldest part may be incomplete. Schedule more often or raise minBetUsd.`);
 }
@@ -163,11 +180,12 @@ async function lookup(wallet) {
     if (c && Date.now() - c.at < TRADER_CACHE_MS) { traders.set(wallet, c); return; }
     try {
         const [all, month] = await Promise.all([
-            get(`/v1/leaderboard?timePeriod=ALL&orderBy=PNL&user=${wallet}`),
-            get(`/v1/leaderboard?timePeriod=MONTH&orderBy=PNL&user=${wallet}`),
+            get(`/v2/leaderboard?timePeriod=all&orderBy=PNL&user=${wallet}`),
+            get(`/v2/leaderboard?timePeriod=month&orderBy=PNL&user=${wallet}`),
         ]);
-        const a = Array.isArray(all) ? all[0] : null;
-        const m = Array.isArray(month) ? month[0] : null;
+        const lb = (r) => (r?.data && !Array.isArray(r.data) ? { rank: r.data.rank_pnl, pnl: r.data.pnl, vol: r.data.volume, userName: r.data.user_name, xUsername: r.data.x_username || null } : null);
+        const a = lb(all);
+        const m = lb(month);
         const rec = {
             at: Date.now(),
             userName: a?.userName || m?.userName || null,
