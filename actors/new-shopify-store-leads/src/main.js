@@ -226,6 +226,10 @@ const SOCIAL = {
 };
 const SOCIAL_JUNK = /^(shopify|sharer|share|intent|plugins|tr|dialog|home|login|p|explore|hashtag|watch|wix|woocommerce|wordpress|bigcommerce|pages)$/i;
 
+// A store's tel: link can hold a stray % (e.g. "tel:50%off"); decodeURIComponent
+// throws on it and crashed the whole run (Nov 2026). Fall back to the raw text.
+function safeDecode(v) { try { return decodeURIComponent(v); } catch { return v; } }
+
 function extractContacts(html, found) {
     if (!html) return;
     const decoded = html.replace(/&#64;|&#x40;|\[at\]/gi, '@').replace(/%40/g, '@');
@@ -234,7 +238,7 @@ function extractContacts(html, found) {
         if (!JUNK_EMAIL.test(e) && !/@\d+x\./.test(e)) found.emails.add(e);
     }
     for (const m of html.matchAll(/href=["']tel:([^"']+)["']/gi)) {
-        const p = decodeURIComponent(m[1]).replace(/[^0-9+]/g, '');
+        const p = safeDecode(m[1]).replace(/[^0-9+]/g, '');
         if (p.replace('+', '').length >= 7) found.phones.add(p);
     }
     for (const [net, re] of Object.entries(SOCIAL)) {
