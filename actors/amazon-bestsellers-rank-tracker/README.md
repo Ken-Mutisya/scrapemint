@@ -71,7 +71,7 @@ A subcategory, plus every subcategory one level below a department:
 - Department slugs: kitchen, electronics, beauty, toys-and-games, sporting-goods, pet-supplies, hpc (health), books, fashion, home-garden, baby-products, office-products, automotive, tools, grocery and more. For anything deeper, paste the list URL.
 - Amazon renders details for about the first 30 ranks; **Fill details** reads product pages for the rest. A few rows can stay without a price if the product page shows none.
 - Movers & Shakers, Most Wished For and Gift Ideas are not supported: Amazon loads those lists with a script.
-- Rank history lives in a key-value store named `amazon-bestsellers-history` in your own account.
+- Rank history lives in a key-value store named `scrapemint-amazon-bestsellers-history` in your own account.
 
 ## Pricing
 

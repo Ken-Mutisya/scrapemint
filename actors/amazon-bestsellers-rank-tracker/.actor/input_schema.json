@@ -63,7 +63,7 @@
         "trackChanges": {
             "title": "Track rank changes",
             "type": "boolean",
-            "description": "Remember each list's ranks and add previousRank, rankChange and isNewEntry; the run summary lists products that dropped out. History lives in your named key-value store amazon-bestsellers-history.",
+            "description": "Remember each list's ranks and add previousRank, rankChange and isNewEntry; the run summary lists products that dropped out. History lives in your named key-value store scrapemint-amazon-bestsellers-history.",
             "default": true
         }
     }

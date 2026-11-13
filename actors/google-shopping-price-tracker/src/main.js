@@ -12,7 +12,7 @@
 // Price tracking
 // --------------
 // With trackPriceChanges on, the last price of every merchant+title seen for
-// a query is kept in the named key-value store "google-shopping-price-history".
+// a query is kept in the named key-value store "scrapemint-google-shopping-history".
 // The next run adds previousPrice, priceChange and isNewListing; onlyChanges
 // returns just the rows whose price moved or that are new.
 //
@@ -62,7 +62,20 @@ if (!qs.length) {
 }
 
 const guard = new ProxyGuard({ tiers: ['serp'], share: 0.5, floorUsd: 0.01, isBlocked: (r) => r.statusCode !== 200 || /\/sorry\/index|unusual traffic/i.test(r.body.slice(0, 5000)) });
-const history = trackPriceChanges ? await Actor.openKeyValueStore('google-shopping-price-history') : null;
+// The actor runs with limited permissions, so a store of the same name that
+// something else created in the buyer's account is off limits. Opening or
+// reading it then throws; run without tracking instead of failing the run.
+async function openHistory(name) {
+    try {
+        const kv = await Actor.openKeyValueStore(name);
+        await kv.getValue('__probe__');
+        return kv;
+    } catch (err) {
+        log.warning(`Price history store "${name}" is not accessible (${err?.message}); continuing without price tracking.`);
+        return null;
+    }
+}
+const history = trackPriceChanges ? await openHistory('scrapemint-google-shopping-history') : null;
 let out = 0;
 let pages = 0;
 let stop = false;
@@ -124,7 +137,7 @@ for (const q of qs) {
         out += emit.length;
         if (!(await chargeRows(guard, 'product', PRICE, emit.length))) stop = true;
     }
-    if (history) await history.setValue(histKey, next);
+    if (history) await history.setValue(histKey, next).catch((err) => log.warning(`Could not save price history: ${err?.message}`));
     perQuerySummary.push({ query: q, products: rows.length, returned: emit.length, newOrChanged: changes });
     log.info(`"${q}": ${rows.length} products, ${emit.length} returned${history ? `, ${changes} new or changed price` : ''}.`);
 }

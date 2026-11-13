@@ -54,7 +54,19 @@ const rankCap = Math.max(1, Math.min(100, Number(maxRank) || 100));
 
 const listGuard = new ProxyGuard({ tiers: ['direct', 'datacenter', 'residential'], country: 'US', share: 0.25, floorUsd: 0.01, isBlocked: isAmazonBlock });
 const detailGuard = new ProxyGuard({ tiers: ['direct', 'datacenter'], isBlocked: isAmazonBlock });
-const history = trackChanges ? await Actor.openKeyValueStore('amazon-bestsellers-history') : null;
+// Limited permissions: a same-named store created by something else in the
+// buyer's account can't be opened. Run without history instead of failing.
+async function openHistory(name) {
+    try {
+        const kv = await Actor.openKeyValueStore(name);
+        await kv.getValue('__probe__');
+        return kv;
+    } catch (err) {
+        log.warning(`Rank history store "${name}" is not accessible (${err?.message}); continuing without rank tracking.`);
+        return null;
+    }
+}
+const history = trackChanges ? await openHistory('scrapemint-amazon-bestsellers-history') : null;
 const headers = { Accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8', 'Accept-Language': 'en-US,en;q=0.9' };
 let out = 0;
 let stop = false;
@@ -165,7 +177,7 @@ while (queue.length && !stop && !deadline.pastSoft()) {
         };
     });
     const dropped = before ? Object.keys(before.ranks).filter((a) => !(a in now)) : [];
-    if (history) await history.setValue(histKey, { ranks: now, checkedAt: new Date().toISOString() });
+    if (history) await history.setValue(histKey, { ranks: now, checkedAt: new Date().toISOString() }).catch((err) => log.warning(`Could not save rank history: ${err?.message}`));
     await Actor.pushData(rows);
     out += rows.length;
     if (!(await chargeRows(listGuard, 'product', PRICE, rows.length))) stop = true;

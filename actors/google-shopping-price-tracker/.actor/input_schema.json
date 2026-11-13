@@ -63,7 +63,7 @@
         "trackPriceChanges": {
             "title": "Track price changes",
             "type": "boolean",
-            "description": "Remember each merchant's last price per search and add previousPrice, priceChange, priceChangePct and isNewListing. History lives in your named key-value store google-shopping-price-history.",
+            "description": "Remember each merchant's last price per search and add previousPrice, priceChange, priceChangePct and isNewListing. History lives in your named key-value store scrapemint-google-shopping-history.",
             "default": true,
             "sectionCaption": "Monitoring"
         },

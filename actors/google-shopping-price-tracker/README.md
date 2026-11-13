@@ -91,7 +91,7 @@ On a later run, if that merchant's price has moved, the same row carries the cha
 ## Notes
 
 - Google shows 40 products per page; more than 40 per search reads further pages.
-- Price history is kept in a key-value store named `google-shopping-price-history` in your own account, per search and country.
+- Price history is kept in a key-value store named `scrapemint-google-shopping-history` in your own account, per search and country.
 - Merchant product URLs are not on Google's results page, so rows carry Google's product and offer IDs instead.
 
 ## Pricing
