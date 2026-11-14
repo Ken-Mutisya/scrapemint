@@ -78,8 +78,21 @@ async function get(path) {
 
 // ---------- Window ----------
 
-const store = await Actor.openKeyValueStore('polymarket-whale-tracker-state');
-const state = (onlyNew && (await store.getValue('STATE'))) || {};
+// The actor runs with limited permissions, so a store of the same name that
+// something else created in the buyer's account is off limits. Fall back to the
+// run's own default store (no cross-run state) instead of failing the run.
+async function openState(name) {
+    try {
+        const kv = await Actor.openKeyValueStore(name);
+        await kv.getValue('__probe__');
+        return kv;
+    } catch (err) {
+        log.warning(`State store "${name}" is not accessible (${err?.message}); continuing without cross-run state.`);
+        return Actor.openKeyValueStore();
+    }
+}
+const store = await openState('scrapemint-polymarket-whale-state');
+const state = (onlyNew && (await store.getValue('STATE').catch(() => null))) || {};
 const nowS = Math.floor(Date.now() / 1000);
 const lookbackS = Math.max(1, Math.min(7 * 24 * 60, Number(lookbackMinutes) || 60)) * 60;
 // A scheduled run starts where the last one ended, less the merge window, so
@@ -171,7 +184,7 @@ bets = bets.filter((b) => {
 
 // ---------- Who is betting ----------
 
-const cache = (await store.getValue('TRADER_CACHE')) || {};
+const cache = (await store.getValue('TRADER_CACHE').catch(() => null)) || {};
 const traders = new Map();
 const wanted = [...new Set(bets.map((b) => b.t0.proxyWallet))];
 let lookupFails = 0;
@@ -280,9 +293,9 @@ if (onlyNew) {
     // the next run re-reads the overlap window, and a bet that keeps filling
     // is then measured on its whole size.
     const maxTs = fills.reduce((m, t) => Math.max(m, t.timestamp), state.lastTs || sinceS);
-    await store.setValue('STATE', { lastTs: maxTs, fills: [...new Set([...seenFills, ...newFills])].slice(-20000) });
+    await store.setValue('STATE', { lastTs: maxTs, fills: [...new Set([...seenFills, ...newFills])].slice(-20000) }).catch((err) => log.warning(`Could not save state: ${err?.message}`));
 }
-await store.setValue('TRADER_CACHE', cache);
+await store.setValue('TRADER_CACHE', cache).catch((err) => log.warning(`Could not save trader cache: ${err?.message}`));
 
 // Always leave a row, so an empty poll reads as "nothing new", not a failure.
 if (!pushed) {
