@@ -111,6 +111,99 @@ const ROUTES = {
             };
         },
     },
+    '/polymarket': {
+        actor: 'scrapemint/polymarket-market-monitor',
+        memory: 1024,
+        input: (q) => {
+            const max = int(q.maxItems, 100, 1, 200);
+            return {
+                searchQueries: list(q.query || q.search, 3),
+                categories: list(q.categories || q.category, 5),
+                tagIds: list(q.tagIds, 5),
+                itemType: pick(q.itemType, ['markets', 'events'], 'markets'),
+                status: pick(q.status, ['active', 'closed', 'all'], 'active'),
+                minVolume24h: int(q.minVolume24h, 0, 0, 1e8),
+                minLiquidity: int(q.minLiquidity, 0, 0, 1e8),
+                minTotalVolume: int(q.minTotalVolume, 0, 0, 1e9),
+                minPriceChangePct: int(q.minPriceChangePct, 0, 0, 100),
+                minutesUntilEnd: int(q.minutesUntilEnd, 0, 0, 525600),
+                sortBy: pick(q.sortBy, ['volume24hr', 'liquidity', 'endDate', 'startDate', 'volumeNum'], 'volume24hr'),
+                // Search is a substring filter applied after fetching, so scan widely and cap the output.
+                maxItemsPerSource: 1000,
+                maxItemsTotal: max,
+                dedupe: false,
+            };
+        },
+    },
+    '/twitch-streamers': {
+        actor: 'scrapemint/twitch-streamer-leads',
+        memory: 1024,
+        input: (q) => {
+            const categories = list(q.categories || q.category || q.game, 3);
+            const searchQueries = list(q.query || q.search, 3);
+            const logins = list(q.logins || q.login, 20);
+            if (!categories.length && !searchQueries.length && !logins.length) throw new BadRequest('Pass categories=Fortnite, query=... or logins=name1,name2.');
+            const out = {
+                categories, searchQueries, logins,
+                requireEmail: bool(q.requireEmail, false),
+                maxStreamers: int(q.maxStreamers, 50, 1, 100),
+                dedupe: false,
+            };
+            if (q.minFollowers) out.minFollowers = int(q.minFollowers, 0, 0, 1e9);
+            if (q.maxFollowers) out.maxFollowers = int(q.maxFollowers, 0, 0, 1e9);
+            return out;
+        },
+    },
+    '/website-history': {
+        actor: 'scrapemint/website-history-checker',
+        memory: 1024,
+        input: (q) => {
+            const websites = list(q.websites || q.website || q.domain, 5);
+            if (!websites.length) throw new BadRequest('Pass websites=example.com (up to 5).');
+            return {
+                websites,
+                includeSnapshots: bool(q.includeSnapshots, true),
+                granularity: pick(q.granularity, ['yearly', 'monthly'], 'yearly'),
+                fromYear: int(q.fromYear, 0, 0, 2100),
+                toYear: int(q.toYear, 0, 0, 2100),
+                maxSnapshotsPerSite: int(q.maxSnapshotsPerSite, 50, 1, 100),
+                maxRows: int(q.maxRows, 300, 1, 500),
+            };
+        },
+    },
+    '/tradingview-ideas': {
+        actor: 'scrapemint/tradingview-ideas-scraper',
+        memory: 1024,
+        input: (q) => ({
+            symbols: list(q.symbols || q.symbol, 5).map((x) => x.toUpperCase()),
+            categories: list(q.categories || q.category, 3),
+            tags: list(q.tags || q.tag, 3),
+            direction: pick(q.direction, ['all', 'long', 'short', 'education'], 'all'),
+            maxIdeasPerSource: int(q.maxIdeas, 30, 1, 100),
+            includeAuthorIntel: bool(q.includeAuthor, true),
+            concurrency: 3,
+        }),
+    },
+    '/keyword-suggestions': {
+        actor: 'scrapemint/google-keyword-suggestions-scraper',
+        memory: 1024,
+        input: (q) => {
+            const keywords = list(q.keywords || q.keyword || q.q, 3);
+            if (!keywords.length) throw new BadRequest('Pass keywords=seed phrase (up to 3, comma separated).');
+            return {
+                keywords,
+                source: pick(q.source, ['google', 'youtube'], 'google'),
+                language: /^[a-z]{2}(-[A-Za-z]{2})?$/.test(String(q.language || '')) ? String(q.language) : 'en',
+                country: /^[a-z]{2}$/i.test(String(q.country || '')) ? String(q.country).toLowerCase() : 'us',
+                expandLetters: bool(q.expandLetters, true),
+                expandDigits: bool(q.expandDigits, false),
+                expandQuestions: bool(q.expandQuestions, true),
+                expandPrepositions: bool(q.expandPrepositions, true),
+                maxRowsPerKeyword: int(q.maxRowsPerKeyword, 300, 1, 400),
+                maxRows: int(q.maxRows, 600, 1, 1000),
+            };
+        },
+    },
 };
 
 const send = (res, code, body) => {
