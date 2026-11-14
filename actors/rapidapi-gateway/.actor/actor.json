@@ -1,0 +1,11 @@
+{
+  "actorSpecification": 1,
+  "name": "rapidapi-gateway",
+  "title": "Scrapemint RapidAPI Gateway (private)",
+  "description": "Private HTTP gateway: serves five Scrapemint actors to RapidAPI subscribers with capped, sanitized inputs. Not a public actor.",
+  "version": "0.1",
+  "buildTag": "latest",
+  "usesStandbyMode": true,
+  "webServerPort": 4321,
+  "dockerfile": "./Dockerfile"
+}

@@ -1,0 +1,11 @@
+{
+  "name": "rapidapi-gateway",
+  "version": "0.1.0",
+  "type": "module",
+  "private": true,
+  "description": "Private standby gateway that serves selected Scrapemint actors to RapidAPI with capped inputs.",
+  "main": "src/main.js",
+  "scripts": { "start": "node src/main.js" },
+  "dependencies": { "apify": "^3.7.0" },
+  "engines": { "node": ">=20" }
+}
