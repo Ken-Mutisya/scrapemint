@@ -238,6 +238,9 @@ for (const symbol of symList) {
         if (wantType === 'call' || wantType === 'put') { if (c.optionType !== wantType) continue; }
         if (expiryFilter.size && !expiryFilter.has(c.expiry)) continue;
         const dte = daysTo(c.expiryMs);
+        // Cboe keeps the last session's chain over weekends and holidays, so
+        // contracts that already expired still show up. Drop them.
+        if (dte != null && dte < 0) continue;
         if (dteMax && (dte == null || dte > dteMax)) continue;
         if (c.openInterest < oiFloor) continue;
         if (moneyBand && spot) {

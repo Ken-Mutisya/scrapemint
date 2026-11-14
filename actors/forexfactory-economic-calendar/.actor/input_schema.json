@@ -92,6 +92,12 @@
             "description": "Fetch each event's detail page for description, source agency, frequency, and revision history. Adds one extra request per event; detail is fetched for the first 50 matched events per run, the rest are returned without detail.",
             "default": false
         },
+        "includeActuals": {
+            "title": "Include released actual values",
+            "type": "boolean",
+            "description": "The fast weekly feed has forecast and previous but no actual values. Turn this on to read actuals from the calendar page for ranges that include past days (today, yesterday, this week, last week). Slower: about 30 seconds instead of 3.",
+            "default": false
+        },
         "maxEvents": {
             "title": "Max events",
             "type": "integer",

@@ -68,6 +68,7 @@ const ROUTES = {
                 currencies: list(q.currencies || q.currency, 10).map((c) => c.toUpperCase()),
                 impactLevels: (() => { const l = list(q.impact, 4).map((x) => x.toLowerCase()).filter((x) => ['high', 'medium', 'low', 'holiday'].includes(x)); return l.length ? l : ['high', 'medium']; })(),
                 includeDetail: false,
+                includeActuals: bool(q.actuals, true),
                 maxEvents: int(q.maxEvents, 300, 1, 500),
                 concurrency: 2,
             };

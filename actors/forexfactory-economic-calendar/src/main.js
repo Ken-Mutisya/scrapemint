@@ -58,6 +58,7 @@ const {
     currencies = [],
     impactLevels = ['high', 'medium'],
     includeDetail = false,
+    includeActuals = false,
     maxEvents = 1000,
     concurrency = 3,
     proxyConfiguration: proxyInput,
@@ -73,7 +74,12 @@ let totalRowsPushed = 0;
 
 // ---------- Path selection: cheap HTTP feed first, browser only if needed ----------
 
-const feedPlan = includeDetail ? null : planFeeds(range, startDate, endDate);
+// The weekly JSON feed never carries released actual values. When the buyer
+// wants actuals and the range includes days that already happened, read the
+// calendar page instead.
+const PAST_RANGES = new Set(['today', 'yesterday', 'this_week', 'last_week']);
+const wantsActuals = includeActuals && PAST_RANGES.has(String(range || 'this_week').toLowerCase());
+const feedPlan = (includeDetail || wantsActuals) ? null : planFeeds(range, startDate, endDate);
 let served = false;
 if (feedPlan) {
     log.info(`Trying JSON feed path (range=${range}, feeds=${feedPlan.feeds.join(',')}).`);
@@ -82,6 +88,7 @@ if (feedPlan) {
 
 if (!served) {
     if (includeDetail) log.info('includeDetail set: using browser path for detail pages.');
+    else if (wantsActuals) log.info('includeActuals set: using browser path to read released actual values.');
     else log.info(`Range "${range}" not served by JSON feed; using browser path.`);
     await runPlaywright();
 }
