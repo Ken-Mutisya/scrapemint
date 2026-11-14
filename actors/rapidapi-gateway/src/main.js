@@ -57,6 +57,8 @@ const ROUTES = {
     '/economic-calendar': {
         actor: 'scrapemint/forexfactory-economic-calendar',
         memory: 1024,
+        // The actor stops 150s before its deadline; the browser path (actuals) needs ~70s more.
+        timeout: 300,
         input: (q) => {
             const startDate = date(q.startDate);
             const endDate = date(q.endDate);
@@ -133,7 +135,7 @@ const server = http.createServer(async (req, res) => {
     }
     const started = Date.now();
     try {
-        const run = await Actor.call(route.actor, input, { memory: route.memory, timeout: RUN_TIMEOUT_SECS });
+        const run = await Actor.call(route.actor, input, { memory: route.memory, timeout: route.timeout || RUN_TIMEOUT_SECS });
         const { items } = await Actor.apifyClient.dataset(run.defaultDatasetId).listItems({ clean: true, limit: 1000 });
         log.info('served', { path: url.pathname, user: req.headers['x-rapidapi-user'], status: run.status, rows: items.length, ms: Date.now() - started });
         if (run.status !== 'SUCCEEDED' && !items.length) return send(res, 502, { error: `Upstream run ${run.status}. Try again or narrow the query.` });
