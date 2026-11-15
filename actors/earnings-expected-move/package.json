@@ -1,0 +1,16 @@
+{
+    "name": "earnings-expected-move",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Options-implied earnings moves from the ATM straddle, with earnings dates from Nasdaq.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}

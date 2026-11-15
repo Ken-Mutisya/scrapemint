@@ -1,0 +1,54 @@
+{
+    "title": "Earnings Expected Move: Options-Implied Moves Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "symbols": {
+            "title": "Tickers (optional)",
+            "type": "array",
+            "description": "Only these tickers. Their next earnings date within 45 days is looked up. Leave empty to scan the calendar instead.",
+            "editor": "stringList",
+            "prefill": []
+        },
+        "daysAhead": {
+            "title": "Days ahead",
+            "type": "integer",
+            "description": "Calendar window when no tickers are given: today plus this many days.",
+            "default": 7,
+            "minimum": 0,
+            "maximum": 60
+        },
+        "minMarketCapUsd": {
+            "title": "Min market cap (USD)",
+            "type": "integer",
+            "description": "Calendar mode: skip companies smaller than this. 10,000,000,000 = $10B.",
+            "default": 10000000000,
+            "minimum": 0
+        },
+        "maxCompanies": {
+            "title": "Max companies",
+            "type": "integer",
+            "description": "Cap on companies priced (largest first). Controls cost.",
+            "default": 40,
+            "minimum": 1,
+            "maximum": 500
+        },
+        "sortBy": {
+            "title": "Sort by",
+            "type": "string",
+            "description": "Order of the output rows.",
+            "enum": [
+                "expectedMovePct",
+                "earningsDate",
+                "marketCapUsd"
+            ],
+            "enumTitles": [
+                "Biggest expected move",
+                "Earnings date",
+                "Market cap"
+            ],
+            "default": "expectedMovePct"
+        }
+    },
+    "required": []
+}

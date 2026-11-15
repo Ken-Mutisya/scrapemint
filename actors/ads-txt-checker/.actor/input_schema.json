@@ -1,0 +1,73 @@
+{
+    "title": "ads.txt & app-ads.txt Checker + sellers.json Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "domains": {
+            "title": "Domains",
+            "type": "array",
+            "description": "Publisher domains (for ads.txt) or app developer domains (for app-ads.txt), e.g. cnn.com.",
+            "editor": "stringList",
+            "prefill": [
+                "cnn.com",
+                "nytimes.com",
+                "theguardian.com"
+            ]
+        },
+        "fileType": {
+            "title": "File",
+            "type": "string",
+            "description": "ads.txt for websites, app-ads.txt for mobile and CTV apps, or both.",
+            "enum": [
+                "ads.txt",
+                "app-ads.txt",
+                "both"
+            ],
+            "enumTitles": [
+                "ads.txt",
+                "app-ads.txt",
+                "Both"
+            ],
+            "default": "ads.txt"
+        },
+        "verifySellers": {
+            "title": "Verify sellers against sellers.json",
+            "type": "boolean",
+            "description": "Download each ad system's sellers.json once and check every seller id: found or not, seller type vs. DIRECT/RESELLER, seller name and domain. Slower: big files like Google's take 10-30 s to load.",
+            "default": false
+        },
+        "maxSellersFiles": {
+            "title": "Max sellers.json files",
+            "type": "integer",
+            "description": "How many ad systems to verify, most-used first. Entries beyond this are marked unverifiable.",
+            "default": 25,
+            "minimum": 1,
+            "maximum": 200
+        },
+        "includeEntries": {
+            "title": "Include every line",
+            "type": "boolean",
+            "description": "Add the parsed entries (up to 3,000 per file) to each row. Turn off for summary-only rows.",
+            "default": true
+        },
+        "concurrency": {
+            "title": "Concurrency",
+            "type": "integer",
+            "description": "Domains checked in parallel.",
+            "default": 10,
+            "minimum": 1,
+            "maximum": 30
+        },
+        "maxRows": {
+            "title": "Max files per run",
+            "type": "integer",
+            "description": "Cap on files checked. Controls cost.",
+            "default": 5000,
+            "minimum": 1,
+            "maximum": 50000
+        }
+    },
+    "required": [
+        "domains"
+    ]
+}

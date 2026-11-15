@@ -1,0 +1,17 @@
+{
+    "actorSpecification": 1,
+    "name": "ads-txt-checker",
+    "title": "ads.txt & app-ads.txt Checker + sellers.json",
+    "description": "Validate ads.txt and app-ads.txt in bulk: every seller line parsed, DIRECT vs RESELLER counts, ad systems, OWNERDOMAIN/MANAGERDOMAIN, spec errors and duplicates, plus optional sellers.json verification of each seller id. No API key.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "output": "./output_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "MARKETING",
+        "DEVELOPER_TOOLS",
+        "SEO_TOOLS"
+    ],
+    "readme": "../README.md"
+}

@@ -1,0 +1,16 @@
+{
+    "_note": "New actor. Market (2026-11-16): 'expected move' has no dedicated paid actor (khnaami free stocks-earnings u30 1). Cost: one Nasdaq calendar GET per day in the window plus one Cboe chain GET per company, no proxy. No per-run free allowance (scheduled weekly runs are the expected use).",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~earnings-expected-move?token=APIFY_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "expected_move": {
+                "eventTitle": "Earnings expected move",
+                "eventDescription": "One company reporting earnings, with its options-implied expected move, straddle price, range and IV crush estimate. Companies without listed options are free.",
+                "eventPriceUsd": 0.006,
+                "isPrimaryEvent": true
+            }
+        }
+    },
+    "startedAt": "2026-11-19T00:00:00.000Z"
+}

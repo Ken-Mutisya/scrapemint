@@ -1,0 +1,16 @@
+{
+    "_note": "New actor. Market (2026-11-16): 'shopify theme detector' leader scrapebench/shopify-store-intel u30 7 at $0.01; others u30 1 at $0.004-0.006. Cost: 2 plain fetches per store, no proxy.",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~shopify-theme-app-detector?token=APIFY_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "store_detected": {
+                "eventTitle": "Shopify store detected",
+                "eventDescription": "One Shopify store with its theme, version, detected apps, pixels and store details. Non-Shopify sites, unreachable URLs and invalid inputs are free. The first 2 stores per run are free.",
+                "eventPriceUsd": 0.004,
+                "isPrimaryEvent": true
+            }
+        }
+    },
+    "startedAt": "2026-11-19T00:00:00.000Z"
+}

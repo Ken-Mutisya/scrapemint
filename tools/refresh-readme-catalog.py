@@ -52,7 +52,7 @@ SECTIONS = [
     ("Stocks & markets", [
         "stock-price-history-scraper", "stock-market-fundamentals-scraper", "yahoo-finance-scraper", "stocktwits-scraper",
         "stock-earnings-calendar-scraper", "stock-earnings-estimates", "earnings-call-transcripts", "stock-analyst-ratings",
-        "stock-dividend-calendar-scraper", "stock-market-movers", "stock-options-scraper",
+        "stock-dividend-calendar-scraper", "stock-market-movers", "stock-options-scraper", "options-max-pain-gamma-exposure", "earnings-expected-move",
         "stock-trading-halts-tracker", "premarket-after-hours-prices", "ipo-calendar-scraper",
         "fund-etf-holdings", "finviz-stock-screener", "tradingview-stock-screener-scraper", "tradingview-ideas-scraper",
         "asx-announcements-tracker", "commodity-futures-settlements", "credit-spreads-market-stress",
@@ -149,7 +149,7 @@ SECTIONS = [
         "google-trends-scraper", "google-keyword-suggestions-scraper", "amazon-keyword-suggestions", "domain-authority-checker", "ai-overview-brand-tracker",
         "google-images-scraper", "google-local-rank-tracker",
         "google-ads-transparency-scraper", "seo-site-audit-scraper", "lighthouse-pagespeed-auditor", "sitemap-change-monitor",
-        "saas-outage-monitor", "website-change-monitor", "website-tech-stack-detector", "website-screenshot-generator", "company-logo-scraper",
+        "saas-outage-monitor", "website-change-monitor", "website-tech-stack-detector", "shopify-theme-app-detector", "wordpress-theme-plugin-detector", "ads-txt-checker", "website-screenshot-generator", "company-logo-scraper",
         "journalist-request-finder",
     ]),
     ("Web utilities & lookups", [

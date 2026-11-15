@@ -1,0 +1,16 @@
+{
+    "_note": "New actor. Market (2026-11-16): 'ads.txt' leader q_services/ads-txt-scraper u30 2 at $0.005; others u30 1. Cost: 1-2 fetches per domain; sellers.json files (up to ~100 MB for Google) downloaded once per run when verification is on. No proxy.",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~ads-txt-checker?token=APIFY_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "file_checked": {
+                "eventTitle": "ads.txt file checked",
+                "eventDescription": "One ads.txt or app-ads.txt file found, parsed and validated, with seller verification when enabled. Missing files, unreachable domains and invalid inputs are free. The first 3 files per run are free.",
+                "eventPriceUsd": 0.002,
+                "isPrimaryEvent": true
+            }
+        }
+    },
+    "startedAt": "2026-11-19T00:00:00.000Z"
+}

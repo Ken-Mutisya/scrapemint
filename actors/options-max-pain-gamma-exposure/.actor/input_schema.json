@@ -1,0 +1,61 @@
+{
+    "title": "Options Max Pain & Gamma Exposure (GEX) Levels Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "symbols": {
+            "title": "Symbols",
+            "type": "array",
+            "description": "US stock, ETF or index tickers. Indexes work bare (SPX, NDX, RUT, VIX).",
+            "editor": "stringList",
+            "prefill": [
+                "SPY",
+                "SPX",
+                "QQQ",
+                "TSLA",
+                "NVDA"
+            ]
+        },
+        "maxDaysToExpiry": {
+            "title": "Max days to expiry",
+            "type": "integer",
+            "description": "Only include expiries within this many days. 0 = today's (0DTE) only.",
+            "default": 60,
+            "minimum": 0,
+            "maximum": 1000
+        },
+        "maxExpiries": {
+            "title": "Max expiries",
+            "type": "integer",
+            "description": "Nearest N expiries included in the calculation.",
+            "default": 6,
+            "minimum": 1,
+            "maximum": 60
+        },
+        "includeExpiryRows": {
+            "title": "One row per expiry",
+            "type": "boolean",
+            "description": "Add a row per expiry next to the all-expiries row for each symbol.",
+            "default": true
+        },
+        "strikeRangePercent": {
+            "title": "Strike range for walls (%)",
+            "type": "integer",
+            "description": "Call/put walls and top GEX strikes are picked within this distance of the current price.",
+            "default": 25,
+            "minimum": 1,
+            "maximum": 100
+        },
+        "topStrikes": {
+            "title": "Top GEX strikes",
+            "type": "integer",
+            "description": "How many strikes to list in topGexStrikes.",
+            "default": 10,
+            "minimum": 1,
+            "maximum": 50
+        }
+    },
+    "required": [
+        "symbols"
+    ]
+}

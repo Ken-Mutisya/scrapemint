@@ -1,0 +1,20 @@
+{
+    "actorOutputSchemaVersion": 1,
+    "title": "Sites",
+    "description": "Theme, plugins, versions and outdated flags per URL.",
+    "type": "object",
+    "properties": {
+        "results": {
+            "type": "string",
+            "title": "Sites",
+            "description": "Theme, plugins, versions and outdated flags per URL.",
+            "template": "{{links.apiDefaultDatasetUrl}}/items"
+        },
+        "summary": {
+            "type": "string",
+            "title": "Run summary",
+            "description": "WordPress vs other counts, most common themes and plugins.",
+            "template": "{{links.apiDefaultKeyValueStoreUrl}}/records/SUMMARY"
+        }
+    }
+}

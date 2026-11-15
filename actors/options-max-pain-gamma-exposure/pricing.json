@@ -1,0 +1,16 @@
+{
+    "_note": "New actor. Market (2026-11-16): 'max pain' / 'gamma exposure' leaders u30 1-4 at $0.005-0.02. Cost: one Cboe chain GET (~2 MB) per symbol, no proxy. No per-run free allowance (scheduled polling is the expected use, see 2026-09-14 lesson).",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~options-max-pain-gamma-exposure?token=APIFY_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "symbol_analyzed": {
+                "eventTitle": "Symbol analyzed",
+                "eventDescription": "One symbol with max pain, gamma exposure, gamma flip, call/put walls and put/call ratios across the selected expiries, plus per-expiry rows. Unknown symbols are free.",
+                "eventPriceUsd": 0.006,
+                "isPrimaryEvent": true
+            }
+        }
+    },
+    "startedAt": "2026-11-19T00:00:00.000Z"
+}

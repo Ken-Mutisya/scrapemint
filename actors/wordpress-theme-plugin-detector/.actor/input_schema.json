@@ -1,0 +1,49 @@
+{
+    "title": "WordPress Theme & Plugin Detector (Bulk) Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "urls": {
+            "title": "Site URLs",
+            "type": "array",
+            "description": "Site domains or URLs, e.g. techcrunch.com. Non-WordPress sites are reported and not charged.",
+            "editor": "stringList",
+            "prefill": [
+                "techcrunch.com",
+                "yoast.com",
+                "wordpress.org/news"
+            ]
+        },
+        "enrichFromWordPressOrg": {
+            "title": "Latest versions from wordpress.org",
+            "type": "boolean",
+            "description": "Look up each theme and plugin on wordpress.org: display name, latest version, active installs, last update, outdated flag.",
+            "default": true
+        },
+        "checkRestApi": {
+            "title": "Check the REST API",
+            "type": "boolean",
+            "description": "Read /wp-json/ for the site name and plugins that register API namespaces (Yoast, WooCommerce, Rank Math...).",
+            "default": true
+        },
+        "concurrency": {
+            "title": "Concurrency",
+            "type": "integer",
+            "description": "Sites checked in parallel.",
+            "default": 6,
+            "minimum": 1,
+            "maximum": 20
+        },
+        "maxRows": {
+            "title": "Max sites per run",
+            "type": "integer",
+            "description": "Cap on sites checked. Controls cost.",
+            "default": 1000,
+            "minimum": 1,
+            "maximum": 20000
+        }
+    },
+    "required": [
+        "urls"
+    ]
+}

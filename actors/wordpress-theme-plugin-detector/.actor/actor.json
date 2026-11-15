@@ -1,0 +1,17 @@
+{
+    "actorSpecification": 1,
+    "name": "wordpress-theme-plugin-detector",
+    "title": "WordPress Theme & Plugin Detector (Bulk)",
+    "description": "See which theme and plugins any WordPress site runs: theme name, version, parent theme, plugins with detected vs latest version, outdated flags, active installs and wordpress.org links. WooCommerce and WP version too. Bulk lookup, no API key.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "output": "./output_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "DEVELOPER_TOOLS",
+        "LEAD_GENERATION",
+        "SEO_TOOLS"
+    ],
+    "readme": "../README.md"
+}

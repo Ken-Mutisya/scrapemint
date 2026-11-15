@@ -1,0 +1,20 @@
+{
+    "actorOutputSchemaVersion": 1,
+    "title": "Stores",
+    "description": "Theme, apps, pixels and store details per URL.",
+    "type": "object",
+    "properties": {
+        "results": {
+            "type": "string",
+            "title": "Stores",
+            "description": "Theme, apps, pixels and store details per URL.",
+            "template": "{{links.apiDefaultDatasetUrl}}/items"
+        },
+        "summary": {
+            "type": "string",
+            "title": "Run summary",
+            "description": "Shopify vs non-Shopify counts, most common themes and apps.",
+            "template": "{{links.apiDefaultKeyValueStoreUrl}}/records/SUMMARY"
+        }
+    }
+}

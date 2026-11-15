@@ -1,0 +1,16 @@
+{
+    "name": "ads-txt-checker",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Parse and validate ads.txt / app-ads.txt files and verify sellers against sellers.json.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}

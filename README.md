@@ -19,7 +19,7 @@ flowchart LR
 
 <!-- CATALOG:START -->
 
-There are **308** actors live right now, and a new one ships every few days.
+There are **313** actors live right now, and a new one ships every few days.
 
 ### Lead generation
 
@@ -109,6 +109,8 @@ There are **308** actors live right now, and a new one ships every few days.
 - [Stock Dividend Calendar Scraper](https://apify.com/scrapemint/stock-dividend-calendar-scraper)
 - [US Stock Market Movers & Screener](https://apify.com/scrapemint/stock-market-movers)
 - [Stock Options Scraper: Unusual Activity, IV & Open Interest](https://apify.com/scrapemint/stock-options-scraper)
+- [Options Max Pain & Gamma Exposure (GEX) Levels](https://apify.com/scrapemint/options-max-pain-gamma-exposure)
+- [Earnings Expected Move: Options-Implied Moves](https://apify.com/scrapemint/earnings-expected-move)
 - [Stock Trading Halts: Why a Stock Is Halted and When It Resumes](https://apify.com/scrapemint/stock-trading-halts-tracker)
 - [Premarket & After-Hours Stock Prices: Gaps Before the Open](https://apify.com/scrapemint/premarket-after-hours-prices)
 - [IPO Calendar Scraper](https://apify.com/scrapemint/ipo-calendar-scraper)
@@ -362,6 +364,9 @@ There are **308** actors live right now, and a new one ships every few days.
 - [Sitemap Change Monitor: New & Removed Page Alerts](https://apify.com/scrapemint/sitemap-change-monitor)
 - [SaaS Outage Monitor: Status Page Incidents for 134 Vendors](https://apify.com/scrapemint/saas-outage-monitor)
 - [Website Technology Stack Detector (BuiltWith Alternative)](https://apify.com/scrapemint/website-tech-stack-detector)
+- [Shopify Theme & App Detector: Store Tech Lookup](https://apify.com/scrapemint/shopify-theme-app-detector)
+- [WordPress Theme & Plugin Detector (Bulk)](https://apify.com/scrapemint/wordpress-theme-plugin-detector)
+- [ads.txt & app-ads.txt Checker + sellers.json](https://apify.com/scrapemint/ads-txt-checker)
 - [Website Screenshot Generator: Bulk, Full Page, Mobile](https://apify.com/scrapemint/website-screenshot-generator)
 - [Company Logo & Brand Asset Scraper](https://apify.com/scrapemint/company-logo-scraper)
 - [Journalist Request Finder: HARO Alternative for PR & Backlinks](https://apify.com/scrapemint/journalist-request-finder)

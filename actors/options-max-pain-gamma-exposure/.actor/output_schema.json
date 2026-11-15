@@ -1,0 +1,20 @@
+{
+    "actorOutputSchemaVersion": 1,
+    "title": "Levels",
+    "description": "Max pain, GEX, gamma flip, call/put walls and put/call ratios per symbol and expiry.",
+    "type": "object",
+    "properties": {
+        "results": {
+            "type": "string",
+            "title": "Levels",
+            "description": "Max pain, GEX, gamma flip, call/put walls and put/call ratios per symbol and expiry.",
+            "template": "{{links.apiDefaultDatasetUrl}}/items"
+        },
+        "summary": {
+            "type": "string",
+            "title": "Run summary",
+            "description": "Symbols analyzed and rows written.",
+            "template": "{{links.apiDefaultKeyValueStoreUrl}}/records/SUMMARY"
+        }
+    }
+}

@@ -1,0 +1,16 @@
+{
+    "name": "wordpress-theme-plugin-detector",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Detect the theme and plugins of WordPress sites in bulk.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}

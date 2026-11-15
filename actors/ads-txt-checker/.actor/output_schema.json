@@ -1,0 +1,20 @@
+{
+    "actorOutputSchemaVersion": 1,
+    "title": "Files",
+    "description": "One row per ads.txt / app-ads.txt file: counts, ad systems, errors, seller verification, entries.",
+    "type": "object",
+    "properties": {
+        "results": {
+            "type": "string",
+            "title": "Files",
+            "description": "One row per ads.txt / app-ads.txt file: counts, ad systems, errors, seller verification, entries.",
+            "template": "{{links.apiDefaultDatasetUrl}}/items"
+        },
+        "summary": {
+            "type": "string",
+            "title": "Run summary",
+            "description": "Files found vs missing, most common ad systems, sellers.json files loaded.",
+            "template": "{{links.apiDefaultKeyValueStoreUrl}}/records/SUMMARY"
+        }
+    }
+}

@@ -1,0 +1,43 @@
+{
+    "title": "Shopify Theme & App Detector: Store Tech Lookup Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "urls": {
+            "title": "Store URLs",
+            "type": "array",
+            "description": "Shopify store domains or URLs, e.g. allbirds.com. Non-Shopify sites are reported and not charged.",
+            "editor": "stringList",
+            "prefill": [
+                "allbirds.com",
+                "gymshark.com",
+                "kyliecosmetics.com"
+            ]
+        },
+        "includeStoreDetails": {
+            "title": "Store details",
+            "type": "boolean",
+            "description": "Add store name, city, country, currency and published product count from the store's /meta.json.",
+            "default": true
+        },
+        "concurrency": {
+            "title": "Concurrency",
+            "type": "integer",
+            "description": "Stores checked in parallel.",
+            "default": 8,
+            "minimum": 1,
+            "maximum": 20
+        },
+        "maxRows": {
+            "title": "Max stores per run",
+            "type": "integer",
+            "description": "Cap on stores checked. Controls cost.",
+            "default": 1000,
+            "minimum": 1,
+            "maximum": 20000
+        }
+    },
+    "required": [
+        "urls"
+    ]
+}

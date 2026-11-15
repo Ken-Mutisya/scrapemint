@@ -1110,5 +1110,25 @@
  "finviz-stock-screener": {
   "seoTitle": "Finviz Stock Screener Scraper",
   "seoDescription": "Export any Finviz screen to JSON or CSV: ~110 fields per stock or ETF including P/E, short float, ownership, RSI, performance, target price and news."
+ },
+ "shopify-theme-app-detector": {
+  "seoTitle": "Shopify Theme Detector & App Detector (Bulk)",
+  "seoDescription": "Find the theme and apps any Shopify store uses: theme name and version, 85+ apps like Klaviyo, Recharge and Yotpo, pixels, country and product count."
+ },
+ "wordpress-theme-plugin-detector": {
+  "seoTitle": "WordPress Theme & Plugin Detector (Bulk)",
+  "seoDescription": "See which theme and plugins any WordPress site runs, detected vs latest versions, outdated plugins, active installs and WooCommerce. Bulk, no API key."
+ },
+ "ads-txt-checker": {
+  "seoTitle": "ads.txt Checker & Validator + sellers.json",
+  "seoDescription": "Validate ads.txt and app-ads.txt in bulk: DIRECT vs RESELLER, ad systems, spec errors, duplicates and sellers.json verification of every seller id."
+ },
+ "options-max-pain-gamma-exposure": {
+  "seoTitle": "Max Pain & Gamma Exposure (GEX) Calculator",
+  "seoDescription": "Options max pain, gamma exposure (GEX), gamma flip, call wall and put wall for SPX, SPY, QQQ and any US stock, per expiry. Cboe data, no API key."
+ },
+ "earnings-expected-move": {
+  "seoTitle": "Earnings Expected Move from Options Straddles",
+  "seoDescription": "How much options expect each stock to move on earnings: ATM straddle, expected move %, price range and IV crush, for this week's reports."
  }
 }

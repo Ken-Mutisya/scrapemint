@@ -1,0 +1,16 @@
+{
+    "_note": "New actor. Market (2026-11-16): 'wordpress plugin detector' leader happitap u30 2 ($0.005/row); pj_pai u30 1 at $0.002. Cost: 2-5 plain fetches per site plus cached wordpress.org API calls, no proxy.",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~wordpress-theme-plugin-detector?token=APIFY_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "site_detected": {
+                "eventTitle": "WordPress site detected",
+                "eventDescription": "One WordPress site with its theme, plugins, versions and outdated flags. Non-WordPress sites, unreachable URLs and invalid inputs are free. The first 2 sites per run are free.",
+                "eventPriceUsd": 0.003,
+                "isPrimaryEvent": true
+            }
+        }
+    },
+    "startedAt": "2026-11-19T00:00:00.000Z"
+}
