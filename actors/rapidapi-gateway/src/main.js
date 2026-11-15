@@ -204,6 +204,70 @@ const ROUTES = {
             };
         },
     },
+    '/shopify-store': {
+        actor: 'scrapemint/shopify-theme-app-detector',
+        memory: 512,
+        input: (q) => {
+            const urls = list(q.urls || q.url || q.domain || q.domains, 10);
+            if (!urls.length) throw new BadRequest('Pass urls=allbirds.com,gymshark.com (up to 10).');
+            return { urls, includeStoreDetails: bool(q.storeDetails, true), concurrency: 5, maxRows: 10 };
+        },
+    },
+    '/wordpress-site': {
+        actor: 'scrapemint/wordpress-theme-plugin-detector',
+        memory: 512,
+        input: (q) => {
+            const urls = list(q.urls || q.url || q.domain || q.domains, 10);
+            if (!urls.length) throw new BadRequest('Pass urls=techcrunch.com,yoast.com (up to 10).');
+            return { urls, enrichFromWordPressOrg: bool(q.latestVersions, true), checkRestApi: bool(q.restApi, true), concurrency: 5, maxRows: 10 };
+        },
+    },
+    '/ads-txt': {
+        actor: 'scrapemint/ads-txt-checker',
+        // Seller verification can load Google's ~100 MB sellers.json.
+        memory: 2048,
+        timeout: 170,
+        input: (q) => {
+            const domains = list(q.domains || q.domain, 10);
+            if (!domains.length) throw new BadRequest('Pass domains=cnn.com,nytimes.com (up to 10).');
+            return {
+                domains,
+                fileType: pick(q.fileType, ['ads.txt', 'app-ads.txt', 'both'], 'ads.txt'),
+                verifySellers: bool(q.verifySellers, false),
+                maxSellersFiles: int(q.maxSellersFiles, 10, 1, 15),
+                includeEntries: bool(q.includeEntries, true),
+                concurrency: 5,
+                maxRows: 20,
+            };
+        },
+    },
+    '/gamma-exposure': {
+        actor: 'scrapemint/options-max-pain-gamma-exposure',
+        memory: 1024,
+        input: (q) => {
+            const symbols = list(q.symbols || q.symbol || q.ticker, 5).map((s) => s.toUpperCase());
+            if (!symbols.length) throw new BadRequest('Pass symbols=SPY,SPX,TSLA (up to 5).');
+            return {
+                symbols,
+                maxDaysToExpiry: int(q.maxDaysToExpiry, 60, 0, 365),
+                maxExpiries: int(q.maxExpiries, 6, 1, 12),
+                includeExpiryRows: bool(q.expiryRows, true),
+                strikeRangePercent: int(q.strikeRangePercent, 25, 1, 100),
+                topStrikes: int(q.topStrikes, 10, 1, 25),
+            };
+        },
+    },
+    '/earnings-expected-move': {
+        actor: 'scrapemint/earnings-expected-move',
+        memory: 512,
+        input: (q) => ({
+            symbols: list(q.symbols || q.symbol || q.ticker, 10).map((s) => s.toUpperCase()),
+            daysAhead: int(q.daysAhead, 7, 0, 21),
+            minMarketCapUsd: num(q.minMarketCap, 10000000000, 0, 5e12),
+            maxCompanies: int(q.maxCompanies, 25, 1, 40),
+            sortBy: pick(q.sortBy, ['expectedMovePct', 'earningsDate', 'marketCapUsd'], 'expectedMovePct'),
+        }),
+    },
 };
 
 const send = (res, code, body) => {
