@@ -34,6 +34,7 @@ SECTIONS = [
         "ats-hiring-signal-tracker", "website-contact-scraper", "company-email-finder", "aircraft-owner-leads",
         "building-permit-leads", "healthcare-provider-leads", "fda-device-manufacturer-leads",
         "restaurant-inspection-leads", "nonprofit-leads-scraper", "new-business-registration-leads",
+        "fmcsa-trucking-carrier-leads", "florida-sunbiz-new-business-leads", "contractor-license-lookup",
         "newly-registered-domain-leads", "new-shopify-store-leads", "company-enrichment", "government-contract-winner-leads",
         "skool-community-finder", "europages-supplier-scraper", "bbb-business-leads",
         "uk-companies-house-scraper", "sam-gov-contract-opportunities", "german-impressum-scraper",
@@ -62,6 +63,7 @@ SECTIONS = [
         "crypto-market-data-scraper", "crypto-fear-greed-index", "crypto-new-listings-tracker",
         "crypto-funding-rates-tracker", "crypto-futures-basis-tracker", "crypto-liquidations-tracker",
         "crypto-order-book-depth", "crypto-token-security-check", "crypto-whale-token-launch-tracker",
+        "dexscreener-token-scraper",
         "defi-tvl-tracker", "deribit-options-tracker", "dex-pool-price-tracker", "hyperliquid-data", "crypto-liquidation-map",
         "bitcoin-network-data", "gas-fees-by-chain",
     ]),
@@ -75,7 +77,7 @@ SECTIONS = [
     ]),
     ("Real estate & housing", [
         "zillow-home-price-scraper", "home-listings-scraper", "us-rent-home-price-index",
-        "uk-house-prices", "europe-house-prices", "fotocasa-scraper", "rightmove-scraper", "property-finder-scraper", "redfin-scraper",
+        "uk-house-prices", "europe-house-prices", "fotocasa-scraper", "rightmove-scraper", "property-finder-scraper", "redfin-scraper", "property-deed-transfers",
         "crexi-property-scraper",
     ]),
     ("Prediction markets, sports & betting", [
