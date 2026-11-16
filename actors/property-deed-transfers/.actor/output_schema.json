@@ -1,0 +1,20 @@
+{
+    "actorOutputSchemaVersion": 1,
+    "title": "Deed transfers",
+    "description": "One row per recorded deed: buyer, seller, price, dates, property address and parcel.",
+    "type": "object",
+    "properties": {
+        "results": {
+            "type": "string",
+            "title": "Deeds",
+            "description": "One row per deed transfer with buyers, sellers, price and property.",
+            "template": "{{links.apiDefaultDatasetUrl}}/items"
+        },
+        "summary": {
+            "type": "string",
+            "title": "Run summary",
+            "description": "Deeds returned per county.",
+            "template": "{{links.apiDefaultKeyValueStoreUrl}}/records/SUMMARY"
+        }
+    }
+}

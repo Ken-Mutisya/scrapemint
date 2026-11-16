@@ -1,0 +1,16 @@
+{
+    "_note": "New actor. Market (2026-11-17): solidcode/sunbiz-scraper u30 25, pink_comic/sunbiz-florida-business-leads u30 18, scrapersdelight new filings u30 14. Cost: one SFTP download of 2-4 MB per day read, no proxy. 1 free row per run.",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~florida-sunbiz-new-business-leads?token=APIFY_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "filing": {
+                "eventTitle": "Business filing",
+                "eventDescription": "One new Florida business filing with addresses, registered agent and officers. The first row of every run is free.",
+                "eventPriceUsd": 0.002,
+                "isPrimaryEvent": true
+            }
+        }
+    },
+    "startedAt": "2026-12-01T00:00:00.000Z"
+}

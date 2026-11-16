@@ -1,0 +1,20 @@
+{
+    "actorOutputSchemaVersion": 1,
+    "title": "Carriers",
+    "description": "One row per motor carrier: USDOT, name, contacts, address, fleet, cargo and authority.",
+    "type": "object",
+    "properties": {
+        "results": {
+            "type": "string",
+            "title": "Carriers",
+            "description": "One row per carrier with phone, email, officers, fleet size, cargo types and dockets.",
+            "template": "{{links.apiDefaultDatasetUrl}}/items"
+        },
+        "summary": {
+            "type": "string",
+            "title": "Run summary",
+            "description": "Mode, carriers returned and the query used.",
+            "template": "{{links.apiDefaultKeyValueStoreUrl}}/records/SUMMARY"
+        }
+    }
+}

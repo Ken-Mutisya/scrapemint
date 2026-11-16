@@ -1,0 +1,16 @@
+{
+    "_note": "New actor. Market (2026-11-17): shelvick/county-property-records u30 73, shelvick/property-deed-records u30 35, memo23/nyc-acris u30 4. Cost: Socrata/Carto pages, no proxy. 1 free row per run.",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~property-deed-transfers?token=APIFY_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "deed": {
+                "eventTitle": "Deed transfer",
+                "eventDescription": "One recorded deed transfer with buyer, seller, price and property. The first row of every run is free.",
+                "eventPriceUsd": 0.004,
+                "isPrimaryEvent": true
+            }
+        }
+    },
+    "startedAt": "2026-12-01T00:00:00.000Z"
+}

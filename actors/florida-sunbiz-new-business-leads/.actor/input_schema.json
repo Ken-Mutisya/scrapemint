@@ -1,0 +1,80 @@
+{
+    "title": "Florida Sunbiz New Business Leads Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "daysBack": {
+            "title": "Daily files",
+            "type": "integer",
+            "description": "How many of the latest Sunbiz daily filing files to read (one per business day). 1 = the newest day.",
+            "default": 1,
+            "minimum": 1,
+            "maximum": 30
+        },
+        "entityTypes": {
+            "title": "Entity types",
+            "type": "array",
+            "description": "Options: llc, corporation, nonprofit, limited_partnership, foreign_llc, foreign_corporation, foreign_nonprofit, foreign_limited_partnership, trust. Empty = all types.",
+            "editor": "stringList",
+            "default": [
+                "llc",
+                "corporation"
+            ],
+            "prefill": [
+                "llc",
+                "corporation"
+            ]
+        },
+        "cities": {
+            "title": "Cities",
+            "type": "array",
+            "description": "Principal or mailing city, e.g. MIAMI, ORLANDO, TAMPA. Empty = statewide.",
+            "editor": "stringList"
+        },
+        "zipCodes": {
+            "title": "ZIP codes or prefixes",
+            "type": "array",
+            "description": "e.g. 33101 or 331 (all ZIPs starting 331). Empty = any.",
+            "editor": "stringList"
+        },
+        "nameKeywords": {
+            "title": "Name contains",
+            "type": "array",
+            "description": "Keep businesses whose name contains any of these, e.g. ROOFING, CLEANING, TRUCKING, DENTAL.",
+            "editor": "stringList"
+        },
+        "excludeKeywords": {
+            "title": "Name excludes",
+            "type": "array",
+            "description": "Drop businesses whose name contains any of these, e.g. HOLDINGS, INVESTMENTS.",
+            "editor": "stringList"
+        },
+        "excludeAgentServiceAddresses": {
+            "title": "Skip agent-service addresses",
+            "type": "boolean",
+            "description": "Drop filings whose principal address is a registered-agent service (Northwest, Incorp, LegalZoom...), which is not where the business operates.",
+            "default": false
+        },
+        "requireOfficer": {
+            "title": "Require a named person",
+            "type": "boolean",
+            "description": "Only filings that list at least one person as officer, manager or member.",
+            "default": false
+        },
+        "activeOnly": {
+            "title": "Active only",
+            "type": "boolean",
+            "default": true,
+            "description": "Skip inactive records."
+        },
+        "maxRows": {
+            "title": "Max businesses",
+            "type": "integer",
+            "description": "Cap on rows returned. Controls cost.",
+            "default": 1000,
+            "minimum": 1,
+            "maximum": 50000
+        }
+    },
+    "required": []
+}

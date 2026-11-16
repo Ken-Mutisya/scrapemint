@@ -1130,5 +1130,25 @@
  "earnings-expected-move": {
   "seoTitle": "Earnings Expected Move from Options Straddles",
   "seoDescription": "How much options expect each stock to move on earnings: ATM straddle, expected move %, price range and IV crush, for this week's reports."
+ },
+ "fmcsa-trucking-carrier-leads": {
+  "seoTitle": "FMCSA Carrier Leads: New DOT Trucking Companies",
+  "seoDescription": "New trucking companies from FMCSA daily with phone, email, officers, fleet size, cargo and MC docket. Filter by state and fleet, or look up any USDOT."
+ },
+ "florida-sunbiz-new-business-leads": {
+  "seoTitle": "Sunbiz Scraper: New Florida LLC & Corp Filings",
+  "seoDescription": "Every new Florida LLC and corporation from the Sunbiz daily file: officers, registered agent, addresses and file date. Filter by city, ZIP, keyword."
+ },
+ "contractor-license-lookup": {
+  "seoTitle": "Contractor License Lookup: WA, OR, TX, NY",
+  "seoDescription": "Verify contractor licenses or find newly licensed contractors in WA, OR, TX and NY: status, trade, expiry, phone, address, bond and insurance."
+ },
+ "dexscreener-token-scraper": {
+  "seoTitle": "DexScreener Scraper: Trending and New Tokens",
+  "seoDescription": "DexScreener boosted, trending and new tokens on 80+ chains: price, liquidity, market cap, volume, buys/sells, pair age and socials. No API key."
+ },
+ "property-deed-transfers": {
+  "seoTitle": "Property Deed Records: NYC, Chicago, Philadelphia",
+  "seoDescription": "Recorded property sales from NYC ACRIS, Cook County and Philadelphia: buyer, seller, price, date, address and parcel. Filter by price, LLC buyers, ZIP."
  }
 }

@@ -1,0 +1,16 @@
+{
+    "_note": "New actor. Market (2026-11-17): muhammetakkurtt/dexscreener-scraper u30 22, crypto-scraper/dexscreener-tokens-scraper u30 13 ($0.0015/token + $0.01 start + $0.01 end). Cost: 1-4 feed calls + 1 pairs call per 30 tokens, no proxy. 1 free row per run.",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~dexscreener-token-scraper?token=APIFY_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "token": {
+                "eventTitle": "Token",
+                "eventDescription": "One token row with price, liquidity, market cap, volume, transactions and socials. The first row of every run is free.",
+                "eventPriceUsd": 0.002,
+                "isPrimaryEvent": true
+            }
+        }
+    },
+    "startedAt": "2026-12-01T00:00:00.000Z"
+}

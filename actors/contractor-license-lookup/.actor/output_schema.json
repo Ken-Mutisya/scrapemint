@@ -1,0 +1,20 @@
+{
+    "actorOutputSchemaVersion": 1,
+    "title": "Contractor licenses",
+    "description": "One row per license: number, business, trade, status, dates, phone, address, bond and insurance.",
+    "type": "object",
+    "properties": {
+        "results": {
+            "type": "string",
+            "title": "Licenses",
+            "description": "One row per contractor license in one shared schema across states.",
+            "template": "{{links.apiDefaultDatasetUrl}}/items"
+        },
+        "summary": {
+            "type": "string",
+            "title": "Run summary",
+            "description": "Licenses returned per state.",
+            "template": "{{links.apiDefaultKeyValueStoreUrl}}/records/SUMMARY"
+        }
+    }
+}

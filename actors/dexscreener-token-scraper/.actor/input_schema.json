@@ -1,0 +1,83 @@
+{
+    "title": "DexScreener Token Scraper Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "sources": {
+            "title": "Feeds",
+            "type": "array",
+            "description": "DexScreener feeds to pull: top_boosted (most boosted now), latest_boosted (just boosted), latest_profiles (new tokens that just added a profile), takeovers (community takeovers).",
+            "editor": "stringList",
+            "default": [
+                "top_boosted",
+                "latest_profiles"
+            ],
+            "prefill": [
+                "top_boosted",
+                "latest_profiles"
+            ]
+        },
+        "searchQueries": {
+            "title": "Search",
+            "type": "array",
+            "description": "Token name, symbol or address to search, e.g. PEPE, BONK, AI agent. Up to 20.",
+            "editor": "stringList"
+        },
+        "tokenAddresses": {
+            "title": "Token addresses",
+            "type": "array",
+            "description": "Your tokens as chain:address, e.g. solana:DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263 or ethereum:0x6982508145454ce325ddbe47a25d4ec3d2311933. Up to 500.",
+            "editor": "stringList"
+        },
+        "chains": {
+            "title": "Chains",
+            "type": "array",
+            "description": "Keep only these chains, e.g. solana, ethereum, base, bsc, arbitrum, sui, ton. Empty = all chains.",
+            "editor": "stringList"
+        },
+        "minLiquidityUsd": {
+            "title": "Min liquidity (USD)",
+            "type": "integer",
+            "default": 0,
+            "minimum": 0,
+            "description": "Skip tokens whose deepest pair has less liquidity."
+        },
+        "minVolume24hUsd": {
+            "title": "Min 24h volume (USD)",
+            "type": "integer",
+            "default": 0,
+            "minimum": 0,
+            "description": "Skip tokens with less 24h volume."
+        },
+        "minMarketCapUsd": {
+            "title": "Min market cap (USD)",
+            "type": "integer",
+            "default": 0,
+            "minimum": 0,
+            "description": "0 = no minimum. Uses FDV when market cap is missing."
+        },
+        "maxMarketCapUsd": {
+            "title": "Max market cap (USD)",
+            "type": "integer",
+            "default": 0,
+            "minimum": 0,
+            "description": "0 = no maximum."
+        },
+        "maxPairAgeHours": {
+            "title": "Max pair age (hours)",
+            "type": "integer",
+            "default": 0,
+            "minimum": 0,
+            "description": "Only tokens whose deepest pair was created in the last N hours (fresh launches). 0 = any age."
+        },
+        "maxRows": {
+            "title": "Max tokens",
+            "type": "integer",
+            "default": 200,
+            "minimum": 1,
+            "maximum": 5000,
+            "description": "Cap on rows returned (highest 24h volume first). Controls cost."
+        }
+    },
+    "required": []
+}

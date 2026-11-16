@@ -1,0 +1,84 @@
+{
+    "title": "Contractor License Lookup Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "states": {
+            "title": "States",
+            "type": "array",
+            "description": "Which state license rolls to search. Covered: WA (Labor & Industries), OR (CCB), TX (TDLR trades), NY (DOL Contractor Registry).",
+            "editor": "stringList",
+            "default": [
+                "WA",
+                "OR",
+                "TX",
+                "NY"
+            ],
+            "prefill": [
+                "WA",
+                "OR",
+                "TX",
+                "NY"
+            ]
+        },
+        "licenseNumbers": {
+            "title": "License numbers",
+            "type": "array",
+            "description": "Look up specific license or certificate numbers.",
+            "editor": "stringList"
+        },
+        "businessNames": {
+            "title": "Business names",
+            "type": "array",
+            "description": "Business or owner name contains this text (case insensitive). Up to 20.",
+            "editor": "stringList"
+        },
+        "trades": {
+            "title": "Trades",
+            "type": "array",
+            "description": "Keyword matched against the license type and specialty, e.g. ELECTRICAL, PLUMBING, ROOFING, HVAC, A/C, GENERAL, RESIDENTIAL. Texas defaults to construction trades when empty.",
+            "editor": "stringList"
+        },
+        "cities": {
+            "title": "Cities",
+            "type": "array",
+            "description": "Business city, e.g. SEATTLE, PORTLAND, AUSTIN.",
+            "editor": "stringList"
+        },
+        "zipCodes": {
+            "title": "ZIP codes or prefixes",
+            "type": "array",
+            "description": "e.g. 98101 or 981.",
+            "editor": "stringList"
+        },
+        "issuedWithinDays": {
+            "title": "Newly licensed within (days)",
+            "type": "integer",
+            "description": "Only licenses issued in the last N days (new contractor leads). 0 = any date. Texas publishes no issue date and is skipped when this is set.",
+            "default": 0,
+            "minimum": 0,
+            "maximum": 3650
+        },
+        "activeOnly": {
+            "title": "Active only",
+            "type": "boolean",
+            "default": true,
+            "description": "Skip expired, suspended and revoked licenses where the state publishes status."
+        },
+        "requirePhone": {
+            "title": "Require phone",
+            "type": "boolean",
+            "default": false,
+            "description": "Only licenses with a phone number on file."
+        },
+        "maxRows": {
+            "title": "Max licenses",
+            "type": "integer",
+            "description": "Cap on rows returned, split evenly across states. Controls cost.",
+            "default": 500,
+            "minimum": 1,
+            "maximum": 20000
+        }
+    },
+    "required": []
+}

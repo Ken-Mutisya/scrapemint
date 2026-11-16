@@ -1,0 +1,20 @@
+{
+    "actorOutputSchemaVersion": 1,
+    "title": "Tokens",
+    "description": "One row per token: price, liquidity, market cap, volume, transactions, price change, pair age and socials.",
+    "type": "object",
+    "properties": {
+        "results": {
+            "type": "string",
+            "title": "Tokens",
+            "description": "One row per token with its deepest pair's market data.",
+            "template": "{{links.apiDefaultDatasetUrl}}/items"
+        },
+        "summary": {
+            "type": "string",
+            "title": "Run summary",
+            "description": "Tokens found and returned.",
+            "template": "{{links.apiDefaultKeyValueStoreUrl}}/records/SUMMARY"
+        }
+    }
+}

@@ -1,0 +1,16 @@
+{
+    "_note": "New actor. Market (2026-11-17): single-state lookups lead: haketa AZ ROC u30 21, scrapebench MI u30 11 ($0.004/item), LA u30 10. Cost: Socrata pages of 1,000 rows, no proxy. 1 free row per run.",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~contractor-license-lookup?token=APIFY_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "license": {
+                "eventTitle": "Contractor license",
+                "eventDescription": "One contractor license row with status, dates, trade, contact and address. The first row of every run is free.",
+                "eventPriceUsd": 0.002,
+                "isPrimaryEvent": true
+            }
+        }
+    },
+    "startedAt": "2026-12-01T00:00:00.000Z"
+}

@@ -1,0 +1,16 @@
+{
+    "actorSpecification": 1,
+    "name": "contractor-license-lookup",
+    "title": "Contractor License Lookup: WA, OR, TX, NY Leads",
+    "description": "Verify contractor licenses or pull newly licensed contractors from Washington L&I, Oregon CCB, Texas TDLR and New York DOL: license, status, trade, issue and expiry dates, phone, address, bond and insurance. Search by name, number, trade, city or ZIP.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "output": "./output_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "LEAD_GENERATION",
+        "BUSINESS"
+    ],
+    "readme": "../README.md"
+}

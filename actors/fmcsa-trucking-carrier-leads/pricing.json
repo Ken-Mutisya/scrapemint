@@ -1,0 +1,16 @@
+{
+    "_note": "New actor. Market (2026-11-17): scrapesage/fmcsa-trucking-scraper u30 15 at $0.005/carrier; makework36 u30 6 at $0.002/item. Cost: Socrata pages of 1,000 rows, no proxy. 1 free row per run.",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~fmcsa-trucking-carrier-leads?token=APIFY_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "carrier": {
+                "eventTitle": "Carrier",
+                "eventDescription": "One motor carrier row with contacts, address, fleet and cargo details. The first row of every run is free.",
+                "eventPriceUsd": 0.003,
+                "isPrimaryEvent": true
+            }
+        }
+    },
+    "startedAt": "2026-12-01T00:00:00.000Z"
+}

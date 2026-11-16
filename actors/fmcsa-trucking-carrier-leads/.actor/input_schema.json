@@ -1,0 +1,133 @@
+{
+    "title": "FMCSA Trucking Carrier Leads Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "mode": {
+            "title": "Mode",
+            "type": "string",
+            "description": "New carriers: companies that registered a USDOT number in the last N days (lead feed). Lookup: specific USDOT numbers, MC numbers or company names.",
+            "enum": [
+                "new",
+                "lookup"
+            ],
+            "enumTitles": [
+                "New carriers (lead feed)",
+                "Lookup by DOT, MC or name"
+            ],
+            "default": "new"
+        },
+        "addedWithinDays": {
+            "title": "Registered within (days)",
+            "type": "integer",
+            "description": "New mode: carriers whose USDOT registration was added in the last N days. The FMCSA file lags 1-2 days.",
+            "default": 7,
+            "minimum": 1,
+            "maximum": 365
+        },
+        "states": {
+            "title": "States",
+            "type": "array",
+            "description": "Two-letter state codes of the physical address, e.g. TX, CA, FL. Empty = all states.",
+            "editor": "stringList",
+            "prefill": [
+                "TX",
+                "FL",
+                "CA"
+            ]
+        },
+        "dotNumbers": {
+            "title": "USDOT numbers (lookup)",
+            "type": "array",
+            "description": "Lookup mode: USDOT numbers.",
+            "editor": "stringList"
+        },
+        "mcNumbers": {
+            "title": "MC / docket numbers (lookup)",
+            "type": "array",
+            "description": "Lookup mode: MC, MX or FF docket numbers (digits only or with prefix).",
+            "editor": "stringList"
+        },
+        "companyNames": {
+            "title": "Company names (lookup)",
+            "type": "array",
+            "description": "Lookup mode: legal or DBA name contains this text (case insensitive). Up to 20.",
+            "editor": "stringList"
+        },
+        "operation": {
+            "title": "Operation",
+            "type": "string",
+            "description": "Interstate carriers cross state lines (need USDOT + often MC authority). Intrastate stay in one state.",
+            "enum": [
+                "any",
+                "interstate",
+                "intrastate"
+            ],
+            "enumTitles": [
+                "Any",
+                "Interstate",
+                "Intrastate"
+            ],
+            "default": "any"
+        },
+        "authorizedForHireOnly": {
+            "title": "For-hire carriers only",
+            "type": "boolean",
+            "description": "Only carriers that haul for others (authorized for hire), not private fleets.",
+            "default": false
+        },
+        "minPowerUnits": {
+            "title": "Min power units (trucks/tractors)",
+            "type": "integer",
+            "description": "0 = no minimum.",
+            "default": 0,
+            "minimum": 0
+        },
+        "maxPowerUnits": {
+            "title": "Max power units",
+            "type": "integer",
+            "description": "0 = no maximum. Use 1-2 for owner-operators.",
+            "default": 0,
+            "minimum": 0
+        },
+        "cargoTypes": {
+            "title": "Cargo types",
+            "type": "array",
+            "description": "Keep carriers that haul any of these. Options: general_freight, household_goods, metal_sheets_coils, motor_vehicles, driveaway_towaway, logs_poles_lumber, building_materials, mobile_homes, machinery_large_objects, fresh_produce, liquids_gases, intermodal_containers, passengers, oilfield_equipment, livestock, grain_feed_hay, coal_coke, meat, garbage_refuse, us_mail, chemicals, dry_bulk, refrigerated_food, beverages, paper_products, utilities, agricultural_supplies, construction, water_well, other.",
+            "editor": "stringList"
+        },
+        "hazmatOnly": {
+            "title": "Hazmat carriers only",
+            "type": "boolean",
+            "default": false,
+            "description": "Only carriers flagged as hazardous materials carriers."
+        },
+        "activeOnly": {
+            "title": "Active only",
+            "type": "boolean",
+            "default": true,
+            "description": "New mode: skip inactive and pending registrations."
+        },
+        "requireEmail": {
+            "title": "Require email",
+            "type": "boolean",
+            "default": false,
+            "description": "Only carriers with an email on file."
+        },
+        "requirePhone": {
+            "title": "Require phone",
+            "type": "boolean",
+            "default": false,
+            "description": "Only carriers with a phone on file."
+        },
+        "maxRows": {
+            "title": "Max carriers",
+            "type": "integer",
+            "description": "Cap on rows returned (newest first). Controls cost.",
+            "default": 500,
+            "minimum": 1,
+            "maximum": 20000
+        }
+    },
+    "required": []
+}

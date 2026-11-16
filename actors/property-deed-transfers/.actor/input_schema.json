@@ -1,0 +1,78 @@
+{
+    "title": "Property Deed Transfers Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "counties": {
+            "title": "Counties",
+            "type": "array",
+            "description": "Recorders to pull: nyc (all five boroughs, ACRIS), philadelphia, cook (Chicago and suburbs).",
+            "editor": "stringList",
+            "default": [
+                "nyc",
+                "philadelphia",
+                "cook"
+            ],
+            "prefill": [
+                "nyc",
+                "philadelphia",
+                "cook"
+            ]
+        },
+        "daysOfRecords": {
+            "title": "Days of records",
+            "type": "integer",
+            "description": "Deeds recorded in the last N days of each county's published data (counties publish with a lag, so this counts back from the newest record each one has).",
+            "default": 30,
+            "minimum": 1,
+            "maximum": 365
+        },
+        "minPrice": {
+            "title": "Min price (USD)",
+            "type": "integer",
+            "description": "Skip transfers below this price. The default 1,000 drops $0-$10 nominal transfers between relatives, trusts and related companies.",
+            "default": 1000,
+            "minimum": 0
+        },
+        "maxPrice": {
+            "title": "Max price (USD)",
+            "type": "integer",
+            "description": "0 = no maximum.",
+            "default": 0,
+            "minimum": 0
+        },
+        "includeNonSaleDeeds": {
+            "title": "Include other deed types",
+            "type": "boolean",
+            "description": "Also include quit claim, executor, condemnation, land bank and similar deeds. Off = market sales deeds (warranty, trustee, sheriff's deeds).",
+            "default": false
+        },
+        "buyerKeywords": {
+            "title": "Buyer name contains",
+            "type": "array",
+            "description": "Keep transfers where a buyer name contains any of these, e.g. LLC, TRUST, PROPERTIES, HOLDINGS (investor buyers).",
+            "editor": "stringList"
+        },
+        "excludeBuyerKeywords": {
+            "title": "Buyer name excludes",
+            "type": "array",
+            "description": "Drop transfers where a buyer name contains any of these, e.g. BANK, MORTGAGE, CITY OF.",
+            "editor": "stringList"
+        },
+        "zipCodes": {
+            "title": "ZIP codes or prefixes",
+            "type": "array",
+            "description": "Property ZIP, e.g. 60614 or 191. NYC deeds carry no property ZIP and are dropped when this is set.",
+            "editor": "stringList"
+        },
+        "maxRows": {
+            "title": "Max deeds",
+            "type": "integer",
+            "description": "Cap on rows returned, split evenly across counties. Controls cost.",
+            "default": 500,
+            "minimum": 1,
+            "maximum": 20000
+        }
+    },
+    "required": []
+}

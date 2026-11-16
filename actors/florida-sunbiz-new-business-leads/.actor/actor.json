@@ -1,0 +1,16 @@
+{
+    "actorSpecification": 1,
+    "name": "florida-sunbiz-new-business-leads",
+    "title": "Florida Sunbiz New Business Leads: Daily LLC Filings",
+    "description": "Every new Florida LLC and corporation from Sunbiz's official daily filing file: name, type, file date, principal and mailing address, FEI, registered agent and up to six officers or managers. Filter by city, ZIP, name keyword and entity type. No API key.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "output": "./output_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "LEAD_GENERATION",
+        "BUSINESS"
+    ],
+    "readme": "../README.md"
+}

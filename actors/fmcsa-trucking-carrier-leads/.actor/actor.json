@@ -1,0 +1,16 @@
+{
+    "actorSpecification": 1,
+    "name": "fmcsa-trucking-carrier-leads",
+    "title": "FMCSA Trucking Carrier Leads: New DOT Carriers",
+    "description": "New trucking companies the day FMCSA registers them, with phone, email, officers, address, fleet size, drivers, cargo types and MC dockets. Filter by state, fleet size, cargo and for-hire, or look up any USDOT or MC number. Official FMCSA census data, no API key.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "output": "./output_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "LEAD_GENERATION",
+        "BUSINESS"
+    ],
+    "readme": "../README.md"
+}

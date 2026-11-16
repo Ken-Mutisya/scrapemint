@@ -1,0 +1,20 @@
+{
+    "actorOutputSchemaVersion": 1,
+    "title": "New Florida businesses",
+    "description": "One row per new Sunbiz filing: name, type, file date, addresses, registered agent and officers.",
+    "type": "object",
+    "properties": {
+        "results": {
+            "type": "string",
+            "title": "Businesses",
+            "description": "One row per new filing with officers, registered agent and addresses.",
+            "template": "{{links.apiDefaultDatasetUrl}}/items"
+        },
+        "summary": {
+            "type": "string",
+            "title": "Run summary",
+            "description": "Files read, filings scanned and returned.",
+            "template": "{{links.apiDefaultKeyValueStoreUrl}}/records/SUMMARY"
+        }
+    }
+}
