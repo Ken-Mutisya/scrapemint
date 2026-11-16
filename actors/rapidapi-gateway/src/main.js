@@ -268,6 +268,96 @@ const ROUTES = {
             sortBy: pick(q.sortBy, ['expectedMovePct', 'earningsDate', 'marketCapUsd'], 'expectedMovePct'),
         }),
     },
+    '/company-logo': {
+        actor: 'scrapemint/company-logo-scraper',
+        memory: 512,
+        input: (q) => {
+            const domains = list(q.domains || q.domain || q.urls || q.url, 20);
+            if (!domains.length) throw new BadRequest('Pass domains=stripe.com,notion.so (up to 20).');
+            return { domains, verifyLogo: bool(q.verifyLogo, true), includeAllIcons: bool(q.allIcons, true), maxRows: 20 };
+        },
+    },
+    '/github-issues': {
+        actor: 'scrapemint/github-issue-monitor',
+        memory: 512,
+        input: (q) => {
+            const searchQueries = list(q.query || q.q || q.search, 3);
+            const repos = list(q.repos || q.repo, 5).filter((r) => /^[\w.-]+\/[\w.-]+$/.test(r));
+            if (!searchQueries.length && !repos.length) throw new BadRequest('Pass query="langchain" in:title or repos=owner/name (up to 5).');
+            const out = {
+                searchQueries,
+                repos,
+                keywords: list(q.keywords || q.keyword, 10),
+                itemType: pick(q.itemType, ['all', 'issues', 'prs'], 'all'),
+                state: pick(q.state, ['open', 'closed', 'all'], 'open'),
+                labels: list(q.labels || q.label, 5),
+                minRepoStars: int(q.minRepoStars, 0, 0, 1e7),
+                maxAgeHours: int(q.maxAgeHours, 168, 1, 8760),
+                sortBy: pick(q.sortBy, ['created', 'updated'], 'created'),
+                maxItemsPerSource: int(q.maxItems, 50, 1, 100),
+                maxItemsTotal: int(q.maxItems, 50, 1, 100),
+                dedupe: false,
+            };
+            // Callers may bring their own GitHub token for higher rate limits; never logged.
+            if (q.githubToken) out.githubToken = String(q.githubToken).slice(0, 200);
+            return out;
+        },
+    },
+    '/insider-trades': {
+        actor: 'scrapemint/sec-form4-insider-tracker',
+        memory: 512,
+        input: (q) => {
+            const tickers = list(q.tickers || q.ticker || q.symbols || q.symbol, 10).map((s) => s.toUpperCase());
+            const ciks = list(q.ciks || q.cik, 10).filter((c) => /^\d{1,10}$/.test(c));
+            if (!tickers.length && !ciks.length) throw new BadRequest('Pass tickers=AAPL,NVDA or ciks=320193 (up to 10).');
+            return {
+                tickers,
+                ciks,
+                transactionCodes: list(q.codes || q.transactionCodes, 7).map((c) => c.toUpperCase()).filter((c) => /^[A-Z]$/.test(c)),
+                reporterRoles: list(q.roles || q.reporterRoles, 4).filter((r) => ['director', 'officer', 'ten_percent_owner', 'other'].includes(r)),
+                minTransactionValue: int(q.minValue, 0, 0, 1e12),
+                minShares: int(q.minShares, 0, 0, 1e12),
+                includeDerivative: bool(q.derivative, true),
+                includeNonDerivative: bool(q.nonDerivative, true),
+                maxAgeHours: int(q.maxAgeHours, 720, 1, 8760),
+                maxItemsPerSource: int(q.maxItems, 50, 1, 100),
+                maxItemsTotal: int(q.maxItems, 50, 1, 100) * 4,
+                dedupe: false,
+            };
+        },
+    },
+    '/cot-report': {
+        actor: 'scrapemint/cftc-cot-tracker',
+        memory: 512,
+        input: (q) => ({
+            reportType: pick(q.reportType, ['legacy', 'disaggregated', 'financial'], 'legacy'),
+            markets: list(q.markets || q.market, 10),
+            latestOnly: bool(q.latestOnly, true),
+            weeksBack: int(q.weeksBack, 12, 1, 104),
+            maxRows: int(q.maxRows, 200, 1, 500),
+            dedupe: false,
+        }),
+    },
+    '/sec-8k': {
+        actor: 'scrapemint/sec-8k-event-tracker',
+        memory: 512,
+        input: (q) => {
+            const tickers = list(q.tickers || q.ticker || q.symbols || q.symbol, 10).map((s) => s.toUpperCase());
+            const ciks = list(q.ciks || q.cik, 10).filter((c) => /^\d{1,10}$/.test(c));
+            if (!tickers.length && !ciks.length) throw new BadRequest('Pass tickers=AAPL,NVDA or ciks=320193 (up to 10).');
+            return {
+                tickers,
+                ciks,
+                items: list(q.items || q.item, 10).filter((c) => /^\d\.\d{2}$/.test(c)),
+                categories: list(q.categories || q.category, 12),
+                includeAmendments: bool(q.amendments, true),
+                maxAgeHours: int(q.maxAgeHours, 720, 1, 8760),
+                maxItemsPerSource: int(q.maxItems, 20, 1, 50),
+                maxItemsTotal: 200,
+                dedupe: false,
+            };
+        },
+    },
 };
 
 const send = (res, code, body) => {
