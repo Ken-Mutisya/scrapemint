@@ -358,6 +358,103 @@ const ROUTES = {
             };
         },
     },
+    '/trucking-carriers': {
+        actor: 'scrapemint/fmcsa-trucking-carrier-leads',
+        memory: 512,
+        input: (q) => {
+            const dotNumbers = list(q.dotNumbers || q.dot, 50);
+            const mcNumbers = list(q.mcNumbers || q.mc, 50);
+            const companyNames = list(q.names || q.name, 5);
+            const lookup = dotNumbers.length || mcNumbers.length || companyNames.length;
+            return {
+                mode: lookup ? 'lookup' : 'new',
+                addedWithinDays: int(q.addedWithinDays || q.days, 3, 1, 30),
+                states: list(q.states || q.state, 10).map((s) => s.toUpperCase()),
+                dotNumbers, mcNumbers, companyNames,
+                operation: pick(q.operation, ['any', 'interstate', 'intrastate'], 'any'),
+                authorizedForHireOnly: bool(q.forHireOnly, false),
+                minPowerUnits: int(q.minPowerUnits, 0, 0, 100000),
+                maxPowerUnits: int(q.maxPowerUnits, 0, 0, 100000),
+                cargoTypes: list(q.cargoTypes || q.cargo, 10),
+                hazmatOnly: bool(q.hazmatOnly, false),
+                requireEmail: bool(q.requireEmail, false),
+                requirePhone: bool(q.requirePhone, false),
+                maxRows: int(q.maxRows, 100, 1, 500),
+            };
+        },
+    },
+    '/florida-new-businesses': {
+        actor: 'scrapemint/florida-sunbiz-new-business-leads',
+        memory: 512,
+        input: (q) => ({
+            daysBack: int(q.daysBack || q.days, 1, 1, 5),
+            entityTypes: list(q.entityTypes || q.types, 9).length ? list(q.entityTypes || q.types, 9) : ['llc', 'corporation'],
+            cities: list(q.cities || q.city, 10),
+            zipCodes: list(q.zipCodes || q.zip, 20),
+            nameKeywords: list(q.keywords || q.keyword, 10),
+            excludeKeywords: list(q.excludeKeywords, 10),
+            excludeAgentServiceAddresses: bool(q.skipAgentServices, false),
+            requireOfficer: bool(q.requireOfficer, false),
+            maxRows: int(q.maxRows, 200, 1, 1000),
+        }),
+    },
+    '/contractor-licenses': {
+        actor: 'scrapemint/contractor-license-lookup',
+        memory: 512,
+        input: (q) => {
+            const states = list(q.states || q.state, 4).map((s) => s.toUpperCase());
+            return {
+                states: states.length ? states : ['WA', 'OR', 'TX', 'NY'],
+                licenseNumbers: list(q.licenseNumbers || q.license, 20),
+                businessNames: list(q.names || q.name, 5),
+                trades: list(q.trades || q.trade, 5),
+                cities: list(q.cities || q.city, 10),
+                zipCodes: list(q.zipCodes || q.zip, 20),
+                issuedWithinDays: int(q.issuedWithinDays, 0, 0, 365),
+                activeOnly: bool(q.activeOnly, true),
+                requirePhone: bool(q.requirePhone, false),
+                maxRows: int(q.maxRows, 100, 1, 500),
+            };
+        },
+    },
+    '/dexscreener-tokens': {
+        actor: 'scrapemint/dexscreener-token-scraper',
+        memory: 512,
+        input: (q) => {
+            const searchQueries = list(q.query || q.search, 3);
+            const tokenAddresses = list(q.tokens || q.token, 30);
+            const src = list(q.sources || q.source, 4).filter((s) => ['top_boosted', 'latest_boosted', 'latest_profiles', 'takeovers'].includes(s));
+            return {
+                sources: src.length ? src : (searchQueries.length || tokenAddresses.length ? [] : ['top_boosted', 'latest_profiles']),
+                searchQueries, tokenAddresses,
+                chains: list(q.chains || q.chain, 10),
+                minLiquidityUsd: int(q.minLiquidity, 0, 0, 1e12),
+                minVolume24hUsd: int(q.minVolume24h, 0, 0, 1e12),
+                minMarketCapUsd: int(q.minMarketCap, 0, 0, 1e13),
+                maxMarketCapUsd: int(q.maxMarketCap, 0, 0, 1e13),
+                maxPairAgeHours: int(q.maxPairAgeHours, 0, 0, 100000),
+                maxRows: int(q.maxRows, 100, 1, 300),
+            };
+        },
+    },
+    '/deed-transfers': {
+        actor: 'scrapemint/property-deed-transfers',
+        memory: 512,
+        input: (q) => {
+            const counties = list(q.counties || q.county, 3).map((c) => c.toLowerCase()).filter((c) => ['nyc', 'philadelphia', 'cook'].includes(c));
+            return {
+                counties: counties.length ? counties : ['nyc', 'philadelphia', 'cook'],
+                daysOfRecords: int(q.days || q.daysOfRecords, 14, 1, 90),
+                minPrice: int(q.minPrice, 1000, 0, 1e10),
+                maxPrice: int(q.maxPrice, 0, 0, 1e10),
+                includeNonSaleDeeds: bool(q.includeNonSaleDeeds, false),
+                buyerKeywords: list(q.buyerKeywords || q.buyer, 5),
+                excludeBuyerKeywords: list(q.excludeBuyerKeywords, 5),
+                zipCodes: list(q.zipCodes || q.zip, 20),
+                maxRows: int(q.maxRows, 100, 1, 300),
+            };
+        },
+    },
 };
 
 const send = (res, code, body) => {
