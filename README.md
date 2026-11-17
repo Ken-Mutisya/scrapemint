@@ -19,7 +19,7 @@ flowchart LR
 
 <!-- CATALOG:START -->
 
-There are **313** actors live right now, and a new one ships every few days.
+There are **318** actors live right now, and a new one ships every few days.
 
 ### Lead generation
 
@@ -60,6 +60,9 @@ There are **313** actors live right now, and a new one ships every few days.
 - [Restaurant Inspection Leads: Health Violations by City](https://apify.com/scrapemint/restaurant-inspection-leads)
 - [Nonprofit Leads Scraper: IRS 990 Revenue, Assets & Contacts](https://apify.com/scrapemint/nonprofit-leads-scraper)
 - [New Business Registration Leads: Fresh LLC & Corp Filings](https://apify.com/scrapemint/new-business-registration-leads)
+- [FMCSA Trucking Carrier Leads: New DOT Carriers](https://apify.com/scrapemint/fmcsa-trucking-carrier-leads)
+- [Florida Sunbiz New Business Leads: Daily LLC Filings](https://apify.com/scrapemint/florida-sunbiz-new-business-leads)
+- [Contractor License Lookup: WA, OR, TX, NY Leads](https://apify.com/scrapemint/contractor-license-lookup)
 - [Newly Registered Domain Leads: Daily New Domains by Keyword](https://apify.com/scrapemint/newly-registered-domain-leads)
 - [New Shopify Store Leads: Fresh Stores Daily with Emails](https://apify.com/scrapemint/new-shopify-store-leads)
 - [Company Enrichment API: Domain to Company Data](https://apify.com/scrapemint/company-enrichment)
@@ -134,6 +137,7 @@ There are **313** actors live right now, and a new one ships every few days.
 - [Crypto Order Book Depth: Liquidity and Slippage by Exchange](https://apify.com/scrapemint/crypto-order-book-depth)
 - [Crypto Token Security Check: Honeypot, Taxes and Owner Risk](https://apify.com/scrapemint/crypto-token-security-check)
 - [Crypto Whale Tracker: DEX Token Launches + Wallet Alerts](https://apify.com/scrapemint/crypto-whale-token-launch-tracker)
+- [DexScreener Scraper: Trending, Boosted & New Tokens](https://apify.com/scrapemint/dexscreener-token-scraper)
 - [DeFi TVL, Yields & Stablecoin Tracker](https://apify.com/scrapemint/defi-tvl-tracker)
 - [Deribit Crypto Options & Derivatives Tracker](https://apify.com/scrapemint/deribit-options-tracker)
 - [DEX Pool Prices: History, Liquidity and Trade Flow](https://apify.com/scrapemint/dex-pool-price-tracker)
@@ -173,6 +177,7 @@ There are **313** actors live right now, and a new one ships every few days.
 - [Rightmove Scraper: UK Property for Sale & Rent](https://apify.com/scrapemint/rightmove-scraper)
 - [Property Finder Scraper: UAE, Saudi & Gulf](https://apify.com/scrapemint/property-finder-scraper)
 - [Redfin Scraper: For Sale & Sold Homes, Price Changes](https://apify.com/scrapemint/redfin-scraper)
+- [Property Deed Transfers: NYC, Philadelphia, Cook County](https://apify.com/scrapemint/property-deed-transfers)
 - [Crexi Scraper: Commercial Real Estate Listings & Brokers](https://apify.com/scrapemint/crexi-property-scraper)
 
 ### Prediction markets, sports & betting
