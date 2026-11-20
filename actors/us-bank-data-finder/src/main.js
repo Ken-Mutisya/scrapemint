@@ -197,7 +197,7 @@ for (const st of stateList) {
         await flushRow({ type: 'note', input: st, found: false, note: 'not a US state or territory code; not charged' }, false);
         continue;
     }
-    const filters = [`STALP:${st}`, ...baseFilters()].join(' AND ');
+    const filters = [`STALP:"${st}"`, ...baseFilters()].join(' AND ');
     const json = await apiGet('/institutions', {
         filters, fields: INST_FIELDS, limit: String(perState), sort_by: 'ASSET', sort_order: 'DESC',
     });
