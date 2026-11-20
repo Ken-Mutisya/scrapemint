@@ -78,7 +78,7 @@ async function getChain(sym) {
         const ctrl = new AbortController();
         const t = setTimeout(() => ctrl.abort(), FETCH_TIMEOUT_MS);
         try {
-            const res = await fetch(`${BASE}/${encodeURIComponent(c)}.json`, { redirect: 'follow', signal: ctrl.signal, headers: { Accept: 'application/json', 'User-Agent': UA } });
+            const res = await fetch(`${BASE}/${encodeURIComponent(c)}.json`, { redirect: 'follow', signal: ctrl.signal, headers: { Accept: 'application/json', 'User-Agent': UA, Referer: 'https://www.cboe.com/', Origin: 'https://www.cboe.com' } });
             last = res.status;
             if (res.ok) { const j = await res.json(); if (j?.data?.options?.length) return { data: j.data, ts: j.timestamp }; last = 'empty'; }
         } catch (err) { last = err?.name === 'AbortError' ? 'timeout' : 'error'; } finally { clearTimeout(t); }

@@ -57,7 +57,7 @@ async function getJson(url) {
     const ctrl = new AbortController();
     const t = setTimeout(() => ctrl.abort(), FETCH_TIMEOUT_MS);
     try {
-        const res = await fetch(url, { redirect: 'follow', signal: ctrl.signal, headers: HEADERS });
+        const res = await fetch(url, { redirect: 'follow', signal: ctrl.signal, headers: url.includes('cboe.com') ? { ...HEADERS, Referer: 'https://www.cboe.com/', Origin: 'https://www.cboe.com' } : HEADERS });
         if (!res.ok) return { status: res.status };
         return { status: 200, json: await res.json() };
     } catch (err) { return { status: err?.name === 'AbortError' ? 'timeout' : 'error' }; } finally { clearTimeout(t); }

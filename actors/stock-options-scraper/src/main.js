@@ -117,7 +117,7 @@ async function getChain(symbol) {
         try {
             const res = await fetch(`${BASE}/${encodeURIComponent(candidate)}.json`, {
                 signal: controller.signal,
-                headers: { accept: 'application/json', 'User-Agent': UA },
+                headers: { accept: 'application/json', 'User-Agent': UA, Referer: 'https://www.cboe.com/', Origin: 'https://www.cboe.com' },
             });
             lastStatus = res.status;
             if (res.ok) {
