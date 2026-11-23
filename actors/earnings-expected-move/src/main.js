@@ -13,7 +13,7 @@
 //    quote before earnings.
 // 3. The ATM implied volatility of that expiry vs. the next one gives an IV
 //    crush estimate (how much vol is priced to drop after the report).
-// Quotes are ~15 minutes delayed. No API key, no proxy, no browser.
+// Quotes are ~15 minutes delayed. No API key, no browser. Cboe calls go through Apify datacenter proxy (cboe-fetch.js).
 //
 // Pay per event
 // -------------
@@ -22,6 +22,7 @@
 //   free allowance (scheduled runs are the main use).
 
 import { Actor, log } from 'apify';
+import { cboeFetch } from './cboe-fetch.js';
 
 const FREE_TIER_ROWS = 0;
 const NASDAQ = 'https://api.nasdaq.com/api/calendar/earnings';
@@ -57,7 +58,9 @@ async function getJson(url) {
     const ctrl = new AbortController();
     const t = setTimeout(() => ctrl.abort(), FETCH_TIMEOUT_MS);
     try {
-        const res = await fetch(url, { redirect: 'follow', signal: ctrl.signal, headers: url.includes('cboe.com') ? { ...HEADERS, Referer: 'https://www.cboe.com/', Origin: 'https://www.cboe.com' } : HEADERS });
+        const res = url.includes('cboe.com')
+            ? await cboeFetch(url, { signal: ctrl.signal, headers: HEADERS })
+            : await fetch(url, { redirect: 'follow', signal: ctrl.signal, headers: HEADERS });
         if (!res.ok) return { status: res.status };
         return { status: 200, json: await res.json() };
     } catch (err) { return { status: err?.name === 'AbortError' ? 'timeout' : 'error' }; } finally { clearTimeout(t); }

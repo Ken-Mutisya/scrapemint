@@ -34,6 +34,7 @@
 //   option_row ($0.004) charged per row pushed. First 2 rows per run free.
 
 import { Actor, log } from 'apify';
+import { cboeFetch } from './cboe-fetch.js';
 import { installResume } from './resume.js';
 
 const FREE_TIER_ROWS = 0;
@@ -115,9 +116,9 @@ async function getChain(symbol) {
         const controller = new AbortController();
         const timer = setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS);
         try {
-            const res = await fetch(`${BASE}/${encodeURIComponent(candidate)}.json`, {
+            const res = await cboeFetch(`${BASE}/${encodeURIComponent(candidate)}.json`, {
                 signal: controller.signal,
-                headers: { accept: 'application/json', 'User-Agent': UA, Referer: 'https://www.cboe.com/', Origin: 'https://www.cboe.com' },
+                headers: { accept: 'application/json', 'User-Agent': UA },
             });
             lastStatus = res.status;
             if (res.ok) {

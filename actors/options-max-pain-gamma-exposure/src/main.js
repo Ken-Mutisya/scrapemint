@@ -14,7 +14,7 @@
 //     -20% to +20%.
 //   - Call wall / put wall: strikes with the largest call and put GEX.
 //   - Put/call ratios on open interest and volume.
-// No API key, no proxy, no browser.
+// No API key, no browser. Cboe calls go through Apify datacenter proxy (cboe-fetch.js).
 //
 // Source quirks: index chains live under an underscore prefix (_SPX, _NDX,
 // _RUT, _VIX). Unknown symbols return 403, which here means "no chain".
@@ -25,6 +25,7 @@
 //   invalid inputs are free. Scheduled runs are the main use, so there is no per-run free allowance.
 
 import { Actor, log } from 'apify';
+import { cboeFetch } from './cboe-fetch.js';
 
 const FREE_TIER_SYMBOLS = 0;
 const BASE = 'https://cdn.cboe.com/api/global/delayed_quotes/options';
@@ -78,7 +79,7 @@ async function getChain(sym) {
         const ctrl = new AbortController();
         const t = setTimeout(() => ctrl.abort(), FETCH_TIMEOUT_MS);
         try {
-            const res = await fetch(`${BASE}/${encodeURIComponent(c)}.json`, { redirect: 'follow', signal: ctrl.signal, headers: { Accept: 'application/json', 'User-Agent': UA, Referer: 'https://www.cboe.com/', Origin: 'https://www.cboe.com' } });
+            const res = await cboeFetch(`${BASE}/${encodeURIComponent(c)}.json`, { signal: ctrl.signal, headers: { Accept: 'application/json', 'User-Agent': UA } });
             last = res.status;
             if (res.ok) { const j = await res.json(); if (j?.data?.options?.length) return { data: j.data, ts: j.timestamp }; last = 'empty'; }
         } catch (err) { last = err?.name === 'AbortError' ? 'timeout' : 'error'; } finally { clearTimeout(t); }
