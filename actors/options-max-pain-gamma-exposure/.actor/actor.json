@@ -2,7 +2,7 @@
     "actorSpecification": 1,
     "name": "options-max-pain-gamma-exposure",
     "title": "Options Max Pain & Gamma Exposure (GEX) Levels",
-    "description": "Max pain, gamma exposure (GEX), gamma flip, call wall and put wall for any US stock, ETF or index (SPX, SPY, QQQ, TSLA...) per expiry and across expiries, plus put/call ratios. Cboe delayed data, no API key.",
+    "description": "Max pain, gamma exposure (GEX), gamma flip, call wall and put wall for any US stock or ETF (SPY, QQQ, TSLA, NVDA...) per expiry and across expiries, plus put/call ratios. Delayed OPRA data, no API key.",
     "version": "0.1",
     "buildTag": "latest",
     "input": "./input_schema.json",

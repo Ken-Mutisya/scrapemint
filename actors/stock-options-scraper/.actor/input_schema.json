@@ -15,7 +15,7 @@
         "symbols": {
             "title": "Symbols",
             "type": "array",
-            "description": "US tickers to pull option chains for, e.g. NVDA, TSLA, SPY. Index roots work with or without the caret: SPX, ^SPX, VIX, NDX, RUT. Maximum 25 per run.",
+            "description": "US stock or ETF tickers to pull option chains for, e.g. NVDA, TSLA, SPY. Index options (SPX, VIX, NDX, RUT) are not available; use SPY, QQQ or IWM. Maximum 25 per run.",
             "editor": "stringList",
             "prefill": ["NVDA", "TSLA", "SPY"],
             "default": ["NVDA", "TSLA", "SPY"]

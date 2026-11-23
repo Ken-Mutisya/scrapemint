@@ -2,8 +2,9 @@
 //
 // Strategy
 // --------
-// One GET per symbol to Cboe's free delayed-quotes JSON (the same feed the
-// cboe.com option chain page uses, ~15 min delayed). From the full chain we
+// One option-chain GET per symbol to Nasdaq's public quote API (see
+// nasdaq-options.js; Cboe's CDN started 403ing Apify IPs in 2026-11). IV and
+// gamma are computed with Black-Scholes from the bid/ask mid. From the full chain we
 // compute, per expiry and across all selected expiries:
 //   - Max pain: the strike where option holders' total intrinsic value at
 //     expiry is lowest (sum of call OI x max(0, K - k) + put OI x max(0, k - K)).
@@ -16,8 +17,8 @@
 //   - Put/call ratios on open interest and volume.
 // No API key, no proxy, no browser.
 //
-// Source quirks: index chains live under an underscore prefix (_SPX, _NDX,
-// _RUT, _VIX). Unknown symbols return 403, which here means "no chain".
+// Source limits: stocks and ETFs only. Index chains (SPX, NDX, RUT, VIX) are not
+// published by Nasdaq, so those symbols get a free note pointing to SPY/QQQ/IWM.
 //
 // Pay per event
 // -------------
@@ -25,11 +26,10 @@
 //   invalid inputs are free. Scheduled runs are the main use, so there is no per-run free allowance.
 
 import { Actor, log } from 'apify';
+import { fetchNasdaqChain } from './nasdaq-options.js';
 
 const FREE_TIER_SYMBOLS = 0;
-const BASE = 'https://cdn.cboe.com/api/global/delayed_quotes/options';
 const FETCH_TIMEOUT_MS = 45000;
-const UA = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0 Safari/537.36';
 const INDEXES = new Set(['SPX', 'SPXW', 'NDX', 'RUT', 'VIX', 'XSP', 'DJX', 'OEX', 'XEO', 'MRUT', 'NANOS']);
 const RATE = 0.04;
 const timeoutAtMs = process.env.ACTOR_TIMEOUT_AT ? Date.parse(process.env.ACTOR_TIMEOUT_AT) : null;
@@ -39,7 +39,7 @@ const pastDeadline = () => deadlineMs && Date.now() > deadlineMs;
 await Actor.init();
 const input = (await Actor.getInput()) ?? {};
 const {
-    symbols = ['SPY', 'QQQ', 'SPX', 'TSLA', 'NVDA'],
+    symbols = ['SPY', 'QQQ', 'IWM', 'TSLA', 'NVDA'],
     maxDaysToExpiry = 60,
     maxExpiries = 6,
     includeExpiryRows = true,
@@ -72,18 +72,8 @@ function parseOcc(code) {
 }
 
 async function getChain(sym) {
-    const attempts = INDEXES.has(sym) ? [`_${sym}`] : [sym, `_${sym}`];
-    let last = null;
-    for (const c of attempts) {
-        const ctrl = new AbortController();
-        const t = setTimeout(() => ctrl.abort(), FETCH_TIMEOUT_MS);
-        try {
-            const res = await fetch(`${BASE}/${encodeURIComponent(c)}.json`, { redirect: 'follow', signal: ctrl.signal, headers: { Accept: 'application/json', 'User-Agent': UA, Referer: 'https://www.cboe.com/', Origin: 'https://www.cboe.com' } });
-            last = res.status;
-            if (res.ok) { const j = await res.json(); if (j?.data?.options?.length) return { data: j.data, ts: j.timestamp }; last = 'empty'; }
-        } catch (err) { last = err?.name === 'AbortError' ? 'timeout' : 'error'; } finally { clearTimeout(t); }
-    }
-    return { data: null, status: last };
+    const r = await fetchNasdaqChain(sym, { rate: RATE, maxDays: dteCap + 7, timeoutMs: FETCH_TIMEOUT_MS });
+    return { data: r.data, status: r.status, ts: r.ts };
 }
 
 const SQRT2PI = Math.sqrt(2 * Math.PI);
@@ -167,7 +157,9 @@ for (const sym of symList) {
     const { data, status, ts } = await getChain(sym);
     if (!data) {
         stats.noChain += 1;
-        await Actor.pushData({ symbol: sym, rowType: 'note', note: status === 403 ? 'No option chain for this symbol (unknown or not optionable). Not charged.' : `Could not load the option chain (${status}). Not charged.` });
+        await Actor.pushData({ symbol: sym, rowType: 'note', note: status === 'index'
+            ? 'Index options (SPX, NDX, RUT, VIX ...) are not available from the current data source. Use the ETF instead: SPY, QQQ, IWM. Not charged.'
+            : status === 404 ? 'No option chain for this symbol (unknown or not optionable). Not charged.' : `Could not load the option chain (${status}). Not charged.` });
         continue;
     }
     const spot = Number(data.current_price) || Number(data.close) || null;
@@ -190,8 +182,8 @@ for (const sym of symList) {
     const common = {
         symbol: sym,
         underlyingPrice: round(spot),
-        underlyingChangePct: round(Number(data.price_change_percent)),
-        iv30: round(Number(data.iv30)),
+        underlyingChangePct: data.price_change_percent == null ? null : round(Number(data.price_change_percent)),
+        iv30: data.iv30 == null ? null : round(Number(data.iv30)),
         quoteTime: data.last_trade_time || ts || null,
     };
     const agg = analyse(chosen, spot);

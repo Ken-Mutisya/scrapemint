@@ -2,7 +2,7 @@
 
 See how much the options market expects each stock to move on its next earnings report. For every company reporting in the coming days (or the tickers you choose), you get the at-the-money straddle price, the expected move in dollars and percent, the implied price range, and an IV crush estimate, next to the earnings date, report time and EPS forecast.
 
-Earnings dates come from Nasdaq's public calendar and option prices from Cboe's delayed chain. No API key, no login.
+Earnings dates and option prices both come from Nasdaq's public data (delayed OPRA quotes). No API key, no login.
 
 ## Who uses it
 
@@ -62,5 +62,6 @@ Pay per company with a priced expected move. Companies without listed options an
 ## Notes
 
 - The expected move is the ATM straddle of the first expiry after the report. When that expiry is several days out, it includes some normal non-earnings movement too.
-- Option prices are Cboe's delayed quotes (about 15 minutes). Outside market hours the mid price is the last session's close.
+- Option prices are delayed quotes. Outside market hours the mid price is the last session's close.
+- Implied volatility is computed with Black-Scholes from each contract's bid/ask mid (no dividend yield), so it can differ slightly from a broker's figure.
 - For gamma levels and max pain on the same names, use [Options Max Pain & Gamma Exposure](https://apify.com/scrapemint/options-max-pain-gamma-exposure). For the full calendar, use [Stock Earnings Calendar Scraper](https://apify.com/scrapemint/stock-earnings-calendar-scraper).

@@ -5,7 +5,9 @@
 // 1. Earnings dates come from Nasdaq's keyless earnings calendar JSON
 //    (/api/calendar/earnings?date=YYYY-MM-DD): symbol, company, report time
 //    (pre-market / after-hours), market cap, EPS forecast.
-// 2. For each company, one GET to Cboe's free delayed option chain. We take
+// 2. For each company, one GET to Nasdaq's option chain (nasdaq-options.js;
+//    Cboe's CDN started 403ing Apify IPs in 2026-11; IV is computed with
+//    Black-Scholes from the bid/ask mid). We take
 //    the first expiry that captures the earnings reaction (on or after the
 //    report day for pre-market reports, strictly after it otherwise) and price
 //    the at-the-money straddle: call + put at the strike nearest the stock.
@@ -13,7 +15,7 @@
 //    quote before earnings.
 // 3. The ATM implied volatility of that expiry vs. the next one gives an IV
 //    crush estimate (how much vol is priced to drop after the report).
-// Quotes are ~15 minutes delayed. No API key, no proxy, no browser.
+// Quotes are delayed. No API key, no proxy, no browser.
 //
 // Pay per event
 // -------------
@@ -22,10 +24,10 @@
 //   free allowance (scheduled runs are the main use).
 
 import { Actor, log } from 'apify';
+import { fetchNasdaqChain } from './nasdaq-options.js';
 
 const FREE_TIER_ROWS = 0;
 const NASDAQ = 'https://api.nasdaq.com/api/calendar/earnings';
-const CBOE = 'https://cdn.cboe.com/api/global/delayed_quotes/options';
 const FETCH_TIMEOUT_MS = 45000;
 const UA = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0 Safari/537.36';
 const HEADERS = { 'User-Agent': UA, Accept: 'application/json, text/plain, */*', 'Accept-Language': 'en-US,en;q=0.9' };
@@ -57,7 +59,7 @@ async function getJson(url) {
     const ctrl = new AbortController();
     const t = setTimeout(() => ctrl.abort(), FETCH_TIMEOUT_MS);
     try {
-        const res = await fetch(url, { redirect: 'follow', signal: ctrl.signal, headers: url.includes('cboe.com') ? { ...HEADERS, Referer: 'https://www.cboe.com/', Origin: 'https://www.cboe.com' } : HEADERS });
+        const res = await fetch(url, { redirect: 'follow', signal: ctrl.signal, headers: HEADERS });
         if (!res.ok) return { status: res.status };
         return { status: 200, json: await res.json() };
     } catch (err) { return { status: err?.name === 'AbortError' ? 'timeout' : 'error' }; } finally { clearTimeout(t); }
@@ -145,9 +147,9 @@ let charged = 0;
 const out = [];
 for (const ev of queue) {
     if (pastDeadline()) { log.warning('Approaching run timeout; stopping early.'); break; }
-    const r = await getJson(`${CBOE}/${encodeURIComponent(ev.symbol)}.json`);
-    const data = r.json?.data;
-    if (!data?.options?.length) { out.push({ ...ev, earningsMs: undefined, note: r.status === 403 ? 'No listed options for this symbol. Not charged.' : `Could not load options (${r.status}). Not charged.`, charge: false }); continue; }
+    const r = await fetchNasdaqChain(ev.symbol, { maxDays: 150, timeoutMs: FETCH_TIMEOUT_MS });
+    const data = r.data;
+    if (!data?.options?.length) { out.push({ ...ev, earningsMs: undefined, note: r.status === 404 || r.status === 'index' ? 'No listed options for this symbol. Not charged.' : `Could not load options (${r.status}). Not charged.`, charge: false }); continue; }
     const spot = Number(data.current_price) || Number(data.close) || null;
     // Standard contracts only: adjusted ones (e.g. TSLA1) have non-100-share deliverables.
     const contracts = data.options.map((o) => { const p = parseOcc(o.option); return p && p.root === ev.symbol.replace('.', '') ? { ...p, raw: o } : null; }).filter(Boolean);
@@ -165,7 +167,7 @@ for (const ev of queue) {
         ...ev,
         earningsMs: undefined,
         stockPrice: round(spot),
-        stockChangePct: round(Number(data.price_change_percent)),
+        stockChangePct: data.price_change_percent == null ? null : round(Number(data.price_change_percent)),
         expiry: expiries[0],
         daysToExpiry: dte,
         atmStrike: front.strike,
@@ -181,10 +183,10 @@ for (const ev of queue) {
         backExpiry: expiries[1] || null,
         backAtmIv: round(back?.iv, 4),
         ivCrushEstimatePct: front.iv && back?.iv ? round((1 - back.iv / front.iv) * 100, 1) : null,
-        iv30: round(Number(data.iv30)),
+        iv30: data.iv30 == null ? null : round(Number(data.iv30)),
         straddleVolume: front.volume,
         straddleOpenInterest: front.openInterest,
-        quoteTime: data.last_trade_time || r.json.timestamp || null,
+        quoteTime: data.last_trade_time || r.ts || null,
         computedAt: new Date().toISOString(),
         charge: true,
     });

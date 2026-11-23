@@ -1,8 +1,8 @@
 # Options Max Pain & Gamma Exposure (GEX) Levels
 
-Get the levels options traders watch for any US stock, ETF or index: max pain, net gamma exposure (GEX), the gamma flip, the call wall and the put wall, and put/call ratios. Each symbol gets one row across all selected expiries plus one row per expiry, computed from the full Cboe option chain.
+Get the levels options traders watch for any US stock or ETF: max pain, net gamma exposure (GEX), the gamma flip, the call wall and the put wall, and put/call ratios. Each symbol gets one row across all selected expiries plus one row per expiry, computed from the full option chain.
 
-Works for SPX, SPY, QQQ, NDX, RUT, VIX and every optionable US stock. Cboe delayed data (about 15 minutes), no API key, no login.
+Works for SPY, QQQ, IWM and every optionable US stock and ETF. Delayed OPRA quotes, no API key, no login. Index options (SPX, NDX, RUT, VIX) are not supported; use SPY, QQQ or IWM.
 
 ## Who uses it
 
@@ -35,7 +35,7 @@ The `all-expiries` row adds `nearestExpiryMaxPain`, `allExpiriesMaxPain` and the
 
 ```json
 {
-  "symbols": ["SPY", "SPX", "TSLA"],
+  "symbols": ["SPY", "QQQ", "TSLA"],
   "maxDaysToExpiry": 30,
   "maxExpiries": 3
 }
@@ -65,6 +65,7 @@ Pay per symbol analyzed; all its expiry rows are included. Unknown or non-option
 
 ## Notes
 
-- Data is Cboe's delayed feed, so levels lag the market by about 15 minutes. Open interest updates once a day, overnight.
+- Quotes are delayed, so levels lag the market. Open interest updates once a day, overnight.
+- Implied volatility and gamma are computed with Black-Scholes from each contract's bid/ask mid (no dividend yield), so they can differ slightly from a broker's figures.
 - GEX assumes customers buy options and dealers sell them, the standard simplification; real positioning can differ.
 - Need the raw chain, greeks or unusual activity? Use [Stock Options Scraper](https://apify.com/scrapemint/stock-options-scraper). For earnings plays, see [Earnings Expected Move](https://apify.com/scrapemint/earnings-expected-move).

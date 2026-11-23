@@ -2,10 +2,9 @@
 //
 // Strategy
 // --------
-// One keyless source: the Cboe delayed-quote option chain
-// (cdn.cboe.com/api/global/delayed_quotes/options/{SYMBOL}.json). One GET
-// returns the entire listed chain for an underlying plus the underlying's own
-// quote and its 30-day implied volatility. Three modes:
+// One keyless source: Nasdaq's public option-chain API (see nasdaq-options.js;
+// Cboe's CDN started 403ing Apify IPs in 2026-11). One GET returns the entire
+// listed chain for an underlying; a second gets the underlying's quote. Three modes:
 //   - unusual   contracts trading far above their existing open interest
 //               (volume / OI), the daily scan options traders run first
 //   - chain     the option chain filtered to what a buyer actually wants:
@@ -13,18 +12,16 @@
 //   - summary   one row per symbol: put/call ratios on both volume and open
 //               interest, totals, iv30, and the single most active contract
 //
-// Quotes are delayed roughly 15 minutes. Greeks and theoretical prices are
-// Cboe's own published values, not recomputed here.
+// Quotes are delayed. Nasdaq publishes no IV or greeks, so implied volatility,
+// delta, gamma, theta, vega and rho are computed with Black-Scholes from the
+// bid/ask mid (no dividend yield); iv30 is a 30-day ATM interpolation.
 //
 // Source quirks handled
 // ---------------------
-//   - Index chains live under an underscore prefix: _SPX, _VIX, _NDX, _RUT.
-//     A bare index root 403s, so "SPX" and "^SPX" are both normalised and a
-//     bare symbol that 403s is retried once with the prefix.
-//   - An unknown symbol returns 403, NOT 404, so a 403 means "no chain here"
-//     rather than "we are blocked". Those symbols get a free note row.
-//   - Deep in-the-money contracts publish iv 0.0 with delta ~1; that is the
-//     source's value and is passed through untouched.
+//   - Index options (SPX, VIX, NDX, RUT) are not published by Nasdaq; those
+//     symbols get a free note pointing to SPY/QQQ/IWM. Unknown symbols too.
+//   - Contracts priced at or below intrinsic value have no implied volatility;
+//     their iv and greeks are null.
 //   - Contracts with zero open interest cannot have a volume/OI ratio. They
 //     are reported with a null ratio and newContract true, and qualify for
 //     the unusual scan on the volume floor alone.
@@ -35,14 +32,13 @@
 
 import { Actor, log } from 'apify';
 import { installResume } from './resume.js';
+import { fetchNasdaqChain } from './nasdaq-options.js';
 
 const FREE_TIER_ROWS = 0;
 const HARD_CAP = 5000;
 const MAX_SYMBOLS = 25;
 const FETCH_TIMEOUT_MS = 60000;
 const SYMBOL_SPACING_MS = 250;
-const BASE = 'https://cdn.cboe.com/api/global/delayed_quotes/options';
-const UA = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36';
 const timeoutAtMs = process.env.ACTOR_TIMEOUT_AT ? Date.parse(process.env.ACTOR_TIMEOUT_AT) : null;
 const deadlineMs = timeoutAtMs ? timeoutAtMs - 60000 : null;
 
@@ -66,7 +62,7 @@ const {
 
 const asList = (v) => (Array.isArray(v) ? v : String(v || '').split(/[\n,]/))
     .map((s) => String(s || '').trim()).filter(Boolean);
-const num = (v) => { const n = Number(v); return Number.isFinite(n) ? n : null; };
+const num = (v) => { if (v == null || v === '') return null; const n = Number(v); return Number.isFinite(n) ? n : null; };
 const round = (v, dp) => (v == null ? null : Math.round(v * 10 ** dp) / 10 ** dp);
 
 const theMode = ['unusual', 'chain', 'summary'].includes(String(mode).toLowerCase())
@@ -82,8 +78,6 @@ const dteMax = Math.max(0, Number(maxDaysToExpiry) || 0);
 const moneyBand = Math.max(0, Number(moneynessPercent) || 0);
 const cap = Math.max(1, Math.min(HARD_CAP, Number(maxRows) || 200));
 
-// Index roots are only served under an underscore prefix.
-const normalise = (s) => (s.startsWith('^') || s.startsWith('_') ? `_${s.replace(/^[\^_]+/, '')}` : s);
 
 // OCC symbol: root + YYMMDD + C|P + strike * 1000 padded to 8. Root length
 // varies (BRK.B, SPXW), so parse from the fixed-width tail backwards.
@@ -107,31 +101,8 @@ function parseContract(occ) {
 }
 
 async function getChain(symbol) {
-    const attempts = [normalise(symbol)];
-    // A bare root that 403s may still be an index the caller typed without ^.
-    if (attempts[0] === symbol) attempts.push(`_${symbol}`);
-    let lastStatus = null;
-    for (const candidate of attempts) {
-        const controller = new AbortController();
-        const timer = setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS);
-        try {
-            const res = await fetch(`${BASE}/${encodeURIComponent(candidate)}.json`, {
-                signal: controller.signal,
-                headers: { accept: 'application/json', 'User-Agent': UA, Referer: 'https://www.cboe.com/', Origin: 'https://www.cboe.com' },
-            });
-            lastStatus = res.status;
-            if (res.ok) {
-                const j = await res.json();
-                if (j?.data?.options) return { data: j.data, status: 200 };
-                lastStatus = 'empty';
-                continue;
-            }
-        } catch (err) {
-            log.warning(`${symbol}: request failed (${err?.message})`);
-            lastStatus = 'error';
-        } finally { clearTimeout(timer); }
-    }
-    return { data: null, status: lastStatus };
+    const r = await fetchNasdaqChain(symbol, { timeoutMs: FETCH_TIMEOUT_MS });
+    return { data: r.data, status: r.status };
 }
 
 let rowsPushed = 0;
@@ -156,7 +127,7 @@ const daysTo = (ms) => (ms == null ? null : Math.round((ms - todayUtc) / 8640000
 let emitted = 0;
 const stopEarly = () => (deadlineMs && Date.now() > deadlineMs) || emitted >= cap;
 
-log.info(`Cboe options ${theMode} | ${symList.join(', ')} | cap ${cap} rows`
+log.info(`Options ${theMode} | ${symList.join(', ')} | cap ${cap} rows`
     + (theMode === 'unusual' ? ` | volume >= ${volFloor}, volume/OI >= ${ratioFloor}` : ''));
 
 for (const symbol of symList) {
@@ -164,14 +135,14 @@ for (const symbol of symList) {
 
     const { data, status } = await getChain(symbol);
     if (!data) {
-        // 403 here means the chain does not exist (unknown or non-optionable
-        // symbol), not that we were blocked; Cboe uses 403 for both.
         log.warning(`${symbol}: no option chain (HTTP ${status})`);
         await pushNote({
             type: 'note', symbol, found: false,
-            note: status === 403
-                ? 'no option chain published for this symbol (Cboe returns 403 for unknown or non-optionable roots); not charged'
-                : `could not load option chain (HTTP ${status}); not charged`,
+            note: status === 'index'
+                ? 'index options (SPX, NDX, RUT, VIX) are not available from the current data source; use SPY, QQQ or IWM; not charged'
+                : status === 404
+                    ? 'no option chain for this symbol (unknown or not optionable); not charged'
+                    : `could not load option chain (${status}); not charged`,
         });
         continue;
     }
@@ -238,8 +209,8 @@ for (const symbol of symList) {
         if (wantType === 'call' || wantType === 'put') { if (c.optionType !== wantType) continue; }
         if (expiryFilter.size && !expiryFilter.has(c.expiry)) continue;
         const dte = daysTo(c.expiryMs);
-        // Cboe keeps the last session's chain over weekends and holidays, so
-        // contracts that already expired still show up. Drop them.
+        // The source keeps the last session's chain over weekends and holidays,
+        // so contracts that already expired can still show up. Drop them.
         if (dte != null && dte < 0) continue;
         if (dteMax && (dte == null || dte > dteMax)) continue;
         if (c.openInterest < oiFloor) continue;

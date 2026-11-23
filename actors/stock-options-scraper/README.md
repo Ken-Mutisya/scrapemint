@@ -1,12 +1,12 @@
 # Stock Options Scraper: Unusual Activity, IV & Open Interest
 
-Keyless **US stock and index option chains** from **Cboe**. No API key, no account, no broker login. Three modes:
+Keyless **US stock and ETF option chains** from delayed OPRA quotes. No API key, no account, no broker login. Three modes:
 
 - **Unusual activity** — contracts where today's volume dwarfs the open interest that existed going in. This is the scan options traders run every morning to see where new positioning is being built.
-- **Chain** — the option chain filtered to what you actually want: expiry, a strike window around spot, minimum volume and open interest, calls or puts. Every row carries implied volatility, delta, gamma, theta, vega, rho, bid/ask, and Cboe's theoretical price.
+- **Chain** — the option chain filtered to what you actually want: expiry, a strike window around spot, minimum volume and open interest, calls or puts. Every row carries implied volatility, delta, gamma, theta, vega, rho, bid/ask, and a theoretical price.
 - **Summary** — one row per symbol: put/call ratios on both volume and open interest, totals, the most active contract, and 30 day implied volatility.
 
-Works on single stocks (`NVDA`, `TSLA`, `BRK.B`), ETFs (`SPY`, `QQQ`), and index roots (`SPX`, `VIX`, `NDX`, `RUT`).
+Works on single stocks (`NVDA`, `TSLA`, `AAPL`) and ETFs (`SPY`, `QQQ`, `IWM`). Index options (`SPX`, `VIX`, `NDX`, `RUT`) are not available; use the ETF instead.
 
 ## Who uses it
 
@@ -42,8 +42,8 @@ Pairs with our [Stock Market Movers & Screener](https://apify.com/scrapemint/sto
 
 ## Notes on the data
 
-- Quotes are **delayed roughly 15 minutes**, which is what Cboe publishes without a subscription.
-- Greeks, implied volatility, and `theoreticalPrice` are Cboe's own published values, passed through unchanged rather than recomputed.
+- Quotes are **delayed**, not real time.
+- Implied volatility and greeks are computed with Black-Scholes from each contract's bid/ask mid (no dividend yield), so they can differ slightly from a broker's figures. `theoreticalPrice` is that mid. Contracts priced at or below intrinsic value have no IV, so their greeks are null.
 - Deep in the money contracts often publish `impliedVolatility: 0` with delta near 1. That is the source's value for a contract with no meaningful optionality left, not a gap in the scrape.
 - Volume and open interest reset and settle on the exchange's schedule, so open interest reflects yesterday's close while volume is intraday. That difference is exactly what makes the ratio informative.
 - A symbol with no listed options returns a free note row rather than an error.
@@ -56,7 +56,7 @@ This is a live snapshot feed. Schedule it to build your own history.
 
 Pay per event: **$0.004 per row**. The first 2 rows of every run are free.
 
-Data source: Cboe delayed quotes (`cdn.cboe.com`).
+Data source: Nasdaq's public option-chain data (delayed OPRA quotes).
 
 ## Run it on a schedule
 

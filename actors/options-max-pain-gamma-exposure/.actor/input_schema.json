@@ -6,11 +6,11 @@
         "symbols": {
             "title": "Symbols",
             "type": "array",
-            "description": "US stock, ETF or index tickers. Indexes work bare (SPX, NDX, RUT, VIX).",
+            "description": "US stock or ETF tickers. Index options (SPX, NDX, RUT, VIX) are not available; use SPY, QQQ or IWM instead.",
             "editor": "stringList",
             "prefill": [
                 "SPY",
-                "SPX",
+                "IWM",
                 "QQQ",
                 "TSLA",
                 "NVDA"
