@@ -15,6 +15,18 @@ flowchart LR
   A -. chained .-> P[Pipeline actor] --> O[Enriched output]
 ```
 
+## Use from Claude, Cursor and other AI agents (MCP)
+
+Three ready-made MCP servers run on Apify's hosted MCP server. Paste the URL into any client that speaks Streamable HTTP and sign in with Apify (OAuth), or send `Authorization: Bearer <APIFY_TOKEN>`. Each tool bills per result on your own Apify account.
+
+| Server | Tools | Listing |
+| --- | --- | --- |
+| Scrapemint Market Data | economic calendar, Kalshi, Polymarket, sports odds, SEC Form 4 and 8-K, earnings calls, TradingView ideas, DEX tokens | [![Scrapemint Market Data MCP connector](https://glama.ai/mcp/connectors/io.github.Ken-Mutisya/scrapemint-market-data/badges/score.svg)](https://glama.ai/mcp/connectors/io.github.Ken-Mutisya/scrapemint-market-data) |
+| Scrapemint Lead Data | tech stack, company enrichment, email finder, LinkedIn jobs, new Shopify stores, Twitch streamers, FMCSA carriers, Florida new businesses, contractor licenses, journalist requests | [![Scrapemint Lead Data MCP connector](https://glama.ai/mcp/connectors/io.github.Ken-Mutisya/scrapemint-lead-data/badges/score.svg)](https://glama.ai/mcp/connectors/io.github.Ken-Mutisya/scrapemint-lead-data) |
+| Scrapemint Web Research | Wayback history, keyword ideas, SEO audit, domain authority, company logos, GitHub issues, deed transfers | Official MCP Registry: `io.github.Ken-Mutisya/scrapemint-web-research` |
+
+Full endpoint URLs: [official MCP Registry](https://registry.modelcontextprotocol.io/v0/servers?search=scrapemint).
+
 ## Catalog
 
 <!-- CATALOG:START -->
