@@ -1,0 +1,20 @@
+{
+    "actorOutputSchemaVersion": 1,
+    "title": "Sentiment",
+    "description": "One row per symbol (or per symbol and broker): % long and short, contrarian signal and change since the last run.",
+    "type": "object",
+    "properties": {
+        "results": {
+            "type": "string",
+            "title": "Sentiment",
+            "description": "One row per symbol or per broker.",
+            "template": "{{links.apiDefaultDatasetUrl}}/items"
+        },
+        "summary": {
+            "type": "string",
+            "title": "Run summary",
+            "description": "Snapshot time, rows returned and active signals.",
+            "template": "{{links.apiDefaultKeyValueStoreUrl}}/records/SUMMARY"
+        }
+    }
+}

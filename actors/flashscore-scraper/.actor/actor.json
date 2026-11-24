@@ -1,0 +1,16 @@
+{
+    "actorSpecification": 1,
+    "name": "flashscore-scraper",
+    "title": "Flashscore Scraper: Live Scores, Odds, xG & Match Stats",
+    "description": "Flashscore data for 30+ sports: fixtures, live scores and results for any day (-7 to +7), with optional xG and match stats, goals and cards, head-to-head and odds from 20+ bookmakers. No API key.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "output": "./output_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "AUTOMATION",
+        "OTHER"
+    ],
+    "readme": "../README.md"
+}

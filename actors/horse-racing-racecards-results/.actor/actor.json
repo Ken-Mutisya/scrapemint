@@ -1,0 +1,16 @@
+{
+    "actorSpecification": 1,
+    "name": "horse-racing-racecards-results",
+    "title": "Horse Racing Racecards & Results: UK, IRE, US Odds",
+    "description": "Horse racing data from Sporting Life: today's racecards with runners, jockeys, trainers, form, ratings and live bookmaker odds, or results for any past date with SP, beaten distances and tote. UK, Ireland, France, US.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "output": "./output_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "AUTOMATION",
+        "OTHER"
+    ],
+    "readme": "../README.md"
+}

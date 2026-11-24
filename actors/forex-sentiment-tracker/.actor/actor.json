@@ -1,0 +1,16 @@
+{
+    "actorSpecification": 1,
+    "name": "forex-sentiment-tracker",
+    "title": "Forex Sentiment: Retail Long/Short Ratio by Broker",
+    "description": "Retail trader positioning for 24 forex pairs, gold, silver, oil, indices and crypto: % long and short from Myfxbook, OANDA, Dukascopy, FX Blue, XM and more, with contrarian buy/sell signals and change since your last run.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "output": "./output_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "AUTOMATION",
+        "OTHER"
+    ],
+    "readme": "../README.md"
+}

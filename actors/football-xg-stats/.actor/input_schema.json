@@ -1,0 +1,59 @@
+{
+    "title": "Football xG Stats Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "mode": {
+            "title": "Mode",
+            "type": "string",
+            "description": "Teams = xG league table with expected points and team stats. Players = xG, xA, xGOT, per-90 and defensive stats per player. Matches = xG and stats for every finished match.",
+            "editor": "select",
+            "enum": ["teams", "players", "matches"],
+            "enumTitles": ["Teams (xG table)", "Players (xG, xA)", "Matches (match xG)"],
+            "default": "teams"
+        },
+        "leagues": {
+            "title": "Leagues",
+            "type": "array",
+            "description": "Premier League, Championship, League One, LaLiga, LaLiga2, Serie A, Bundesliga, Ligue 1, Eredivisie, Liga Portugal, Scottish Premiership, Belgian Pro League, Super Lig, MLS, Brasileirao, Liga MX, Saudi Pro League, J League, A-League, Champions League, Europa League, Conference League, World Cup... or any FotMob league ID or URL.",
+            "editor": "stringList",
+            "default": ["Premier League"],
+            "prefill": ["Premier League", "LaLiga", "Serie A", "Bundesliga", "Ligue 1"]
+        },
+        "season": {
+            "title": "Season",
+            "type": "string",
+            "description": "e.g. 2025/2026 (or 2025 for MLS and Brazil). Empty = current season. xG goes back to about 2017 for top leagues.",
+            "editor": "textfield"
+        },
+        "lastMatches": {
+            "title": "Last N matches per league",
+            "type": "integer",
+            "description": "Matches mode: only the most recent N finished matches per league. 0 = the whole season so far.",
+            "default": 0,
+            "minimum": 0
+        },
+        "includeShots": {
+            "title": "Shot map",
+            "type": "boolean",
+            "description": "Matches mode: add every shot with minute, player, result, xG, xGOT, situation, shot type and pitch position.",
+            "default": false
+        },
+        "minMinutes": {
+            "title": "Min minutes played",
+            "type": "integer",
+            "description": "Players mode: skip players with fewer minutes.",
+            "default": 0,
+            "minimum": 0
+        },
+        "maxRows": {
+            "title": "Max rows",
+            "type": "integer",
+            "default": 1000,
+            "minimum": 1,
+            "maximum": 20000,
+            "description": "Cap on rows returned. Controls cost."
+        }
+    },
+    "required": []
+}

@@ -1,0 +1,16 @@
+{
+    "actorSpecification": 1,
+    "name": "historical-football-odds",
+    "title": "Historical Football Odds & Results: Closing Lines",
+    "description": "Football results with opening and closing odds for 38 leagues back to 1993: 1X2, over/under 2.5 and Asian handicap from Pinnacle, Bet365, Betfair Exchange, market max and average, plus no-vig probabilities. For backtesting.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "output": "./output_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "AUTOMATION",
+        "OTHER"
+    ],
+    "readme": "../README.md"
+}

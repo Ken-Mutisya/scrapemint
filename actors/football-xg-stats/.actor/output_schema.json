@@ -1,0 +1,20 @@
+{
+    "actorOutputSchemaVersion": 1,
+    "title": "xG rows",
+    "description": "One row per team, player or match depending on the mode.",
+    "type": "object",
+    "properties": {
+        "results": {
+            "type": "string",
+            "title": "Rows",
+            "description": "Teams (xG table), players (xG, xA) or matches (match xG).",
+            "template": "{{links.apiDefaultDatasetUrl}}/items"
+        },
+        "summary": {
+            "type": "string",
+            "title": "Run summary",
+            "description": "Mode, leagues and rows returned.",
+            "template": "{{links.apiDefaultKeyValueStoreUrl}}/records/SUMMARY"
+        }
+    }
+}

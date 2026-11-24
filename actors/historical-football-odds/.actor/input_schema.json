@@ -1,0 +1,62 @@
+{
+    "title": "Historical Football Odds Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "leagues": {
+            "title": "Leagues",
+            "type": "array",
+            "description": "Names or codes. Europe (every season since 1993/94): Premier League E0, Championship E1, League One E2, League Two E3, National League EC, Scottish Premiership SC0 (SC1-SC3), Bundesliga D1, 2. Bundesliga D2, Serie A I1, Serie B I2, La Liga SP1, Segunda SP2, Ligue 1 F1, Ligue 2 F2, Eredivisie N1, Belgium B1, Portugal P1, Turkey T1, Greece G1. Closing odds only (since ~2012): MLS USA, Brazil BRA, Argentina ARG, Mexico MEX, Japan JPN, China CHN, Austria AUT, Denmark DNK, Finland FIN, Ireland IRL, Norway NOR, Poland POL, Romania ROU, Russia RUS, Sweden SWE, Switzerland SWZ.",
+            "editor": "stringList",
+            "default": ["E0"],
+            "prefill": ["E0", "SP1", "I1", "D1", "F1"]
+        },
+        "seasons": {
+            "title": "Seasons",
+            "type": "array",
+            "description": "e.g. 2025/2026, 2024/2025. Up to 35. Empty = use Last seasons.",
+            "editor": "stringList"
+        },
+        "lastSeasons": {
+            "title": "Last seasons",
+            "type": "integer",
+            "description": "When no seasons are given: the current season and the N-1 before it. 1 = current season only.",
+            "default": 1,
+            "minimum": 1,
+            "maximum": 35
+        },
+        "teams": {
+            "title": "Teams",
+            "type": "array",
+            "description": "Keep only matches with one of these teams (partial match, football-data spelling, e.g. Man United, Nott'm Forest).",
+            "editor": "stringList"
+        },
+        "dateFrom": {
+            "title": "From date",
+            "type": "string",
+            "description": "YYYY-MM-DD. Optional.",
+            "editor": "textfield"
+        },
+        "dateTo": {
+            "title": "To date",
+            "type": "string",
+            "description": "YYYY-MM-DD. Optional.",
+            "editor": "textfield"
+        },
+        "includeAllBookmakers": {
+            "title": "All bookmaker columns",
+            "type": "boolean",
+            "description": "Also add every raw odds column of the source file (William Hill, Bet&Win, Ladbrokes, BetVictor, Interwetten and more, depending on season).",
+            "default": false
+        },
+        "maxRows": {
+            "title": "Max matches",
+            "type": "integer",
+            "default": 5000,
+            "minimum": 1,
+            "maximum": 200000,
+            "description": "Cap on rows returned (newest first). Controls cost."
+        }
+    },
+    "required": []
+}

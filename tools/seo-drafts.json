@@ -1150,5 +1150,25 @@
  "property-deed-transfers": {
   "seoTitle": "Property Deed Records: NYC, Chicago, Philadelphia",
   "seoDescription": "Recorded property sales from NYC ACRIS, Cook County and Philadelphia: buyer, seller, price, date, address and parcel. Filter by price, LLC buyers, ZIP."
+ },
+ "flashscore-scraper": {
+  "seoDescription": "Flashscore fixtures, live scores and results for 30+ sports with xG, match stats, goals, head-to-head and odds from 20 bookmakers. No API key.",
+  "seoTitle": "Flashscore Scraper: Live Scores, Odds & xG API"
+ },
+ "horse-racing-racecards-results": {
+  "seoDescription": "Today's UK, Irish, French and US racecards with jockeys, trainers, form and live bookmaker odds, or past results with SP, beaten distances and tote.",
+  "seoTitle": "Horse Racing API: Racecards, Results & Odds"
+ },
+ "football-xg-stats": {
+  "seoDescription": "Expected goals for 40+ leagues: xG table with expected points, player xG, xA and per-90 stats, match xG with shot maps. Premier League, LaLiga, MLS.",
+  "seoTitle": "Football xG API: xG Table, Player xG/xA, Match xG"
+ },
+ "historical-football-odds": {
+  "seoDescription": "Football results with opening and closing 1X2, over/under and Asian handicap odds for 38 leagues back to 1993. Pinnacle, Bet365, Betfair. Backtesting.",
+  "seoTitle": "Historical Football Odds API: Closing Lines"
+ },
+ "forex-sentiment-tracker": {
+  "seoDescription": "Retail FX positioning for 24 pairs, gold, oil, indices and crypto: % long and short from Myfxbook, OANDA, Dukascopy and more, with contrarian signals.",
+  "seoTitle": "Forex Sentiment API: Retail Long/Short Ratio"
  }
 }

@@ -1,0 +1,16 @@
+{
+    "name": "historical-football-odds",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Historical football results with opening and closing 1X2, over/under and Asian handicap odds for 38 leagues back to 1993.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}

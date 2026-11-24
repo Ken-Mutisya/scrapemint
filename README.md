@@ -31,7 +31,7 @@ Full endpoint URLs: [official MCP Registry](https://registry.modelcontextprotoco
 
 <!-- CATALOG:START -->
 
-There are **318** actors live right now, and a new one ships every few days.
+There are **323** actors live right now, and a new one ships every few days.
 
 ### Lead generation
 
@@ -174,6 +174,7 @@ There are **318** actors live right now, and a new one ships every few days.
 - [Currency Exchange Rates: Live & History for 160+ Currencies](https://apify.com/scrapemint/currency-exchange-rates-scraper)
 - [ForexFactory Economic Calendar Feed (No Login)](https://apify.com/scrapemint/forexfactory-economic-calendar)
 - [Economic Calendar: Actual vs Forecast, 20+ Countries](https://apify.com/scrapemint/economic-calendar-scraper)
+- [Forex Sentiment: Retail Long/Short Ratio by Broker](https://apify.com/scrapemint/forex-sentiment-tracker)
 - [European Electricity Prices: Day-Ahead Rates and Power Mix](https://apify.com/scrapemint/european-electricity-prices)
 - [Oil & Gas Inventory Report: Weekly Stocks and Draws](https://apify.com/scrapemint/oil-gas-inventory-report)
 - [US Gas & Diesel Prices: Weekly Retail by Region and Grade](https://apify.com/scrapemint/us-gas-diesel-prices)
@@ -214,6 +215,10 @@ There are **318** actors live right now, and a new one ships every few days.
 - [Sports Betting Results: Closing Odds vs Final Scores](https://apify.com/scrapemint/sports-betting-results)
 - [Sports Scores, Fixtures & Standings Scraper](https://apify.com/scrapemint/sports-scores-scraper)
 - [Sports Player Stats & Rosters Scraper](https://apify.com/scrapemint/sports-player-stats-scraper)
+- [Flashscore Scraper: Live Scores, Odds, xG & Match Stats](https://apify.com/scrapemint/flashscore-scraper)
+- [Horse Racing Racecards & Results: UK, IRE, US Odds](https://apify.com/scrapemint/horse-racing-racecards-results)
+- [Football xG Stats: xG Table, Player xG/xA & Match xG](https://apify.com/scrapemint/football-xg-stats)
+- [Historical Football Odds & Results: Closing Lines](https://apify.com/scrapemint/historical-football-odds)
 - [Lottery Results Scraper: Powerball, Mega Millions & More](https://apify.com/scrapemint/lottery-results-scraper)
 
 ### Jobs & hiring

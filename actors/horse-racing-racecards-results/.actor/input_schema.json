@@ -1,0 +1,76 @@
+{
+    "title": "Horse Racing Racecards & Results Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "mode": {
+            "title": "Mode",
+            "type": "string",
+            "description": "Racecards = today's races with runners and live odds. Results = finished races for past dates with finishing positions and starting prices.",
+            "editor": "select",
+            "enum": ["racecards", "results"],
+            "enumTitles": ["Today's racecards", "Results (past dates)"],
+            "default": "racecards"
+        },
+        "dates": {
+            "title": "Result dates",
+            "type": "array",
+            "description": "Results mode: dates as YYYY-MM-DD, e.g. 2026-03-13 (Cheltenham Gold Cup day). Up to 62. Empty = use Days back.",
+            "editor": "stringList"
+        },
+        "daysBack": {
+            "title": "Days back",
+            "type": "integer",
+            "description": "Results mode, when no dates are given: the last N days (1 = yesterday). Max 31.",
+            "default": 1,
+            "minimum": 1,
+            "maximum": 31
+        },
+        "countries": {
+            "title": "Countries",
+            "type": "array",
+            "description": "Keep only meetings in these countries: UK (England, Scotland, Wales), Ireland, France, United States, and others Sporting Life covers. Empty = all.",
+            "editor": "stringList",
+            "prefill": ["UK", "Ireland"]
+        },
+        "courses": {
+            "title": "Courses",
+            "type": "array",
+            "description": "Keep only these courses (partial match), e.g. Cheltenham, Ascot, Leopardstown, Kempton.",
+            "editor": "stringList"
+        },
+        "raceIds": {
+            "title": "Race IDs or URLs",
+            "type": "array",
+            "description": "Specific Sporting Life races: the numeric race ID or the race URL. Overrides mode and dates.",
+            "editor": "stringList"
+        },
+        "includeOdds": {
+            "title": "Bookmaker odds per runner",
+            "type": "boolean",
+            "description": "Add every bookmaker price Sporting Life shows for each runner (with each-way terms). The best price is always included.",
+            "default": true
+        },
+        "includeForm": {
+            "title": "Previous runs",
+            "type": "boolean",
+            "description": "Add each horse's last 6 runs: date, course, distance, going, position, field size, odds, weight, rating and comment.",
+            "default": false
+        },
+        "winnersOnly": {
+            "title": "Winners only",
+            "type": "boolean",
+            "description": "Results mode: return only the winner of each race.",
+            "default": false
+        },
+        "maxRunners": {
+            "title": "Max runners",
+            "type": "integer",
+            "default": 1000,
+            "minimum": 1,
+            "maximum": 20000,
+            "description": "Cap on rows returned. Controls cost."
+        }
+    },
+    "required": []
+}

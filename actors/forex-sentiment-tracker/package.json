@@ -1,0 +1,16 @@
+{
+    "name": "forex-sentiment-tracker",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Retail forex sentiment: % of traders long and short per pair from Myfxbook, OANDA, Dukascopy and 6 more brokers, with contrarian signals.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}

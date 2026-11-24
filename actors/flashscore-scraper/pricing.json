@@ -1,0 +1,21 @@
+{
+    "_note": "New actor. Market (2026-11-24): extractify-labs/flashscore-tennis-matches u30 615 and flashscore-extractor u30 34 at $0.001/item; superapis/flashscore u30 18 at $0.001/request. Cost: 1 feed call per sport/day + up to 4 calls per detailed match, no proxy. 1 free row per run.",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~flashscore-scraper?token=APIFY_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "match": {
+                "eventTitle": "Match",
+                "eventDescription": "One match row with league, teams, kick-off, status, score and period scores. The first row of every run is free.",
+                "eventPriceUsd": 0.001,
+                "isPrimaryEvent": true
+            },
+            "match_details": {
+                "eventTitle": "Match details",
+                "eventDescription": "Added once per match when you ask for stats (xG), odds, goals and cards or head-to-head, whichever and however many you pick.",
+                "eventPriceUsd": 0.002
+            }
+        }
+    },
+    "startedAt": "2026-12-09T00:00:00.000Z"
+}

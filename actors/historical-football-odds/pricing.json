@@ -1,0 +1,16 @@
+{
+    "_note": "New actor. Market (2026-11-24): sports-odds-lab/football-odds-results u30 15, oddsportal historical scrapers u30 2-9. Cost: 1 CSV download per league-season (~200 KB), no proxy, rows pushed in batches of 200. 1 free row per run. Low per-row price on purpose: backtesting buyers pull tens of thousands of rows.",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~historical-football-odds?token=APIFY_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "match": {
+                "eventTitle": "Match",
+                "eventDescription": "One match row with result, match stats, opening and closing 1X2, over/under 2.5 and Asian handicap odds and implied probabilities. The first row of every run is free.",
+                "eventPriceUsd": 0.0005,
+                "isPrimaryEvent": true
+            }
+        }
+    },
+    "startedAt": "2026-12-09T00:00:00.000Z"
+}

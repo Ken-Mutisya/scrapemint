@@ -1,0 +1,20 @@
+{
+    "actorOutputSchemaVersion": 1,
+    "title": "Matches",
+    "description": "One row per match: result, match stats, opening and closing odds and implied probabilities.",
+    "type": "object",
+    "properties": {
+        "results": {
+            "type": "string",
+            "title": "Matches",
+            "description": "One row per match.",
+            "template": "{{links.apiDefaultDatasetUrl}}/items"
+        },
+        "summary": {
+            "type": "string",
+            "title": "Run summary",
+            "description": "Leagues, seasons and matches returned.",
+            "template": "{{links.apiDefaultKeyValueStoreUrl}}/records/SUMMARY"
+        }
+    }
+}

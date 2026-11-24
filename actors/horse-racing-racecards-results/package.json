@@ -1,0 +1,16 @@
+{
+    "name": "horse-racing-racecards-results",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Horse racing racecards, live bookmaker odds and results with starting prices for UK, Ireland, France and US meetings.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}

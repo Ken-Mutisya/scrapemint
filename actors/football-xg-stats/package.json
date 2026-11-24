@@ -1,0 +1,16 @@
+{
+    "name": "football-xg-stats",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Football xG tables, expected points, player xG and xA and match xG with shot maps for 40+ leagues.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}

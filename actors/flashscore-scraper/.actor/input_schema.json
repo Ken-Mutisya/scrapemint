@@ -1,0 +1,105 @@
+{
+    "title": "Flashscore Scraper Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "sports": {
+            "title": "Sports",
+            "type": "array",
+            "description": "Sports to pull: football, tennis, basketball, hockey, american-football, baseball, handball, rugby, rugby-league, volleyball, cricket, darts, snooker, esports, mma, boxing, golf, table-tennis, futsal, aussie-rules and more.",
+            "editor": "stringList",
+            "default": ["football"],
+            "prefill": ["football"]
+        },
+        "days": {
+            "title": "Days",
+            "type": "array",
+            "description": "Days relative to today (UTC): 0 = today, -1 = yesterday, 1 = tomorrow. Flashscore keeps -7 to +7.",
+            "editor": "stringList",
+            "default": ["0"],
+            "prefill": ["0"]
+        },
+        "leagues": {
+            "title": "Leagues",
+            "type": "array",
+            "description": "Keep only leagues whose name or country contains one of these, e.g. Premier League, ENGLAND, LaLiga, NBA, Champions League, ATP. Empty = every league.",
+            "editor": "stringList",
+            "prefill": ["ENGLAND: Premier League", "SPAIN: LaLiga", "ITALY: Serie A", "GERMANY: Bundesliga", "FRANCE: Ligue 1"]
+        },
+        "teams": {
+            "title": "Teams or players",
+            "type": "array",
+            "description": "Keep only matches with one of these team or player names (partial match), e.g. Arsenal, Real Madrid, Sinner.",
+            "editor": "stringList"
+        },
+        "matchIds": {
+            "title": "Match IDs or URLs",
+            "type": "array",
+            "description": "Specific Flashscore matches: the 8-character ID or the match URL. Up to 500.",
+            "editor": "stringList"
+        },
+        "status": {
+            "title": "Status",
+            "type": "string",
+            "description": "Which matches to keep.",
+            "editor": "select",
+            "enum": ["all", "scheduled", "live", "finished", "postponed", "cancelled"],
+            "enumTitles": ["All", "Scheduled (fixtures)", "Live now", "Finished (results)", "Postponed", "Cancelled"],
+            "default": "all"
+        },
+        "includeStats": {
+            "title": "Match stats (xG, shots, possession)",
+            "type": "boolean",
+            "description": "Add xG, xGOT, shots, possession, corners, cards, passes and every other stat Flashscore shows. Charged as match details.",
+            "default": false
+        },
+        "includeOdds": {
+            "title": "Bookmaker odds",
+            "type": "boolean",
+            "description": "Add opening and current odds from every bookmaker Flashscore lists for your country, plus the best price per outcome. Charged as match details.",
+            "default": false
+        },
+        "oddsMarkets": {
+            "title": "Odds markets",
+            "type": "array",
+            "description": "HOME_DRAW_AWAY (1X2), HOME_AWAY (moneyline for tennis, basketball and other no-draw sports), OVER_UNDER, BOTH_TEAMS_TO_SCORE, ASIAN_HANDICAP, EUROPEAN_HANDICAP, DOUBLE_CHANCE, DRAW_NO_BET, CORRECT_SCORE, HALF_FULL_TIME, ODD_OR_EVEN. Empty = all.",
+            "editor": "stringList",
+            "default": ["HOME_DRAW_AWAY", "HOME_AWAY", "OVER_UNDER", "BOTH_TEAMS_TO_SCORE"]
+        },
+        "oddsScope": {
+            "title": "Odds period",
+            "type": "array",
+            "description": "FULL_TIME, FIRST_HALF, SECOND_HALF, FIRST_SET, SECOND_SET. Empty = all.",
+            "editor": "stringList",
+            "default": ["FULL_TIME"]
+        },
+        "oddsCountry": {
+            "title": "Bookmaker country",
+            "type": "string",
+            "description": "Two-letter country code that decides which bookmakers are listed, e.g. GB, US, DE, KE, NG, AU.",
+            "editor": "textfield",
+            "default": "GB"
+        },
+        "includeEvents": {
+            "title": "Goals, cards and substitutions",
+            "type": "boolean",
+            "description": "Add the match timeline: minute, team, player and type of every goal, card and substitution. Charged as match details.",
+            "default": false
+        },
+        "includeH2H": {
+            "title": "Head-to-head and form",
+            "type": "boolean",
+            "description": "Add each team's last matches and their previous meetings. Charged as match details.",
+            "default": false
+        },
+        "maxMatches": {
+            "title": "Max matches",
+            "type": "integer",
+            "default": 200,
+            "minimum": 1,
+            "maximum": 5000,
+            "description": "Cap on rows returned (earliest kick-off first). Controls cost."
+        }
+    },
+    "required": []
+}

@@ -1,0 +1,16 @@
+{
+    "actorSpecification": 1,
+    "name": "football-xg-stats",
+    "title": "Football xG Stats: xG Table, Player xG/xA & Match xG",
+    "description": "Expected goals data for 40+ football leagues: xG table with expected points, player xG, xA, xGOT and per-90 stats, and per-match xG with shot maps. Premier League, LaLiga, Serie A, Bundesliga, MLS and more. No API key.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "output": "./output_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "AUTOMATION",
+        "OTHER"
+    ],
+    "readme": "../README.md"
+}

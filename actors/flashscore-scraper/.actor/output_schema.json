@@ -1,0 +1,20 @@
+{
+    "actorOutputSchemaVersion": 1,
+    "title": "Matches",
+    "description": "One row per match: league, teams, start time, status, score and periods, plus optional stats, odds, events and head-to-head.",
+    "type": "object",
+    "properties": {
+        "results": {
+            "type": "string",
+            "title": "Matches",
+            "description": "One row per match.",
+            "template": "{{links.apiDefaultDatasetUrl}}/items"
+        },
+        "summary": {
+            "type": "string",
+            "title": "Run summary",
+            "description": "Matches found and returned.",
+            "template": "{{links.apiDefaultKeyValueStoreUrl}}/records/SUMMARY"
+        }
+    }
+}

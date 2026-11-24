@@ -1,0 +1,43 @@
+{
+    "title": "Forex Sentiment Tracker Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "symbols": {
+            "title": "Symbols",
+            "type": "array",
+            "description": "Keep only these, e.g. EURUSD, GBPUSD, USDJPY, XAUUSD, NAS100, BTCUSD. Empty = all 24: EURUSD, GBPUSD, USDJPY, USDCHF, USDCAD, AUDUSD, NZDUSD, EURGBP, EURJPY, EURAUD, EURCHF, GBPJPY, GBPCHF, AUDJPY, XAUUSD, XAGUSD, XTIUSD, XBRUSD, US30, NAS100, SP500, GER40, BTCUSD, ETHUSD.",
+            "editor": "stringList"
+        },
+        "brokers": {
+            "title": "Brokers",
+            "type": "array",
+            "description": "Average only these brokers: Myfxbook, OANDA, Dukascopy, FX Blue, XM, InstaForex, FIBO Group, AMarkets, FXSSI. Empty = all.",
+            "editor": "stringList"
+        },
+        "signalThreshold": {
+            "title": "Signal threshold (%)",
+            "type": "integer",
+            "description": "Contrarian signal: sell when at least this % of traders are long, buy when at least this % are short. 60 is common; higher = fewer, stronger signals.",
+            "default": 60,
+            "minimum": 50,
+            "maximum": 95
+        },
+        "output": {
+            "title": "Rows",
+            "type": "string",
+            "description": "One row per symbol (average across brokers, with each broker inside), or one row per symbol and broker.",
+            "editor": "select",
+            "enum": ["symbols", "brokers"],
+            "enumTitles": ["One row per symbol", "One row per symbol and broker"],
+            "default": "symbols"
+        },
+        "trackChanges": {
+            "title": "Change since last run",
+            "type": "boolean",
+            "description": "Remember each run's snapshot and add how much the long % moved since your previous run. Best with a schedule (every 1-4 hours).",
+            "default": true
+        }
+    },
+    "required": []
+}

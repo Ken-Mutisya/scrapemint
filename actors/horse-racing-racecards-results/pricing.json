@@ -1,0 +1,16 @@
+{
+    "_note": "New actor. Market (2026-11-24): jungle_synthesizer/equibase-us-horse-racing-scraper u30 21, parseforge/equibase-scraper u30 6, racing post scrapers u30 0-1. Cost: 1 page per day + 1 page per race (~20 runners), no proxy. 1 free row per run.",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~horse-racing-racecards-results?token=APIFY_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "runner": {
+                "eventTitle": "Runner",
+                "eventDescription": "One runner row: race details, horse, jockey, trainer, form and odds, or finishing position and starting price. The first row of every run is free.",
+                "eventPriceUsd": 0.001,
+                "isPrimaryEvent": true
+            }
+        }
+    },
+    "startedAt": "2026-12-09T00:00:00.000Z"
+}

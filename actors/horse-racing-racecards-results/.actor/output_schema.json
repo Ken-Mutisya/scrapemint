@@ -1,0 +1,20 @@
+{
+    "actorOutputSchemaVersion": 1,
+    "title": "Runners",
+    "description": "One row per runner: race details, horse, jockey, trainer, form, odds or finishing position and starting price.",
+    "type": "object",
+    "properties": {
+        "results": {
+            "type": "string",
+            "title": "Runners",
+            "description": "One row per runner.",
+            "template": "{{links.apiDefaultDatasetUrl}}/items"
+        },
+        "summary": {
+            "type": "string",
+            "title": "Run summary",
+            "description": "Races found and runners returned.",
+            "template": "{{links.apiDefaultKeyValueStoreUrl}}/records/SUMMARY"
+        }
+    }
+}

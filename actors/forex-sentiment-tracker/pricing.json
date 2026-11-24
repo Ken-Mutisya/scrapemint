@@ -1,0 +1,16 @@
+{
+    "_note": "New actor. Market (2026-11-24): xtracto/myfxbook-community-outlook u30 3 ($0.012 per start); Myfxbook itself blocks Apify IPs (Cloudflare 403), FXSSI aggregate answers without proxy. Cost: 1 JSON call per run. 1 free row per run.",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~forex-sentiment-tracker?token=APIFY_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "symbol": {
+                "eventTitle": "Symbol",
+                "eventDescription": "One symbol row with % long and short, per-broker split, contrarian signal and change since your last run (or one symbol-broker row in per-broker mode). The first row of every run is free.",
+                "eventPriceUsd": 0.002,
+                "isPrimaryEvent": true
+            }
+        }
+    },
+    "startedAt": "2026-12-09T00:00:00.000Z"
+}

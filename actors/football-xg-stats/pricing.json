@@ -1,0 +1,16 @@
+{
+    "_note": "New actor. Market (2026-11-24): superapis/fotmob u30 14 ($0.001/request), incognito_mode/fotmob-match-details-scraper u30 11 ($0.006-0.01/match), understat scrapers u30 0-3 (Understat was down for maintenance on 11-24). Cost: 1 league call + up to ~20 stat-list calls, or 1 call per match, no proxy. 1 free row per run.",
+    "_endpoint": "PUT https://api.apify.com/v2/acts/scrapemint~football-xg-stats?token=APIFY_TOKEN",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "row": {
+                "eventTitle": "xG row",
+                "eventDescription": "One team (xG table), player (xG, xA and per-90 stats) or match (match xG and stats) row. The first row of every run is free.",
+                "eventPriceUsd": 0.002,
+                "isPrimaryEvent": true
+            }
+        }
+    },
+    "startedAt": "2026-12-09T00:00:00.000Z"
+}

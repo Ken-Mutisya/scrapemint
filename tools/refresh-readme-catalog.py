@@ -73,6 +73,7 @@ SECTIONS = [
         "central-bank-policy-rates", "fed-rate-expectations", "us-treasury-rates-scraper",
         "government-bond-yields-worldwide", "money-market-rates-tracker", "us-loan-mortgage-rates",
         "currency-exchange-rates-scraper", "forexfactory-economic-calendar", "economic-calendar-scraper",
+        "forex-sentiment-tracker",
         "european-electricity-prices", "oil-gas-inventory-report", "us-gas-diesel-prices",
     ]),
     ("Real estate & housing", [
@@ -88,6 +89,7 @@ SECTIONS = [
         "sports-odds-movement-tracker",
         "sportsbook-odds-tracker", "sportsbook-player-props", "underdog-sleeper-player-props", "sports-futures-odds",
         "sports-betting-results", "sports-scores-scraper", "sports-player-stats-scraper",
+        "flashscore-scraper", "horse-racing-racecards-results", "football-xg-stats", "historical-football-odds",
         "lottery-results-scraper",
     ]),
     ("Jobs & hiring", [
