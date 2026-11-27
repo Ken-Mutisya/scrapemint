@@ -1,0 +1,20 @@
+{
+    "actorOutputSchemaVersion": 1,
+    "title": "ESPN rows",
+    "description": "One row per game, standings entry, injury, player, article or team. Each row has a dataType field.",
+    "type": "object",
+    "properties": {
+        "results": {
+            "type": "string",
+            "title": "Rows",
+            "description": "Games, standings, injuries, players, news and teams.",
+            "template": "{{links.apiDefaultDatasetUrl}}/items"
+        },
+        "summary": {
+            "type": "string",
+            "title": "Run summary",
+            "description": "Leagues, data types and row counts.",
+            "template": "{{links.apiDefaultKeyValueStoreUrl}}/records/SUMMARY"
+        }
+    }
+}

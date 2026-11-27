@@ -1,0 +1,16 @@
+{
+    "actorSpecification": 1,
+    "name": "mlb-stats-statcast",
+    "title": "MLB Stats & Statcast: Exit Velocity, Barrels, xBA by Player",
+    "description": "MLB season stats for every hitter and pitcher joined with Statcast exit velocity, barrels, hard-hit %, xBA, xSLG, xwOBA and xERA, plus player lookup and games with probable pitchers. Official MLB data, no API key.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "output": "./output_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "AUTOMATION",
+        "OTHER"
+    ],
+    "readme": "../README.md"
+}

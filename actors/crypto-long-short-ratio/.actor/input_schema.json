@@ -1,0 +1,93 @@
+{
+    "title": "Crypto Long/Short Ratio",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "symbols": {
+            "title": "Coins",
+            "type": "array",
+            "editor": "stringList",
+            "description": "Coin tickers such as BTC, ETH, SOL, XRP, DOGE. USDT perpetual futures are read on each exchange.",
+            "prefill": [
+                "BTC",
+                "ETH",
+                "SOL"
+            ],
+            "default": [
+                "BTC",
+                "ETH",
+                "SOL"
+            ]
+        },
+        "exchanges": {
+            "title": "Exchanges",
+            "type": "array",
+            "editor": "select",
+            "items": {
+                "type": "string",
+                "enum": [
+                    "okx",
+                    "bitget",
+                    "gate"
+                ],
+                "enumTitles": [
+                    "OKX",
+                    "Bitget",
+                    "Gate"
+                ]
+            },
+            "description": "Which exchanges to read. Binance and Bybit block cloud servers, so they are not offered.",
+            "default": [
+                "okx",
+                "bitget",
+                "gate"
+            ]
+        },
+        "period": {
+            "title": "Period",
+            "type": "string",
+            "editor": "select",
+            "enum": [
+                "5m",
+                "15m",
+                "1h",
+                "4h",
+                "1d"
+            ],
+            "default": "1h",
+            "description": "Time bucket for each reading."
+        },
+        "mode": {
+            "title": "Mode",
+            "type": "string",
+            "editor": "select",
+            "enum": [
+                "snapshot",
+                "history"
+            ],
+            "enumTitles": [
+                "Snapshot: latest reading per coin and exchange",
+                "History: past readings"
+            ],
+            "default": "snapshot",
+            "description": "Snapshot is one row per coin per exchange. History returns up to 100 past readings each."
+        },
+        "historyPoints": {
+            "title": "History points",
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100,
+            "default": 24,
+            "description": "History mode only. Bitget returns about 30 points at most."
+        },
+        "maxRows": {
+            "title": "Max rows",
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 50000,
+            "default": 2000,
+            "description": "Stop after this many rows."
+        }
+    },
+    "required": []
+}

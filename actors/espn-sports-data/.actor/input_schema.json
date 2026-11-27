@@ -1,0 +1,90 @@
+{
+    "title": "ESPN Sports Data",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "leagues": {
+            "title": "Leagues",
+            "type": "array",
+            "editor": "stringList",
+            "description": "League names such as nfl, nba, mlb, nhl, wnba, ncaaf, ncaab, epl, laliga, mls, ucl, ufc, pga, f1, or any ESPN path like soccer/bra.1.",
+            "prefill": [
+                "nfl",
+                "nba"
+            ],
+            "default": [
+                "nfl"
+            ]
+        },
+        "dataTypes": {
+            "title": "What to return",
+            "type": "array",
+            "editor": "select",
+            "items": {
+                "type": "string",
+                "enum": [
+                    "scores",
+                    "standings",
+                    "injuries",
+                    "rosters",
+                    "news",
+                    "teams"
+                ],
+                "enumTitles": [
+                    "Scores and schedule (with betting line)",
+                    "Standings",
+                    "Injury report",
+                    "Team rosters",
+                    "News",
+                    "Teams"
+                ]
+            },
+            "description": "Pick one or more. Scores include ESPN's spread, total and moneyline where published.",
+            "prefill": [
+                "scores",
+                "injuries"
+            ],
+            "default": [
+                "scores"
+            ]
+        },
+        "startDate": {
+            "title": "From date",
+            "type": "string",
+            "editor": "textfield",
+            "description": "Scores only. YYYY-MM-DD. Leave empty for the current slate (today's games, or this week in the NFL).",
+            "pattern": "^(\\d{4}-\\d{2}-\\d{2})?$"
+        },
+        "endDate": {
+            "title": "To date",
+            "type": "string",
+            "editor": "textfield",
+            "description": "Scores only. YYYY-MM-DD. Up to 31 days after the from date.",
+            "pattern": "^(\\d{4}-\\d{2}-\\d{2})?$"
+        },
+        "teams": {
+            "title": "Only these teams",
+            "type": "array",
+            "editor": "stringList",
+            "description": "Optional. Team names or abbreviations, e.g. Lakers, KC, Arsenal. Leave empty for every team.",
+            "default": []
+        },
+        "newsLimit": {
+            "title": "News articles per league",
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100,
+            "default": 25,
+            "description": "News only."
+        },
+        "maxRows": {
+            "title": "Max rows",
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 50000,
+            "default": 1000,
+            "description": "Stop after this many rows."
+        }
+    },
+    "required": []
+}

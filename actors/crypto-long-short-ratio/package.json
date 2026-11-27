@@ -1,0 +1,16 @@
+{
+    "name": "crypto-long-short-ratio",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Crypto long/short ratio and top-trader positioning from OKX, Bitget and Gate, with open interest, taker volume and liquidations.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}

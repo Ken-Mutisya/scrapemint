@@ -1,0 +1,20 @@
+{
+    "actorOutputSchemaVersion": 1,
+    "title": "Betting splits",
+    "description": "One row per game with % of bets and % of money on each side of the spread, moneyline and total.",
+    "type": "object",
+    "properties": {
+        "results": {
+            "type": "string",
+            "title": "Games",
+            "description": "Games with public betting splits and sharp-money flags.",
+            "template": "{{links.apiDefaultDatasetUrl}}/items"
+        },
+        "summary": {
+            "type": "string",
+            "title": "Run summary",
+            "description": "Leagues and games returned.",
+            "template": "{{links.apiDefaultKeyValueStoreUrl}}/records/SUMMARY"
+        }
+    }
+}

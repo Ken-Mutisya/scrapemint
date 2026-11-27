@@ -1,0 +1,63 @@
+{
+    "title": "Transfermarkt Player Values",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "players": {
+            "title": "Players",
+            "type": "array",
+            "editor": "stringList",
+            "description": "Player names, Transfermarkt player URLs or ids, e.g. Bukayo Saka or https://www.transfermarkt.com/erling-haaland/profil/spieler/418560.",
+            "prefill": [
+                "Erling Haaland",
+                "Bukayo Saka"
+            ],
+            "default": []
+        },
+        "clubs": {
+            "title": "Clubs (whole squad)",
+            "type": "array",
+            "editor": "stringList",
+            "description": "Club names, URLs or ids. Returns every player in the current squad.",
+            "prefill": [
+                "Arsenal"
+            ],
+            "default": []
+        },
+        "leagues": {
+            "title": "Leagues (every squad)",
+            "type": "array",
+            "editor": "stringList",
+            "description": "premier league, laliga, serie a, bundesliga, ligue 1, eredivisie, liga portugal, mls, saudi pro league, brasileirao, championship, or a Transfermarkt code like GB1. Returns every player of every club.",
+            "default": []
+        },
+        "includeValueHistory": {
+            "title": "Add market value history",
+            "type": "boolean",
+            "default": false,
+            "description": "Every past valuation with date, club and age. Adds the player_history event."
+        },
+        "includeTransfers": {
+            "title": "Add transfer history",
+            "type": "boolean",
+            "default": false,
+            "description": "Every transfer with date, from, to, fee and market value at the time. Adds the player_history event."
+        },
+        "minMarketValueEur": {
+            "title": "Minimum market value (EUR)",
+            "type": "integer",
+            "minimum": 0,
+            "default": 0,
+            "description": "Skip players valued below this, e.g. 10000000 for 10 million. Skipped players are not charged."
+        },
+        "maxRows": {
+            "title": "Max players",
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 20000,
+            "default": 1000,
+            "description": "Stop after this many players."
+        }
+    },
+    "required": []
+}

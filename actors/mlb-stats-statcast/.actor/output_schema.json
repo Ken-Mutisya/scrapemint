@@ -1,0 +1,20 @@
+{
+    "actorOutputSchemaVersion": 1,
+    "title": "MLB rows",
+    "description": "One row per player or game.",
+    "type": "object",
+    "properties": {
+        "results": {
+            "type": "string",
+            "title": "Rows",
+            "description": "Players with season stats and Statcast, or games.",
+            "template": "{{links.apiDefaultDatasetUrl}}/items"
+        },
+        "summary": {
+            "type": "string",
+            "title": "Run summary",
+            "description": "Mode, season and rows.",
+            "template": "{{links.apiDefaultKeyValueStoreUrl}}/records/SUMMARY"
+        }
+    }
+}

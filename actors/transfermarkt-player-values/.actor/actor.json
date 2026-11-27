@@ -1,0 +1,16 @@
+{
+    "actorSpecification": 1,
+    "name": "transfermarkt-player-values",
+    "title": "Transfermarkt Player Values: Market Value, Transfers, Contracts",
+    "description": "Transfermarkt data for any player, club squad or whole league: current and highest market value, value change, contract end date, club, position, nationality, plus value history and transfer fees. No API key.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "output": "./output_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "AUTOMATION",
+        "OTHER"
+    ],
+    "readme": "../README.md"
+}

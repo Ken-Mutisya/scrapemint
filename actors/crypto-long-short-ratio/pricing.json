@@ -1,0 +1,20 @@
+{
+    "_note": "New actor 2026-11-28. Market: api_merge coinglass heatmap/map actors u30 43+20 ($0.01/item), muhammetakkurtt/binance-smart-money u30 5 ($0.005-0.01 + start). Cost: 1-4 keyless calls per coin per exchange, no proxy. 1 free row per run.",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "snapshot": {
+                "eventTitle": "Positioning snapshot",
+                "eventDescription": "The latest long/short reading for one coin on one exchange: all-account and top-trader ratios with long %, taker buy/sell, and open interest and liquidations where the exchange publishes them. The first row of every run is free.",
+                "eventPriceUsd": 0.002,
+                "isPrimaryEvent": true
+            },
+            "history_point": {
+                "eventTitle": "History point",
+                "eventDescription": "One past reading for one coin on one exchange (history mode). The first row of every run is free.",
+                "eventPriceUsd": 0.0005
+            }
+        }
+    },
+    "startedAt": "2026-12-13T00:00:00.000Z"
+}

@@ -1,0 +1,20 @@
+{
+    "_note": "New actor 2026-11-28. Market: data_xplorer/transfermarkt-api-scraper u30 36 ($0.0015/item + $0.10 per run start). Cost: batched keyless JSON (25 players per call) + 1-2 calls per player for history, no proxy. No start fee, 1 free player per run.",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "player": {
+                "eventTitle": "Player",
+                "eventDescription": "One player with current, previous and highest market value, contract end date, club, shirt number, position, nationality, age and profile link. The first player of every run is free. Notes are free.",
+                "eventPriceUsd": 0.002,
+                "isPrimaryEvent": true
+            },
+            "player_history": {
+                "eventTitle": "Value or transfer history",
+                "eventDescription": "Charged per player only when you turn on market value history or transfer history: every past valuation and every transfer with fee.",
+                "eventPriceUsd": 0.002
+            }
+        }
+    },
+    "startedAt": "2026-12-13T00:00:00.000Z"
+}

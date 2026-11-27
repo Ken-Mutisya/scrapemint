@@ -1,0 +1,96 @@
+{
+    "title": "MLB Stats & Statcast",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "mode": {
+            "title": "What to return",
+            "type": "string",
+            "editor": "select",
+            "enum": [
+                "season-stats",
+                "players",
+                "games"
+            ],
+            "enumTitles": [
+                "Season stats for every player (with Statcast)",
+                "Specific players (bio, season and career)",
+                "Games: schedule, scores, probable pitchers"
+            ],
+            "default": "season-stats",
+            "description": "Season stats is the full leaderboard; players looks up names you give; games lists the schedule and results."
+        },
+        "group": {
+            "title": "Hitters or pitchers",
+            "type": "string",
+            "editor": "select",
+            "enum": [
+                "hitting",
+                "pitching",
+                "both"
+            ],
+            "default": "hitting",
+            "description": "Season stats mode."
+        },
+        "season": {
+            "title": "Season",
+            "type": "integer",
+            "minimum": 2015,
+            "maximum": 2100,
+            "description": "Year. Leave empty for the latest season. Statcast data starts in 2015."
+        },
+        "qualifiedOnly": {
+            "title": "Qualified players only",
+            "type": "boolean",
+            "default": true,
+            "description": "On: players with enough plate appearances or innings to qualify for the batting or ERA title. Off: everyone who played."
+        },
+        "includeStatcast": {
+            "title": "Add Statcast",
+            "type": "boolean",
+            "default": true,
+            "description": "Exit velocity, launch angle, hard-hit %, barrels, xBA, xSLG, xwOBA (and xERA for pitchers) from Baseball Savant."
+        },
+        "teams": {
+            "title": "Only these teams",
+            "type": "array",
+            "editor": "stringList",
+            "description": "Optional. Team names or abbreviations, e.g. Yankees, LAD.",
+            "default": []
+        },
+        "players": {
+            "title": "Players",
+            "type": "array",
+            "editor": "stringList",
+            "description": "Players mode. Names or MLBAM ids, e.g. Aaron Judge, Shohei Ohtani.",
+            "prefill": [
+                "Aaron Judge",
+                "Shohei Ohtani"
+            ],
+            "default": []
+        },
+        "startDate": {
+            "title": "From date",
+            "type": "string",
+            "editor": "textfield",
+            "description": "Games mode. YYYY-MM-DD, default today.",
+            "pattern": "^(\\d{4}-\\d{2}-\\d{2})?$"
+        },
+        "endDate": {
+            "title": "To date",
+            "type": "string",
+            "editor": "textfield",
+            "description": "Games mode. YYYY-MM-DD, default the from date.",
+            "pattern": "^(\\d{4}-\\d{2}-\\d{2})?$"
+        },
+        "maxRows": {
+            "title": "Max rows",
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 20000,
+            "default": 1000,
+            "description": "Stop after this many rows."
+        }
+    },
+    "required": []
+}

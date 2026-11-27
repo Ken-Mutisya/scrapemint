@@ -1,0 +1,20 @@
+{
+    "actorOutputSchemaVersion": 1,
+    "title": "Players",
+    "description": "One row per player with market value, contract, club and profile.",
+    "type": "object",
+    "properties": {
+        "results": {
+            "type": "string",
+            "title": "Players",
+            "description": "Players with market values, contracts and optional value and transfer history.",
+            "template": "{{links.apiDefaultDatasetUrl}}/items"
+        },
+        "summary": {
+            "type": "string",
+            "title": "Run summary",
+            "description": "Players requested and returned.",
+            "template": "{{links.apiDefaultKeyValueStoreUrl}}/records/SUMMARY"
+        }
+    }
+}

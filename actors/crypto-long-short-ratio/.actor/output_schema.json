@@ -1,0 +1,20 @@
+{
+    "actorOutputSchemaVersion": 1,
+    "title": "Long/short readings",
+    "description": "One row per coin, exchange and time.",
+    "type": "object",
+    "properties": {
+        "results": {
+            "type": "string",
+            "title": "Readings",
+            "description": "Long/short ratios, top-trader positioning, taker volume, open interest and liquidations.",
+            "template": "{{links.apiDefaultDatasetUrl}}/items"
+        },
+        "summary": {
+            "type": "string",
+            "title": "Run summary",
+            "description": "Coins, exchanges, period and rows.",
+            "template": "{{links.apiDefaultKeyValueStoreUrl}}/records/SUMMARY"
+        }
+    }
+}

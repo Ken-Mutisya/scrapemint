@@ -1,0 +1,15 @@
+{
+    "_note": "New actor 2026-11-28. Market: hgservices/apify-actor-espn u30 73 ($0.001/item + start), scrapesage/espn-sports-scraper u30 56 ($0.002-0.006/item), lergassy/espn-scores-api u30 17 ($0.0018-0.005). Cost: 1 keyless call per league/day or per team roster, no proxy. One flat row price, 1 free row per run.",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "row": {
+                "eventTitle": "ESPN row",
+                "eventDescription": "One game (with score and betting line), standings entry, injury, roster player, news article or team. The first row of every run is free. Notes for empty days or unknown leagues are free.",
+                "eventPriceUsd": 0.0015,
+                "isPrimaryEvent": true
+            }
+        }
+    },
+    "startedAt": "2026-12-13T00:00:00.000Z"
+}

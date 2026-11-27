@@ -1,0 +1,16 @@
+{
+    "actorSpecification": 1,
+    "name": "crypto-long-short-ratio",
+    "title": "Crypto Long/Short Ratio: Trader Positioning by Exchange",
+    "description": "Crypto long/short ratio for BTC, ETH, SOL and any coin on OKX, Bitget and Gate: all accounts vs top traders, taker buy/sell, open interest and liquidations. Snapshot or history. No API key.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "output": "./output_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "AUTOMATION",
+        "OTHER"
+    ],
+    "readme": "../README.md"
+}

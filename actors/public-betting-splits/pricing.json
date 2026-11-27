@@ -1,0 +1,15 @@
+{
+    "_note": "New actor 2026-11-28. Market: parseforge/action-network-scraper u30 21 ($0.007/game-odds row + $0.02 start), no dedicated splits actor. Cost: 1 keyless call per league per day, no proxy. 1 free game per run.",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "game": {
+                "eventTitle": "Game with betting splits",
+                "eventDescription": "One game with % of bets and % of money on each side of the spread, moneyline and total, the consensus line and price, total bets placed and sharp-money flags. The first game of every run is free. Notes are free.",
+                "eventPriceUsd": 0.004,
+                "isPrimaryEvent": true
+            }
+        }
+    },
+    "startedAt": "2026-12-13T00:00:00.000Z"
+}

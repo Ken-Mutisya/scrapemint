@@ -1,0 +1,16 @@
+{
+    "name": "mlb-stats-statcast",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "MLB player season stats merged with Statcast exit velocity, barrels and expected stats, player lookup, and games with probable pitchers.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}

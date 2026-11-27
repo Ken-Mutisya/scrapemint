@@ -1,0 +1,15 @@
+{
+    "_note": "New actor 2026-11-28. Market: memo23/mlb-stats-scraper u30 22 ($0.004/item + $0.005 start), parseforge/mlb-stats-scraper u30 7 ($0.034/item), zen-studio statcast u30 4. Cost: 3-5 keyless calls per run (stats + 2 Savant CSVs), no proxy. 1 free row per run.",
+    "pricingModel": "PAY_PER_EVENT",
+    "pricingPerEvent": {
+        "actorChargeEvents": {
+            "row": {
+                "eventTitle": "Player or game row",
+                "eventDescription": "One player with season stats and Statcast metrics, one looked-up player with season and career stats, or one game with score and probable pitchers. The first row of every run is free. Notes are free.",
+                "eventPriceUsd": 0.002,
+                "isPrimaryEvent": true
+            }
+        }
+    },
+    "startedAt": "2026-12-13T00:00:00.000Z"
+}

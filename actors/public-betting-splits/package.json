@@ -1,0 +1,16 @@
+{
+    "name": "public-betting-splits",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Public betting splits for NFL, NBA, MLB, NHL, college and soccer: % of bets vs % of money on spread, moneyline and total, with sharp-money flags.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}

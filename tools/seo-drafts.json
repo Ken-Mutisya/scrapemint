@@ -1170,5 +1170,25 @@
  "forex-sentiment-tracker": {
   "seoDescription": "Retail FX positioning for 24 pairs, gold, oil, indices and crypto: % long and short from Myfxbook, OANDA, Dukascopy and more, with contrarian signals.",
   "seoTitle": "Forex Sentiment API: Retail Long/Short Ratio"
+ },
+ "espn-sports-data": {
+  "seoTitle": "ESPN API Scraper: Scores, Injuries, Standings",
+  "seoDescription": "ESPN data for NFL, NBA, MLB, NHL, college and soccer: live scores with betting lines, standings, injury reports, rosters and news. No API key."
+ },
+ "public-betting-splits": {
+  "seoTitle": "Public Betting Splits: % of Bets vs % of Money",
+  "seoDescription": "Public betting percentages for NFL, NBA, MLB, NHL and college games: % of bets vs % of money on spread, moneyline and total, with sharp-money flags."
+ },
+ "transfermarkt-player-values": {
+  "seoTitle": "Transfermarkt Scraper: Player Market Values",
+  "seoDescription": "Transfermarkt market values for any player, club or league: current and highest value, contract end, club, nationality, plus value and transfer history."
+ },
+ "crypto-long-short-ratio": {
+  "seoTitle": "Crypto Long/Short Ratio: OKX, Bitget, Gate",
+  "seoDescription": "Crypto long/short ratio for BTC, ETH, SOL and any coin: all accounts vs top traders on OKX, Bitget and Gate, with open interest and liquidations."
+ },
+ "mlb-stats-statcast": {
+  "seoTitle": "MLB Stats & Statcast Scraper: xBA, Barrels, EV",
+  "seoDescription": "MLB season stats for every hitter and pitcher joined with Statcast exit velocity, barrels, hard-hit %, xBA, xwOBA and xERA, plus games and lookups."
  }
 }

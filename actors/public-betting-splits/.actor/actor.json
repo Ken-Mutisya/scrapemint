@@ -1,0 +1,16 @@
+{
+    "actorSpecification": 1,
+    "name": "public-betting-splits",
+    "title": "Public Betting Splits: % of Bets vs % of Money by Game",
+    "description": "Where the public and the sharp money are on every NFL, NBA, MLB, NHL, college and soccer game: % of bets vs % of money on the spread, moneyline and total, with sharp-money flags. No API key.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "output": "./output_schema.json",
+    "dockerfile": "./Dockerfile",
+    "categories": [
+        "AUTOMATION",
+        "OTHER"
+    ],
+    "readme": "../README.md"
+}

@@ -1,0 +1,16 @@
+{
+    "name": "espn-sports-data",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "ESPN sports data: live scores with betting lines, standings, injuries, rosters, news and teams for NFL, NBA, MLB, NHL, college and soccer.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "apify": "^3.7.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}

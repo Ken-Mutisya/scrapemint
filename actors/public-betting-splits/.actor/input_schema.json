@@ -1,0 +1,64 @@
+{
+    "title": "Public Betting Splits",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "leagues": {
+            "title": "Leagues",
+            "type": "array",
+            "editor": "stringList",
+            "description": "nfl, nba, mlb, nhl, wnba, ncaaf (college football), ncaab (college basketball) or soccer.",
+            "prefill": [
+                "nfl",
+                "nba"
+            ],
+            "default": [
+                "nfl"
+            ]
+        },
+        "date": {
+            "title": "Date",
+            "type": "string",
+            "editor": "textfield",
+            "description": "YYYY-MM-DD. Leave empty for the current slate (this week's NFL games, today's NBA games).",
+            "pattern": "^(\\d{4}-\\d{2}-\\d{2})?$"
+        },
+        "days": {
+            "title": "Number of days",
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 14,
+            "default": 1,
+            "description": "How many days to read, starting at the date (or today)."
+        },
+        "includeCompleted": {
+            "title": "Include finished games",
+            "type": "boolean",
+            "default": false,
+            "description": "Off: only upcoming and live games. On: also games already played, with their final splits."
+        },
+        "onlySharpSignals": {
+            "title": "Only games with a sharp-money signal",
+            "type": "boolean",
+            "default": false,
+            "description": "Return only games where at least one side's share of money beats its share of bets by the gap below."
+        },
+        "sharpGapPct": {
+            "title": "Sharp-money gap (points)",
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 50,
+            "default": 10,
+            "description": "A side is flagged when % of money minus % of bets is at least this many points."
+        },
+        "maxRows": {
+            "title": "Max games",
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 10000,
+            "default": 500,
+            "description": "Stop after this many games."
+        }
+    },
+    "required": []
+}
