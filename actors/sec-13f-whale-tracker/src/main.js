@@ -96,7 +96,7 @@ async function resolveManager(raw) {
     // FTS matches any filing that merely MENTIONS the name (e.g. a fund that holds
     // Berkshire), so "Berkshire Hathaway" there returns the wrong filer. getcompany
     // matches the filing entity itself, restricted to 13F-HR filers.
-    const url = `https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&company=${encodeURIComponent(raw)}&type=13F-HR&dateb=&owner=include&count=5&output=atom`;
+    const url = `https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&company=${encodeURIComponent(raw)}&type=13F-HR&dateb=&owner=include&count=10&output=atom`;
     try {
         await sleep(EDGAR_RATE_SLEEP_MS);
         const res = await fetch(url, { headers: { ...headers, 'Accept': 'application/atom+xml,text/xml,*/*' } });

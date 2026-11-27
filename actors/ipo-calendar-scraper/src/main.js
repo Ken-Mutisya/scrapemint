@@ -39,8 +39,12 @@ const {
 } = input;
 
 const today = new Date();
-const start = parseDate(dateFrom) || atMidnight(today);
-let end = parseDate(dateTo) || addDays(start, 30);
+// Default window is the last 30 days plus the next 30. Priced, filed and
+// withdrawn deals are dated in the past by nature, so a today-forward window
+// returned nothing at all whenever no IPO was scheduled ahead (empty runs on
+// quiet weeks looked like a broken actor).
+const start = parseDate(dateFrom) || addDays(atMidnight(today), -30);
+let end = parseDate(dateTo) || (parseDate(dateFrom) ? addDays(start, 30) : addDays(atMidnight(today), 30));
 if (end < start) end = addDays(start, 30);
 if (daysBetween(start, end) > MAX_RANGE_DAYS) {
     end = addDays(start, MAX_RANGE_DAYS);

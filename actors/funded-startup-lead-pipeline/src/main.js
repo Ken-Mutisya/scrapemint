@@ -81,9 +81,15 @@ const headers = { 'User-Agent': userAgent, Accept: 'application/json', 'Accept-E
 // so buyer-set short timeouts are respected too (never hardcode the budget).
 const runTimeoutAtMs = process.env.ACTOR_TIMEOUT_AT ? Date.parse(process.env.ACTOR_TIMEOUT_AT) : null;
 const secsUntilTimeout = () => (runTimeoutAtMs ? Math.max(0, Math.floor((runTimeoutAtMs - Date.now()) / 1000)) : Infinity);
-const stage1Reserve = (includeContacts && Number(maxContactLookups) > 0)
-    ? STAGE1_RESERVE_WITH_CONTACTS_SECS
-    : STAGE1_RESERVE_NO_CONTACTS_SECS;
+// Cap the reserve at half the run's own time. A fixed 700s reserve meant any
+// run with a timeout under ~12 minutes parsed nothing and returned 0 leads.
+const runTotalSecs = secsUntilTimeout();
+const stage1Reserve = Math.min(
+    (includeContacts && Number(maxContactLookups) > 0)
+        ? STAGE1_RESERVE_WITH_CONTACTS_SECS
+        : STAGE1_RESERVE_NO_CONTACTS_SECS,
+    Number.isFinite(runTotalSecs) ? Math.floor(runTotalSecs / 2) : Infinity,
+);
 
 const startdt = new Date(Date.now() - maxAgeMs).toISOString().slice(0, 10);
 const enddt = new Date(Date.now() + 864e5).toISOString().slice(0, 10);

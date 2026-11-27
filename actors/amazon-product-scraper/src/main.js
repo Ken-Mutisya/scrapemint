@@ -36,6 +36,7 @@
 // No start fee. A search with no results is free.
 
 import { Actor, log } from 'apify';
+import { ProxyGuard } from './proxy-guard.js';
 
 const UA = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36';
 const MARKETS = { US: 'www.amazon.com', CA: 'www.amazon.ca' };
@@ -65,20 +66,30 @@ const market = MARKETS[String(marketplace).toUpperCase()] ? String(marketplace).
 const HOST = MARKETS[market];
 const SITE = `https://${HOST}`;
 
+// Amazon started answering Apify's datacenter IPs with 503 in November 2026
+// (it served 50 of 50 direct requests in October). Requests now go through
+// ProxyGuard: direct first, then Apify datacenter, then (search/list pages
+// only) residential, with paid tiers capped at a share of what the run has
+// charged, so a run can never cost more than it earns.
+const isAmazonBlock = (r) => {
+    if (r.statusCode === 404) return false;
+    if ([202, 429, 503].includes(r.statusCode) || r.statusCode >= 500) return true;
+    const head = r.body.slice(0, 20_000);
+    if (/Type the characters you see in this image|\/errors\/validateCaptcha|api-services-support@amazon|bm-verify|gokuProps/i.test(head)) return true;
+    // A captcha page is ~5 KB and has no nav; real pages are 400 KB+.
+    return r.statusCode === 200 && r.body.length < 50_000;
+};
+const LOCALE = market === 'CA' ? 'en-CA' : 'en-US';
+const listGuard = new ProxyGuard({ tiers: ['direct', 'datacenter', 'residential'], country: market, share: 0.25, floorUsd: 0.01, isBlocked: isAmazonBlock });
+// Product pages are 2-3 MB; on residential one costs more than the row earns.
+const detailGuard = new ProxyGuard({ tiers: ['direct', 'datacenter'], isBlocked: isAmazonBlock });
+
 async function get(url) {
-    let last;
-    for (let attempt = 0; attempt < 5; attempt++) {
-        try {
-            const r = await fetch(url, { headers: { 'User-Agent': UA, Accept: 'text/html,application/xhtml+xml', 'Accept-Language': market === 'CA' ? 'en-CA,en;q=0.9' : 'en-US,en;q=0.9' }, signal: AbortSignal.timeout(45_000) });
-            if (r.status === 404) return null;
-            const t = await r.text();
-            // A captcha page is ~5 KB and has no nav; real pages are 400 KB+.
-            if (r.ok && t.length > 50_000 && !/\/errors\/validateCaptcha/.test(t)) return t;
-            last = new Error(r.ok ? 'Captcha page' : `HTTP ${r.status}`);
-        } catch (err) { last = err; }
-        await sleep(2500 * 2 ** attempt + Math.random() * 1000);
-    }
-    throw last;
+    const guard = /\/dp\//.test(url) ? detailGuard : listGuard;
+    const r = await guard.get(url, { locale: LOCALE });
+    if (!r) throw new Error('Amazon refused the request on every route (or the proxy budget is used up)');
+    if (r.statusCode === 404) return null;
+    return r.body;
 }
 
 // ---------- Helpers ----------
@@ -350,6 +361,9 @@ const scrapedAt = () => new Date().toISOString();
 async function charge(eventName) {
     try {
         const r = await Actor.charge({ eventName });
+        // Feed revenue to the proxy budget (owner runs report 0 charged, so count the row anyway).
+        const usd = eventName === 'product_detail' ? 0.004 : 0.002;
+        listGuard.addRevenue(usd); detailGuard.addRevenue(usd);
         if (r?.eventChargeLimitReached) { log.warning('Maximum cost per run reached; stopping.'); return false; }
     } catch (err) { log.warning(`charge failed (continuing): ${err?.message}`); }
     return true;
@@ -465,4 +479,5 @@ for (const job of jobs) {
 if (!products) await Actor.pushData({ rowType: 'note', note: 'No products returned. Not charged.' });
 await Actor.setValue('SUMMARY', { products, withDetails: detailed, marketplace: HOST, searches: perJob, failures });
 log.info(`Done. ${products} product(s)${includeDetails ? `, ${detailed} with details` : ''}${failures.length ? `, ${failures.length} failed` : ''}.`);
+log.info(`Proxy use: list ${JSON.stringify(listGuard.report())} detail ${JSON.stringify(detailGuard.report())}`);
 await Actor.exit();

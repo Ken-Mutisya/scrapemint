@@ -6,14 +6,14 @@
         "dateFrom": {
             "title": "From date",
             "type": "string",
-            "description": "Earliest deal date to include, as YYYY-MM-DD. Leave empty to start from today.",
+            "description": "Earliest deal date to include, as YYYY-MM-DD. Leave empty to start 30 days ago, so recently priced and filed deals are included.",
             "editor": "textfield",
             "prefill": ""
         },
         "dateTo": {
             "title": "To date",
             "type": "string",
-            "description": "Latest deal date to include, as YYYY-MM-DD. Leave empty for 30 days after the start date. The range is capped at 12 months.",
+            "description": "Latest deal date to include, as YYYY-MM-DD. Leave empty for 30 days from today (or 30 days after dateFrom when you set one). The range is capped at 12 months.",
             "editor": "textfield",
             "prefill": ""
         },

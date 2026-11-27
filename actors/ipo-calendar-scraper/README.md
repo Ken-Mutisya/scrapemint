@@ -33,8 +33,8 @@ Most IPO trackers show only what is about to price. A company appears in `filed`
 
 | Field | Description |
 | --- | --- |
-| `dateFrom` | Earliest deal date `YYYY-MM-DD` (default: today) |
-| `dateTo` | Latest deal date `YYYY-MM-DD` (default: +30 days, range capped at 12 months) |
+| `dateFrom` | Earliest deal date `YYYY-MM-DD` (default: 30 days ago) |
+| `dateTo` | Latest deal date `YYYY-MM-DD` (default: 30 days from today, range capped at 12 months) |
 | `statuses` | Any of `priced`, `upcoming`, `filed`, `withdrawn` (default: all four) |
 | `tickers` | Optional watchlist of proposed symbols. Empty = every deal |
 | `minDealValueUsd` | Skip deals raising less than this, e.g. `50000000` |
