@@ -54,7 +54,7 @@ This is a live snapshot feed. Schedule it to build your own history.
 
 ## Pricing
 
-Pay per event: **$0.004 per row**. The first 2 rows of every run are free.
+Pay per event: **$0.004 per row**, charged from the first row.
 
 Data source: Cboe delayed quotes (`cdn.cboe.com`).
 

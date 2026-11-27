@@ -57,7 +57,7 @@ flowchart LR
     subgraph Actor[This actor]
         B1[Your own Best Matches<br/>+ Most Recent feeds]
         B2[Budget, client, skill,<br/>proposal, country data]
-        B3[$0.02 per job record]
+        B3[$0.015 per job record]
     end
     Official -.-> X[Choose based on<br/>what you need]
     Actor --> X
@@ -71,7 +71,7 @@ flowchart LR
 | Client country and spend | Partial | Full |
 | Payment verification flag | Not exposed | Yes |
 | Proposal tier (bid count) | Not exposed | Yes |
-| Price | Enterprise pricing | $0.02 per job, free tier for testing |
+| Price | Enterprise pricing | $0.015 per job, first job per run free |
 
 ---
 
@@ -211,8 +211,8 @@ Pay per job record. The free tier lets you verify the output before spending any
 
 | Tier | Price | Best for |
 |---|---|---|
-| Free | First 10 jobs per run | Testing filters and cookie export |
-| Standard | $0.02 per job | Daily opportunity alerts and outbound |
+| Free | First job per run | Testing filters and cookie export |
+| Standard | $0.015 per job | Daily opportunity alerts and outbound |
 
 100 jobs per day, 30 days: **$60 per month**. Upwork lead generation SaaS tools: $49 to $199 per month with fewer fields and no raw export. Ship your own morning digest to Slack or email for less than a coffee.
 

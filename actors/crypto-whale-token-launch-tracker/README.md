@@ -181,7 +181,7 @@ flowchart TD
 
 ## Pricing
 
-First 10 items per run are free. After that you pay per row. A 200 row whale feed lands under $1. Tokens mode needs zero keys. Wallets mode needs one free Etherscan key (100k calls per day).
+The first item per run is free. After that you pay per row. A 200 row whale feed lands under $1. Tokens mode needs zero keys. Wallets mode needs one free Etherscan key (100k calls per day).
 
 ---
 

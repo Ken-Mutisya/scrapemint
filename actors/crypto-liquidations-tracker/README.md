@@ -48,6 +48,6 @@ Pairs with our [Crypto Funding Rates & Open Interest Tracker](https://apify.com/
 
 ## Pricing
 
-Pay per event: **$0.003 per row**. The first 2 rows of every run are free.
+Pay per event: **$0.003 per row**, charged from the first row.
 
 Data sources: OKX and Gate.io public APIs.

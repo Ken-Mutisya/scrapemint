@@ -56,7 +56,7 @@ One row per website, with:
 
 ## Pricing
 
-Pay per result. You are only charged for sites where at least one email, phone, or social profile was found. Unreachable sites and sites with nothing to show are always free. The first 10 contact rows of every run are free so you can validate output before you scale up.
+Pay per result. You are only charged for sites where at least one email, phone, or social profile was found. Unreachable sites and sites with nothing to show are always free. The first contact row of every run is free so you can validate output before you scale up.
 
 ## Notes
 

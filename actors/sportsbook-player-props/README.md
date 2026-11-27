@@ -40,6 +40,6 @@ Nothing in the source distinguishes these from a genuine either/or market, so `m
 
 ## Billing
 
-Pay per event. `prop_row` at $0.005 covers one player on one market, one player summary, or one game market. The first 2 rows of every run are free. Notes and diagnostics are never charged, including a game that has no player markets priced yet.
+Pay per event. `prop_row` at $0.005 covers one player on one market, one player summary, or one game market. Notes and diagnostics are never charged, including a game that has no player markets priced yet.
 
 Each game opened costs one extra request. A default run of 5 games and 50 rows costs $0.25 and takes about 6 seconds.

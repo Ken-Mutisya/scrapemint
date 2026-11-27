@@ -101,9 +101,8 @@ Pay per property. Every run has a free tier so you can test the output before yo
 
 | Tier | Price | Best for |
 |---|---|---|
-| Free | 20 properties per run | Trying the output |
-| Standard | $0.01 per property | City scans, listing benchmarks |
-| Pipeline bundle | $0.05 per enriched property | Investor due diligence reports |
+| Free | First 2 properties per run | Trying the output |
+| Standard | $0.03 per property | City scans, listing benchmarks |
 
 ---
 
@@ -126,7 +125,7 @@ flowchart LR
     A[Airbnb Market<br/>Intelligence] --> B[Airbnb Review<br/>Intelligence]
     B --> C[Vacation Rental Host<br/>Profile Enrichment]
     C --> D[STR Revenue<br/>Projector]
-    D --> E[(Investor report<br/>$0.05 per property)]
+    D --> E[(Investor report<br/>$0.03 per property)]
 ```
 
 * **Airbnb Review Intelligence**: sentiment and keyword breakdown per listing

@@ -54,7 +54,7 @@ Vetting a list of expired domains before buying:
 
 ## Pricing
 
-Pay per row: summaries $0.005, snapshot rows $0.001. The first 2 rows of every run are free. Vetting 100 domains summary-only costs 50 cents; a full yearly snapshot trail for one domain costs about 3 cents.
+Pay per row: summaries $0.005, snapshot rows $0.001. Vetting 100 domains summary-only costs 50 cents; a full yearly snapshot trail for one domain costs about 3 cents.
 
 ## Notes
 

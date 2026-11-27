@@ -49,7 +49,7 @@ YouTube content research:
 
 ## Pricing
 
-Pay per row. The first 10 rows of every run are free so you can validate output before you scale up. A full default expansion of one seed costs about 20 to 40 cents.
+Pay per row. The first row of every run is free so you can validate output before you scale up. A full default expansion of one seed costs about 20 to 40 cents.
 
 ## Notes
 

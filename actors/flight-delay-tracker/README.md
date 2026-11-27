@@ -164,7 +164,7 @@ Pair with the Apify webhook integration to push new disruption rows into Salesfo
 
 ## Pricing
 
-The first 10 flight rows per run are free. After that, $0.005 per row pushed. No charge for the FlightAware page fetches themselves, so a flight number watch list only costs for the actual flights returned.
+$0.03 per flight row pushed, charged from the first row. No charge for the FlightAware page fetches themselves, so a flight number watch list only costs for the actual flights returned.
 
 ---
 

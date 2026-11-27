@@ -34,7 +34,7 @@ Detection uses a precision-first signature set (about 100 technologies): vendor-
 
 ## Pricing
 
-Pay per detection row. A site only costs money when it yields at least one detected technology; unreachable or zero-detection sites are free. The first 10 detection rows of every run are free so you can validate output before you scale up.
+Pay per detection row. A site only costs money when it yields at least one detected technology; unreachable or zero-detection sites are free. The first detection row of every run is free so you can validate output before you scale up.
 
 ## Notes
 

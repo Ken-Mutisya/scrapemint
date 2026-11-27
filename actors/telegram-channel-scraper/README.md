@@ -40,7 +40,7 @@ Export the message history of any public Telegram channel as clean JSON. No API 
 
 ## Pricing
 
-Pay per message row. Channel info rows are free, and so are channels that return nothing (private, preview disabled, or nonexistent). The first 10 message rows of every run are free so you can validate output before you scale up.
+Pay per message row. Channel info rows are free, and so are channels that return nothing (private, preview disabled, or nonexistent). The first message row of every run is free so you can validate output before you scale up.
 
 ## Notes
 

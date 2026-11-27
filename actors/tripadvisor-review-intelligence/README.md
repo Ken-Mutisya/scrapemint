@@ -115,12 +115,11 @@ Every record carries both the review fields and the property rollup, so a datase
 
 ## Pricing
 
-Pay per review. Free tier lets you verify the output before spending anything.
+Pay per review. You pay only for reviews returned.
 
 | Tier | Price | Best for |
 |---|---|---|
-| Free | First 100 reviews per run | Verifying the output format |
-| Standard | $0.006 per review | Ongoing monitoring and benchmarking |
+| Standard | $0.002 per review | Ongoing monitoring and benchmarking |
 
 5,000 reviews across 5 properties: **$29.40 once**. Hospitality reputation SaaS: $400 to $1,200 per month per property.
 

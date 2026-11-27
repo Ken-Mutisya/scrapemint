@@ -114,7 +114,7 @@ flowchart LR
 
 | Feature | Manual checking | HN alert SaaS | This actor |
 |---|---|---|---|
-| Pricing | Free, costs time | $10 to $50 per month | Pay per item, first 2 per run free |
+| Pricing | Free, costs time | $10 to $50 per month | Pay per matched item |
 | Keyword cap | Unlimited | 5 to 20 per tier | Unlimited |
 | Source coverage | Front page only | Search only | Search plus firehose feeds |
 | Comment body pull | Manual read | Usually no | Yes, full text and parent link |
