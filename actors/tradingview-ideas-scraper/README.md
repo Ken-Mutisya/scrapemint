@@ -2,6 +2,8 @@
 
 Pull public TradingView trade ideas from any symbol, category, or tag. No cookies. No login. No TradingView Pro account. Each row ships the idea ID, title, description snippet, symbol, direction (long, short, education), timeframe, chart snapshot image URL, author handle, plus author intel like follower count, total ideas published, and TradingView reputation. Pay per idea.
 
+> **Price cut, Nov 28 2026:** idea rows now cost $0.006, down from $0.01.
+
 **Built for** retail traders sourcing setups, prop firm analysts surveying the FX and crypto idea flow, fintech newsletter writers tracking what is being called, sentiment quants modelling crowd direction, and trader copy platforms benchmarking author pull.
 
 **Keywords this actor ranks for:** tradingview scraper, tradingview ideas api, tradingview ideas scraper, tradingview author scraper, forex trade ideas api, crypto trade ideas api, retail trader sentiment, tradingview followers, copy trading research, fx setups api, btc ideas tracker.
@@ -162,7 +164,7 @@ curl -X POST \
 
 ## Pricing
 
-The first 2 idea rows per run are free so you can validate output before paying. After that, each idea row is charged. No surprise add on charges.
+**$0.006 per idea row** (down from $0.01 on Nov 28 2026). The first 2 idea rows per run are free so you can validate output before paying. After that, each idea row is charged. No surprise add on charges.
 
 ---
 

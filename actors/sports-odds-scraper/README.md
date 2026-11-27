@@ -2,6 +2,8 @@
 
 Sports betting odds from **DraftKings, Pinnacle and Bovada** on a single line per game, with the best available price per outcome and arbitrage where the books disagree. Pregame odds for the major leagues in one clean, normalized schema. Pick your sports and get one row per upcoming game with **moneyline, point spread and total (over/under)**, in American, decimal, fractional or implied probability format, with team names and start time — from a keyless public feed, no login and no API key.
 
+> **Price cut, Nov 28 2026:** game rows now cost $0.005, down from $0.012 (about 58% less). Same three books, same output.
+
 Covers **NFL, college football, NBA, WNBA, college basketball, MLB, NHL, UFC and the top soccer leagues** (Premier League, La Liga, Bundesliga, Serie A, Ligue 1, MLS, Champions League, Europa League) — plus any other league ESPN covers via a `sport/league` path like `soccer/bra.1`.
 
 Built for **odds trackers and alert bots, sports content sites, model builders and bettors** who want structured pregame numbers on a schedule instead of screenshotting a sportsbook.
@@ -38,7 +40,7 @@ Built for **odds trackers and alert bots, sports content sites, model builders a
 
 ## Pricing
 
-**$0.002 per game row.** Games without published odds are skipped and never charged, and the first 2 rows of every run are free. A full MLB slate across every market costs about 3 cents.
+**$0.005 per game row**, down from $0.012 on Nov 28 2026. One row is one game with every market (moneyline, spread, total) and every book's price, so you pay per game, not per line. Games without published odds are skipped and never charged. A full 15-game MLB slate costs about 7.5 cents.
 
 ## How to run it via API
 

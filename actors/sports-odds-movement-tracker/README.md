@@ -2,6 +2,8 @@
 
 Track sports betting line movement. Every run compares the current price of each line against the price your last run saw, and returns one row per line that actually moved, with the prior line, the new line and the size of the move.
 
+> **Price cut, Nov 28 2026:** each detected line move now costs $0.004, down from $0.008. Unmoved lines are still free.
+
 No API key. No account. No third party signup. The actor reads a sportsbook's own public feed directly.
 
 **Searches this actor ranks for:** line movement tracker, sports odds scraper, betting line movement, odds movement API, steam move detector, reverse line movement, NFL line movement, MLB odds tracker, live odds feed.

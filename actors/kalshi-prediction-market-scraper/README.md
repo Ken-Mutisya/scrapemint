@@ -2,6 +2,8 @@
 
 Live market data from Kalshi, the CFTC-regulated US event contract exchange. Every market is a real-money yes/no question - who wins the game, where the Fed sets rates, how hot the summer gets - and the price is the crowd's probability. This actor reads those markets through Kalshi's public API and gives you clean rows.
 
+> **Price cut, Nov 28 2026:** traded markets now cost $0.003 (was $0.01) and untraded markets $0.001 (was $0.004).
+
 ## What you get
 
 One row per market:
@@ -32,7 +34,7 @@ One row per market:
 
 ## Pricing
 
-You pay per market row (`market_row`). The first 2 rows of every run are free. Unknown tickers and searches with no matches cost nothing.
+Since Nov 28 2026: **$0.003 per traded market** (`liquid_market_row`, any volume or open interest; was $0.01) and **$0.001 per untraded market** (`market_row`; was $0.004). The first 2 rows of every run are free. Unknown tickers and searches with no matches cost nothing.
 
 ## Input example
 
