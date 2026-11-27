@@ -61,7 +61,7 @@ SECTIONS = [
     ]),
     ("Crypto", [
         "crypto-market-data-scraper", "crypto-fear-greed-index", "crypto-new-listings-tracker",
-        "crypto-funding-rates-tracker", "crypto-futures-basis-tracker", "crypto-liquidations-tracker",
+        "crypto-funding-rates-tracker", "crypto-futures-basis-tracker", "crypto-liquidations-tracker", "crypto-long-short-ratio",
         "crypto-order-book-depth", "crypto-token-security-check", "crypto-whale-token-launch-tracker",
         "dexscreener-token-scraper",
         "defi-tvl-tracker", "deribit-options-tracker", "dex-pool-price-tracker", "hyperliquid-data", "crypto-liquidation-map",
@@ -90,6 +90,7 @@ SECTIONS = [
         "sportsbook-odds-tracker", "sportsbook-player-props", "underdog-sleeper-player-props", "sports-futures-odds",
         "sports-betting-results", "sports-scores-scraper", "sports-player-stats-scraper",
         "flashscore-scraper", "horse-racing-racecards-results", "football-xg-stats", "historical-football-odds",
+        "espn-sports-data", "public-betting-splits", "transfermarkt-player-values", "mlb-stats-statcast",
         "lottery-results-scraper",
     ]),
     ("Jobs & hiring", [

@@ -32,7 +32,7 @@ Full endpoint URLs: [official MCP Registry](https://registry.modelcontextprotoco
 
 <!-- CATALOG:START -->
 
-There are **323** actors live right now, and a new one ships every few days.
+There are **328** actors live right now, and a new one ships every few days.
 
 ### Lead generation
 
@@ -147,6 +147,7 @@ There are **323** actors live right now, and a new one ships every few days.
 - [Crypto Funding Rates & Open Interest Tracker](https://apify.com/scrapemint/crypto-funding-rates-tracker)
 - [Crypto Futures vs Spot: Premium by Expiry and Annual Yield](https://apify.com/scrapemint/crypto-futures-basis-tracker)
 - [Crypto Liquidations Tracker: Forced Long & Short Closeouts](https://apify.com/scrapemint/crypto-liquidations-tracker)
+- [Crypto Long/Short Ratio: Trader Positioning by Exchange](https://apify.com/scrapemint/crypto-long-short-ratio)
 - [Crypto Order Book Depth: Liquidity and Slippage by Exchange](https://apify.com/scrapemint/crypto-order-book-depth)
 - [Crypto Token Security Check: Honeypot, Taxes and Owner Risk](https://apify.com/scrapemint/crypto-token-security-check)
 - [Crypto Whale Tracker: DEX Token Launches + Wallet Alerts](https://apify.com/scrapemint/crypto-whale-token-launch-tracker)
@@ -220,6 +221,10 @@ There are **323** actors live right now, and a new one ships every few days.
 - [Horse Racing Racecards & Results: UK, IRE, US Odds](https://apify.com/scrapemint/horse-racing-racecards-results)
 - [Football xG Stats: xG Table, Player xG/xA & Match xG](https://apify.com/scrapemint/football-xg-stats)
 - [Historical Football Odds & Results: Closing Lines](https://apify.com/scrapemint/historical-football-odds)
+- [ESPN Sports Data: Scores, Standings, Injuries & Rosters](https://apify.com/scrapemint/espn-sports-data)
+- [Public Betting Splits: % of Bets vs % of Money by Game](https://apify.com/scrapemint/public-betting-splits)
+- [Transfermarkt Player Values: Market Value, Transfers, Contracts](https://apify.com/scrapemint/transfermarkt-player-values)
+- [MLB Stats & Statcast: Exit Velocity, Barrels, xBA by Player](https://apify.com/scrapemint/mlb-stats-statcast)
 - [Lottery Results Scraper: Powerball, Mega Millions & More](https://apify.com/scrapemint/lottery-results-scraper)
 
 ### Jobs & hiring
