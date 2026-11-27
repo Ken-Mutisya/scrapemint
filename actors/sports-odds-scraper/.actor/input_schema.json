@@ -218,10 +218,10 @@
             "maximum": 720
         },
         "dedupe": {
-            "title": "Deduplicate across runs",
+            "title": "Only new items (skip ones seen on earlier runs)",
             "type": "boolean",
-            "description": "Skip event IDs already pushed in previous runs (keyed by sport + home + away + commenceTime). Turn off to refresh stale rows.",
-            "default": true,
+            "description": "Off (default): every run returns current odds for every upcoming game, so a scheduled run sees line moves. On: skip games already returned on a previous run (keyed by sport + home + away + start time) and only return newly listed games.",
+            "default": false,
             "sectionCaption": "Run options"
         },
         "concurrency": {

@@ -100,6 +100,13 @@ export async function fetchPinnacleLeague(leaguePath, {
         const home = parts.find((p) => p.alignment === 'home')?.name || null;
         const away = parts.find((p) => p.alignment === 'away')?.name || null;
         if (!home || !away) continue;
+        // Pinnacle lists corners, bookings and cards lines as their own
+        // "matchups" between e.g. "Brentford (Corners)" and "Manchester United
+        // (Corners)". They are not fixtures; publishing them billed buyers for
+        // phantom games. Both sides carry the same suffix, which real teams
+        // with a suffix like "(W)" or "U21" never do with these words.
+        const special = /\((corners|bookings|cards|booking points|offsides|throw ins|goal kicks|shots on target|fouls)\)\s*$/i;
+        if (special.test(home) || special.test(away)) continue;
         const periodStatus = new Map((m.periods || []).map((p) => [p.period, p.status]));
         games.set(m.id, {
             eventId: String(m.id),

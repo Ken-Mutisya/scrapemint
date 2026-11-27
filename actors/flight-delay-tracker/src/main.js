@@ -49,7 +49,7 @@ const {
     cancelledOnly = false,
     maxItemsPerSource = 25,
     maxItemsTotal = 100,
-    dedupe = true,
+    dedupe = false,
     proxyConfiguration: proxyInput,
 } = input;
 

@@ -93,10 +93,10 @@
             "maximum": 50000
         },
         "dedupe": {
-            "title": "Deduplicate across runs",
+            "title": "Only new items (skip ones seen on earlier runs)",
             "type": "boolean",
-            "description": "Skip flight rows already pushed in previous runs (key is ident plus scheduled departure). Turn off to track status changes for the same flight over time.",
-            "default": true
+            "description": "Off (default): every run returns the current status of every matching flight, so delays and cancellations show up as they happen. On: skip flights already returned on a previous run (ident plus scheduled departure) and only return flights not seen before.",
+            "default": false
         },
         "proxyConfiguration": {
             "title": "Proxy configuration",

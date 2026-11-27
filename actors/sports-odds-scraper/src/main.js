@@ -119,7 +119,7 @@ const {
     maxEventsPerSport = 100,
     includeStartedEvents = false,
     lookAheadHours = 0,
-    dedupe = true,
+    dedupe = false,
 } = input;
 
 const sportList = (Array.isArray(sports) ? sports : String(sports || '').split(/[\n,;]+/))
@@ -650,7 +650,9 @@ await Actor.exit();
 // ---------- Bucketing (unchanged row shape) ----------
 
 function makeEventKey(sport, home, away, commenceTime) {
-    const norm = (s) => String(s).toLowerCase().replace(/[^a-z0-9]+/g, '');
+    // "LA Clippers" (Pinnacle) and "Los Angeles Clippers" (ESPN) are the same
+    // team; without this the game was returned, and billed, twice.
+    const norm = (s) => String(s).toLowerCase().replace(/^la\s+/, 'los angeles ').replace(/[^a-z0-9]+/g, '');
     return `${sport}|${norm(home)}|${norm(away)}|${String(commenceTime).slice(0, 16)}`;
 }
 
