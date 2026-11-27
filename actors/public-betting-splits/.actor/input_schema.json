@@ -20,7 +20,7 @@
             "title": "Date",
             "type": "string",
             "editor": "textfield",
-            "description": "YYYY-MM-DD. Leave empty for the current slate (this week's NFL games, today's NBA games).",
+            "description": "YYYY-MM-DD for daily leagues (NBA, MLB, NHL, WNBA, college basketball, soccer). Leave empty for today's slate.",
             "pattern": "^(\\d{4}-\\d{2}-\\d{2})?$"
         },
         "days": {
@@ -29,7 +29,21 @@
             "minimum": 1,
             "maximum": 14,
             "default": 1,
-            "description": "How many days to read, starting at the date (or today)."
+            "description": "Daily leagues: how many days to read, starting at the date (or today). NFL and college football use the week setting instead."
+        },
+        "week": {
+            "title": "NFL / college football week",
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 25,
+            "description": "NFL and college football boards are weekly and ignore the date. Set a week number (e.g. 12) for a past or future week; leave empty for the current week."
+        },
+        "season": {
+            "title": "Football season",
+            "type": "integer",
+            "minimum": 2015,
+            "maximum": 2100,
+            "description": "Season year for the week above, e.g. 2026 (January playoff games belong to the previous year's season). Leave empty for the current season."
         },
         "includeCompleted": {
             "title": "Include finished games",

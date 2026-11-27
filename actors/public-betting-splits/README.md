@@ -10,7 +10,7 @@ When 70% of tickets are on one team but only 50% of the money is, the other side
 
 | Field | Meaning |
 | --- | --- |
-| `homeTeam`, `awayTeam`, `startTime`, `status` | The game |
+| `homeTeam`, `awayTeam`, `startTime`, `status`, `winner` | The game (`winner` once it is final) |
 | `totalBets` | Number of bets tracked on the game |
 | `spread.home` / `spread.away` | line, odds, `betsPct`, `moneyPct`, `moneyMinusBets` |
 | `moneyline.home` / `away` / `draw` | odds, `betsPct`, `moneyPct`, `moneyMinusBets` |
@@ -49,8 +49,10 @@ When 70% of tickets are on one team but only 50% of the money is, the other side
 | Field | Default | Notes |
 | --- | --- | --- |
 | `leagues` | `["nfl"]` | nfl, nba, mlb, nhl, wnba, ncaaf, ncaab, soccer |
-| `date` | today | YYYY-MM-DD |
-| `days` | 1 | read up to 14 days ahead |
+| `date` | today | YYYY-MM-DD, daily leagues (NBA, MLB, NHL, WNBA, college basketball, soccer) |
+| `days` | 1 | daily leagues: read up to 14 days from the date |
+| `week` | current week | NFL and college football are weekly boards: set a week number for a past or future week |
+| `season` | current season | football season year for `week` |
 | `includeCompleted` | false | also return finished games with their final splits |
 | `onlySharpSignals` | false | only games with at least one flagged side |
 | `sharpGapPct` | 10 | money % minus bets % needed for a flag |

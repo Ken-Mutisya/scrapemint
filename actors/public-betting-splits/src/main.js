@@ -29,6 +29,11 @@ const LEAGUES = {
     ncaab: 'ncaab', 'college basketball': 'ncaab', cbb: 'ncaab',
     soccer: 'soccer', football: 'soccer',
 };
+// Football boards are weekly: the feed ignores `date` and returns the current
+// week, so these are fetched once, by `week` (and `season`) when given.
+const WEEKLY = new Set(['nfl', 'ncaaf']);
+const now = new Date();
+const FOOTBALL_SEASON = now.getUTCMonth() >= 6 ? now.getUTCFullYear() : now.getUTCFullYear() - 1;
 
 await Actor.init();
 const input = (await Actor.getInput()) ?? {};
@@ -36,6 +41,8 @@ const {
     leagues = ['nfl'],
     date = '',
     days = 1,
+    week = null,
+    season = null,
     includeCompleted = false,
     onlySharpSignals = false,
     sharpGapPct = 10,
@@ -115,16 +122,25 @@ for (const raw of jobs) {
     const league = LEAGUES[norm(raw)];
     if (!league) { await note(raw, 'unknown league. Use nfl, nba, mlb, nhl, wnba, ncaaf, ncaab or soccer.'); continue; }
     const seen = new Set();
-    for (const day of dayList()) {
+    const weekly = WEEKLY.has(league);
+    const wk = Number(week) > 0 ? Math.floor(Number(week)) : null;
+    const slots = weekly ? [null] : dayList();
+    for (const day of slots) {
         if (stop) break;
-        const data = await getJson(`${API}/${league}?bookIds=${BOOK}&periods=event${day ? `&date=${day}` : ''}`);
+        const when = weekly
+            ? (wk ? `&week=${wk}&season=${Number(season) || FOOTBALL_SEASON}` : '')
+            : (day ? `&date=${day}` : '');
+        const label = weekly ? (wk ? `week ${wk}` : 'the current week') : (day ? day : 'the current slate');
+        const data = await getJson(`${API}/${league}?bookIds=${BOOK}&periods=event${when}`);
         const games = data?.games ?? [];
-        if (!games.length) { await note(raw, `no games ${day ? `on ${day}` : 'on the current slate'} (off-season or no slate yet).`); continue; }
+        if (!games.length) { await note(raw, `no games for ${label} (off-season or no slate yet).`); continue; }
         let withSplits = 0;
+        let fresh = 0;
         for (const g of games) {
             if (stop) break;
             if (seen.has(g.id)) continue;
             seen.add(g.id);
+            fresh += 1;
             if (!includeCompleted && g.status === 'complete') continue;
             const teams = Object.fromEntries((g.teams ?? []).map((t) => [t.id, t]));
             const home = teams[g.home_team_id] ?? {};
@@ -159,6 +175,7 @@ for (const raw of jobs) {
                 homeAbbrev: home.abbr ?? null,
                 awayTeam: away.full_name ?? null,
                 awayAbbrev: away.abbr ?? null,
+                winner: g.winning_team_id ? (teams[g.winning_team_id]?.full_name ?? null) : null,
                 totalBets: num(g.num_bets),
                 spread: { home: spreadHome, away: spreadAway },
                 moneyline: { home: mlHome, away: mlAway, ...(mlDraw ? { draw: mlDraw } : {}) },
@@ -169,8 +186,8 @@ for (const raw of jobs) {
                 scrapedAt: new Date().toISOString(),
             });
         }
-        log.info(`${league}${day ? ` ${day}` : ''}: ${games.length} game(s), ${withSplits} with betting splits.`);
-        if (!withSplits) await note(raw, 'games found but no betting splits published yet for them.');
+        log.info(`${league} ${label}: ${games.length} game(s), ${withSplits} with betting splits.`);
+        if (fresh && !withSplits) await note(raw, `games found for ${label} but no betting splits published for them yet.`);
         await sleep(400);
     }
 }
