@@ -1,7 +1,7 @@
 {
   "actorSpecification": 1,
   "name": "upwork-opportunity-alert",
-  "title": "Freelance Lead Radar: Upwork Job and Client Filter Engine",
+  "title": "Upwork Jobs Scraper: Filter by Budget, Client & Keyword",
   "description": "For freelance developers, agencies, and service businesses. Pulls matching Upwork jobs with budget, client country, spend history, payment verification, proposals count, and skills. Filter by category, rate, and posted window so you stop scrolling and start replying.",
   "version": "0.1",
   "buildTag": "latest",

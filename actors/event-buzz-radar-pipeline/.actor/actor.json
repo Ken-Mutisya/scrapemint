@@ -1,7 +1,7 @@
 {
     "actorSpecification": 1,
     "name": "event-buzz-radar-pipeline",
-    "title": "Event Buzz Radar: Material 8-K Plus Reddit and HN Chatter",
+    "title": "SEC 8-K Events + Reddit & Hacker News Buzz by Stock",
     "description": "For each ticker, pairs material 8-K events with Reddit and Hacker News chatter on the same company, scores 0 to 100, and tiers each event hot, elevated, or watch. A material filing the crowd is reacting to is the signal. Pure public data, no API keys.",
     "version": "0.1",
     "buildTag": "latest",

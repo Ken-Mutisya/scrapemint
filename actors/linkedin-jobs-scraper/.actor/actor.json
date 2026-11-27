@@ -1,7 +1,7 @@
 {
     "actorSpecification": 1,
     "name": "linkedin-jobs-scraper",
-    "title": "LinkedIn Hiring Tracker & Salary Intelligence",
+    "title": "LinkedIn Jobs Scraper: Salaries, Tech Stack & Seniority",
     "description": "Track LinkedIn hiring in real time. Every job row ships parsed salary range, tech stack, seniority tier, and remote type. Filter by keyword, location, experience, and post date. For comp researchers, recruiters, and M&A scouts. JSON. Pay per job.",
     "version": "0.1",
     "buildTag": "latest",

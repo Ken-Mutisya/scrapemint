@@ -1,7 +1,7 @@
 {
     "actorSpecification": 1,
     "name": "buyer-intent-radar-pipeline",
-    "title": "Buyer Intent Radar: Reddit, Stack Overflow, HN Leads",
+    "title": "Buyer Intent Leads: People Asking for Tools on Reddit & HN",
     "description": "Find people actively voicing a need or buying intent for your topic now. Chains Reddit, Stack Overflow, and Hacker News lead monitors, scores intent 0 to 100 from evaluation language plus recency and engagement, groups by person, and tiers leads hot, warm, or mention. No API keys needed.",
     "version": "0.1",
     "buildTag": "latest",
