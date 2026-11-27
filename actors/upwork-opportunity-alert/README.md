@@ -291,7 +291,6 @@ Push Upwork jobs into the same pipeline as your existing review and reputation e
 
 ## Related tools in the Scrapemint suite
 
-* [**TripAdvisor Review Intelligence**](https://apify.com/scrapemint/tripadvisor-review-intelligence): hotel, restaurant, and attraction reviews
 * [**Airbnb Market Intelligence**](https://apify.com/scrapemint/airbnb-market-intelligence): rental pricing and guest review data
 
 Lead generation, client enrichment, and reputation intelligence in one suite, with a single export format across every actor.

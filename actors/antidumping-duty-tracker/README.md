@@ -137,6 +137,5 @@ Pay per row. The first 3 rows of every run are free. Case rows cost more because
 ## Related products
 
 - **[Import Duty & Tariff Calculator](https://apify.com/scrapemint/import-duty-tariff-calculator)** — the general rate and Chapter 99 tariffs. AD/CVD is the third layer on top of both
-- **[Customs Ruling Finder](https://apify.com/scrapemint/customs-ruling-finder)** — how CBP has classified the product, which decides whether an order reaches it
 - **[Federal Register Monitor](https://apify.com/scrapemint/federal-register-monitor)** — the same source without the case model, for tracking any agency by keyword
 - **[Sanctions & Watchlist Screening](https://apify.com/scrapemint/sanctions-watchlist-scraper)** — screen the supplier before the shipment moves
